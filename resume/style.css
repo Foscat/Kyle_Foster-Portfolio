@@ -1,0 +1,18 @@
+body {
+    background-color: dimgray;
+    font-family: Georgia, serif;
+}
+#content {
+    background-color: lightgray;
+}
+h2 {
+    color: #084b81;
+}
+#head-bar {
+    background-color: #084b81;
+    color: #e3d7da;
+}
+.name {
+    font-size: 70px;
+    font-weight: bold;
+}
