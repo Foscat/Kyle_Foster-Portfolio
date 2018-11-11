@@ -97,3 +97,6 @@ button {
 .hub :hover {
     transform: scale(1.25)
 }
+.bluebg :hover {
+    background-color: lightblue;
+}
