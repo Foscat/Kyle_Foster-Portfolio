@@ -71,8 +71,6 @@ button {
 }
 /* portfolio decoration image */
 #hacker {
-    height: inherit;
-    width: inherit;
     position: relative;
     opacity: .75;
     clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
