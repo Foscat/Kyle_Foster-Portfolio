@@ -15,11 +15,11 @@ img {
 a {
     transition-timing-function: ease-in-out;
 }
-p {
-    font-weight: 500;
-}
 li {
     font-weight: 600;
+}
+.blue {
+    color: rgb(15, 20, 24);
 }
 button {
     background-color: #dad2a1;
@@ -42,11 +42,14 @@ button {
 /* Quick color css */
 .slate {
     /* background-color: rgb(145,206,237); */
-    background-color:rgb(66,97,144);
+    background-color:rgb(58,59,54, .8);
     color:rgb(230,219,215)
 }
-.cyber {
-    font-family: 'Orbitron', sans-serif;
+.gent {
+    font-family: 'IM Fell English', serif;
+}
+.noto {
+    font-family: 'Noto Serif', serif;
 }
 .img-link {
     height: 240px;
@@ -54,7 +57,7 @@ button {
 }
 /* header bar on index */
 #head-bar {
-    background-color:rgb(59,8,15);
+    background-color:rgb(59,8,15, .9);
     width: 35%;
     color: rgb(230,219,215);
     /* margin: 10px 5px  */
@@ -63,12 +66,13 @@ button {
 }
 /* header bar on portfolio */
 #port-head {
-    background-color: rgb(154, 3, 33);
-    color: #e9e4dc;
+    /* background-color: rgb(59,8,15, .3); */
+    color: rgb(58,59,54);
+    width: 45%
 }
 /* title of portfolio */
 #port-title {
-    font-size: 35px;
+    font-size: 80px;
 }
 /* title of index */
 #name {
@@ -80,13 +84,15 @@ button {
 }
 
 #res-link_bg {
-    background-color: rgb();
+    background-color: rgb(59,8,15, 0.7);
 }
-
+.trans {
+    opacity: .7;
+}
 /* portfolio decoration image */
 .filler {
     position: relative;
-    opacity: .75;
+    opacity: .85;
     /* clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); */
 }
 /* ////////////// hover styling //////////////// */
