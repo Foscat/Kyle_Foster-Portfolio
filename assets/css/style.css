@@ -3,10 +3,11 @@ body{
     margin: 20px;
 }
 #index {
-    background-color: rgb(127, 113, 236);
+    background-image: url(../images/the-palace.jpg);
+    background-size: cover;
 }
 #coder {
-    background-color: rgb(109, 103, 155);
+    background-image: url(../images/wall.jpg);
 }
 img {
     margin: 10px;
@@ -41,8 +42,8 @@ button {
 /* Quick color css */
 .slate {
     /* background-color: rgb(145,206,237); */
-    background-color: rgb(65, 52, 160);
-    color:#c9bda7
+    background-color:rgb(66,97,144);
+    color:rgb(230,219,215)
 }
 .cyber {
     font-family: 'Orbitron', sans-serif;
@@ -53,16 +54,16 @@ button {
 }
 /* header bar on index */
 #head-bar {
-    background-color:rgb(6, 3, 32);
+    background-color:rgb(59,8,15);
     width: 35%;
-    color: #e9e4dc;
+    color: rgb(230,219,215);
     /* margin: 10px 5px  */
     padding: 25px 16px
     
 }
 /* header bar on portfolio */
 #port-head {
-    background-color: rgb(6, 3, 32);
+    background-color: rgb(154, 3, 33);
     color: #e9e4dc;
 }
 /* title of portfolio */
@@ -76,6 +77,10 @@ button {
 }
 .crisp {
     color: #e9e4dc;
+}
+
+#res-link_bg {
+    background-color: rgb();
 }
 
 /* portfolio decoration image */
