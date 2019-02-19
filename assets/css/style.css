@@ -3,7 +3,7 @@ body{
     margin: 20px;
 }
 #index {
-    background-image: url(../images/the-palace.jpg);
+    background-image: url(../images/portfolio\ background.jpg);
     background-size: cover;
 }
 #coder {
@@ -16,7 +16,7 @@ a {
     transition-timing-function: ease-in-out;
 }
 li {
-    font-weight: 600;
+    font-weight: 500;
 }
 .blue {
     color: rgb(15, 20, 24);
@@ -58,7 +58,7 @@ button {
 /* header bar on index */
 #head-bar {
     background-color:rgb(59,8,15, .9);
-    width: 35%;
+    width: 70%;
     color: rgb(230,219,215);
     /* margin: 10px 5px  */
     padding: 25px 16px
@@ -83,9 +83,9 @@ button {
     color: #e9e4dc;
 }
 
-#res-link_bg {
+/* #res-link_bg {
     background-color: rgb(59,8,15, 0.7);
-}
+} */
 .trans {
     opacity: .7;
 }
