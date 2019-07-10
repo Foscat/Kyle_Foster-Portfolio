@@ -1,0 +1,37 @@
+body{
+    margin: 10px;
+    background-color: rgb(201,188,170);
+}
+
+button {
+    background-color: #dad2a1;
+    border: #fad57a inherit 2px;
+}
+
+.jumbotron {
+    background-color: rgb(132,137,163);
+    color: rgb(0, 0, 0);
+}
+.portCard {
+    background-color: rgb(176,205,222);
+}
+#portFiller {
+    width: 85%;
+    /* height: 85% */
+}
+
+/* portfolio github repo links */
+.hub :hover {
+    transform: scale(1.25)
+}
+.img-link {
+    height: 85%;
+    width: 85%;
+}
+
+.gent {
+    font-family: 'IM Fell English', serif;
+}
+.noto {
+    font-family: 'Noto Serif', serif;
+}
