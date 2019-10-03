@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <title>Portfolio</title>
         <!-- Reset css to make pages viewable on all browsers -->
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
 
@@ -16,8 +16,8 @@
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style2.css" />
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="assets/images/icon group.jpeg" type="image/x-icon" />
-        <link rel="icon" href="assets/images/icon group.jpeg" type="image/x-icon" />
+        <link rel="shortcut icon" href="./assets/images2/icon group.jpeg" type="image/x-icon" />
+        <link rel="icon" href="./assets/images2/icon group.jpeg" type="image/x-icon" />
 
         <!-- Gent font -->
         <link href="https://fonts.googleapis.com/css?family=IM+Fell+English:400i" rel="stylesheet" />
@@ -48,6 +48,58 @@
 
             <div class="row">
 
+                <div class="col-md-12">
+
+                    <div id="projects" class="card m-2 mb-4">
+
+                        <div class="card-header">
+                            <h2 class="card-title">Personal Projects</h2>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <!-- MERN app template -->
+                                <div class="col-md-5">
+                                    <a class="hub" alt="github icon" href="https://github.com/Foscat/MERN_app-template">
+                                        <img src="assets/images/GitHub-Mark-32px.png" />
+                                    </a>
+                                    <a class="app" href="https://glacial-everglades-91451.herokuapp.com/" target="blank">
+                                        <img class="img-link" src="./assets/images2/mernTemplateIcon.png" alt="mern template icon" />
+                                    </a>
+                                    <p class="text-center">MERN stack template for developers to use. Inspired by create-react-app</p>
+                                </div>
+
+                                <!-- Tech Assist app -->
+                                <div class="col-md-5">
+                                    <a class="hub" alt="github icon" href="https://github.com/Foscat/TechAssist_app">
+                                        <img src="assets/images/GitHub-Mark-32px.png" />
+                                    </a>
+                                    <a class="app" href="https://github.com/Foscat/TechAssist_app" target="blank">
+                                        <img class="img-link" src="./assets/images2/TechAssistLogo.jpg" alt="tech assist app" />
+                                    </a>
+                                    <p class="text-center">
+                                        React Native version of hackathon project I wrote by myself. Uses microservices I wrote to handle heavy lifting.
+                                    </p>
+                                </div>
+
+                                <!-- Sky blue pencil site -->
+                                <div class="col-md-5">
+                                    <a class="hub" alt="github icon" href="https://github.com/Foscat/sky-blue-pencil">
+                                        <img src="assets/images/GitHub-Mark-32px.png" />
+                                    </a>
+                                    <a class="app" href="https://foscat.github.io/sky-blue-pencil/" target="blank">
+                                        <img class="img-link" src="./assets/images2/portIcon-pencil.png" alt="pencil icon" />
+                                    </a>
+                                    <p class="text-center">Basic contact info site made for a proofreader. First project I ever was paid to do.</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-3">
                     <img id="portFiller" src="./assets/images2/portofliofiller.png" alt="stack"/>
                     <br><br><br>
@@ -66,7 +118,7 @@
 
                             <div class="row">
 
-                                <!-- Forrest gum word guess game -->
+                                <!-- Forrest Gump word guess game -->
                                 <div class="col-md-5">
                                     <a class="hub" alt="github icon" href="https://github.com/Foscat/Word-Guess-Game">
                                         <img src="assets/images/GitHub-Mark-32px.png" />
@@ -74,6 +126,7 @@
                                     <a class="app" href="https://foscat.github.io/Word-Guess-Game/" target="blank">
                                         <img class="img-link" src="assets/images2/portIcon-Forrest.png" alt="word-guess" />
                                     </a>
+                                    <p class="text-center">Javascript based word guess triva game.</p>
                                 </div>
 
                                 <!-- Crystal collector game -->
@@ -84,6 +137,7 @@
                                     <a class="app" href="https://foscat.github.io/unit-4-game/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-crystal.png" alt="crystal-game" />
                                     </a>
+                                    <p class="text-center">Javascript with jQuery based game with random numbers.</p>
                                 </div>
 
                                 <!-- Seinfield trivia game -->
@@ -94,6 +148,7 @@
                                     <a class="app" href="https://foscat.github.io/Trivia-Game/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-seinfield.png" alt="trivia-game" />
                                     </a>
+                                    <p class="text-center">Javascript and jQuery based timed trivia game.</p>
                                 </div>
 
                                 <!-- Gif app -->
@@ -104,6 +159,7 @@
                                     <a class="app" href="https://foscat.github.io/gif-buttons/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-gifFreak.png" alt="gif app" />
                                     </a>
+                                    <p class="text-center">Javascript and jQuery based app that uses ajax to get gifs from the giphy api.</p>
                                 </div>
 
                                 <!-- Train time app -->
@@ -114,24 +170,34 @@
                                     <a class="app" href="https://foscat.github.io/train-timer/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-train.png" alt="train timer" />
                                     </a>
+                                    <p class="text-center">Javascript app using Google firebase to serve as the DB for saving train times.</p>
                                 </div>
 
                                 <!-- Dropdown list for js logic repos -->
-                                <div class="col" id="drop-table">
+                                <div class="col-md-3" id="drop-table">
                                     <div class="dropdown mt-5 mb-5">
         
                                         <button class="btn btn-secondary noto dropdown-toggle" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Node js apps
+                                            NodeJS apps
                                         </button>
 
                                         <div class="dropdown-menu bluebg noto" aria-labelledby="dropdownMenuButton">
-                                        <!-- Liri Bot link -->
-                                        <a class="dropdown-item" href="https://github.com/Foscat/liri-node-app">Liri Bot</a>
-                                        <!-- Constructor word guess link -->
-                                        <a class="dropdown-item" href="https://github.com/Foscat/constructor-word-guess">Word Guess</a>
-                                        <!-- Store app link -->
-                                        <a class="dropdown-item" href="https://github.com/Foscat/SQL-store-app">SQL store</a>
+                                            <!-- Liri Bot link -->
+                                            <div class="dropdown-item">
+                                                <a  href="https://github.com/Foscat/liri-node-app">Liri Bot</a>
+                                                <p>Logic that searches for info about events, songs and movies in the command line.</p>
+                                            </div>
+                                            <!-- Constructor word guess link -->
+                                            <div class="dropdown-item">
+                                                <a href="https://github.com/Foscat/constructor-word-guess">Word Guess</a>
+                                                <p>Logic that played a word guess game in the command line.</p>
+                                            </div>
+                                            <!-- Store app link -->
+                                            <div class="dropdown-item">
+                                                <a href="https://github.com/Foscat/SQL-store-app">SQL store</a>
+                                                <p>Logic that simulates inventory changes from customers and managers in the command line.</p>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -145,6 +211,10 @@
                                     </a>
                                     <a class="app" href="https://pacific-mesa-98675.herokuapp.com/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-friends.png" alt="friend-finder" />
+                                        <p class="text-center">
+                                            Html and javascript on express server. Personality test that matches you to others who
+                                            had answers close to yours. Deployed on heroku.
+                                        </p>
                                     </a>
                                 </div>
 
@@ -156,16 +226,9 @@
                                     <a class="app" href="https://whispering-bastion-98248.herokuapp.com/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-burger.png" alt="burger" />
                                     </a>
-                                </div>
-
-                                <!-- Scraper app -->
-                                <div class="col-md-5">
-                                    <a class="hub" alt="github icon" href="https://github.com/Foscat/mongo-mongoose">
-                                        <img src="./assets/images/GitHub-Mark-32px.png" />
-                                    </a>
-                                    <a class="app" href="https://frozen-coast-95176.herokuapp.com/" target="blank">
-                                        <img class="img-link" src="./assets/images2/portIcon-scraper.png" alt="web scraper" />
-                                    </a>
+                                    <p class="text-center">
+                                        Handlebars templating engine on express server uses MySQL for DB hosted on heroku.
+                                    </p>
                                 </div>
 
                                 <!-- Neckberdia -->
@@ -176,6 +239,9 @@
                                     <a class="app" href="https://pacific-everglades-15241.herokuapp.com/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-neckBeard.png" alt="neckbeard" />
                                     </a>
+                                    <p class="text-center">
+                                        React based memory game. Tracks images clicked and randomeizes images after each click.
+                                    </p>
                                 </div>
 
                                 <!-- React book app -->
@@ -186,6 +252,9 @@
                                     <a class="app" href="https://pacific-fjord-66795.herokuapp.com/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-reactBooks.png" alt="react book search" />
                                     </a>
+                                    <p class="text-center">
+                                        MERN stack google books search app. Can save book info in db.
+                                    </p>
                                 </div>
 
                             </div>
@@ -203,16 +272,22 @@
                                     <a class="app" href="https://foscat.github.io/Stock-Memer/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-stocks.png" alt="stock memer" />
                                     </a>
+                                    <p class="text-center">
+                                        Javascript and jQuery based app that displays stock info for last 30 days. Can display any company on NASDAQ
+                                    </p>
                                 </div>
 
-                                <!-- Stock memer -->
+                                <!-- Scion matches -->
                                 <div class="col-md-5">
                                     <a class="hub" alt="github icon" href="https://github.com/justinkunz/Final_Project">
-                                        <img src="./assets/images/GitHub-Mark-32px.png" />
+                                        <img src="./assets/images/GitHub-Mark-32px.png" alt="github icon" />
                                     </a>
                                     <a class="app" href="www.scionmatch.com" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-scion.png" alt="baby money" />
                                     </a>
+                                    <p class="text-center">
+                                        MERN stack app to connect intended parents and gestational carriers based on personality and lifestyle. 
+                                    </p>
                                 </div>
 
                             </div>
@@ -247,6 +322,9 @@
                                     <a class="app" href="https://foscat.github.io/techTal-RockPaperSciz/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-rps_js.png" alt="rps js" />
                                     </a>
+                                    <p class="text-center">
+                                        Vanilla javascript based rock paper scissors game.
+                                    </p>
                                 </div>
 
                                 <!-- Java blackjack logic -->
@@ -257,6 +335,9 @@
                                     <a class="app" href="https://github.com/Foscat/java_blackJack" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-blackJack.png" alt="blackjack" />
                                     </a>
+                                    <p class="text-center">
+                                        Java based command line blackjack game.
+                                    </p>
                                 </div>
 
                                 <!-- Java craps logic -->
@@ -267,6 +348,9 @@
                                     <a class="app" href="https://github.com/Foscat/Crappy_project" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-craps.png" alt="craps" />
                                     </a>
+                                    <p class="text-center">
+                                        Java based command line craps game. Used jUnit for TDD.
+                                    </p>
                                 </div>
 
                                 <!-- Spring boot todo app logic -->
@@ -277,6 +361,9 @@
                                     <a class="app" href="http://todoproject.cfapps.io/" target="blank">
                                         <img class="img-link" src="./assets/images2/portIcon-todo.png" alt="to do" />
                                     </a>
+                                    <p class="text-center">
+                                        Java Spring Boot based app with full CRUD operations to manage tasks. Hosted on cloud foundry.
+                                    </p>
                                 </div>
 
 

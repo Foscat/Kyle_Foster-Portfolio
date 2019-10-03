@@ -1,9 +1,9 @@
 body {
-    background-color: dimgray;
+    background-color: rgb(233, 233, 233);
     font-family: Georgia, serif;
 }
 #content {
-    background-color: lightgray;
+    background-color: rgb(233, 233, 233);
 }
 h2 {
     color: #084b81;

@@ -1,161 +1,463 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Kyle Foster Portfolio</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Reset css to make pages viewable on all browsers -->
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+        <script>window.__theme = 'bs4';</script>
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
         <!-- Custom css -->
-        <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/css/tlew.css" />
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="assets/images/icon group.jpeg" type="image/x-icon">
-        <link rel="icon" href="assets/images/icon group.jpeg" type="image/x-icon">
+        <link rel="shortcut icon" href="assets/images/icongroup.jpeg" type="image/x-icon">
+        <link rel="icon" href="assets/images/icongroup.jpeg" type="image/x-icon">
 
         <!-- Gent font -->
         <link href="https://fonts.googleapis.com/css?family=IM+Fell+English:400i" rel="stylesheet">
 
         <!-- Noto font -->
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
-        
+
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+            
     </head>
-    <!-- ////////////////////////////////////////////////////////////////////// -->
-    <header class="center">
-        <div id="head-bar" class="row crisp card gent border border-dark text-center m-5">
-            <h1 class="crisp" id="name">Kyle Foster</h1>
-            <h3 id="subtitle">aka the next Steve Jobs</h3>
-        </div>
-    </header>
-    <!-- ///////////////////////////////////////////////////////////////////// -->
-    <body id="index">
-        <!-- General content wrapper -->
-        <div class="container">
-            <!-- Keeps content and image aligned -->
-            <div class="row">
-                <div class="card border border-secondary slate" style="width: 60%">
-                    <div class="card-body">
-                        <h1 id="about-me" class="crisp card-title gent border-bottom border-secondary">About Me</h1>
-                        <p class="card-text noto">I am an adventurous and hardworking man and a perfectionist when it comes to work. It must be orderly and clean to be considered good.
-                                My work experience is quite varied from being a painter, landscaper, food service manager to the finishing of parts for spinal surgery.
-                                I always try my best at everything i do by seeing my jobs as a game. My goal is to not only finish the task at hand but to do it better
-                                than most. I believe strongly of the concept of measure twice cut once, for even experianced individuals make mistakes. So to maintain a 
-                                good standard I have my own quality control of my work. Often I check my work so far to make sure I have a solid foundation to keep building
-                                on.</p>
-                        <p class="card-text noto">I enjoy outdoor activities in my free time such as hiking and camping. My favorite places to go are in the mountains and canyons. The feeling
-                                and sense of accomplishment with the reward of a beautiful perspective makes all the effort to get there that much more satisfying.</p>
 
-                        <p class="card-text noto">I hope to find a career in programming so I can provide for my family. I think the fact that it is a constantly changing field will make it a 
-                                exciting and rewarding career choice.</p>       
+    <body>
+
+        <!-- Modal -->
+        <div class="modal" id="certificateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content banner">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">JavaScript Essesntals</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img height="350px" width="400px" src="" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-
-                <!-- Link to my resume html -->
-                <a id="res-link_bg" class="rounded mt-5 ml-2 mr-2" href="./resume/index.html">
-                    <img src="assets/images/resume.png" class="rounded" height="150px" width="150px" />
-                </a>
-
             </div>
-
-            <br>
-
         </div>
 
-        <div class="col">   
-            <!-- Keeps boxes in line -->
-            <div id="contact-row" class="row center">
+        <nav class="navbar fixed-top navbar-light bg-light">
+            <a class="navbar-brand" href="https://github.com/Foscat">Kyle Foster</a>
+            <p class="text-right" id="time"></p>
+        </nav>
 
-                <!-- Contact card -->
-                <div id="contact-card" class="card slate border border-secondary m-2" style="width: 25%;">
+        <div class="container">
 
-                    <div class="card-body text-center">
+            <div class="row mb-5" id="about-content">
+                <div class="col-sm-6">
+                    
+                    <div id="me" class="card">
 
-                        <!-- header -->
-                        <h2 id="contact" class="crisp card-title border-bottom border-secondary gent">Contact Me</h2>
+                        <div class="card-header">
+                            <h2 id="name-main"class="text-center mt-3">Kyle Foster</h2>
 
-                        <!-- phone # -->
-                        <h4 class="card-text gent m-1">Phone: 469-618-0410</h4>
-
-                        <!-- linkedIn link -->
-                        <a class="hub" href="https://www.linkedin.com/in/kylefoster-dev/">
-                            <img src="assets/images/In-Black-34px-TM.png" />
-                        </a>
-                        <!-- github port link -->
-                        <a class="hub" href="https://github.com/Foscat">
-                            <img src="assets/images/GitHub-Mark-32px.png" style="height: 34px; width: 34px" />
-                        </a>
-
-                        <h4 class="card-text gent m-1">Or</h4>
-
-                        <!-- email button -->
-                        <form class="blue m-2" action="mailto:foscat4o1k@outlook.com" enctype="text/plain" method="post" id="email-form">
-                            <input type="submit" id="email" class="text-bold rounded noto" value="Email Me!"
-                                style="background-color: #dad2a1; border: #fad57a inherit 2px;" />
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Services card -->
-                <div id="skill-card" class="card slate border border-secondary m-2" style="width: 25%;">
-
-                    <div class="card-body text-center">
-
-                        <h2 id="iKnow" class="crisp card-title border-bottom border-secondary gent">What I Know</h2>
-
-                        <div class="row">
-                            
-                                <ul id="Skills" class="noto col">
-
-                                    <li>MongoDb</li>
-                                    <li>Express</li>
-                                    <li>React</li>
-                                    <li>Node</li>
+                            <p id="sum" class="text-center"></p>
             
-                                </ul>
-            
-                                <ul class="noto col">
-            
-                                    <li>Bootstrap</li>
-                                    <li>jQuery</li>
-                                    <li>mySQL</li>
-                                    <li>Handlebars</li>
-                                    <li>Mongoose</li>
-            
-                                </ul>
+                            <h4 class="text-center">
+                                <i class="fas fa-code-branch"></i> NodeJS Developer
+                                <i class="fas fa-laptop-code"></i>
+                            </h4>
                         </div>
 
-                        <h4 class="border-bottom border-secondary gent">Check out my portfolio</h4>
-                        <!-- Link to portfolio -->
-                        <a class="blue" href="./portfolio.html">
-                            <button class="rounded noto" id="port-link" value="My Portfolio">
-                                My touch Portfolio
-                            </button>
-                        </a>
+                        <img class="card-img" src="./assets/images/javascript-300x250.jpg" alt="aboutme-pic">
 
-                        <!-- Link to portfolio -->
-                        <a class="blue" href="./portfolio2.html">
-                            <button class="rounded noto" id="port-link" value="My Portfolio">
-                                Modern Portfolio
-                            </button>
-                        </a>
-                        
+                        <div class="card-body">
+                            <h1 class="text-center">
+                                <a href="https://github.com/Foscat">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="linkedin.com/in/kylefoster-dev">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </h1>
+        
+                            <h2 class="text-center">
+                                <i class="fab fa-js skills"></i>
+                                <i class="fab fa-react"></i>
+                                <i class="fab fa-bootstrap"></i>
+                                <i class="fab fa-html5 skills"></i>
+                                <i class="fab fa-css3-alt skills"></i>
+                                <i class="fas fa-database"></i>
+                            </h2>
+
+                            <p id="resumeText" class="text-center">
+                                <a href="./resume/index.html" download="./resume/Resume_word.docx">
+                                    <i class="far fa-file"></i> Download résumé here
+                                </a>
+                            </p>
+        
+                            <div class="center">
+                                <a href="./resume/index.html">
+                                    <img src="./assets/images/resume.png" />
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+    
+                </div>
+
+                <div class="col-sm-6 line-split">
+
+                    <h3 class="text-center mt-3">About Me
+                        <i class="far fa-user-circle"></i>
+                    </h3>
+
+                    <h6 class="text-center">Résumé Detail</h6>
+
+                    <hr>
+
+                    <div>
+                        <h4 class="bold-move text-center">
+                            <i class="fas fa-home"></i> Location
+                        </h4>
+    
+                        <p class="word text-center">McKinney, Texas</p>
                     </div>
 
-                </div>
-            
-        </div>
+                    <div>
+                        <h4 class="bold-move text-center">
+                            <i class="fas fa-user-tie"></i> Background
+                        </h4>
+                        <p class="word text-center">
+                            In order to get into the web development field, I took an part time 24-week SMU web devlopment bootcamp dedicated
+                            to designing and building web applications. There I learned the fundamentals of HTML5, CSS3, Javascript, JQuery,
+                            Bootstrap, Firebase, Node Js, MySQL, MongoDB, Express, Handlebars JS, and React Js. I then attended a full time 12 week course where I learned Java 
+                            and Spring Boot develpoment. After that ended I went to my first hackathon and was on the winning team. I contiuted to
+                            build out the site from web based to mobile I learned how to write this is why I learned
+                            React Native, how to build NodeJS microservices, and use AWS Lex to make a chatbot with lambda functions. 
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="bold-move text-center">
+                            <i class="fas fa-graduation-cap"></i> Education
+                        </h4>
+
+                        <div>
+                            <h5 class="word text-center">Southern Methodist University</h5>
+                            <img class="school-logo" src="https://www.smu.edu/~/media/Site/DevelopmentExternalAffairs/MarketingCommunications/Logos/smu/SMULogoRrgb"
+                                alt="smu-logo">
+                            <p class="text-center">
+                                <em>Full Stack Web Development 2019</em>
+                            </p>
+                        </div>
+
+                        <div>
+                            <h5 class="word text-center">Tech Talent South</h5>
+                            <img class="school-logo" src="./assets/images/trashCodingCamp.png" alt="TTS">
+                            <p class="text-center">
+                                <em>Java Spring Boot Web Development 2019</em>
+                            </p>
+                        </div>
+    
+                        <div id="udemyDropdown" class="banner">
+                            <div class="dropleft  m-1">
+
+                                <button class="btn btn-secondary noto dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Udemy Certificates
+                                </button>
         
+                                <div class="dropdown-menu bluebg noto" aria-labelledby="dropdownMenuButton">
+                                    <!-- JavaScript essentals certificate -->
+                                    <div id="jsEssentals" class="dropdown-item certificate">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn" data-image="./assets/images/udemyJavascript.jpg" data-toggle="modal"  data-target="#certificateModal">
+                                                <i class="fas fa-certificate m-1"></i>JavaScript Essentals
+                                        </button>
+                                    </div>
+                                    <!-- JavaScript essentals certificate -->
+                                    <div id="nodeJsMicroservices" class="dropdown-item certificate">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn" data-image="./assets/images/microservicesNode.jpg" data-toggle="modal"  data-target="#certificateModal">
+                                                <i class="fas fa-certificate m-1"></i>Microservices with NodeJS
+                                        </button>
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="banner text-center">
+                    <h4 class="text-center project-title">
+                            <i class="fas fa-briefcase"></i> Projects
+                    </h4>
+                    <p class="text-center project-title">
+                        Click on image tile to see deployed version. Click github icon to see source code repo
+                    </p>
+                </div>
+
+                <!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
+                <div class="row projects">
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/MERN_app-template">
+                                <img src="./assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">MERN app template</h4>
+                        </div>
+                        <hr>
+                        <a href="https://glacial-everglades-91451.herokuapp.com/">
+                            <img class="pic-animate" src="./assets/images/mernTemplateIcon.png" alt="MERN app screenshot">
+                        </a>
+                        <p class="word text-center">MERN stack template for developers to use. Inspired by create-react-app.</p>
+                        <p class="text-center">
+                            I love this project since I wrote every line myself and how useful it has been for me. 
+                            It was used as the framework for the app that won the hackathon. I used it to build microservices to allow frontend 
+                            to be a mobile app rather than a website.
+                        </p>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/TechAssist_Public">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Tech Assist</h4>
+                        </div>
+                        <hr>
+                        <a href="https://github.com/Foscat/TechAssist_Public">
+                            <img class="pic-animate" src="./assets/images/TechAssistLogo.jpg" alt="tech assist" />
+                        </a>
+                        <p class="text-center">
+                            React Native chatbot for helping diesel technicians work on trucks and increase company effenceny
+                        </p>
+                        <p class="text-center">
+                            React Native, custom made node based microservices, AWS Lex with AWS Lambda functions.
+                        </p>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/Memory_Game">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Neckbeard memory game</h4>
+                        </div>
+                        <hr>
+                        <a href="https://pacific-everglades-15241.herokuapp.com/">
+                            <img class="pic-animate" src="./assets/images/purenekbeardia.jpg" alt="neckbeard" />
+                        </a>
+                        <p class="text-center">Memory game where you try not to click the same neckbeard twice!</p>
+                        <p class="text-center">React, ES6, JSON Object Mapping, Express, and Node.</p>
+                    </div>
+    
+                </div>
+
+                <!-- /////////////////////////////////////////////////////////////////////////////////////// -->
+
+                <div class="row projects">
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/Memory_Game">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Gif Freak</h4>
+                        </div>
+                        <hr>
+                        <a href="https://foscat.github.io/gif-buttons/">
+                            <img class="pic-animate" src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif" alt="gif freak">
+                        </a>
+                        <p class="text-center">Simple app that allowes you to make buttons and when clicked brings up relevent gifs</p>
+                        <p class="text-center">
+                            HTML5, JavaScript, jQuery, giphy API
+                        </p>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/burger">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Burger Builder</h4>
+                        </div>
+                        <hr>
+                        <a href="https://whispering-bastion-98248.herokuapp.com/">
+                            <img class="pic-animate" src="./assets/images/burgericon.png" alt="beautiful burger" />
+                        </a>
+                        <p class="text-center">
+                            Hungry? Burger builder is the game for you!!. Eat your heart out its all low fat!
+                        </p>
+                        <p class="text-center">
+                            Node, Express, MySQL and Handlebars deployed on heroku.
+                        </p>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/friend-finder_app">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Friend Finder</h4>
+                        </div>
+                        <hr>
+                        <a href="https://pacific-mesa-98675.herokuapp.com/">
+                            <img class="pic-animate" src="./assets/images/opinions.png" alt="opinion shredder" />
+                        </a>
+                        <p class="text-center">
+                            Take a fun survey and find someone just like you and filter out all those with differing opinions!
+                        </p>
+                        <p class="text-center">Html and javascript on express server deployed on heroku.</p>
+                    </div>
+    
+                </div>
+
+                <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+
+                
+                <div class="row projects">
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/Foscat/Stock-Memer">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Stock Memer</h4>
+                        </div>
+                        <hr>
+                        <a href="https://foscat.github.io/Stock-Memer/">
+                            <img class="pic-animate" src="./assets/images/portIcon-stocks.png" alt="stocks">
+                        </a>
+                        <p class="text-center">
+                            Gives info for all stocks on NASDAQ and allows you to make a meme to 
+                            comment on state of stock market. Group project at SMU.
+                        </p>
+                        <p class="text-center">
+                            HTML5, JavaScript, jQuery, Meme Genertor api, Alpha Vantage stock api, Firebase for DB.
+                        </p>
+                    </div>
+
+                    <!-- Dropdown list for js logic repos -->
+                    <div class="col-md-4" id="drop-table">
+
+                        <div class="dropdown mt-5 mb-5">
+
+                            <button class="btn btn-secondary noto dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Node command line logic
+                            </button>
+
+                            <div class="dropdown-menu bluebg noto" aria-labelledby="dropdownMenuButton">
+                                <!-- Liri Bot link -->
+                                <div class="dropdown-item">
+                                    <a  href="https://github.com/Foscat/liri-node-app">Liri Bot</a>
+                                    <p>Logic that searches for info about events, songs and movies in the command line.</p>
+                                </div>
+                                <!-- Constructor word guess link -->
+                                <div class="dropdown-item">
+                                    <a href="https://github.com/Foscat/constructor-word-guess">Word Guess</a>
+                                    <p>Logic that plays a word guess game in the command line.</p>
+                                </div>
+                                <!-- Store app link -->
+                                <div class="dropdown-item">
+                                    <a href="https://github.com/Foscat/SQL-store-app">SQL store</a>
+                                    <p>Logic that simulates inventory changes from customers and managers in the command line.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="dropdown mt-5 mb-5">
+
+                            <button class="btn btn-secondary noto dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Java command line logic
+                            </button>
+
+                            <div class="dropdown-menu bluebg noto" aria-labelledby="dropdownMenuButton">
+                                <!-- Blackjack link -->
+                                <div class="dropdown-item">
+                                    <a  href="https://github.com/Foscat/java_blackJack">BlackJack Game</a>
+                                    <p>Play a game of Blackjack against the computer. See if you can beat the house.</p>
+                                </div>
+                                <!-- Craps project link -->
+                                <div class="dropdown-item">
+                                    <a href="https://github.com/Foscat/Crappy_project">Craps game</a>
+                                    <p>Play a game of Craps to train for the big time in Vegas!</p>
+                                </div>
+                                <!-- RPS link -->
+                                <div class="dropdown-item">
+                                    <a href="https://github.com/Foscat/java_RPS-techTal">Rock Paper Scissors</a>
+                                    <p>Play game of Rock, Paper, Scissors against the computer.</p>
+                                </div>
+                            </div>
+
+                        </div>
+    
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="titleRow">
+                            <a class="hub" alt="github icon" href="https://github.com/justinkunz/scion">
+                                <img src="assets/images/GitHub-Mark-32px.png" />
+                            </a>
+                            <h4 class="text-center ml-2 mt-3">Scion Matches</h4>
+                        </div>
+                        <hr>
+                        <a href="http://www.scionmatch.com/welcome">
+                            <img class="pic-animate" src="./assets/images/babyMoney.png" alt="babys for money">
+                        </a>
+                        <p class="text-center">
+                            MERN stack app to connect intended parents and gestational carriers based on 
+                            personality and lifestyle. 
+
+                        </p>
+                        <p class="text-center">
+                            React, Node.js, Express Server, MongoDB, Mongoose, 
+                            custom match algorithm, Faker for algortihm speed testing.
+                        </p>
+                    </div>
+
+                <!-- ////////////////////////////////////////////////////////////////////////////////// -->
+
+                </div>
+            </div>
+        </div>
     </body>
 
     <footer>
-        <script src="assets/javascript/interactive.js"></script>
+        <h6 class="text-center">Kyle Foster 2019 &copy;</h6>
+        <!-- Scrollreveal -->
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+        <!-- Popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <!-- Bootstrap -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <!-- Custom Js -->
+        <script src="./assets/javascript/certificatePop.js"></script>
+        
     </footer>
-
 </html>
