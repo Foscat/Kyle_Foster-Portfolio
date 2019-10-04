@@ -138,7 +138,7 @@
     animation-iteration-count: infinite;
   }
 
-  #resumeText:hover{
+  .resumeText:hover{
     cursor: url("../images/newman-20x20.jpg") 4 12, auto;
   }
   .fade.in {
