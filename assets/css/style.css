@@ -84,19 +84,10 @@
   #me{
       border: none
   }
-  /* .jumbotron{
-  width: 45%;
-  height: 10%;
-  margin: auto;
-  position: absolute;
-  background-color: #fff;
-  border-radius: 6px;
-  margin-bottom: 50px;
-  opacity: 1;
-  transition: opacity 2s ease-in-out;
-  -moz-transition: opacity 2s ease-in-out;
-  -webkit-transition: opacity 2s ease-in-out;
-  } */
+
+  .adjust{
+    width: min-content;
+  }
   /*  */
   /* IMAGES */
   .school-logo {
