@@ -7,12 +7,12 @@
     border: 1px #000 solid;
   }
   body {
-    background-color: #000;
+    background-color: rgb(51, 49, 49);
     margin-top: 130px;
   }
   .row {
-    border: 2px #000 solid;
-    background-color: #fff;
+    border: 2px rgb(42, 0, 0) solid;
+    background-color: rgb(221, 221, 221);
   }
   .center {
     display: flex;
@@ -43,7 +43,7 @@
     margin: auto;
     width: 95%;
     margin-bottom: 3%;
-    background-color: #fff;
+    background-color: rgb(221, 221, 221);
   }
   #footer {
     margin: auto;
@@ -70,7 +70,7 @@
     padding: 10px;
   }
   h6 {
-    color: #fff;
+    color: rgb(42, 0, 0)
   }
   /* .project-title {
     color: #fff;
@@ -82,11 +82,20 @@
     display: none;
   }
   #me{
-      border: none
+      border: none;
+      background-color: rgb(221, 221, 221);
+      
   }
 
   .adjust{
     width: min-content;
+  }
+  .hackImages {
+    min-width: 280px;
+  }
+  .hackArt {
+    min-width: 310px;
+    min-height: 350px;
   }
   /*  */
   /* IMAGES */

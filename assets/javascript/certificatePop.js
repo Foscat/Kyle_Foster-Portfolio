@@ -9,5 +9,5 @@ $("#certificateModal").on("show.bs.modal", function(event){
 
     var modal = $(this);
 
-    modal.find("img").attr("src", certificate);
+    modal.find("img").attr("src", certificate).css({width:"100%"});
 })
