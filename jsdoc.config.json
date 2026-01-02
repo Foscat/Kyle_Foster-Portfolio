@@ -1,0 +1,16 @@
+{
+    "source": {
+      "include": ["src/types/ui.types.js"],
+      "includePattern": ".js$"
+    },
+    "opts": {
+      "destination": "docs/types",
+      "recurse": false
+    },
+    "plugins": [],
+    "templates": {
+      "cleverLinks": true,
+      "monospaceLinks": true
+    }
+  }
+  

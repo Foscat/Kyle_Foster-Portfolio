@@ -1,0 +1,67 @@
+/* ============================================================
+   FrostedIcon — Midnight Gold Theme
+   Lightweight utility icon wrapper
+   ============================================================ */
+
+.frosted-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: color var(--transition-speed),
+              transform var(--transition-speed),
+              text-shadow var(--transition-speed);
+  line-height: 1;
+}
+
+/* --------------------------
+   Size Variants
+-------------------------- */
+.fi-xs svg { font-size: var(--font-xs); }
+.fi-sm svg { font-size: var(--font-sm); }
+.fi-md svg { font-size: var(--font-md); }
+.fi-lg svg { font-size: var(--font-lg); }
+.fi-xl svg { font-size: var(--font-xl); }
+
+/* --------------------------
+   Color Variants
+-------------------------- */
+.fi-primary   { color: var(--accent-light); }
+.fi-secondary { color: var(--gray-300); }
+.fi-accent    { color: var(--accent); }
+.fi-subtle    { color: var(--gray-500); }
+.fi-danger    { color: var(--error); }
+
+/* --------------------------
+   Clickable Icons
+-------------------------- */
+.fi-clickable {
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: var(--radius-lg);
+  -webkit-backdrop-filter: var(--slight-blur);
+  backdrop-filter: var(--slight-blur);
+  transition: 
+    background-color var(--transition-speed),
+    color var(--transition-speed),
+    box-shadow var(--transition-speed),
+    transform var(--transition-speed);
+}
+
+.fi-clickable:hover {
+  color: var(--accent-light);
+  transform: translateY(-2px) scale(1.05);
+  text-shadow: var(--text-shadow);
+  background-color: var(--frost-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.fi-clickable:active {
+  transform: scale(0.95);
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* Keyboard accessibility */
+.fi-clickable:focus {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}

@@ -1,0 +1,40 @@
+/* ------------------------------------------------------------
+   404 Page
+------------------------------------------------------------ */
+
+.notFound-wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.notFound-glassBox {
+  padding: 3rem 2.5rem;
+}
+
+.notFound-errorCode {
+  font-size: clamp(5rem, 12vw, 8rem);
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: var(--text-shadow);
+  margin-bottom: 1rem;
+}
+
+.notFound-title {
+  margin-bottom: 1rem;
+}
+
+.notFound-description {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.notFound-cta {
+  margin-top: 1rem;
+}
+
+/* Mobile polish */
+@media (max-width: 480px) {
+  .notFound-glassBox {
+    padding: 2rem 1.5rem;
+  }
+}

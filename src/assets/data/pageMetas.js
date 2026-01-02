@@ -1,0 +1,98 @@
+import { PageRoute } from "../../types/ui.types";
+
+export default {
+  Home: {
+    url: PageRoute.HOME,
+    title: "Kyle Foster | Web Developer & Creative Technologist",
+    description:
+      "Welcome to the portfolio of Kyle Foster — a passionate developer who builds elegant, problem-solving software with the creativity of an artist and the precision of an engineer.",
+  },
+  Codestream: {
+    url: PageRoute.PROFESSIONAL,
+    title: "CSOS | Designed and built by Kyle Foster",
+    repo: "Private",
+    tech: [
+      "React.js",
+      "AWS (S3,RDS,ELB,Lambda)",
+      "Google oAuth",
+      "rSuite",
+      "Asana API",
+      "Skulpt.js",
+      "Ace Editor",
+      "Postgres",
+      "Jest",
+      "Swagger API",
+    ],
+  },
+  Hackathon: {
+    url: PageRoute.HACKATHON,
+    title: "Diamler Hackathon Winner | Kyle Foster",
+    description:
+      "Learn how Kyle Foster's led a team of junior developers to victory in a hackathon, outperforming senior-level teams with creativity, precision, and technical mastery.",
+    tech: [
+      "React.js",
+      "React Native",
+      "AWS Lambda",
+      "AWS Lex",
+      "Custom microservices",
+      "react-native-tts",
+      "react-native-voice",
+      "XML parsing",
+      "Reverse Engineering",
+      "Team Project",
+    ],
+    jobTitle: "Lead application developer",
+    timespan: "July 19th-21st 2019",
+  },
+  SideProjects: {
+    url: PageRoute.SIDE_PROJECTS,
+    title: "Side Projects | Kyle Foster",
+    description:
+      "Browse Kyle Foster' s side projects — unique experiments in code and creativity showcasing his innovation, technical skill, and passion for continual learning.",
+    timespan: "2019 - Current",
+    tech: [
+      "HTML",
+      "JavaScript",
+      "Custom Algorithms",
+      "Bootstrap CSS",
+      "Github Pages",
+      "Python",
+      "Raspberry Pi sense kit",
+      "IoT",
+      "Custom Hardware",
+      "React.js",
+      "Express.js",
+      "MongoDB",
+      "Node.js",
+    ],
+  },
+  Smu: {
+    url: PageRoute.EDUCATION,
+    title: "SMU Coding Bootcamp | Kyle Foster",
+    description:
+      "Explore Kyle Foster's journey through the SMU Coding Bootcamp, where he transformed from a curious learner into a professional developer through discipline, perseverance, and curiosity.",
+    timespan: "August 2018 - Febuary 2019",
+    tech: [
+      "HTML",
+      "CSS",
+      "Bootstrap CSS",
+      "JavaScript",
+      "jQuery",
+      "Ajax",
+      "3rd Party APIs",
+      "Materialize",
+      "Firebase",
+      "Team Project",
+      "React.js",
+      "Express.js",
+      "MongoDB",
+      "Node.js",
+    ],
+  },
+  Contact: {
+    url: PageRoute.CONNECT,
+    title: "Contact Kyle Foster | Developer & Collaborator",
+    description:
+      "Get in touch with Kyle Foster — full-stack developer, creative problem solver, and software craftsman. Find contact details and collaboration inquiries here.",
+  },
+};

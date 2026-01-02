@@ -1,0 +1,69 @@
+/* Thumbnail */
+.clickable-thumb {
+  cursor: pointer;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  height: auto;
+}
+
+.clickable-thumb:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Caption */
+.img-caption {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  margin-top: 0.5rem;
+}
+
+/* Modal Frosted Layout */
+.frosted-modal .rs-modal-dialog {
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: var(--backdrop-blur);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 0.5rem;
+}
+
+/* Header row */
+.frosted-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Close button */
+.close-btn {
+  color: var(--accent-light);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-speed);
+}
+
+.close-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Body */
+.frosted-modal-body {
+  padding: 1rem 2rem 2rem;
+}
+
+/* Image Container */
+.modal-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zoom-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+}

@@ -1,0 +1,73 @@
+/* -------------------------------------------------------------------
+   🌫️ Frosted Glass Sticky Navbar + Animations
+   Styling for StickyNav.jsx
+------------------------------------------------------------------- */
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Frosted background layer */
+.frosted-nav {
+  background: rgba(var(--white), 0.05);
+  border-bottom: 1px solid rgba(var(--white), 0.08);
+}
+
+/* Brand text styling */
+.brand-text {
+  font-weight: 600;
+  font-size: var(--font-big);
+  color: var(--white);
+}
+
+/* Mobile hamburger button */
+.burger-btn {
+  color: var(--white);
+  border-radius: var(--radius-xs);
+}
+
+/* Hide desktop menu on mobile */
+.desktop-menu {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Mobile slide-down menu */
+.mobile-menu {
+  width: 100%;
+  background: rgba(var(--gray-900), 0.55);
+  padding: 0.5rem 1rem;
+  animation: slideDown 180ms ease-out;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Slide-down animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 850px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}

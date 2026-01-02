@@ -1,0 +1,167 @@
+/* ============================================================
+   AccordionList — Frosted UI + Accessibility
+   ============================================================ */
+
+.frosted-accordion {
+  background: var(--bg-elevated);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  box-shadow: var(--glass-shadow);
+  margin: 1rem 0;
+}
+
+/* Optional title is handled by Panel header */
+
+/* Keyboard help hint */
+.fa-help {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem;
+  opacity: 0.85;
+}
+
+.fa-help kbd {
+  background: rgba(var(--white-rgb), 0.08);
+  border-radius: var(--radius-xs);
+  padding: 0.1rem 0.35rem;
+  font-family: inherit;
+  border: 1px solid rgba(var(--white-rgb), 0.12);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* List container */
+.fa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar styling */
+.fa-list::-webkit-scrollbar {
+  width: 6px;
+}
+.fa-list::-webkit-scrollbar-thumb {
+  background: rgba(var(--white-rgb), 0.2);
+  border-radius: var(--radius-sm);
+}
+
+/* Individual item */
+.fa-list-item {
+  background: rgba(var(--white-rgb), 0.04);
+  border: 1px solid rgba(var(--white-rgb), 0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  transition:
+    background var(--transition-speed),
+    border-color var(--transition-speed),
+    transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+/* Hover */
+.fa-list-item:hover {
+  background: rgba(var(--white-rgb), 0.08);
+  border-color: rgba(var(--white-rgb), 0.15);
+  cursor: pointer;
+}
+
+/* Open state */
+.fa-list-item.open {
+  background: rgba(var(--white-rgb), 0.14);
+  border-color: rgba(var(--white-rgb), 0.25);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Header row */
+.fa-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  outline: none; /* rely on custom focus styles */
+}
+
+/* Focus ring for keyboard users */
+.fa-left:focus-visible {
+  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.9);
+  border-radius: var(--radius-sm);
+}
+
+/* Text label */
+.fa-text {
+  flex-grow: 1;
+  color: var(--text-primary);
+  font-size: var(--font-md);
+}
+
+/* Icons */
+.fa-icon {
+  flex-shrink: 0;
+}
+
+/* Expand icon for chevron */
+.fa-expand-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--transition-speed);
+}
+
+.fa-list-item.open .fa-expand-icon {
+  transform: rotate(180deg);
+}
+
+/* When item represents a scroll link */
+.fa-link {
+  cursor: pointer;
+  color: var(--accent-light);
+}
+
+.fa-link:hover .fa-text {
+  color: var(--accent);
+}
+
+/* Content area of accordion */
+.fa-content {
+  margin-top: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(var(--white-rgb), 0.06);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(var(--white-rgb), 0.1);
+  font-size: var(--font-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  animation: fa-fadeIn 0.25s ease-out;
+}
+
+/* Fade animation */
+@keyframes fa-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

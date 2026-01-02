@@ -1,0 +1,57 @@
+/* ============================================================
+   InfoSection Wrapper
+   ------------------------------------------------------------ */
+
+.info-section {
+  padding: 0 10px 5px;
+  border-radius: var(--border-radius);
+  margin-bottom: 45px;
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Title area */
+.info-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.info-title {
+  margin: 0;
+  font-size: var(--font-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.info-subtitle {
+  margin: 10px 0 5px;
+  font-size: var(--font-md);
+  color: var(--text-muted, rgba(var(--deep-black), 0.75));
+}
+
+/* Content area */
+.info-content {
+  font-size: var(--font-xs);
+  color: var(--text-normal, var(--white));
+  line-height: 1.6;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .info-section {
+    padding: 22px;
+  }
+
+  .info-title {
+    font-size: var(--font-lg);
+  }
+
+  .info-subtitle {
+    font-size: var(--font-md);
+  }
+
+  .info-content{
+    font-size: var(--font-sm);
+  }
+}

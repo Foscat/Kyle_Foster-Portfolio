@@ -1,0 +1,79 @@
+/* ================================================================
+   Footer Styles — Frosted Glass + Smooth Fade-In Animation
+   ================================================================= */
+
+/* Wrapper adds background blur and translucency */
+.footer-wrapper {
+  width: 100%;
+  padding: 30px 0;
+  background: rgba(var(--white-rgb), 0.12);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-soft);
+  animation: footerFade 0.8s ease-out forwards;
+}
+
+/* Main container spacing */
+.footer-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* RSuite Panels with frosted effect */
+.footer-panel {
+  background: rgba(var(--white-rgb), 0.18) !important;
+  border-radius: var(--border-radius) !important;
+  border: 1px solid rgba(var(--white-rgb), 0.25) !important;
+  box-shadow: var( --shadow-soft);
+}
+
+/* Typography inside footer */
+.footer-text p,
+.footer-text a {
+  font-size: var(--font-md);
+  color: rgb(var(--gray-100-rgb));
+  margin: 6px 0;
+}
+
+/* Social Buttons */
+.footer-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-icon {
+  color: rgb(var(--grey-100-rgb)) !important;
+  text-align: left;
+}
+
+/* Bottom text section */
+.footer-bottom {
+  margin-top: 25px;
+  text-align: center;
+  font-size: var(--font-xs);
+  color: rgb(var(--gray-300-rgb));
+  opacity: 0.85;
+}
+
+/* Fade-in animation for a polished entrance */
+@keyframes footerFade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .footer-socials {
+    align-items: center;
+  }
+  .footer-text {
+    text-align: center;
+  }
+}

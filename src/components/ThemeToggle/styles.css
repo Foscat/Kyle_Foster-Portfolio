@@ -1,0 +1,20 @@
+.theme-toggle {
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  background: var(--glass-bg);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(var(--gold-rgb), 0.25);
+  box-shadow: var(--glass-shadow);
+}
+
+.theme-toggle .rs-btn {
+  color: var(--text-primary);
+}
+
+.theme-toggle .rs-btn-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--primary-rgb), 0.45),
+    rgba(var(--gold-rgb), 0.35)
+  );
+}

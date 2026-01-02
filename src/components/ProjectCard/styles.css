@@ -1,0 +1,105 @@
+/* ============================================================
+   PROJECT CARD - MAIN FROSTED WRAPPER
+   ============================================================ */
+.projectCard {
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: rgba(var(--deep-black), 0.22);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid rgba(var(--deep-black), 0.33);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 2rem;
+}
+
+/* Fade-in animation */
+.fadeIn {
+  animation: fadeInAnim 0.7s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInAnim {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   TEXT STYLES
+   ============================================================ */
+.projectCard-title {
+  margin: 0;
+  font-size: var(--font-large);
+  font-weight: 600;
+}
+
+.projectCard-description {
+  font-size: var(--font-small);
+  line-height: 1.6;
+  margin-top: 1rem;
+  opacity: 0.9;
+}
+
+.projectCard-divider {
+  margin-top: 0.4rem;
+  margin-bottom: 1.2rem;
+  border-color: var(--glass-border);
+}
+
+/* ============================================================
+   IMAGE GRID
+   ============================================================ */
+.projectCard-imageGrid {
+  margin-top: 1.4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.projectCard-imageBox {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+
+  background: rgba(var(--white) 0.15);
+  border: 1px solid rgba(var(--white) 0.32);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+
+  text-align: center;
+  box-shadow: var(--shadow-soft)
+}
+
+.projectCard-imageBox img {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.6rem;
+}
+
+/* Image description */
+.projectCard-imgDesc {
+  font-size: var(--font-sm);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   BUTTON ROW
+   ============================================================ */
+.projectCard-links {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ============================================================
+   RESPONSIVE TUNING
+   ============================================================ */
+@media (max-width: 480px) {
+  .projectCard {
+    padding: 1.4rem;
+  }
+
+  .projectCard-title {
+    font-size: var(--font-big);
+  }
+}

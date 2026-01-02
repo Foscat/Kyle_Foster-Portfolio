@@ -1,0 +1,430 @@
+/* ============================================================
+   Portfolio Theme: Midnight Blue + Gold (Frosted Glass)
+   ------------------------------------------------------------
+   - Correct rgba(var(--*-rgb), a) usage (fixes "flat gray" look).
+   - Adds blue/gold glass gradients + subtle glows.
+   - Provides shared layout utilities to keep pages centered.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Font Imports
+   ------------------------------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+/* ------------------------------------------------------------
+   Base colors & tokens
+   ------------------------------------------------------------ */
+:root {
+  /* Base neutrals (colors + rgb numbers) */
+  --white: rgb(255, 255, 255);
+  --white-rgb: 255, 255, 255;
+
+  --black: rgb(15, 15, 18);
+  --black-rgb: 15, 15, 18;
+
+  --deep-black: rgb(0, 0, 0);
+  --deep-black-rgb: 0, 0, 0;
+
+  --gray-100: rgb(245, 245, 247);
+  --gray-100-rgb: 245, 245, 247;
+
+  --gray-300: rgb(209, 209, 214);
+  --gray-300-rgb: 209, 209, 214;
+
+  --gray-400: rgb(200, 200, 255);
+  --gray-400-rgb: 200, 200, 255;
+
+  --gray-500: rgb(142, 142, 147);
+  --gray-500-rgb: 142, 142, 147;
+
+  --gray-700: rgb(58, 58, 60);
+  --gray-700-rgb: 58, 58, 60;
+
+  --gray-900: rgb(28, 28, 30);
+  --gray-900-rgb: 28, 28, 30;
+
+  /* Brand blues (hex + rgb companions) */
+  --primary-darkest: rgb(10, 16, 92);
+  --primary-darkest-rgb: 10, 16, 92;
+
+  --primary-dark: rgb(19, 26, 119);
+  --primary-dark-rgb: 19, 26, 119;
+
+  --primary: rgb(31, 39, 147);
+  --primary-rgb: 31, 39, 147;
+
+  --primary-light: rgb(58, 66, 165);
+  --primary-light-rgb: 58, 66, 165;
+
+  --primary-lighter: rgb(87, 94, 180);
+  --primary-lighter-rgb: 87, 94, 180;
+
+  --blue-500: rgb(37,99,235);
+  --blue-500-rgb: 37, 99, 235;
+  --blue-700-rgb: rgb(30,58,138);
+  --blue-700-rgb: 30, 58, 138;
+
+  /* Accent golds (hex + rgb companions) */
+  --accent-dark: rgb(168, 137, 0);
+  --accent-dark-rgb: 168, 137, 0;
+
+  --accent: rgb(201, 162, 39);
+  --accent-rgb: 201, 162, 39;
+
+  --accent-light: rgb(230, 199, 103);
+  --accent-light-rgb: 230, 199, 103;
+
+  --gold-400: rgb(212, 175, 55);
+  --gold-400-rgb: 212, 175, 55;
+  --gold-500: rgb(184, 134, 11);
+  --gold-500-rgb: 184, 134, 11;
+
+  /* System */
+  --success: rgb(22, 163, 74);
+  --success-rgb: 22, 163, 74;
+  --warning: rgb(250, 204, 21);
+  --warning-rgb: 250, 204, 21;
+  --error: rgb(220, 38, 38);
+  --error-rgb: 220,38,38;
+
+  /* Typography scale */
+  --font-xxl: clamp(2.5rem, 1.5rem + 3vw, 5.625rem);
+  --font-xl:  clamp(1.75rem, 1.2rem + 1.6vw, 3rem);
+  --font-lg:  clamp(1.5rem, 1.1rem + 1.2vw, 2.5rem);
+  --font-md:  clamp(1.325rem, 1rem + 0.5vw, 2rem);
+  --font-sm:  clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --font-xs:  clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+
+  /* Dividers */
+  --divider-thickness: 1px;
+  --divider-opacity: 0.25;
+  --divider-spacing: 1.5rem;
+
+
+  /* Motion */
+  --transition-speed: 0.25s;
+  --easing-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Blur */
+  --slight-blur: blur(6px);
+  --glass-blur: blur(10px);
+  --backdrop-blur: blur(15px);
+
+  /* Radius */
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --border-radius: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Surfaces */
+  --text-primary: var(--white);
+  --text-secondary: rgba(var(--gray-300-rgb), 0.9);
+
+  --bg-primary: var(--black);
+  --bg-secondary: var(--gray-900);
+
+  /* Glass fill variants */
+  --bg-elevated: rgba(var(--white-rgb), 0.06);
+  --frost-bg: rgba(var(--white-rgb), 0.08);
+  --glass-bg: rgba(var(--white-rgb), 0.14);
+  --glass-bg-strong: rgba(var(--white-rgb), 0.22);
+
+  /* Borders */
+  --frost-border: rgba(var(--white-rgb), 0.18);
+  --glass-border: rgba(var(--white-rgb), 0.28);
+
+  /* Shadows */
+  --shadow-dark: 0 14px 46px rgba(var(--deep-black-rgb), 0.55);
+  --glass-shadow: 0 10px 40px rgba(var(--deep-black-rgb), 0.35);
+  --shadow-soft: 0 6px 30px rgba(var(--deep-black-rgb), 0.22);
+  --text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
+
+  /* Gradients */
+  --bg-gradient: linear-gradient(
+    145deg,
+    rgba(var(--primary-darkest-rgb), 0.92),
+    rgba(var(--primary-dark-rgb), 0.70),
+    rgba(var(--primary-rgb), 0.55)
+  );
+
+  --gold-glow: radial-gradient(
+    circle at 85% 18%,
+    rgba(var(--accent-rgb), 0.24),
+    rgba(var(--accent-rgb), 0.0) 52%
+  );
+
+  --blue-glow: radial-gradient(
+    circle at 14% 28%,
+    rgba(var(--primary-lighter-rgb), 0.28),
+    rgba(var(--primary-lighter-rgb), 0.0) 55%
+  );
+
+  --vignette: radial-gradient(
+    ellipse at 50% 55%,
+    rgba(var(--deep-black-rgb), 0.20),
+    rgba(var(--deep-black-rgb), 0.72)
+  );
+}
+
+/* ------------------------------------------------------------
+   Theme variants
+   ------------------------------------------------------------ */
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --divider-color: rgba(var(--accent-rgb), var(--divider-opacity));
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+  --text-primary: rgba(var(--black-rgb), 0.8);
+  --text-secondary: rgba(var(--gray-900-rgb), 0.7);
+
+  --bg-primary: rgba(var(--gray-100-rgb), .75);
+  --bg-secondary: rgba(var(--white-rgb), .75);
+
+  --bg-elevated: rgba(var(--gray-100-rgb), 0.7);
+  --frost-bg: rgba(var(--gray-100-rgb), 0.78);
+  --glass-bg: rgba(var(--gray-100-rgb), 0.84);
+  --glass-bg-strong: rgba(var(--gray-100-rgb), 0.92);
+
+  --frost-border: rgba(var(--deep-black-rgb), 0.1);
+  --glass-border: rgba(var(--deep-black-rgb), 0.14);
+  --divider-color: rgba(var(--deep-black-rgb), var(--divider-opacity));
+
+  --shadow-soft: 0 10px 40px rgba(var(--black-rgb), 0.12);
+  --glass-shadow: 0 14px 60px rgba(var(--black-rgb), 0.14);
+  --text-shadow: 0 0 16px rgba(var(--accent-rgb), 0.2);
+
+  --bg-gradient: linear-gradient(
+    145deg,
+    rgba(var(--primary-lighter-rgb), 0.22),
+    rgba(var(--primary-light-rgb), 0.10),
+    rgba(var(--accent-rgb), 0.06)
+  );
+
+  --vignette: radial-gradient(
+    ellipse at 50% 55%,
+    rgba(var(--deep-black-rgb), 0.06),
+    rgba(var(--deep-black-rgb), 0.10)
+  );
+}
+
+html[data-theme='auto'] {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: light) {
+  html[data-theme='auto'] {
+    color-scheme: light;
+    --divider-color: rgba(var(--deep-black-rgb), var(--divider-opacity));
+  }
+}
+
+/* ------------------------------------------------------------
+   Base Typography & Layout
+   ------------------------------------------------------------ */
+body {
+  font-family: "Lexend Deca", "Heebo", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: var(--font-md);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.2px;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}
+
+/* Background layers: blue depth + gold accent + soft vignette */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    var(--gold-glow),
+    var(--blue-glow),
+    var(--bg-gradient),
+    var(--vignette);
+  z-index: -1;
+}
+
+/* ------------------------------------------------------------
+   Headings & text
+   ------------------------------------------------------------ */
+h1, h2, h3 {
+  font-family: "Audiowide", cursive;
+  color: rgba(var(--accent-light-rgb), 0.98);
+  text-shadow: var(--text-shadow);
+  margin-top: 0;
+}
+
+h1{
+  font-size: var(--font-xxl);
+}
+h2{
+  font-size: var(--font-xl);
+}
+h3{
+  font-size: var(--font-lg);
+}
+h4{
+  font-size: var(--font-md);
+}
+p {
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+}
+
+small, .muted {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+/* ------------------------------------------------------------
+   Links
+   ------------------------------------------------------------ */
+a {
+  color: rgba(var(--accent-rgb), 0.98);
+  text-decoration: none;
+  transition: color var(--transition-speed) var(--easing-standard);
+}
+
+a:hover {
+  color: rgba(var(--accent-light-rgb), 1);
+}
+
+/* ------------------------------------------------------------
+   Frosted Glass Containers (shared)
+   ------------------------------------------------------------ */
+.glass-card {
+  background: var(--bg-elevated);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem 2rem;
+  border: 1px solid rgba(var(--white-rgb), 0.10);
+  transition:
+    transform var(--transition-speed) var(--easing-standard),
+    box-shadow var(--transition-speed) var(--easing-standard),
+    background-color var(--transition-speed) var(--easing-standard);
+}
+
+.glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--glass-shadow);
+  background: rgba(var(--white-rgb), 0.09);
+}
+
+.glassBox,
+.frosted {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: var(--backdrop-blur);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: var(--glass-shadow);
+}
+
+.block-divider {
+  margin: var(--divider-spacing) 0;
+  border: none;
+  height: var(--divider-thickness);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--divider-color),
+    transparent
+  );
+}
+
+
+/* ------------------------------------------------------------
+   Layout utilities
+   ------------------------------------------------------------ */
+
+/* App chrome wrapper */
+.app-shell {
+  min-height: 100vh;
+}
+
+/* Main content wrapper (centers long pages) */
+.app-main {
+  width: 100%;
+}
+.page-shell {
+  width: 100%;
+}
+
+.page-container {
+  width: min(1100px, calc(100% - 2rem));
+}
+
+.page-section {
+  margin: 2rem 0;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+.mt-2 { margin-top: 1rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.stack-2 { display: grid; gap: 0.75rem; }
+.stack-3 { display: grid; gap: 1.25rem; }
+
+/* Consistent CTA / linkbox layout */
+.link-box,
+.rb_linkBox {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* ------------------------------------------------------------
+   Motion helpers
+   ------------------------------------------------------------ */
+.fade-in {
+  animation: fadeIn 420ms var(--easing-standard) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0px); }
+}
+
+/* ------------------------------------------------------------
+   Footer / navigation baseline
+   ------------------------------------------------------------ */
+nav, footer {
+  background-color: rgba(var(--primary-darkest-rgb), 0.60);
+  color: var(--text-secondary);
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: var(--slight-blur);
+  backdrop-filter: var(--slight-blur);
+}
+
+/* ------------------------------------------------------------
+   Responsive adjustments
+   ------------------------------------------------------------ */
+@media (max-width: 700px) {
+  .glass-card { padding: 1.25rem 1.25rem; }
+  .glassBox, .frosted { padding: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .page-container { width: calc(100% - 1.25rem); }
+  .link-box, .rb_linkBox { justify-content: stretch; }
+}
