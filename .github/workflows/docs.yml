@@ -1,0 +1,25 @@
+name: Docs Validation
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      - name: Lint JSDoc
+        run: npm run lint
+
+      - name: Build docs
+        run: npm run docs:verify

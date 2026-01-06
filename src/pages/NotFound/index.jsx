@@ -1,6 +1,3 @@
-import React from "react";
-import { Panel, FlexboxGrid } from "rsuite";
-import Btn from "components/Btn";
 import "./styles.css";
 
 /**

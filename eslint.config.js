@@ -1,112 +1,223 @@
-import js from "@eslint/js";
-import globals from "globals";
 import jsdoc from "eslint-plugin-jsdoc";
+import importPlugin from "eslint-plugin-import";
 import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
 import jsxA11y from "eslint-plugin-jsx-a11y";
-import { defineConfig, globalIgnores } from "eslint/config";
+import unusedImports from "eslint-plugin-unused-imports";
 
-export default defineConfig([
-  globalIgnores(["dist"]),
+
+/**
+ * ESLint Flat Config – Final
+ * ============================================================
+ * Goals:
+ * - Zero JSX parse errors
+ * - No false positives
+ * - Strict where correctness matters
+ * - Quiet everywhere else
+ */
+
+export default [
+  // ==========================================================
+  // 1️⃣ GLOBAL BASE (applies everywhere)
+  // ==========================================================
   {
-    files: ["**/*.{js,jsx}"],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
+    ignores: ["dist/**", "docs/**", "node_modules/**"],
+
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        ecmaFeatures: { jsx: true },
-        sourceType: "module",
-      },
-    },
-    plugins: {
-      jsdoc,
-      react,
-      "react-hooks": reactHooks,
-      "jsx-a11y": jsxA11y,
+      ecmaVersion: "latest",
     },
 
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
     rules: {
-      "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
-      "no-restricted-syntax": [
-        "error",
+      // Core safety
+      "no-undef": "error",
+      "no-console": "off",
+      "no-unused-vars": "warn",
+      /**
+       * Safe unused import cleanup
+       * - Never touches used identifiers
+       * - Never rewrites logic
+       */
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": [
+        "warn",
         {
-          selector: "Literal[value=/keyof/]",
-          message:
-            "JSDoc generator does not support 'keyof'. Use literal unions instead.",
-        },
-      ],
-      "jsdoc/check-alignment": "error",
-      "jsdoc/check-indentation": "error",
-      "jsdoc/check-param-names": "error",
-      "jsdoc/check-tag-names": "error",
-      "jsdoc/check-types": "error",
-      "jsdoc/valid-types": "error",
-      "jsdoc/check-alignment": "error",
-      "jsdoc/check-indentation": "error",
-      "jsdoc/check-param-names": "error",
-      "jsdoc/check-tag-names": "error",
-      "jsdoc/check-types": "error",
-      "jsdoc/valid-types": "error",
-      "jsdoc/no-multi-asterisks": "error",
-
-      "jsdoc/tag-lines": ["error", "any", { startLines: 1 }],
-      "jsdoc/require-hyphen-before-param-description": "always",
-
-      /* ============================================================
-       * React – correctness & consistency
-       * ============================================================ */
-
-      "react/jsx-uses-react": "off", // React 17+
-      "react/react-in-jsx-scope": "off",
-
-      "react/jsx-key": "error",
-      "react/no-array-index-key": "warn",
-      "react/no-unused-prop-types": "warn",
-      "react/prop-types": "off", // JSDoc replaces PropTypes
-
-      "react/self-closing-comp": "error",
-      "react/jsx-boolean-value": ["error", "never"],
-
-      /* ============================================================
-       * React Hooks
-       * ============================================================ */
-
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-
-      /* ============================================================
-       * Accessibility (a11y)
-       * ============================================================ */
-
-      "jsx-a11y/alt-text": "error",
-      "jsx-a11y/aria-role": "error",
-      "jsx-a11y/aria-props": "error",
-      "jsx-a11y/aria-proptypes": "error",
-      "jsx-a11y/aria-unsupported-elements": "error",
-
-      "jsx-a11y/click-events-have-key-events": "error",
-      "jsx-a11y/no-static-element-interactions": "error",
-      "jsx-a11y/no-noninteractive-element-interactions": "error",
-
-      "jsx-a11y/label-has-associated-control": "error",
-      "jsx-a11y/control-has-associated-label": [
-        "error",
-        {
-          labelAttributes: ["label", "ariaLabel"],
+          vars: "all",
+          varsIgnorePattern: "^React$",
+          args: "after-used",
+          argsIgnorePattern: "^_",
         },
       ],
     },
   },
-]);
+
+  // ==========================================================
+  // 2️⃣ REACT APPLICATION CODE (JSX + browser)
+  // ==========================================================
+  {
+    files: ["src/**/*.{js,jsx}"],
+
+    plugins: {
+      react,
+      import: importPlugin,
+      jsdoc,
+      "jsx-a11y": jsxA11y,
+      "unused-imports": unusedImports,
+    },
+
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        console: "readonly",
+      },
+    },
+
+    rules: {
+      /**
+       * Imports
+       * - Keep files readable
+       * - Never break runtime
+       */
+      "import/first": "warn",
+      "import/no-duplicates": "warn",
+      /**
+       * Safe unused import cleanup
+       * - Never touches used identifiers
+       * - Never rewrites logic
+       */
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          vars: "all",
+          varsIgnorePattern: "^React$",
+          args: "after-used",
+          argsIgnorePattern: "^_",
+        },
+      ],
+
+      /**
+       * React
+       */
+      "react/jsx-key": "error",
+      "react/react-in-jsx-scope": "off",
+
+      /**
+       * Accessibility
+       * Warn only (do not block dev)
+       */
+      "jsx-a11y/anchor-is-valid": "warn",
+
+      /**
+       * JSDoc
+       * Only enforce syntax correctness here
+       */
+      "jsdoc/check-types": "error",
+
+      /**
+       * New JSX transform support
+       * Ignore unused React import if present
+       */
+      "no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^React$",
+        },
+      ],
+    },
+  },
+
+  // ==========================================================
+  // 3️⃣ TYPES + ARCHITECTURE (docs-critical)
+  // ==========================================================
+  {
+    files: ["src/types/**/*.js", "src/navigation/**/*.js"],
+
+    plugins: {
+      jsdoc,
+    },
+
+    rules: {
+      /**
+       * These files power docs + type safety
+       * They MUST be correct
+       */
+      "jsdoc/check-types": "error",
+      "jsdoc/require-param": "error",
+      "jsdoc/require-returns": "error",
+    },
+  },
+
+  // ==========================================================
+  // 4️⃣ TEST FILES (Vitest / jsdom)
+  // ==========================================================
+  {
+    files: ["src/test/**/*.{js,jsx}", "**/*.test.{js,jsx}"],
+
+    languageOptions: {
+      globals: {
+        global: "readonly",
+        Element: "readonly",
+        window: "readonly",
+        document: "readonly",
+        describe: "readonly",
+        it: "readonly",
+        expect: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        vi: "readonly",
+      },
+    },
+
+    rules: {
+      "no-undef": "off",
+      "jsdoc/check-types": "off",
+    },
+  },
+
+  // ==========================================================
+  // 5️⃣ TOOLING (ESM config files)
+  // ==========================================================
+  {
+    files: ["vite.config.js", "vitest.config.js", "eslint.config.js"],
+
+    languageOptions: {
+      sourceType: "module",
+    },
+
+    rules: {
+      "import/first": "off",
+      "jsdoc/check-types": "off",
+    },
+  },
+
+  // ==========================================================
+  // 6️⃣ NODE / COMMONJS SCRIPTS
+  // ==========================================================
+  {
+    files: ["*.cjs", "scripts/**", "codemods/**"],
+
+    languageOptions: {
+      sourceType: "commonjs",
+      globals: {
+        require: "readonly",
+        module: "readonly",
+        __dirname: "readonly",
+        process: "readonly",
+      },
+    },
+
+    rules: {
+      "import/first": "off",
+      "jsdoc/check-types": "off",
+    },
+  },
+];

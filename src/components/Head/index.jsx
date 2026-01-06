@@ -1,6 +1,4 @@
-import React from "react";
 import PageMetas from "assets/data/pageMetas";
-import { Helmet } from "react-helmet-async";
 
 export default function Head(props) {
   const getMetaByPath = () => {

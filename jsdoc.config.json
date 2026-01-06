@@ -1,7 +1,13 @@
 {
     "source": {
-      "include": ["src/types/ui.types.js"],
-      "includePattern": ".js$"
+      "include": [
+        "src/types/ui.types.js",
+        "src/hooks", 
+        "src/navigation",
+        "src/components",
+        "src/pages"
+      ],
+      "includePattern": ".+\\.(js|jsx)$"
     },
     "opts": {
       "destination": "docs/types",

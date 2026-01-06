@@ -7,21 +7,14 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-
-/* Frosted background layer */
-.frosted-nav {
-  background: rgba(var(--white), 0.05);
-  border-bottom: 1px solid rgba(var(--white), 0.08);
-}
+  
+} 
 
 /* Brand text styling */
 .brand-text {
   font-weight: 600;
-  font-size: var(--font-big);
-  color: var(--white);
+  font-size: var(--font-md);
+  color: var(--primary-darkest);
 }
 
 /* Mobile hamburger button */
@@ -30,9 +23,35 @@
   border-radius: var(--radius-xs);
 }
 
+/* Override default class from rsuite */
+.rs-navbar-default.rs-navbar{
+  background-color: rgba(var(--primary-darkest-rgb),.5);
+  display: flex;
+  justify-content: center;
+}
+
+.rs-navbar.rs-navbar-default .rs-navbar-item.rs-navbar-item-active{
+  color: rgba(var(--primary),.8);
+}
+
 /* Hide desktop menu on mobile */
 .desktop-menu {
+  background-color: var(--glass-bg-strong);
   display: flex;
+  justify-content: space-evenly;
+  padding: 5px;
+  border-radius: var(--radius-xs);
+  border-bottom: 1px solid rgba(var(--white), 0.08);
+  margin-bottom: 5px;
+  box-shadow: var(--shadow-sofe);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  transition: var(--easing-standard);
+  transition-duration: var(--transition-speed);
 }
 
 .mobile-only {

@@ -53,7 +53,7 @@
    ============================================================ */
 .frosted-btn:hover:not(.disabled):not(.loading) {
   transform: translateY(-3px);
-  background: rgba(var(--white-rgb), 0.25);
+  background: var(--bg-primary);
   box-shadow: var(--glass-shadow);
 }
 
@@ -85,8 +85,8 @@
    Primary Variant
    ============================================================ */
 .frosted-btn.primary {
-  border-color: rgba(var(--white-rgb), 0.55);
-  background: rgba(var(--white-rgb), 0.22);
+  border-color: var(--glass-bg);
+  background: var(var(--primary-rgb),.6);
 }
 
 .frosted-btn.primary:hover:not(.disabled) {

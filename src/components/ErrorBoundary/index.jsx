@@ -16,6 +16,10 @@ class ErrorBoundary extends React.Component {
     return { hasError: true, error };
   }
 
+  componentDidMount() {
+    console.log("Error watchdog has mounted");
+  }
+
   componentDidCatch(error, info) {
     console.error("🔥 Unhandled application error:", error);
     console.error("Component stack:", info.componentStack);
@@ -24,15 +28,13 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          className="glassBox"
-        >
+        <div className="glassBox">
           <h1>Something went wrong</h1>
           <p>
             A runtime error prevented the application from loading. Check the
             console for details.
           </p>
-          <pre style={{ opacity: 0.7 }}>{String(this.state.error)}</pre>
+          <pre>{String(this.state.error)}</pre>
         </div>
       );
     }

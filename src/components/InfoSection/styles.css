@@ -15,10 +15,12 @@
 .info-header {
   text-align: center;
   margin-bottom: 25px;
+  display: flex;
+  flex-direction: row;
 }
 
 .info-title {
-  margin: 0;
+  margin: 0 0 0 10px;
   font-size: var(--font-xl);
   font-weight: 600;
   color: var(--text-primary);

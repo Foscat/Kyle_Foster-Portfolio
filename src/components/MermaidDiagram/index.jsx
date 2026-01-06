@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import mermaid from "mermaid";
 import * as htmlToImage from "html-to-image";
-import { Panel } from "rsuite";
-import Btn from "components/Btn";
 import "./Mermaid.css";
+import {
+  faChevronCircleDown,
+  faChevronCircleUp,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * MermaidDiagram Component
@@ -34,7 +37,7 @@ import "./Mermaid.css";
  *   `}
  * />
  *
- * @param {Object} props - Component properties.
+ * @param {object} props - Component properties.
  *
  * @param {string} props.chart
  *   Raw Mermaid code (flowchart, sequence diagram, class diagram, etc.).
@@ -62,7 +65,7 @@ import "./Mermaid.css";
 
 /**
  *
- * @param {import("../../../types/ui.types".DiagramBlock)} props
+ * @param {DiagramBlock)} props
  * @returns {React.Component}
  */
 const MermaidDiagram = ({
@@ -71,8 +74,9 @@ const MermaidDiagram = ({
   description = "",
   className = "",
   theme = "dark", // "dark" | "light"
-  collapsible = true, // collapse on mobile
+  collapsible = false, // collapse on mobile
 }) => {
+  console.log("Mermaid", { diagram, title, description, theme, collapsible });
   const ref = useRef(null);
   const containerRef = useRef(null);
 
@@ -121,7 +125,7 @@ const MermaidDiagram = ({
                 onClick={() => setExpanded(!expanded)}
                 aria-expanded={expanded}
                 aria-label={expanded ? "Collapse diagram" : "Expand diagram"}
-                icon={expanded ? "chevron-up" : "chevron-down"}
+                icon={expanded ? faChevronCircleUp : faChevronCircleDown}
                 size="lg"
                 text={expanded ? "Collapse" : "Expand"}
               />
@@ -132,7 +136,7 @@ const MermaidDiagram = ({
               className="mermaid-export-btn"
               onClick={handleExport}
               aria-label="Download diagram as PNG"
-              icon="download"
+              icon={faDownload}
               size="lg"
               text="Download PNG"
             />

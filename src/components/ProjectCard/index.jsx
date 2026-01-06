@@ -1,8 +1,5 @@
-import React from "react";
-import Btn from "components/Btn";
-import ClickableImg from "components/ClickableImg";
-import InfoSection from "components/InfoSection";
 import "./styles.css";
+import { faCode } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ProjectCard Component
@@ -10,10 +7,10 @@ import "./styles.css";
  * repo links, and live project URLs. Responsive and animated using pure CSS for portfolio use.
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {string} props.title                 - Project title
  * @param {string} props.description           - Main description text
- * @param {Array<Object>}  props.images        - Array of image objects {src, alt, title, description}
+ * @param {Array<object>}  props.images        - Array of image objects {src, alt, title, description}
  * @param {string | undefined} [props.repo]    - GitHub repo link
  * @param {string | undefined} [props.url]     - Live project link
  *
@@ -25,7 +22,7 @@ const ProjectCard = ({
   images = [],
   repo = "",
   url = "",
-  icon = "code",
+  icon = faCode,
   id = "",
 }) => {
   return (
@@ -55,32 +52,25 @@ const ProjectCard = ({
       {/* Buttons */}
       <div className="link-box">
         {repo && (
-          <a
+          <Btn
+            variant="ghost"
+            className="glass-button"
+            text="See the Code"
             href={repo}
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <Btn
-              variant="ghost"
-              className="glass-button"
-              text="See the Code"
-              h
-            />
-          </a>
+          />
         )}
 
         {url && (
-          <a
+          <Btn
+            variant="primary"
+            className="glass-button"
+            text="View Project"
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <Btn
-              variant="primary"
-              className="glass-button"
-              text="View Project"
-            />
-          </a>
+          />
         )}
       </div>
     </InfoSection>

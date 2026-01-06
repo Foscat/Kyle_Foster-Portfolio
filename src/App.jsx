@@ -1,18 +1,9 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
-import Head from "components/Head";
-import Health from "components/Health";
 
-import Home from "pages/Home";
-import CodeStream from "pages/CodeStream";
-import SideProjects from "pages/SideProjects";
-import Hackathon from "pages/Hackathon";
-import SMU from "pages/SMU";
-import Contact from "pages/Contact";
-import NotFound from "pages/NotFound";
 
 import "./App.css";
+console.log("🚀 App component executing");
 
 /**
  * App.jsx
@@ -35,10 +26,8 @@ export default function App() {
       <div className="app-shell">
         <Head />
 
-        <main
-          className="app-main"
-          role="main"
-        >
+          
+        
           <Routes>
             <Route
               path="/"
@@ -75,7 +64,7 @@ export default function App() {
               element={<NotFound />}
             />
           </Routes>
-        </main>
+        
       </div>
     </BrowserRouter>
   );

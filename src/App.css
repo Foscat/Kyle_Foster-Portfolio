@@ -169,6 +169,9 @@
     rgba(var(--deep-black-rgb), 0.72)
   );
 }
+html{
+  scroll-behavior: smooth;
+}
 
 /* ------------------------------------------------------------
    Theme variants
@@ -370,6 +373,23 @@ a:hover {
 .page-section {
   margin: 2rem 0;
 }
+
+.page-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 2rem;
+  align-items: start; /* critical */
+}
+
+.page-content {
+  min-width: 0;
+}
+
+.page-sidebar {
+  position: relative; /* required for sticky context */
+  height: 100%;
+}
+
 
 .text-center { text-align: center; }
 .text-left { text-align: left; }

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Panel, Accordion } from "rsuite";
+import { useState, useEffect, useRef } from "react";
 import "./styles.css";
 
 /**
@@ -51,12 +50,12 @@ import "./styles.css";
  * PROPS
  * -----------------------------------------------------------------------
  * @component
- * @param {Object} props
+ * @param {object} props
  *
  * @param {string} [props.title]
  *    Optional title displayed in the RSuite Panel header.
  *
- * @param {Array<Object>} props.items
+ * @param {Array<object>} props.items
  *    A list of accordion/nav sections.
  *
  *    Each item may include:
@@ -105,14 +104,14 @@ import "./styles.css";
  *     {
  *       id: "editor",
  *       isScroller: true,
- *       icon: "code",
+ *       icon: faCode,
  *       title: "3-Panel Editor",
  *       text: "Details about the editor system..."
  *     },
  *     {
  *       id: "organizations",
  *       isScroller: true,
- *       icon: "people-group",
+ *       icon: faPeopleGroup,
  *       title: "Organizations",
  *       text: "How orgs and licenses work..."
  *     }
@@ -303,7 +302,7 @@ const AccordionList = ({
   return (
     <Panel
       bordered={bordered}
-      header={<h3>{title}</h3>}
+      header={title}
       className={`frosted-accordion ${variant} ${className}`}
     >
       {/* Keyboard help for users & screen readers */}

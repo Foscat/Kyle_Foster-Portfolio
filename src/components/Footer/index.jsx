@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container, FlexboxGrid, Panel } from "rsuite";
-import Btn from "components/Btn/index";
 import "./styles.css";
+import {
+  faGithubSquare,
+  faSquareLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 
 /**
  *
@@ -57,7 +57,7 @@ const Footer = () => {
             >
               <div className="footer-socials">
                 <Btn
-                  icon="github"
+                  icon={faGithubSquare}
                   variant="subtle"
                   href="https://github.com/Foscat"
                   rel="noopener noreferrer"
@@ -68,7 +68,7 @@ const Footer = () => {
                 </Btn>
 
                 <Btn
-                  icon="linkedin"
+                  icon={faSquareLinkedin}
                   variant="subtle"
                   href="https://linkedin.com/in/kylefoster-dev"
                   target="_blank"

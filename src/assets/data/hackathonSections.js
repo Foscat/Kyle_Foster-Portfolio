@@ -1,4 +1,20 @@
+import {
+  faBarsStaggered,
+  faCircleExclamation,
+  faCommentNodes,
+  faHeadset,
+  faLightbulb,
+  faMobileScreenButton,
+  faNewspaper,
+  faPersonChalkboard,
+  faRoute,
+  faTimeline,
+  faTowerObservation,
+  faTruckFast,
+} from "@fortawesome/free-solid-svg-icons";
 import { BlockType, Theme } from "../../types/ui.types";
+
+const { check, chat, focus, group, taLogo } = require("../images/hackathon");
 
 /**
  * Hackathon experiance
@@ -20,7 +36,7 @@ export default [
     title: "Overview",
     subtitle:
       "How a team of junior developers unexpectedly won Daimler's 2019 Hackathon.",
-    icon: "tower-observation",
+    icon: faTowerObservation,
     isScroller: true,
     blocks: [
       {
@@ -29,7 +45,6 @@ export default [
           "The Daimler Trucking Hackathon of 2019 marked a pivotal moment in my journey as a developer. Freshly graduated from my second bootcamp, I attended the event with a friend — initially just for fun. Little did we know that we would be tasked with rethinking the company's technician workflow. Although we were overlooked by senior teams, a small group of junior developers joined forces and attacked the challenge head-on.",
           "Against all expectations, our solution stood out for its practicality and focus on real technician needs, and we won the entire event. Motivated by the victory, several teammates and I pooled our winnings to continue developing the app professionally. As the sole developer who moved forward with the project, I taught myself React Native to transform the web prototype into a mobile application. Unfortunately, the venture collapsed due to decisions made by the project lead, who signed client contracts under his own separate company — excluding the rest of us. Though disappointing, the experience pushed my skills and provided lessons I still value today.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.LINKS,
@@ -37,27 +52,27 @@ export default [
           {
             title: "Read The Article",
             url: "https://austinstartups.com/21-teams-gather-at-capital-factory-to-hack-daimler-north-americas-voice-technology-for-truck-77ed19862592",
-            icon: "newspaper",
+            icon: faNewspaper,
           },
           {
             title: "Hackathon Project",
             url: "#reinforce",
-            icon: "person-chalkboard",
+            icon: faPersonChalkboard,
           },
           {
             title: "Tech Assist Code",
             url: "#tech_assist",
-            icon: "headphones",
+            icon: faHeadset,
           },
         ],
       },
       {
         type: BlockType.IMAGE_GALLERY,
         title: "Me and the team hacking",
-        icon: "comment-nodes",
+        icon: faCommentNodes,
         images: [
           {
-            src: "../images/hackathon/focus.jpg",
+            src: focus,
             alt: "Me and team Reinforce working together in our project room.",
             title: "Team Reinforce during development",
           },
@@ -70,42 +85,39 @@ export default [
     slug: "reinforce",
     title: "Hackathon App (Reinforce)",
     subtitle: "A hands-free, voice-powered repair assistant.",
-    icon: "truck-fast",
+    icon: faTruckFast,
     isScroller: true,
     blocks: [
       {
         type: BlockType.RICH_TEXT,
         title: "The Problem",
-        icon: "circle-exclamation",
+        icon: faCircleExclamation,
         paragraphs: [
           "The technicians at Daimler relied heavily on paper instructions or screen-based tools to assist them during repairs. Both approaches slowed down the workflow and created inconsistency in how steps were followed. The company needed a solution that could guide technicians while keeping their hands free—one that accurately tracked how long each step of a repair took so slowdowns could be identified across different repair types and truck models.",
           "Additionally, Daimler wanted high-performing technicians to share insights about how they completed tasks faster than average. However, the existing system for providing feedback was underutilized because it was time-consuming and difficult to submit improvements. There was also no reliable way to measure how much the suggested improvements actually affected the repair process or which part of the workflow they impacted.",
           "The challenge was to create a real-time, voice-driven system that supported technicians without disrupting their hands-on workflow or requiring new hardware.",
           "Many teams had already formed before the event began. My friend and former classmate—also a junior developer—and I were overlooked by several groups of more experienced developers. This left us to join a mixed team made up of college students, a salesman, and an accountant. We knew we wouldn't be building the most technically advanced solution at the hackathon, but we were determined to create one that actually solved the real problems Daimler described.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.IMAGE_GALLERY,
         title: "Working with the team",
         images: [
           {
-            src: "../images/hackathon/chatBotting.jpg",
+            src: chat,
             alt: "Me showing off to the team the voice translator finding key words from a phrase to use for search algorithm",
             title:
               "Showing the team how the voice to text worked and identified search varibles",
           },
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.RICH_TEXT,
         title: "The Solution",
-        icon: "lightbulb",
+        icon: faLightbulb,
         paragraphs: [
           "Our team designed a fully voice-operated repair assistant that delivered step-by-step instructions to technicians without requiring any screen interaction. Using my MERN starter template as the backend foundation, we rapidly assembled a modular system tailored to Daimler's workflow. One teammate developed an XML parser capable of reading and structuring Daimler's service documentation, while another built an AWS Lambda function responsible for tracking step progression and timing. My role centered on the natural-language command system: interpreting technician speech, translating it into actionable commands, routing those commands to the backend, and reading the next instruction aloud through synthesized speech.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.DIAGRAM,
@@ -165,7 +177,7 @@ export default [
         type: BlockType.IMAGE_GALLERY,
         images: [
           {
-            src: "../images/hackathon/bigCheck.jpg",
+            src: check,
             alt: "Me and the team on stage holding a giant check to show off our prize.",
             title: "On stage celebrating",
             caption:
@@ -211,7 +223,7 @@ export default [
       },
       {
         type: BlockType.DIAGRAM,
-        icon: "timeline",
+        icon: faTimeline,
         title: "Command Lifecycle",
         diagram: `sequenceDiagram
         participant Tech as Technician
@@ -238,7 +250,7 @@ export default [
     title: "Post-Hackathon Work (Tech Assist)",
     subtitle:
       "Scaling the prototype into a cross-platform mobile app — and the challenges that followed.",
-    icon: "mobile-screen-button",
+    icon: faMobileScreenButton,
     isScroller: true,
     blocks: [
       {
@@ -260,7 +272,7 @@ export default [
       {
         type: BlockType.BULLETED_LIST,
         title: "System Workflow",
-        icon: "bars-staggered",
+        icon: faBarsStaggered,
       },
       /** Tech Assist Logo Image */
       {
@@ -268,7 +280,7 @@ export default [
         title: "Tech Assist Branding",
         images: [
           {
-            src: "/portfolio_2025/images/hackathon/TechAssistLogo.jpg",
+            src: taLogo,
             alt: "Logo for the Tech Assist mobile application showing a microphone and sound waves.",
             title: "Tech Assist Logo",
           },
@@ -277,7 +289,7 @@ export default [
       {
         type: BlockType.RICH_TEXT,
         title: "Outcome",
-        icon: "route",
+        icon: faRoute,
         paragraphs: [
           "Despite the promising start following the hackathon victory, the post-hackathon journey ultimately ended in disappointment and frustration. While we made significant progress in defining project requirements, developing a prototype, and laying the groundwork for further development, unforeseen challenges emerged that derailed our efforts.",
           "Regrettably, the project's downfall stemmed from the actions of our team leader, who made unilateral decisions without consulting the rest of the team. In a disheartening turn of events, it was discovered that the team leader had signed contracts with Daimler under a company he owned, sidelining the rest of the team and denying us the opportunity to continue our work on the project. Despite my best efforts to salvage the situation, I found myself cut out of the project entirely, lacking the resources and leverage to rectify the situation.",

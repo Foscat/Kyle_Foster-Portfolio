@@ -1,15 +1,5 @@
-import React from "react";
-import { Tooltip, Whisper } from "rsuite";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./styles.css";
 
-/**
- * @typedef {"xs" | "sm" | "md" | "lg" | "xl"} Size
- */
-
-/**
- * @typedef {"primary" | "secondary" | "accent" | "subtle" | "danger"} Variant
- */
 
 /**
  * FrostedIcon Component
@@ -24,7 +14,7 @@ import "./styles.css";
  *  - Optional label for accessibility
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {string} props.icon - FontAwesome icon definition.
  * @param {Size} [props.size="md"] - Icon size (xs|sm|md|lg|xl).
  * @param {string} [props.variant="primary"] - Color style.
@@ -71,7 +61,7 @@ const FrostedIcon = ({
       >
         <FontAwesomeIcon
           spin={loading}
-          icon={loading ? "spinner" : icon}
+          icon={loading ? faSpinner : icon}
         />
       </span>
     </Whisper>

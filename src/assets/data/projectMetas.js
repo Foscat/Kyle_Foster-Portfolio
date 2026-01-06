@@ -43,7 +43,7 @@ export default {
         alt: "Screenshot of the classroom page of the CSOS platform. Displaying the course curriculum and an intro video to the course.",
         src: "../assets/images/codestream/Screenshot (1332).png",
         caption:
-          "On the classroom page, we display easy access to lesson materials, assignments, and supplementary resources. The inclusion of an introductory video offers a dynamic introduction to the course content, enhancing engagement and comprehension for students.",
+          "On the classroom roster page, we display easy access to lesson materials, assignments, and supplementary resources. The inclusion of an introductory video offers a dynamic introduction to the course content, enhancing engagement and comprehension for students.",
       },
       {
         id: "cs4",

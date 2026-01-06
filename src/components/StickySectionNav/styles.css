@@ -1,14 +1,18 @@
 /* Base */
 .sticky-section-nav {
   position: sticky;
-  top: 1rem;
-  max-height: calc(100vh - 2rem);
+  top: 10rem;
+  margin: 10px 10% 0 0;
+  border-radius: var(--radius-xs);
   overflow-y: auto;
+  border: var(--frost-border);
+  box-shadow: var(--shadow-dark);
 }
 
 /* Desktop */
 .sticky-section-nav--desktop {
-  padding-left: 1rem;
+  padding-left: 10px;
+  font-size: var(--font-sm)
 }
 
 /* Mobile */
@@ -27,6 +31,13 @@
 /* Items */
 .section-nav-item {
   margin-bottom: 0.5rem;
+  opacity: 0.65;
+  filter: blur(0px);
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    filter 220ms ease;
 }
 
 .section-nav-link {
@@ -34,7 +45,7 @@
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   text-decoration: none;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   outline: none;
 }
 
@@ -42,10 +53,40 @@
   color: var(--text-primary);
   background: var(--accent-soft);
   font-weight: 600;
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+   animation: sectionActivate 180ms ease-out;
 }
 
 /* Focus styles (keyboard users) */
 .section-nav-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.section-nav-item:hover {
+  opacity: 0.85;
+  transform: scale(0.995);
+}
+
+@keyframes sectionActivate {
+  from {
+    opacity: 0.6;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-nav-item,
+  .section-nav-item.is-active {
+    animation: none;
+    transition: none;
+    transform: none;
+    filter: none;
+  }
 }

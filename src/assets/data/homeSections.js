@@ -1,10 +1,37 @@
+import {
+  faArrowDownUpLock,
+  faArrowsToEye,
+  faBookOpenReader,
+  faBuildingUser,
+  faChartDiagram,
+  faChartLine,
+  faCode,
+  faDiceD20,
+  faEnvelope,
+  faFileArrowDown,
+  faFlask,
+  faFlaskVial,
+  faGraduationCap,
+  faHeadset,
+  faIdBadge,
+  faLaptopCode,
+  faLayerGroup,
+  faMicrophone,
+  faMobileScreenButton,
+  faPaperPlane,
+  faPeopleGroup,
+  faPlug,
+  faSeedling,
+  faTrophy,
+  faUniversalAccess,
+} from "@fortawesome/free-solid-svg-icons";
 import { BlockType, PageRoute } from "../../types/ui.types";
 
 export const homeSections = [
   {
     id: "hero",
     slug: "hero",
-    icon: "code",
+    icon: faCode,
     title: "Overview",
     isScroller: true,
     blocks: [
@@ -15,7 +42,6 @@ export const homeSections = [
           "From education platforms used by real classrooms, to hackathon-winning prototypes, to deeply personal side projects, my work reflects a strong bias toward solving meaningful problems through software.",
           "In the pursuit of productivity and excellence, I uphold a commitment to continuous improvement and quality. Striving for competency and impact, both as an individual and my role within an organization. Having these traits are essential to creating meaningful outcomes and achieving success.",
         ],
-        dividerAfter: false,
       },
     ],
   },
@@ -25,7 +51,7 @@ export const homeSections = [
     slug: "professional-work",
     title: "Professional Work",
     subtitle: "Lead Front-end Engineer for CodeStream Studios LLC",
-    icon: "building",
+    icon: faBuildingUser,
     isScroller: true,
     blocks: [
       {
@@ -44,7 +70,7 @@ export const homeSections = [
             id: "grading",
             title: "Teacher Tools",
             text: "Teacher-facing grading tools and downloadable classroom reports to support real instructional workflows.",
-            icon: "chart-line",
+            icon: faChartLine,
             url: `${PageRoute.HOME}#grading`,
             isScroller: false,
           },
@@ -52,7 +78,7 @@ export const homeSections = [
             id: "organizations",
             title: "Organizations and Licensing",
             text: "Role-based permissions for organizations (Student, Teacher, Admin). Flexable licensing system that limited number of teachers and students allowed to join. As well as paywalling propritary curriculum their classes were allowed to use.",
-            icon: "id-badge",
+            icon: faIdBadge,
             url: `${PageRoute.HOME}#organizations`,
             isScroller: false,
           },
@@ -60,7 +86,7 @@ export const homeSections = [
             id: "editor",
             title: "3 Panel Browser Based IDE",
             text: "Designed a zero-install coding environment supporting Web (HTML,CSS,JS) and Python projects with live execution and cloud persistence.",
-            icon: "laptop-code",
+            icon: faLaptopCode,
             url: `${PageRoute.HOME}#editor`,
             isScroller: false,
           },
@@ -72,7 +98,7 @@ export const homeSections = [
           {
             title: "Explore CodeStream Studios Platform Features",
             url: PageRoute.PROFESSIONAL,
-            icon: "layer-group",
+            icon: faLayerGroup,
             size: "md",
           },
         ],
@@ -85,7 +111,7 @@ export const homeSections = [
     isScroller: true,
     subtitle:
       "Rapid problem-solving under real-world constraints to real-world problems.",
-    icon: "trophy",
+    icon: faTrophy,
     blocks: [
       {
         type: BlockType.RICH_TEXT,
@@ -100,21 +126,21 @@ export const homeSections = [
           {
             title: "Innovative MVP soloution",
             text: "Built a voice-driven repair assistant to guide technicians hands-free while tracking workflow efficiency.",
-            icon: "trophy",
+            icon: faHeadset,
             url: `${PageRoute.HACKATHON}#reinforce`,
             isScroller: false,
           },
           {
             title: "Hands-Free Voice Interface",
             text: "Enabled technicians to receive step-by-step spoken instructions without screens or new hardware.",
-            icon: "microphone",
+            icon: faMicrophone,
             url: `${PageRoute.HACKATHON}#reinforce`,
             isScroller: false,
           },
           {
             title: "Post-Hackathon Product Work",
             text: "Continued development as the sole engineer, transitioning the prototype into a mobile-first React Native app.",
-            icon: "mobile-screen",
+            icon: faMobileScreenButton,
             url: `${PageRoute.HACKATHON}#tech_assist`,
             isScroller: false,
           },
@@ -127,7 +153,7 @@ export const homeSections = [
     slug: "side-projects",
     title: "Side Projects",
     subtitle: "Self-directed solutions to real problems I've faced",
-    icon: "flask",
+    icon: faFlaskVial,
     isScroller: true,
     blocks: [
       {
@@ -136,49 +162,52 @@ export const homeSections = [
           "My side projects are where I like to experiment, explore new tools, and solve practical problems outside of client constraints.",
           "These projects range from hardware-integrated automation systems to encryption tools and creative applications, each reflecting my curiosity and ability to take an idea from concept to execution.",
         ],
-        dividerAfter: false,
       },
       {
         type: BlockType.BULLETED_LIST,
         title: "Focus Areas",
+        icon: faArrowsToEye,
         items: [
           {
             title: "Agile and Robust Programs",
             text: "Full-stack (MERN) experimentation and rapid prototyping using my custom made template.",
-            icon: "layer-group",
+            icon: faLayerGroup,
           },
           {
             title: "Practical Applications",
             text: "Hardware and software integration that is still running in the field today.",
+            icon: faUniversalAccess,
           },
           {
             title: "Full SDLC experiance",
             text: "Independent problem-solving and product ownership from beginning to end.",
+            icon: faLayerGroup,
           },
         ],
       },
       {
         type: BlockType.BULLETED_LIST,
         title: "Programs of Note",
+        icon: faBookOpenReader,
         items: [
           {
             title: "Greenhouse Automation",
             text: "Hardware-driven automation system using a Raspberry Pi Zero and Sense Kit. Written in Python to regulate the climate conditions autonomously of a greenhouse.",
-            icon: "seedling",
+            icon: faSeedling,
             url: `${PageRoute.SIDE_PROJECTS}#greenhouse`,
             isScroller: false,
           },
           {
             title: "Encryption Tool",
             text: "Custom Caesar/Enigma-inspired encryption tools built for experimentation with algorithms and UI clarity.",
-            icon: "lock",
-            url: `${PageRoute.SIDE_PROJECTS}/Enigma`,
+            icon: faArrowDownUpLock,
+            url: `${PageRoute.SIDE_PROJECTS}#enigma`,
             isScroller: false,
           },
           {
             title: "D20 King (Private)",
             text: "A modular world-building and campaign management system designed by a Dungeon Master for Dungeon Masters. Allows users to copy, edit and share with others the modular sections that make up a campaign.",
-            icon: "dice-d20",
+            icon: faDiceD20,
             url: `${PageRoute.SIDE_PROJECTS}#d20`,
             isScroller: false,
           },
@@ -190,7 +219,7 @@ export const homeSections = [
           {
             title: "View Side Projects",
             url: PageRoute.SIDE_PROJECTS,
-            icon: "flask",
+            icon: faFlask,
           },
         ],
       },
@@ -202,7 +231,7 @@ export const homeSections = [
     slug: "education",
     title: "Education & Foundations",
     subtitle: "Where it all started",
-    icon: "graduation-cap",
+    icon: faGraduationCap,
     isScroller: true,
     blocks: [
       {
@@ -218,21 +247,21 @@ export const homeSections = [
           {
             title: "API-Driven Interfaces",
             text: "Early projects integrating public APIs, asynchronous data flows, and dynamic rendering.",
-            icon: "plug",
+            icon: faPlug,
             url: `${PageRoute.EDUCATION}#gif_freak`,
             isScroller: false,
           },
           {
             title: "Collaborative Development",
             text: "First exposure to team workflows, task division, and backend responsibilities.",
-            icon: "people-group",
+            icon: faPeopleGroup,
             url: `${PageRoute.EDUCATION}#stock_memer`,
             isScroller: false,
           },
           {
             title: "Matching Algorithms",
             text: "Designed a compatibility scoring system as part of a real-world problem-solving capstone.",
-            icon: "diagram-project",
+            icon: faChartDiagram,
             url: `${PageRoute.EDUCATION}#scion_matches`,
             isScroller: false,
           },
@@ -244,7 +273,7 @@ export const homeSections = [
           {
             title: "Explore SMU Projects",
             url: `${PageRoute.EDUCATION}`,
-            icon: "graduation-cap",
+            icon: faGraduationCap,
           },
         ],
       },
@@ -255,7 +284,7 @@ export const homeSections = [
     id: "cta",
     slug: "contact",
     title: "Let's Connect",
-    icon: "paper-plane",
+    icon: faPaperPlane,
     isScroller: true,
     blocks: [
       {
@@ -271,13 +300,13 @@ export const homeSections = [
           {
             title: "Contact Me",
             url: "/contact",
-            icon: "envelope",
+            icon: faEnvelope,
             tooltip: "View contact page",
           },
           {
             title: "Download Resume",
             url: "./Kyle_Foster_React_Resume.pdf",
-            icon: "file-arrow-down",
+            icon: faFileArrowDown,
             download: true,
             tooltip: "Download a PDF version of my resume",
           },

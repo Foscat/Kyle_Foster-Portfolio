@@ -11,7 +11,7 @@ import { useCallback, useState } from "react";
  * - Success / error state tracking
  * - Optional auto-reset timeout
  *
- * @param {Object} [options]
+ * @param {object} [options]
  * @param {number} [options.resetDelay=2000] - Time (ms) before copied state resets.
  * @returns {{
  *   copy: (text: string) => Promise<boolean>,

@@ -1,4 +1,66 @@
+import {
+  faArrowDownUpLock,
+  faBinoculars,
+  faBook,
+  faBoxArchive,
+  faBugSlash,
+  faChartDiagram,
+  faCircleExclamation,
+  faClone,
+  faCode,
+  faCommentDots,
+  faCopy,
+  faDatabase,
+  faDesktop,
+  faDoorOpen,
+  faEye,
+  faFileCircleCheck,
+  faFileLines,
+  faFilePdf,
+  faFileShield,
+  faGear,
+  faHourglassEnd,
+  faIdCard,
+  faLightbulb,
+  faMagnifyingGlass,
+  faNetworkWired,
+  faPenFancy,
+  faPeopleGroup,
+  faPersonChalkboard,
+  faPersonCirclePlus,
+  faRoute,
+  faSchool,
+  faSchoolCircleCheck,
+  faScissors,
+  faServer,
+  faStar,
+  faTable,
+  faTableColumns,
+  faTableList,
+  faTowerObservation,
+  faTruckFast,
+  faUserGraduate,
+  faUserGroup,
+  faUserLock,
+  faUserShield,
+  faUserTie,
+  faUserXmark,
+  faWandMagicSparkles,
+} from "@fortawesome/free-solid-svg-icons";
+import { faBlackTie } from "@fortawesome/free-brands-svg-icons";
 import { BlockType, Theme } from "../../types/ui.types";
+
+const {
+  ss13,
+  ss14,
+  ss17,
+  ss30,
+  ss31,
+  ss32,
+  ss33,
+  ss37,
+  ss38,
+} = require("../images/codestream");
 
 /**
  * CodeStream Case Study Data
@@ -20,26 +82,11 @@ export default [
   {
     id: "overview",
     slug: "overview",
-    icon: "tower-observation",
+    icon: faTowerObservation,
     title: "Overview",
     subtitle:
       "The app that went from a quick fix to get us out of a bind. That grew to be the most important asset the company has.",
-    jobTitle: "Frontend Engineer",
-    timespan: "January 2020 - March 2025",
-    url: "https://codestreamonlinestudios.com",
-    repo: "Private",
-    tech: [
-      "React.js",
-      "AWS (S3,RDS,ELB,Lambda)",
-      "Google oAuth",
-      "rSuite v4",
-      "Asana API",
-      "Skulpt.js",
-      "Ace Editor",
-      "Postgresql",
-      "Jest",
-      "Swagger API",
-    ],
+
     isScroller: true,
     blocks: [
       /** Intro narrative */
@@ -49,7 +96,6 @@ export default [
           "During my tenure at CodeStream Studios LLC, I served as the sole front-end developer responsible for taking our React.js application from concept to production. I owned the front-end architecture, translated rough ideas into concrete features, and shipped a platform that became the backbone of our classroom operations.",
           "Working with a lean team meant I routinely stepped outside a typical developer lane: I handled implementation, bug fixing, UI polish, documentation, and coordination with instructors using the platform in real classrooms. That blend of hands-on coding and tight feedback loops allowed me to build features that were practical, resilient, and directly informed by real-world usage.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.RICH_TEXT,
@@ -60,17 +106,17 @@ export default [
       },
       {
         type: BlockType.IMAGE_GALLERY,
-        title: "CodeStream Online Studio – Instructor Views",
+        title: "CodeStream Online Studio",
         images: [
           {
-            src: "../../assets/images/codestream/Screenshot (1313).png",
+            src: ss13,
             alt: "Portfolio page showing a list of a student's projects and navigation options.",
             title: "Student Portfolio View",
             caption:
               "The portfolio page gives students a central place to access active and completed projects, reinforcing a sense of progress while making it easy for teachers to revisit past work.",
           },
           {
-            src: "../../assets/images/codestream/Screenshot (1314).png",
+            src: ss14,
             alt: "Classrooms page displaying active and expired classrooms associated with the user.",
             title: "Classrooms Overview",
             caption:
@@ -85,7 +131,7 @@ export default [
           {
             title: "Visit CodeStream Online Studio",
             url: "https://codestreamonlinestudio.com",
-            icon: "desktop",
+            icon: faDesktop,
           },
         ],
       },
@@ -98,7 +144,7 @@ export default [
   {
     id: "features",
     slug: "key-features",
-    icon: "star",
+    icon: faStar,
     title: "Key Features",
     isScroller: true,
     blocks: [
@@ -148,7 +194,7 @@ export default [
   {
     id: "editor",
     slug: "three-panel-editor",
-    icon: "code",
+    icon: faCode,
     title: "3 Panel Editor System",
     subtitle:
       "A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers instead of engineers.",
@@ -157,17 +203,16 @@ export default [
       {
         type: BlockType.RICH_TEXT,
         title: "The Problem",
-        icon: "circle-exclamation",
+        icon: faCircleExclamation,
         paragraphs: [
           "Students needed a single, intuitive workspace where they could read instructions, write code, and see results—without installing tools or configuring complex environments. Instructors needed every learner to be on the same setup, whether they were writing HTML/CSS/JavaScript or Python.",
           "Existing options were either too fragmented (separate tools for instructions, coding, and output), too technical for middle- and high-school students, or too difficult to manage at scale across dozens of classrooms. We needed a way to support Web and Python projects in a consistent, classroom-friendly experience.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.RICH_TEXT,
         title: "The Solution",
-        icon: "lightbulb",
+        icon: faLightbulb,
         paragraphs: [
           "I designed and built a three-panel interface that acts like a small IDE inside the browser. The left panel renders Markdown-based lesson instructions via ReactMarkdown. The center panel uses AceEditor to provide a real coding experience with language-aware editing for HTML, CSS, JavaScript, and Python. The right panel shows the live result—either a sandboxed iframe for Web projects or an in-browser terminal for Python.",
           "For Web lessons, the editor combines separate HTML/CSS/JS files into a single sandboxed bundle that runs safely inside an iframe. For Python, I integrated Skulpt via CDN to compile and execute code in the browser, streaming output into a dedicated console view.",
@@ -179,14 +224,14 @@ export default [
         title: "Editor Views",
         images: [
           {
-            src: "../../assets/images/codestream/Screenshot (1330).png",
+            src: ss30,
             alt: "Three-panel editor with lesson instructions, code editor, and live browser preview.",
             title: "Web Project – File Tabs",
             caption:
               "The left panel displays lesson instructions and tools, the middle panel hosts a tabbed editor for HTML/CSS/JS, and the right panel renders a live browser preview using a sandboxed iframe.",
           },
           {
-            src: "../../assets/images/codestream/Screenshot (1333).png",
+            src: ss33,
             alt: "Three-panel editor configured for Python with instructions, code editor, and terminal output.",
             title: "Python Project – Terminal",
             caption:
@@ -221,7 +266,7 @@ graph LR
   {
     id: "organizations",
     slug: "organizations-licensing",
-    icon: "people-group",
+    icon: faPeopleGroup,
     title: "Organizations & Licensing",
     subtitle:
       "Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools.",
@@ -272,27 +317,27 @@ graph TD
       {
         type: BlockType.BULLETED_LIST,
         title: "Outcomes",
-        icon: "route",
+        icon: faRoute,
         items: [
           {
             text: "Multi-tenant SaaS-style structure without leaking data between organizations",
             isScroller: false,
-            icon: "user-lock",
+            icon: faUserLock,
           },
           {
             text: "Clear roles for Admin, Teacher, and Student tied to each organization",
             isScroller: false,
-            icon: "user-tie",
+            icon: faUserTie,
           },
           {
             text: "License-aware classroom behavior that still preserves student work",
             isScroller: false,
-            icon: "user-shield",
+            icon: faUserShield,
           },
           {
             text: "Predictable access rules that scaled as new organizations were onboarded",
             isScroller: false,
-            icon: "person-circle-plus",
+            icon: faPersonCirclePlus,
           },
         ],
       },
@@ -305,7 +350,7 @@ graph TD
   {
     id: "classrooms",
     slug: "virtual-classrooms",
-    icon: "person-chalkboard",
+    icon: faPersonChalkboard,
     title: "Virtual Classrooms",
     subtitle:
       "A centralized space where teachers deliver lessons and students access projects, resources, and grades.",
@@ -318,7 +363,6 @@ graph TD
           "Once organizations and licensing were in place, we still needed a structured way for teachers to actually teach. Teachers needed a home base for each course where they could present curriculum, share resources, and track student progress. Students needed a simple, predictable place to join class, access lessons, and open project work.",
           "We also needed a unified entry point where any user—teacher or student—could see every classroom they belonged to without exposing the underlying organization and licensing complexity.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.RICH_TEXT,
@@ -333,7 +377,7 @@ graph TD
         title: "Classroom Experience",
         images: [
           {
-            src: "../../assets/images/codestream/Screenshot (1331).png",
+            src: ss31,
             alt: "Classroom page with units, lessons, and an intro video.",
             title: "Classroom Dashboard",
             caption:
@@ -370,22 +414,22 @@ graph LR
           {
             text: "Single, role-aware entry point for all classes a user belongs to",
             isScroller: false,
-            icon: "door-open",
+            icon: faDoorOpen,
           },
           {
             text: "Automatic cloning of lesson templates into student projects",
             isScroller: false,
-            icon: "copy",
+            icon: faCopy,
           },
           {
             text: "Tight integration with grading and reporting features",
             isScroller: false,
-            icon: "network-wired",
+            icon: faNetworkWired,
           },
           {
             text: "Classroom dashboard that keeps lessons, resources, and projects in sync",
             isScroller: false,
-            icon: "table-columns",
+            icon: faTableColumns,
           },
         ],
       },
@@ -398,7 +442,7 @@ graph LR
   {
     id: "grading",
     slug: "grades-and-reports",
-    icon: "user-graduate",
+    icon: faUserGraduate,
     title: "Grades & Reports",
     subtitle:
       "Integrated grading workflows and exportable reports that align with how real classrooms operate.",
@@ -411,7 +455,6 @@ graph LR
           "As the primary instructor for several cohorts, I kept running into the same pattern: when a student's project wasn't working, the only option was to stop class and have them share their screen. It was slow, awkward, and made it difficult to give deep feedback without sacrificing everyone else's time.",
           "On top of that, leadership needed a way to monitor how classes were performing as a whole. There was no built-in system for assigning grades, leaving written feedback, or viewing classroom-level progress across lessons. Everything lived in spreadsheets and memory.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.RICH_TEXT,
@@ -426,7 +469,7 @@ graph LR
         title: "Roster & Grading Views",
         images: [
           {
-            src: "../../assets/images/codestream/Screenshot (1332).png",
+            src: ss32,
             alt: "Classroom roster showing students and action buttons to view their projects.",
             title: "Classroom Roster",
             caption:
@@ -441,27 +484,27 @@ graph LR
           {
             text: "Secure project viewer limited to teachers and organization admins",
             isScroller: false,
-            icon: "file-shield",
+            icon: faFileShield,
           },
           {
             text: "Grading UI integrated directly into the project view",
             isScroller: false,
-            icon: "school-circle-check",
+            icon: faSchoolCircleCheck,
           },
           {
             text: "Support for Pass/Fail and Numeric/Letter grading styles",
             isScroller: false,
-            icon: "file-circle-question",
+            icon: faFileCircleCheck,
           },
           {
             text: "Integer-based grade model for simple aggregation and reporting",
             isScroller: false,
-            icon: "school",
+            icon: faSchool,
           },
           {
             text: "Real-time class average and per-assignment feedback visibility for students",
             isScroller: false,
-            icon: "comment-dots",
+            icon: faCommentDots,
           },
         ],
       },
@@ -478,22 +521,22 @@ graph LR
           {
             text: "Classroom-level tables of students, assignments, and grades",
             isScroller: false,
-            icon: "table",
+            icon: faTable,
           },
           {
             text: "Automatic computation of per-student and per-class averages",
             isScroller: false,
-            icon: "table-list",
+            icon: faTableList,
           },
           {
             text: "Exportable text reports for lightweight record-keeping",
             isScroller: false,
-            icon: "file-lines",
+            icon: faFileLines,
           },
           {
             text: "Color-coded PDF reports for polished, presentation-ready summaries",
             isScroller: false,
-            icon: "file-pdf",
+            icon: faFilePdf,
           },
         ],
       },
@@ -506,7 +549,7 @@ graph LR
   {
     id: "monitoring",
     slug: "admin-monitoring",
-    icon: "binoculars",
+    icon: faBinoculars,
     title: "Admin Monitoring & Super Admin",
     subtitle:
       "Role-based oversight tools that let coordinators and platform staff manage classrooms without touching the database.",
@@ -519,7 +562,6 @@ graph LR
           "As the platform grew, it wasn't just teachers and students who needed visibility. School partners had coordinators responsible for configuring classrooms, enrolling students, and supporting teachers. They needed more control than a teacher—but not full platform-wide access.",
           "Internally, our team also needed a way to manage every organization from a central place: adjusting licenses, helping with onboarding, and debugging edge cases. Without an admin UI, the only option was to manipulate data directly in the database, which was both risky and slow.",
         ],
-        dividerAfter: true,
       },
       {
         type: BlockType.RICH_TEXT,
@@ -535,42 +577,42 @@ graph LR
           {
             text: "Organization Admins gained full visibility into everything within their tenant, including all classrooms owned by any teacher in that organization. They could:",
             isScroller: false,
-            icon: "eye",
+            icon: faEye,
           },
           {
             text: "View any teacher's classroom and its roster",
             isScroller: false,
-            icon: "",
+            icon: faPersonChalkboard,
           },
           {
             text: "Modify classroom settings, meeting links, and attached resources",
             isScroller: false,
-            icon: "gear",
+            icon: faGear,
           },
           {
             text: "Add or remove students and teachers from the organization",
             isScroller: false,
-            icon: "user-xmark",
+            icon: faUserXmark,
           },
           {
             text: "Override or update student grades when needed",
             isScroller: false,
-            icon: "wand-magic-sparkles",
+            icon: faWandMagicSparkles,
           },
           {
             text: "Retrieve reports for both active and archived classrooms",
             isScroller: false,
-            icon: "box-archive",
+            icon: faBoxArchive,
           },
           {
             text: "Inspect student projects directly when troubleshooting issues",
             isScroller: false,
-            icon: "magnifying-glass",
+            icon: faMagnifyingGlass,
           },
           {
             text: "Allowed classroom coordinators to handle logistics and quality control while teachers focused on instruction.",
             isScroller: false,
-            icon: "truck-arrow-right",
+            icon: faTruckFast,
           },
         ],
       },
@@ -590,27 +632,27 @@ graph LR
           {
             text: "Viewing and editing any organization's license and limits",
             isScroller: false,
-            icon: "id-card",
+            icon: faIdCard,
           },
           {
             text: "Creating and updating organizations, admins, and teachers",
             isScroller: false,
-            icon: "pen-fancy",
+            icon: faPenFancy,
           },
           {
             text: "Jumping into any classroom for debugging or support",
             isScroller: false,
-            icon: "bug-slash",
+            icon: faBugSlash,
           },
           {
             text: "Managing edge-case data issues without raw database access",
             isScroller: false,
-            icon: "database",
+            icon: faDatabase,
           },
           {
             text: "Eliminated the need for backend-only tools and ensured all critical actions flowed through audited, API-driven pathways.",
             isScroller: false,
-            icon: "scissors",
+            icon: faScissors,
           },
         ],
       },
@@ -621,22 +663,22 @@ graph LR
           {
             text: "RBAC model with clearly defined role boundaries",
             isScroller: false,
-            icon: "arrow-down-up-lock",
+            icon: faArrowDownUpLock,
           },
           {
             text: "Multi-tenant isolation: admins manage only their own organization",
             isScroller: false,
-            icon: "",
+            icon: faUserGroup,
           },
           {
             text: "Super Admins manage any tenant through a dedicated UI, not by editing the database",
             isScroller: false,
-            icon: "",
+            icon: faBlackTie,
           },
           {
             text: "All modifications go through the same API layer used by the app, keeping behavior consistent and auditable",
             isScroller: false,
-            icon: "",
+            icon: faServer,
           },
         ],
       },
@@ -649,7 +691,7 @@ graph LR
   {
     id: "curriculum",
     slug: "curriculum-builder",
-    icon: "book",
+    icon: faBook,
     title: "Curriculum Builder",
     subtitle:
       "A modular system for creating and reusing courses, units, lessons, and resources across organizations.",
@@ -677,21 +719,21 @@ graph LR
         title: "Curriculum Screens",
         images: [
           {
-            src: "../../assets/images/codestream/Screenshot (1337).png",
+            src: ss37,
             alt: "Course editor showing curriculum structure and resources.",
             title: "Course Editor",
             caption:
               "Course editors can add units, attach lessons, and manage resources, giving organizations full control over how curriculum is structured and delivered.",
           },
           {
-            src: "../../assets/images/codestream/Screenshot (1338).png",
+            src: ss38,
             alt: "Lesson selection popup table listing lessons in the organization.",
             title: "Lesson Selector",
             caption:
               "A modular lesson selector lets admins and teachers reuse existing lessons across multiple courses, reinforcing the idea of curriculum as a shared library.",
           },
           {
-            src: "../../assets/images/codestream/Screenshot (1317).png",
+            src: ss17,
             alt: "Dashboard showing curriculum and resources under the active organization.",
             title: "Curriculum Dashboard",
             caption:
@@ -724,22 +766,22 @@ graph TD
           {
             text: "Modular curriculum that can be reused across courses and organizations",
             isScroller: false,
-            icon: "",
+            icon: faChartDiagram,
           },
           {
             text: "Clear separation between content creation and classroom delivery",
             isScroller: false,
-            icon: "",
+            icon: faNetworkWired,
           },
           {
             text: "Structured dashboard for curriculum teams and admins",
             isScroller: false,
-            icon: "",
+            icon: faTableColumns,
           },
           {
             text: "Reduces duplication and makes updates easier to roll out",
             isScroller: false,
-            icon: "",
+            icon: faClone,
           },
         ],
       },
@@ -752,7 +794,7 @@ graph TD
   {
     id: "conclusion",
     slug: "conclusion",
-    icon: "hourglass-end",
+    icon: faHourglassEnd,
     title: "Conclusion",
     isScroller: true,
     blocks: [

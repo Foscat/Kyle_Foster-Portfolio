@@ -1,4 +1,7 @@
-// ui.types.js
+/**
+ * @module types/ui
+ */
+
 // ============================================================================
 // UI Type System (JSDoc-based)
 // ---------------------------------------------------------------------------
@@ -106,7 +109,7 @@ export const PageRoute = Object.freeze({
 
 /**
  * Image metadata
- * @typedef {Object} FeatureImage
+ * @typedef {object} FeatureImage
  * @property {string} src - Relative image path.
  * @property {string} alt - Accessible alt text.
  * @property {string} title - Short title or tooltip.
@@ -115,7 +118,7 @@ export const PageRoute = Object.freeze({
 
 /**
  * Link item definition
- * @typedef {Object} LinkItem
+ * @typedef {object} LinkItem
  * @property {string} url - Destination URL.
  * @property {string} [title] - Display label.
  * @property {string} [icon] - Optional icon key.
@@ -132,7 +135,7 @@ export const PageRoute = Object.freeze({
 
 /**
  * Bullet list item
- * @typedef {Object} BulletItem
+ * @typedef {object} BulletItem
  * @property {string} id - DOM id or scroll target.
  * @property {string} text - Bullet content.
  * @property {string} [title] - Optional heading.
@@ -144,50 +147,45 @@ export const PageRoute = Object.freeze({
 
 /**
  * Diagram block
- * @typedef {Object} DiagramBlock
+ * @typedef {object} DiagramBlock
  * @property {"diagram"} type - Block discriminator.
  * @property {string} title - Diagram title.
  * @property {string} diagram - Mermaid.js definition.
  * @property {"light"|"dark"|"auto"} [theme="auto"] - Theme preference.
  * @property {string} [description] - Optional explanation.
- * @property {boolean} [dividerAfter=false] - Render divider below.
  * @property {boolean} [collapsible=true] - Allow collapse.
  */
 
 /**
  * Rich text block
- * @typedef {Object} RichTextBlock
+ * @typedef {object} RichTextBlock
  * @property {"richText"} type - Block discriminator.
  * @property {string} [title] - Optional heading.
  * @property {string[]} paragraphs - Paragraph content.
- * @property {boolean} [dividerAfter=false] - Render divider below.
  */
 
 /**
  * Image gallery block
- * @typedef {Object} ImageGalleryBlock
+ * @typedef {object} ImageGalleryBlock
  * @property {"imageGallery"} type - Block discriminator.
  * @property {string} [title] - Optional heading.
  * @property {FeatureImage[]} images - Images to render.
- * @property {boolean} [dividerAfter=false] - Render divider below.
  */
 
 /**
  * Bullet list block
- * @typedef {Object} BulletListBlock
+ * @typedef {object} BulletListBlock
  * @property {"bulletedList"} type - Block discriminator.
  * @property {string} [title] - Optional heading.
  * @property {BulletItem[]} items - Bullet items.
- * @property {boolean} [dividerAfter=false] - Render divider below.
  */
 
 /**
  * Link list block
- * @typedef {Object} LinkListBlock
+ * @typedef {object} LinkListBlock
  * @property {"links"} type - Block discriminator.
  * @property {string} [title] - Optional heading.
  * @property {LinkItem[]} links - Links to render.
- * @property {boolean} [dividerAfter=false] - Render divider below.
  */
 
 /**
@@ -197,7 +195,7 @@ export const PageRoute = Object.freeze({
 
 /**
  * Feature section definition
- * @typedef {Object} FeatureSection
+ * @typedef {object} FeatureSection
  * @property {string} id - DOM anchor id.
  * @property {string} slug - URL-safe slug.
  * @property {string} title - Section title.
@@ -212,25 +210,88 @@ export const PageRoute = Object.freeze({
    ========================================================================== */
 
 /**
- * Create a default FeatureImage
+ * Create a default FeatureImage using base
+ * @param {object} block
  * @returns {FeatureImage}
  */
-export const createFeatureImage = () => ({
-  src: "",
-  alt: "",
-  title: "",
-  caption: "",
+export const createFeatureImage = (block) => ({
+  src: block.src || "",
+  alt: block.alt || "",
+  title: block.title || "",
+  caption: block.caption || "",
+});
+
+export const createImageGalleryBlock = (block) => ({
+  type: BlockType.IMAGE_GALLERY,
+  title: block.title || "",
+  images: block.images || [],
 });
 
 /**
  * Create a default RichTextBlock
+ * @param block
  * @returns {RichTextBlock}
  */
-export const createRichTextBlock = () => ({
+export const createRichTextBlock = (block) => ({
   type: BlockType.RICH_TEXT,
-  title: "",
-  paragraphs: [],
-  dividerAfter: false,
+  title: block.title || "",
+  paragraphs: block.paragraphs || [],
+});
+
+/**
+ * Create a default DiagramBlock
+ * @param {Partial<BulletListBlock>}
+ * @param block
+ * @returns {DiagramBlock}
+ */
+export const createDiagramBlock = (block) => ({
+  type: BlockType.DIAGRAM,
+  title: block.title || "",
+  diagram: block.diagram || "",
+  theme: Theme.AUTO,
+  description: block.description || "",
+  collapsible: true,
+});
+
+/**
+ * Create a default BulletListItem
+ * @param {Partial<BulletListBlock>} item
+ * @param {number} position
+ * @returns {DiagramBlock}
+ */
+const createBulletItem = (item, position) => ({
+  id: item.id || "bullet-" + position,
+  text: item.text || "",
+  title: item.title || "",
+  icon: item.icon || "",
+  isScroller: item.isScroller || false,
+  isLink: item.isLink || false,
+  url: "",
+});
+
+/**
+ * @param {Partial<BulletListBlock>} block
+ * @returns {BulletListBlock}
+ */
+export const createBulletListBlock = (block) => ({
+  type: BlockType.BULLETED_LIST,
+  title: block.title || "",
+  items: Array.isArray(block.items)
+    ? block.items.map((item, index) => createBulletItem(item, index))
+    : [],
+});
+
+/**
+ * Create a default LinkListBlock
+ * @param block
+ * @returns {LinkListBlock}
+ */
+export const createLinkListBlock = (block) => ({
+  type: BlockType.LINKS,
+  title: block.title || "",
+  links: Array.isArray(block.items)
+    ? block.links.map((link, index) => createBulletItem(link, index))
+    : [],
 });
 
 /**
@@ -253,7 +314,7 @@ export const createFeatureSection = () => ({
 
 /**
  * Validate enum membership at runtime
- * @param {Object} enumObj - Enum object.
+ * @param {object} enumObj - Enum object.
  * @param {*} value - Value to test.
  * @returns {boolean} True if valid enum value.
  */

@@ -1,5 +1,5 @@
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import useClipboard from "assets/hooks";
-import Btn from "components/Btn";
 
 const CopyButton = ({ txt }) => {
   const { copy, copied } = useClipboard();
@@ -8,7 +8,9 @@ const CopyButton = ({ txt }) => {
     <Btn
       onClick={() => copy(txt)}
       text={copied ? "Copied!" : "Copy"}
-      icon="copy"
+      icon={faCopy}
     />
   );
 };
+
+export default CopyButton;

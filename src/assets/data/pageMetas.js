@@ -10,6 +10,9 @@ export default {
   Codestream: {
     url: PageRoute.PROFESSIONAL,
     title: "CSOS | Designed and built by Kyle Foster",
+    jobTitle: "Frontend Engineer",
+    timespan: "January 2020 - March 2025",
+    url: "https://codestreamonlinestudios.com",
     repo: "Private",
     tech: [
       "React.js",
@@ -50,6 +53,7 @@ export default {
     description:
       "Browse Kyle Foster' s side projects — unique experiments in code and creativity showcasing his innovation, technical skill, and passion for continual learning.",
     timespan: "2019 - Current",
+    jobTitle: "MERN stack developer",
     tech: [
       "HTML",
       "JavaScript",
@@ -72,6 +76,7 @@ export default {
     description:
       "Explore Kyle Foster's journey through the SMU Coding Bootcamp, where he transformed from a curious learner into a professional developer through discipline, perseverance, and curiosity.",
     timespan: "August 2018 - Febuary 2019",
+    jobTitle: "Student",
     tech: [
       "HTML",
       "CSS",

@@ -1,8 +1,15 @@
-import React, { useState } from "react";
-import { Form, Input, FlexboxGrid, Panel, Divider, Message } from "rsuite";
-import FrostedIcon from "components/FrostedIcon";
-import Btn from "components/Btn";
+import { useState } from "react";
 import "./styles.css";
+import {
+  faEnvelope,
+  faFilePdf,
+  faMobileScreenButton,
+  faPaperPlane,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faGithubSquare,
+  faSquareLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 
 /**
  * Contact Component
@@ -55,6 +62,7 @@ export default function Contact() {
 
   return (
     <div className="contact-page page-wrapper">
+      <StickyNav />
       <div className="page-overlay" />
 
       <FlexboxGrid
@@ -120,7 +128,7 @@ export default function Contact() {
                 type="submit"
                 className="w-100 mt-4"
                 text="Send Message"
-                icon="envelope"
+                icon={faEnvelope}
               />
             </Form>
 
@@ -136,27 +144,29 @@ export default function Contact() {
               <ul className="contact-list">
                 <li>
                   <FrostedIcon
-                    icon="mobile"
+                    icon={faMobileScreenButton}
                     className="contact-icon"
                   />
                   (469) 410-5286
                 </li>
                 <li>
-                  <FrostedIcon
-                    icon="file-pdf"
+                  <Btn
+                    icon={faFilePdf}
                     tooltip="Download resume as PDF"
+                    download="Kyle Foster - React Dev Resume"
+                    href="../../assets/data/Kyle_Foster_React_Resume.pdf"
                   />
                 </li>
                 <li>
                   <FrostedIcon
-                    icon="paper-plane"
+                    icon={faPaperPlane}
                     className="contact-icon"
                   />
                   <a href="mailto:kylefoster6456@gmail.com">Email Me</a>
                 </li>
                 <li>
                   <FrostedIcon
-                    icon="linkedIn"
+                    icon={faSquareLinkedin}
                     className="contact-icon"
                   />
                   <a
@@ -168,7 +178,7 @@ export default function Contact() {
                 </li>
                 <li>
                   <FrostedIcon
-                    icon="github"
+                    icon={faGithubSquare}
                     className="contact-icon"
                   />
                   <a
@@ -183,7 +193,7 @@ export default function Contact() {
           </Panel>
         </FlexboxGrid.Item>
       </FlexboxGrid>
-
+      <Footer />
       {showToast && <div className="toast frosted-toast">✅ Message Sent!</div>}
     </div>
   );

@@ -1,8 +1,19 @@
-import React, { useState } from "react";
-import { Navbar, Nav } from "rsuite";
-import Btn from "components/Btn";
-import FrostedIcon from "components/FrostedIcon";
+import { useState } from "react";
 import "./styles.css";
+import { PageRoute } from "types/ui.types";
+import {
+  faGithubSquare,
+  faSquareLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faBars,
+  faBusinessTime,
+  faCommentDollar,
+  faHeadset,
+  faHouseChimneyUser,
+  faHouseLaptop,
+  faPersonChalkboard,
+} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * -------------------------------------------------------------------
@@ -15,79 +26,86 @@ import "./styles.css";
  * @returns {JSX.Element}
  * -------------------------------------------------------------------
  */
-const StickyNav = () => {
+const StickyNav = ({ activePage = PageRoute.HOME }) => {
   const [open, setOpen] = useState(false);
-  const currentURL = window.location.pathname;
-  const curPath = currentURL.split("/")[currentURL.split("/").length - 1];
 
   /** Toggle mobile menu open/close state */
   const toggleMenu = () => setOpen(!open);
 
   return (
-    <Navbar
-      appearance="subtle"
-      className="sticky-nav frosted-nav"
-    >
-      <Navbar.Brand href="/">
-        <span className="brand-text">Kyle Foster – Side Projects</span>
-      </Navbar.Brand>
-
+    <Navbar className="sticky-nav frosted-nav">
       {/* Mobile Burger Button */}
-      <Nav
-        pullRight
-        className="mobile-only"
-      >
+      <Nav className="mobile-only">
         <Btn
-          icon="bars"
+          icon={faBars}
           variant="ghost"
           onClick={toggleMenu}
           className="burger-btn"
+          ariaLabel="Open navigation menu"
+          tooltip="Open Navigation Menu"
         />
       </Nav>
 
       {/* Desktop Navigation */}
-      <Nav
-        pullRight
-        className="desktop-menu"
-      >
+      <Nav className="desktop-menu">
         <Nav.Item
-          active={curPath === "codestream"}
-          href="/codestream/"
+          active={activePage === PageRoute.HOME}
+          href={PageRoute.HOME}
+          icon={
+            <FrostedIcon
+              ariaLabel="Go to home page"
+              icon={faHouseChimneyUser}
+            />
+          }
+        >
+          Home
+        </Nav.Item>
+        <Nav.Item
+          active={activePage === PageRoute.PROFESSIONAL}
+          href={PageRoute.PROFESSIONAL}
+          icon={
+            <FrostedIcon
+              ariaLabel="See my work experiance"
+              icon={faBusinessTime}
+            />
+          }
         >
           Work Experience
         </Nav.Item>
         <Nav.Item
-          active={curPath === "hackathon"}
-          href="/hackathon/"
+          active={activePage === PageRoute.HACKATHON}
+          href={PageRoute.HACKATHON}
+          icon={
+            <FrostedIcon
+              ariaLabel="How I "
+              icon={faHeadset}
+            />
+          }
         >
           Hackathon Win
         </Nav.Item>
         <Nav.Item
-          active={curPath === "side-projects"}
-          href="/sideProjects/"
+          active={activePage === PageRoute.SIDE_PROJECTS}
+          href={PageRoute.SIDE_PROJECTS}
+          icon={<FrostedIcon icon={faHouseLaptop} />}
         >
           Personal Projects
         </Nav.Item>
         <Nav.Item
-          active={curPath === "smu"}
-          href="/smu/"
+          active={activePage === PageRoute.EDUCATION}
+          href={PageRoute.EDUCATION}
+          title="Education"
+          icon={<FrostedIcon icon={faPersonChalkboard} />}
         >
           Education
         </Nav.Item>
         <Nav.Item
-          active={curPath === "contact"}
-          href="/contact"
+          active={activePage === PageRoute.CONNECT}
+          href={PageRoute.CONNECT}
+          title="Contact Page"
+          icon={<FrostedIcon icon={faCommentDollar} />}
         >
           Contact Me
-        </Nav.Item>
-
-        <Nav.Item
-          as="a"
-          href="../data/Kyle Foster - Resume.pdf"
-          download="Kyle_Foster_MERN_Developer_Resume.pdf"
-          icon={<FrostedIcon icon="file-pdf" />}
-        >
-          Resume
         </Nav.Item>
 
         <Nav.Item
@@ -95,20 +113,30 @@ const StickyNav = () => {
           href="https://github.com/Foscat"
           target="_blank"
           rel="noreferrer"
-          icon={<FrostedIcon icon="github" />}
-        >
-          GitHub
-        </Nav.Item>
+          icon={
+            <FrostedIcon
+              icon={faGithubSquare}
+              ariaLabel="Link to Github"
+              tooltip="View my Github profile"
+              size="lg"
+            />
+          }
+        />
 
         <Nav.Item
           as="a"
           href="https://linkedin.com/in/kylefoster-dev"
           target="_blank"
           rel="noreferrer"
-          icon={<FrostedIcon icon="linkedin" />}
-        >
-          LinkedIn
-        </Nav.Item>
+          icon={
+            <FrostedIcon
+              icon={faSquareLinkedin}
+              ariaLabel="Link to Github"
+              tooltip="View my Github profile"
+              size="lg"
+            />
+          }
+        />
       </Nav>
 
       {/* Mobile Slide-down Menu */}
@@ -116,57 +144,52 @@ const StickyNav = () => {
         <div className="mobile-menu">
           <Nav vertical>
             <Nav.Item
-              active={curPath === "codestream"}
+              active={activePage === PageRoute.HOME}
+              href="/"
+            >
+              Home
+            </Nav.Item>
+            <Nav.Item
+              active={activePage === PageRoute.PROFESSIONAL}
               href="/codestream"
             >
               Work Experience
             </Nav.Item>
             <Nav.Item
-              active={curPath === "hackathon"}
+              active={activePage === PageRoute.HACKATHON}
               href="/hackathon"
             >
               Hackathon Win
             </Nav.Item>
             <Nav.Item
-              active={curPath === "side-projects"}
+              active={activePage === PageRoute.SIDE_PROJECTS}
               href="/side-projects"
             >
               Personal Projects
             </Nav.Item>
             <Nav.Item
-              active={curPath === "smu"}
+              active={activePage === PageRoute.EDUCATION}
               href="/smu"
             >
               Education
             </Nav.Item>
             <Nav.Item
-              active={curPath === "contact"}
+              active={activePage === PageRoute.CONNECT}
               href="/contact"
             >
               Contact Me
             </Nav.Item>
             <Nav.Item
-              href="../../assets/data/Kyle Foster - Resume.pdf"
-              download="Kyle_Foster_MERN_Developer_Resume.pdf"
-              icon={<FrostedIcon icon="file-pdf" />}
-            >
-              Resume
-            </Nav.Item>
-
-            <Nav.Item
               href="https://github.com/Foscat"
               target="_blank"
               rel="noreferrer"
-              icon={<FrostedIcon icon="github" />}
             >
               GitHub
             </Nav.Item>
-
             <Nav.Item
               href="https://linkedin.com/in/kylefoster-dev"
               target="_blank"
               rel="noreferrer"
-              icon={<FrostedIcon icon="linkedin" />}
             >
               LinkedIn
             </Nav.Item>

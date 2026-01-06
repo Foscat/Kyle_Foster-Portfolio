@@ -1,5 +1,4 @@
-import React from "react";
-import { useScrollSpy } from "assets/hooks/useScrollSpy";
+import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
 import "./styles.css";
 
 /**
@@ -9,7 +8,7 @@ import "./styles.css";
  * Supports desktop sidebar and mobile drawer usage.
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {Array<{id: string, title: string}>} props.sections
  * @param {"desktop" | "mobile"} [props.mode="desktop"]
  */
@@ -19,7 +18,7 @@ const StickySectionNav = ({
   pageUrl = "/",
 }) => {
   const sectionIds = sections.map((s) => s.id);
-  const activeId = useScrollSpy(sectionIds);
+  const activeId = useScrollSpyWithHistory(sectionIds);
 
   const navLabel =
     mode === "desktop" ? "Section navigation" : "Section navigation menu";

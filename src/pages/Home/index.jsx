@@ -1,9 +1,4 @@
-import React, { useEffect } from "react";
-import { FlexboxGrid } from "rsuite";
-import PageHeader from "components/PageHeader";
-import StickyNav from "components/StickyNav";
-import StickySectionNav from "components/StickySectionNav";
-import SectionRenderer from "components/SectionRenderer";
+import { useEffect } from "react";
 
 import { homeSections } from "assets/data/homeSections";
 import { restoreScrollPosition } from "navigation/restoreScrollPosition";
@@ -26,29 +21,34 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container">
-      <PageHeader
-        title="Kyle Foster"
-        jobTitle="Senior Front-End / React Engineer"
-      />
-      <StickyNav />
-      <FlexboxGrid justify="space-around">
-        <FlexboxGrid.Item colspan={18}>
-          {homeSections.map((sect, i) => {
-            return (
-              <SectionRenderer
-                section={sect}
-                key={"home-section-" + i + 1}
-              />
-            );
-          })}
-        </FlexboxGrid.Item>
-        <FlexboxGrid.Item colspan={5}>
-          <StickySectionNav sections={homeSections} />
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
-      <Footer />
-    </div>
+    <SectionRegistryProvider>
+      <div className="container">
+        <PageHeader
+          title="Kyle Foster"
+          jobTitle="Senior Front-End / React Engineer"
+        />
+        <StickyNav />
+        <div className="page-layout">
+          <main
+            className="page-content app-main"
+            role="main"
+          >
+            {homeSections.map((sect, i) => {
+              return (
+                <SectionRenderer
+                  section={sect}
+                  key={`home-section-${i}`}
+                />
+              );
+            })}
+          </main>
+          <aside className="page-sidebar fros">
+            <StickySectionNav sections={homeSections} />
+          </aside>
+        </div>
+        <Footer />
+      </div>
+    </SectionRegistryProvider>
   );
 };
 

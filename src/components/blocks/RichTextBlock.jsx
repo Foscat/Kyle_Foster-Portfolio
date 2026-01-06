@@ -1,5 +1,3 @@
-import React from "react";
-import { Panel } from "rsuite";
 
 /**
  * RichTextBlock
@@ -8,12 +6,12 @@ import { Panel } from "rsuite";
  * Designed to be used as a content block within feature sections.
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {string} [props.title] - Optional heading displayed in the panel header.
  * @param {string[]} props.paragraphs - Paragraph text content to render.
- * @param {boolean} [props.dividerAfter=false]
  */
-const RichTextBlock = ({ title, paragraphs, dividerAfter = false }) => {
+const RichTextBlock = ({ title, paragraphs }) => {
+  console.log({ title, paragraphs });
   // Defensive guards to prevent invalid rendering
   if (!Array.isArray(paragraphs) || paragraphs.length === 0) {
     return null;

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Image, Modal, Placeholder } from "rsuite";
-import Btn from "components/Btn/index";
+import { useState } from "react";
 import "./styles.css";
+import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ClickableImg — Frosted Modal Image Viewer
@@ -19,7 +18,7 @@ import "./styles.css";
  * - Fully responsive scaling using max-width / max-height
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {string} props.src - Image source URL.
  * @param {string} props.alt - Alt text for accessibility.
  * @param {string} [props.className] - Additional CSS classes for thumbnail.
@@ -33,6 +32,7 @@ const ClickableImg = ({
   title = "",
   caption = "",
 }) => {
+  console.log("Clickable image", { src, alt, title, caption });
   const [open, setOpen] = useState(false);
 
   return (
@@ -64,7 +64,7 @@ const ClickableImg = ({
         <Modal.Header className="frosted-modal-header flex-between">
           {title ? <Modal.Title>{title}</Modal.Title> : <div />}
           <Btn
-            icon="xmark"
+            icon={faXmarkSquare}
             onClick={() => setOpen(false)}
             ariaLabel="Close image viewer"
             tooltip="Close image viewer"

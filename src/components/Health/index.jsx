@@ -1,5 +1,3 @@
-import React from "react";
-import { Panel } from "rsuite";
 
 const Health = () => {
   return (

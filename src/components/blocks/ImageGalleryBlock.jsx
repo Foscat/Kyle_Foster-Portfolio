@@ -1,10 +1,3 @@
-import React from "react";
-import { FlexboxGrid, Panel } from "rsuite";
-import ClickableImg from "components/ClickableImg";
-
-/**
- * @typedef {import("../../types/ui.types.js").FeatureImage} FeatureImage
- */
 
 /**
  * ImageGalleryBlock
@@ -15,8 +8,8 @@ import ClickableImg from "components/ClickableImg";
  * - Grid layout using RSuite
  *
  * @component
- * @param {Object} props
- * @param {Array<FeatureImage>} props.images
+ * @param {object} props
+ * @param {FeatureImage[]} props.images
  */
 const ImageGalleryBlock = ({ images = [] }) => {
   if (!images.length) return null;
@@ -25,6 +18,7 @@ const ImageGalleryBlock = ({ images = [] }) => {
     <Panel
       bordered
       collapsible
+      defaultExpanded
       className="glass-card image-gallery-block"
     >
       <FlexboxGrid
@@ -34,10 +28,7 @@ const ImageGalleryBlock = ({ images = [] }) => {
         {images.map((img, i) => (
           <FlexboxGrid.Item
             key={i}
-            colspan={24}
-            sm={12}
-            md={12}
-            lg={8}
+            colspan={12}
           >
             <ClickableImg
               src={img.src}

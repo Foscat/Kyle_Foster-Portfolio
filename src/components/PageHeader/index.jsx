@@ -1,5 +1,3 @@
-import React from "react";
-import { Panel, FlexboxGrid } from "rsuite";
 import "./styles.css";
 
 /**
@@ -18,7 +16,7 @@ import "./styles.css";
  * - Fully responsive and layout-safe
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {string} props.title - Main page title.
  * @param {string} [props.jobTitle] - Role or position title.
  * @param {string} [props.timespan] - Date range or duration.

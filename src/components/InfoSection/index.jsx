@@ -1,6 +1,4 @@
 import React from "react";
-import { Panel, Divider, Row, Col, FlexboxGrid } from "rsuite";
-import FrostedIcon from "components/FrostedIcon";
 import "./styles.css";
 
 /**
@@ -17,7 +15,7 @@ import "./styles.css";
  * - Accepts any children content
  *
  * @component
- * @param {Object} props
+ * @param {object} props
  * @param {string} [props.title] - Title displayed at the top of the section.
  * @param {string} [props.subtitle] - Optional subtitle under the main title.
  * @param {boolean} [props.dividerAfter=false] - Whether to show a divider.
@@ -36,36 +34,25 @@ const InfoSection = ({
   children,
 }) => {
   return (
-    <Row
-      content=""
-      className={`info-section ${className}`}
+    <Panel
+      id={id}
+      header={
+        <div className="info-header">
+          {icon && (
+            <FrostedIcon
+              size="lg"
+              icon={icon}
+            />
+          )}
+          {title && <h2 className="info-title">{title}</h2>}
+        </div>
+      }
+      className={`info-section frosted ${className}`}
       as="section"
     >
-      <Col
-        xs={24}
-        sm={24}
-        md={23}
-        lg={24}
-      >
-        <Panel
-          id={id}
-          bordered
-          className="info-section frosted"
-        >
-          <FlexboxGrid.Item colspan={2}>
-            {icon && <FrostedIcon icon={icon} />}
-          </FlexboxGrid.Item>
-          {/* TITLE AREA */}
-          <FlexboxGrid.Item colspan={22}>
-            {title && <h2 className="info-title">{title}</h2>}
-            {subtitle && <h4 className="info-subtitle">{subtitle}</h4>}
-          </FlexboxGrid.Item>
-
-          {/* CONTENT AREA */}
-          <div className="info-content">{children}</div>
-        </Panel>
-      </Col>
-    </Row>
+      {/* CONTENT AREA */}
+      <div className="info-content">{children}</div>
+    </Panel>
   );
 };
 

@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { Drawer } from "rsuite";
-import Btn from "components/Btn";
+import { useState } from "react";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
-const MobileSectionNavTrigger = ({ sections }) => {
+const MobileSectionNavTrigger = ({ title = "", sections = [] }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
       <Btn
-        icon="compass"
+        icon={faDownload}
         onClick={() => setOpen(true)}
         className="section-nav-trigger"
       />
@@ -23,12 +22,13 @@ const MobileSectionNavTrigger = ({ sections }) => {
         </Drawer.Header>
         <Drawer.Body>
           <Sidenav className="san-accordion">
-            <Sidenav.Header>{title || "Sections"}</Sidenav.Header>
+            <Sidenav.Header>{title || "Page Sections"}</Sidenav.Header>
             <Sidenav.Body>
               <Nav>
                 {sections.map((sect, i) => {
                   return (
                     <Nav.Item
+                      key={i}
                       href={sect.isScroller ? `/#${sect.id}` : sect.url}
                     >
                       {sect.title}

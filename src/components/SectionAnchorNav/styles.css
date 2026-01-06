@@ -3,13 +3,11 @@
    ============================================================ */
 
 .san-container {
-
   position: sticky;
   top: 10rem;
   height: fit-content;
   max-height: 80vh;
   overflow-y: auto;
-  padding-right: 0.25rem;
   margin-bottom: 3rem;
   border-radius: var(--glass-border);
   background-color: var(--glass-bg);

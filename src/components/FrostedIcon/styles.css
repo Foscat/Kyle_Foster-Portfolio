@@ -25,9 +25,9 @@
 /* --------------------------
    Color Variants
 -------------------------- */
-.fi-primary   { color: var(--accent-light); }
+.fi-primary   { color: var(--accent); }
 .fi-secondary { color: var(--gray-300); }
-.fi-accent    { color: var(--accent); }
+.fi-accent    { color: var(--accent-light); }
 .fi-subtle    { color: var(--gray-500); }
 .fi-danger    { color: var(--error); }
 
@@ -57,7 +57,7 @@
 
 .fi-clickable:active {
   transform: scale(0.95);
-  background-color: rgba(255,255,255,0.12);
+  background-color: rgba(var(--white),0.12);
 }
 
 /* Keyboard accessibility */

@@ -1,8 +1,10 @@
-import React from "react";
-import { ButtonGroup } from "rsuite";
-import Btn from "components/Btn";
 import { useTheme } from "assets/theme/ThemeContext";
 import "./styles.css";
+import {
+  faCircleHalfStroke,
+  faMoon,
+  faSun,
+} from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ThemeToggle
@@ -23,19 +25,19 @@ const ThemeToggle = () => {
         aria-label="Auto theme"
         appearance={theme === "auto" ? "primary" : "subtle"}
         onClick={() => setTheme("auto")}
-        icon={"circle-half-stroke"}
+        icon={faCircleHalfStroke}
       />
       <Btn
         aria-label="Light theme"
         appearance={theme === "light" ? "primary" : "subtle"}
         onClick={() => setTheme("light")}
-        icon={"sun"}
+        icon={faSun}
       />
       <Btn
         aria-label="Dark theme"
         appearance={theme === "dark" ? "primary" : "subtle"}
         onClick={() => setTheme("dark")}
-        icon={"moon"}
+        icon={faMoon}
       />
     </ButtonGroup>
   );

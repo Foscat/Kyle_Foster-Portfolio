@@ -1,13 +1,7 @@
-import React, { useState } from "react";
-import { Button, IconButton, Tooltip, Whisper } from "rsuite";
-import FrostedIcon from "components/FrostedIcon";
+import { useState } from "react";
+import { Button, IconButton } from "rsuite";
 import "./styles.css";
-import { Link } from "react-router-dom";
-import { Size, Theme } from "../../types/ui.types";
-
-/**
- * @typedef {import("../../types/ui.types.js").Variant} Variant
- */
+import { faCircleInfo, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Frosted Glass Button Component
@@ -26,7 +20,7 @@ import { Size, Theme } from "../../types/ui.types";
  *
  * @component
  *
- * @typedef {Object} BtnProps
+ * @typedef {object} BtnProps
  * @property {Variant} [variant="primary"]
  *   UI color scheme aligned with frosted theme.
  *
@@ -141,7 +135,7 @@ const Btn = ({
       icon={
         <FrostedIcon
           size={size}
-          icon={loading ? "spinner" : icon}
+          icon={loading ? faSpinner : icon}
           variant={variant}
           clickable={!disabled}
         />
@@ -159,7 +153,7 @@ const Btn = ({
       speaker={
         <Tooltip>
           <FrostedIcon
-            icon="circle-info"
+            icon={faCircleInfo}
             size="sm"
           />
           {tooltip}

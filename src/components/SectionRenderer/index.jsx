@@ -1,20 +1,70 @@
+import { useEffect } from "react";
+import { useSectionRegistry } from "navigation/SectionRegistryProvider";
+import {
+  BlockType,
+  createBulletListBlock,
+  createDiagramBlock,
+  createImageGalleryBlock,
+  createLinkListBlock,
+  createRichTextBlock,
+} from "types/ui.types";
+
 /**
- * FeatureSectionRenderer
- * ------------------------------------------------------------
- * Renders a feature section dynamically based on block type structure.
+ * SectionRenderer Component
+ * --------------------------------------------------------------------
+ * Central render orchestrator for a single FeatureSection.
+ *
+ * This component is responsible for:
+ * - Registering the section with the global SectionRegistry
+ *   (used by Sticky Section Nav and scroll-spy behavior)
+ * - Rendering the section container via InfoSection
+ * - Dynamically rendering content blocks based on their `BlockType`
+ *
+ * The renderer acts as a **data-driven layout engine**, allowing
+ * entire pages to be defined declaratively via JSON-like data
+ * instead of hardcoded JSX.
+ *
+ * Supported block types:
+ * - Rich text content
+ * - Image galleries
+ * - Link lists
+ * - Bulleted / accordion lists
+ * - Mermaid diagrams (theme-aware)
+ *
+ * @component
+ *
+ * @param {object} props
+ * @param {FeatureSection} props.section
+ *   A fully-defined section descriptor containing metadata
+ *   (id, title, subtitle, icon) and an ordered list of blocks.
+ *
+ * @returns {JSX.Element}
+ *   A rendered, scroll-registered, frosted-glass section.
+ *
+ *
+ * @example
+ * ```js
+ * <SectionRenderer
+ *   section={{
+ *     id: "projects",
+ *     title: "Projects",
+ *     content: [...]
+ *   }}
+ * />
+ * ```
  */
-
-import React, { useEffect } from "react";
-import InfoSection from "components/InfoSection";
-import AccordionList from "components/AccordionList";
-import MermaidDiagram from "components/blocks/MermaidDiagram";
-import RichTextBlock from "components/blocks/RichTextBlock";
-import ImageGalleryBlock from "components/blocks/ImageGalleryBlock";
-import LinksBlock from "components/blocks/LinksBlock";
-
 const SectionRenderer = ({ section }) => {
   const { registerSection, unregisterSection } = useSectionRegistry();
 
+  /**
+   * Register the section for scroll tracking when mounted
+   * and unregister it on unmount.
+   *
+   * This enables:
+   * - Sticky section navigation
+   * - Active section highlighting
+   * - Programmatic scrolling
+   */
   useEffect(() => {
     registerSection(section.id, {
       id: section.id,
@@ -32,60 +82,67 @@ const SectionRenderer = ({ section }) => {
       icon={section.icon}
     >
       {section.blocks.map((block, i) => {
-        if (block.type === "richText") {
-          return (
-            <RichTextBlock
-              key={i}
-              title={block.title}
-              paragraphs={block.paragraphs}
-            />
-          );
-        } else if (block.type === "imageGallery") {
-          return (
-            <ImageGalleryBlock
-              key={i}
-              images={block.images}
-            />
-          );
-        } else if (block.type === "links") {
-          {
-            /* LINKS */
+        switch (block.type) {
+          case BlockType.RICH_TEXT: {
+            const rtb = createRichTextBlock(block);
+            return (
+              <RichTextBlock
+                key={i}
+                {...rtb}
+              />
+            );
           }
-          return (
-            <LinksBlock
-              key={i}
-              links={block.links}
-            />
-          );
-        } else if (block.type === "bulletedList") {
-          {
-            /* BULLET LIST */
+
+          case BlockType.IMAGE_GALLERY:
+            const imgGal = createImageGalleryBlock(block);
+            return (
+              <ImageGalleryBlock
+                key={i}
+                {...imgGal}
+              />
+            );
+
+          case BlockType.LINKS:
+            const linksBlock = createLinkListBlock(block);
+            return (
+              <LinksBlock
+                key={i}
+                {...linksBlock}
+              />
+            );
+
+          case BlockType.BULLETED_LIST: {
+            const bl = createBulletListBlock(block);
+            return (
+              <AccordionList
+                key={i}
+                {...bl}
+              />
+            );
           }
-          return (
-            <AccordionList
-              key={i}
-              title={block.title}
-              items={block.items}
-            />
-          );
-        } else if (block.type === "diagram") {
-          {
-            /* DIAGRAMS */
+
+          case BlockType.DIAGRAM: {
+            const mdg = createDiagramBlock(block);
+            return (
+              <MermaidDiagram
+                key={i}
+                {...mdg}
+              />
+            );
           }
-          block = create;
-          return (
-            <MermaidDiagram
-              key={i}
-              title={block.title}
-              description={block.description}
-              diagram={block.diagram}
-              theme={block.theme}
-              collapsible={block?.collapsible || true}
-            />
-          );
-        } else {
-          console.debug({ block });
-          return <p key={i}>{block.title} data is corrupted. </p>;
+
+          /**
+           * Defensive fallback:
+           * If malformed or unknown block data reaches this point,
+           * we render a visible warning instead of silently failing.
+           */
+          default:
+            console.debug({ block });
+            return (
+              <p key={i}>
+                {block?.title || "Unknown block"} data is corrupted.
+              </p>
+            );
         }
       })}
     </InfoSection>

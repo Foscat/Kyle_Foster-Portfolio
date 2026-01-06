@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Modal } from "rsuite";
-import Btn from "components/Btn";
+import { useState } from "react";
 import "./ResumePreview.css";
+import { faFileLines, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ResumePreview
@@ -22,7 +21,7 @@ const ResumePreview = () => {
       {/* Trigger */}
       <Btn
         text="View Resume"
-        icon="file-lines"
+        icon={faFileLines}
         variant="primary"
         size="lg"
         onClick={() => setOpen(true)}
@@ -50,16 +49,14 @@ const ResumePreview = () => {
         </Modal.Body>
 
         <Modal.Footer className="resume-modal-footer">
-          <a
-            href="../../assets/data/Kyle Foster - Resume.pdf"
-            download="Kyle_Foster_Resume.pdf"
-          >
-            <Btn
-              text="Download"
-              icon="file-pdf"
-              variant="primary"
-            />
-          </a>
+          <Btn
+            text="Download"
+            icon={faFilePdf}
+            variant="primary"
+            download={true}
+            href="../../assets/data/Kyle_Foster_React_Resume.pdf"
+            tooltip="Download as a PDF"
+          />
 
           <Btn
             text="Close"
