@@ -1,28 +1,6 @@
 import pageMetas from "./data/pageMetas";
 
 /**
- * Formats an array of technology names into a human-readable string.
- *
- * Example:
- *   ["React", "Node", "MongoDB"]
- *   → "Tech Used: React, Node, MongoDB"
- *
- * @param {string[]} [techArray=[]] - List of technologies used.
- * @returns {string} A formatted display string or an empty string if no technologies are provided.
- */
-export const renderTechUsedString = (techArray = []) => {
-  // Guard against invalid or empty input
-  if (!Array.isArray(techArray) || techArray.length === 0) {
-    return "";
-  }
-
-  // Join technologies into a comma-separated list
-  const techList = techArray.join(", ");
-
-  return `Tech Used: ${techList}`;
-};
-
-/**
  * Merges multiple arrays of strings and removes duplicates.
  *
  * Example:

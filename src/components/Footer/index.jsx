@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
+import { Container, FlexboxGrid, Message, Panel, useToaster } from "rsuite";
 import "./styles.css";
-import {
-  faGithubSquare,
-  faSquareLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithubSquare, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
+import Btn from "components/Btn";
+import useClipboard from "assets/hooks/useClipboard";
+import { Size, Variant } from "types/ui.types";
+import { useEffect } from "react";
+import ResumePreview from "components/ResumePreview";
 
 /**
  *
@@ -14,35 +18,62 @@ import {
  * @returns {JSX.Element} The rendered footer
  */
 const Footer = () => {
+  const { copy, copied, error } = useClipboard();
+  const toaster = useToaster();
+
+  useEffect(() => {
+    if (!copied) return;
+
+    const id = toaster.push(null);
+
+    return () => toaster.remove(id);
+  }, [copied]);
+
+  // 🔑 React to clipboard result changes
+  useEffect(() => {
+    if (copied) {
+      toaster.push(
+        <Message type="success" closable showIcon>
+          Phone number copied to clipboard!
+        </Message>,
+        { placement: "topCenter" }
+      );
+    }
+    console.log({ copied, toaster });
+  }, [copied, toaster]);
+
+  useEffect(() => {
+    if (error) {
+      toaster.push(
+        <Message type="error" closable showIcon>
+          Error: Could not copy to clipboard.
+        </Message>,
+        { placement: "topCenter" }
+      );
+    }
+  }, [error, toaster]);
+
+  function copyPhoneNumber(number) {
+    copy(number);
+  }
+
   return (
     <div className="footer-wrapper">
       <Container className="footer-container">
-        <FlexboxGrid
-          justify="space-around"
-          align="middle"
-        >
+        <FlexboxGrid justify="space-around" align="middle">
           {/* Contact Info Section */}
           <FlexboxGrid.Item colspan={8}>
-            <Panel
-              header="Contact"
-              bordered
-              className="footer-panel"
-            >
+            <Panel header={<h4>Contact</h4>} bordered className="footer-panel">
               <div className="footer-text">
-                <p>
+                <p className="clickable" onClick={() => copyPhoneNumber("(469) 410-5286")}>
                   <strong>Phone:</strong> (469) 410-5286
                 </p>
-                <p>
+                <p onClick={() => copyPhoneNumber("(972) 802-9397")} className="clickable">
                   <strong>Phone 2:</strong> (972) 802-9397
                 </p>
                 <p>
                   <strong>Email:</strong>{" "}
-                  <a href="mailto:fosterkyle6456@gmail.com">
-                    fosterkyle6456@gmail.com
-                  </a>
-                </p>
-                <p>
-                  <Link to="/contact">Contact Me</Link>
+                  <a href="mailto:fosterkyle6456@gmail.com">fosterkyle6456@gmail.com</a>
                 </p>
               </div>
             </Panel>
@@ -50,33 +81,33 @@ const Footer = () => {
 
           {/* Social Section */}
           <FlexboxGrid.Item colspan={8}>
-            <Panel
-              header="Social"
-              bordered
-              className="footer-panel"
-            >
+            <Panel header={<h4>Social</h4>} bordered className="footer-panel">
               <div className="footer-socials">
                 <Btn
+                  text="GitHub"
                   icon={faGithubSquare}
-                  variant="subtle"
+                  variant={Variant.ACCENT}
                   href="https://github.com/Foscat"
                   rel="noopener noreferrer"
                   target="_blank"
                   className="footer-icon"
-                >
-                  GitHub
-                </Btn>
+                  ariaLabel="GitHub Profile"
+                  tooltip="Visit my GitHub Profile"
+                />
 
                 <Btn
+                  text="LinkedIn"
                   icon={faSquareLinkedin}
-                  variant="subtle"
+                  variant={Variant.ACCENT}
                   href="https://linkedin.com/in/kylefoster-dev"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-icon"
-                >
-                  LinkedIn
-                </Btn>
+                  ariaLabel="LinkedIn Profile"
+                  tooltip="Visit my LinkedIn Profile"
+                />
+
+                <ResumePreview />
               </div>
             </Panel>
           </FlexboxGrid.Item>

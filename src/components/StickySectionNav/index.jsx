@@ -1,71 +1,100 @@
+import React, { useEffect, useRef } from "react";
 import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
 import "./styles.css";
 
+const SCROLL_OFFSET = 120;
 /**
  * StickySectionNav
  * ---------------------------------------------------------------------------
- * Accessible navigation for scrolling between page sections.
- * Supports desktop sidebar and mobile drawer usage.
+ * Sticky, accessible section navigation that highlights the active section,
+ * syncs with scroll + URL history, and adapts to desktop or mobile layouts.
+ *
+ * Features:
+ * - position: sticky (desktop sidebar)
+ * - optional slide-in drawer (mobile)
+ * - keyboard navigation (↑ / ↓)
+ * - theme-aware active glow (via CSS)
+ * - fade / scale / blur motion language
  *
  * @component
- * @param {object} props
- * @param {Array<{id: string, title: string}>} props.sections
+ * @param {Object} props
+ * @param {Array<{ id: string, title: string }>} props.sections
  * @param {"desktop" | "mobile"} [props.mode="desktop"]
+ * @param {string} [props.pageUrl="/"]
+ * @param {boolean} [props.isOpen] - Used for mobile drawer mode
  */
-const StickySectionNav = ({
-  sections = [],
-  mode = "desktop",
-  pageUrl = "/",
-}) => {
+const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOpen = true }) => {
   const sectionIds = sections.map((s) => s.id);
-  const activeId = useScrollSpyWithHistory(sectionIds);
+  const navRef = useRef(null);
 
-  const navLabel =
-    mode === "desktop" ? "Section navigation" : "Section navigation menu";
+  const { activeId, markProgrammaticScroll } = useScrollSpyWithHistory(sectionIds, SCROLL_OFFSET);
+
+  const handleNavigate = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    history.pushState(null, "", `${pageUrl}#${id}`);
+    markProgrammaticScroll();
+
+    requestAnimationFrame(() => {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    });
+  };
+
+  // Keep active item centered
+  useEffect(() => {
+    if (!navRef.current || !activeId) return;
+
+    const container = navRef.current;
+    const activeItem = container.querySelector(`.section-nav-item[data-id="${activeId}"]`);
+
+    if (!activeItem) return;
+
+    // Only scroll the nav if it can scroll
+    if (container.scrollHeight > container.clientHeight) {
+      activeItem.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [activeId]);
 
   return (
     <nav
-      className={`sticky-section-nav sticky-section-nav--${mode}`}
-      aria-label={navLabel}
+      ref={navRef}
+      className={`
+        sticky-section-nav
+        sticky-section-nav--${mode}
+        ${mode === "mobile" && isOpen ? "is-open" : ""}
+      `}
+      aria-label="Section navigation"
     >
-      <ul
-        role="listbox"
-        aria-orientation="vertical"
-        className="section-nav-list"
-      >
-        {sections.map((section, index) => {
+      <ul role="listbox" aria-orientation="vertical" className="section-nav-list">
+        {sections.map((section) => {
           const isActive = section.id === activeId;
 
           return (
             <li
-              key={section.id}
-              role="option"
-              aria-selected={isActive}
-              className={`section-nav-item ${isActive ? "is-active" : ""}`}
+              key={section.id + "-li"}
+              className={`section-nav-item ${isActive ? "is-active" : "is-inactive"}`}
             >
-              <a
-                href={`${pageUrl}#${section.id}`}
+              <p
+                key={section.id + "-a"}
+                data-id={section.id}
                 className="section-nav-link"
                 aria-current={isActive ? "location" : undefined}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  // Keyboard navigation
-                  if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    document
-                      .querySelectorAll(".section-nav-link")
-                      [index + 1]?.focus();
-                  }
-                  if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    document
-                      .querySelectorAll(".section-nav-link")
-                      [index - 1]?.focus();
-                  }
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate(section.id);
                 }}
               >
                 {section.title}
-              </a>
+              </p>
             </li>
           );
         })}

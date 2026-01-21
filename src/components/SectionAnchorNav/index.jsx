@@ -1,5 +1,6 @@
 import "./styles.css";
 import { PageRoute } from "../../types/ui.types";
+import { Nav, Sidenav } from "rsuite";
 
 /**
  * @typedef {FeatureSection} FeatureSection
@@ -22,11 +23,7 @@ import { PageRoute } from "../../types/ui.types";
  * @param {Array<FeatureSection>} props.sections
  * @param {string} [props.className]
  */
-const SectionAnchorNav = ({
-  title = "Contents",
-  sections = [],
-  page = PageRoute.HOME,
-}) => {
+const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.HOME }) => {
   return (
     <aside className="san-container">
       <Sidenav className="san-accordion">

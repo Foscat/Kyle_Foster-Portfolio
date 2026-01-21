@@ -1,10 +1,14 @@
 import { useEffect } from "react";
-import smuSections from "assets/data/smuSections";
-import PageMetas from "assets/data/pageMetas";
-import { renderTechUsedString } from "assets/utils";
+import Data from "assets/data/pageMetas";
 import { restoreScrollPosition } from "navigation/restoreScrollPosition";
+import SectionRegistryProvider from "navigation/SectionRegistryProvider";
+import PageHeader from "components/PageHeader";
+import StickyNav from "components/StickyNav";
+import SectionRenderer from "components/SectionRenderer";
+import StickySectionNav from "components/StickySectionNav";
+import Footer from "components/Footer";
 
-const smu = PageMetas.Smu;
+const smu = Data.Smu;
 
 /**
  * SMU Page
@@ -25,26 +29,23 @@ const Smu = () => {
     <SectionRegistryProvider>
       <div className="container">
         <PageHeader
-          title="SMU Coding Bootcamp"
-          subTitle={`Tech Used: ${renderTechUsedString(smu.tech)}`}
+          title={smu.title}
+          subTitle={smu.description}
           timespan={smu.timespan}
+          jobTitle={smu.jobTitle}
+          tech={smu.tech}
         />
-        <StickyNav />
-        <FlexboxGrid justify="space-around">
-          <FlexboxGrid.Item colspan={18}>
-            {smuSections.map((sect, i) => {
-              return (
-                <SectionRenderer
-                  section={sect}
-                  key={"smu-section" + i + 1}
-                />
-              );
+        <StickyNav activePage={smu.url} />
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
+            {smu.sections.map((sect, i) => {
+              return <SectionRenderer section={sect} key={"smu-section" + i + 1} />;
             })}
-          </FlexboxGrid.Item>
-          <FlexboxGrid.Item colspan={5}>
-            <StickySectionNav sections={smuSections} />
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
+          </main>
+          <aside className="page-sidebar">
+            <StickySectionNav pageUrl={smu.url} sections={smu.sections} />
+          </aside>
+        </div>
         <Footer />
       </div>
     </SectionRegistryProvider>

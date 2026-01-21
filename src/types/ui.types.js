@@ -78,11 +78,11 @@ export const BlockType = Object.freeze({
  */
 export const PageRoute = Object.freeze({
   HOME: "/",
-  PROFESSIONAL: "/codestream",
-  HACKATHON: "/hackathon",
-  SIDE_PROJECTS: "/side-projects",
-  EDUCATION: "/smu",
-  CONNECT: "/contact",
+  PROFESSIONAL: "/codestream/",
+  HACKATHON: "/hackathon/",
+  SIDE_PROJECTS: "/side-projects/",
+  EDUCATION: "/smu/",
+  CONNECT: "/contact/",
 });
 
 /* ============================================================================
@@ -114,6 +114,7 @@ export const PageRoute = Object.freeze({
  * @property {string} alt - Accessible alt text.
  * @property {string} title - Short title or tooltip.
  * @property {string} [caption] - Optional description.
+ * @property {string} [ariaLabel] - Screen-reader label.
  */
 
 /**
@@ -219,6 +220,7 @@ export const createFeatureImage = (block) => ({
   alt: block.alt || "",
   title: block.title || "",
   caption: block.caption || "",
+  ariaLabel: block.ariaLabel || "",
 });
 
 export const createImageGalleryBlock = (block) => ({
@@ -229,7 +231,7 @@ export const createImageGalleryBlock = (block) => ({
 
 /**
  * Create a default RichTextBlock
- * @param block
+ * @param {Partial<RichTextBlock>} block
  * @returns {RichTextBlock}
  */
 export const createRichTextBlock = (block) => ({
@@ -240,17 +242,16 @@ export const createRichTextBlock = (block) => ({
 
 /**
  * Create a default DiagramBlock
- * @param {Partial<BulletListBlock>}
- * @param block
+ * @param {Partial<BulletListBlock>} block
  * @returns {DiagramBlock}
  */
 export const createDiagramBlock = (block) => ({
   type: BlockType.DIAGRAM,
   title: block.title || "",
   diagram: block.diagram || "",
-  theme: Theme.AUTO,
+  theme: block.theme || Theme.AUTO,
   description: block.description || "",
-  collapsible: true,
+  collapsible: block.collapsible || false,
 });
 
 /**
@@ -266,7 +267,10 @@ const createBulletItem = (item, position) => ({
   icon: item.icon || "",
   isScroller: item.isScroller || false,
   isLink: item.isLink || false,
-  url: "",
+  url: item.url || "",
+  rel: item.rel || "",
+  target: item.target || "",
+  ariaLabel: item.ariaLabel || "",
 });
 
 /**
@@ -283,7 +287,7 @@ export const createBulletListBlock = (block) => ({
 
 /**
  * Create a default LinkListBlock
- * @param block
+ * @param {Partial<LinkListBlock>} block
  * @returns {LinkListBlock}
  */
 export const createLinkListBlock = (block) => ({
@@ -318,5 +322,4 @@ export const createFeatureSection = () => ({
  * @param {*} value - Value to test.
  * @returns {boolean} True if valid enum value.
  */
-export const isValidEnumValue = (enumObj, value) =>
-  Object.values(enumObj).includes(value);
+export const isValidEnumValue = (enumObj, value) => Object.values(enumObj).includes(value);

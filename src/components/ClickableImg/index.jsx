@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./styles.css";
 import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
+import { Image, Modal, Placeholder } from "rsuite";
+import Btn from "components/Btn";
 
 /**
  * ClickableImg — Frosted Modal Image Viewer
@@ -21,16 +23,18 @@ import { faXmarkSquare } from "@fortawesome/free-solid-svg-icons";
  * @param {object} props
  * @param {string} props.src - Image source URL.
  * @param {string} props.alt - Alt text for accessibility.
+ * @param {string} [props.ariaLabel] - Aria-label for accessibility.
  * @param {string} [props.className] - Additional CSS classes for thumbnail.
  * @param {string} [props.title] - Optional modal header title.
  * @param {string} [props.caption] - Optional caption below image.
  */
 const ClickableImg = ({
-  src = "",
-  alt = "",
+  src = "../../assets/images/home/stem.jpg",
+  alt = "Default alt text",
   className = "",
   title = "",
   caption = "",
+  ariaLabel = "Clickable image, click to expand",
 }) => {
   console.log("Clickable image", { src, alt, title, caption });
   const [open, setOpen] = useState(false);
@@ -43,6 +47,7 @@ const ClickableImg = ({
         src={src}
         alt={alt}
         title={title || alt}
+        aria-label={ariaLabel}
         loading="lazy"
         placeholder={<Placeholder.Graph active />}
         className={`clickable-thumb glass-outline ${className}`}
@@ -58,19 +63,13 @@ const ClickableImg = ({
         onClose={() => setOpen(false)}
         overflow={false}
         backdrop="static"
+        keyboard={true}
         className="frosted-modal"
+        size="full"
       >
         {/* Header */}
         <Modal.Header className="frosted-modal-header flex-between">
           {title ? <Modal.Title>{title}</Modal.Title> : <div />}
-          <Btn
-            icon={faXmarkSquare}
-            onClick={() => setOpen(false)}
-            ariaLabel="Close image viewer"
-            tooltip="Close image viewer"
-            className="close-btn frosted-btn"
-            variant="subtle"
-          />
         </Modal.Header>
 
         {/* Body */}
@@ -80,6 +79,7 @@ const ClickableImg = ({
               rounded
               src={src}
               alt={alt}
+              aria-label={ariaLabel}
               title={title || alt}
               loading="lazy"
               placeholder={<Placeholder.Graph active />}
@@ -87,9 +87,10 @@ const ClickableImg = ({
               onClick={() => setOpen(false)}
             />
           </div>
-
-          {caption && <p className="img-caption modal-caption">{caption}</p>}
         </Modal.Body>
+        <Modal.Footer>
+          {caption && <p className="img-caption modal-caption">{caption}</p>}
+        </Modal.Footer>
       </Modal>
     </>
   );

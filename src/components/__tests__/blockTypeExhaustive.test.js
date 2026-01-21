@@ -1,8 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { BlockType } from "types/ui.types";
 
-blockTypeExhaustive.test.js;
-
 /**
  * If you add a new BlockType, you must update:
  * - SectionRenderer switch

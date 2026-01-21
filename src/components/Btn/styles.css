@@ -1,80 +1,114 @@
 /* ============================================================
-   Frosted Glass Button — Core Styles
-   ------------------------------------------------------------
-   • Blur + translucent base background
-   • Smooth hover / active animations
-   • Unified styling for both <Button> & <IconButton>
+   Frosted Glass Button — Core Styles (Updated)
    ============================================================ */
 
-.frosted-btn {
-  padding: 12px 24px;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--white-rgb), 0.35);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  background: rgba(var(--white-rgb), 0.15);
-  color: var(--white);
-  font-size: var(--font-md);
-  font-weight: 600;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-
-  display: inline-flex;
+.btn {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
 
-  transition:
-    transform var(--transition-speed),
-    background-color var(--transition-speed),
-    box-shadow var(--transition-speed),
-    color var(--transition-speed),
-    opacity var(--transition-speed);
-}
+  gap: 0.5rem;
+  padding: 10px 14px;
 
-/* ============================================================
-   Icon-only Mode (auto-applied via className)
-   ============================================================ */
-.frosted-btn.icon-only {
-  padding: 10px;
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  justify-content: center;
-}
+  border-radius: var(--border-radius);
+  border: 1px solid var(--frost-border);
+  background: var(--frost-bg);
+  color: var(--accent-dark);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 
-.frosted-btn.icon-only .btn-icon {
-  margin-right: 0 !important;
-}
-
-/* ============================================================
-   Hover + Active Interactions
-   ============================================================ */
-.frosted-btn:hover:not(.disabled):not(.loading) {
-  transform: translateY(-3px);
-  background: var(--bg-primary);
-  box-shadow: var(--glass-shadow);
-}
-
-.frosted-btn:active:not(.disabled):not(.loading) {
-  transform: translateY(0px) scale(0.97);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-soft);
 }
 
-/* ============================================================
-   Keyboard Focus Ring — High Visibility
-   ============================================================ */
-.frosted-btn:focus-visible {
+/* ------------------------------------------------------------
+   RSuite IconButton Normalization
+------------------------------------------------------------ */
+.btn > .rs-btn-icon,
+.btn > .rs-icon {
+  margin: 0 auto;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------------
+   Icon-only Mode
+------------------------------------------------------------ */
+.btn.icon-only {
+  padding: 0;
+  margin: 0 auto;
+  padding: 10px;
+  /* width: 45px; */
+  /* height: 45px; */
+}
+
+.btn.icon-only .frosted-icon {
+  margin: 0;
+  background-color: rgba(var(--primary-dark-rgb), 0.7);
+  box-shadow: var(--gold-glow);
+}
+
+.btn.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+  padding: 6px 10px 6px 8px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   Size Variants (sync Btn + FrostedIcon)
+------------------------------------------------------------ */
+.rs-btn.btn-xs {
+  font-size: var(--font-xs);
+}
+.rs-btn.btn-sm {
+  font-size: var(--font-sm);
+}
+.rs-btn.btn-md {
+  font-size: var(--font-md);
+}
+.rs-btn.btn-lg {
+  font-size: var(--font-lg);
+}
+.rs-btn.btn-xl {
+  font-size: var(--font-xl);
+}
+
+/* ------------------------------------------------------------
+   Hover / Active
+------------------------------------------------------------ */
+.btn:hover:not(:disabled):not(.loading) {
+  transform: translateY(-3px);
+  transition-duration: 250ms;
+  transition-delay: 200ms;
+  box-shadow: var(--glass-shadow);
+}
+
+.btn:active:not(:disabled):not(.loading) {
+  transform: scale(0.97);
+  transition-duration: 250ms;
+  transition-delay: 200ms;
+  box-shadow: var(--shadow-dark);
+}
+
+/* ------------------------------------------------------------
+   Focus
+------------------------------------------------------------ */
+.btn:focus-visible {
   outline: 3px solid var(--accent-light);
   outline-offset: 2px;
 }
 
-/* ============================================================
-   Disabled State
-   ============================================================ */
-.frosted-btn.disabled,
-.frosted-btn:disabled {
+/* ------------------------------------------------------------
+   Disabled
+------------------------------------------------------------ */
+.btn:disabled,
+.icon.disabled {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
@@ -82,117 +116,74 @@
 }
 
 /* ============================================================
-   Primary Variant
+   Variant Styles (mapped to Variant enum)
    ============================================================ */
-.frosted-btn.primary {
-  border-color: var(--glass-bg);
-  background: var(var(--primary-rgb),.6);
+
+.btn.primary {
+  background-color: var(--frost-bg);
+  border: var(--frost-border);
+  color: var(--accent);
 }
 
-.frosted-btn.primary:hover:not(.disabled) {
-  background: rgba(var(--white-rgb), 0.32);
-  box-shadow: var(--glass-shadow);
+.btn.primary:hover:not(:disabled):not(.loading),
+.btn.primary:active:not(:disabled):not(.loading),
+.btn.primary:focus {
+  background-color: var(--glass-bg);
+  border-top: 2px outset var(--accent);
+  border-right: 2px inset var(--accent-dark);
+  border-bottom: 2px inset var(--accent-dark);
+  border-left: 2px outset var(--accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn.secondary {
+  background-color: var(--bg-secondary);
+  border: 1px solid rgba(var(--gray-700-rgb), 0.28);
+  color: var(--text-primary);
+}
+
+.btn.secondary:hover:not(:disabled):not(.loading),
+.btn.secondary:active:not(:disabled):not(.loading),
+.btn.secondary:focus {  
+  box-shadow: var(--shadow-accent);
+}
+
+.btn.accent {
+  background-color: rgba(var(--accent-rgb), 0.25);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  color: var(--primary-dark-rgb);
+}
+
+.btn.subtle {
+  background-color: rgba(var(--white-rgb), 0.08);
+  border: 1px solid rgba(var(--white-rgb), 0.18);
+  color: var(--text-primary);
+}
+
+.btn.danger {
+  background-color: rgba(var(--error-rgb), 0.25);
+  border: 1px solid rgba(var(--error-rgb), 0.45);
+  color: var(--accent-light);
+}
+
+.btn.btn-noBG {
+  background: none;
+  border: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.btn.btn-noBG:hover:not(:disabled):not(.loading) {
+  box-shadow: var(--shadow-accent);
+  border-radius: var(--border-radius);
 }
 
 /* ============================================================
-   Secondary Variant
+   Loading
    ============================================================ */
-.frosted-btn.secondary {
-  background: rgba(var(--white-rgb), 0.12);
-  border-color: rgba(var(--white-rgb), 0.28);
-  color: var(--gray-100);
-}
 
-.frosted-btn.secondary:hover:not(.disabled) {
-  background: rgba(var(--white-rgb), 0.20);
-  box-shadow: var(--shadow-soft);
-}
-
-/* ============================================================
-   Success Variant (for UI confirmation)
-   ============================================================ */
-.frosted-btn.success {
-  background: rgba(var(--success-rgb), 0.25);
-  border-color: rgba(22,163,74,0.4);
-  color: var(--white);
-}
-
-.frosted-btn.success:hover {
-  background: rgba(var(--success-rgb),0.35);
-}
-
-/* ============================================================
-   Error Variant (for destructive actions)
-   ============================================================ */
-.frosted-btn.error {
-  background: rgba(var(--error-rgb), 0.25);
-  border-color: rgba(var(--error-rgb), 0.4);
-  color: var(--white);
-}
-
-.frosted-btn.error:hover {
-  background: rgba(var(--error-rgb), 0.35);
-}
-
-/* ============================================================
-   Loading State (spinner overlay)
-   ============================================================ */
-.frosted-btn.loading {
-  position: relative;
+.btn.loading {
   pointer-events: none;
   opacity: 0.75;
-}
-
-.btn-loading-spinner {
-  border: 3px solid rgba(var(--white-rgb), 0.3);
-  border-top-color: var(--accent-light);
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ============================================================
-   Animation Presets
-   ------------------------------------------------------------
-   These apply when Btn.jsx adds .anim-pulse, .anim-scale, etc.
-   ============================================================ */
-
-.frosted-btn.anim-pulse:hover {
-  animation: btn-pulse 0.6s ease-out;
-}
-
-@keyframes btn-pulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.04); }
-  100% { transform: scale(1); }
-}
-
-.frosted-btn.anim-scale:hover {
-  transform: scale(1.06);
-}
-
-.frosted-btn.anim-fade:hover {
-  opacity: 0.8;
-}
-
-/* ============================================================
-   Responsive Adjustments
-   ============================================================ */
-@media (max-width: 700px) {
-  .frosted-btn {
-    padding: 10px 18px;
-    font-size: var(--font-sm);
-  }
-}
-
-@media (max-width: 480px) {
-  .frosted-btn {
-    width: 100%;
-    text-align: center;
-  }
 }

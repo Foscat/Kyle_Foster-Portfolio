@@ -1,4 +1,7 @@
+import { FlexboxGrid, Panel } from "rsuite";
 import "./styles.css";
+import Btn from "components/Btn";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * NotFound Component
@@ -17,20 +20,11 @@ import "./styles.css";
  */
 const NotFound = () => {
   return (
-    <FlexboxGrid
-      justify="center"
-      className="notFound-wrapper"
-    >
+    <FlexboxGrid justify="center" className="notFound-wrapper">
       <FlexboxGrid.Item colspan={20}>
-        <Panel
-          bordered
-          className="notFound-glassBox glass-card fade-in text-center"
-        >
+        <Panel bordered className="notFound-glassBox glass-card fade-in text-center">
           {/* Error Code */}
-          <div
-            className="notFound-errorCode"
-            aria-hidden="true"
-          >
+          <div className="notFound-errorCode" aria-hidden="true">
             404
           </div>
 
@@ -51,7 +45,9 @@ const NotFound = () => {
             appearance="primary"
             size="lg"
             className="notFound-cta"
-            text="Return Home"
+            text="Home"
+            icon={faHome}
+            tooltip="Return to homepage"
           ></Btn>
         </Panel>
       </FlexboxGrid.Item>

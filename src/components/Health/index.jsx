@@ -1,10 +1,8 @@
+import { Panel } from "rsuite";
 
 const Health = () => {
   return (
-    <Panel
-      bordered
-      header="System Health"
-    >
+    <Panel bordered header="System Health">
       <ul>
         <li>React: 18.2.0</li>
         <li>Environment: {import.meta.env.MODE}</li>

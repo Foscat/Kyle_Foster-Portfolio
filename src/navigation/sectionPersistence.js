@@ -1,3 +1,5 @@
+const sessionStorage = window.sessionStorage;
+
 /**
  * Generate a storage key for the current page.
  *

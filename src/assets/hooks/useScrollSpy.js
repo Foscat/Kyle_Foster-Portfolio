@@ -1,54 +1,68 @@
-import { useEffect, useState } from "react";
-import { saveLastSection } from "navigation/sectionPersistence";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * Scroll spy with URL synchronization.
+ * useScrollSpyWithHistory
+ * ---------------------------------------------------------------------------
+ * Tracks the currently visible section based on scroll position,
+ * syncs with URL hash, and supports programmatic scrolling without
+ * feedback loops.
  *
- * - Updates active section
- * - Pushes hash to URL without page reload
- * - Preserves back/forward navigation
+ * @param {string[]} sectionIds
+ * @param {number} offset - Pixel offset for sticky headers
  */
-export const useScrollSpyWithHistory = (ids) => {
+export function useScrollSpyWithHistory(sectionIds = [], offset = 0) {
   const [activeId, setActiveId] = useState(null);
+  const programmaticScroll = useRef(false);
+
+  const markProgrammaticScroll = async () => {
+    programmaticScroll.current = true;
+    setTimeout(() => {
+      programmaticScroll.current = false;
+      return { activeId, programmaticScroll };
+    }, 500);
+  };
 
   useEffect(() => {
-    if (!ids.length) return;
+    if (!sectionIds.length) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (programmaticScroll.current) return;
+
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
+          if (!entry.isIntersecting) return;
 
-            setActiveId(id);
-            saveLastSection(id);
+          const id = entry.target.id;
+          if (!id) return;
 
-            window.history.replaceState(null, "", `#${id}`);
-          }
+          setActiveId(id);
+          history.replaceState(null, "", `#${id}`);
         });
       },
-      { rootMargin: "-45% 0px -45% 0px" }
+      {
+        rootMargin: `${offset}px 0px -60% 0px`,
+        threshold: 0.1,
+      }
     );
 
-    ids.forEach((id) => {
+    sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
-  }, [ids]);
+  }, [sectionIds, offset]);
 
-  return activeId;
-};
+  // Initialize from URL hash
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash && sectionIds.includes(hash)) {
+      setActiveId(hash);
+    }
+  }, [sectionIds]);
 
-export const scrollToHashOnLoad = () => {
-  const hash = window.location.hash.replace("#", "");
-  if (!hash) return;
-
-  const el = document.getElementById(hash);
-  if (el) {
-    requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }
-};
+  return {
+    activeId,
+    markProgrammaticScroll,
+  };
+}

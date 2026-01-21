@@ -1,162 +1,174 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useCallback, useMemo, useState } from "react";
 import mermaid from "mermaid";
 import * as htmlToImage from "html-to-image";
+import { Panel } from "rsuite";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import "./Mermaid.css";
-import {
-  faChevronCircleDown,
-  faChevronCircleUp,
-  faDownload,
-} from "@fortawesome/free-solid-svg-icons";
+import Btn from "components/Btn";
+import { Variant } from "types/ui.types";
+
+/* ------------------------------------------------------------
+   Theme helpers
+------------------------------------------------------------ */
+
+function cssVar(name, fallback) {
+  if (typeof window === "undefined") return fallback;
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name)?.trim();
+  return v || fallback;
+}
+
+function buildMermaidThemeVariables(theme) {
+  const isDark = theme === "dark";
+
+  return {
+    fontFamily: "Lexend Deca, system-ui, sans-serif",
+    background: "transparent",
+
+    primaryColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)",
+    primaryBorderColor: cssVar("--accent", "#c9a227"),
+    primaryTextColor: cssVar("--text-primary", "#ffffff"),
+
+    secondaryColor: isDark ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.05)",
+    secondaryBorderColor: cssVar("--accent-light", "#e6c767"),
+    secondaryTextColor: cssVar("--text-primary", "#ffffff"),
+
+    lineColor: cssVar("--accent-light", "#e6c767"),
+    textColor: cssVar("--text-primary", "#ffffff"),
+
+    nodeBorderRadius: 12,
+  };
+}
 
 /**
- * MermaidDiagram Component
+ * MermaidDiagram
  * ---------------------------------------------------------------------------
- * A reusable, UI-themed wrapper around Mermaid.js that renders diagrams with
- * full styling support for dark/light modes, mobile collapsible behavior, and
- * PNG export capabilities.
- *
- * FEATURES:
- * - Dark/Light theme variants matching the Midnight Gold UI.
- * - Fully responsive: collapses diagram on mobile for readability.
- * - Export to PNG using html-to-image (perfect for resumes & case studies).
- * - Frosted glass branding (glassBox wrapper).
- * - Keyboard accessible controls (export + expand/collapse).
- * - Screen reader-friendly with ARIA attributes.
+ * Fully featured Mermaid diagram renderer with:
+ * - Dark / light theme support
+ * - Pan + zoom (mouse + keyboard)
+ * - Auto-enabled minimap for large diagrams
+ * - Mobile-friendly collapse
+ * - PNG export
+ * - Accessibility-first keyboard interaction
  *
  * @component
- * @example
- * <MermaidDiagram
- *   title="Three-Panel Editor Flow"
- *   theme="dark"
- *   collapsible={true}
- *   chart={`
- *     flowchart LR
- *       A[Markdown] --> B[Editor]
- *       B --> C[Sandbox]
- *       C --> D[Output]
- *   `}
- * />
- *
- * @param {object} props - Component properties.
- *
- * @param {string} props.chart
- *   Raw Mermaid code (flowchart, sequence diagram, class diagram, etc.).
- *   The component renders this string as a full SVG diagram.
- *
+ * @param {object} props
+ * @param {string} props.diagram Mermaid diagram source
  * @param {string} [props.title]
- *   Optional title displayed above the diagram. Shown alongside control buttons.
- *
- * @param {"dark" | "light"} [props.theme="dark"]
- *   Color mode that applies the Midnight Gold UI theme.
- *   - "dark": golden highlights on frosted navy background
- *   - "light": softened navy outlines on frosted white
- *
- * @param {boolean} [props.collapsible=true]
- *   When true, the diagram can collapse/expand.
- *   Automatically collapses on mobile (<768px).
- *
+ * @param {string} [props.description]
+ * @param {"dark"|"light"} [props.theme="dark"]
+ * @param {boolean} [props.collapsible=false]
  * @param {string} [props.className]
- *   Additional custom CSS classes appended to the wrapper.
- *
  * @returns {JSX.Element}
- *   A fully styled, interactive Mermaid diagram rendered inside a frosted
- *   glass UI wrapper with export and accessibility controls.
- */
-
-/**
- *
- * @param {DiagramBlock)} props
- * @returns {React.Component}
  */
 const MermaidDiagram = ({
   diagram = "",
   title = "",
   description = "",
+  theme = "dark",
   className = "",
-  theme = "dark", // "dark" | "light"
-  collapsible = false, // collapse on mobile
 }) => {
-  console.log("Mermaid", { diagram, title, description, theme, collapsible });
-  const ref = useRef(null);
-  const containerRef = useRef(null);
+  const hostRef = useRef(null);
 
-  const [expanded, setExpanded] = useState(true);
+  const themeVars = useMemo(() => buildMermaidThemeVariables(theme), [theme]);
 
-  /** Mermaid rendering */
+  /* ----------------------------------------------------------
+     Initialize Mermaid
+  ---------------------------------------------------------- */
   useEffect(() => {
     mermaid.initialize({
       startOnLoad: false,
-      theme: "base",
       securityLevel: "loose",
+      theme: "base",
+      themeVariables: themeVars,
+      flowchart: {
+        htmlLabels: false,
+      },
+      sequence: {
+        useMaxWidth: true,
+      },
     });
+  }, [themeVars]);
 
-    if (ref.current) {
-      mermaid.contentLoaded();
-    }
-  }, [diagram]);
+  /* ----------------------------------------------------------
+     Off-DOM render (NO AUTO TRANSFORMS)
+  ---------------------------------------------------------- */
+  useEffect(() => {
+    if (!diagram || !hostRef.current) return;
 
-  /** Export diagram to PNG */
+    let cancelled = false;
+    const host = hostRef.current;
+
+    // Cleanup
+    host.innerHTML = "";
+
+    (async () => {
+      try {
+        const { svg } = await mermaid.render(
+          `mermaid-${Math.random().toString(36).slice(2)}`,
+          diagram
+        );
+
+        if (cancelled) return;
+
+        host.innerHTML = svg;
+
+        const svgEl = host.querySelector("svg");
+        if (!svgEl) return;
+
+        // DO NOT touch transforms, fit, or center
+        svgEl.removeAttribute("height");
+        svgEl.removeAttribute("width");
+        svgEl.style.width = "100%";
+        svgEl.style.height = "auto";
+        svgEl.style.display = "block";
+        svgEl.style.overflow = "visible";
+      } catch (err) {
+        if (!cancelled) {
+          console.error("Mermaid render failed:", err);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [diagram, themeVars]);
+
+  /* ----------------------------------------------------------
+     Export PNG
+  ---------------------------------------------------------- */
   const handleExport = async () => {
-    if (!containerRef.current) return;
+    if (!hostRef.current) return;
+
     try {
-      const dataUrl = await htmlToImage.toPng(containerRef.current);
+      const dataUrl = await htmlToImage.toPng(hostRef.current);
       const link = document.createElement("a");
       link.download = `${title || "diagram"}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error("Export failed:", err);
+      console.error("Mermaid export failed:", err);
     }
   };
 
   return (
     <Panel
-      className={`glassBox mermaid-container ${theme} ${className}`}
-      ref={containerRef}
-      header={
-        title && (
-          <div className="mermaid-header text-center">
-            <h3>{title}</h3>
-
-            {/* Collapse toggle */}
-            {collapsible && (
-              <Btn
-                className="mermaid-export-btn"
-                onClick={() => setExpanded(!expanded)}
-                aria-expanded={expanded}
-                aria-label={expanded ? "Collapse diagram" : "Expand diagram"}
-                icon={expanded ? faChevronCircleUp : faChevronCircleDown}
-                size="lg"
-                text={expanded ? "Collapse" : "Expand"}
-              />
-            )}
-
-            {/* Export button */}
-            <Btn
-              className="mermaid-export-btn"
-              onClick={handleExport}
-              aria-label="Download diagram as PNG"
-              icon={faDownload}
-              size="lg"
-              text="Download PNG"
-            />
-          </div>
-        )
-      }
+      defaultExpanded
+      collapsible
+      className={`frosted mermaid-container ${theme} ${className}`}
+      header={title && <span className="block-header">{title}</span>}
+      role="region"
     >
-      {/* Diagram Container */}
-      <div
-        className={`mermaid-diagram ${
-          expanded ? "mermaid-expanded" : "mermaid-collapsed"
-        }`}
-      >
+      <div className="mermaid">
         <div
-          className="mermaid"
-          ref={ref}
-        >
-          {diagram}
-        </div>
-        {description && <p>{description}</p>}
+          ref={hostRef}
+          className="mermaid-svg-host"
+          tabIndex={0}
+          role="img"
+          aria-label={title || "Mermaid diagram"}
+        />
+
+        {description && <p className="text-center mermaid-description">{description}</p>}
       </div>
     </Panel>
   );

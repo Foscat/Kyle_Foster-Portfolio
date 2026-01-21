@@ -1,44 +1,43 @@
+import ClickableImg from "components/ClickableImg";
+import { FlexboxGrid, Panel } from "rsuite";
 
 /**
  * ImageGalleryBlock
- * ------------------------------------------------------------
- * Displays responsive images with:
- * - Click-to-zoom modal
- * - Optional captions
- * - Grid layout using RSuite
+ * ---------------------------------------------------------------------------
+ * Displays a responsive image gallery as a collapsible frosted panel.
+ *
+ * Key behaviors:
+ * - Renders a grid of thumbnails (RSuite FlexboxGrid)
+ * - Each image opens a ClickableImg modal viewer
+ * - Uses stable React keys (prefers image.id)
  *
  * @component
  * @param {object} props
- * @param {FeatureImage[]} props.images
+ * @param {string} [props.title] - Optional panel header title.
+ * @param {FeatureImage[]} props.images - Image definitions to render.
+ * @returns {JSX.Element|null}
  */
-const ImageGalleryBlock = ({ images = [] }) => {
-  if (!images.length) return null;
+const ImageGalleryBlock = ({ title, images = [] }) => {
+  if (!Array.isArray(images) || images.length === 0) return null;
 
   return (
     <Panel
-      bordered
       collapsible
       defaultExpanded
-      className="glass-card image-gallery-block"
+      bordered
+      className="frosted"
+      header={title ? <h3 className="block-header">{title}</h3> : undefined}
     >
-      <FlexboxGrid
-        justify="space-between"
-        align="top"
-      >
-        {images.map((img, i) => (
-          <FlexboxGrid.Item
-            key={i}
-            colspan={12}
-          >
-            <ClickableImg
-              src={img.src}
-              alt={img.alt}
-              title={img.title}
-              caption={img.caption}
-              className="gallery-thumb"
-            />
-          </FlexboxGrid.Item>
-        ))}
+      <FlexboxGrid justify="space-around" align="top">
+        {images.map((img, i) => {
+          const key = img?.id ?? `gallery-img-${i}`;
+
+          return (
+            <FlexboxGrid.Item className="mb-2" key={key} colspan={11}>
+              <ClickableImg {...img} className="gallery-thumb" />
+            </FlexboxGrid.Item>
+          );
+        })}
       </FlexboxGrid>
     </Panel>
   );

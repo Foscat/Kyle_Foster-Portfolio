@@ -1,5 +1,8 @@
+import InfoSection from "components/InfoSection";
 import "./styles.css";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
+import ClickableImg from "components/ClickableImg";
+import Btn from "components/Btn";
 
 /**
  * ProjectCard Component
@@ -26,13 +29,7 @@ const ProjectCard = ({
   id = "",
 }) => {
   return (
-    <InfoSection
-      className="fadeIn"
-      title={title}
-      subtitle={description}
-      icon={icon}
-      id={id}
-    >
+    <InfoSection className="fadeIn" title={title} subtitle={description} icon={icon} id={id}>
       {/* Images */}
       {images.length > 0 && (
         <div className="projectCard-imageGrid">
@@ -59,6 +56,8 @@ const ProjectCard = ({
             href={repo}
             target="_blank"
             rel="noopener noreferrer"
+            ariaLabel="View source code on GitHub"
+            tooltip="View source code on GitHub"
           />
         )}
 
@@ -70,6 +69,8 @@ const ProjectCard = ({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
+            ariaLabel="View live project"
+            tooltip="View live project"
           />
         )}
       </div>

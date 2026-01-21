@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Button, IconButton } from "rsuite";
+import { Button, IconButton, Tooltip, Whisper } from "rsuite";
 import "./styles.css";
-import { faCircleInfo, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import FrostedIcon from "components/FrostedIcon";
+import { Variant, Size } from "types/ui.types";
 
 /**
  * Frosted Glass Button Component
@@ -48,6 +51,9 @@ import { faCircleInfo, faSpinner } from "@fortawesome/free-solid-svg-icons";
  * @property {string} [href]
  *   Converts button into a link.
  *
+ * @property {boolean} [hrefLocal = false]
+ *
+ *
  * @property {string} [target]
  *   Anchor target value ("_blank", etc.)
  *
@@ -66,13 +72,13 @@ import { faCircleInfo, faSpinner } from "@fortawesome/free-solid-svg-icons";
  * @returns {JSX.Element}
  */
 const Btn = ({
-  variant = "primary",
-  size = "md",
+  variant = Variant.PRIMARY,
+  size = Size.MD,
   disabled = false,
   loading = false,
   text = "",
   className = "",
-  icon = "",
+  icon = undefined,
   onClick = () => {},
   ariaLabel = undefined,
   href = undefined,
@@ -82,6 +88,9 @@ const Btn = ({
   tooltip = "",
   animation = "none",
   download = undefined,
+  noBG = false,
+  block = false,
+  type = "button",
 }) => {
   const [asyncLoading, setAsyncLoading] = useState(loading);
 
@@ -92,14 +101,10 @@ const Btn = ({
   const resolvedAriaLabel =
     ariaLabel ||
     (typeof tooltip === "string" ? tooltip : undefined) ||
-    (isIconOnly && typeof icon === "string"
-      ? icon.replace(/[-_]/g, " ")
-      : undefined);
+    (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
-    console.warn(
-      "[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility."
-    );
+    console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
   }
 
   /** Async-aware click handler */
@@ -121,13 +126,20 @@ const Btn = ({
   const Component = icon ? IconButton : Button;
   const button = (
     <Component
+      role="button"
       disabled={disabled || loading || asyncLoading}
       onClick={handleClick}
-      size={size}
+      block={block}
+      type={type}
+      aria-label={resolvedAriaLabel}
+      aria-busy={loading || asyncLoading}
+      aria-disabled={disabled || loading || asyncLoading}
       className={`
-        frosted-btn 
-        ${variant}
+        btn 
+        ${noBG ? "btn-noBG" : ""}
+        ${variant ? variant : Variant.PRIMARY}
         ${isIconOnly ? "icon-only" : ""}
+        ${size ? `btn-${size}` : `btn-${Size.MD}`}
         ${loading || asyncLoading ? "loading" : ""}
         ${animation !== "none" ? `anim-${animation}` : ""}
         ${className}
@@ -138,6 +150,10 @@ const Btn = ({
           icon={loading ? faSpinner : icon}
           variant={variant}
           clickable={!disabled}
+          spin={loading}
+          noBG={noBG}
+          tooltip={tooltip}
+          className="btn-icon"
         />
       }
     >
@@ -151,19 +167,17 @@ const Btn = ({
       trigger={tooltip ? "hover" : "none"}
       followCursor={true}
       speaker={
-        <Tooltip>
-          <FrostedIcon
-            icon={faCircleInfo}
-            size="sm"
-          />
-          {tooltip}
+        <Tooltip className="frosted ">
+          <p>{disabled ? "Button is disabled" : tooltip}</p>
         </Tooltip>
       }
     >
       {href ? (
         hrefLocal ? (
           <Link
+            role="button"
             to={href}
+            type={type}
             aria-label={resolvedAriaLabel}
             aria-busy={loading || asyncLoading}
             aria-disabled={disabled || loading}
@@ -172,6 +186,7 @@ const Btn = ({
           </Link>
         ) : (
           <a
+            role="button"
             href={href}
             rel={rel || "noopener noreferrer"}
             target={target || "_blank"}

@@ -1,3 +1,5 @@
+import Btn from "components/Btn";
+import { ButtonToolbar } from "rsuite";
 
 /**
  * LinksBlock
@@ -25,29 +27,31 @@ const LinksBlock = ({ links = [] }) => {
   if (!links.length) return null;
 
   return (
-    <ButtonToolbar className="linklist-block">
-      {links.map((link, i) => {
-        const isExternal = /^https?:\/\//.test(link.url);
+    <Panel collapsible defaultExpanded className="frosted">
+      <ButtonToolbar className="linklist-block">
+        {links.map((link, i) => {
+          const isExternal = /^https?:\/\//.test(link.url);
 
-        return (
-          <Btn
-            key={i}
-            className="link-list-item"
-            href={link.url}
-            hrefLocal={link.local}
-            icon={link.icon || "link"}
-            size={link.size || "sm"}
-            variant={link.variant || "primary"}
-            target={isExternal ? link.target : undefined}
-            rel={isExternal ? link.rel : undefined}
-            download={link.download}
-            text={link.title || "Open Link"}
-            tooltip={link.tooltip}
-            aria-label={link.ariaLabel}
-          />
-        );
-      })}
-    </ButtonToolbar>
+          return (
+            <Btn
+              key={i}
+              className="link-list-item"
+              href={link.url}
+              hrefLocal={link.local}
+              icon={link.icon || "link"}
+              size={link.size || "sm"}
+              variant={link.variant || "primary"}
+              target={isExternal ? link.target : undefined}
+              rel={isExternal ? link.rel : undefined}
+              download={link.download}
+              text={link.title || "Open Link"}
+              tooltip={link.tooltip}
+              aria-label={link.ariaLabel}
+            />
+          );
+        })}
+      </ButtonToolbar>
+    </Panel>
   );
 };
 

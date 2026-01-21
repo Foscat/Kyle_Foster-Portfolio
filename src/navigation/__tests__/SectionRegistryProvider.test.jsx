@@ -1,12 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import {
-  useSectionRegistry,
-} from "../SectionRegistryProvider";
+import { useSectionRegistry } from "../SectionRegistryProvider";
 
-const wrapper = ({ children }) => (
-  <SectionRegistryProvider>{children}</SectionRegistryProvider>
-);
+const wrapper = ({ children }) => <SectionRegistryProvider>{children}</SectionRegistryProvider>;
 
 describe("SectionRegistryProvider", () => {
   beforeEach(() => {

@@ -13,24 +13,44 @@
 .page-header-title {
   font-size: var(--font-xxl);
   margin-bottom: 0.5rem;
+  color: rgba(var(--accent-rgb), 0.9);
 }
 
 .page-header-subtitle {
   font-size: var(--font-md);
-  color: var(--text-secondary);
+  color: var(--grey-300);
+  opacity: 0.8;
   margin-bottom: 1rem;
-}
-
-.page-header-description {
-  max-width: 820px;
-  margin: 0 auto;
-  font-size: var(--font-sm);
-  color: var(--gray-300);
 }
 
 /* Motion alignment with frosted UI */
 .fade-in {
   animation: fadeInUp 0.6s ease forwards;
+}
+
+p.tech-used span.front {
+  color: var(--front-end);
+  outline: 1px outset rgba(var(--front-end-rgb), 0.9);
+}
+
+p.tech-used span.back {
+  color: var(--back-end);
+  outline: 1px outset rgba(var(--tool), 0.9);
+}
+
+p.tech-used span.tool {
+  color: var(--tool);
+  outline: 1px outset rgba(var(--back-end-rgb), 0.9);
+}
+
+p.tech-used span.front.tool {
+  color: var(--tool);
+  outline: 1px outset rgba(var(--front-end-rgb), 0.9);
+}
+
+p.tech-used span.tool.back {
+  color: var(--back-end);
+  outline: 1px outset rgba(var(--tool-rgb), 0.9);
 }
 
 @keyframes fadeInUp {

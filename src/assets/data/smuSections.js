@@ -1,12 +1,19 @@
 import {
   faChartLine,
   faCode,
+  faCommentNodes,
+  faDiagramProject,
+  faExclamationTriangle,
   faGraduationCap,
+  faHelmetSafety,
   faImages,
   faLaptopCode,
+  faLightbulb,
   faPersonPregnant,
 } from "@fortawesome/free-solid-svg-icons";
-import { BlockType, Theme } from "../../types/ui.types";
+import { BlockType } from "../../types/ui.types";
+import { diagrams } from "./diagrams.js";
+import imgObjs from "assets/images/smu";
 
 /**
  * SMU – Page Section Data
@@ -15,17 +22,17 @@ import { BlockType, Theme } from "../../types/ui.types";
  * teamwork, and problem-solving progression.
  */
 
-export default [
+const smuSections = [
   {
     id: "smu-overview",
     slug: "overview",
     title: "SMU Full Stack Bootcamp",
-    subtitle:
-      "Foundational projects that launched my software development career",
+    subtitle: "Foundational projects that launched my software development career",
     icon: faGraduationCap,
     isScroller: true,
     blocks: [
       {
+        id: "smu-overview",
         type: BlockType.RichText,
         paragraphs: [
           "My time at Southern Methodist University marked the foundation of my transition into professional software development. During this period, I built a strong technical baseline in HTML, CSS, JavaScript, Node.js, Express, and React, while learning how to apply those skills through real projects rather than isolated exercises.",
@@ -47,7 +54,9 @@ export default [
     isScroller: true,
     blocks: [
       {
+        id: "gif-freak-problem",
         type: BlockType.RichText,
+        icon: faExclamationTriangle,
         title: "The Problem",
         paragraphs: [
           "Early in my education, I needed hands-on experience working with third-party APIs and asynchronous JavaScript. Most learning exercises felt abstract and disconnected from real user interaction.",
@@ -55,36 +64,21 @@ export default [
         ],
       },
       {
+        id: "gif-freak-image",
         type: BlockType.IMAGE_GALLERY,
-        images: [
-          {
-            src: "../images/smu/gifFreak.png",
-            alt: "Screenshot of original Gif Freak page",
-            title: "Original webpage",
-            caption: "", // TODO: Add caption for picture
-          },
-        ],
+        images: [imgObjs.freak],
       },
       {
+        id: "gif-freak-solution",
         type: BlockType.RichText,
+        icon: faLightbulb,
         title: "The Solution",
         paragraphs: [
           "I built Gif Freak, a lightweight client-side web application that integrates with the Giphy API to fetch and display animated content based on user input.",
           "Users can trigger predefined searches or generate custom search buttons, each making asynchronous API requests and rendering results in real time. While persistence was limited to session state at the time, the project provided direct exposure to API consumption, event-driven UI updates, and async data handling.",
         ],
       },
-      {
-        type: BlockType.Diagram,
-        title: "System Flow",
-        diagram: `
-          flowchart LR
-            UserInput --> UI
-            UI --> GiphyAPI
-            GiphyAPI --> UI
-            UI --> GIFDisplay
-        `,
-        theme: Theme.DARK,
-      },
+      diagrams.gifSystemFlow,
       {
         type: BlockType.LINKS,
         links: [
@@ -92,37 +86,50 @@ export default [
             title: "See the code",
             url: "https://github.com/Foscat/gif-buttons",
             icon: faCode,
+            ariaLabel: "Link to the Gif Freak code repository on GitHub",
+            local: false,
+            tooltip: "GitHub Repository",
           },
           {
             title: "View the project",
             url: "https://foscat.github.io/gif-buttons/",
             icon: faLaptopCode,
+            ariaLabel: "Link to the live Gif Freak project",
+            local: false,
+            tooltip: "Live Project",
           },
         ],
       },
-
       {
+        id: "gif-freak-takeaways",
         type: BlockType.BulletedList,
         title: "Key Takeaways",
         items: [
           {
             id: "smu-kt-1",
+            title: "API Integration",
             text: "First hands-on experience consuming third-party APIs",
+            icon: faDiagramProject,
           },
           {
             id: "smu-kt-2",
+            title: "Asynchronous JavaScript",
             text: "Learned asynchronous JavaScript and event-driven UI updates",
+            icon: faLaptopCode,
           },
           {
-            id: "gif-kt-3",
-            text: "Sparked long-term interest in front-end development",
+            id: "smpu-kt-3",
+            title: "User Interaction",
+            text: "Built an interactive front-end application responding to user input",
+            icon: faCommentNodes,
           },
         ],
       },
-
       {
+        id: "gif-freak-improvements",
         type: BlockType.RichText,
         title: "What I'd Improve Today",
+        icon: faHelmetSafety,
         paragraphs: [
           "If I rebuilt this project today, I would introduce persistent storage using a backend service, implement proper error handling for API failures, and refactor the UI using modern component patterns.",
           "I would also add accessibility improvements, loading states, and memoization to reduce unnecessary re-renders.",
@@ -169,18 +176,7 @@ export default [
           "My role focused on API integrations and Firebase persistence, designing how live data and user content were retrieved, stored, and associated within the application.",
         ],
       },
-
-      {
-        type: BlockType.Diagram,
-        title: "Data & Content Flow",
-        diagram: `
-          flowchart LR
-            StockAPI --> DataProcessor --> ChartUI
-            User --> MemeGenerator --> Firebase
-            Firebase --> StockPage
-        `,
-        theme: Theme.DARK,
-      },
+      diagrams.stockMemerFlow,
       {
         type: BlockType.LINKS,
         links: [
@@ -250,19 +246,7 @@ export default [
           "I designed and implemented the core matching algorithm, analyzing survey responses to generate compatibility scores and identify strong potential pairings.",
         ],
       },
-
-      {
-        type: BlockType.Diagram,
-        title: "Matching Algorithm Flow",
-        diagram: `
-          flowchart TD
-            UserProfiles --> SurveyEngine
-            SurveyEngine --> MatchAlgorithm
-            MatchAlgorithm --> MatchScores
-            MatchScores --> UserMatches
-        `,
-        theme: Theme.DARK,
-      },
+      diagrams.matchFlow,
       {
         type: BlockType.LINKS,
         links: [
@@ -270,7 +254,7 @@ export default [
             title: "See the code",
             url: "https://github.com/justinkunz/scion/tree/master",
             icon: faCode,
-            rel:"noopener noreferrer"
+            rel: "noopener noreferrer",
           },
         ],
       },
@@ -295,3 +279,5 @@ export default [
     ],
   },
 ];
+
+export default smuSections;

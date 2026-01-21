@@ -31,8 +31,7 @@ class ErrorBoundary extends React.Component {
         <div className="glassBox">
           <h1>Something went wrong</h1>
           <p>
-            A runtime error prevented the application from loading. Check the
-            console for details.
+            A runtime error prevented the application from loading. Check the console for details.
           </p>
           <pre>{String(this.state.error)}</pre>
         </div>

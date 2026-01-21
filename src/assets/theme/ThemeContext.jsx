@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { Theme } from "types/ui.types";
 
 export const ThemeContext = createContext(null);
 
@@ -16,14 +11,12 @@ export const ThemeContext = createContext(null);
  */
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") || "auto";
+    return localStorage.getItem("theme") || Theme.DARK;
   });
 
   const resolvedTheme = useMemo(() => {
-    if (theme === "auto") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+    if (theme !== "light") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
     return theme;
   }, [theme]);

@@ -1,10 +1,14 @@
 import { useEffect } from "react";
-import PageMetas from "assets/data/pageMetas";
-import hackathonSections from "assets/data/hackathonSections";
-import { renderTechUsedString } from "assets/utils";
+import Data from "assets/data/pageMetas";
 import { restoreScrollPosition } from "navigation/restoreScrollPosition";
+import SectionRegistryProvider from "navigation/SectionRegistryProvider";
+import PageHeader from "components/PageHeader";
+import StickyNav from "components/StickyNav";
+import SectionRenderer from "components/SectionRenderer";
+import StickySectionNav from "components/StickySectionNav";
+import Footer from "components/Footer";
 
-const hack = PageMetas.Hackathon;
+const hack = Data.Hackathon;
 
 /**
  * Hackathon Page
@@ -26,25 +30,21 @@ const Hackathon = () => {
         <PageHeader
           title={hack.title}
           jobTitle={hack.jobTitle}
-          subTitle={`Tech Used: ${renderTechUsedString(hack.tech)}`}
+          subTitle={hack.description}
           timespan={hack.timespan}
+          tech={hack.tech}
         />
-        <StickyNav />
-        <FlexboxGrid justify="space-around">
-          <FlexboxGrid.Item colspan={18}>
-            {hackathonSections.map((sect, i) => {
-              return (
-                <SectionRenderer
-                  section={sect}
-                  key={"hackathon-section" + i + 1}
-                />
-              );
+        <StickyNav activePage={hack.url} />
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
+            {hack.sections.map((sect) => {
+              return <SectionRenderer section={sect} key={sect.id} />;
             })}
-          </FlexboxGrid.Item>
-          <FlexboxGrid.Item colspan={5}>
-            <StickySectionNav sections={hackathonSections} />
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
+          </main>
+          <aside className="page-sidebar">
+            <StickySectionNav pageUrl={hack.url} sections={hack.sections} />
+          </aside>
+        </div>
         <Footer />
       </div>
     </SectionRegistryProvider>

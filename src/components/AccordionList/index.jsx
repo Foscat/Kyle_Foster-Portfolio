@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./styles.css";
+import { Accordion, Panel } from "rsuite";
+import Btn from "components/Btn";
+import { faReadme } from "@fortawesome/free-brands-svg-icons";
+import { Size } from "types/ui.types";
 
 /**
  * @component AccordionList
@@ -62,9 +66,6 @@ import "./styles.css";
  *    @param {string}   items[].id
  *          DOM id of the section on the page (required for scrolling).
  *
- *    @param {boolean}  items[].isScroller
- *          If true, clicking or pressing Enter will scroll to
- *          the corresponding page section rather than toggling accordion.
  *
  *    @param {string}   [items[].icon]
  *          Icon name passed to <FrostedIcon />.
@@ -74,6 +75,9 @@ import "./styles.css";
  *
  *    @param {string|JSX.Element} [items[].text]
  *          Optional content shown when expanded (accordion mode only).
+ *
+ *    @param {string}   [items[].[url]}
+ *          Optional URL to navigate to wwhen button is clicked.
  *
  * @param {boolean} [props.accordion=true]
  *    Enables collapsible panels.
@@ -129,7 +133,10 @@ import "./styles.css";
  */
 
 const AccordionList = ({
+  id,
   title,
+  subtitle,
+  icon,
   items = [],
   accordion = false,
   variant = "dark",
@@ -164,43 +171,43 @@ const AccordionList = ({
 
   /** Auto-highlight based on viewport position for isScroller items */
   useEffect(() => {
-    if (!items.length) return;
+    if (typeof window === "undefined") return; // SSR / non-browser
+    if (!("IntersectionObserver" in window)) {
+      // Fallback: either no-op or set a reasonable default
+      // Example: keep current openIndex/focusedIndex and just return
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (manualToggle.current) return;
 
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
 
-          const foundIndex = items.findIndex(
-            (it) => it.id && it.id === entry.target.id
-          );
+          const foundIndex = items.findIndex((it) => it.id && it.id === entry.target.id);
           if (foundIndex !== -1) {
             setOpenIndex(foundIndex);
             setFocusedIndex(foundIndex);
           }
-        });
+        }
       },
       { threshold: 0.45 }
     );
 
-    items.forEach((item) => {
-      if (!item.isScroller) return;
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
-    });
+    // Observe targets (example)
+    const targets = items.map((it) => document.getElementById(it.id)).filter(Boolean);
+
+    targets.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [items]);
+  }, [items, setOpenIndex, setFocusedIndex]);
 
   /** Auto-scroll active item into view whenever openIndex changes */
   useEffect(() => {
     if (!listRef.current || openIndex === null) return;
 
-    const active = listRef.current.querySelector(
-      `.fa-list-item:nth-child(${openIndex + 1})`
-    );
+    const active = listRef.current.querySelector(`.fa-list-item:nth-child(${openIndex + 1})`);
     if (!active) return;
 
     active.scrollIntoView({
@@ -213,9 +220,7 @@ const AccordionList = ({
   useEffect(() => {
     if (!listRef.current || focusedIndex === null) return;
 
-    const active = listRef.current.querySelector(
-      `.fa-list-item:nth-child(${focusedIndex + 1})`
-    );
+    const active = listRef.current.querySelector(`.fa-list-item:nth-child(${focusedIndex + 1})`);
     if (!active) return;
 
     active.scrollIntoView({
@@ -301,25 +306,32 @@ const AccordionList = ({
 
   return (
     <Panel
+      collapsible
+      defaultExpanded
       bordered={bordered}
-      header={title}
-      className={`frosted-accordion ${variant} ${className}`}
+      header={
+        <div>
+          <div className="flex-row">
+            {icon && <FrostedIcon size="lg" icon={icon} />}
+            {title && <h2 className="block-header">{title}</h2>}
+          </div>
+          {subtitle && <h4 className="block-subtitle">{subtitle}</h4>}
+        </div>
+      }
+      className={`frosted ${variant} ${className}`}
+      id={id}
     >
       {/* Keyboard help for users & screen readers */}
-      {/* <p className="fa-help">
-        Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> navigate • <kbd>←</kbd> collapse •{" "}
-        <kbd>→</kbd> expand • <kbd>Enter</kbd>/<kbd>Space</kbd> toggle
-      </p> */}
-
+      <p className="fa-help">
+        Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> navigate • <kbd>←</kbd> collapse • <kbd>→</kbd> expand •{" "}
+        <kbd>Enter</kbd>/<kbd>Space</kbd> toggle
+      </p>
       {/* Screen reader live region */}
-      <div
-        className="sr-only"
-        aria-live="polite"
-      >
+      <div className="sr-only" aria-live="polite">
         {srMessage}
       </div>
-
       <Accordion
+        id={id}
         className="fa-list"
         ref={listRef}
         role="tree"
@@ -327,24 +339,32 @@ const AccordionList = ({
       >
         {items.map((item, i) => {
           console.log(item);
-          const isOpen = accordion && openIndex === i;
-          const headerId = `accordion-header-${item.id || i}`;
+          const headerId = `accordionheader-${item.id || i}`;
           const panelId = `accordion-panel-${item.id || i}`;
 
           return (
             <Accordion.Panel
-              key={item.id || i}
-              className={`accordian-panel ${isOpen ? "open" : ""}`}
+              defaultExpanded
+              key={"panel-" + item.id}
+              className={"fa-list-item blue-tile"}
               header={<h4>{item.title}</h4>}
             >
               {item.text && (
-                <p
-                  id={panelId}
-                  role="group"
-                  aria-labelledby={headerId}
-                >
+                <p key={item.id} id={panelId} role="group" aria-labelledby={headerId}>
                   {item.text}
                 </p>
+              )}
+              {item.url && (
+                <div key={item.id} className="center-v mt-2">
+                  <Btn
+                    key={item.id}
+                    text="Learn More"
+                    icon={faReadme}
+                    href={item.url}
+                    hrefLocal={item.local}
+                    size={Size.SM}
+                  />
+                </div>
               )}
             </Accordion.Panel>
           );

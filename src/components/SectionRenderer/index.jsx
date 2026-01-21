@@ -8,6 +8,10 @@ import {
   createLinkListBlock,
   createRichTextBlock,
 } from "types/ui.types";
+import InfoSection from "components/InfoSection";
+import { ImageGalleryBlock, LinksBlock, RichTextBlock } from "components/blocks";
+import AccordionList from "components/AccordionList";
+import MermaidDiagram from "components/MermaidDiagram";
 
 /**
  * SectionRenderer Component
@@ -72,7 +76,7 @@ const SectionRenderer = ({ section }) => {
     });
 
     return () => unregisterSection(section.id);
-  }, [section.id]);
+  }, [section.id, section.title, registerSection, unregisterSection]);
 
   return (
     <InfoSection
@@ -80,55 +84,30 @@ const SectionRenderer = ({ section }) => {
       title={section.title}
       subtitle={section.subtitle}
       icon={section.icon}
+      className="section-renderer"
+      data-section-renderer
     >
+      {/* <PanelGroup accordion> */}
       {section.blocks.map((block, i) => {
+        console.debug("Rendering block:", block);
         switch (block.type) {
           case BlockType.RICH_TEXT: {
             const rtb = createRichTextBlock(block);
-            return (
-              <RichTextBlock
-                key={i}
-                {...rtb}
-              />
-            );
+            return <RichTextBlock key={i} {...rtb} />;
           }
 
           case BlockType.IMAGE_GALLERY:
-            const imgGal = createImageGalleryBlock(block);
-            return (
-              <ImageGalleryBlock
-                key={i}
-                {...imgGal}
-              />
-            );
+            return <ImageGalleryBlock key={i} {...createImageGalleryBlock(block)} />;
 
           case BlockType.LINKS:
-            const linksBlock = createLinkListBlock(block);
-            return (
-              <LinksBlock
-                key={i}
-                {...linksBlock}
-              />
-            );
+            return <LinksBlock key={i} {...createLinkListBlock(block)} />;
 
           case BlockType.BULLETED_LIST: {
-            const bl = createBulletListBlock(block);
-            return (
-              <AccordionList
-                key={i}
-                {...bl}
-              />
-            );
+            return <AccordionList key={i} {...createBulletListBlock(block)} bordered={true} />;
           }
 
           case BlockType.DIAGRAM: {
-            const mdg = createDiagramBlock(block);
-            return (
-              <MermaidDiagram
-                key={i}
-                {...mdg}
-              />
-            );
+            return <MermaidDiagram key={i} {...createDiagramBlock(block)} />;
           }
 
           /**
@@ -137,14 +116,11 @@ const SectionRenderer = ({ section }) => {
            * we render a visible warning instead of silently failing.
            */
           default:
-            console.debug({ block });
-            return (
-              <p key={i}>
-                {block?.title || "Unknown block"} data is corrupted.
-              </p>
-            );
+            console.debug("Corrupted data block", { block });
+            return <p key={i}>{block?.title || "Unknown block"} data is corrupted.</p>;
         }
       })}
+      {/* </PanelGroup> */}
     </InfoSection>
   );
 };

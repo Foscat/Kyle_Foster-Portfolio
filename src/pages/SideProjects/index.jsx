@@ -1,7 +1,14 @@
 import { useEffect } from "react";
-import sideProjectsData from "assets/data/sideprojectSections";
-import { renderTechUsedString } from "assets/utils";
 import { restoreScrollPosition } from "navigation/restoreScrollPosition";
+import SectionRegistryProvider from "navigation/SectionRegistryProvider";
+import Data from "assets/data/pageMetas";
+import PageHeader from "components/PageHeader";
+import StickyNav from "components/StickyNav";
+import SectionRenderer from "components/SectionRenderer";
+import Footer from "components/Footer";
+import StickySectionNav from "components/StickySectionNav";
+
+const sidePro = Data.SideProjects;
 
 /**
  * SideProjects Page
@@ -21,27 +28,23 @@ const SideProjects = () => {
     <SectionRegistryProvider>
       <div className="container">
         <PageHeader
-          title="Side Projects"
-          subTitle={`Tech Used: ${renderTechUsedString()}`}
-          jobTitle="Student / Freelancer"
-          timespan="2018 - Current"
+          title={sidePro.title}
+          subTitle={sidePro.description}
+          jobTitle={sidePro.jobTitle}
+          timespan={sidePro.timespan}
+          tech={sidePro.tech}
         />
-        <StickyNav />
-        <FlexboxGrid justify="space-around">
-          <FlexboxGrid.Item colspan={18}>
-            {sideProjectsData.map((sect, i) => {
-              return (
-                <SectionRenderer
-                  section={sect}
-                  key={"side-pro-section" + i + 1}
-                />
-              );
+        <StickyNav activePage={sidePro.url} />
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
+            {sidePro.sections.map((sect) => {
+              return <SectionRenderer section={sect} key={sect.id} />;
             })}
-          </FlexboxGrid.Item>
-          <FlexboxGrid.Item colspan={5}>
-            <StickySectionNav sections={sideProjectsData} />
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
+          </main>
+          <aside className="page-sidebar">
+            <StickySectionNav pageUrl={sidePro.url} sections={sidePro.sections} />
+          </aside>
+        </div>
         <Footer />
       </div>
     </SectionRegistryProvider>

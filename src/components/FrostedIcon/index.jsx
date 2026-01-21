@@ -1,5 +1,7 @@
+import { Tooltip, Whisper } from "rsuite";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
-
 
 /**
  * FrostedIcon Component
@@ -23,10 +25,14 @@ import "./styles.css";
  * @param {boolean} [props.loading=false] - Content loading state
  * @param {string} [props.ariaLabel] - For accessibility (aria-label).
  * @param {string} [props.tooltip] - Optional tooltip info on hover
+ * @param {boolean} [props.noBG=false] - Disable background circle
+ * @param {function} [props.onClick=()=>{}] - Click handler
+ * @returns {JSX.Element}
  */
 const FrostedIcon = ({
   icon,
   size = "md",
+  spin = false,
   variant = "primary",
   clickable = false,
   onClick = () => {},
@@ -34,6 +40,7 @@ const FrostedIcon = ({
   loading = false,
   tooltip = "",
   ariaLabel = "",
+  noBG = false,
 }) => {
   return (
     <Whisper
@@ -42,7 +49,7 @@ const FrostedIcon = ({
       followCursor={true}
       speaker={<Tooltip>{tooltip}</Tooltip>}
     >
-      <span
+      {/* <span
         onClick={() => {
           if (clickable) onClick();
         }}
@@ -52,18 +59,34 @@ const FrostedIcon = ({
         tabIndex={clickable ? 0 : undefined}
         className={`
         frosted-icon
-        ${loading ? "loading" : ""}
-        fi-${size}
-        fi-${variant}
+        fi-size-${size}
+        fi-variant-${variant}
+        ${noBG ? "fi-no-bg" : ""}
         ${clickable ? "fi-clickable" : ""}
         ${className}
       `}
-      >
-        <FontAwesomeIcon
-          spin={loading}
-          icon={loading ? faSpinner : icon}
-        />
-      </span>
+      > */}
+      <FontAwesomeIcon
+        onClick={() => {
+          if (clickable) onClick();
+        }}
+        role={clickable ? "button" : "img"}
+        aria-label={ariaLabel || undefined}
+        aria-busy={loading}
+        tabIndex={clickable ? 0 : undefined}
+        className={`
+            frosted-icon
+            fi-size-${size}
+            fi-variant-${variant}
+            ${noBG ? "fi-no-bg" : ""}
+            ${clickable ? "fi-clickable" : ""}
+            ${className}
+          `}
+        spin={loading || spin}
+        size={size}
+        icon={loading ? faSpinner : icon}
+      />
+      {/* </span> */}
     </Whisper>
   );
 };

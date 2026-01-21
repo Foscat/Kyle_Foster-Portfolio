@@ -12,10 +12,19 @@
  */
 
 /**
- * Context value exposed by SectionRegistryProvider.
+ * SectionRegistry API
+ * ------------------------------------------------------------
+ * Interface describing the section registry used for scroll-spy
+ * navigation and section coordination.
  *
- * @typedef {object} SectionRegistryContextValue
- * @property {(id: string, meta: SectionMeta) => void} registerSection
- * @property {(id: string) => void} unregisterSection
- * @property {() => SectionMeta[]} getSections
+ * @typedef {Object} SectionRegistry
+ *
+ * @property {function(string, SectionMeta): void} registerSection
+ *   Registers a section with its metadata.
+ *
+ * @property {function(string): void} unregisterSection
+ *   Unregisters a section by ID.
+ *
+ * @property {function(): Array<SectionMeta>} getSections
+ *   Returns all registered section metadata in order.
  */

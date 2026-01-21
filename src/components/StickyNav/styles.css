@@ -7,8 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  
-} 
+}
 
 /* Brand text styling */
 .brand-text {
@@ -21,17 +20,23 @@
 .burger-btn {
   color: var(--white);
   border-radius: var(--radius-xs);
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 
 /* Override default class from rsuite */
-.rs-navbar-default.rs-navbar{
-  background-color: rgba(var(--primary-darkest-rgb),.5);
+.rs-navbar-default.rs-navbar {
+  background-color: var(--primary-dark-bg);
   display: flex;
   justify-content: center;
 }
 
-.rs-navbar.rs-navbar-default .rs-navbar-item.rs-navbar-item-active{
-  color: rgba(var(--primary),.8);
+.rs-navbar.rs-navbar-default .rs-navbar-item.rs-navbar-item-active,
+.rs-navbar.rs-navbar-default .rs-navbar-item:hover {
+  background-color: var(--bg-gradient);
+  border-radius: var(--radius-lg);
+  color: var(--accent-light);
 }
 
 /* Hide desktop menu on mobile */
@@ -54,14 +59,29 @@
   transition-duration: var(--transition-speed);
 }
 
+.rs-nav-item-active,
+.rs-nav-item[aria-current="page"] {
+  color: var(--accent-light);
+  font-weight: 600;
+}
+
+.rs-nav-item{
+  background-color: var(--primary-dark-bg);
+}
+
+.fi-desk-nav-item.rs-nav-item:active,
+.fi-desk-nav-item.rs-nav-item:hover{
+  background-color: transparent;
+}
+
 .mobile-only {
   display: none;
 }
 
-/* Mobile slide-down menu */
+/* Mobile slide-out menu */
 .mobile-menu {
   width: 100%;
-  background: rgba(var(--gray-900), 0.55);
+  background: rgba(var(--gray-900), 0.85);
   padding: 0.5rem 1rem;
   animation: slideDown 180ms ease-out;
   border-bottom-left-radius: 12px;

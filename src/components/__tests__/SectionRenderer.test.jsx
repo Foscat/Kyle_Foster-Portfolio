@@ -26,34 +26,24 @@ vi.mock("components/InfoSection", () => ({
 }));
 
 vi.mock("components/blocks/RichTextBlock", () => ({
-  default: ({ paragraphs = [] }) => (
-    <div data-testid="block-richText">{paragraphs.join(" ")}</div>
-  ),
+  default: ({ paragraphs = [] }) => <div data-testid="block-richText">{paragraphs.join(" ")}</div>,
 }));
 
 vi.mock("components/blocks/ImageGalleryBlock", () => ({
-  default: ({ images = [] }) => (
-    <div data-testid="block-imageGallery">images:{images.length}</div>
-  ),
+  default: ({ images = [] }) => <div data-testid="block-imageGallery">images:{images.length}</div>,
 }));
 
 vi.mock("components/blocks/LinksBlock", () => ({
-  default: ({ links = [] }) => (
-    <div data-testid="block-links">links:{links.length}</div>
-  ),
+  default: ({ links = [] }) => <div data-testid="block-links">links:{links.length}</div>,
 }));
 
 vi.mock("components/AccordionList", () => ({
-  default: ({ items = [] }) => (
-    <div data-testid="block-bulletedList">items:{items.length}</div>
-  ),
+  default: ({ items = [] }) => <div data-testid="block-bulletedList">items:{items.length}</div>,
 }));
 
 vi.mock("components/MermaidDiagram", () => ({
   default: ({ mermaid }) => (
-    <div data-testid="block-diagram">
-      {mermaid?.slice(0, 20) || "no-diagram"}
-    </div>
+    <div data-testid="block-diagram">{mermaid?.slice(0, 20) || "no-diagram"}</div>
   ),
 }));
 
@@ -86,9 +76,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
       />
     );
 
-    expect(screen.getByTestId("block-richText")).toHaveTextContent(
-      "Hello world"
-    );
+    expect(screen.getByTestId("block-richText")).toHaveTextContent("Hello world");
   });
 
   it("renders ImageGallery blocks", () => {
@@ -106,9 +94,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
       />
     );
 
-    expect(screen.getByTestId("block-imageGallery")).toHaveTextContent(
-      "images:1"
-    );
+    expect(screen.getByTestId("block-imageGallery")).toHaveTextContent("images:1");
   });
 
   it("renders Links blocks", () => {
@@ -144,9 +130,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
       />
     );
 
-    expect(screen.getByTestId("block-bulletedList")).toHaveTextContent(
-      "items:1"
-    );
+    expect(screen.getByTestId("block-bulletedList")).toHaveTextContent("items:1");
   });
 
   it("renders Diagram blocks", () => {
@@ -165,9 +149,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
       />
     );
 
-    expect(screen.getByTestId("block-diagram")).toHaveTextContent(
-      "flowchart LR"
-    );
+    expect(screen.getByTestId("block-diagram")).toHaveTextContent("flowchart LR");
   });
 
   it("fails safely on unknown/corrupted block types (renders fallback)", () => {

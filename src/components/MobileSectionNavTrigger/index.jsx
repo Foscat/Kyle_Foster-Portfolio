@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import Btn from "components/Btn";
+import { Drawer, Nav, Sidenav } from "rsuite";
 
 const MobileSectionNavTrigger = ({ title = "", sections = [] }) => {
   const [open, setOpen] = useState(false);
@@ -10,13 +12,11 @@ const MobileSectionNavTrigger = ({ title = "", sections = [] }) => {
         icon={faDownload}
         onClick={() => setOpen(true)}
         className="section-nav-trigger"
+        ariaLabel="Open section navigation"
+        tooltip="Open section navigation"
       />
 
-      <Drawer
-        placement="right"
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      <Drawer placement="right" open={open} onClose={() => setOpen(false)}>
         <Drawer.Header>
           <Drawer.Title>Sections</Drawer.Title>
         </Drawer.Header>
@@ -27,10 +27,7 @@ const MobileSectionNavTrigger = ({ title = "", sections = [] }) => {
               <Nav>
                 {sections.map((sect, i) => {
                   return (
-                    <Nav.Item
-                      key={i}
-                      href={sect.isScroller ? `/#${sect.id}` : sect.url}
-                    >
+                    <Nav.Item key={i} href={sect.isScroller ? `/#${sect.id}` : sect.url}>
                       {sect.title}
                     </Nav.Item>
                   );

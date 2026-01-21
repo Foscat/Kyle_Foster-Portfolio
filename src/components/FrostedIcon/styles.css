@@ -1,67 +1,184 @@
 /* ============================================================
-   FrostedIcon — Midnight Gold Theme
-   Lightweight utility icon wrapper
+   FrostedIcon — Updated for Button Alignment
    ============================================================ */
 
 .frosted-icon {
+  background-color: var(--frost-bg);
+  padding: 10px;
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  transition: color var(--transition-speed),
-              transform var(--transition-speed),
-              text-shadow var(--transition-speed);
-  line-height: 1;
+  justify-content: center;
+  line-height: 0;
+  flex-shrink: 0;
+
+  transition:
+    color var(--transition-speed),
+    transform var(--transition-speed),
+    text-shadow var(--transition-speed);
 }
 
-/* --------------------------
-   Size Variants
--------------------------- */
-.fi-xs svg { font-size: var(--font-xs); }
-.fi-sm svg { font-size: var(--font-sm); }
-.fi-md svg { font-size: var(--font-md); }
-.fi-lg svg { font-size: var(--font-lg); }
-.fi-xl svg { font-size: var(--font-xl); }
+.frosted-icon.btn-icon {
+  background-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
 
-/* --------------------------
+/* ------------------------------------------------------------
+   Size Variants (square hitboxes)
+------------------------------------------------------------ */
+.fi-size-xs {
+  width: var(--icon-xs);
+  height: var(--icon-xs);
+}
+.fi-size-sm {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+.fi-size-md {
+  width: var(--icon-md);
+  height: var(--icon-md);
+}
+.fi-size-lg {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+}
+.fi-size-xl {
+  width: var(--icon-xl);
+  height: var(--icon-xl);
+}
+
+.fi-size-xs svg {
+  font-size: var(--icon-xs);
+}
+.fi-size-sm svg {
+  font-size: var(--icon-sm);
+}
+.fi-size-md svg {
+  font-size: var(--icon-md);
+}
+.fi-size-lg svg {
+  font-size: var(--icon-lg);
+}
+.fi-size-xl svg {
+  font-size: var(--icon-xl);
+}
+
+/* ------------------------------------------------------------
    Color Variants
--------------------------- */
-.fi-primary   { color: var(--accent); }
-.fi-secondary { color: var(--gray-300); }
-.fi-accent    { color: var(--accent-light); }
-.fi-subtle    { color: var(--gray-500); }
-.fi-danger    { color: var(--error); }
+------------------------------------------------------------ */
+.rs-nav-item .fi-variant-primary {
+  color: var(--accent);
+  background-color: var(--primary-dark-bg);
+}
 
-/* --------------------------
-   Clickable Icons
--------------------------- */
+
+.rs-nav-item .fi-variant-secondary {
+  color: var(--gray-700);
+  background-color: var(--glass-bg);
+}
+
+.rs-nav-item .fi-variant-accent {
+  color: var(--primary-dark);
+  background-color: var(--accent-bg);
+}
+
+.rs-nav-item .fi-variant-accent:hover,
+.rs-nav-item .fi-variant-accent:active {
+  color: var(--primary-darker);
+  background-color: var(--accent-bg-dark);
+}
+
+.rs-nav-item .fi-variant-subtle {
+  color: var(--gray-300);
+  background-color: var(--primary-dark-bg);
+}
+
+.rs-nav-item .fi-variant-subtle:hover {
+  color: var(--gray-300);
+  background-color: var(--primary-darker-bg);
+}
+
+.rs-nav-item .fi-variant-danger {
+  color: var(--error);
+  background-color: rgba(var(--gray-700-rgb), 0.9);
+}
+
+/* ------------------------------------------------------------
+   Clickable
+------------------------------------------------------------ */
 .fi-clickable {
   cursor: pointer;
-  padding: 0.35rem;
-  border-radius: var(--radius-lg);
-  -webkit-backdrop-filter: var(--slight-blur);
-  backdrop-filter: var(--slight-blur);
-  transition: 
-    background-color var(--transition-speed),
-    color var(--transition-speed),
-    box-shadow var(--transition-speed),
-    transform var(--transition-speed);
+  border-radius: var(--border-radius);
+  transition:
+    scale var(--easing-standard),
+    200ms,
+    box-shadow var(--glass-shadow),
+    transform var(--easing-standard),
+    200ms;
 }
 
 .fi-clickable:hover {
-  color: var(--accent-light);
-  transform: translateY(-2px) scale(1.05);
-  text-shadow: var(--text-shadow);
+  -webkit-backdrop-filter: var(--slight-blur);
+  backdrop-filter: var(--slight-blur);
+  transform: translateY(-1px) scale(1.005);
+  transition-duration: 250ms;
+  transition: var(--easing-standard);
   background-color: var(--frost-bg);
   box-shadow: var(--shadow-soft);
 }
 
-.fi-clickable:active {
-  transform: scale(0.95);
-  background-color: rgba(var(--white),0.12);
+.fi-no-bg {
+  background-color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
-/* Keyboard accessibility */
-.fi-clickable:focus {
-  outline: 2px solid var(--accent-light);
-  outline-offset: 3px;
+.fi-clickable:active {
+  transform: scale(0.95);
+}
+
+.fi-clickable.fi-variant-primary:active,
+.fi-clickable.fi-variant-primary:hover {
+  color: var(--accent-dark);
+  background-color: var(--primary-darker-bg);
+}
+
+.fi-clickable.fi-variant-secondary:active,
+.fi-clickable.fi-variant-secondary:hover {
+  color: var(--gray-900);
+  background-color: var(--glass-bg-strong);
+}
+
+.fi-clickable.fi-variant-accent:active,
+.fi-clickable.fi-variant-accent:hover {
+  color: var(--primary-darker);
+  background-color: var(--accent-bg-dark);
+}
+
+.fi-clickable.fi-variant-subtle:active,
+.fi-clickable.fi-variant-subtle:hover {
+  color: var(--gray-100);
+  background-color: var(--primary-darker-bg);
+}
+
+.fi-clickable.fi-variant-danger:active,
+.fi-clickable.fi-variant-danger:hover {
+  color: var(--error-dark);
+  background-color: rgba(var(--gray-900-rgb), 0.9);
+
+}
+
+/* ------------------------------------------------------------
+   Theme Hooks
+------------------------------------------------------------ */
+.theme-light .frosted-icon {
+  color: var(--primary);
+}
+
+.theme-dark .frosted-icon {
+  color: var(--accent);
+}
+
+.theme-auto .frosted-icon {
+  color: var(--accent);
 }

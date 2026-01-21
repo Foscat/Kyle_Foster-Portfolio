@@ -1,3 +1,4 @@
+import { Panel } from "rsuite";
 
 /**
  * RichTextBlock
@@ -21,16 +22,14 @@ const RichTextBlock = ({ title, paragraphs }) => {
     <Panel
       collapsible
       defaultExpanded
-      header={title || undefined}
+      bordered
+      header={title && <span className="block-header">{title}</span>}
       role="region"
       aria-label={title}
-      className="glass-card"
+      className="frosted"
     >
       {paragraphs.map((text, index) => (
-        <p
-          key={`paragraph-${index}`}
-          className="block-paragraph"
-        >
+        <p key={`paragraph-${index}`} className="block-paragraph">
           {text}
         </p>
       ))}

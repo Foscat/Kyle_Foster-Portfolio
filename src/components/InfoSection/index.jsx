@@ -1,5 +1,8 @@
 import React from "react";
+import { Panel } from "rsuite";
+import FrostedIcon from "components/FrostedIcon";
 import "./styles.css";
+import { Size } from "types/ui.types";
 
 /**
  * InfoSection Component
@@ -35,19 +38,19 @@ const InfoSection = ({
 }) => {
   return (
     <Panel
+      collapsible
+      defaultExpanded
       id={id}
       header={
         <div className="info-header">
-          {icon && (
-            <FrostedIcon
-              size="lg"
-              icon={icon}
-            />
-          )}
-          {title && <h2 className="info-title">{title}</h2>}
+          <div className="title-wrapper">
+            {icon && <FrostedIcon noBG size={Size.XL} icon={icon} />}
+            {title && <h2 className="info-title">{title}</h2>}
+          </div>
+          {subtitle && <h4 className="info-subtitle">{subtitle}</h4>}
         </div>
       }
-      className={`info-section frosted ${className}`}
+      className={`info-section frosted blue-tile ${className}`}
       as="section"
     >
       {/* CONTENT AREA */}

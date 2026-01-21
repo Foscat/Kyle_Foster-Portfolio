@@ -44,10 +44,7 @@ function SectionRegistryProvider({ children }) {
   const registerSection = (id, meta) => {
     if (!id) {
       if (import.meta.env.DEV) {
-        console.warn(
-          "[SectionRegistry] Attempted to register a section without an id.",
-          meta
-        );
+        console.warn("[SectionRegistry] Attempted to register a section without an id.", meta);
       }
       return;
     }
@@ -117,7 +114,7 @@ export default SectionRegistryProvider;
  * @throws {Error} If used outside of SectionRegistryProvider.
  *
  * ----------------------------------------------------------------------------
- * 
+ *
  * @example
  * ```js
  * const { registerSection } = useSectionRegistry();
@@ -130,9 +127,7 @@ export const useSectionRegistry = () => {
   const ctx = useContext(SectionRegistryContext);
 
   if (!ctx) {
-    throw new Error(
-      "useSectionRegistry must be used within <SectionRegistryProvider />"
-    );
+    throw new Error("useSectionRegistry must be used within <SectionRegistryProvider />");
   }
 
   return ctx;
