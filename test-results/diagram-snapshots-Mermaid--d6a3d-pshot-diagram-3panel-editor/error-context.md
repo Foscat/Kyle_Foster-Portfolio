@@ -1,0 +1,382 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e8]:
+      - heading "Kyle Foster" [level=1] [ref=e9]
+      - heading "Full-Stack Developer & Software Consultant • 2018 - Current" [level=2] [ref=e10]
+  - navigation "Primary navigation" [ref=e11]:
+    - generic [ref=e12]:
+      - link "Home" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - button "Home" [ref=e14]
+      - link "Professional" [ref=e16] [cursor=pointer]:
+        - /url: /codestream/
+        - button "Professional" [ref=e17]
+      - link "Education" [ref=e19] [cursor=pointer]:
+        - /url: /smu/
+        - button "Education" [ref=e20]
+      - link "Hackathon" [ref=e22] [cursor=pointer]:
+        - /url: /hackathon/
+        - button "Hackathon" [ref=e23]
+      - button "Projects" [ref=e25] [cursor=pointer]:
+        - button "Projects" [ref=e26]
+      - button "Contact" [ref=e28] [cursor=pointer]:
+        - button "Contact" [ref=e29]
+  - generic [ref=e31]:
+    - main [ref=e32]:
+      - generic [ref=e33]:
+        - heading "Overview Full-Stack Engineer with a Product Mindset" [level=2] [ref=e34] [cursor=pointer]:
+          - button "Overview Full-Stack Engineer with a Product Mindset" [expanded] [ref=e35]:
+            - generic [ref=e36]:
+              - generic [ref=e37]:
+                - img [ref=e38]
+                - heading "Overview" [level=2] [ref=e40]
+              - heading "Full-Stack Engineer with a Product Mindset" [level=4] [ref=e41]
+            - img [ref=e42]
+        - region "Overview Full-Stack Engineer with a Product Mindset" [ref=e45]:
+          - region "About Me" [ref=e47]:
+            - heading "About Me" [level=2] [ref=e48] [cursor=pointer]:
+              - button "About Me" [expanded] [ref=e49]:
+                - generic [ref=e50]: About Me
+                - img [ref=e51]
+            - region "About Me" [ref=e54]:
+              - paragraph [ref=e55]: I'm a full-stack engineer that specializes on front-end with a strong product mindset. I specializes in building complex, user-facing systems that scale beyond individual features.
+              - paragraph [ref=e56]: From education platforms used by real classrooms, to hackathon-winning prototypes, to deeply personal side projects, my work reflects a strong bias toward solving meaningful problems through software.
+              - paragraph [ref=e57]: In the pursuit of productivity and excellence, I uphold a commitment to continuous improvement and quality. Striving for competency and impact, both as an individual and my role within an organization. Having these traits are essential to creating meaningful outcomes and achieving success.
+      - generic [ref=e58]:
+        - heading "Professional Work Lead Front-end Engineer for CodeStream Studios LLC" [level=2] [ref=e59] [cursor=pointer]:
+          - button "Professional Work Lead Front-end Engineer for CodeStream Studios LLC" [expanded] [ref=e60]:
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - img [ref=e63]
+                - heading "Professional Work" [level=2] [ref=e65]
+              - heading "Lead Front-end Engineer for CodeStream Studios LLC" [level=4] [ref=e66]
+            - img [ref=e67]
+        - region "Professional Work Lead Front-end Engineer for CodeStream Studios LLC" [ref=e70]:
+          - generic [ref=e71]:
+            - region "CodeStream Studios LLC" [ref=e72]:
+              - heading "CodeStream Studios LLC" [level=2] [ref=e73] [cursor=pointer]:
+                - button "CodeStream Studios LLC" [expanded] [ref=e74]:
+                  - generic [ref=e75]: CodeStream Studios LLC
+                  - img [ref=e76]
+              - region "CodeStream Studios LLC" [ref=e79]:
+                - paragraph [ref=e80]: My professional work centers on building and scaling a production education platform used in schools by real students, teachers, and organizations.
+                - paragraph [ref=e81]: At CodeStream Studios, I served as the sole front-end engineer. I built the platform from the ground up. Personally architecting the core systems that empowered the platform. From a multi-panel code editor that ran compleatly in the browser. Created a role-based access control system for organizations, virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.
+            - generic [ref=e82]:
+              - heading "Noteable Features" [level=2] [ref=e83] [cursor=pointer]:
+                - button "Noteable Features" [expanded] [ref=e84]:
+                  - heading "Noteable Features" [level=2] [ref=e87]
+                  - img [ref=e88]
+              - region "Noteable Features" [ref=e91]:
+                - paragraph [ref=e92]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Noteable Features" [ref=e94]:
+                  - generic [ref=e95]:
+                    - heading "Teacher Tools" [level=2] [ref=e96] [cursor=pointer]:
+                      - button "Teacher Tools" [expanded] [ref=e97]:
+                        - heading "Teacher Tools" [level=4] [ref=e98]
+                        - img [ref=e99]
+                    - region "Teacher Tools" [ref=e102]:
+                      - group [ref=e103]: Teacher-facing grading tools and downloadable classroom reports to support real instructional workflows.
+                      - button "Learn More" [ref=e105] [cursor=pointer]:
+                        - button "Learn More" [ref=e106]:
+                          - button [ref=e107]
+                          - text: Learn More
+                  - generic [ref=e109]:
+                    - heading "Organizations and Licensing" [level=2] [ref=e110] [cursor=pointer]:
+                      - button "Organizations and Licensing" [expanded] [ref=e111]:
+                        - heading "Organizations and Licensing" [level=4] [ref=e112]
+                        - img [ref=e113]
+                    - region "Organizations and Licensing" [ref=e116]:
+                      - group [ref=e117]: Role-based permissions for organizations (Student, Teacher, Admin). Flexable licensing system that limited number of teachers and students allowed to join. As well as paywalling propritary curriculum their classes were allowed to use.
+                      - button "Learn More" [ref=e119] [cursor=pointer]:
+                        - button "Learn More" [ref=e120]:
+                          - button [ref=e121]
+                          - text: Learn More
+                  - generic [ref=e123]:
+                    - heading "3 Panel Browser Based IDE" [level=2] [ref=e124] [cursor=pointer]:
+                      - button "3 Panel Browser Based IDE" [expanded] [ref=e125]:
+                        - heading "3 Panel Browser Based IDE" [level=4] [ref=e126]
+                        - img [ref=e127]
+                    - region "3 Panel Browser Based IDE" [ref=e130]:
+                      - group [ref=e131]: Designed a zero-install coding environment supporting Web (HTML,CSS,JS) and Python projects with live execution and cloud persistence.
+                      - button "Learn More" [ref=e133] [cursor=pointer]:
+                        - button "Learn More" [ref=e134]:
+                          - button [ref=e135]
+                          - text: Learn More
+      - generic [ref=e137]:
+        - heading "Daimler Trucking Hackathon Winner 2019 Rapid problem-solving under real-world constraints to real-world problems." [level=2] [ref=e138] [cursor=pointer]:
+          - button "Daimler Trucking Hackathon Winner 2019 Rapid problem-solving under real-world constraints to real-world problems." [expanded] [ref=e139]:
+            - generic [ref=e140]:
+              - generic [ref=e141]:
+                - img [ref=e142]
+                - heading "Daimler Trucking Hackathon Winner 2019" [level=2] [ref=e144]
+              - heading "Rapid problem-solving under real-world constraints to real-world problems." [level=4] [ref=e145]
+            - img [ref=e146]
+        - region "Daimler Trucking Hackathon Winner 2019 Rapid problem-solving under real-world constraints to real-world problems." [ref=e149]:
+          - generic [ref=e150]:
+            - region "Hackathon Overview" [ref=e151]:
+              - heading "Hackathon Overview" [level=2] [ref=e152] [cursor=pointer]:
+                - button "Hackathon Overview" [expanded] [ref=e153]:
+                  - generic [ref=e154]: Hackathon Overview
+                  - img [ref=e155]
+              - region "Hackathon Overview" [ref=e158]:
+                - paragraph [ref=e159]: In 2019, I had the honor of participating in the Daimler Trucking Hackathon in Austin, Texas. Tasked with improving the repair process for the company, I joined forces with fellow junior developers after being initially overlooked by senior teams. Despite the odds, our collaborative effort resulted in a resounding victory, outperforming 20 other teams comprised of senior developers.
+                - paragraph [ref=e160]: We won due to prioritizing the client's actual needs and delivering a solution tailored to their specific challenges, showcasing our ability to innovate and deliver impactful solutions under pressure.
+            - generic [ref=e161]:
+              - heading "Key Features" [level=2] [ref=e162] [cursor=pointer]:
+                - button "Key Features" [expanded] [ref=e163]:
+                  - heading "Key Features" [level=2] [ref=e166]
+                  - img [ref=e167]
+              - region "Key Features" [ref=e170]:
+                - paragraph [ref=e171]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Key Features" [ref=e173]:
+                  - generic [ref=e174]:
+                    - heading "Innovative MVP soloution" [level=2] [ref=e175] [cursor=pointer]:
+                      - button "Innovative MVP soloution" [expanded] [ref=e176]:
+                        - heading "Innovative MVP soloution" [level=4] [ref=e177]
+                        - img [ref=e178]
+                    - region "Innovative MVP soloution" [ref=e181]:
+                      - group [ref=e182]: Built a voice-driven repair assistant to guide technicians hands-free while tracking workflow efficiency.
+                      - button "Learn More" [ref=e184] [cursor=pointer]:
+                        - button "Learn More" [ref=e185]:
+                          - button [ref=e186]
+                          - text: Learn More
+                  - generic [ref=e188]:
+                    - heading "Hands-Free Voice Interface" [level=2] [ref=e189] [cursor=pointer]:
+                      - button "Hands-Free Voice Interface" [expanded] [ref=e190]:
+                        - heading "Hands-Free Voice Interface" [level=4] [ref=e191]
+                        - img [ref=e192]
+                    - region "Hands-Free Voice Interface" [ref=e195]:
+                      - group [ref=e196]: Enabled technicians to receive step-by-step spoken instructions without screens or new hardware.
+                      - button "Learn More" [ref=e198] [cursor=pointer]:
+                        - button "Learn More" [ref=e199]:
+                          - button [ref=e200]
+                          - text: Learn More
+                  - generic [ref=e202]:
+                    - heading "Post-Hackathon Product Work" [level=2] [ref=e203] [cursor=pointer]:
+                      - button "Post-Hackathon Product Work" [expanded] [ref=e204]:
+                        - heading "Post-Hackathon Product Work" [level=4] [ref=e205]
+                        - img [ref=e206]
+                    - region "Post-Hackathon Product Work" [ref=e209]:
+                      - group [ref=e210]: Continued development as the sole engineer, transitioning the prototype into a mobile-first React Native app.
+                      - button "Learn More" [ref=e212] [cursor=pointer]:
+                        - button "Learn More" [ref=e213]:
+                          - button [ref=e214]
+                          - text: Learn More
+      - generic [ref=e216]:
+        - heading "Side Projects Self-directed solutions to real problems I've faced" [level=2] [ref=e217] [cursor=pointer]:
+          - button "Side Projects Self-directed solutions to real problems I've faced" [expanded] [ref=e218]:
+            - generic [ref=e219]:
+              - generic [ref=e220]:
+                - img [ref=e221]
+                - heading "Side Projects" [level=2] [ref=e223]
+              - heading "Self-directed solutions to real problems I've faced" [level=4] [ref=e224]
+            - img [ref=e225]
+        - region "Side Projects Self-directed solutions to real problems I've faced" [ref=e228]:
+          - generic [ref=e229]:
+            - region "Projects Overview" [ref=e230]:
+              - heading "Projects Overview" [level=2] [ref=e231] [cursor=pointer]:
+                - button "Projects Overview" [expanded] [ref=e232]:
+                  - generic [ref=e233]: Projects Overview
+                  - img [ref=e234]
+              - region "Projects Overview" [ref=e237]:
+                - paragraph [ref=e238]: My side projects are where I like to experiment, explore new tools, and solve practical problems outside of client constraints.
+                - paragraph [ref=e239]: These projects range from hardware-integrated automation systems to encryption tools and creative applications, each reflecting my curiosity and ability to take an idea from concept to execution.
+            - generic [ref=e240]:
+              - heading "Focus Areas" [level=2] [ref=e241] [cursor=pointer]:
+                - button "Focus Areas" [expanded] [ref=e242]:
+                  - heading "Focus Areas" [level=2] [ref=e245]
+                  - img [ref=e246]
+              - region "Focus Areas" [ref=e249]:
+                - paragraph [ref=e250]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Focus Areas" [ref=e252]:
+                  - generic [ref=e253]:
+                    - heading "Agile and Robust Programs" [level=2] [ref=e254] [cursor=pointer]:
+                      - button "Agile and Robust Programs" [expanded] [ref=e255]:
+                        - heading "Agile and Robust Programs" [level=4] [ref=e256]
+                        - img [ref=e257]
+                    - region "Agile and Robust Programs" [ref=e260]:
+                      - group [ref=e261]: Full-stack (MERN) experimentation and rapid prototyping using my custom made template.
+                  - generic [ref=e262]:
+                    - heading "Practical Applications" [level=2] [ref=e263] [cursor=pointer]:
+                      - button "Practical Applications" [expanded] [ref=e264]:
+                        - heading "Practical Applications" [level=4] [ref=e265]
+                        - img [ref=e266]
+                    - region "Practical Applications" [ref=e269]:
+                      - group [ref=e270]: Hardware and software integration that is still running in the field today.
+                  - generic [ref=e271]:
+                    - heading "Full SDLC experiance" [level=2] [ref=e272] [cursor=pointer]:
+                      - button "Full SDLC experiance" [expanded] [ref=e273]:
+                        - heading "Full SDLC experiance" [level=4] [ref=e274]
+                        - img [ref=e275]
+                    - region "Full SDLC experiance" [ref=e278]:
+                      - group [ref=e279]: Independent problem-solving and product ownership from beginning to end.
+            - generic [ref=e280]:
+              - heading "Programs of Note" [level=2] [ref=e281] [cursor=pointer]:
+                - button "Programs of Note" [expanded] [ref=e282]:
+                  - heading "Programs of Note" [level=2] [ref=e285]
+                  - img [ref=e286]
+              - region "Programs of Note" [ref=e289]:
+                - paragraph [ref=e290]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Programs of Note" [ref=e292]:
+                  - generic [ref=e293]:
+                    - heading "Greenhouse Automation" [level=2] [ref=e294] [cursor=pointer]:
+                      - button "Greenhouse Automation" [expanded] [ref=e295]:
+                        - heading "Greenhouse Automation" [level=4] [ref=e296]
+                        - img [ref=e297]
+                    - region "Greenhouse Automation" [ref=e300]:
+                      - group [ref=e301]: Hardware-driven automation system using a Raspberry Pi Zero and Sense Kit. Written in Python to regulate the climate conditions autonomously of a greenhouse.
+                      - button "Learn More" [ref=e303] [cursor=pointer]:
+                        - button "Learn More" [ref=e304]:
+                          - button [ref=e305]
+                          - text: Learn More
+                  - generic [ref=e307]:
+                    - heading "Encryption Tool" [level=2] [ref=e308] [cursor=pointer]:
+                      - button "Encryption Tool" [expanded] [ref=e309]:
+                        - heading "Encryption Tool" [level=4] [ref=e310]
+                        - img [ref=e311]
+                    - region "Encryption Tool" [ref=e314]:
+                      - group [ref=e315]: Custom Caesar/Enigma-inspired encryption tools built for experimentation with algorithms and UI clarity.
+                      - button "Learn More" [ref=e317] [cursor=pointer]:
+                        - button "Learn More" [ref=e318]:
+                          - button [ref=e319]
+                          - text: Learn More
+                  - generic [ref=e321]:
+                    - heading "D20 King (Private)" [level=2] [ref=e322] [cursor=pointer]:
+                      - button "D20 King (Private)" [expanded] [ref=e323]:
+                        - heading "D20 King (Private)" [level=4] [ref=e324]
+                        - img [ref=e325]
+                    - region "D20 King (Private)" [ref=e328]:
+                      - group [ref=e329]: A modular world-building and campaign management system designed by a Dungeon Master for Dungeon Masters. Allows users to copy, edit and share with others the modular sections that make up a campaign.
+                      - button "Learn More" [ref=e331] [cursor=pointer]:
+                        - button "Learn More" [ref=e332]:
+                          - button [ref=e333]
+                          - text: Learn More
+      - generic [ref=e335]:
+        - heading "Education & Foundations Formal training and early projects that shaped my development journey" [level=2] [ref=e336] [cursor=pointer]:
+          - button "Education & Foundations Formal training and early projects that shaped my development journey" [expanded] [ref=e337]:
+            - generic [ref=e338]:
+              - generic [ref=e339]:
+                - img [ref=e340]
+                - heading "Education & Foundations" [level=2] [ref=e342]
+              - heading "Formal training and early projects that shaped my development journey" [level=4] [ref=e343]
+            - img [ref=e344]
+        - region "Education & Foundations Formal training and early projects that shaped my development journey" [ref=e347]:
+          - generic [ref=e348]:
+            - region "SMU Experience" [ref=e349]:
+              - heading "SMU Experience" [level=2] [ref=e350] [cursor=pointer]:
+                - button "SMU Experience" [expanded] [ref=e351]:
+                  - generic [ref=e352]: SMU Experience
+                  - img [ref=e353]
+              - region "SMU Experience" [ref=e356]:
+                - paragraph [ref=e357]: My formal training at Southern Methodist University laid the technical foundation for my career, introducing me to web development, APIs, collaboration, and project-based learning.
+                - paragraph [ref=e358]: The projects from this period showcase my early growth, my first experiences working in teams, and the transition from learning syntax to solving meaningful problems.
+            - generic [ref=e359]:
+              - heading "Notable Projects" [level=2] [ref=e360] [cursor=pointer]:
+                - button "Notable Projects" [expanded] [ref=e361]:
+                  - heading "Notable Projects" [level=2] [ref=e364]
+                  - img [ref=e365]
+              - region "Notable Projects" [ref=e368]:
+                - paragraph [ref=e369]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Notable Projects" [ref=e371]:
+                  - generic [ref=e372]:
+                    - heading "API-Driven Interfaces" [level=2] [ref=e373] [cursor=pointer]:
+                      - button "API-Driven Interfaces" [expanded] [ref=e374]:
+                        - heading "API-Driven Interfaces" [level=4] [ref=e375]
+                        - img [ref=e376]
+                    - region "API-Driven Interfaces" [ref=e379]:
+                      - group [ref=e380]: Early projects integrating public APIs, asynchronous data flows, and dynamic rendering.
+                      - button "Learn More" [ref=e382] [cursor=pointer]:
+                        - button "Learn More" [ref=e383]:
+                          - button [ref=e384]
+                          - text: Learn More
+                  - generic [ref=e386]:
+                    - heading "Collaborative Development" [level=2] [ref=e387] [cursor=pointer]:
+                      - button "Collaborative Development" [expanded] [ref=e388]:
+                        - heading "Collaborative Development" [level=4] [ref=e389]
+                        - img [ref=e390]
+                    - region "Collaborative Development" [ref=e393]:
+                      - group [ref=e394]: First exposure to team workflows, task division, and backend responsibilities.
+                      - button "Learn More" [ref=e396] [cursor=pointer]:
+                        - button "Learn More" [ref=e397]:
+                          - button [ref=e398]
+                          - text: Learn More
+                  - generic [ref=e400]:
+                    - heading "Matching Algorithms" [level=2] [ref=e401] [cursor=pointer]:
+                      - button "Matching Algorithms" [expanded] [ref=e402]:
+                        - heading "Matching Algorithms" [level=4] [ref=e403]
+                        - img [ref=e404]
+                    - region "Matching Algorithms" [ref=e407]:
+                      - group [ref=e408]: Designed a compatibility scoring system as part of a real-world problem-solving capstone.
+                      - button "Learn More" [ref=e410] [cursor=pointer]:
+                        - button "Learn More" [ref=e411]:
+                          - button [ref=e412]
+                          - text: Learn More
+      - generic [ref=e414]:
+        - heading "Let's Connect I'm always open to new opportunities and collaborations" [level=2] [ref=e415] [cursor=pointer]:
+          - button "Let's Connect I'm always open to new opportunities and collaborations" [expanded] [ref=e416]:
+            - generic [ref=e417]:
+              - generic [ref=e418]:
+                - img [ref=e419]
+                - heading "Let's Connect" [level=2] [ref=e421]
+              - heading "I'm always open to new opportunities and collaborations" [level=4] [ref=e422]
+            - img [ref=e423]
+        - region "Let's Connect I'm always open to new opportunities and collaborations" [ref=e426]:
+          - region "Get in Touch" [ref=e428]:
+            - heading "Get in Touch" [level=2] [ref=e429] [cursor=pointer]:
+              - button "Get in Touch" [expanded] [ref=e430]:
+                - generic [ref=e431]: Get in Touch
+                - img [ref=e432]
+            - region "Get in Touch" [ref=e435]:
+              - paragraph [ref=e436]: If you're looking for an engineer who can take ownership of UI architecture, think in systems, and collaborate across product and engineering teams, I'd love to talk.
+              - paragraph [ref=e437]: Whether you're hiring, exploring a collaboration, or just want to discuss ideas, feel free to reach out.
+    - complementary [ref=e438]:
+      - navigation "Section navigation" [ref=e439]:
+        - listbox [ref=e440]:
+          - listitem [ref=e441]:
+            - paragraph [ref=e442]: Overview
+          - listitem [ref=e443]:
+            - paragraph [ref=e444]: Professional Work
+          - listitem [ref=e445]:
+            - paragraph [ref=e446]: Daimler Trucking Hackathon Winner 2019
+          - listitem [ref=e447]:
+            - paragraph [ref=e448]: Side Projects
+          - listitem [ref=e449]:
+            - paragraph [ref=e450]: Education & Foundations
+          - listitem [ref=e451]:
+            - paragraph [ref=e452]: Let's Connect
+  - generic [ref=e454]:
+    - generic [ref=e455]:
+      - generic [ref=e457]:
+        - heading "Contact" [level=2] [ref=e458]:
+          - heading "Contact" [level=4] [ref=e459]
+        - generic [ref=e461]:
+          - paragraph [ref=e462] [cursor=pointer]:
+            - strong [ref=e463]: "Phone:"
+            - text: (469) 410-5286
+          - paragraph [ref=e464] [cursor=pointer]:
+            - strong [ref=e465]: "Phone 2:"
+            - text: (972) 802-9397
+          - paragraph [ref=e466]:
+            - strong [ref=e467]: "Email:"
+            - link "fosterkyle6456@gmail.com" [ref=e468] [cursor=pointer]:
+              - /url: mailto:fosterkyle6456@gmail.com
+      - generic [ref=e470]:
+        - heading "Social" [level=2] [ref=e471]:
+          - heading "Social" [level=4] [ref=e472]
+        - generic [ref=e474]:
+          - button "GitHub Profile" [ref=e475] [cursor=pointer]:
+            - button "GitHub Profile" [ref=e476]:
+              - button [ref=e477]
+              - text: GitHub
+          - button "LinkedIn Profile" [ref=e479] [cursor=pointer]:
+            - button "LinkedIn Profile" [ref=e480]:
+              - button [ref=e481]
+              - text: LinkedIn
+          - button "Preview resume" [ref=e483] [cursor=pointer]:
+            - button [ref=e484]
+            - text: View Resume
+    - generic [ref=e486]: © 2026 Kyle Foster. All rights reserved.
+```

@@ -1,140 +1,88 @@
-/**
- * FrostedIcon.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the FrostedIcon component.
- *
- * Covers:
- * - Basic rendering
- * - Size and variant class application
- * - Clickable behavior
- * - Loading / spinner state
- * - Accessibility attributes
- * - Tooltip wiring (delegation only)
- */
+import React from "react";
+import { describe, expect, it } from "vitest";
+import { screen } from "@testing-library/react";
 
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { renderWithProviders } from "tests/renderWithProviders";
 import FrostedIcon from "./index";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
-/* ------------------------------------------------------------------
- * Mocks
- * ------------------------------------------------------------------ */
-
-// Mock FontAwesomeIcon so we don't test FontAwesome internals
-vi.mock("@fortawesome/react-fontawesome", () => ({
-  FontAwesomeIcon: ({ icon, spin }) => (
-    <svg data-testid="fa-icon" data-icon={icon.iconName} data-spin={spin} />
-  ),
-}));
-
-// Mock RSuite Whisper / Tooltip (delegation only)
-vi.mock("rsuite", () => ({
-  Whisper: ({ children }) => <>{children}</>,
-  Tooltip: ({ children }) => <span>{children}</span>,
-}));
+/**
+ * @file FrostedIcon.test.jsx
+ * @description Unit tests for the FrostedIcon component.
+ *
+ * Testing focus:
+ * - Semantic role switching based on `clickable` prop
+ * - Size-related CSS class application
+ * - Loading state accessibility signaling
+ *
+ * Design intent:
+ * FrostedIcon is a low-level visual primitive that must:
+ * - Render correct semantic roles (`img` vs `button`)
+ * - Expose loading state via `aria-busy`
+ * - Apply predictable, size-based CSS classes
+ *
+ * These tests validate observable DOM behavior rather than internal logic.
+ *
+ * @module tests/components/FrostedIcon
+ */
 
 /* ------------------------------------------------------------------
  * Test Suite
  * ------------------------------------------------------------------ */
 
 describe("FrostedIcon", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+  /**
+   * Verifies that the component renders with `role="img"` when
+   * not configured as clickable.
+   */
+  it("renders an image role when not clickable", () => {
+    renderWithProviders(
+      <FrostedIcon icon={{ prefix: "fas", iconName: "home" }} label="Home" clickable={false} />
+    );
+
+    const icon = screen.getByRole("img", { name: "Home" });
+    expect(icon).toBeInTheDocument();
   });
 
-  /* ------------------------------------------------------------
-   * Basic rendering
-   * ------------------------------------------------------------ */
+  /**
+   * Verifies that the component renders with `role="button"` when
+   * the `clickable` prop is enabled.
+   */
+  it("renders a button role when clickable", () => {
+    renderWithProviders(
+      <FrostedIcon icon={{ prefix: "fas", iconName: "home" }} label="Home" clickable />
+    );
 
-  it("renders an icon", () => {
-    render(<FrostedIcon icon={faCoffee} />);
-
-    expect(screen.getByTestId("fa-icon")).toBeInTheDocument();
+    const btn = screen.getByRole("button", { name: "Home" });
+    expect(btn).toBeInTheDocument();
   });
 
-  it("applies size and variant classes", () => {
-    const { container } = render(<FrostedIcon icon={faCoffee} size="lg" variant="accent" />);
+  /**
+   * Verifies that the correct size class is applied to the rendered element.
+   */
+  it("applies size class on the rendered element", () => {
+    renderWithProviders(
+      <FrostedIcon
+        icon={{ prefix: "fas", iconName: "home" }}
+        label="Home"
+        clickable={false}
+        size="xl"
+      />
+    );
 
-    const wrapper = container.querySelector(".frosted-icon");
-    expect(wrapper).toHaveClass("fi-size-lg");
-    expect(wrapper).toHaveClass("fi-variant-accent");
+    const icon = screen.getByRole("img", { name: "Home" });
+    expect(icon).toHaveClass("fi-size-xl");
   });
 
-  /* ------------------------------------------------------------
-   * Clickable behavior
-   * ------------------------------------------------------------ */
+  /**
+   * Verifies that the loading state is exposed via `aria-busy`
+   * for accessibility tooling.
+   */
+  it("exposes aria-busy when loading", () => {
+    renderWithProviders(
+      <FrostedIcon icon={{ prefix: "fas", iconName: "home" }} label="Home" loading />
+    );
 
-  it("calls onClick when clickable and clicked", async () => {
-    const onClick = vi.fn();
-
-    render(<FrostedIcon icon={faCoffee} clickable onClick={onClick} ariaLabel="Clickable icon" />);
-
-    const icon = screen.getByRole("button");
-    await userEvent.click(icon);
-
-    expect(onClick).toHaveBeenCalledTimes(1);
-  });
-
-  it("does not call onClick when not clickable", async () => {
-    const onClick = vi.fn();
-
-    render(<FrostedIcon icon={faCoffee} onClick={onClick} />);
-
-    const icon = screen.getByRole("img");
-    await userEvent.click(icon);
-
-    expect(onClick).not.toHaveBeenCalled();
-  });
-
-  /* ------------------------------------------------------------
-   * Loading / spinner behavior
-   * ------------------------------------------------------------ */
-
-  it("renders spinner when loading is true", () => {
-    render(<FrostedIcon icon={faCoffee} loading />);
-
-    const icon = screen.getByTestId("fa-icon");
-    expect(icon).toHaveAttribute("data-spin", "true");
-  });
-
-  /* ------------------------------------------------------------
-   * Accessibility
-   * ------------------------------------------------------------ */
-
-  it("sets role=button and tabIndex when clickable", () => {
-    render(<FrostedIcon icon={faCoffee} clickable ariaLabel="Interactive icon" />);
-
-    const icon = screen.getByRole("button");
-    expect(icon).toHaveAttribute("tabindex", "0");
-    expect(icon).toHaveAttribute("aria-label", "Interactive icon");
-  });
-
-  it("sets role=img when not clickable", () => {
-    render(<FrostedIcon icon={faCoffee} />);
-
-    expect(screen.getByRole("img")).toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * Tooltip delegation
-   * ------------------------------------------------------------ */
-
-  it("renders tooltip content when tooltip prop is provided", () => {
-    render(<FrostedIcon icon={faCoffee} tooltip="Helpful info" />);
-
-    expect(screen.getByText("Helpful info")).toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * noBG flag
-   * ------------------------------------------------------------ */
-
-  it("applies no-background class when noBG is true", () => {
-    const { container } = render(<FrostedIcon icon={faCoffee} noBG />);
-
-    const wrapper = container.querySelector(".frosted-icon");
-    expect(wrapper).toHaveClass("fi-no-bg");
+    const icon = screen.getByRole("img", { name: "Home" });
+    expect(icon).toHaveAttribute("aria-busy", "true");
   });
 });

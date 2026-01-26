@@ -2,17 +2,30 @@ import Btn from "components/Btn";
 import { ButtonToolbar } from "rsuite";
 
 /**
+ * @file LinksBlock.jsx
+ * @description Renders a list of link buttons inside a collapsible frosted panel.
+ * @module components/blocks/LinksBlock
+ */
+
+/**
  * LinksBlock
  * ---------------------------------------------------------------------------
  * Renders a list of link buttons using the shared UI type system.
  *
  * This component relies on the global `LinkItem` typedef defined in
- * `src/types/ui.types.js`. Do NOT redeclare or import the type here.
+ * `src/types/ui.types.js`. That typedef is treated as a shared contract
+ * and should not be redeclared locally.
  *
+ * Rendering notes:
+ * - Returns `null` when no links are provided
+ * - Automatically detects external URLs to apply target and rel attributes
+ * - Delegates rendering and accessibility concerns to the shared `Btn` component
+ *
+ * @public
  * @component
- * @param {object} props
- * @param {LinkItem[]} props.links - List of links to render.
- * @returns {JSX.Element | null}
+ * @param {object} props - Component props.
+ * @param {LinkItem[]} props.links - List of link definitions to render.
+ * @returns {JSX.Element | null} Rendered link list or null if empty.
  *
  * @example
  * ```jsx
@@ -24,12 +37,14 @@ import { ButtonToolbar } from "rsuite";
  * ```
  */
 const LinksBlock = ({ links = [] }) => {
+  // Guard against empty link lists
   if (!links.length) return null;
 
   return (
     <Panel collapsible defaultExpanded className="frosted">
       <ButtonToolbar className="linklist-block">
         {links.map((link, i) => {
+          // Determine whether the link should be treated as external
           const isExternal = /^https?:\/\//.test(link.url);
 
           return (

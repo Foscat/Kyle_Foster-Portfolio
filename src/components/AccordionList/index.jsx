@@ -6,99 +6,65 @@ import { faReadme } from "@fortawesome/free-brands-svg-icons";
 import { Size } from "types/ui.types";
 
 /**
- * @component AccordionList
- * =======================================================================
- * A highly-interactive, keyboard-navigable, frosted-glass accordion list
- * designed for documentation pages, feature navigation, and section-based
- * scrolling. Fully compatible with RSuite v5 and follows WAI-ARIA
- * Authoring Practices for `role="tree"`.
+ * @file index.jsx
+ * @description Fully accessible, keyboard-navigable accordion and section
+ * navigation component with frosted-glass styling.
+ * @module components/AccordionList
+ */
+
+/**
+ * AccordionItem
+ * ---------------------------------------------------------------------------
+ * Describes a single entry rendered within the AccordionList.
  *
- * -----------------------------------------------------------------------
- * KEY FEATURES
- * -----------------------------------------------------------------------
- * • Frosted-glass RSuite-styled wrapper (`Panel`)
- * • Optional accordion behavior for collapsible sections
- * • Full keyboard navigation with roving tabindex:
- *      ↑ / ↓     → move between treeitems
- *      ←         → collapse current item
- *      →         → expand current item
- *      Home / End → jump to first or last item
- *      Enter/Space → toggle open/close or scroll to section
- *
- * • Screen-reader announcements via `aria-live`
- * • Auto-highlight based on scroll position using IntersectionObserver
- * • Auto-scroll the active item into view (centered)
- * • Clickable navigation links when `item.isScroller === true`
- * • Works seamlessly with Sticky Section Nav
- * • Supports icons using <FrostedIcon>
- *
- * -----------------------------------------------------------------------
- * ACCESSIBILITY IMPLEMENTATION
- * -----------------------------------------------------------------------
- * • `role="tree"` on container
- * • Each header uses:
- *      role="treeitem"
- *      aria-posinset         (1-based index)
- *      aria-setsize          (total visible items)
- *      aria-expanded         (open/closed state)
- *      aria-controls         (ID of associated panel)
- *
- * • Panels use:
- *      role="group"
- *      aria-labelledby       (header reference)
- *
- * • All keyboard interactions follow WAI-ARIA TreeView pattern
- * • Focus controlled via roving tabindex (only one tabbable item)
- *
- * -----------------------------------------------------------------------
- * PROPS
- * -----------------------------------------------------------------------
+ * @typedef {Object} AccordionItem
+ * @property {string} id - DOM id of the associated page section.
+ * @property {string} title - Display title for the item.
+ * @property {string|JSX.Element} [text] - Optional accordion panel content.
+ * @property {string} [url] - Optional URL used for navigation.
+ * @property {boolean} [local=false] - Whether the URL is a local route.
+ * @property {*} [icon] - Optional icon passed to FrostedIcon.
+ * @property {boolean} [isScroller=false]
+ *   Enables scroll-to-section behavior when activated.
+ */
+
+/**
+ * @public
  * @component
- * @param {object} props
+ *
+ * @param {Object} props - Component props.
+ *
+ * @param {string} [props.id]
+ *   Optional DOM id applied to the outer panel and accordion.
  *
  * @param {string} [props.title]
- *    Optional title displayed in the RSuite Panel header.
+ *   Optional title rendered in the panel header.
  *
- * @param {Array<object>} props.items
- *    A list of accordion/nav sections.
+ * @param {string} [props.subtitle]
+ *   Optional subtitle rendered beneath the title.
  *
- *    Each item may include:
- *    @param {string}   items[].id
- *          DOM id of the section on the page (required for scrolling).
+ * @param {*} [props.icon]
+ *   Optional icon rendered next to the title.
  *
+ * @param {AccordionItem[]} props.items
+ *   List of accordion/navigation items to render.
  *
- *    @param {string}   [items[].icon]
- *          Icon name passed to <FrostedIcon />.
- *
- *    @param {string}   items[].title
- *          Display name of the section.
- *
- *    @param {string|JSX.Element} [items[].text]
- *          Optional content shown when expanded (accordion mode only).
- *
- *    @param {string}   [items[].[url]}
- *          Optional URL to navigate to wwhen button is clicked.
- *
- * @param {boolean} [props.accordion=true]
- *    Enables collapsible panels.
- *    If false, acts purely as a nav list with no expand/collapse.
+ * @param {boolean} [props.accordion=false]
+ *   Enables collapsible accordion behavior.
+ *   When false, acts as a navigational list only.
  *
  * @param {"dark"|"light"} [props.variant="dark"]
- *    UI color scheme variant matching the global portfolio UI.
+ *   Visual theme variant applied to the wrapper.
  *
  * @param {string} [props.className]
- *    Additional CSS classes for the wrapper.
+ *   Additional CSS class names applied to the wrapper.
  *
  * @param {boolean} [props.bordered=false]
- *    Whether the outer Panel should show RSuite borders.
+ *   Whether the outer panel displays RSuite borders.
  *
- * -----------------------------------------------------------------------
- * RETURN
- * -----------------------------------------------------------------------
  * @returns {JSX.Element}
- * A fully accessible, frosted-glass accordion/navigation component.
- *
- * -----------------------------------------------------------------------
+ * A fully accessible accordion and section navigation component.
+ * ---------------------------------------------------------------------------
  * EXAMPLE USAGE
  * -----------------------------------------------------------------------
  * <AccordionList
@@ -339,25 +305,25 @@ const AccordionList = ({
       >
         {items.map((item, i) => {
           console.log(item);
-          const headerId = `accordionheader-${item.id || i}`;
+          const headerId = `accordion-header-${item.id || i}`;
           const panelId = `accordion-panel-${item.id || i}`;
 
           return (
             <Accordion.Panel
               defaultExpanded
-              key={"panel-" + item.id}
+              key={"acp-" + headerId}
               className={"fa-list-item blue-tile"}
-              header={<h4>{item.title}</h4>}
+              header={<h4 key={headerId}>{item.title}</h4>}
             >
               {item.text && (
-                <p key={item.id} id={panelId} role="group" aria-labelledby={headerId}>
+                <p key={panelId} id={panelId} role="group" aria-labelledby={headerId}>
                   {item.text}
                 </p>
               )}
               {item.url && (
-                <div key={item.id} className="center-v mt-2">
+                <div key={panelId + "-btnWrap"} className="center-v mt-2">
                   <Btn
-                    key={item.id}
+                    key={panelId + "-btn"}
                     text="Learn More"
                     icon={faReadme}
                     href={item.url}

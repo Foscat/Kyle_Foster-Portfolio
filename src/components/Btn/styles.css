@@ -144,7 +144,7 @@
 
 .btn.secondary:hover:not(:disabled):not(.loading),
 .btn.secondary:active:not(:disabled):not(.loading),
-.btn.secondary:focus {  
+.btn.secondary:focus {
   box-shadow: var(--shadow-accent);
 }
 

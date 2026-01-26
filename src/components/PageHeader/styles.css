@@ -20,7 +20,12 @@
   font-size: var(--font-md);
   color: var(--grey-300);
   opacity: 0.8;
-  margin-bottom: 1rem;
+}
+
+.page-header-description {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
 }
 
 /* Motion alignment with frosted UI */
@@ -28,29 +33,12 @@
   animation: fadeInUp 0.6s ease forwards;
 }
 
-p.tech-used span.front {
-  color: var(--front-end);
-  outline: 1px outset rgba(var(--front-end-rgb), 0.9);
+p.tech-used span {
+  color: var(--text-secondary);
 }
 
-p.tech-used span.back {
-  color: var(--back-end);
-  outline: 1px outset rgba(var(--tool), 0.9);
-}
-
-p.tech-used span.tool {
-  color: var(--tool);
-  outline: 1px outset rgba(var(--back-end-rgb), 0.9);
-}
-
-p.tech-used span.front.tool {
-  color: var(--tool);
-  outline: 1px outset rgba(var(--front-end-rgb), 0.9);
-}
-
-p.tech-used span.tool.back {
-  color: var(--back-end);
-  outline: 1px outset rgba(var(--tool-rgb), 0.9);
+p.tech-used span em {
+  color: var(--text-primary);
 }
 
 @keyframes fadeInUp {

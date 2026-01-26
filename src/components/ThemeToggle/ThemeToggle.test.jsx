@@ -1,65 +1,73 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import ThemeToggle from "./index";
+import { renderWithProviders } from "tests/renderWithProviders";
 import { Theme } from "types/ui.types";
 
-/* ------------------------------------------------------------------
- * Mocks
- * ------------------------------------------------------------------ */
-
-// Mock ThemeContext
-const setThemeMock = vi.fn();
-
-vi.mock("assets/theme/ThemeContext", () => ({
-  useTheme: () => ({
-    theme: Theme.LIGHT,
-    setTheme: setThemeMock,
-  }),
-}));
-
-// Mock Btn to a simple button preserving aria-label + click behavior
-vi.mock("components/Btn", () => ({
-  default: ({ ariaLabel, onClick }) => (
-    <button aria-label={ariaLabel} onClick={onClick}>
-      {ariaLabel}
-    </button>
-  ),
-}));
-
-// Mock RSuite ButtonGroup as a semantic wrapper
-vi.mock("rsuite", () => ({
-  ButtonGroup: ({ children, ...rest }) => <div {...rest}>{children}</div>,
-}));
+/**
+ * @file ThemeToggle.test.jsx
+ * @description Unit tests for the ThemeToggle component.
+ *
+ * Testing focus:
+ * - Rendering of both light and dark theme toggle buttons
+ * - Theme state transitions when toggles are activated
+ * - Presence of accessible button labels
+ *
+ * Testing philosophy:
+ * - Verifies observable behavior only
+ * - Avoids asserting internal DOM structure or RSuite implementation details
+ * - Treats theme state as a global side effect via `data-theme`
+ *
+ * @module tests/components/ThemeToggle
+ */
 
 /* ------------------------------------------------------------------
- * Tests
+ * Test Suite
  * ------------------------------------------------------------------ */
 
 describe("ThemeToggle", () => {
-  beforeEach(() => {
-    setThemeMock.mockClear();
-  });
-
-  it("renders both theme toggle buttons", () => {
-    render(<ThemeToggle />);
+  /**
+   * Verifies that both theme toggle buttons are rendered and
+   * accessible by role and label.
+   */
+  test("renders light and dark theme toggle buttons", () => {
+    renderWithProviders(<ThemeToggle />);
 
     expect(screen.getByRole("button", { name: /light theme/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /dark theme/i })).toBeInTheDocument();
   });
 
-  it("sets light theme when light button is clicked", () => {
-    render(<ThemeToggle />);
+  /**
+   * Verifies that clicking the dark theme toggle updates the
+   * global document theme state.
+   */
+  test("switches to dark theme when dark button is clicked", async () => {
+    const user = userEvent.setup();
 
-    fireEvent.click(screen.getByRole("button", { name: /light theme/i }));
+    renderWithProviders(<ThemeToggle />);
 
-    expect(setThemeMock).toHaveBeenCalledWith(Theme.LIGHT);
+    await user.click(screen.getByRole("button", { name: /dark theme/i }));
+
+    await waitFor(() => {
+      expect(document.documentElement.dataset.theme).toBe(Theme.DARK);
+    });
   });
 
-  it("sets dark theme when dark button is clicked", () => {
-    render(<ThemeToggle />);
+  /**
+   * Verifies that clicking the light theme toggle updates the
+   * global document theme state.
+   */
+  test("switches to light theme when light button is clicked", async () => {
+    const user = userEvent.setup();
 
-    fireEvent.click(screen.getByRole("button", { name: /dark theme/i }));
+    renderWithProviders(<ThemeToggle />, {
+      initialEntries: ["/"],
+    });
 
-    expect(setThemeMock).toHaveBeenCalledWith(Theme.DARK);
+    await user.click(screen.getByRole("button", { name: /light theme/i }));
+
+    await waitFor(() => {
+      expect(document.documentElement.dataset.theme).toBe(Theme.LIGHT);
+    });
   });
 });

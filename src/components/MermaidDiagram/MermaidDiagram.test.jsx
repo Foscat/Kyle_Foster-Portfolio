@@ -10,10 +10,11 @@
  * Rendering correctness is covered by Playwright. "/playwright/**.spec.js"
  */
 
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import MermaidDiagram from "./index";
+import MermaidDiagram from "components/MermaidDiagram";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Mocks
@@ -32,13 +33,13 @@ vi.mock("html-to-image", () => ({
 
 describe("MermaidDiagram (unit)", () => {
   it("renders without crashing", () => {
-    render(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Test Diagram" />);
+    renderWithProviders(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Test Diagram" />);
 
     expect(screen.getByText("Test Diagram")).toBeInTheDocument();
   });
 
   it("triggers export when clicking download button", async () => {
-    render(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Export Test" />);
+    renderWithProviders(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Export Test" />);
 
     await userEvent.click(screen.getByText(/download png/i));
 

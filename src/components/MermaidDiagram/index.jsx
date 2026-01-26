@@ -1,22 +1,43 @@
-import React, { useEffect, useRef, useCallback, useMemo, useState } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import mermaid from "mermaid";
 import * as htmlToImage from "html-to-image";
 import { Panel } from "rsuite";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import "./Mermaid.css";
-import Btn from "components/Btn";
-import { Variant } from "types/ui.types";
+
+/**
+ * @file index.jsx
+ * @description Advanced Mermaid diagram renderer with theming, accessibility,
+ * responsive layout, and PNG export support.
+ * @module components/MermaidDiagram
+ */
 
 /* ------------------------------------------------------------
    Theme helpers
 ------------------------------------------------------------ */
 
+/**
+ * Resolves a CSS variable value from the document root with a fallback.
+ *
+ * @param {string} name - CSS variable name (e.g. "--accent").
+ * @param {string} fallback - Fallback value if variable is unavailable.
+ * @returns {string} Resolved CSS value.
+ */
 function cssVar(name, fallback) {
   if (typeof window === "undefined") return fallback;
   const v = getComputedStyle(document.documentElement).getPropertyValue(name)?.trim();
   return v || fallback;
 }
 
+/**
+ * Builds a Mermaid-compatible theme variable object based on the active UI theme.
+ *
+ * Design notes:
+ * - Pulls from global CSS variables to stay visually in sync
+ * - Avoids Mermaid auto-centering or transform overrides
+ *
+ * @param {"dark"|"light"} theme - Active theme mode.
+ * @returns {Object} Mermaid themeVariables configuration.
+ */
 function buildMermaidThemeVariables(theme) {
   const isDark = theme === "dark";
 
@@ -44,21 +65,42 @@ function buildMermaidThemeVariables(theme) {
  * ---------------------------------------------------------------------------
  * Fully featured Mermaid diagram renderer with:
  * - Dark / light theme support
- * - Pan + zoom (mouse + keyboard)
- * - Auto-enabled minimap for large diagrams
- * - Mobile-friendly collapse
- * - PNG export
- * - Accessibility-first keyboard interaction
+ * - Responsive SVG layout without forced transforms
+ * - Accessible keyboard-focusable diagram container
+ * - Optional description text
+ * - PNG export capability
  *
+ * Rendering strategy:
+ * - Mermaid renders off-DOM into a controlled host element
+ * - SVG dimensions are normalized for responsive scaling
+ * - No automatic centering, zoom, or transforms are applied
+ *
+ * Accessibility:
+ * - Diagram container uses `role="img"`
+ * - Keyboard focus enabled via `tabIndex`
+ * - ARIA label derived from title
+ *
+ * @public
  * @component
- * @param {object} props
- * @param {string} props.diagram Mermaid diagram source
+ *
+ * @param {Object} props - Component props.
+ *
+ * @param {string} props.diagram
+ *   Mermaid diagram source string.
+ *
  * @param {string} [props.title]
+ *   Optional title rendered in the panel header and used for accessibility.
+ *
  * @param {string} [props.description]
+ *   Optional descriptive text rendered beneath the diagram.
+ *
  * @param {"dark"|"light"} [props.theme="dark"]
- * @param {boolean} [props.collapsible=false]
+ *   Visual theme applied to Mermaid rendering.
+ *
  * @param {string} [props.className]
- * @returns {JSX.Element}
+ *   Additional CSS class names applied to the panel container.
+ *
+ * @returns {JSX.Element} Rendered Mermaid diagram panel.
  */
 const MermaidDiagram = ({
   diagram = "",

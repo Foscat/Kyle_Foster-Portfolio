@@ -1,60 +1,85 @@
-import { useTheme } from "assets/theme/ThemeContext";
-import "./styles.css";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { ButtonGroup } from "rsuite";
+import { ButtonGroup, ButtonToolbar } from "rsuite";
 import Btn from "components/Btn";
+import { useTheme } from "assets/theme/ThemeContext";
 import { Size, Theme, Variant } from "types/ui.types";
+import "./styles.css";
+
+/**
+ * @file index.jsx
+ * @description Compact theme selection control for switching between
+ * light and dark application themes.
+ * @module components/ThemeToggle
+ */
 
 /**
  * ThemeToggle
  * ------------------------------------------------------------------
- * Compact theme selection control for switching between
- * light and dark application themes.
+ * Compact, icon-only theme selector used to toggle between light and
+ * dark application themes.
  *
  * Design goals:
- * - Minimal footprint (icon-only buttons)
+ * - Minimal visual footprint
  * - Clear active-state feedback
- * - Accessible via keyboard and screen readers
+ * - Keyboard and screen-reader accessible
  * - Consistent with the frosted / glass UI system
  *
  * Behavior:
  * - Highlights the currently active theme
- * - Invokes ThemeContext to update global theme state
- * - Does not manage theme persistence directly
+ * - Disables the active option to prevent redundant state updates
+ * - Delegates theme state management to ThemeContext
  *
+ * Accessibility:
+ * - Toolbar includes an aria-label for screen readers
+ * - Each button includes descriptive aria-labels and tooltips
+ *
+ * @public
  * @component
- * @returns {JSX.Element}
+ *
+ * @param {Object} props - Component props.
+ * @param {Size} [props.size=Size.SM]
+ *   Size applied to the toggle buttons.
+ *
+ * @returns {JSX.Element} Rendered theme toggle control.
  */
-const ThemeToggle = () => {
+const ThemeToggle = ({ size = Size.SM }) => {
   /**
    * Current theme state and setter provided by ThemeContext.
    */
   const { theme, setTheme } = useTheme();
 
   return (
-    <ButtonGroup className="theme-toggle" aria-label="Theme selector">
+    <ButtonToolbar className="theme-toggle" aria-label="Theme selector">
       {/* Light theme selector */}
       <Btn
         ariaLabel="Light theme"
-        tooltip="Light theme"
+        tooltip={theme === Theme.LIGHT ? "Light theme active" : "Switch to light theme"}
         icon={faSun}
-        size={Size.SM}
+        size={size}
         noBG
-        variant={theme === Theme.DARK ? Variant.SECONDARY : Variant.PRIMARY}
-        onClick={() => setTheme(Theme.LIGHT)}
+        variant={theme === Theme.LIGHT ? Variant.PRIMARY : Variant.SUBTLE}
+        disabled={theme === Theme.LIGHT}
+        onClick={() => {
+          if (theme === Theme.LIGHT) return;
+          else setTheme(Theme.LIGHT);
+        }}
       />
 
       {/* Dark theme selector */}
       <Btn
         ariaLabel="Dark theme"
-        tooltip="Dark theme"
+        tooltip={theme === Theme.DARK ? "Dark theme active" : "Switch to dark theme"}
         icon={faMoon}
-        size={Size.SM}
+        size={size}
         noBG
-        variant={theme === Theme.DARK ? Variant.PRIMARY : Variant.SECONDARY}
-        onClick={() => setTheme(Theme.DARK)}
+        variant={theme === Theme.DARK ? Variant.SUBTLE : Variant.PRIMARY}
+        disabled={theme === Theme.DARK}
+        onClick={() => {
+          if (theme === Theme.DARK) return;
+          else setTheme(Theme.DARK);
+        }}
       />
-    </ButtonGroup>
+    </ButtonToolbar>
   );
 };
 

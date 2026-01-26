@@ -1,10 +1,27 @@
 /**
- * Codemod: Rename unused map index to _index
+ * @file fix-unused-map-index.js
+ * @description
+ * Codemod that renames unused `.map()` index parameters to `_index`.
  *
- * - Detects map callbacks
- * - Renames unused index param to _index
- * - ESLint-compatible
- * - No logic changes
+ * Motivation:
+ * - ESLint flags unused variables as errors or warnings
+ * - Renaming unused parameters preserves intent while satisfying lint rules
+ *
+ * Behavior:
+ * - Detects `.map((item, index) => ...)` callbacks
+ * - Renames `index` only if it is not referenced
+ * - Leaves used index parameters untouched
+ *
+ * IMPORTANT:
+ * - This codemod modifies function signatures
+ * - It does NOT change runtime behavior
+ *
+ * Safe to re-run:
+ * - Yes
+ *
+ * Not affected:
+ * - `.map()` calls with a single parameter
+ * - Non-Identifier index parameters
  */
 
 export default function fixUnusedMapIndex(file, api) {

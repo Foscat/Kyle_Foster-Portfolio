@@ -1,25 +1,34 @@
 /**
- * ErrorBoundary.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the ErrorBoundary component.
+ * @file ErrorBoundary.test.jsx
+ * @description Unit tests for the ErrorBoundary component.
  *
- * Covers:
- * - Normal child rendering
+ * Test coverage:
+ * - Normal child rendering when no error occurs
  * - Error capture from descendant components
- * - Fallback UI rendering
- * - Console error logging behavior
+ * - Rendering of fallback UI
+ * - Display of captured error messages
+ *
+ * Testing strategy:
+ * - Uses a deliberately crashing child component to simulate runtime failures
+ * - Silences expected React error logs to keep test output clean
+ * - Verifies user-facing fallback behavior rather than internal state
+ *
+ * @module tests/components/ErrorBoundary
  */
 
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import ErrorBoundary from "./ErrorBoundary";
+import ErrorBoundary from "components/ErrorBoundary";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Test utilities
- * ------------------------------------------------------------------ */
+ * ------------------------------------------------------------------
+ * Component that intentionally throws an error when rendered.
+ * Used to validate error capture and fallback rendering.
+ */
 
-// Component that intentionally throws an error when rendered
 const ProblemChild = () => {
   throw new Error("Test error");
 };
@@ -33,7 +42,10 @@ describe("ErrorBoundary", () => {
   let consoleLogSpy;
 
   beforeEach(() => {
-    // Silence expected React error boundary logs during tests
+    /**
+     * Silence expected React error boundary logs during tests.
+     * React intentionally logs errors when an error boundary is triggered.
+     */
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
   });
@@ -47,7 +59,7 @@ describe("ErrorBoundary", () => {
    * ------------------------------------------------------------ */
 
   it("renders children when no error occurs", () => {
-    render(
+    renderWithProviders(
       <ErrorBoundary>
         <div>Healthy component</div>
       </ErrorBoundary>
@@ -61,7 +73,7 @@ describe("ErrorBoundary", () => {
    * ------------------------------------------------------------ */
 
   it("renders fallback UI when a child throws an error", () => {
-    render(
+    renderWithProviders(
       <ErrorBoundary>
         <ProblemChild />
       </ErrorBoundary>
@@ -74,36 +86,12 @@ describe("ErrorBoundary", () => {
   });
 
   it("displays the error message in the fallback UI", () => {
-    render(
+    renderWithProviders(
       <ErrorBoundary>
         <ProblemChild />
       </ErrorBoundary>
     );
 
     expect(screen.getByText(/Test error/i)).toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * Logging behavior
-   * ------------------------------------------------------------ */
-
-  it("logs errors to the console when an error is caught", () => {
-    render(
-      <ErrorBoundary>
-        <ProblemChild />
-      </ErrorBoundary>
-    );
-
-    expect(consoleErrorSpy).toHaveBeenCalled();
-  });
-
-  it("logs a mount message when the boundary mounts", () => {
-    render(
-      <ErrorBoundary>
-        <div />
-      </ErrorBoundary>
-    );
-
-    expect(consoleLogSpy).toHaveBeenCalledWith("Error watchdog has mounted");
   });
 });

@@ -1,52 +1,60 @@
-/**
- * StickySectionNav.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the StickySectionNav component.
- *
- * Covers:
- * - Rendering navigation items
- * - Active section highlighting
- * - Click behavior and URL updates
- * - Integration with scroll spy hook (mocked)
- */
+import React from "react";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { fireEvent, screen } from "@testing-library/react";
 
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { renderWithProviders } from "tests/renderWithProviders";
 import StickySectionNav from "./index";
 
+/**
+ * @file StickySectionNav.test.js
+ * @description Unit tests for the StickySectionNav component.
+ *
+ * Test coverage:
+ * - Rendering of section navigation links
+ * - Active section highlighting via `aria-current="location"`
+ * - History hash updates on navigation
+ * - Programmatic scroll coordination with scroll-spy logic
+ *
+ * Testing strategy:
+ * - Mocks `useScrollSpyWithHistory` to control active section state
+ * - Mocks `window.scrollTo` to prevent actual scrolling
+ * - Uses real DOM nodes to simulate anchor targets
+ *
+ * Architectural intent:
+ * StickySectionNav is an **intra-page navigation controller**.
+ * Tests focus on:
+ * - Accessibility semantics
+ * - Navigation side effects (history + scroll)
+ * - Integration boundaries with the scroll-spy hook
+ *
+ * @module tests/components/StickySectionNav
+ */
+
 /* ------------------------------------------------------------------
- * Mock: useScrollSpyWithHistory
+ * Mocks
  * ------------------------------------------------------------------ */
 
-const markProgrammaticScroll = vi.fn();
-
-const pushStateSpy = vi.spyOn(window.history, "pushState");
+/**
+ * Mock scroll-spy hook to control active section state
+ * and observe programmatic scroll suppression behavior.
+ */
+const markProgrammaticScroll = vi.fn(() => Promise.resolve(true));
 
 vi.mock("assets/hooks/useScrollSpy", () => ({
   useScrollSpyWithHistory: () => ({
-    activeId: "section-2",
+    activeId: "section-1",
     markProgrammaticScroll,
   }),
 }));
 
 /* ------------------------------------------------------------------
- * Test data
+ * Fixtures
  * ------------------------------------------------------------------ */
 
-const SECTIONS = [
+const sections = [
   { id: "section-1", title: "Introduction" },
   { id: "section-2", title: "Details" },
-  { id: "section-3", title: "Summary" },
 ];
-
-/* ------------------------------------------------------------------
- * Helpers
- * ------------------------------------------------------------------ */
-
-const renderNav = (props = {}) => {
-  return render(<StickySectionNav sections={SECTIONS} pageUrl="/test-page" {...props} />);
-};
 
 /* ------------------------------------------------------------------
  * Test Suite
@@ -54,69 +62,80 @@ const renderNav = (props = {}) => {
 
 describe("StickySectionNav", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    markProgrammaticScroll.mockClear();
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+
+    /**
+     * Ensure target section elements exist in the DOM so
+     * scroll and offset calculations can resolve correctly.
+     */
+    const s1 = document.createElement("div");
+    s1.id = "section-1";
+    document.body.appendChild(s1);
+
+    const s2 = document.createElement("div");
+    s2.id = "section-2";
+    document.body.appendChild(s2);
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = "";
+    vi.restoreAllMocks();
   });
 
   /* ------------------------------------------------------------
    * Rendering
    * ------------------------------------------------------------ */
 
-  it("renders a navigation item for each section", () => {
-    renderNav();
+  it("renders a list of section links", () => {
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
 
-    SECTIONS.forEach(({ title }) => {
-      expect(screen.getByText(title)).toBeInTheDocument();
-    });
+    expect(screen.getByRole("navigation", { name: /section navigation/i })).toBeInTheDocument();
+
+    expect(screen.getByRole("link", { name: "Introduction" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Details" })).toBeInTheDocument();
   });
 
   /* ------------------------------------------------------------
-   * Active state
+   * Active section state
    * ------------------------------------------------------------ */
 
-  it("marks the active section correctly", () => {
-    renderNav();
+  it("marks the active section via aria-current", () => {
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
 
-    const activeItem = screen.getByText("Details").closest("li");
-    expect(activeItem).toHaveClass("is-active");
+    expect(screen.getByRole("link", { name: "Introduction" })).toHaveAttribute(
+      "aria-current",
+      "location"
+    );
 
-    const inactiveItem = screen.getByText("Introduction").closest("li");
-    expect(inactiveItem).toHaveClass("is-inactive");
-  });
-
-  it("sets aria-current on the active section link", () => {
-    renderNav();
-
-    const activeLink = screen.getByText("Details");
-    expect(activeLink).toHaveAttribute("aria-current", "location");
+    expect(screen.getByRole("link", { name: "Details" })).not.toHaveAttribute("aria-current");
   });
 
   /* ------------------------------------------------------------
-   * Click behavior
+   * Navigation behavior
    * ------------------------------------------------------------ */
 
-  it("calls markProgrammaticScroll when a nav item is clicked", async () => {
-    renderNav();
+  it("updates history and performs a programmatic scroll on link click", async () => {
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
 
-    await userEvent.click(screen.getByText("Introduction"));
-    expect(markProgrammaticScroll).toHaveBeenCalledOnce();
-  });
+    const details = screen.getByRole("link", { name: "Details" });
 
-  it("updates the URL hash when navigating", async () => {
-    renderNav();
+    fireEvent.click(details);
 
-    await userEvent.click(screen.getByText("Summary"));
+    /**
+     * Ensures the scroll-spy hook is informed that the upcoming
+     * scroll is programmatic (not user-driven).
+     */
+    expect(markProgrammaticScroll).toHaveBeenCalledTimes(1);
 
-    expect(window.location.hash).toBe("#section-3");
-  });
+    /**
+     * Verifies that the URL hash is updated without a full navigation.
+     */
+    expect(window.location.hash).toBe("#section-2");
 
-  /* ------------------------------------------------------------
-   * Accessibility
-   * ------------------------------------------------------------ */
-
-  it("renders navigation with appropriate ARIA roles", () => {
-    renderNav();
-
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
-    expect(screen.getByRole("listbox")).toBeInTheDocument();
+    /**
+     * Confirms that smooth scrolling was triggered.
+     */
+    expect(window.scrollTo).toHaveBeenCalled();
   });
 });

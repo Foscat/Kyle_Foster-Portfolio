@@ -1,22 +1,26 @@
 /**
- * PageHeader.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the PageHeader component.
+ * @file PageHeader.test.jsx
+ * @description Unit tests for the PageHeader component.
  *
- * Covers:
+ * Test coverage:
  * - Required title rendering
- * - Optional jobTitle + timespan row
+ * - Optional jobTitle + timespan row composition
  * - Optional subtitle rendering
- * - Semantic role (banner)
- * - ClassName passthrough
+ * - Semantic role (`banner`) for accessibility
+ * - Root className passthrough
  *
- * Notes:
- * - RSuite Panel and FlexboxGrid are mocked as layout primitives
+ * Testing strategy:
+ * - Mocks RSuite Panel and FlexboxGrid as minimal layout primitives
+ * - Focuses on semantic output and composition logic
+ * - Avoids coupling to RSuite layout implementation details
+ *
+ * @module tests/components/PageHeader
  */
 
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import PageHeader from "./index";
+import PageHeader from "components/PageHeader";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Mocks
@@ -47,7 +51,7 @@ describe("PageHeader", () => {
    * ------------------------------------------------------------ */
 
   it("renders the main title", () => {
-    render(<PageHeader title="My Page Title" />);
+    renderWithProviders(<PageHeader title="My Page Title" />);
 
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("My Page Title");
   });
@@ -57,7 +61,9 @@ describe("PageHeader", () => {
    * ------------------------------------------------------------ */
 
   it("renders job title and timespan joined with a separator", () => {
-    render(<PageHeader title="Experience" jobTitle="Frontend Developer" timespan="2021–2024" />);
+    renderWithProviders(
+      <PageHeader title="Experience" jobTitle="Frontend Developer" timespan="2021–2024" />
+    );
 
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       "Frontend Developer • 2021–2024"
@@ -65,19 +71,19 @@ describe("PageHeader", () => {
   });
 
   it("renders only job title when timespan is omitted", () => {
-    render(<PageHeader title="Experience" jobTitle="Frontend Developer" />);
+    renderWithProviders(<PageHeader title="Experience" jobTitle="Frontend Developer" />);
 
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Frontend Developer");
   });
 
   it("renders only timespan when job title is omitted", () => {
-    render(<PageHeader title="Experience" timespan="2021–2024" />);
+    renderWithProviders(<PageHeader title="Experience" timespan="2021–2024" />);
 
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("2021–2024");
   });
 
   it("does not render job/timespan row when both are missing", () => {
-    render(<PageHeader title="Experience" />);
+    renderWithProviders(<PageHeader title="Experience" />);
 
     expect(screen.queryByRole("heading", { level: 2 })).not.toBeInTheDocument();
   });
@@ -87,13 +93,15 @@ describe("PageHeader", () => {
    * ------------------------------------------------------------ */
 
   it("renders the subtitle when provided", () => {
-    render(<PageHeader title="About" subTitle="This section describes my background" />);
+    renderWithProviders(
+      <PageHeader title="About" subTitle="This section describes my background" />
+    );
 
     expect(screen.getByText("This section describes my background")).toBeInTheDocument();
   });
 
   it("does not render subtitle when omitted", () => {
-    render(<PageHeader title="About" />);
+    renderWithProviders(<PageHeader title="About" />);
 
     expect(screen.queryByText(/describes/i)).not.toBeInTheDocument();
   });
@@ -103,14 +111,14 @@ describe("PageHeader", () => {
    * ------------------------------------------------------------ */
 
   it("renders with role='banner' for accessibility", () => {
-    render(<PageHeader title="Home" />);
+    renderWithProviders(<PageHeader title="Home" />);
 
     expect(screen.getByRole("banner")).toBeInTheDocument();
   });
 
   it("applies custom className to the root element", () => {
-    const { container } = render(<PageHeader title="Home" className="custom-class" />);
+    renderWithProviders(<PageHeader title="Title" subtitle="Subtitle" className="custom-class" />);
 
-    expect(container.firstChild).toHaveClass("custom-class");
+    expect(screen.getByRole("banner")).toHaveClass("custom-class");
   });
 });

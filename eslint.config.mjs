@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import globals from "globals";
+import testingLibrary from "eslint-plugin-testing-library";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import unusedImports from "eslint-plugin-unused-imports";
@@ -11,6 +12,33 @@ export default [
   // ---------------------------------------------
   {
     ignores: ["dist/**", "docs/**", "node_modules/**"],
+  },
+  {
+    files: ["**/*.test.{js,jsx,ts,tsx}"],
+    plugins: {
+      "testing-library": testingLibrary,
+    },
+    rules: {
+      // Enforce renderWithProviders
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@testing-library/react",
+              importNames: ["render"],
+              message: "Use renderWithProviders instead of render in tests.",
+            },
+          ],
+        },
+      ],
+
+      // Testing Library discipline
+      "testing-library/no-node-access": "error",
+      "testing-library/no-container": "error",
+      "testing-library/await-async-utils": "error",
+      "testing-library/no-debugging-utils": "warn",
+    },
   },
   // ---------------------------------------------
   // Base JS (safe, boring, stable)
@@ -64,7 +92,6 @@ export default [
       "react/react-in-jsx-scope": "off",
     },
   },
-
   // ---------------------------------------------
   // Node / config files (allow require)
   // ---------------------------------------------

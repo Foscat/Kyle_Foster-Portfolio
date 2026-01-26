@@ -14,7 +14,6 @@
   padding-left: 10px;
   font-size: var(--font-sm);
   box-shadow: var(--blue-glow);
-  background-color: rgba(var(--primary-dark-rgb), 0.95);
 }
 
 /* Mobile */

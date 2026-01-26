@@ -13,15 +13,40 @@ import {
 import "./styles.css";
 import { PageRoute, Variant } from "types/ui.types";
 import FrostedIcon from "components/FrostedIcon";
+import ThemeToggle from "components/ThemeToggle";
 
 /**
- * Navigation item configuration
- * ------------------------------------------------------------
- * Centralized definition of all navigable routes used by
- * both desktop and mobile navigation variants.
+ * @file index.jsx
+ * @description Primary site navigation with synchronized desktop and mobile
+ * layouts, active-route handling, and accessibility semantics.
+ * @module components/StickyNav
+ */
+
+/**
+ * NavItem
+ * ---------------------------------------------------------------------------
+ * Describes a single navigation entry rendered in both desktop and mobile
+ * navigation variants.
  *
- * Keeping this data-driven prevents drift between layouts
- * and makes future additions trivial.
+ * @typedef {Object} NavItem
+ * @property {string} id - Unique identifier for the nav item.
+ * @property {string} route - Route path used for navigation.
+ * @property {string} label - Human-readable navigation label.
+ * @property {*} icon - FontAwesome icon associated with the route.
+ */
+
+/**
+ * NAV_ITEMS
+ * ---------------------------------------------------------------------------
+ * Centralized definition of all navigable routes used by both desktop and
+ * mobile navigation variants.
+ *
+ * Keeping this data-driven:
+ * - Prevents drift between layouts
+ * - Ensures consistent ordering and labeling
+ * - Makes future additions trivial
+ *
+ * @type {NavItem[]}
  */
 const NAV_ITEMS = [
   { id: "ni-home", route: PageRoute.HOME, label: "Home", icon: faHome },
@@ -38,15 +63,16 @@ const NAV_ITEMS = [
 ];
 
 /**
- * Prevent redundant navigation when clicking the active route.
+ * Prevents redundant navigation when clicking the active route.
  *
- * This preserves:
- * - visual "active" highlighting
- * - accessibility semantics (aria-current)
- * - while avoiding unnecessary navigation events
+ * Preserves:
+ * - Visual active highlighting
+ * - `aria-current="page"` accessibility semantics
+ * - While avoiding unnecessary navigation events
  *
- * @param {MouseEvent} e
- * @param {boolean} isActive
+ * @param {MouseEvent} e - Click event.
+ * @param {boolean} isActive - Whether the target route is already active.
+ * @returns {void}
  */
 const handleNavClick = (e, isActive) => {
   if (isActive) {
@@ -58,26 +84,30 @@ const handleNavClick = (e, isActive) => {
 /**
  * StickyNav
  * ------------------------------------------------------------------
- * Primary site navigation with dual layouts:
+ * Primary site navigation component with dual layouts:
  *
- * Desktop:
+ * Desktop layout:
  * - Horizontal icon-based navigation
  * - Icon-only buttons with hover tooltips
- * - Uses the design-system <Btn> component
+ * - Uses the design-system `Btn` and `FrostedIcon` components
  *
- * Mobile:
- * - Burger-triggered RSuite Drawer
- * - Vertical text-based navigation
+ * Mobile layout:
+ * - Burger-triggered RSuite `Drawer`
+ * - Vertical, text-based navigation
  * - Touch-friendly and hover-independent
  *
  * Shared behavior:
  * - Active route highlighting
- * - aria-current="page" for accessibility
+ * - `aria-current="page"` for accessibility
  * - Active route suppresses navigation without disabling styles
  *
+ * @public
  * @component
- * @param {object} props
- * @param {string} props.activePage - Currently active route
+ *
+ * @param {Object} props - Component props.
+ * @param {string} props.activePage - Currently active route.
+ *
+ * @returns {JSX.Element} Rendered sticky navigation.
  */
 const StickyNav = ({ activePage }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -115,6 +145,9 @@ const StickyNav = ({ activePage }) => {
               </Nav.Item>
             );
           })}
+          <Nav.Item className="theme-toggle-desktop">
+            <ThemeToggle />
+          </Nav.Item>
         </Nav>
       </nav>
 
@@ -149,6 +182,7 @@ const StickyNav = ({ activePage }) => {
         </Drawer.Header>
 
         <Drawer.Body>
+          <ThemeToggle />
           <Nav vertical>
             {NAV_ITEMS.map(({ route, label, id }) => {
               const isActive = activePage === route;

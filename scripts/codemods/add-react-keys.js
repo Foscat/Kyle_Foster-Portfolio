@@ -1,16 +1,32 @@
 /**
- * Codemod: Add missing React key props
+ * @file add-react-keys.js
+ * @description
+ * Codemod that adds missing React `key` props to JSX elements
+ * returned from array `.map()` calls.
  *
- * - Only touches JSX returned from array.map()
- * - Skips if key already exists
- * - Uses item.id when available
- * - Falls back to index-based key if needed
+ * Scope & Safety:
+ * - Only processes JSX inside `.map()` callbacks
+ * - Skips elements that already define a `key`
+ * - Prefers semantic keys (`item.id`) when available
+ * - Falls back to index-based keys only when necessary
+ *
+ * IMPORTANT:
+ * - This codemod mutates source code
+ * - It should be run on a clean git working tree
+ * - Review diffs carefully before committing
+ *
+ * Safe to re-run:
+ * - Yes (idempotent when keys already exist)
+ *
+ * Not affected:
+ * - Non-map JSX
+ * - Conditional rendering
+ * - JSX outside of `.map()` callbacks
  */
 
 export default function addReactKeys(file, api) {
   const j = api.jscodeshift;
   const root = j(file.source);
-
   root
     .find(j.CallExpression, {
       callee: {
@@ -24,6 +40,8 @@ export default function addReactKeys(file, api) {
       const itemParam = callback.params[0];
       const indexParam = callback.params[1];
 
+      // Locate array.map() calls, which are the only valid
+      // context where React requires stable `key` props.
       j(callback.body)
         .find(j.JSXElement)
         .forEach((jsxPath) => {

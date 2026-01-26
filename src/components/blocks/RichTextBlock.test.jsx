@@ -1,52 +1,50 @@
-/**
- * RichTextBlock.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the RichTextBlock component.
- *
- * Covers:
- * - Defensive rendering
- * - Title rendering
- * - Paragraph rendering
- * - Accessibility roles
- */
+import React from "react";
+import { screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { renderWithProviders } from "tests/renderWithProviders";
 import RichTextBlock from "./RichTextBlock";
 
-/* ------------------------------------------------------------------
- * Test data
- * ------------------------------------------------------------------ */
-
-const PARAGRAPHS = ["This is the first paragraph.", "This is the second paragraph."];
+/**
+ * @file RichTextBlock.test.jsx
+ * @description Unit tests for the RichTextBlock component.
+ *
+ * Testing focus:
+ * - Defensive rendering behavior when content is missing or invalid
+ * - Correct rendering of markdown content into semantic HTML
+ *
+ * Design intent:
+ * RichTextBlock is expected to be tolerant of missing data while still
+ * correctly rendering valid markdown input.
+ *
+ * @module tests/components/blocks/RichTextBlock
+ */
 
 /* ------------------------------------------------------------------
  * Test Suite
  * ------------------------------------------------------------------ */
 
 describe("RichTextBlock", () => {
-  it("returns null when paragraphs are missing or empty", () => {
-    const { container } = render(<RichTextBlock paragraphs={[]} />);
-    expect(container.firstChild).toBeNull();
+  /**
+   * Verifies the component renders nothing when no content is provided.
+   * Guards against malformed CMS or configuration input.
+   */
+  it("renders nothing when no content is provided", () => {
+    renderWithProviders(
+      <div data-testid="root">
+        <RichTextBlock content={null} />
+      </div>
+    );
+
+    expect(screen.getByTestId("root")).toBeEmptyDOMElement();
   });
 
-  it("renders the title when provided", () => {
-    render(<RichTextBlock title="Overview" paragraphs={PARAGRAPHS} />);
+  /**
+   * Verifies that valid markdown content is rendered into semantic HTML.
+   */
+  it("renders markdown content", () => {
+    renderWithProviders(<RichTextBlock content="# Hello World" />);
 
-    expect(screen.getByText("Overview")).toBeInTheDocument();
-  });
-
-  it("renders all paragraphs", () => {
-    render(<RichTextBlock paragraphs={PARAGRAPHS} />);
-
-    PARAGRAPHS.forEach((text) => {
-      expect(screen.getByText(text)).toBeInTheDocument();
-    });
-  });
-
-  it("renders a region role for accessibility", () => {
-    render(<RichTextBlock title="Content" paragraphs={PARAGRAPHS} />);
-
-    expect(screen.getByRole("region")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Hello World" })).toBeInTheDocument();
   });
 });

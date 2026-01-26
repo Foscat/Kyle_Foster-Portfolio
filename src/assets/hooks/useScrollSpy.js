@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * useScrollSpyWithHistory
+ * Options used to configure scroll spy behavior.
+ *
+ * @typedef {Object} ScrollSpyOptions
+ * @property {number} [offset=0] - Vertical offset applied when calculating visibility.
+ */
+
+/**
+ * @file useScrollSpy.js
+ * @description React hook for tracking the currently visible section
+ * based on scroll position.
+ * @module assets/hooks/useScrollSpy
  * ---------------------------------------------------------------------------
  * Tracks the currently visible section based on scroll position,
  * syncs with URL hash, and supports programmatic scrolling without

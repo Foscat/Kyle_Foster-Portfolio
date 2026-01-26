@@ -1,30 +1,41 @@
 /**
- * Btn.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the Frosted Glass Button component.
+ * @file Btn.test.jsx
+ * @description Unit tests for the `Btn` (Frosted Glass Button) component.
  *
- * Covers:
- * - Rendering
- * - Default props
- * - Variants
- * - User interaction
- * - Loading & disabled states
- * - Icon-only accessibility requirements
+ * Test coverage:
+ * - Basic rendering and text output
+ * - Default variant and size behavior
+ * - Variant and size overrides
+ * - Click interaction and disabled behavior
+ * - Loading state behavior
+ * - Icon-only button behavior and accessibility enforcement
+ *
+ * Design intent:
+ * These tests ensure `Btn` behaves as a robust, accessible abstraction
+ * over RSuite Button / IconButton, enforcing:
+ * - Predictable defaults
+ * - Safe async interaction
+ * - Strict accessibility guarantees for icon-only usage
+ *
+ * @module tests/components/Btn
  */
 
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import Btn from "./index";
+import Btn from "components/Btn";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Variant, Size } from "types/ui.types";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Helpers
- * ------------------------------------------------------------------ */
+ * ------------------------------------------------------------------
+ * Shared render helper to keep test cases concise and consistent.
+ */
 
 const renderBtn = (props = {}) => {
-  return render(<Btn text="Test Button" {...props} />);
+  return renderWithProviders(<Btn text="Test Button" {...props} />);
 };
 
 /* ------------------------------------------------------------------
@@ -114,14 +125,14 @@ describe("Btn", () => {
    * ------------------------------------------------------------ */
 
   it("renders as icon-only when icon is provided without text", () => {
-    render(<Btn icon={faDownload} ariaLabel="Download file" />);
+    renderWithProviders(<Btn icon={faDownload} ariaLabel="Download file" />);
 
     const button = screen.getByRole("button");
     expect(button).toHaveClass("icon-only");
   });
 
   it("requires aria-label for icon-only buttons", () => {
-    render(<Btn icon={faDownload} ariaLabel="Download" />);
+    renderWithProviders(<Btn icon={faDownload} ariaLabel="Download" />);
 
     expect(screen.getByRole("button")).toHaveAttribute("aria-label", "Download");
   });

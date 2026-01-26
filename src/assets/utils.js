@@ -1,47 +1,69 @@
-import pageMetas from "./data/pageMetas";
+/**
+ * @file utils.js
+ * @description Collection of shared utility helpers used across the application.
+ * These functions are intentionally small, side-effect free, and reusable.
+ * @module assets/utils
+ */
 
 /**
- * Merges multiple arrays of strings and removes duplicates.
+ * Safely joins multiple class name values into a single string.
+ * Falsy values are ignored.
  *
- * Example:
- *   mergeUniqueStrings(["HTML", "CSS"], ["HTML", "JavaScript"])
- *   → ["HTML", "CSS", "JavaScript"]
+ * @param {...(string|false|null|undefined)} classes - Class name values to join.
+ * @returns {string} Space-delimited class name string.
  *
- * @param {...string[]} lists - One or more arrays of strings.
- * @returns {string[]} A deduplicated array preserving first-seen order.
+ * @example
+ * classNames("btn", isActive && "active")
  */
-export const mergeUniqueStrings = (...lists) => {
-  const seen = new Set();
+export function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
-  for (const list of lists) {
-    if (!Array.isArray(list)) continue;
+/**
+ * Determines whether the code is executing in a browser environment.
+ * Useful for guarding DOM or window access during SSR or tests.
+ *
+ * @returns {boolean} True if `window` is defined.
+ */
+export function isBrowser() {
+  return typeof window !== "undefined";
+}
 
-    for (const item of list) {
-      if (typeof item === "string" && item.trim()) {
-        seen.add(item.trim());
-      }
-    }
-  }
+/**
+ * No-op function used as a default callback placeholder.
+ *
+ * @returns {void}
+ */
+export function noop() {}
 
-  return Array.from(seen);
-};
+/**
+ * Clamps a numeric value between a minimum and maximum.
+ *
+ * @param {number} value - Input value.
+ * @param {number} min - Lower bound.
+ * @param {number} max - Upper bound.
+ * @returns {number} Clamped value.
+ */
+export function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
 
-const getMetaByPath = () => {
-  const currentURL = window.location.pathname;
-  switch (currentURL.split("/")[currentURL.split("/").length - 1]) {
-    case "hackathon":
-      return pageMetas.Hackathon;
-    case "smu":
-      return pageMetas.Smu;
-    case "sideProjects":
-      return pageMetas.SideProjects;
-    case "freelance":
-      return pageMetas.FreelanceWork;
-    case "codestream":
-      return pageMetas.Codestream;
-    case "contact":
-      return pageMetas.Contact;
-    default:
-      return pageMetas.Home;
-  }
-};
+/**
+ * Returns a debounced version of a function.
+ * The function is invoked only after the delay has elapsed since the last call.
+ *
+ * @param {Function} fn - Function to debounce.
+ * @param {number} delay - Delay in milliseconds.
+ * @returns {Function} Debounced function.
+ */
+export function debounce(fn, delay) {
+  let timeoutId;
+
+  return function (...args) {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}

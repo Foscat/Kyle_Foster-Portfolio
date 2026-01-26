@@ -7,75 +7,140 @@ import FrostedIcon from "components/FrostedIcon";
 import { Variant, Size } from "types/ui.types";
 
 /**
- * Frosted Glass Button Component
+ * @file index.jsx
+ * @description Unified frosted-glass button component implementing the
+ * Midnight Gold UI system with accessibility, animation, async handling,
+ * and controlled prop passthrough to RSuite and FontAwesome.
+ * @module components/Btn
+ */
+
+/**
+ * RSuiteButtonProps
+ * ---------------------------------------------------------------------------
+ * Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.
+ * These are documented explicitly to make passthrough behavior clear
+ * without re-exporting RSuite types.
+ *
+ * @typedef {Object} RSuiteButtonProps
+ * @property {boolean} [active=true] - Whether the button is in an active state.
+ * @property {string|React.ElementType} [as="button"] - Render element type.
+ * @property {boolean} [block=false] - Makes the button full-width.
+ * @property {string} [classPrefix="btn"] - RSuite CSS class prefix.
+ * @property {boolean} [disabled=false] - Disables the button.
+ * @property {React.ReactNode} [startIcon] - Icon rendered before content.
+ * @property {React.ReactNode} [endIcon] - Icon rendered after content.
+ * @property {boolean} [loading=false] - Shows loading state.
+ */
+
+/**
+ * FontAwesomeButtonIconProps
+ * ---------------------------------------------------------------------------
+ * FontAwesome-related props forwarded to the internal `FrostedIcon`
+ * instance rendered inside the button.
+ *
+ * @typedef {Object} FontAwesomeButtonIconProps
+ * @property {boolean} [border=false]
+ * @property {*} [mask]
+ * @property {string} [maskId]
+ * @property {boolean} [inverse=false]
+ * @property {string|boolean} [flip=false]
+ * @property {string} [pull]
+ * @property {number} [rotation]
+ * @property {boolean|number} [rotateBy=false]
+ * @property {boolean} [spinPulse=false]
+ * @property {boolean} [spinReverse=false]
+ * @property {boolean} [fade=false]
+ * @property {boolean} [beatFade=false]
+ * @property {boolean} [bounce=false]
+ * @property {boolean} [shake=false]
+ * @property {boolean|string} [symbol=false]
+ * @property {string} [title]
+ * @property {string} [titleId]
+ * @property {string|Object} [transform]
+ * @property {boolean} [swapOpacity=false]
+ * @property {boolean} [widthAuto=false]
+ */
+
+/**
+ * Btn
  * ------------------------------------------------------------------
- * A unified, accessible, animated button component that conforms
- * to the portfolio’s Midnight Gold + Frosted UI system.
+ * A unified, accessible, animated button component that conforms to the
+ * Midnight Gold + Frosted UI system.
  *
- * This enhanced version:
- * - Removing all duplicated logic between Button/IconButton
- * - Automatically switches to IconButton when an icon is provided
- * - Enforces aria-label when icon-only (true accessibility)
- * - Supports loading, success, and error visual states
- * - Adds animation presets ("pulse", "scale", "fade")
- * - Supports tooltip via RSuite Whisper
- * - Works as button OR anchor link
+ * Core responsibilities:
+ * - Normalizes RSuite `<Button>` and `<IconButton>` behavior
+ * - Automatically switches to IconButton when an icon is present
+ * - Enforces accessibility for icon-only buttons
+ * - Supports async click handlers with visual feedback
+ * - Provides tooltip support via RSuite Whisper
+ * - Can render as:
+ *   - Native button
+ *   - React Router link
+ *   - External anchor
  *
+ * Accessibility:
+ * - Requires an accessible label for icon-only buttons
+ * - Applies `aria-busy` during loading/async states
+ * - Applies `aria-disabled` consistently
+ *
+ * @public
  * @component
  *
- * @typedef {object} BtnProps
- * @property {Variant} [variant="primary"]
- *   UI color scheme aligned with frosted theme.
+ * @param {Object} props - Component props.
  *
- * @property {Size} [size="md"]
- *   RSuite size variant.
+ * @param {Variant} [props.variant="primary"]
+ *   Visual style variant aligned with the frosted theme.
  *
- * @property {boolean} [disabled=false]
- *   Prevents interaction and dims the button.
+ * @param {Size} [props.size="md"]
+ *   Size variant applied to both button and icon.
  *
- * @property {boolean} [loading=false]
- *   Shows a loading indicator and prevents clicks.
+ * @param {string} [props.text]
+ *   Text label rendered inside the button.
  *
- * @property {string} [text]
- *   Text label displayed inside the button.
+ * @param {string} [props.icon]
+ *   FontAwesome icon name. When provided, renders an IconButton.
  *
- * @property {string} [icon]
- *   FontAwesome icon name. If provided, renders an IconButton.
+ * @param {Function} [props.onClick]
+ *   Click handler. May return a Promise to enable async loading state.
  *
- * @property {string} [ariaLabel]
- *   Required when the button is icon-only (no text).
+ * @param {string} [props.ariaLabel]
+ *   Accessible label. Required for icon-only buttons if no tooltip is provided.
  *
- * @property {function} [onClick]
- *   Button click handler.
+ * @param {string} [props.tooltip]
+ *   Tooltip text displayed on hover.
  *
- * @property {string} [href]
- *   Converts button into a link.
+ * @param {"none"|"pulse"|"scale"|"fade"} [props.animation="none"]
+ *   Optional hover animation preset.
  *
- * @property {boolean} [hrefLocal = false]
+ * @param {string} [props.href]
+ *   Converts the button into a link when provided.
  *
+ * @param {boolean} [props.hrefLocal=false]
+ *   When true, renders a React Router `<Link>` instead of an anchor.
  *
- * @property {string} [target]
- *   Anchor target value ("_blank", etc.)
+ * @param {string} [props.target]
+ *   Anchor target value (e.g., "_blank").
  *
- * @property {string} [rel]
- *   Anchor rel attribute.
+ * @param {string} [props.rel]
+ *   Anchor `rel` attribute.
  *
- * @property {string} [tooltip]
- *   Tooltip label shown on hover.
+ * @param {string} [props.className]
+ *   Additional CSS class names.
  *
- * @property {"none"|"pulse"|"scale"|"fade"} [animation="none"]
- *   Optional animation preset applied on hover.
+ * @param {boolean} [props.noBG=false]
+ *   Disables the frosted background treatment.
  *
- * @property {string} [className]
- *   Additional custom styles.
+ * @param {RSuiteButtonProps} [props.*]
+ *   Any supported RSuite Button/IconButton props are forwarded directly.
  *
- * @returns {JSX.Element}
+ * @param {FontAwesomeButtonIconProps} [props.*]
+ *   FontAwesome-related props forwarded to the internal `FrostedIcon`.
+ *
+ * @returns {JSX.Element} Rendered button component.
  */
 const Btn = ({
   variant = Variant.PRIMARY,
   size = Size.MD,
-  disabled = false,
-  loading = false,
   text = "",
   className = "",
   icon = undefined,
@@ -89,15 +154,51 @@ const Btn = ({
   animation = "none",
   download = undefined,
   noBG = false,
-  block = false,
   type = "button",
+  // RSuite Btn props
+  active = true,
+  as = "button",
+  block = false,
+  classPrefix = "btn",
+  disabled = false,
+  endIcon = undefined,
+  loading = false,
+  startIcon = undefined,
+  // FontAwesomeIcon specific props
+  border = false,
+  mask = void 0,
+  maskId = void 0,
+  inverse = false,
+  flip = false,
+  pull = void 0,
+  rotation = void 0,
+  rotateBy = false,
+  spinPulse = false,
+  spinReverse = false,
+  fade = false,
+  beatFade = false,
+  bounce = false,
+  shake = false,
+  symbol = false,
+  title = "",
+  titleId = void 0,
+  transform = void 0,
+  swapOpacity = false,
+  widthAuto = false,
 }) => {
+  /**
+   * Local async loading state used when onClick returns a Promise.
+   * This allows async visual feedback without forcing external state.
+   */
   const [asyncLoading, setAsyncLoading] = useState(loading);
 
-  /** Accessibility requirement for icon-only buttons */
+  /** True when the button renders only an icon with no text label */
   const isIconOnly = icon && !text;
 
-  // Auto-generate aria-label
+  /**
+   * Resolve an accessible aria-label for the button.
+   * Falls back to tooltip text or a humanized icon name.
+   */
   const resolvedAriaLabel =
     ariaLabel ||
     (typeof tooltip === "string" ? tooltip : undefined) ||
@@ -107,7 +208,13 @@ const Btn = ({
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
   }
 
-  /** Async-aware click handler */
+  /**
+   * Async-aware click handler.
+   * Automatically manages loading state when a Promise is returned.
+   *
+   * @param {React.MouseEvent} e - Click event.
+   * @returns {void}
+   */
   const handleClick = async (e) => {
     if (!onClick || disabled || loading) return;
 
@@ -123,13 +230,13 @@ const Btn = ({
     }
   };
 
+  // Choose Button or IconButton depending on icon presence
   const Component = icon ? IconButton : Button;
+
   const button = (
     <Component
       role="button"
-      disabled={disabled || loading || asyncLoading}
       onClick={handleClick}
-      block={block}
       type={type}
       aria-label={resolvedAriaLabel}
       aria-busy={loading || asyncLoading}
@@ -144,6 +251,14 @@ const Btn = ({
         ${animation !== "none" ? `anim-${animation}` : ""}
         ${className}
       `}
+      active={active}
+      as={as}
+      block={block}
+      classPrefix={classPrefix}
+      endIcon={endIcon}
+      startIcon={startIcon}
+      loading={loading || asyncLoading}
+      disabled={disabled}
       icon={
         <FrostedIcon
           size={size}
@@ -154,6 +269,27 @@ const Btn = ({
           noBG={noBG}
           tooltip={tooltip}
           className="btn-icon"
+          ariaLabel="Button icon"
+          border={border}
+          mask={mask}
+          maskId={maskId}
+          inverse={inverse}
+          flip={flip}
+          pull={pull}
+          rotation={rotation}
+          rotateBy={rotateBy}
+          spinPulse={spinPulse}
+          spinReverse={spinReverse}
+          fade={fade}
+          beatFade={beatFade}
+          bounce={bounce}
+          shake={shake}
+          symbol={symbol}
+          title={title}
+          titleId={titleId}
+          transform={transform}
+          swapOpacity={swapOpacity}
+          widthAuto={widthAuto}
         />
       }
     >

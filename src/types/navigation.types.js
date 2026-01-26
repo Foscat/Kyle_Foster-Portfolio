@@ -1,30 +1,48 @@
 /**
+ * @file navigation.types.js
+ * @description Shared navigation-related type definitions used across the
+ * section registry, scroll persistence, and navigation components.
  * @module types/navigation
- * @public
  */
 
 /**
- * Metadata describing a registered page section.
+ * Represents a single navigable section registered with the application.
  *
- * @typedef {object} SectionMeta
- * @property {string} id - Unique section identifier (must match DOM id).
- * @property {string} title - Human-readable title for navigation.
+ * @typedef {Object} NavigationSection
+ * @property {string} id - Unique identifier for the section (used as anchor/hash).
+ * @property {string} label - Human-readable label displayed in navigation UI.
+ * @property {number} order - Sort order determining vertical and nav placement.
+ * @property {HTMLElement|null} element - DOM element associated with the section.
+ * @property {boolean} [hidden] - Whether the section should be excluded from nav.
  */
 
 /**
- * SectionRegistry API
- * ------------------------------------------------------------
- * Interface describing the section registry used for scroll-spy
- * navigation and section coordination.
+ * Map of section IDs to their registered section metadata.
  *
- * @typedef {Object} SectionRegistry
+ * @typedef {Object.<string, NavigationSection>} SectionRegistry
+ */
+
+/**
+ * Describes the scroll position state persisted between navigations.
  *
- * @property {function(string, SectionMeta): void} registerSection
- *   Registers a section with its metadata.
+ * @typedef {Object} ScrollPositionState
+ * @property {number} x - Horizontal scroll offset.
+ * @property {number} y - Vertical scroll offset.
+ * @property {string} pathname - Pathname associated with the saved position.
+ */
+
+/**
+ * Function signature used to register a section with the registry.
  *
- * @property {function(string): void} unregisterSection
- *   Unregisters a section by ID.
+ * @callback RegisterSection
+ * @param {NavigationSection} section - Section metadata to register.
+ * @returns {void}
+ */
+
+/**
+ * Function signature used to unregister a section from the registry.
  *
- * @property {function(): Array<SectionMeta>} getSections
- *   Returns all registered section metadata in order.
+ * @callback UnregisterSection
+ * @param {string} sectionId - ID of the section to remove.
+ * @returns {void}
  */

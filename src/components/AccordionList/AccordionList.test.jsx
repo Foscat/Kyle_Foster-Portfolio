@@ -1,26 +1,35 @@
 /**
- * AccordionList.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the AccordionList component.
+ * @file AccordionList.test.jsx
+ * @description Unit tests for the AccordionList component.
  *
- * Covers:
- * - Rendering of items
+ * Test coverage:
+ * - Basic rendering of panel and item titles
  * - Accordion expand / collapse behavior
  * - Keyboard interaction (Enter / Space)
- * - Scroll-link behavior for isScroller items
- * - Accessibility roles and live region updates
+ * - Scroll-to-section behavior for `isScroller` items
+ * - Accessibility roles and screen-reader live region updates
+ *
+ * Testing strategy:
+ * - Uses `renderWithProviders` to ensure context parity with the app
+ * - Uses `@testing-library/user-event` for realistic interaction simulation
+ * - Avoids testing implementation details; focuses on observable behavior
+ *
+ * @module tests/components/AccordionList
  */
 
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import AccordionList from "./index";
+import AccordionList from "components/AccordionList";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Mocks
- * ------------------------------------------------------------------ */
+ * ------------------------------------------------------------------
+ * JSDOM does not implement `scrollIntoView`, so this is mocked to
+ * prevent runtime errors during scroll-related tests.
+ */
 
-// Mock scrollIntoView to avoid JSDOM errors
 beforeEach(() => {
   Element.prototype.scrollIntoView = vi.fn();
 });
@@ -46,10 +55,14 @@ const ITEMS = [
 
 /* ------------------------------------------------------------------
  * Helpers
- * ------------------------------------------------------------------ */
+ * ------------------------------------------------------------------
+ * Shared render helper to keep test cases concise and consistent.
+ */
 
 const renderAccordion = (props = {}) => {
-  return render(<AccordionList title="Test Sections" items={ITEMS} accordion {...props} />);
+  return renderWithProviders(
+    <AccordionList title="Test Sections" items={ITEMS} accordion {...props} />
+  );
 };
 
 /* ------------------------------------------------------------------

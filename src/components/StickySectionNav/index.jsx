@@ -2,26 +2,56 @@ import React, { useEffect, useRef } from "react";
 import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
 import "./styles.css";
 
+/**
+ * @file index.jsx
+ * @description Sticky, accessible intra-page section navigator that tracks
+ * scroll position, updates URL hash state, and highlights the active section.
+ * @module components/StickySectionNav
+ */
+
 const SCROLL_OFFSET = 120;
+
+/**
+ * SectionNavItem
+ * ---------------------------------------------------------------------------
+ * Describes a single section entry used by StickySectionNav.
+ *
+ * @typedef {Object} SectionNavItem
+ * @property {string} id - DOM id of the section element to scroll to.
+ * @property {string} title - Human-readable label shown in the nav list.
+ */
+
 /**
  * StickySectionNav
  * ---------------------------------------------------------------------------
- * Sticky, accessible section navigation that highlights the active section,
- * syncs with scroll + URL history, and adapts to desktop or mobile layouts.
+ * Sticky, accessible section navigation for **individual pages**.
  *
- * Features:
- * - position: sticky (desktop sidebar)
- * - optional slide-in drawer (mobile)
- * - keyboard navigation (↑ / ↓)
- * - theme-aware active glow (via CSS)
- * - fade / scale / blur motion language
+ * Responsibilities:
+ * - Highlights the currently active section based on scroll position
+ * - Syncs navigation state with the URL hash (via History API)
+ * - Supports both desktop and mobile presentation modes via CSS
+ * - Keeps the active item visible by auto-scrolling the nav container
  *
+ * Behavior:
+ * - Uses a fixed `SCROLL_OFFSET` to account for sticky headers / top padding
+ * - Uses smooth scrolling to navigate to target sections
+ * - Marks programmatic scroll to avoid scroll-spy churn during animated scroll
+ *
+ * Accessibility:
+ * - Root uses `aria-label="Section navigation"`
+ * - Active item uses `aria-current="location"`
+ * - Uses list semantics for predictable screen reader interaction
+ *
+ * @public
  * @component
- * @param {Object} props
- * @param {Array<{ id: string, title: string }>} props.sections
- * @param {"desktop" | "mobile"} [props.mode="desktop"]
- * @param {string} [props.pageUrl="/"]
- * @param {boolean} [props.isOpen] - Used for mobile drawer mode
+ *
+ * @param {Object} props - Component props.
+ * @param {SectionNavItem[]} props.sections - List of sections to render and navigate.
+ * @param {"desktop"|"mobile"} [props.mode="desktop"] - Layout mode used by styling rules.
+ * @param {string} [props.pageUrl="/"] - Base page URL used for hash updates.
+ * @param {boolean} [props.isOpen=true] - Controls open-state styling in mobile mode.
+ *
+ * @returns {JSX.Element} Rendered sticky section navigation.
  */
 const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOpen = true }) => {
   const sectionIds = sections.map((s) => s.id);
@@ -29,6 +59,16 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
 
   const { activeId, markProgrammaticScroll } = useScrollSpyWithHistory(sectionIds, SCROLL_OFFSET);
 
+  /**
+   * Navigates to a target section by ID, updating URL hash and scrolling smoothly.
+   *
+   * Implementation notes:
+   * - Uses `history.pushState` to update the hash without a full navigation
+   * - Uses requestAnimationFrame to allow layout to settle before measuring
+   *
+   * @param {string} id - Target section id.
+   * @returns {void}
+   */
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -46,7 +86,10 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
     });
   };
 
-  // Keep active item centered
+  /**
+   * Keeps the active nav item visible/centered within the nav container.
+   * Only performs scrolling when the nav container itself is scrollable.
+   */
   useEffect(() => {
     if (!navRef.current || !activeId) return;
 
@@ -68,6 +111,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
     <nav
       ref={navRef}
       className={`
+        blue-tile
         sticky-section-nav
         sticky-section-nav--${mode}
         ${mode === "mobile" && isOpen ? "is-open" : ""}

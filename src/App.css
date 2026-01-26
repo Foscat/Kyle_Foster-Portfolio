@@ -31,6 +31,9 @@
   --gray-100: rgb(245, 245, 247);
   --gray-100-rgb: 245, 245, 247;
 
+  --gray-200: rgb(225, 225, 227);
+  --gray-200-rgb: 225, 225, 227;
+
   --gray-300: rgb(209, 209, 214);
   --gray-300-rgb: 209, 209, 214;
 
@@ -91,14 +94,6 @@
   --error: rgb(220, 38, 38);
   --error-light: rgb(248, 113, 113);
   --error-rgb: 220, 38, 38;
-
-  /* Tech colors */
-  --front-end-rgb: 247, 118, 5; /* orange tag */
-  --front-end: rgba(247, 118, 5, 0.8); /* orange */
-  --back-end-rgb: 13, 212, 6; /* green tag */
-  --back-end: rgba(13, 212, 6, 0.8); /* green */
-  --tool-rgb: 255, 0, 255; /* magenta tag */
-  --tool: rgba(255, 0 255, 0.8); /* magenta */
 
   /* Typography scale */
   --font-xxl: clamp(2.5rem, 1.5rem + 3vw, 5.625rem);
@@ -162,14 +157,13 @@
   --accent-bg: rgba(var(--accent-rgb), 0.5);
   --accent-bg-dark: rgba(var(--accent-rgb), 0.75);
 
-
   /* Borders */
   --frost-border: 2px inset rgba(var(--white-rgb), 0.18);
   --fb-TL: 2px inset rgba(var(--white-rgb), 0.22);
   --fb-BR: 2px outset rgba(var(--deep-black-rgb), 0.22);
   --glass-border: 3px inset rgba(var(--white-rgb), 0.28);
-  --gb-TL: 3px inset rgba(var(--white-rgb), 0.32);
-  --gb-BR: 3px outset rgba(var(--deep-black-rgb), 0.32);
+  --gb-TL: 3px inset rgba(var(--gray-300-rgb), 0.32);
+  --gb-BR: 3px outset rgba(var(--gray-500-rgb), 0.32);
   --tile-border: 2px outset rgba(var(--white-rgb), 0.38);
   --accent-border: 3px outset rgba(var(--accent-rgb), 0.45);
   --bubble-border: outset inset inset outset;
@@ -178,8 +172,9 @@
   /* Shadows */
   --shadow-accent: 0 14px 46px rgba(var(--accent-dark-rgb), 0.55);
   --shadow-dark: 0 14px 46px rgba(var(--deep-black-rgb), 0.55);
-  --glass-shadow: 0 10px 40px rgba(var(--grey-), 0.35);
+  --glass-shadow: 0 10px 40px rgba(var(--grey-500), 0.35);
   --shadow-soft: 0 6px 30px rgba(var(--deep-black-rgb), 0.22);
+  --tile-shadow: 0 10px 40px rgba(var(--primary-dark-bg), 30);
   --text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
 
   /* Gradients */
@@ -433,7 +428,6 @@ a:hover {
   transition-timing-function: var(--easing-standard);
   transition-duration: var(--transition-speed);
   background-color: transparent;
-  color: var(--accent-dark);
 }
 
 .frosted.rs-panel .rs-panel-header .rs-panel-btn:active,
@@ -679,9 +673,7 @@ footer {
   }
 }
 
-
 @media (max-width: 768px) {
-  
 }
 
 @media (max-width: 700px) {

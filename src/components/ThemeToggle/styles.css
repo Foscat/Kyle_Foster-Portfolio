@@ -2,9 +2,8 @@
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   background: var(--gold-glow);
-  padding: 8px;
   border-radius: var(--border-radius);
-  border: 1px solid rgba(var(--gold-rgb), 0.25);
+  border: 1px solid rgba(var(--accent), 0.25);
   box-shadow: var(--glass-shadow);
   display: flex;
   justify-content: center;

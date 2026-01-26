@@ -14,19 +14,26 @@ import AccordionList from "components/AccordionList";
 import MermaidDiagram from "components/MermaidDiagram";
 
 /**
- * SectionRenderer Component
+ * @file index.jsx
+ * @description Central render orchestrator for feature sections composed of
+ * declarative content blocks.
+ * @module components/SectionRenderer
+ */
+
+/**
+ * SectionRenderer
  * --------------------------------------------------------------------
- * Central render orchestrator for a single FeatureSection.
+ * Central render orchestrator for a single feature section.
  *
- * This component is responsible for:
- * - Registering the section with the global SectionRegistry
- *   (used by Sticky Section Nav and scroll-spy behavior)
- * - Rendering the section container via InfoSection
- * - Dynamically rendering content blocks based on their `BlockType`
- *
- * The renderer acts as a **data-driven layout engine**, allowing
- * entire pages to be defined declaratively via JSON-like data
+ * This component acts as a **data-driven layout engine**, allowing
+ * entire pages to be defined declaratively via structured data
  * instead of hardcoded JSX.
+ *
+ * Core responsibilities:
+ * - Registers the section with the global SectionRegistry
+ *   (used by sticky navigation and scroll-spy behavior)
+ * - Renders the section container via `InfoSection`
+ * - Dynamically resolves and renders content blocks based on `BlockType`
  *
  * Supported block types:
  * - Rich text content
@@ -35,24 +42,30 @@ import MermaidDiagram from "components/MermaidDiagram";
  * - Bulleted / accordion lists
  * - Mermaid diagrams (theme-aware)
  *
+ * Defensive behavior:
+ * - Gracefully handles malformed or unknown block definitions
+ * - Renders a visible warning instead of silently failing
+ *
+ * @public
  * @component
  *
- * @param {object} props
+ * @param {Object} props - Component props.
+ *
  * @param {FeatureSection} props.section
- *   A fully-defined section descriptor containing metadata
- *   (id, title, subtitle, icon) and an ordered list of blocks.
+ *   Fully-defined section descriptor containing metadata
+ *   (`id`, `title`, `subtitle`, `icon`) and an ordered list of blocks.
  *
  * @returns {JSX.Element}
- *   A rendered, scroll-registered, frosted-glass section.
- *
+ *   Rendered, scroll-registered, frosted-glass section.
  *
  * @example
- * ```js
+ * ```jsx
  * <SectionRenderer
  *   section={{
  *     id: "projects",
  *     title: "Projects",
- *     content: [...]
+ *     subtitle: "Selected work",
+ *     blocks: [...]
  *   }}
  * />
  * ```
@@ -61,10 +74,10 @@ const SectionRenderer = ({ section }) => {
   const { registerSection, unregisterSection } = useSectionRegistry();
 
   /**
-   * Register the section for scroll tracking when mounted
-   * and unregister it on unmount.
+   * Registers the section for scroll tracking on mount
+   * and unregisters it on unmount.
    *
-   * This enables:
+   * Enables:
    * - Sticky section navigation
    * - Active section highlighting
    * - Programmatic scrolling
@@ -87,40 +100,47 @@ const SectionRenderer = ({ section }) => {
       className="section-renderer"
       data-section-renderer
     >
-      {/* <PanelGroup accordion> */}
       {section.blocks.map((block, i) => {
         console.debug("Rendering block:", block);
+
         switch (block.type) {
           case BlockType.RICH_TEXT: {
             const rtb = createRichTextBlock(block);
-            return <RichTextBlock key={i} {...rtb} />;
+            return <RichTextBlock key={`rtb-${i}-${block.id}`} {...rtb} />;
           }
 
           case BlockType.IMAGE_GALLERY:
-            return <ImageGalleryBlock key={i} {...createImageGalleryBlock(block)} />;
+            return (
+              <ImageGalleryBlock key={`igb-${i}-${block.id}`} {...createImageGalleryBlock(block)} />
+            );
 
           case BlockType.LINKS:
-            return <LinksBlock key={i} {...createLinkListBlock(block)} />;
+            return <LinksBlock key={`lnk-${i}-${block.id}`} {...createLinkListBlock(block)} />;
 
-          case BlockType.BULLETED_LIST: {
-            return <AccordionList key={i} {...createBulletListBlock(block)} bordered={true} />;
-          }
+          case BlockType.BULLETED_LIST:
+            return (
+              <AccordionList
+                key={`acl-${i}-${block.id}`}
+                {...createBulletListBlock(block)}
+                bordered={true}
+              />
+            );
 
-          case BlockType.DIAGRAM: {
-            return <MermaidDiagram key={i} {...createDiagramBlock(block)} />;
-          }
+          case BlockType.DIAGRAM:
+            return (
+              <MermaidDiagram key={`diagram-${i}-${block.id}`} {...createDiagramBlock(block)} />
+            );
 
           /**
            * Defensive fallback:
            * If malformed or unknown block data reaches this point,
-           * we render a visible warning instead of silently failing.
+           * render a visible warning instead of silently failing.
            */
           default:
             console.debug("Corrupted data block", { block });
-            return <p key={i}>{block?.title || "Unknown block"} data is corrupted.</p>;
+            return <p key={block.id}>{block?.title || "Unknown block"} data is corrupted.</p>;
         }
       })}
-      {/* </PanelGroup> */}
     </InfoSection>
   );
 };

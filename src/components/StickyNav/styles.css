@@ -33,7 +33,9 @@
 }
 
 .rs-navbar.rs-navbar-default .rs-navbar-item.rs-navbar-item-active,
-.rs-navbar.rs-navbar-default .rs-navbar-item:hover {
+.rs-navbar.rs-navbar-default .rs-navbar-item:hover,
+.rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
+.rs-nav.rs-nav-default .rs-nav-item:hover {
   background-color: var(--bg-gradient);
   border-radius: var(--radius-lg);
   color: var(--accent-light);
@@ -41,18 +43,16 @@
 
 /* Hide desktop menu on mobile */
 .desktop-menu {
-  background-color: var(--glass-bg-strong);
+  background-color: var(--glass-bg);
   display: flex;
   justify-content: space-evenly;
   padding: 5px;
-  border-radius: var(--radius-xs);
-  border-bottom: 1px solid rgba(var(--white), 0.08);
+  border-top: 2px inset var(--glass-bg);
+  border-top: 2px outset var(--frost-bg);
   margin-bottom: 5px;
-  box-shadow: var(--shadow-sofe);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: var(--backdrop-blur);
   font-size: var(--font-md);
   color: var(--text-secondary);
   transition: var(--easing-standard);
@@ -65,12 +65,12 @@
   font-weight: 600;
 }
 
-.rs-nav-item{
+.rs-nav-item {
   background-color: var(--primary-dark-bg);
 }
 
 .fi-desk-nav-item.rs-nav-item:active,
-.fi-desk-nav-item.rs-nav-item:hover{
+.fi-desk-nav-item.rs-nav-item:hover {
   background-color: transparent;
 }
 

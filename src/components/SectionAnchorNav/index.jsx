@@ -1,5 +1,5 @@
 import "./styles.css";
-import { PageRoute } from "../../types/ui.types";
+import { PageRoute } from "types/ui.types";
 import { Nav, Sidenav } from "rsuite";
 
 /**

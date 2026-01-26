@@ -7,26 +7,51 @@ import Btn from "components/Btn";
 import resumePdf from "assets/data/Kyle_Foster_React_Resume.pdf";
 
 /**
+ * @file index.jsx
+ * @description Modal-based resume preview and download component.
+ * @module components/ResumePreview
+ */
+
+/**
  * ResumePreview
  * ---------------------------------------------------------------------------
- * Frosted modal that previews and downloads the resume PDF.
+ * Frosted modal component that allows users to preview and download
+ * the resume PDF.
+ *
+ * Core responsibilities:
+ * - Opens a modal containing an embedded PDF preview
+ * - Provides a direct download link for the resume
+ * - Uses Vite asset imports to ensure correct bundling across environments
  *
  * Technical notes:
- * - PDF is imported as a Vite asset to ensure correct bundling and deployment
- * - Works in local dev, production builds, and on Render
- * - Uses shared modal utility classes defined in App.css
+ * - PDF is imported as a Vite-managed asset
+ * - Works consistently in local development and production builds
+ * - Modal styling is shared via global utility classes
  *
  * Accessibility:
- * - RSuite Modal provides focus trap and ESC handling
- * - Buttons include aria-labels and tooltips
+ * - RSuite Modal provides focus trapping and ESC-to-close behavior
+ * - Buttons include descriptive aria-labels and tooltips
+ * - Embedded iframe includes a fallback message
  *
+ * @public
  * @component
- * @returns {JSX.Element}
+ * @returns {JSX.Element} Rendered resume preview modal and trigger button.
  */
 const ResumePreview = () => {
   const [open, setOpen] = useState(false);
 
+  /**
+   * Opens the resume preview modal.
+   *
+   * @returns {void}
+   */
   const openModal = () => setOpen(true);
+
+  /**
+   * Closes the resume preview modal.
+   *
+   * @returns {void}
+   */
   const closeModal = () => setOpen(false);
 
   return (

@@ -2,31 +2,57 @@ import React from "react";
 import { Panel } from "rsuite";
 import FrostedIcon from "components/FrostedIcon";
 import "./styles.css";
-import { Size } from "types/ui.types";
+import { Size, Variant } from "types/ui.types";
 
 /**
- * InfoSection Component
- * ------------------------------------------------------------
- * A responsive frosted-glass section wrapper used across the
- * portfolio to standardize section layout, spacing, and visuals.
+ * @file index.jsx
+ * @description Reusable frosted-glass section wrapper used to standardize
+ * layout, spacing, and visual hierarchy across the portfolio.
+ * @module components/InfoSection
+ */
+
+/**
+ * InfoSection
+ * ---------------------------------------------------------------------------
+ * A responsive, collapsible frosted-glass section wrapper used throughout
+ * the application to enforce consistent structure and visual language.
  *
- * Features:
- * - Optional title & subtitle
- * - Optional Divider under title
- * - Frosted glass Panel for consistent UI
- * - Fully responsive using RSuite Grid system
- * - Accepts any children content
+ * Core features:
+ * - Optional title and subtitle
+ * - Optional icon rendered alongside the title
+ * - Collapsible frosted panel container
+ * - Semantic `<section>` wrapper
+ * - Arbitrary child content
  *
+ * Design notes:
+ * - Uses RSuite `Panel` for consistent layout behavior
+ * - Applies shared frosted and tile styles via CSS
+ * - Intended for use with section-based navigation and scroll targeting
+ *
+ * @public
  * @component
- * @param {object} props
- * @param {string} [props.title] - Title displayed at the top of the section.
- * @param {string} [props.subtitle] - Optional subtitle under the main title.
- * @param {boolean} [props.dividerAfter=false] - Whether to show a divider.
- * @param {string} [props.icon] - Icon to show at top of information section
- * @param {string} [props.className] - Extra CSS classes.
- * @param {string} [props.id] - Id of section for section scrolling
- * @param {React.ReactNode} props.children - The content inside the section.
- * @returns {JSX.Element} A polished, reusable content section.
+ *
+ * @param {Object} props - Component props.
+ *
+ * @param {string} [props.title]
+ *   Title displayed at the top of the section.
+ *
+ * @param {string} [props.subtitle]
+ *   Optional subtitle rendered beneath the title.
+ *
+ * @param {*} [props.icon]
+ *   Optional icon rendered next to the section title.
+ *
+ * @param {string} [props.className]
+ *   Additional CSS class names applied to the wrapper.
+ *
+ * @param {string} [props.id]
+ *   Optional DOM id used for section scrolling and deep linking.
+ *
+ * @param {React.ReactNode} props.children
+ *   Content rendered inside the section body.
+ *
+ * @returns {JSX.Element} Rendered frosted content section.
  */
 const InfoSection = ({
   title = "",
@@ -44,7 +70,7 @@ const InfoSection = ({
       header={
         <div className="info-header">
           <div className="title-wrapper">
-            {icon && <FrostedIcon noBG size={Size.XL} icon={icon} />}
+            {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}
             {title && <h2 className="info-title">{title}</h2>}
           </div>
           {subtitle && <h4 className="info-subtitle">{subtitle}</h4>}

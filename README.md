@@ -1,115 +1,188 @@
-# React + Vite
+# Kyle Foster — Portfolio Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the source code, tooling, and documentation for a modern React-based portfolio application. The project is intentionally engineered to demonstrate **clean architecture**, **predictable UI composition**, **strong testing discipline**, and **professional-grade tooling**.
 
-Currently, two official plugins are available:
+The application is not just a UI showcase—it is a fully documented system with clear separation between runtime code, navigation orchestration, content rendering, testing contracts, and build tooling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Project Goals
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Demonstrate production-quality React architecture
+* Enforce consistency through tooling and documentation
+* Showcase maintainable UI composition patterns
+* Provide clear onboarding context for reviewers and contributors
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧭 High-Level Architecture
 
-Tooling & Quality Philosophy
+The system is built around **declarative pages**, **data-driven sections**, and **composable content blocks**, coordinated through a shared navigation and registry layer.
 
-This project treats tooling as infrastructure, not decoration.
+### Architecture Overview
 
-The goal is not to maximize strictness, but to maximize signal: tooling should catch real problems early, stay quiet when things are healthy, and scale as the codebase grows.
+Start here to understand how the entire system fits together:
 
-Core principles
+📄 **Architecture Overview**
+→ [`architecture_overview.md`](architecture_overview.md)
 
-1. Correctness over style
+This document explains:
 
-Rules that prevent runtime bugs or broken architecture are enforced as errors.
-Stylistic concerns are warnings or handled by formatting tools.
+* Page → Section → Block composition
+* Navigation and scroll coordination
+* Section registration lifecycle
+* Why responsibilities are intentionally separated
 
-Examples:
+---
 
-Missing React key props → error
+## 🧩 Documentation Index
 
-Invalid JSDoc type expressions → error
+All major subsystems are documented independently to keep the documentation focused and readable.
 
-Import ordering → warning
+### Components
 
-Console usage → allowed
+📄 [`docs/components.md`](docs/components.md)
 
-2. Context-aware linting
+Covers:
 
-Different parts of the codebase run in different environments, so linting is scoped accordingly:
+* Reusable UI components
+* Props, accessibility contracts, and behavior
+* Frosted UI patterns and variants
 
-```htnl
-Area	Environment	Philosophy
-src/	Browser / React	Strict correctness, light style
-src/types/	Architecture	Docs + type safety enforced
-src/test/	jsdom / Vitest	Test globals allowed
-Tooling configs	Node / ESM	Flexible, no browser assumptions
-Codemods / scripts	Node (CJS)	Maximum freedom
+---
+
+### Navigation
+
+📄 [`docs/navigation.md`](docs/navigation.md)
+
+Covers:
+
+* `StickyNav` and `StickySectionNav`
+* Section registration and scroll tracking
+* Navigation state coordination
+
+---
+
+### Scripts & Tooling
+
+📄 [`scripts/README.md`](scripts/README.md)
+
+Covers:
+
+* Diagram generation pipeline
+* Formatting, linting, and rendering scripts
+* Codemods and safety guidelines
+* CI vs manual tooling distinctions
+
+---
+
+### Tests
+
+📄 [`docs/tests.md`](docs/tests.md)
+
+Covers:
+
+* Component testing philosophy
+* Page-level contract testing
+* Shared test helpers and factories
+* What tests guarantee—and what they intentionally do not
+
+---
+
+### Types & UI Contracts
+
+📄 [`docs/types.md`](docs/types.md)
+
+Covers:
+
+* Shared UI enums and types
+* Variant and size contracts
+* Block and section data shapes
+
+---
+
+## 🖼️ Generated Diagrams
+
+This project includes **automatically rendered Mermaid diagrams** used throughout the documentation.
+
+Diagrams are:
+
+* Authored in Mermaid syntax
+* Validated and linted
+* Rendered to transparent PNGs using Playwright
+
+### Diagram Assets
+
+📁 [`docs/diagrams/`](docs/diagrams/)
+
+Example diagrams include:
+
+* Page → Section → Block rendering flow
+* Navigation and registry relationships
+* UI composition patterns
+
+These images are generated via documented scripts and should not be edited manually.
+
+---
+
+## 🛠️ Documentation Generation
+
+Documentation is generated using **JSDoc** and **jsdoc-to-markdown**.
+
+Available commands:
+
+```sh
+npm run docs:components
+npm run docs:navigation
+npm run docs:tests
+npm run docs:types
 ```
 
-This avoids false positives while still enforcing meaningful guarantees.
+Each command outputs a focused Markdown file under `docs/`.
 
-3.  - JSDoc as a first-class system
+Strict JSDoc rules are enforced to prevent documentation drift and generation failures.
 
-    - JSDoc is not used as comments—it is used as a type system and documentation source.
+---
 
-    - Shared UI contracts live in src/types/ui.types.js
+## 🧪 Testing Philosophy
 
-    - Components reference global typedefs instead of redefining types
+Testing is treated as a **first-class architectural concern**.
 
-    - Docs are generated automatically from source
+* Components are tested for behavior, not structure
+* Pages are tested declaratively via shared contracts
+* Navigation and utilities are tested at invariant boundaries
 
-    - Invalid JSDoc syntax fails CI
+Tests are designed to answer:
 
-    - This keeps documentation, types, and implementation aligned.
+> *“What must always be true?”*
 
-4.  - Mechanical cleanup is automated
+—not *“How is this implemented?”*
 
-    - Repetitive fixes are handled by codemods and safe autofix scripts:
+---
 
-    - Missing React key props
+## 🧱 Technology Stack
 
-    - Unused map indexes
+* **React** — UI framework
+* **RSuite** — component primitives
+* **FontAwesome** — iconography
+* **Mermaid** — diagram authoring
+* **Playwright** — diagram rendering
+* **Vitest / Testing Library** — testing
 
-    - Invalid JSDoc import types
+---
 
-    - Safe unused imports
+## 📌 Final Notes
 
-    - Developers don’t fight the linter—the tooling fixes what it safely can.
+This repository is intentionally opinionated.
 
-5.  CI enforces guarantees, not opinions
-    - Continuous Integration blocks:
+It prioritizes:
 
-    - Broken builds
+* Predictability over flexibility
+* Documentation over tribal knowledge
+* Tooling discipline over convenience
 
-    - Invalid lint states
+Every abstraction, script, and convention exists for a reason—and that reasoning is documented.
 
-    - Broken documentation generation
+---
 
-    - It does not block on subjective style choices.
-
-    - If CI fails, something real is broken.
-
-## **Common commands**
-
-### Development
-
-npm run dev
-
-### Mechanical cleanup (safe)
-
-npm run lint:cleanup
-
-### Verify docs + lint before PR
-
-npm run docs:verify
-
-### Full quality pass
-
-npm run quality
-
-This philosophy is intentional: the tooling exists to support development velocity while preserving long-term maintainability.
+If you are reviewing this project, the **Architecture Overview** is the best place to begin.

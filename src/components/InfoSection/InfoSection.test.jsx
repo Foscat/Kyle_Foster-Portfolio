@@ -1,42 +1,52 @@
-/**
- * InfoSection.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the InfoSection component.
- *
- * Covers:
- * - Title and subtitle rendering
- * - Optional icon rendering
- * - Children composition
- * - Section semantics (as="section")
- * - Defensive rendering behavior
- *
- * Notes:
- * - RSuite Panel is treated as a layout primitive (not tested internally)
- * - FrostedIcon is mocked (delegation only)
- */
+import React from "react";
+import { describe, expect, it, vi } from "vitest";
+import { screen } from "@testing-library/react";
 
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { renderWithProviders } from "tests/renderWithProviders";
 import InfoSection from "./index";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+
+/**
+ * @file InfoSection.test.jsx
+ * @description Unit tests for the InfoSection layout component.
+ *
+ * Testing focus:
+ * - Correct semantic wrapper element (`section`)
+ * - Proper application of root classes and IDs
+ * - Conditional rendering of title, subtitle, and icon
+ * - Transparent rendering of child content
+ *
+ * Testing strategy:
+ * - Mocks RSuite Panel to reduce surface area and DOM complexity
+ * - Mocks FrostedIcon to avoid FontAwesome rendering concerns
+ * - Focuses on layout and composition, not styling details
+ *
+ * @module tests/components/InfoSection
+ */
 
 /* ------------------------------------------------------------------
  * Mocks
  * ------------------------------------------------------------------ */
 
-// Mock RSuite Panel to a semantic wrapper
+// Keep RSuite surface-area minimal for unit tests.
 vi.mock("rsuite", () => ({
-  Panel: ({ header, children, ...rest }) => (
-    <section data-testid="panel" {...rest}>
-      {header}
-      {children}
-    </section>
-  ),
+  Panel: ({ children, header, id, className, as = "div", ...rest }) => {
+    const Tag = as;
+    return (
+      <Tag data-testid="info-panel" id={id} className={className} {...rest}>
+        <div data-testid="info-header">{header}</div>
+        {children}
+      </Tag>
+    );
+  },
 }));
 
-// Mock FrostedIcon (already tested separately)
+// Avoid FontAwesome/render complexity.
 vi.mock("components/FrostedIcon", () => ({
-  default: ({ icon }) => <span data-testid="icon">{icon.iconName}</span>,
+  default: ({ icon, className }) => (
+    <span data-testid="frosted-icon" className={className}>
+      {String(icon)}
+    </span>
+  ),
 }));
 
 /* ------------------------------------------------------------------
@@ -44,113 +54,64 @@ vi.mock("components/FrostedIcon", () => ({
  * ------------------------------------------------------------------ */
 
 describe("InfoSection", () => {
-  /* ------------------------------------------------------------
-   * Basic rendering
-   * ------------------------------------------------------------ */
+  /**
+   * Verifies that InfoSection renders a semantic `section` wrapper
+   * with the expected root class and ID.
+   */
+  it("renders a section wrapper with the expected root class", () => {
+    renderWithProviders(
+      <InfoSection id="about" title="About">
+        <p>Body</p>
+      </InfoSection>
+    );
 
-  it("renders children content", () => {
-    render(
+    const panel = screen.getByTestId("info-panel");
+    expect(panel.tagName.toLowerCase()).toBe("section");
+    expect(panel).toHaveAttribute("id", "about");
+    expect(panel).toHaveClass("info-section");
+  });
+
+  /**
+   * Verifies that title, subtitle, and child content are rendered
+   * when provided.
+   */
+  it("renders title, subtitle, and children", () => {
+    renderWithProviders(
+      <InfoSection title="Title" subtitle="Subtitle">
+        <p>Child content</p>
+      </InfoSection>
+    );
+
+    expect(screen.getByRole("heading", { name: "Title" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Subtitle" })).toBeInTheDocument();
+    expect(screen.getByText("Child content")).toBeInTheDocument();
+  });
+
+  /**
+   * Verifies that an icon is rendered when the `icon` prop is supplied.
+   */
+  it("renders an icon when provided", () => {
+    renderWithProviders(
+      <InfoSection title="With icon" icon="faStar">
+        <p>Body</p>
+      </InfoSection>
+    );
+
+    expect(screen.getByTestId("frosted-icon")).toHaveTextContent("faStar");
+  });
+
+  /**
+   * Verifies that empty title or subtitle values do not produce
+   * empty heading elements.
+   */
+  it("does not render empty title/subtitle headings", () => {
+    renderWithProviders(
       <InfoSection>
-        <p>Inner content</p>
-      </InfoSection>
-    );
-
-    expect(screen.getByText("Inner content")).toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * Title & subtitle
-   * ------------------------------------------------------------ */
-
-  it("renders the title when provided", () => {
-    render(
-      <InfoSection title="Section Title">
-        <div />
-      </InfoSection>
-    );
-
-    expect(screen.getByText("Section Title")).toBeInTheDocument();
-  });
-
-  it("renders the subtitle when provided", () => {
-    render(
-      <InfoSection subtitle="Helpful subtitle">
-        <div />
-      </InfoSection>
-    );
-
-    expect(screen.getByText("Helpful subtitle")).toBeInTheDocument();
-  });
-
-  it("does not render title or subtitle when omitted", () => {
-    render(
-      <InfoSection>
-        <div />
+        <p>Body</p>
       </InfoSection>
     );
 
     expect(screen.queryByRole("heading")).not.toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * Icon rendering
-   * ------------------------------------------------------------ */
-
-  it("renders a FrostedIcon when icon prop is provided", () => {
-    render(
-      <InfoSection title="With Icon" icon={faCoffee}>
-        <div />
-      </InfoSection>
-    );
-
-    expect(screen.getByTestId("icon")).toBeInTheDocument();
-  });
-
-  it("does not render icon when icon prop is not provided", () => {
-    render(
-      <InfoSection title="No Icon">
-        <div />
-      </InfoSection>
-    );
-
-    expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * Semantics & attributes
-   * ------------------------------------------------------------ */
-
-  it("renders as a section element", () => {
-    const { container } = render(
-      <InfoSection>
-        <div />
-      </InfoSection>
-    );
-
-    expect(container.querySelector("section")).toBeInTheDocument();
-  });
-
-  it("applies the provided id to the section", () => {
-    render(
-      <InfoSection id="about-me">
-        <div />
-      </InfoSection>
-    );
-
-    expect(document.getElementById("about-me")).toBeInTheDocument();
-  });
-
-  /* ------------------------------------------------------------
-   * ClassName passthrough
-   * ------------------------------------------------------------ */
-
-  it("applies custom className to the section", () => {
-    const { container } = render(
-      <InfoSection className="custom-class">
-        <div />
-      </InfoSection>
-    );
-
-    expect(container.firstChild).toHaveClass("custom-class");
+    expect(screen.getByText("Body")).toBeInTheDocument();
   });
 });

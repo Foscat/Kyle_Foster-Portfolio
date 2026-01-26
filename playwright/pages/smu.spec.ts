@@ -1,7 +1,7 @@
-import { runPageTests } from "../utils/pageTestTemplate";
+import { createPageTestSuite } from "../utils/pageTestTemplate.ts";
 
-runPageTests({
+createPageTestSuite({
   name: "SMU page",
   route: "/smu",
-  snapshotName: "smu-page.png",
+  pageTitle: /SMU Projects and Ideas/i,
 });

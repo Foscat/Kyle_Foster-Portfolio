@@ -1,7 +1,7 @@
-import { runPageTests } from "../utils/pageTestTemplate";
+import { createPageTestSuite } from "../utils/pageTestTemplate.ts";
 
-runPageTests({
+createPageTestSuite({
   name: "Codestream page",
   route: "/codestream",
-  snapshotName: "codestream-page.png",
+  pageTitle: /CodeStream: Collaborate on Code in Your IDE/i,
 });

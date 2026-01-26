@@ -14,10 +14,10 @@
  * - Mocks PageMetas to avoid coupling to real content
  */
 
-import { render } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import Head from "./index";
+import Head from "components/Head";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Mock PageMetas
@@ -63,7 +63,7 @@ vi.mock("assets/data/pageMetas", () => ({
 const renderWithHelmet = (path = "/") => {
   window.history.pushState({}, "", path);
 
-  return render(
+  return renderWithProviders(
     <HelmetProvider>
       <Head />
     </HelmetProvider>

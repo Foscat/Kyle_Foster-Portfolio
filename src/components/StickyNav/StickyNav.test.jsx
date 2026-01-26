@@ -1,25 +1,33 @@
 /**
- * StickyNav.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the StickyNav component.
+ * @file StickyNav.test.jsx
+ * @description Unit tests for the StickyNav component.
  *
- * Covers:
+ * Test coverage:
  * - Desktop navigation rendering
- * - Active page highlighting
+ * - Active route highlighting via `aria-current`
  * - Mobile menu toggle behavior
  * - External link rendering
  * - ThemeToggle delegation
+ *
+ * Testing strategy:
+ * - Mocks RSuite navigation primitives to isolate behavior
+ * - Mocks Btn, FrostedIcon, and ThemeToggle to avoid UI coupling
+ * - Focuses on observable navigation behavior, not layout or styling
+ *
+ * @module tests/components/StickyNav
  */
 
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import StickyNav from "./index";
+import StickyNav from "components/StickyNav";
 import { PageRoute } from "types/ui.types";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Mocks
- * ------------------------------------------------------------------ */
+ * ------------------------------------------------------------------
+ */
 
 // Mock RSuite navigation primitives
 vi.mock("rsuite", () => {
@@ -47,7 +55,7 @@ vi.mock("rsuite", () => {
   };
 });
 
-// Mock Btn (burger button)
+// Mock Btn (burger menu trigger)
 vi.mock("components/Btn", () => ({
   default: ({ onClick, ariaLabel }) => (
     <button aria-label={ariaLabel} onClick={onClick}>
@@ -56,12 +64,12 @@ vi.mock("components/Btn", () => ({
   ),
 }));
 
-// Mock FrostedIcon
+// Mock FrostedIcon to a minimal label-only span
 vi.mock("components/FrostedIcon", () => ({
   default: ({ ariaLabel }) => <span>{ariaLabel}</span>,
 }));
 
-// Mock ThemeToggle
+// Mock ThemeToggle to a static placeholder
 vi.mock("components/ThemeToggle", () => ({
   default: () => <div data-testid="theme-toggle" />,
 }));
@@ -80,12 +88,12 @@ describe("StickyNav", () => {
    * ------------------------------------------------------------ */
 
   it("renders the desktop navigation", () => {
-    render(<StickyNav activePage={PageRoute.HOME} />);
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
     expect(screen.getByTestId("desktop-nav")).toBeInTheDocument();
   });
 
   it("marks the active page correctly", () => {
-    render(<StickyNav activePage={PageRoute.PROFESSIONAL} />);
+    renderWithProviders(<StickyNav activePage={PageRoute.PROFESSIONAL} />);
 
     const activeLink = screen.getByRole("link", { current: "page" });
     expect(activeLink).toBeInTheDocument();
@@ -96,12 +104,12 @@ describe("StickyNav", () => {
    * ------------------------------------------------------------ */
 
   it("does not show mobile menu by default", () => {
-    render(<StickyNav />);
+    renderWithProviders(<StickyNav />);
     expect(screen.queryByTestId("mobile-nav")).not.toBeInTheDocument();
   });
 
   it("opens the mobile menu when the burger button is clicked", async () => {
-    render(<StickyNav />);
+    renderWithProviders(<StickyNav />);
 
     await userEvent.click(screen.getByRole("button", { name: /open navigation menu/i }));
 
@@ -113,7 +121,7 @@ describe("StickyNav", () => {
    * ------------------------------------------------------------ */
 
   it("renders GitHub and LinkedIn links", () => {
-    render(<StickyNav />);
+    renderWithProviders(<StickyNav />);
 
     expect(screen.getByRole("link", { name: /link to github/i })).toHaveAttribute(
       "href",
@@ -127,11 +135,11 @@ describe("StickyNav", () => {
   });
 
   /* ------------------------------------------------------------
-   * Theme toggle
+   * Theme toggle delegation
    * ------------------------------------------------------------ */
 
   it("renders the ThemeToggle component", () => {
-    render(<StickyNav />);
+    renderWithProviders(<StickyNav />);
     expect(screen.getAllByTestId("theme-toggle").length).toBeGreaterThan(0);
   });
 });

@@ -13,8 +13,8 @@
 
 .info-section.section-renderer {
   margin: 10px 0 25px;
-  box-shadow: var(--shadow-accent);
   background-color: var(--glass-bg-strong);
+  box-shadow: var(--tile-shadow);
   border-top: var(--gb-TL);
   border-left: var(--gb-TL);
   border-right: var(--gb-BR);
@@ -23,7 +23,6 @@
 
 /* Title area */
 .info-header {
-  text-align: center;
   margin-bottom: 25px;
   display: flex;
   flex-direction: column;
@@ -39,7 +38,7 @@
   margin: 0 0 0 10px;
   font-size: var(--font-xl);
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-accent);
 }
 
 .info-subtitle {

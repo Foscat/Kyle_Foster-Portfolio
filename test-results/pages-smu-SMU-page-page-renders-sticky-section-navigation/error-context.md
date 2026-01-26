@@ -1,0 +1,193 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e8]:
+      - heading "SMU Coding Bootcamp" [level=1] [ref=e9]
+      - heading "Student • August 2018 - Febuary 2019" [level=2] [ref=e10]
+      - paragraph [ref=e11]:
+        - text: "Tech Used:"
+        - generic [ref=e12]: HTML,
+        - generic [ref=e13]: CSS,
+        - generic [ref=e14]: Bootstrap CSS,
+        - generic [ref=e15]: JavaScript,
+        - generic [ref=e16]: jQuery,
+        - generic [ref=e17]: Ajax,
+        - generic [ref=e18]: 3rd Party APIs,
+        - generic [ref=e19]: Materialize,
+        - generic [ref=e20]: Firebase,
+        - generic [ref=e21]: React.js,
+        - generic [ref=e22]: Express.js,
+        - generic [ref=e23]: MongoDB,
+        - generic [ref=e24]: Node.js,
+      - paragraph [ref=e25]: Explore my journey through the SMU Coding Bootcamp, where he transformed from a curious learner into a professional developer through discipline, perseverance, and curiosity.
+  - navigation "Primary navigation" [ref=e26]:
+    - generic [ref=e27]:
+      - link "Home" [ref=e28] [cursor=pointer]:
+        - /url: /
+        - button "Home" [ref=e29]
+      - link "Professional" [ref=e31] [cursor=pointer]:
+        - /url: /codestream/
+        - button "Professional" [ref=e32]
+      - link "Education" [ref=e34] [cursor=pointer]:
+        - /url: /smu/
+        - button "Education" [ref=e35]
+      - link "Hackathon" [ref=e37] [cursor=pointer]:
+        - /url: /hackathon/
+        - button "Hackathon" [ref=e38]
+      - button "Projects" [ref=e40] [cursor=pointer]:
+        - button "Projects" [ref=e41]
+      - button "Contact" [ref=e43] [cursor=pointer]:
+        - button "Contact" [ref=e44]
+  - generic [ref=e46]:
+    - main [ref=e47]:
+      - generic [ref=e48]:
+        - heading "SMU Full Stack Bootcamp Foundational projects that launched my software development career" [level=2] [ref=e49] [cursor=pointer]:
+          - button "SMU Full Stack Bootcamp Foundational projects that launched my software development career" [expanded] [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]:
+                - img [ref=e53]
+                - heading "SMU Full Stack Bootcamp" [level=2] [ref=e55]
+              - heading "Foundational projects that launched my software development career" [level=4] [ref=e56]
+            - img [ref=e57]
+        - region "SMU Full Stack Bootcamp Foundational projects that launched my software development career" [ref=e60]:
+          - paragraph [ref=e62]: Unknown block data is corrupted.
+      - generic [ref=e63]:
+        - heading "Gif Freak" [level=2] [ref=e64] [cursor=pointer]:
+          - button "Gif Freak" [expanded] [ref=e65]:
+            - generic [ref=e67]:
+              - img [ref=e68]
+              - heading "Gif Freak" [level=2] [ref=e70]
+            - img [ref=e71]
+        - region "Gif Freak" [ref=e74]:
+          - generic [ref=e75]:
+            - paragraph [ref=e76]: The Problem data is corrupted.
+            - region [ref=e79]:
+              - generic [ref=e81]:
+                - img "Screenshot of GIF Freak web application showing a grid of GIF memes with a search bar and category buttons." [ref=e83] [cursor=pointer]
+                - paragraph [ref=e84]: A web application that allows users to search, view, and share GIF memes using the Giphy API.
+            - paragraph [ref=e85]: The Solution data is corrupted.
+            - region [ref=e86]:
+              - heading "System Flow" [level=2] [ref=e87] [cursor=pointer]:
+                - button "System Flow" [expanded] [ref=e88]:
+                  - generic [ref=e89]: System Flow
+                  - img [ref=e90]
+              - region "System Flow" [ref=e93]:
+                - generic [ref=e94]:
+                  - img "System Flow" [ref=e95]:
+                    - document [ref=e96]:
+                      - generic [ref=e103]:
+                        - paragraph [ref=e110]: UserInput
+                        - paragraph [ref=e117]: UI
+                        - paragraph [ref=e124]: GiphyAPI
+                        - paragraph [ref=e131]: GIFDisplay
+                  - paragraph [ref=e132]: Illustrates how user input flows through the GIF Freak application to fetch and display GIFs from the Giphy API.
+            - paragraph [ref=e133]: Key Takeaways data is corrupted.
+            - paragraph [ref=e134]: What I'd Improve Today data is corrupted.
+      - generic [ref=e135]:
+        - heading "Stock Memer" [level=2] [ref=e136] [cursor=pointer]:
+          - button "Stock Memer" [expanded] [ref=e137]:
+            - generic [ref=e139]:
+              - img [ref=e140]
+              - heading "Stock Memer" [level=2] [ref=e142]
+            - img [ref=e143]
+        - region "Stock Memer" [ref=e146]:
+          - generic [ref=e147]:
+            - paragraph [ref=e148]: The Problem data is corrupted.
+            - region [ref=e151]:
+              - img "Clickable image, click to expand" [ref=e155] [cursor=pointer]
+            - paragraph [ref=e156]: The Solution data is corrupted.
+            - region [ref=e157]:
+              - heading "Data & Content Flow" [level=2] [ref=e158] [cursor=pointer]:
+                - button "Data & Content Flow" [expanded] [ref=e159]:
+                  - generic [ref=e160]: Data & Content Flow
+                  - img [ref=e161]
+              - region "Data & Content Flow" [ref=e164]:
+                - generic [ref=e165]:
+                  - img "Data & Content Flow" [ref=e166]:
+                    - document [ref=e167]:
+                      - generic [ref=e171]:
+                        - paragraph [ref=e178]: StockAPI
+                        - paragraph [ref=e185]: DataProcessor
+                        - paragraph [ref=e192]: ChartUI
+                        - paragraph [ref=e199]: User
+                        - paragraph [ref=e206]: MemeGenerator
+                        - paragraph [ref=e213]: Firebase
+                        - paragraph [ref=e220]: StockPage
+                  - paragraph [ref=e221]: Shows how stock data and user-generated content flow through the Stock Memer application.
+            - paragraph [ref=e222]: Key Takeaways data is corrupted.
+            - paragraph [ref=e223]: What I'd Improve Today data is corrupted.
+      - generic [ref=e224]:
+        - heading "Scion Matches" [level=2] [ref=e225] [cursor=pointer]:
+          - button "Scion Matches" [expanded] [ref=e226]:
+            - generic [ref=e228]:
+              - img [ref=e229]
+              - heading "Scion Matches" [level=2] [ref=e231]
+            - img [ref=e232]
+        - region "Scion Matches" [ref=e235]:
+          - generic [ref=e236]:
+            - paragraph [ref=e237]: The Problem data is corrupted.
+            - paragraph [ref=e238]: The Solution data is corrupted.
+            - region [ref=e239]:
+              - heading "Matching Algorithm Flow" [level=2] [ref=e240] [cursor=pointer]:
+                - button "Matching Algorithm Flow" [expanded] [ref=e241]:
+                  - generic [ref=e242]: Matching Algorithm Flow
+                  - img [ref=e243]
+              - region "Matching Algorithm Flow" [ref=e246]:
+                - generic [ref=e247]:
+                  - img "Matching Algorithm Flow" [ref=e248]:
+                    - document [ref=e249]:
+                      - generic [ref=e252]:
+                        - paragraph [ref=e259]: UserProfiles
+                        - paragraph [ref=e266]: SurveyEngine
+                        - paragraph [ref=e273]: MatchAlgorithm
+                        - paragraph [ref=e280]: MatchScores
+                        - paragraph [ref=e287]: UserMatches
+                  - paragraph [ref=e288]: Depicts the flow of data through the Scion Matches compatibility algorithm based on user survey responses.
+            - paragraph [ref=e289]: Key Takeaways data is corrupted.
+            - paragraph [ref=e290]: What I'd Improve Today data is corrupted.
+    - complementary [ref=e291]:
+      - navigation "Section navigation" [ref=e292]:
+        - listbox [ref=e293]:
+          - listitem [ref=e294]:
+            - paragraph [ref=e295]: SMU Full Stack Bootcamp
+          - listitem [ref=e296]:
+            - paragraph [ref=e297]: Gif Freak
+          - listitem [ref=e298]:
+            - paragraph [ref=e299]: Stock Memer
+          - listitem [ref=e300]:
+            - paragraph [ref=e301]: Scion Matches
+  - generic [ref=e303]:
+    - generic [ref=e304]:
+      - generic [ref=e306]:
+        - heading "Contact" [level=2] [ref=e307]:
+          - heading "Contact" [level=4] [ref=e308]
+        - generic [ref=e310]:
+          - paragraph [ref=e311] [cursor=pointer]:
+            - strong [ref=e312]: "Phone:"
+            - text: (469) 410-5286
+          - paragraph [ref=e313] [cursor=pointer]:
+            - strong [ref=e314]: "Phone 2:"
+            - text: (972) 802-9397
+          - paragraph [ref=e315]:
+            - strong [ref=e316]: "Email:"
+            - link "fosterkyle6456@gmail.com" [ref=e317] [cursor=pointer]:
+              - /url: mailto:fosterkyle6456@gmail.com
+      - generic [ref=e319]:
+        - heading "Social" [level=2] [ref=e320]:
+          - heading "Social" [level=4] [ref=e321]
+        - generic [ref=e323]:
+          - button "GitHub Profile" [ref=e324] [cursor=pointer]:
+            - button "GitHub Profile" [ref=e325]:
+              - button [ref=e326]
+              - text: GitHub
+          - button "LinkedIn Profile" [ref=e328] [cursor=pointer]:
+            - button "LinkedIn Profile" [ref=e329]:
+              - button [ref=e330]
+              - text: LinkedIn
+          - button "Preview resume" [ref=e332] [cursor=pointer]:
+            - button [ref=e333]
+            - text: View Resume
+    - generic [ref=e335]: © 2026 Kyle Foster. All rights reserved.
+```

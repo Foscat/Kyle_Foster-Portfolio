@@ -1,19 +1,28 @@
 /**
- * ClickableImg.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the ClickableImg component.
+ * @file ClickableImg.test.jsx
+ * @description Unit tests for the ClickableImg component.
  *
- * Covers:
- * - Rendering
- * - Modal open / close behavior
- * - Keyboard (ESC) handling
- * - Accessibility attributes
+ * Test coverage:
+ * - Thumbnail image rendering
+ * - Optional caption rendering
+ * - Modal open and close behavior
+ * - Expanded image rendering
+ * - Keyboard interaction (Escape key)
+ * - Accessibility attributes and aria-label handling
+ *
+ * Testing strategy:
+ * - Uses `@testing-library/user-event` to simulate real user interactions
+ * - Verifies RSuite Modal behavior via `role="dialog"`
+ * - Avoids snapshots in favor of semantic queries
+ *
+ * @module tests/components/ClickableImg
  */
 
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi } from "vitest";
-import ClickableImg from "./index";
+import { describe, it, expect } from "vitest";
+import ClickableImg from "components/ClickableImgs";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Test data
@@ -26,10 +35,12 @@ const IMAGE_CAPTION = "This is a caption";
 
 /* ------------------------------------------------------------------
  * Helpers
- * ------------------------------------------------------------------ */
+ * ------------------------------------------------------------------
+ * Shared render helper to keep test cases concise and readable.
+ */
 
 const renderClickableImg = (props = {}) => {
-  return render(
+  return renderWithProviders(
     <ClickableImg
       src={IMAGE_SRC}
       alt={IMAGE_ALT}

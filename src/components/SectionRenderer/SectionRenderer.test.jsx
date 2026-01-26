@@ -1,29 +1,38 @@
 /**
- * SectionRenderer.test.jsx
- * ------------------------------------------------------------------
- * Unit tests for the SectionRenderer component.
+ * @file SectionRenderer.test.jsx
+ * @description Unit tests for the SectionRenderer component.
  *
- * Covers:
- * - Section registry registration / cleanup
- * - InfoSection prop wiring
- * - Block type dispatching
- * - Defensive fallback rendering
+ * Test coverage:
+ * - Section registry registration on mount
+ * - Section registry cleanup on unmount
+ * - Delegation to InfoSection for layout
+ * - Block-type dispatching to the correct child renderer
+ * - Defensive fallback rendering for unknown block types
  *
- * Notes:
- * - All child renderers are mocked (delegation only)
- * - Registry hook is mocked to observe side effects
+ * Testing strategy:
+ * - Mocks all child renderers to isolate dispatch logic
+ * - Mocks SectionRegistry to observe registration side effects
+ * - Avoids testing block rendering internals (covered elsewhere)
+ *
+ * Architectural intent:
+ * SectionRenderer is treated as a **render orchestrator**, not a
+ * content renderer. Tests focus on delegation, ordering, and
+ * defensive behavior rather than DOM structure.
+ *
+ * @module tests/components/SectionRenderer
  */
 
-import { render, screen, cleanup } from "@testing-library/react";
+import { screen, cleanup } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import SectionRenderer from "./index";
+import SectionRenderer from "components/SectionRenderer";
 import { BlockType } from "types/ui.types";
+import renderWithProviders from "tests/renderWithProviders";
 
 /* ------------------------------------------------------------------
  * Mocks
  * ------------------------------------------------------------------ */
 
-// Mock Section Registry hook
+// Mock Section Registry hook to observe lifecycle registration behavior
 const registerSection = vi.fn();
 const unregisterSection = vi.fn();
 
@@ -34,7 +43,7 @@ vi.mock("navigation/SectionRegistryProvider", () => ({
   }),
 }));
 
-// Mock InfoSection (layout only)
+// Mock InfoSection (layout-only)
 vi.mock("components/InfoSection", () => ({
   default: ({ children, id, title }) => (
     <section data-testid="info-section" id={id}>
@@ -44,7 +53,7 @@ vi.mock("components/InfoSection", () => ({
   ),
 }));
 
-// Mock block renderers
+// Mock block renderers (dispatch targets only)
 vi.mock("components/blocks", () => ({
   RichTextBlock: () => <div data-testid="rich-text-block" />,
   ImageGalleryBlock: () => <div data-testid="image-gallery-block" />,
@@ -59,7 +68,7 @@ vi.mock("components/MermaidDiagram", () => ({
   default: () => <div data-testid="diagram-block" />,
 }));
 
-// Mock block factory helpers
+// Mock block factory helpers to return passthrough data
 vi.mock("types/ui.types", async () => {
   const actual = await vi.importActual("types/ui.types");
   return {
@@ -105,11 +114,11 @@ describe("SectionRenderer", () => {
   });
 
   /* ------------------------------------------------------------
-   * Section registration
+   * Section registration lifecycle
    * ------------------------------------------------------------ */
 
   it("registers the section on mount", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
 
     expect(registerSection).toHaveBeenCalledWith("test-section", {
       id: "test-section",
@@ -118,7 +127,7 @@ describe("SectionRenderer", () => {
   });
 
   it("unregisters the section on unmount", () => {
-    const { unmount } = render(<SectionRenderer section={SECTION} />);
+    const { unmount } = renderWithProviders(<SectionRenderer section={SECTION} />);
     unmount();
 
     expect(unregisterSection).toHaveBeenCalledWith("test-section");
@@ -129,7 +138,7 @@ describe("SectionRenderer", () => {
    * ------------------------------------------------------------ */
 
   it("renders InfoSection with the correct id and title", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
 
     const section = screen.getByTestId("info-section");
     expect(section).toHaveAttribute("id", "test-section");
@@ -141,37 +150,36 @@ describe("SectionRenderer", () => {
    * ------------------------------------------------------------ */
 
   it("renders a RichTextBlock for RICH_TEXT blocks", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByTestId("rich-text-block")).toBeInTheDocument();
   });
 
   it("renders an ImageGalleryBlock for IMAGE_GALLERY blocks", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByTestId("image-gallery-block")).toBeInTheDocument();
   });
 
   it("renders a LinksBlock for LINKS blocks", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByTestId("links-block")).toBeInTheDocument();
   });
 
   it("renders an AccordionList for BULLETED_LIST blocks", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByTestId("accordion-block")).toBeInTheDocument();
   });
 
   it("renders a MermaidDiagram for DIAGRAM blocks", () => {
-    render(<SectionRenderer section={SECTION} />);
+    renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByTestId("diagram-block")).toBeInTheDocument();
   });
 
   /* ------------------------------------------------------------
-   * Defensive fallback
+   * Defensive fallback behavior
    * ------------------------------------------------------------ */
 
   it("renders a warning message for unknown block types", () => {
-    render(<SectionRenderer section={SECTION} />);
-
+    renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByText(/Corrupt data is corrupted/i)).toBeInTheDocument();
   });
 });

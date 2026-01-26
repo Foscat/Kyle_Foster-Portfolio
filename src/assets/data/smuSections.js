@@ -10,6 +10,7 @@ import {
   faLaptopCode,
   faLightbulb,
   faPersonPregnant,
+  faTowerObservation,
 } from "@fortawesome/free-solid-svg-icons";
 import { BlockType } from "../../types/ui.types";
 import { diagrams } from "./diagrams.js";
@@ -24,8 +25,7 @@ import imgObjs from "assets/images/smu";
 
 const smuSections = [
   {
-    id: "smu-overview",
-    slug: "overview",
+    id: "smu-education",
     title: "SMU Full Stack Bootcamp",
     subtitle: "Foundational projects that launched my software development career",
     icon: faGraduationCap,
@@ -34,6 +34,8 @@ const smuSections = [
       {
         id: "smu-overview",
         type: BlockType.RichText,
+        title: "Overview",
+        icon: faTowerObservation,
         paragraphs: [
           "My time at Southern Methodist University marked the foundation of my transition into professional software development. During this period, I built a strong technical baseline in HTML, CSS, JavaScript, Node.js, Express, and React, while learning how to apply those skills through real projects rather than isolated exercises.",
           "This page highlights three milestone projects that reflect my growth trajectory: Gif Freak, my first hands-on experience consuming external APIs; Stock Memer, my first collaborative team project involving live data and persistence; and Scion Matches, my capstone project where I designed a real-world matching system and took ownership of core business logic.",
@@ -48,7 +50,6 @@ const smuSections = [
 
   {
     id: "gif-freak",
-    slug: "gif-freak",
     title: "Gif Freak",
     icon: faImages,
     isScroller: true,
@@ -80,6 +81,7 @@ const smuSections = [
       },
       diagrams.gifSystemFlow,
       {
+        id: "gif-freak-links",
         type: BlockType.LINKS,
         links: [
           {
@@ -150,6 +152,7 @@ const smuSections = [
     isScroller: true,
     blocks: [
       {
+        id: "stock-memer-problem",
         type: BlockType.RichText,
         title: "The Problem",
         paragraphs: [
@@ -158,17 +161,20 @@ const smuSections = [
         ],
       },
       {
+        id: "stock-memer-image",
         type: BlockType.IMAGE_GALLERY,
         images: [
           {
             src: "../images/smu/stock_memer.png",
             alt: "Screenshot of the Stock Memer website",
             title: "Original webpage",
-            caption: "", // TODO: Add caption for picture
+            caption:
+              "Screen capture of the Stock Memer application showing stock data and meme generation features.",
           },
         ],
       },
       {
+        id: "stock-memer-solution",
         type: BlockType.RichText,
         title: "The Solution",
         paragraphs: [
@@ -178,6 +184,7 @@ const smuSections = [
       },
       diagrams.stockMemerFlow,
       {
+        id: "stock-memer-links",
         type: BlockType.LINKS,
         links: [
           {
@@ -189,6 +196,7 @@ const smuSections = [
       },
 
       {
+        id: "stock-memer-takeaways",
         type: BlockType.BulletedList,
         title: "Key Takeaways",
         items: [
@@ -206,8 +214,8 @@ const smuSections = [
           },
         ],
       },
-
       {
+        id: "stock-memer-improvements",
         type: BlockType.RichText,
         title: "What I'd Improve Today",
         paragraphs: [
@@ -230,6 +238,7 @@ const smuSections = [
     isScroller: true,
     blocks: [
       {
+        id: "scion-problem",
         type: BlockType.RichText,
         title: "The Problem",
         paragraphs: [
@@ -239,6 +248,7 @@ const smuSections = [
       },
 
       {
+        id: "scion-solution",
         type: BlockType.RichText,
         title: "The Solution",
         paragraphs: [
@@ -248,6 +258,7 @@ const smuSections = [
       },
       diagrams.matchFlow,
       {
+        id: "scion-links",
         type: BlockType.LINKS,
         links: [
           {
@@ -259,6 +270,7 @@ const smuSections = [
         ],
       },
       {
+        id: "scion-takeaways",
         type: BlockType.BulletedList,
         title: "Key Takeaways",
         items: [
@@ -267,8 +279,8 @@ const smuSections = [
           { text: "Shifted from experimental apps to purpose-driven software" },
         ],
       },
-
       {
+        id: "scion-improvements",
         type: BlockType.RichText,
         title: "What I'd Improve Today",
         paragraphs: [

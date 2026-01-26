@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 // Import your enums in the exact format your app uses.
 import { BlockType } from "types/ui.types";
+import renderWithProviders from "tests/renderWithProviders";
+import SectionRenderer from "components/SectionRenderer";
 
 // If your project uses path aliases (e.g. "navigation/..."), keep this mock path aligned.
 vi.mock("navigation/SectionRegistryProvider", () => {
@@ -61,7 +63,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
   };
 
   it("renders RichText blocks", () => {
-    render(
+    renderWithProviders(
       <SectionRenderer
         section={{
           ...baseSection,
@@ -80,7 +82,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
   });
 
   it("renders ImageGallery blocks", () => {
-    render(
+    renderWithProviders(
       <SectionRenderer
         section={{
           ...baseSection,
@@ -98,7 +100,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
   });
 
   it("renders Links blocks", () => {
-    render(
+    renderWithProviders(
       <SectionRenderer
         section={{
           ...baseSection,
@@ -116,7 +118,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
   });
 
   it("renders BulletedList blocks", () => {
-    render(
+    renderWithProviders(
       <SectionRenderer
         section={{
           ...baseSection,
@@ -134,7 +136,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
   });
 
   it("renders Diagram blocks", () => {
-    render(
+    renderWithProviders(
       <SectionRenderer
         section={{
           ...baseSection,
@@ -155,7 +157,7 @@ describe("<SectionRenderer /> block-type coverage", () => {
   it("fails safely on unknown/corrupted block types (renders fallback)", () => {
     const debugSpy = vi.spyOn(console, "debug").mockImplementation(() => {});
 
-    render(
+    renderWithProviders(
       <SectionRenderer
         section={{
           ...baseSection,

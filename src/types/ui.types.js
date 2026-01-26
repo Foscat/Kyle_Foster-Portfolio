@@ -1,4 +1,7 @@
 /**
+ * @file ui.types.js
+ * @description Shared UI-related type definitions used across components,
+ * including buttons, icons, and layout utilities.
  * @module types/ui
  */
 
@@ -204,6 +207,25 @@ export const PageRoute = Object.freeze({
  * @property {string} [icon] - Icon key.
  * @property {boolean} [isScroller=false] - Used by sticky nav.
  * @property {FeatureBlock[]} blocks - Content blocks.
+ */
+
+/**
+ * Base props shared by most interactive UI components.
+ *
+ * @typedef {Object} BaseUIProps
+ * @property {Variant} [variant] - Visual style variant.
+ * @property {Size} [size] - Component size.
+ * @property {boolean} [disabled] - Whether the component is disabled.
+ * @property {string} [className] - Optional additional CSS class names.
+ */
+
+/**
+ * Describes an icon configuration used by icon-based components.
+ *
+ * @typedef {Object} IconConfig
+ * @property {string} name - Icon identifier or asset key.
+ * @property {number} [size] - Icon size in pixels.
+ * @property {string} [color] - CSS color value applied to the icon.
  */
 
 /* ============================================================================

@@ -1,22 +1,32 @@
 /**
- * useClipboard.test.js
- * ------------------------------------------------------------------
- * Unit tests for the useClipboard hook.
+ * @file useClipboard.test.js
+ * @description Unit tests for the `useClipboard` hook.
  *
- * Covers:
- * - Successful copy behavior
- * - Error handling
- * - State transitions (copied / error)
- * - Guard conditions (invalid input)
+ * Test coverage:
+ * - Successful clipboard copy behavior
+ * - Clipboard API failure handling
+ * - Guard conditions (invalid input, missing API)
+ * - State transitions (`copied`, `error`)
+ * - Automatic reset behavior via timers
+ *
+ * Testing strategy:
+ * - Mocks the browser Clipboard API (`navigator.clipboard.writeText`)
+ * - Uses `renderHook` for isolated hook execution
+ * - Uses fake timers to validate delayed state resets
+ *
+ * @module tests/hooks/useClipboard
  */
 
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import useClipboard from "./useClipboard";
+import useClipboard from "assets/hooks/useClipboard";
 
 /* ------------------------------------------------------------------
- * Clipboard mock
- * ------------------------------------------------------------------ */
+ * Clipboard API mock
+ * ------------------------------------------------------------------
+ * Provides a controllable mock for `navigator.clipboard.writeText`
+ * to simulate success and failure scenarios.
+ */
 
 const writeTextMock = vi.fn();
 
@@ -101,7 +111,7 @@ describe("useClipboard", () => {
     });
 
     expect(result.current.error).toBeInstanceOf(Error);
-    expect(result.current.copied).toBe(false);
+    expect(() => result.current.copy("text")).toThrow("Clipboard API not supported");
   });
 
   /* ------------------------------------------------------------
