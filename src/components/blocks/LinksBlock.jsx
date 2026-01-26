@@ -1,55 +1,72 @@
-import React from "react";
-import { ButtonToolbar } from "rsuite";
 import Btn from "components/Btn";
+import { ButtonToolbar } from "rsuite";
 
 /**
- * @typedef {import("../../types/ui.types.js").LinkItem} LinkItem
+ * @file LinksBlock.jsx
+ * @description Renders a list of link buttons inside a collapsible frosted panel.
+ * @module components/blocks/LinksBlock
  */
 
 /**
  * LinksBlock
  * ---------------------------------------------------------------------------
- * Renders a list of links as frosted action buttons.
+ * Renders a list of link buttons using the shared UI type system.
  *
- * Supports external URLs, in-app navigation, scroll links, downloads,
- * icons, variants, and accessibility metadata.
+ * This component relies on the global `LinkItem` typedef defined in
+ * `src/types/ui.types.js`. That typedef is treated as a shared contract
+ * and should not be redeclared locally.
  *
+ * Rendering notes:
+ * - Returns `null` when no links are provided
+ * - Automatically detects external URLs to apply target and rel attributes
+ * - Delegates rendering and accessibility concerns to the shared `Btn` component
+ *
+ * @public
  * @component
- * @param {Object} props
- * @param {LinkItem[]} props.links - Collection of link definitions to render.
+ * @param {object} props - Component props.
+ * @param {LinkItem[]} props.links - List of link definitions to render.
+ * @returns {JSX.Element | null} Rendered link list or null if empty.
+ *
+ * @example
+ * ```jsx
+ * <LinksBlock
+ *   links={[
+ *     { title: "GitHub", url: "https://github.com", icon: "github" }
+ *   ]}
+ * />
+ * ```
  */
 const LinksBlock = ({ links = [] }) => {
-  if (!Array.isArray(links) || links.length === 0) {
-    return null;
-  }
+  // Guard against empty link lists
+  if (!links.length) return null;
 
   return (
-    <ButtonToolbar className="linklist-block">
-      {links.map((link, i) => {
-        const badLink =
-          typeof link.url !== "string" ||
-          (!link.url.startsWith("http") && !link.url.startsWith("#"));
+    <Panel collapsible defaultExpanded className="frosted">
+      <ButtonToolbar className="linklist-block">
+        {links.map((link, i) => {
+          // Determine whether the link should be treated as external
+          const isExternal = /^https?:\/\//.test(link.url);
 
-        return (
-          <Btn
-            key={i}
-            className="link-list-item"
-            disabled={badLink}
-            download={link.download}
-            href={link.url}
-            hrefLocal={link.local}
-            icon={link.icon || "link"}
-            rel={link.rel}
-            size={link.size || "md"}
-            target={link.target}
-            text={link.title || "Open Link"}
-            tooltip={badLink ? "Unstable link" : link.tooltip}
-            variant={link.variant || "primary"}
-            ariaLabel={link.ariaLabel}
-          />
-        );
-      })}
-    </ButtonToolbar>
+          return (
+            <Btn
+              key={i}
+              className="link-list-item"
+              href={link.url}
+              hrefLocal={link.local}
+              icon={link.icon || "link"}
+              size={link.size || "sm"}
+              variant={link.variant || "primary"}
+              target={isExternal ? link.target : undefined}
+              rel={isExternal ? link.rel : undefined}
+              download={link.download}
+              text={link.title || "Open Link"}
+              tooltip={link.tooltip}
+              aria-label={link.ariaLabel}
+            />
+          );
+        })}
+      </ButtonToolbar>
+    </Panel>
   );
 };
 

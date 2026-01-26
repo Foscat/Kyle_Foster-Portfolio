@@ -3,13 +3,11 @@
    ============================================================ */
 
 .san-container {
-
   position: sticky;
   top: 10rem;
   height: fit-content;
   max-height: 80vh;
   overflow-y: auto;
-  padding-right: 0.25rem;
   margin-bottom: 3rem;
   border-radius: var(--glass-border);
   background-color: var(--glass-bg);
@@ -47,7 +45,9 @@
   backdrop-filter: var(--glass-blur);
   cursor: pointer;
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .san-mobile-toggle:hover {
@@ -61,7 +61,7 @@
 .san-mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
   z-index: 9999;

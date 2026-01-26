@@ -43,7 +43,7 @@ export default {
         alt: "Screenshot of the classroom page of the CSOS platform. Displaying the course curriculum and an intro video to the course.",
         src: "../assets/images/codestream/Screenshot (1332).png",
         caption:
-          "On the classroom page, we display easy access to lesson materials, assignments, and supplementary resources. The inclusion of an introductory video offers a dynamic introduction to the course content, enhancing engagement and comprehension for students.",
+          "On the classroom roster page, we display easy access to lesson materials, assignments, and supplementary resources. The inclusion of an introductory video offers a dynamic introduction to the course content, enhancing engagement and comprehension for students.",
       },
       {
         id: "cs4",
@@ -199,13 +199,7 @@ export default {
       'Originally conceived as a Python-based exploration into cipher systems, I transformed the concept into a practical tool with a twist. Drawing inspiration from both the Caesar cipher and the Enigma machine, "Caesar\'s Enigma" employs five different alphabets for added complexity. Motivated by a desire to learn Python, I initially crafted the program for personal amusement, facilitating encrypted exchanges of messages within my family circle. However, recognizing its potential beyond familial correspondence, I challenged myself to reimagine the project in JavaScript, complete with a user-friendly interface. This project transcends mere novelty; its relevance extends to professional contexts where secure communication is paramount. "Caesar\'s Enigma" serves as a reliable means of safeguarding sensitive information during transmission over public networks, ensuring privacy and confidentiality.',
     jobTitle: "JavaScript Developer",
     timespan: "3 days",
-    tech: [
-      "HTML",
-      "JavaScript",
-      "Custom Encryption Algorithm",
-      "Bootstrap CSS",
-      "Github Pages",
-    ],
+    tech: ["HTML", "JavaScript", "Custom Encryption Algorithm", "Bootstrap CSS", "Github Pages"],
     url: "https://foscat.github.io/Enigma",
     repo: "https://github.com/Foscat/Enigma",
     images: [
@@ -269,7 +263,7 @@ export default {
   SMU_1: {
     id: "gifFreak",
     title: "Gif Freak",
-    description: `"Gif Freak" is a dynamic and interactive website developed as part of my educational journey at SMU. Deployed on GitHub Pages, this project showcases my proficiency in HTML, JavaScript, jQuery, and Ajax. The website leverages the Giphy API to fetch and display gifs based on user input. Upon loading, the site presents users with pre-defined buttons, each triggering the display of the most relevant gif retrieved from the API. Additionally, users have the option to create custom buttons tailored to their preferences, initiating requests for and displaying a selection of up to 10 gifs associated with the specified search term. These user-generated buttons are dynamically added to the master list, enhancing the website\'s functionality and user experience. Notably, user-created buttons are only stored temporarily within the session, since I did not know a way to save information at that time. "Gif Freak" demonstrates my ability to integrate multiple technologies early in my education. While simple and quite rough to look at the code now this was the project that really lit my fire of inspiration as to what I could do as a developer and actually have fun when developing.`,
+    description: `"Gif Freak" is a dynamic and interactive website developed as part of my educational journey at SMU. Deployed on GitHub Pages, this project showcases my proficiency in HTML, JavaScript, jQuery, and Ajax. The website leverages the Giphy API to fetch and display gifs based on user input. Upon loading, the site presents users with pre-defined buttons, each triggering the display of the most relevant gif retrieved from the API. Additionally, users have the option to create custom buttons tailored to their preferences, initiating requests for and displaying a selection of up to 10 gifs associated with the specified search term. These user-generated buttons are dynamically added to the master list, enhancing the website's functionality and user experience. Notably, user-created buttons are only stored temporarily within the session, since I did not know a way to save information at that time. "Gif Freak" demonstrates my ability to integrate multiple technologies early in my education. While simple and quite rough to look at the code now this was the project that really lit my fire of inspiration as to what I could do as a developer and actually have fun when developing.`,
     jobTitle: "Student Developer",
     timespan: "3 days",
     tech: ["HTML", "CSS", "jQuery", "Ajax", "3rd Party APIs"],

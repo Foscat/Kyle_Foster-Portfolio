@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { Form, Input, FlexboxGrid, Panel, Divider, Message } from "rsuite";
-import FrostedIcon from "components/FrostedIcon";
-import Btn from "components/Btn";
+import { useState } from "react";
 import "./styles.css";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import StickyNav from "components/StickyNav";
+import { FlexboxGrid, Input, Panel } from "rsuite";
+import { Form } from "rsuite";
+import Btn from "components/Btn";
+import Footer from "components/Footer";
+import { PageRoute, Size, Variant } from "types/ui.types";
 
 /**
  * Contact Component
@@ -55,30 +59,24 @@ export default function Contact() {
 
   return (
     <div className="contact-page page-wrapper">
+      <StickyNav activePage={PageRoute.CONNECT} />
       <div className="page-overlay" />
 
-      <FlexboxGrid
-        justify="center"
-        className="contact-grid"
-      >
+      <FlexboxGrid justify="center" className="contact-grid">
         <FlexboxGrid.Item colspan={20}>
           <Panel
-            bordered
-            className="glassBox contact-panel"
+            header={
+              <header>
+                <h1 className="page-title text-center">Get in Touch</h1>
+                <p className="text-center page-subtitle">
+                  Have a question, project idea, or opportunity? Let's connect.
+                </p>
+              </header>
+            }
+            className="frosted contact-panel"
           >
-            <header className="text-center mb-4">
-              <h1 className="page-title">Get in Touch</h1>
-              <p className="page-subtitle">
-                Have a question, project idea, or opportunity? Let's connect.
-              </p>
-            </header>
-
             {/* Contact Form */}
-            <Form
-              fluid
-              onSubmit={handleSubmit}
-              className="contact-form mt-2"
-            >
+            <Form fluid onSubmit={handleSubmit} className="contact-form mt-2">
               <Form.Group>
                 <Form.ControlLabel>Name</Form.ControlLabel>
                 <Input
@@ -116,74 +114,21 @@ export default function Contact() {
               </Form.Group>
 
               <Btn
-                variant="primary"
+                variant={Variant.PRIMARY}
                 type="submit"
-                className="w-100 mt-4"
+                className="w-100 mt-2"
                 text="Send Message"
-                icon="envelope"
+                icon={faEnvelope}
+                ariaLabel="Send message"
+                tooltip="Send email message"
+                size={Size.LG}
+                block
               />
             </Form>
-
-            <Message className="contact-note mt-3">
-              💡 Your message will be securely delivered to Kyle Foster.
-            </Message>
-
-            <Divider className="divider" />
-
-            {/* Contact Info Section */}
-            <section className="contact-info mt-3">
-              <h3 className="text-center accent-text">Direct Contact</h3>
-              <ul className="contact-list">
-                <li>
-                  <FrostedIcon
-                    icon="mobile"
-                    className="contact-icon"
-                  />
-                  (469) 410-5286
-                </li>
-                <li>
-                  <FrostedIcon
-                    icon="file-pdf"
-                    tooltip="Download resume as PDF"
-                  />
-                </li>
-                <li>
-                  <FrostedIcon
-                    icon="paper-plane"
-                    className="contact-icon"
-                  />
-                  <a href="mailto:kylefoster6456@gmail.com">Email Me</a>
-                </li>
-                <li>
-                  <FrostedIcon
-                    icon="linkedIn"
-                    className="contact-icon"
-                  />
-                  <a
-                    href="https://linkedin.com/in/kylefoster-dev"
-                    target="_blank"
-                  >
-                    LinkedIn Profile
-                  </a>
-                </li>
-                <li>
-                  <FrostedIcon
-                    icon="github"
-                    className="contact-icon"
-                  />
-                  <a
-                    href="https://github.com/foscat"
-                    target="_blank"
-                  >
-                    GitHub Portfolio
-                  </a>
-                </li>
-              </ul>
-            </section>
           </Panel>
         </FlexboxGrid.Item>
       </FlexboxGrid>
-
+      <Footer />
       {showToast && <div className="toast frosted-toast">✅ Message Sent!</div>}
     </div>
   );

@@ -1,53 +1,57 @@
-import React from "react";
-import { FlexboxGrid, Panel } from "rsuite";
 import ClickableImg from "components/ClickableImg";
+import { FlexboxGrid, Panel } from "rsuite";
 
 /**
- * @typedef {import("../../types/ui.types.js").FeatureImage} FeatureImage
+ * @file ImageGalleryBlock.jsx
+ * @description Renders a responsive image gallery inside a collapsible,
+ * frosted-style panel.
+ * @module components/blocks/ImageGalleryBlock
  */
 
 /**
  * ImageGalleryBlock
- * ------------------------------------------------------------
- * Displays responsive images with:
- * - Click-to-zoom modal
- * - Optional captions
- * - Grid layout using RSuite
+ * ---------------------------------------------------------------------------
+ * Displays a responsive image gallery as a collapsible frosted panel.
  *
+ * Key behaviors:
+ * - Renders a grid of image thumbnails using RSuite FlexboxGrid
+ * - Each image opens a ClickableImg modal viewer when activated
+ * - Uses stable React keys, preferring `image.id` when available
+ *
+ * Rendering notes:
+ * - Returns `null` if no valid images are provided
+ * - Panel header is rendered only when a title is supplied
+ *
+ * @public
  * @component
- * @param {Object} props
- * @param {Array<FeatureImage>} props.images
+ * @param {object} props - Component props.
+ * @param {string} [props.title] - Optional panel header title.
+ * @param {FeatureImage[]} props.images - Image definitions to render.
+ * @returns {JSX.Element|null} Rendered image gallery or null if empty.
  */
-const ImageGalleryBlock = ({ images = [] }) => {
-  if (!images.length) return null;
+const ImageGalleryBlock = ({ title, images = [] }) => {
+  // Guard against invalid or empty image arrays
+  if (!Array.isArray(images) || images.length === 0) return null;
 
   return (
     <Panel
-      bordered
       collapsible
-      className="glass-card image-gallery-block"
+      defaultExpanded
+      bordered
+      className="frosted"
+      header={title ? <h3 className="block-header">{title}</h3> : undefined}
     >
-      <FlexboxGrid
-        justify="space-between"
-        align="top"
-      >
-        {images.map((img, i) => (
-          <FlexboxGrid.Item
-            key={i}
-            colspan={24}
-            sm={12}
-            md={12}
-            lg={8}
-          >
-            <ClickableImg
-              src={img.src}
-              alt={img.alt}
-              title={img.title}
-              caption={img.caption}
-              className="gallery-thumb"
-            />
-          </FlexboxGrid.Item>
-        ))}
+      <FlexboxGrid justify="space-around" align="top">
+        {images.map((img, i) => {
+          // Prefer a stable image ID; fall back to index-based key
+          const key = img?.id ?? `gallery-img-${i}`;
+
+          return (
+            <FlexboxGrid.Item className="mb-2" key={key} colspan={11}>
+              <ClickableImg key={img.id} {...img} className="gallery-thumb" />
+            </FlexboxGrid.Item>
+          );
+        })}
       </FlexboxGrid>
     </Panel>
   );

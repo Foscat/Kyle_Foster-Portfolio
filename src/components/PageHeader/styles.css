@@ -13,24 +13,32 @@
 .page-header-title {
   font-size: var(--font-xxl);
   margin-bottom: 0.5rem;
+  color: rgba(var(--accent-rgb), 0.9);
 }
 
 .page-header-subtitle {
   font-size: var(--font-md);
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
+  color: var(--grey-300);
+  opacity: 0.8;
 }
 
 .page-header-description {
-  max-width: 820px;
-  margin: 0 auto;
   font-size: var(--font-sm);
-  color: var(--gray-300);
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
 }
 
 /* Motion alignment with frosted UI */
 .fade-in {
   animation: fadeInUp 0.6s ease forwards;
+}
+
+p.tech-used span {
+  color: var(--text-secondary);
+}
+
+p.tech-used span em {
+  color: var(--text-primary);
 }
 
 @keyframes fadeInUp {

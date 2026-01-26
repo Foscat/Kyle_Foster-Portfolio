@@ -1,101 +1,70 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Panel, Accordion } from "rsuite";
+import { useState, useEffect, useRef } from "react";
 import "./styles.css";
+import { Accordion, Panel } from "rsuite";
+import Btn from "components/Btn";
+import { faReadme } from "@fortawesome/free-brands-svg-icons";
+import { Size } from "types/ui.types";
 
 /**
- * @component AccordionList
- * =======================================================================
- * A highly-interactive, keyboard-navigable, frosted-glass accordion list
- * designed for documentation pages, feature navigation, and section-based
- * scrolling. Fully compatible with RSuite v5 and follows WAI-ARIA
- * Authoring Practices for `role="tree"`.
+ * @file index.jsx
+ * @description Fully accessible, keyboard-navigable accordion and section
+ * navigation component with frosted-glass styling.
+ * @module components/AccordionList
+ */
+
+/**
+ * AccordionItem
+ * ---------------------------------------------------------------------------
+ * Describes a single entry rendered within the AccordionList.
  *
- * -----------------------------------------------------------------------
- * KEY FEATURES
- * -----------------------------------------------------------------------
- * • Frosted-glass RSuite-styled wrapper (`Panel`)
- * • Optional accordion behavior for collapsible sections
- * • Full keyboard navigation with roving tabindex:
- *      ↑ / ↓     → move between treeitems
- *      ←         → collapse current item
- *      →         → expand current item
- *      Home / End → jump to first or last item
- *      Enter/Space → toggle open/close or scroll to section
- *
- * • Screen-reader announcements via `aria-live`
- * • Auto-highlight based on scroll position using IntersectionObserver
- * • Auto-scroll the active item into view (centered)
- * • Clickable navigation links when `item.isScroller === true`
- * • Works seamlessly with Sticky Section Nav
- * • Supports icons using <FrostedIcon>
- *
- * -----------------------------------------------------------------------
- * ACCESSIBILITY IMPLEMENTATION
- * -----------------------------------------------------------------------
- * • `role="tree"` on container
- * • Each header uses:
- *      role="treeitem"
- *      aria-posinset         (1-based index)
- *      aria-setsize          (total visible items)
- *      aria-expanded         (open/closed state)
- *      aria-controls         (ID of associated panel)
- *
- * • Panels use:
- *      role="group"
- *      aria-labelledby       (header reference)
- *
- * • All keyboard interactions follow WAI-ARIA TreeView pattern
- * • Focus controlled via roving tabindex (only one tabbable item)
- *
- * -----------------------------------------------------------------------
- * PROPS
- * -----------------------------------------------------------------------
+ * @typedef {Object} AccordionItem
+ * @property {string} id - DOM id of the associated page section.
+ * @property {string} title - Display title for the item.
+ * @property {string|JSX.Element} [text] - Optional accordion panel content.
+ * @property {string} [url] - Optional URL used for navigation.
+ * @property {boolean} [local=false] - Whether the URL is a local route.
+ * @property {*} [icon] - Optional icon passed to FrostedIcon.
+ * @property {boolean} [isScroller=false]
+ *   Enables scroll-to-section behavior when activated.
+ */
+
+/**
+ * @public
  * @component
- * @param {Object} props
+ *
+ * @param {Object} props - Component props.
+ *
+ * @param {string} [props.id]
+ *   Optional DOM id applied to the outer panel and accordion.
  *
  * @param {string} [props.title]
- *    Optional title displayed in the RSuite Panel header.
+ *   Optional title rendered in the panel header.
  *
- * @param {Array<Object>} props.items
- *    A list of accordion/nav sections.
+ * @param {string} [props.subtitle]
+ *   Optional subtitle rendered beneath the title.
  *
- *    Each item may include:
- *    @param {string}   items[].id
- *          DOM id of the section on the page (required for scrolling).
+ * @param {*} [props.icon]
+ *   Optional icon rendered next to the title.
  *
- *    @param {boolean}  items[].isScroller
- *          If true, clicking or pressing Enter will scroll to
- *          the corresponding page section rather than toggling accordion.
+ * @param {AccordionItem[]} props.items
+ *   List of accordion/navigation items to render.
  *
- *    @param {string}   [items[].icon]
- *          Icon name passed to <FrostedIcon />.
- *
- *    @param {string}   items[].title
- *          Display name of the section.
- *
- *    @param {string|JSX.Element} [items[].text]
- *          Optional content shown when expanded (accordion mode only).
- *
- * @param {boolean} [props.accordion=true]
- *    Enables collapsible panels.
- *    If false, acts purely as a nav list with no expand/collapse.
+ * @param {boolean} [props.accordion=false]
+ *   Enables collapsible accordion behavior.
+ *   When false, acts as a navigational list only.
  *
  * @param {"dark"|"light"} [props.variant="dark"]
- *    UI color scheme variant matching the global portfolio UI.
+ *   Visual theme variant applied to the wrapper.
  *
  * @param {string} [props.className]
- *    Additional CSS classes for the wrapper.
+ *   Additional CSS class names applied to the wrapper.
  *
  * @param {boolean} [props.bordered=false]
- *    Whether the outer Panel should show RSuite borders.
+ *   Whether the outer panel displays RSuite borders.
  *
- * -----------------------------------------------------------------------
- * RETURN
- * -----------------------------------------------------------------------
  * @returns {JSX.Element}
- * A fully accessible, frosted-glass accordion/navigation component.
- *
- * -----------------------------------------------------------------------
+ * A fully accessible accordion and section navigation component.
+ * ---------------------------------------------------------------------------
  * EXAMPLE USAGE
  * -----------------------------------------------------------------------
  * <AccordionList
@@ -105,14 +74,14 @@ import "./styles.css";
  *     {
  *       id: "editor",
  *       isScroller: true,
- *       icon: "code",
+ *       icon: faCode,
  *       title: "3-Panel Editor",
  *       text: "Details about the editor system..."
  *     },
  *     {
  *       id: "organizations",
  *       isScroller: true,
- *       icon: "people-group",
+ *       icon: faPeopleGroup,
  *       title: "Organizations",
  *       text: "How orgs and licenses work..."
  *     }
@@ -130,7 +99,10 @@ import "./styles.css";
  */
 
 const AccordionList = ({
+  id,
   title,
+  subtitle,
+  icon,
   items = [],
   accordion = false,
   variant = "dark",
@@ -165,43 +137,43 @@ const AccordionList = ({
 
   /** Auto-highlight based on viewport position for isScroller items */
   useEffect(() => {
-    if (!items.length) return;
+    if (typeof window === "undefined") return; // SSR / non-browser
+    if (!("IntersectionObserver" in window)) {
+      // Fallback: either no-op or set a reasonable default
+      // Example: keep current openIndex/focusedIndex and just return
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (manualToggle.current) return;
 
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
 
-          const foundIndex = items.findIndex(
-            (it) => it.id && it.id === entry.target.id
-          );
+          const foundIndex = items.findIndex((it) => it.id && it.id === entry.target.id);
           if (foundIndex !== -1) {
             setOpenIndex(foundIndex);
             setFocusedIndex(foundIndex);
           }
-        });
+        }
       },
       { threshold: 0.45 }
     );
 
-    items.forEach((item) => {
-      if (!item.isScroller) return;
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
-    });
+    // Observe targets (example)
+    const targets = items.map((it) => document.getElementById(it.id)).filter(Boolean);
+
+    targets.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [items]);
+  }, [items, setOpenIndex, setFocusedIndex]);
 
   /** Auto-scroll active item into view whenever openIndex changes */
   useEffect(() => {
     if (!listRef.current || openIndex === null) return;
 
-    const active = listRef.current.querySelector(
-      `.fa-list-item:nth-child(${openIndex + 1})`
-    );
+    const active = listRef.current.querySelector(`.fa-list-item:nth-child(${openIndex + 1})`);
     if (!active) return;
 
     active.scrollIntoView({
@@ -214,9 +186,7 @@ const AccordionList = ({
   useEffect(() => {
     if (!listRef.current || focusedIndex === null) return;
 
-    const active = listRef.current.querySelector(
-      `.fa-list-item:nth-child(${focusedIndex + 1})`
-    );
+    const active = listRef.current.querySelector(`.fa-list-item:nth-child(${focusedIndex + 1})`);
     if (!active) return;
 
     active.scrollIntoView({
@@ -302,25 +272,32 @@ const AccordionList = ({
 
   return (
     <Panel
+      collapsible
+      defaultExpanded
       bordered={bordered}
-      header={<h3>{title}</h3>}
-      className={`frosted-accordion ${variant} ${className}`}
+      header={
+        <div>
+          <div className="flex-row">
+            {icon && <FrostedIcon size="lg" icon={icon} />}
+            {title && <h2 className="block-header">{title}</h2>}
+          </div>
+          {subtitle && <h4 className="block-subtitle">{subtitle}</h4>}
+        </div>
+      }
+      className={`frosted ${variant} ${className}`}
+      id={id}
     >
       {/* Keyboard help for users & screen readers */}
-      {/* <p className="fa-help">
-        Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> navigate • <kbd>←</kbd> collapse •{" "}
-        <kbd>→</kbd> expand • <kbd>Enter</kbd>/<kbd>Space</kbd> toggle
-      </p> */}
-
+      <p className="fa-help">
+        Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> navigate • <kbd>←</kbd> collapse • <kbd>→</kbd> expand •{" "}
+        <kbd>Enter</kbd>/<kbd>Space</kbd> toggle
+      </p>
       {/* Screen reader live region */}
-      <div
-        className="sr-only"
-        aria-live="polite"
-      >
+      <div className="sr-only" aria-live="polite">
         {srMessage}
       </div>
-
       <Accordion
+        id={id}
         className="fa-list"
         ref={listRef}
         role="tree"
@@ -328,24 +305,32 @@ const AccordionList = ({
       >
         {items.map((item, i) => {
           console.log(item);
-          const isOpen = accordion && openIndex === i;
           const headerId = `accordion-header-${item.id || i}`;
           const panelId = `accordion-panel-${item.id || i}`;
 
           return (
             <Accordion.Panel
-              key={item.id || i}
-              className={`accordian-panel ${isOpen ? "open" : ""}`}
-              header={<h4>{item.title}</h4>}
+              defaultExpanded
+              key={"acp-" + headerId}
+              className={"fa-list-item blue-tile"}
+              header={<h4 key={headerId}>{item.title}</h4>}
             >
               {item.text && (
-                <p
-                  id={panelId}
-                  role="group"
-                  aria-labelledby={headerId}
-                >
+                <p key={panelId} id={panelId} role="group" aria-labelledby={headerId}>
                   {item.text}
                 </p>
+              )}
+              {item.url && (
+                <div key={panelId + "-btnWrap"} className="center-v mt-2">
+                  <Btn
+                    key={panelId + "-btn"}
+                    text="Learn More"
+                    icon={faReadme}
+                    href={item.url}
+                    hrefLocal={item.local}
+                    size={Size.SM}
+                  />
+                </div>
               )}
             </Accordion.Panel>
           );

@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
-import { FlexboxGrid } from "rsuite";
-import smuSections from "assets/data/smuSections";
-import PageMetas from "assets/data/pageMetas";
-import { renderTechUsedString } from "assets/utils";
+import { useEffect } from "react";
+import Data from "assets/data/pageMetas";
+import { restoreScrollPosition } from "navigation/restoreScrollPosition";
+import SectionRegistryProvider from "navigation/SectionRegistryProvider";
 import PageHeader from "components/PageHeader";
-import StickySectionNav from "components/StickySectionNav";
 import StickyNav from "components/StickyNav";
 import SectionRenderer from "components/SectionRenderer";
+import StickySectionNav from "components/StickySectionNav";
 import Footer from "components/Footer";
-import { restoreScrollPosition } from "navigation/restoreScrollPosition";
 
-const smu = PageMetas.Smu;
+const smu = Data.Smu;
 
 /**
  * SMU Page
@@ -28,30 +26,29 @@ const Smu = () => {
   }, []);
 
   return (
-    <div className="container">
-      <PageHeader
-        title="SMU Coding Bootcamp"
-        subTitle={`Tech Used: ${renderTechUsedString(smu.tech)}`}
-        timespan={smu.timespan}
-      />
-      <StickyNav />
-      <FlexboxGrid justify="space-around">
-        <FlexboxGrid.Item colspan={18}>
-          {smuSections.map((sect, i) => {
-            return (
-              <SectionRenderer
-                section={sect}
-                key={"smu-section" + i + 1}
-              />
-            );
-          })}
-        </FlexboxGrid.Item>
-        <FlexboxGrid.Item colspan={5}>
-          <StickySectionNav sections={sideProjectsData} />
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
-      <Footer />
-    </div>
+    <SectionRegistryProvider>
+      <div className="container">
+        <PageHeader
+          title={smu.title}
+          subTitle={smu.description}
+          timespan={smu.timespan}
+          jobTitle={smu.jobTitle}
+          tech={smu.tech}
+        />
+        <StickyNav activePage={smu.url} />
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
+            {smu.sections.map((sect, i) => {
+              return <SectionRenderer section={sect} key={"smu-section" + i + 1} />;
+            })}
+          </main>
+          <aside className="page-sidebar">
+            <StickySectionNav pageUrl={smu.url} sections={smu.sections} />
+          </aside>
+        </div>
+        <Footer />
+      </div>
+    </SectionRegistryProvider>
   );
 };
 

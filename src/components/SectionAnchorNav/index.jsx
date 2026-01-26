@@ -1,10 +1,9 @@
-import React, { useState } from "react";
 import "./styles.css";
+import { PageRoute } from "types/ui.types";
 import { Nav, Sidenav } from "rsuite";
-import { PageRoute} from "../../types/ui.types";
 
 /**
- * @typedef {import("../../types/ui.types.js").FeatureSection} FeatureSection
+ * @typedef {FeatureSection} FeatureSection
  */
 
 /**
@@ -20,13 +19,11 @@ import { PageRoute} from "../../types/ui.types";
  * - Smooth scrolling, keyboard navigation, screen-reader friendly
  * - Midnight Gold frosted UI styling
  *
- * @param {Object} props
+ * @param {object} props
  * @param {Array<FeatureSection>} props.sections
  * @param {string} [props.className]
  */
-const SectionAnchorNav = ({ title = "Contents", sections = [], page= PageRoute.HOME }) => {
-  console.log("SectionAnchorNav", { sections });
-
+const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.HOME }) => {
   return (
     <aside className="san-container">
       <Sidenav className="san-accordion">
@@ -35,7 +32,10 @@ const SectionAnchorNav = ({ title = "Contents", sections = [], page= PageRoute.H
           <Nav>
             {sections.map((sect, i) => {
               return (
-                <Nav.Item href={sect.isScroller ? `${page}#${sect.id}` : sect.url}>
+                <Nav.Item
+                  key={"section-" + i}
+                  href={sect.isScroller ? `${page}#${sect.id}` : sect.url}
+                >
                   {sect.title}
                 </Nav.Item>
               );

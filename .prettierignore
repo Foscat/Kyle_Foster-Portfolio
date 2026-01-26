@@ -1,0 +1,18 @@
+# Build output
+dist
+docs
+
+# Node
+node_modules
+
+# Mermaid & generated artifacts
+**/*.mermaid
+**/*.mmd
+src/scripts/**
+
+# Generated diagram assets
+public/diagrams
+src/assets/diagrams
+
+# Lockfiles (never format)
+package-lock.json

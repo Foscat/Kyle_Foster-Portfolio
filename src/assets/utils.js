@@ -1,69 +1,69 @@
-import pageMetas from "./data/pageMetas";
+/**
+ * @file utils.js
+ * @description Collection of shared utility helpers used across the application.
+ * These functions are intentionally small, side-effect free, and reusable.
+ * @module assets/utils
+ */
 
 /**
- * Formats an array of technology names into a human-readable string.
+ * Safely joins multiple class name values into a single string.
+ * Falsy values are ignored.
  *
- * Example:
- *   ["React", "Node", "MongoDB"]
- *   → "Tech Used: React, Node, MongoDB"
+ * @param {...(string|false|null|undefined)} classes - Class name values to join.
+ * @returns {string} Space-delimited class name string.
  *
- * @param {string[]} [techArray=[]] - List of technologies used.
- * @returns {string} A formatted display string or an empty string if no technologies are provided.
+ * @example
+ * classNames("btn", isActive && "active")
  */
-export const renderTechUsedString = (techArray = []) => {
-  // Guard against invalid or empty input
-  if (!Array.isArray(techArray) || techArray.length === 0) {
-    return "";
-  }
-
-  // Join technologies into a comma-separated list
-  const techList = techArray.join(", ");
-
-  return `Tech Used: ${techList}`;
-};
+export function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 /**
- * Merges multiple arrays of strings and removes duplicates.
+ * Determines whether the code is executing in a browser environment.
+ * Useful for guarding DOM or window access during SSR or tests.
  *
- * Example:
- *   mergeUniqueStrings(["HTML", "CSS"], ["HTML", "JavaScript"])
- *   → ["HTML", "CSS", "JavaScript"]
- *
- * @param {...string[]} lists - One or more arrays of strings.
- * @returns {string[]} A deduplicated array preserving first-seen order.
+ * @returns {boolean} True if `window` is defined.
  */
-export const mergeUniqueStrings = (...lists) => {
-  const seen = new Set();
+export function isBrowser() {
+  return typeof window !== "undefined";
+}
 
-  for (const list of lists) {
-    if (!Array.isArray(list)) continue;
+/**
+ * No-op function used as a default callback placeholder.
+ *
+ * @returns {void}
+ */
+export function noop() {}
 
-    for (const item of list) {
-      if (typeof item === "string" && item.trim()) {
-        seen.add(item.trim());
-      }
-    }
-  }
+/**
+ * Clamps a numeric value between a minimum and maximum.
+ *
+ * @param {number} value - Input value.
+ * @param {number} min - Lower bound.
+ * @param {number} max - Upper bound.
+ * @returns {number} Clamped value.
+ */
+export function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
 
-  return Array.from(seen);
-};
+/**
+ * Returns a debounced version of a function.
+ * The function is invoked only after the delay has elapsed since the last call.
+ *
+ * @param {Function} fn - Function to debounce.
+ * @param {number} delay - Delay in milliseconds.
+ * @returns {Function} Debounced function.
+ */
+export function debounce(fn, delay) {
+  let timeoutId;
 
-const getMetaByPath = () => {
-  const currentURL = window.location.pathname;
-  switch (currentURL.split("/")[currentURL.split("/").length - 1]) {
-    case "hackathon":
-      return pageMetas.Hackathon;
-    case "smu":
-      return pageMetas.Smu;
-    case "sideProjects":
-      return pageMetas.SideProjects;
-    case "freelance":
-      return pageMetas.FreelanceWork;
-    case "codestream":
-      return pageMetas.Codestream;
-    case "contact":
-      return pageMetas.Contact;
-    default:
-      return pageMetas.Home;
-  }
-};
+  return function (...args) {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}

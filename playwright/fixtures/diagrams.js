@@ -1,0 +1,16 @@
+export const DIAGRAM_IDS = [
+  "diagram-3panel-editor",
+  "diagram-organization-license-model",
+  "diagram-classroom-flow",
+  "diagram-curriculum-model",
+  "diagram-hands-free-repair-workflow",
+  "diagram-voice-command-lifecycle",
+  "diagram-system-architecture-team-contribution",
+  "diagram-command-lifecycle",
+  "diagram-greenhouse",
+  "diagram-encryption-flow",
+  "diagram-domain-model",
+  "diagram-gif-freak-system-flow",
+  "diagram-stock-memer-flow",
+  "diagram-scion-algorithm-flow",
+];

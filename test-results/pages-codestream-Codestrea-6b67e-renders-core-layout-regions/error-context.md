@@ -1,0 +1,920 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e8]:
+      - heading "CodeStream Online Studios" [level=1] [ref=e9]
+      - heading "Frontend Engineer • January 2020 - March 2025" [level=2] [ref=e10]
+      - paragraph [ref=e11]:
+        - text: "Tech Used:"
+        - generic [ref=e12]: React.js,
+        - generic [ref=e13]: AWS (S3,RDS,ELB,Lambda),
+        - generic [ref=e14]: Google oAuth,
+        - generic [ref=e15]: rSuite,
+        - generic [ref=e16]: Asana API,
+        - generic [ref=e17]: Skulpt.js,
+        - generic [ref=e18]: Ace Editor,
+        - generic [ref=e19]: Postgres,
+        - generic [ref=e20]: Jest,
+        - generic [ref=e21]: Swagger API,
+      - paragraph [ref=e22]: Explore my professional work as a frontend engineer at CodeStream Online Studios, where I helped build an innovative coding education platform used by thousands of students worldwide.
+  - navigation "Primary navigation" [ref=e23]:
+    - generic [ref=e24]:
+      - link "Home" [ref=e25] [cursor=pointer]:
+        - /url: /
+        - button "Home" [ref=e26]
+      - link "Professional" [ref=e28] [cursor=pointer]:
+        - /url: /codestream/
+        - button "Professional" [ref=e29]
+      - link "Education" [ref=e31] [cursor=pointer]:
+        - /url: /smu/
+        - button "Education" [ref=e32]
+      - link "Hackathon" [ref=e34] [cursor=pointer]:
+        - /url: /hackathon/
+        - button "Hackathon" [ref=e35]
+      - button "Projects" [ref=e37] [cursor=pointer]:
+        - button "Projects" [ref=e38]
+      - button "Contact" [ref=e40] [cursor=pointer]:
+        - button "Contact" [ref=e41]
+  - generic [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e45]:
+        - heading "Overview The app that went from a quick fix to get the company out of a bind. That grew to be the most important asset the company has." [level=2] [ref=e46] [cursor=pointer]:
+          - button "Overview The app that went from a quick fix to get the company out of a bind. That grew to be the most important asset the company has." [expanded] [ref=e47]:
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - img [ref=e50]
+                - heading "Overview" [level=2] [ref=e52]
+              - heading "The app that went from a quick fix to get the company out of a bind. That grew to be the most important asset the company has." [level=4] [ref=e53]
+            - img [ref=e54]
+        - region "Overview The app that went from a quick fix to get the company out of a bind. That grew to be the most important asset the company has." [ref=e57]:
+          - generic [ref=e58]:
+            - region "My Role at CodeStream Studios LLC" [ref=e59]:
+              - heading "My Role at CodeStream Studios LLC" [level=2] [ref=e60] [cursor=pointer]:
+                - button "My Role at CodeStream Studios LLC" [expanded] [ref=e61]:
+                  - generic [ref=e62]: My Role at CodeStream Studios LLC
+                  - img [ref=e63]
+              - region "My Role at CodeStream Studios LLC" [ref=e66]:
+                - paragraph [ref=e67]: During my tenure at CodeStream Studios LLC, I served as the sole front-end developer responsible for taking our React.js application from concept to production. I owned the front-end architecture, translated rough ideas into concrete features, and shipped a platform that became the backbone of our classroom operations.
+                - paragraph [ref=e68]: "Working with a lean team meant I routinely stepped outside a typical developer lane: I handled implementation, bug fixing, UI polish, documentation, and coordination with instructors using the platform in real classrooms. That blend of hands-on coding and tight feedback loops allowed me to build features that were practical, resilient, and directly informed by real-world usage."
+            - region "Building a Teaching Platform" [ref=e69]:
+              - heading "Building a Teaching Platform" [level=2] [ref=e70] [cursor=pointer]:
+                - button "Building a Teaching Platform" [expanded] [ref=e71]:
+                  - generic [ref=e72]: Building a Teaching Platform
+                  - img [ref=e73]
+              - region "Building a Teaching Platform" [ref=e76]:
+                - paragraph [ref=e77]: In addition to building the platform, I also taught on it. I used the system to run live classes, onboard students, and grade real assignments. That dual perspective—as both developer and instructor—let me quickly identify friction points and improve the experience without waiting on lengthy feedback cycles.
+                - paragraph [ref=e78]: What started as a single-school tool evolved into a multi-organization teaching platform with virtual classrooms, curriculum management, licensing, grading, and admin controls—all layered on top of the core 3-panel code editor.
+            - generic [ref=e79]:
+              - heading "CodeStream Online Studio Screenshots" [level=2] [ref=e80] [cursor=pointer]:
+                - button "CodeStream Online Studio Screenshots" [expanded] [ref=e81]:
+                  - heading "CodeStream Online Studio Screenshots" [level=3] [ref=e82]
+                  - img [ref=e83]
+              - region "CodeStream Online Studio Screenshots" [ref=e86]:
+                - generic [ref=e87]:
+                  - generic [ref=e88]:
+                    - img "CodeStream Online Studio home page with brand and features." [ref=e90] [cursor=pointer]
+                    - paragraph [ref=e91]: The home page features a clean design with a prominent call-to-action button, highlighting the platform's capabilities for interactive coding lessons.
+                  - generic [ref=e92]:
+                    - img "User profile page with information and activity." [ref=e94] [cursor=pointer]
+                    - paragraph [ref=e95]: The profile page includes user details, recent activity, and options to customize settings, providing a personalized experience for learners.
+      - generic [ref=e96]:
+        - heading "Key Features" [level=2] [ref=e97] [cursor=pointer]:
+          - button "Key Features" [expanded] [ref=e98]:
+            - generic [ref=e100]:
+              - img [ref=e101]
+              - heading "Key Features" [level=2] [ref=e103]
+            - img [ref=e104]
+        - region "Key Features" [ref=e107]:
+          - generic [ref=e108]:
+            - region "Platform Overview" [ref=e109]:
+              - heading "Platform Overview" [level=2] [ref=e110] [cursor=pointer]:
+                - button "Platform Overview" [expanded] [ref=e111]:
+                  - generic [ref=e112]: Platform Overview
+                  - img [ref=e113]
+              - region "Platform Overview" [ref=e116]:
+                - paragraph [ref=e117]: CodeStream Online Studio was designed as a full teaching environment—not just a code editor. The platform brought together browser-based coding, role-aware organizations, virtual classrooms, grading and reporting, admin monitoring tools, and a modular curriculum builder.
+                - paragraph [ref=e118]: What started as a way to run a single class during COVID grew into an ecosystem where schools, after-school programs, and training organizations could manage courses, licenses, and student outcomes across multiple classrooms and organizations.
+            - generic [ref=e119]:
+              - heading "CodeStream Online Studio Platform" [level=2] [ref=e120] [cursor=pointer]:
+                - button "CodeStream Online Studio Platform" [expanded] [ref=e121]:
+                  - heading "CodeStream Online Studio Platform" [level=3] [ref=e122]
+                  - img [ref=e123]
+              - region "CodeStream Online Studio Platform" [ref=e126]:
+                - generic [ref=e127]:
+                  - generic [ref=e128]:
+                    - img "CodeStream Online Studio home page with brand and features." [ref=e130] [cursor=pointer]
+                    - paragraph [ref=e131]: The home page features a clean design with a prominent call-to-action button, highlighting the platform's capabilities for interactive coding lessons.
+                  - generic [ref=e132]:
+                    - img "User profile page with information and activity." [ref=e134] [cursor=pointer]
+                    - paragraph [ref=e135]: The profile page includes user details, recent activity, and options to customize settings, providing a personalized experience for learners.
+                  - generic [ref=e136]:
+                    - img "Classrooms dashboard with coding classes and statuses." [ref=e138] [cursor=pointer]
+                    - paragraph [ref=e139]: The classrooms dashboard allows instructors to manage multiple coding classes, track student progress, and organize lesson plans effectively.
+            - generic [ref=e140]:
+              - heading "Core Pillars" [level=2] [ref=e141] [cursor=pointer]:
+                - button "Core Pillars" [expanded] [ref=e142]:
+                  - heading "Core Pillars" [level=2] [ref=e145]
+                  - img [ref=e146]
+              - region "Core Pillars" [ref=e149]:
+                - paragraph [ref=e150]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Core Pillars" [ref=e152]:
+                  - generic [ref=e153]:
+                    - heading "3-Panel Editor System" [level=2] [ref=e154] [cursor=pointer]:
+                      - button "3-Panel Editor System" [expanded] [ref=e155]:
+                        - heading "3-Panel Editor System" [level=4] [ref=e156]
+                        - img [ref=e157]
+                    - region "3-Panel Editor System" [ref=e160]:
+                      - group [ref=e161]: A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers without installing software.
+                  - generic [ref=e162]:
+                    - heading "Organizations & Licensing" [level=2] [ref=e163] [cursor=pointer]:
+                      - button "Organizations & Licensing" [expanded] [ref=e164]:
+                        - heading "Organizations & Licensing" [level=4] [ref=e165]
+                        - img [ref=e166]
+                    - region "Organizations & Licensing" [ref=e169]:
+                      - group [ref=e170]: Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools.
+                  - generic [ref=e171]:
+                    - heading "Virtual Classrooms" [level=2] [ref=e172] [cursor=pointer]:
+                      - button "Virtual Classrooms" [expanded] [ref=e173]:
+                        - heading "Virtual Classrooms" [level=4] [ref=e174]
+                        - img [ref=e175]
+                    - region "Virtual Classrooms" [ref=e178]:
+                      - group [ref=e179]: A centralized space where teachers deliver lessons and students access projects, resources, and grades.
+                  - generic [ref=e180]:
+                    - heading "Grades & Reports" [level=2] [ref=e181] [cursor=pointer]:
+                      - button "Grades & Reports" [expanded] [ref=e182]:
+                        - heading "Grades & Reports" [level=4] [ref=e183]
+                        - img [ref=e184]
+                    - region "Grades & Reports" [ref=e187]:
+                      - group [ref=e188]: Integrated grading tools and exportable progress reports
+                  - generic [ref=e189]:
+                    - heading "Admin Monitoring & Super Admin" [level=2] [ref=e190] [cursor=pointer]:
+                      - button "Admin Monitoring & Super Admin" [expanded] [ref=e191]:
+                        - heading "Admin Monitoring & Super Admin" [level=4] [ref=e192]
+                        - img [ref=e193]
+                    - region "Admin Monitoring & Super Admin" [ref=e196]:
+                      - group [ref=e197]: Admin oversight tools that let coordinators and platform staff manage classrooms without touching the database.
+                  - generic [ref=e198]:
+                    - heading "Curriculum Builder" [level=2] [ref=e199] [cursor=pointer]:
+                      - button "Curriculum Builder" [expanded] [ref=e200]:
+                        - heading "Curriculum Builder" [level=4] [ref=e201]
+                        - img [ref=e202]
+                    - region "Curriculum Builder" [ref=e205]:
+                      - group [ref=e206]: A modular system for creating and reusing courses, units, lessons, and resources across organizations.
+      - generic [ref=e207]:
+        - heading "3 Panel Editor System A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers instead of engineers." [level=2] [ref=e208] [cursor=pointer]:
+          - button "3 Panel Editor System A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers instead of engineers." [expanded] [ref=e209]:
+            - generic [ref=e210]:
+              - generic [ref=e211]:
+                - img [ref=e212]
+                - heading "3 Panel Editor System" [level=2] [ref=e214]
+              - heading "A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers instead of engineers." [level=4] [ref=e215]
+            - img [ref=e216]
+        - region "3 Panel Editor System A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers instead of engineers." [ref=e219]:
+          - generic [ref=e220]:
+            - region "The Problem" [ref=e221]:
+              - heading "The Problem" [level=2] [ref=e222] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e223]:
+                  - generic [ref=e224]: The Problem
+                  - img [ref=e225]
+              - region "The Problem" [ref=e228]:
+                - paragraph [ref=e229]: Students needed a single, intuitive workspace where they could read instructions, write code, and see results—without installing tools or configuring complex environments. Instructors needed every learner to be on the same setup, whether they were writing HTML/CSS/JavaScript or Python.
+                - paragraph [ref=e230]: Existing options were either too fragmented (separate tools for instructions, coding, and output), too technical for middle- and high-school students, or too difficult to manage at scale across dozens of classrooms. We needed a way to support Web and Python projects in a consistent, classroom-friendly experience.
+            - region [ref=e231]:
+              - heading "3-Panel Editor – Architecture Flow" [level=2] [ref=e232] [cursor=pointer]:
+                - button "3-Panel Editor – Architecture Flow" [expanded] [ref=e233]:
+                  - generic [ref=e234]: 3-Panel Editor – Architecture Flow
+                  - img [ref=e235]
+              - region "3-Panel Editor – Architecture Flow" [ref=e238]:
+                - generic [ref=e239]:
+                  - img "3-Panel Editor – Architecture Flow" [ref=e240]:
+                    - document [ref=e241]:
+                      - generic [ref=e243]:
+                        - generic [ref=e244]:
+                          - generic [ref=e250]: Persistence
+                          - generic [ref=e256]: Runtime
+                          - generic [ref=e262]: Authoring
+                        - generic [ref=e268]:
+                          - generic [ref=e274]: Web
+                          - generic [ref=e280]: Python
+                        - generic [ref=e281]:
+                          - paragraph [ref=e288]:
+                            - text: Lesson Markdown
+                            - text: ReactMarkdown
+                          - paragraph [ref=e295]:
+                            - text: Ace Editor
+                            - text: HTML · CSS · JS · Python
+                          - paragraph [ref=e302]: Instruction Panel
+                          - paragraph [ref=e309]: Execution Layer
+                          - paragraph [ref=e316]:
+                            - text: Web Sandbox
+                            - text: iframe
+                          - paragraph [ref=e323]:
+                            - text: Python Runtime
+                            - text: Skulpt
+                          - paragraph [ref=e330]: Terminal Output
+                          - paragraph [ref=e337]:
+                            - text: Save Shortcut
+                            - text: Ctrl + S
+                          - paragraph [ref=e344]: AWS S3 Storage
+                          - paragraph [ref=e351]: Teacher & Student Access
+                  - paragraph [ref=e352]: The editor pipeline connects Markdown instructions, an Ace-based code editor, dual execution paths for Web and Python, and AWS S3 persistence.
+            - region "The Solution" [ref=e353]:
+              - heading "The Solution" [level=2] [ref=e354] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e355]:
+                  - generic [ref=e356]: The Solution
+                  - img [ref=e357]
+              - region "The Solution" [ref=e360]:
+                - paragraph [ref=e361]: I designed and built a three-panel interface that acts like a small IDE inside the browser. The left panel renders Markdown-based lesson instructions via ReactMarkdown. The center panel uses AceEditor to provide a real coding experience with language-aware editing for HTML, CSS, JavaScript, and Python. The right panel shows the live result—either a sandboxed iframe for Web projects or an in-browser terminal for Python.
+                - paragraph [ref=e362]: For Web lessons, the editor combines separate HTML/CSS/JS files into a single sandboxed bundle that runs safely inside an iframe. For Python, I integrated Skulpt via CDN to compile and execute code in the browser, streaming output into a dedicated console view.
+                - paragraph [ref=e363]: I wired custom keyboard shortcuts into AceEditor to support behaviors like save-on-Ctrl+S. Project files are persisted to AWS S3 instead of local storage, allowing students and teachers to open and review work from any device. Teachers see exactly what students see, which became critical for grading and real-time assistance.
+            - generic [ref=e364]:
+              - heading "Editor Views" [level=2] [ref=e365] [cursor=pointer]:
+                - button "Editor Views" [expanded] [ref=e366]:
+                  - heading "Editor Views" [level=3] [ref=e367]
+                  - img [ref=e368]
+              - region "Editor Views" [ref=e371]:
+                - generic [ref=e372]:
+                  - generic [ref=e373]:
+                    - img "Three-panel editor with lesson instructions, code editor, and live browser preview." [ref=e375] [cursor=pointer]
+                    - paragraph [ref=e376]: The left panel displays lesson instructions and tools, the middle panel hosts a tabbed editor for HTML/CSS/JS, and the right panel renders a live browser preview using a sandboxed iframe.
+                  - generic [ref=e377]:
+                    - img "Three-panel editor configured for Python with instructions, code editor, and terminal output." [ref=e379] [cursor=pointer]
+                    - paragraph [ref=e380]: The left panel displays lesson instructions and tools, the middle panel hosts a code editor for Python, and the right panel shows terminal output for code execution results.
+      - generic [ref=e381]:
+        - heading "Organizations & Licensing Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools." [level=2] [ref=e382] [cursor=pointer]:
+          - button "Organizations & Licensing Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools." [expanded] [ref=e383]:
+            - generic [ref=e384]:
+              - generic [ref=e385]:
+                - img [ref=e386]
+                - heading "Organizations & Licensing" [level=2] [ref=e388]
+              - heading "Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools." [level=4] [ref=e389]
+            - img [ref=e390]
+        - region "Organizations & Licensing Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools." [ref=e393]:
+          - generic [ref=e394]:
+            - region "The Problem" [ref=e395]:
+              - heading "The Problem" [level=2] [ref=e396] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e397]:
+                  - generic [ref=e398]: The Problem
+                  - img [ref=e399]
+              - region "The Problem" [ref=e402]:
+                - paragraph [ref=e403]: "Individual accounts were easy to manage—but real customers weren't individuals; they were organizations: schools, after-school programs, and training partners. Each organization needed to manage teachers, student rosters, active classrooms, and course access, all under a single license."
+                - paragraph [ref=e404]: We had to enforce limits on how many students and teachers could be active, gate access to premium curriculum, and gracefully handle expired licenses. At the same time, students needed to keep access to their personal projects, even when a school's license expired. The challenge was building a flexible permission system that felt simple to users but could express all of these rules reliably.
+            - region [ref=e405]:
+              - heading "Organization & License Model" [level=2] [ref=e406] [cursor=pointer]:
+                - button "Organization & License Model" [expanded] [ref=e407]:
+                  - generic [ref=e408]: Organization & License Model
+                  - img [ref=e409]
+              - region "Organization & License Model" [ref=e412]:
+                - generic [ref=e413]:
+                  - img "Organization & License Model" [ref=e414]:
+                    - document [ref=e415]:
+                      - generic [ref=e417]:
+                        - generic [ref=e418]:
+                          - generic [ref=e424]: Classroom
+                          - generic [ref=e430]: Licensing
+                          - generic [ref=e436]: Ownership
+                        - generic [ref=e444]:
+                          - generic [ref=e450]: Valid
+                          - generic [ref=e456]: Expired
+                        - generic [ref=e457]:
+                          - paragraph [ref=e464]: User
+                          - paragraph [ref=e471]: Organization
+                          - paragraph [ref=e478]: Personal Projects
+                          - paragraph [ref=e485]: License
+                          - paragraph [ref=e492]: Access Check
+                          - paragraph [ref=e499]: Read-Only Projects
+                          - paragraph [ref=e506]: Classroom
+                          - paragraph [ref=e513]: Students
+                          - paragraph [ref=e520]: Teachers
+                  - paragraph [ref=e521]: Organizations operate under licenses that control classroom access, roles, and participation limits.
+            - region "The Solution" [ref=e522]:
+              - heading "The Solution" [level=2] [ref=e523] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e524]:
+                  - generic [ref=e525]: The Solution
+                  - img [ref=e526]
+              - region "The Solution" [ref=e529]:
+                - paragraph [ref=e530]: "I implemented an Organization & Licensing subsystem that became the backbone of the platform's access control. Every user existed as an independent account but could be attached to one or more organizations with a specific role: Admin, Teacher, or Student."
+                - paragraph [ref=e531]: Organizations were bound to a license object that defined teacher and student counts, active classroom limits, and expiration dates. Each classroom and enrollment was validated against that license. If a license expired, classrooms became inaccessible for new lesson activity—but students still retained access to previously created projects in their personal workspace.
+                - paragraph [ref=e532]: Under the hood, organization-scoped queries, role checks, and a centralized license gatekeeper were used across classroom and curriculum routes, ensuring consistent behavior without duplicating permission logic throughout the codebase.
+            - generic [ref=e533]:
+              - heading "Outcomes" [level=2] [ref=e534] [cursor=pointer]:
+                - button "Outcomes" [expanded] [ref=e535]:
+                  - heading "Outcomes" [level=2] [ref=e538]
+                  - img [ref=e539]
+              - region "Outcomes" [ref=e542]:
+                - paragraph [ref=e543]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Outcomes" [ref=e545]:
+                  - generic [ref=e546]:
+                    - heading "Scalable Multi-Tenancy" [level=2] [ref=e547] [cursor=pointer]:
+                      - button "Scalable Multi-Tenancy" [expanded] [ref=e548]:
+                        - heading "Scalable Multi-Tenancy" [level=4] [ref=e549]
+                        - img [ref=e550]
+                    - region "Scalable Multi-Tenancy" [ref=e553]:
+                      - group [ref=e554]: Multi-tenant SaaS-style structure without leaking data between organizations
+                  - generic [ref=e555]:
+                    - heading "Role-Based Access" [level=2] [ref=e556] [cursor=pointer]:
+                      - button "Role-Based Access" [expanded] [ref=e557]:
+                        - heading "Role-Based Access" [level=4] [ref=e558]
+                        - img [ref=e559]
+                    - region "Role-Based Access" [ref=e562]:
+                      - group [ref=e563]: Clear roles for Admin, Teacher, and Student tied to each organization
+                  - generic [ref=e564]:
+                    - heading "License Enforcement" [level=2] [ref=e565] [cursor=pointer]:
+                      - button "License Enforcement" [expanded] [ref=e566]:
+                        - heading "License Enforcement" [level=4] [ref=e567]
+                        - img [ref=e568]
+                    - region "License Enforcement" [ref=e571]:
+                      - group [ref=e572]: License-aware classroom behavior that still preserves student work
+                  - generic [ref=e573]:
+                    - heading "Flexible Organization Model" [level=2] [ref=e574] [cursor=pointer]:
+                      - button "Flexible Organization Model" [expanded] [ref=e575]:
+                        - heading "Flexible Organization Model" [level=4] [ref=e576]
+                        - img [ref=e577]
+                    - region "Flexible Organization Model" [ref=e580]:
+                      - group [ref=e581]: Predictable access rules that scaled as new organizations were onboarded
+      - generic [ref=e582]:
+        - heading "Virtual Classrooms A centralized space where teachers deliver lessons and students access projects, resources, and grades." [level=2] [ref=e583] [cursor=pointer]:
+          - button "Virtual Classrooms A centralized space where teachers deliver lessons and students access projects, resources, and grades." [expanded] [ref=e584]:
+            - generic [ref=e585]:
+              - generic [ref=e586]:
+                - img [ref=e587]
+                - heading "Virtual Classrooms" [level=2] [ref=e589]
+              - heading "A centralized space where teachers deliver lessons and students access projects, resources, and grades." [level=4] [ref=e590]
+            - img [ref=e591]
+        - region "Virtual Classrooms A centralized space where teachers deliver lessons and students access projects, resources, and grades." [ref=e594]:
+          - generic [ref=e595]:
+            - region "The Problem" [ref=e596]:
+              - heading "The Problem" [level=2] [ref=e597] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e598]:
+                  - generic [ref=e599]: The Problem
+                  - img [ref=e600]
+              - region "The Problem" [ref=e603]:
+                - paragraph [ref=e604]: Once organizations and licensing were in place, we still needed a structured way for teachers to actually teach. Teachers needed a home base for each course where they could present curriculum, share resources, and track student progress. Students needed a simple, predictable place to join class, access lessons, and open project work.
+                - paragraph [ref=e605]: We also needed a unified entry point where any user—teacher or student—could see every classroom they belonged to without exposing the underlying organization and licensing complexity.
+            - region [ref=e606]:
+              - heading "Classroom Flow" [level=2] [ref=e607] [cursor=pointer]:
+                - button "Classroom Flow" [expanded] [ref=e608]:
+                  - generic [ref=e609]: Classroom Flow
+                  - img [ref=e610]
+              - region "Classroom Flow" [ref=e613]:
+                - generic [ref=e614]:
+                  - img "Classroom Flow" [ref=e615]:
+                    - document [ref=e616]:
+                      - generic [ref=e618]:
+                        - generic [ref=e626]:
+                          - generic [ref=e632]: Teacher
+                          - generic [ref=e638]: Student
+                          - generic [ref=e644]: Existing
+                          - generic [ref=e650]: New
+                        - generic [ref=e651]:
+                          - paragraph [ref=e658]: User
+                          - paragraph [ref=e665]: Classrooms Page
+                          - paragraph [ref=e672]: Teacher Classes
+                          - paragraph [ref=e679]: Student Classes
+                          - paragraph [ref=e686]: Classroom Dashboard
+                          - paragraph [ref=e693]: Lesson List
+                          - paragraph [ref=e700]: Project Resolver
+                          - paragraph [ref=e707]: Open Project
+                          - paragraph [ref=e714]: Clone Template
+                          - paragraph [ref=e721]: Student Project + Grade Entry
+                  - paragraph [ref=e722]: Users transition from classrooms into lesson-driven project work through a predictable flow.
+            - region "The Solution" [ref=e723]:
+              - heading "The Solution" [level=2] [ref=e724] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e725]:
+                  - generic [ref=e726]: The Solution
+                  - img [ref=e727]
+              - region "The Solution" [ref=e730]:
+                - paragraph [ref=e731]: I introduced Classrooms as a first-class feature in the main navigation. The Classrooms page shows each user a personalized list of every classroom they belong to—highlighting which ones they own as a teacher versus where they are enrolled as a student. Teacher-owned classrooms surface additional metadata like student counts and management options.
+                - paragraph [ref=e732]: "Clicking into a classroom opens a Classroom Dashboard: a hub that displays course information, instructor details, attached resources, and the full lesson list. Students can open any lesson as a project; if a project doesn't exist yet, the system clones a lesson template, saves it to the student's projects, and initializes a grade entry for later evaluation."
+            - generic [ref=e733]:
+              - heading "Classroom Experience" [level=2] [ref=e734] [cursor=pointer]:
+                - button "Classroom Experience" [expanded] [ref=e735]:
+                  - heading "Classroom Experience" [level=3] [ref=e736]
+                  - img [ref=e737]
+              - region "Classroom Experience" [ref=e740]:
+                - generic [ref=e741]:
+                  - generic [ref=e742]:
+                    - img "Classrooms dashboard with coding classes and statuses." [ref=e744] [cursor=pointer]
+                    - paragraph [ref=e745]: The classrooms dashboard allows instructors to manage multiple coding classes, track student progress, and organize lesson plans effectively.
+                  - generic [ref=e746]:
+                    - img "Classroom dashboard from the teachers perspective with course overview video, units, and resources." [ref=e748] [cursor=pointer]
+                    - paragraph [ref=e749]: The classroom dashboard provides teachers with an overview of the course, including an introductory video, unit breakdowns, and access to teaching resources.
+            - generic [ref=e750]:
+              - heading "Benefits" [level=2] [ref=e751] [cursor=pointer]:
+                - button "Benefits" [expanded] [ref=e752]:
+                  - heading "Benefits" [level=2] [ref=e755]
+                  - img [ref=e756]
+              - region "Benefits" [ref=e759]:
+                - paragraph [ref=e760]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Benefits" [ref=e762]:
+                  - generic [ref=e763]:
+                    - heading "Unified Classroom Access" [level=2] [ref=e764] [cursor=pointer]:
+                      - button "Unified Classroom Access" [expanded] [ref=e765]:
+                        - heading "Unified Classroom Access" [level=4] [ref=e766]
+                        - img [ref=e767]
+                    - region "Unified Classroom Access" [ref=e770]:
+                      - group [ref=e771]: Single, role-aware entry point for all classes a user belongs to
+                  - generic [ref=e772]:
+                    - heading "Centralized Course Hub" [level=2] [ref=e773] [cursor=pointer]:
+                      - button "Centralized Course Hub" [expanded] [ref=e774]:
+                        - heading "Centralized Course Hub" [level=4] [ref=e775]
+                        - img [ref=e776]
+                    - region "Centralized Course Hub" [ref=e779]:
+                      - group [ref=e780]: Automatic cloning of lesson templates into student projects
+                  - generic [ref=e781]:
+                    - heading "Streamlined Project Management" [level=2] [ref=e782] [cursor=pointer]:
+                      - button "Streamlined Project Management" [expanded] [ref=e783]:
+                        - heading "Streamlined Project Management" [level=4] [ref=e784]
+                        - img [ref=e785]
+                    - region "Streamlined Project Management" [ref=e788]:
+                      - group [ref=e789]: Tight integration with grading and reporting features
+                  - generic [ref=e790]:
+                    - heading "Enhanced Learning Experience" [level=2] [ref=e791] [cursor=pointer]:
+                      - button "Enhanced Learning Experience" [expanded] [ref=e792]:
+                        - heading "Enhanced Learning Experience" [level=4] [ref=e793]
+                        - img [ref=e794]
+                    - region "Enhanced Learning Experience" [ref=e797]:
+                      - group [ref=e798]: Classroom dashboard that keeps lessons, resources, and projects in sync
+      - generic [ref=e799]:
+        - heading "Grades & Reports Integrated grading workflows and exportable reports that align with how real classrooms operate." [level=2] [ref=e800] [cursor=pointer]:
+          - button "Grades & Reports Integrated grading workflows and exportable reports that align with how real classrooms operate." [expanded] [ref=e801]:
+            - generic [ref=e802]:
+              - generic [ref=e803]:
+                - img [ref=e804]
+                - heading "Grades & Reports" [level=2] [ref=e806]
+              - heading "Integrated grading workflows and exportable reports that align with how real classrooms operate." [level=4] [ref=e807]
+            - img [ref=e808]
+        - region "Grades & Reports Integrated grading workflows and exportable reports that align with how real classrooms operate." [ref=e811]:
+          - generic [ref=e812]:
+            - region "The Problem" [ref=e813]:
+              - heading "The Problem" [level=2] [ref=e814] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e815]:
+                  - generic [ref=e816]: The Problem
+                  - img [ref=e817]
+              - region "The Problem" [ref=e820]:
+                - paragraph [ref=e821]: "As the primary instructor for several cohorts, I kept running into the same pattern: when a student's project wasn't working, the only option was to stop class and have them share their screen. It was slow, awkward, and made it difficult to give deep feedback without sacrificing everyone else's time."
+                - paragraph [ref=e822]: On top of that, leadership needed a way to monitor how classes were performing as a whole. There was no built-in system for assigning grades, leaving written feedback, or viewing classroom-level progress across lessons. Everything lived in spreadsheets and memory.
+            - region "The Solution" [ref=e823]:
+              - heading "The Solution" [level=2] [ref=e824] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e825]:
+                  - generic [ref=e826]: The Solution
+                  - img [ref=e827]
+              - region "The Solution" [ref=e830]:
+                - paragraph [ref=e831]: I built a grading system that connects directly to classroom membership, user roles, and project storage. From a secure grading view, teachers and organization admins can open a student's project, run their code, and leave structured feedback without interrupting the rest of the class.
+                - paragraph [ref=e832]: To support different school expectations, I implemented a flexible grading model that supports both Pass/Fail and Numeric/Letter grading modes. A UI toggle switches modes, while the database stores everything in a single integer-based model (e.g., -2 = ungraded, -1 = fail, 101 = pass, 0–100 = numeric/letter). Students see their assignment grades and class average directly on the Classroom page.
+            - generic [ref=e833]:
+              - heading "Roster & Grading Views" [level=2] [ref=e834] [cursor=pointer]:
+                - button "Roster & Grading Views" [expanded] [ref=e835]:
+                  - heading "Roster & Grading Views" [level=3] [ref=e836]
+                  - img [ref=e837]
+              - region "Roster & Grading Views" [ref=e840]:
+                - generic [ref=e841]:
+                  - generic [ref=e842]:
+                    - img "Grading page for web development project with student submissions and grading interface." [ref=e844] [cursor=pointer]
+                    - paragraph [ref=e845]: The grading page allows instructors to review student submissions and provide feedback for web development projects.
+                  - generic [ref=e846]:
+                    - img "Classroom roster management page with list of students enrolled in a coding class." [ref=e848] [cursor=pointer]
+                    - paragraph [ref=e849]: The roster management page allows instructors to view and manage the list of students enrolled in their coding class, including enrollment status and progress tracking.
+                  - generic [ref=e850]:
+                    - img "Classroom reports page with student performance analytics and progress tracking." [ref=e852] [cursor=pointer]
+                    - paragraph [ref=e853]: The classroom reports page provides instructors with detailed analytics on student performance, including completion rates, assignment scores, and progress tracking.
+            - generic [ref=e854]:
+              - heading "Feature Breakdown" [level=2] [ref=e855] [cursor=pointer]:
+                - button "Feature Breakdown" [expanded] [ref=e856]:
+                  - heading "Feature Breakdown" [level=2] [ref=e859]
+                  - img [ref=e860]
+              - region "Feature Breakdown" [ref=e863]:
+                - paragraph [ref=e864]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Feature Breakdown" [ref=e866]:
+                  - generic [ref=e867]:
+                    - heading "Secure Grading Interface" [level=2] [ref=e868] [cursor=pointer]:
+                      - button "Secure Grading Interface" [expanded] [ref=e869]:
+                        - heading "Secure Grading Interface" [level=4] [ref=e870]
+                        - img [ref=e871]
+                    - region "Secure Grading Interface" [ref=e874]:
+                      - group [ref=e875]: Secure project viewer limited to teachers and organization admins
+                  - generic [ref=e876]:
+                    - heading "Integrated Grading Workflow" [level=2] [ref=e877] [cursor=pointer]:
+                      - button "Integrated Grading Workflow" [expanded] [ref=e878]:
+                        - heading "Integrated Grading Workflow" [level=4] [ref=e879]
+                        - img [ref=e880]
+                    - region "Integrated Grading Workflow" [ref=e883]:
+                      - group [ref=e884]: Grading UI integrated directly into the project view
+                  - generic [ref=e885]:
+                    - heading "Flexible Grading Models" [level=2] [ref=e886] [cursor=pointer]:
+                      - button "Flexible Grading Models" [expanded] [ref=e887]:
+                        - heading "Flexible Grading Models" [level=4] [ref=e888]
+                        - img [ref=e889]
+                    - region "Flexible Grading Models" [ref=e892]:
+                      - group [ref=e893]: Support for Pass/Fail and Numeric/Letter grading styles
+                  - generic [ref=e894]:
+                    - heading "Real-Time Feedback" [level=2] [ref=e895] [cursor=pointer]:
+                      - button "Real-Time Feedback" [expanded] [ref=e896]:
+                        - heading "Real-Time Feedback" [level=4] [ref=e897]
+                        - img [ref=e898]
+                    - region "Real-Time Feedback" [ref=e901]:
+                      - group [ref=e902]: Integer-based grade model for simple aggregation and reporting
+                  - generic [ref=e903]:
+                    - heading "Student Visibility" [level=2] [ref=e904] [cursor=pointer]:
+                      - button "Student Visibility" [expanded] [ref=e905]:
+                        - heading "Student Visibility" [level=4] [ref=e906]
+                        - img [ref=e907]
+                    - region "Student Visibility" [ref=e910]:
+                      - group [ref=e911]: Real-time class average and per-assignment feedback visibility for students
+            - region "Reporting Layer" [ref=e912]:
+              - heading "Reporting Layer" [level=2] [ref=e913] [cursor=pointer]:
+                - button "Reporting Layer" [expanded] [ref=e914]:
+                  - generic [ref=e915]: Reporting Layer
+                  - img [ref=e916]
+              - region "Reporting Layer" [ref=e919]:
+                - paragraph [ref=e920]: To give educators and coordinators a higher-level view, I also built a reporting layer using RSuite's Table component. Teachers can export results as a simple .txt summary for archival purposes or as a fully styled, color-coded PDF that's ready for presentations or parent meetings.
+            - generic [ref=e921]:
+              - heading "Reporting Capabilities" [level=2] [ref=e922] [cursor=pointer]:
+                - button "Reporting Capabilities" [expanded] [ref=e923]:
+                  - heading "Reporting Capabilities" [level=2] [ref=e926]
+                  - img [ref=e927]
+              - region "Reporting Capabilities" [ref=e930]:
+                - paragraph [ref=e931]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Reporting Capabilities" [ref=e933]:
+                  - generic [ref=e934]:
+                    - heading "Classroom-Level Reports" [level=2] [ref=e935] [cursor=pointer]:
+                      - button "Classroom-Level Reports" [expanded] [ref=e936]:
+                        - heading "Classroom-Level Reports" [level=4] [ref=e937]
+                        - img [ref=e938]
+                    - region "Classroom-Level Reports" [ref=e941]:
+                      - group [ref=e942]: Aggregate performance data across all students and lessons in a classroom
+                  - generic [ref=e943]:
+                    - heading "Automated Averages" [level=2] [ref=e944] [cursor=pointer]:
+                      - button "Automated Averages" [expanded] [ref=e945]:
+                        - heading "Automated Averages" [level=4] [ref=e946]
+                        - img [ref=e947]
+                    - region "Automated Averages" [ref=e950]:
+                      - group [ref=e951]: Automatic calculation of averages, completion rates, and grade distributions
+                  - generic [ref=e952]:
+                    - heading "Export Reports (PDF & Text)" [level=2] [ref=e953] [cursor=pointer]:
+                      - button "Export Reports (PDF & Text)" [expanded] [ref=e954]:
+                        - heading "Export Reports (PDF & Text)" [level=4] [ref=e955]
+                        - img [ref=e956]
+                    - region "Export Reports (PDF & Text)" [ref=e959]:
+                      - group [ref=e960]: Ready-to-use text summaries for archives and color-coded PDFs for presentations
+                  - generic [ref=e961]:
+                    - heading "Presentation-Ready PDFs" [level=2] [ref=e962] [cursor=pointer]:
+                      - button "Presentation-Ready PDFs" [expanded] [ref=e963]:
+                        - heading "Presentation-Ready PDFs" [level=4] [ref=e964]
+                        - img [ref=e965]
+                    - region "Presentation-Ready PDFs" [ref=e968]:
+                      - group [ref=e969]: Color-coded PDF classroom reports for polished, presentation-ready summaries
+      - generic [ref=e970]:
+        - heading "Admin Monitoring & Super Admin Role-based oversight tools that let coordinators and platform staff manage classrooms without touching the database." [level=2] [ref=e971] [cursor=pointer]:
+          - button "Admin Monitoring & Super Admin Role-based oversight tools that let coordinators and platform staff manage classrooms without touching the database." [expanded] [ref=e972]:
+            - generic [ref=e973]:
+              - generic [ref=e974]:
+                - img [ref=e975]
+                - heading "Admin Monitoring & Super Admin" [level=2] [ref=e977]
+              - heading "Role-based oversight tools that let coordinators and platform staff manage classrooms without touching the database." [level=4] [ref=e978]
+            - img [ref=e979]
+        - region "Admin Monitoring & Super Admin Role-based oversight tools that let coordinators and platform staff manage classrooms without touching the database." [ref=e982]:
+          - generic [ref=e983]:
+            - region "The Problem" [ref=e984]:
+              - heading "The Problem" [level=2] [ref=e985] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e986]:
+                  - generic [ref=e987]: The Problem
+                  - img [ref=e988]
+              - region "The Problem" [ref=e991]:
+                - paragraph [ref=e992]: As the platform grew, it wasn't just teachers and students who needed visibility. School partners had coordinators responsible for configuring classrooms, enrolling students, and supporting teachers. They needed more control than a teacher—but not full platform-wide access.
+                - paragraph [ref=e993]: "Internally, our team also needed a way to manage every organization from a central place: adjusting licenses, helping with onboarding, and debugging edge cases. Without an admin UI, the only option was to manipulate data directly in the database, which was both risky and slow."
+            - region "The Solution" [ref=e994]:
+              - heading "The Solution" [level=2] [ref=e995] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e996]:
+                  - generic [ref=e997]: The Solution
+                  - img [ref=e998]
+              - region "The Solution" [ref=e1001]:
+                - paragraph [ref=e1002]: "I implemented a role-based access control (RBAC) system with a clear hierarchy: Student → Teacher → Organization Admin → Super Admin. On top of that, I built dedicated admin UIs so that each level had the tools they needed without exposing internals they shouldn't see."
+            - generic [ref=e1003]:
+              - heading "Organization Admin" [level=2] [ref=e1004] [cursor=pointer]:
+                - button "Organization Admin" [expanded] [ref=e1005]:
+                  - heading "Organization Admin" [level=2] [ref=e1008]
+                  - img [ref=e1009]
+              - region "Organization Admin" [ref=e1012]:
+                - paragraph [ref=e1013]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Organization Admin" [ref=e1015]:
+                  - generic [ref=e1016]:
+                    - heading "Organization Admin Capabilities" [level=2] [ref=e1017] [cursor=pointer]:
+                      - button "Organization Admin Capabilities" [expanded] [ref=e1018]:
+                        - heading "Organization Admin Capabilities" [level=4] [ref=e1019]
+                        - img [ref=e1020]
+                    - region "Organization Admin Capabilities" [ref=e1023]:
+                      - group [ref=e1024]: "Organization Admins gained full visibility into everything within their tenant, including all classrooms owned by any teacher in that organization. They could:"
+                  - generic [ref=e1025]:
+                    - heading "View Classrooms & Rosters" [level=2] [ref=e1026] [cursor=pointer]:
+                      - button "View Classrooms & Rosters" [expanded] [ref=e1027]:
+                        - heading "View Classrooms & Rosters" [level=4] [ref=e1028]
+                        - img [ref=e1029]
+                    - region "View Classrooms & Rosters" [ref=e1032]:
+                      - group [ref=e1033]: View any teacher's classroom and its roster
+                  - generic [ref=e1034]:
+                    - heading "Manage Classrooms" [level=2] [ref=e1035] [cursor=pointer]:
+                      - button "Manage Classrooms" [expanded] [ref=e1036]:
+                        - heading "Manage Classrooms" [level=4] [ref=e1037]
+                        - img [ref=e1038]
+                    - region "Manage Classrooms" [ref=e1041]:
+                      - group [ref=e1042]: Modify classroom settings, meeting links, and attached resources
+                  - generic [ref=e1043]:
+                    - heading "Add & Remove Students & Teachers" [level=2] [ref=e1044] [cursor=pointer]:
+                      - button "Add & Remove Students & Teachers" [expanded] [ref=e1045]:
+                        - heading "Add & Remove Students & Teachers" [level=4] [ref=e1046]
+                        - img [ref=e1047]
+                    - region "Add & Remove Students & Teachers" [ref=e1050]:
+                      - group [ref=e1051]: Add or remove students and teachers from the organization
+                  - generic [ref=e1052]:
+                    - heading "Override & Update Student Grades" [level=2] [ref=e1053] [cursor=pointer]:
+                      - button "Override & Update Student Grades" [expanded] [ref=e1054]:
+                        - heading "Override & Update Student Grades" [level=4] [ref=e1055]
+                        - img [ref=e1056]
+                    - region "Override & Update Student Grades" [ref=e1059]:
+                      - group [ref=e1060]: Override or update student grades when needed
+                  - generic [ref=e1061]:
+                    - heading "Retrieve Reports" [level=2] [ref=e1062] [cursor=pointer]:
+                      - button "Retrieve Reports" [expanded] [ref=e1063]:
+                        - heading "Retrieve Reports" [level=4] [ref=e1064]
+                        - img [ref=e1065]
+                    - region "Retrieve Reports" [ref=e1068]:
+                      - group [ref=e1069]: Retrieve reports for both active and archived classrooms
+                  - generic [ref=e1070]:
+                    - heading "Troubleshoot Student Projects" [level=2] [ref=e1071] [cursor=pointer]:
+                      - button "Troubleshoot Student Projects" [expanded] [ref=e1072]:
+                        - heading "Troubleshoot Student Projects" [level=4] [ref=e1073]
+                        - img [ref=e1074]
+                    - region "Troubleshoot Student Projects" [ref=e1077]:
+                      - group [ref=e1078]: Inspect student projects directly when troubleshooting issues
+                  - generic [ref=e1079]:
+                    - heading "Logistical Support" [level=2] [ref=e1080] [cursor=pointer]:
+                      - button "Logistical Support" [expanded] [ref=e1081]:
+                        - heading "Logistical Support" [level=4] [ref=e1082]
+                        - img [ref=e1083]
+                    - region "Logistical Support" [ref=e1086]:
+                      - group [ref=e1087]: Allowed classroom coordinators to handle logistics and quality control while teachers focused on instruction.
+            - generic [ref=e1088]:
+              - heading "Admin UI Screenshots" [level=2] [ref=e1089] [cursor=pointer]:
+                - button "Admin UI Screenshots" [expanded] [ref=e1090]:
+                  - heading "Admin UI Screenshots" [level=3] [ref=e1091]
+                  - img [ref=e1092]
+              - region "Admin UI Screenshots" [ref=e1095]:
+                - generic [ref=e1097]:
+                  - img "Organization roster management page with list of teachers and admins." [ref=e1099] [cursor=pointer]
+                  - paragraph [ref=e1100]: The roster management page enables organization admins to add, remove, and manage teachers and administrators within the institution.
+            - region "Super Admin" [ref=e1101]:
+              - heading "Super Admin" [level=2] [ref=e1102] [cursor=pointer]:
+                - button "Super Admin" [expanded] [ref=e1103]:
+                  - generic [ref=e1104]: Super Admin
+                  - img [ref=e1105]
+              - region "Super Admin" [ref=e1108]:
+                - paragraph [ref=e1109]: To support platform operations, I built a Super Admin dashboard available only to a small group of trusted users. From this view, we could see every organization, inspect its classrooms, and manage licensing without leaving the UI.
+            - generic [ref=e1110]:
+              - heading "Super Admin Capabilities" [level=2] [ref=e1111] [cursor=pointer]:
+                - button "Super Admin Capabilities" [expanded] [ref=e1112]:
+                  - heading "Super Admin Capabilities" [level=2] [ref=e1115]
+                  - img [ref=e1116]
+              - region "Super Admin Capabilities" [ref=e1119]:
+                - paragraph [ref=e1120]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Super Admin Capabilities" [ref=e1122]:
+                  - generic [ref=e1123]:
+                    - heading "Platform-Wide Oversight" [level=2] [ref=e1124] [cursor=pointer]:
+                      - button "Platform-Wide Oversight" [expanded] [ref=e1125]:
+                        - heading "Platform-Wide Oversight" [level=4] [ref=e1126]
+                        - img [ref=e1127]
+                    - region "Platform-Wide Oversight" [ref=e1130]:
+                      - group [ref=e1131]: Viewing and editing any organization's license and limits
+                  - generic [ref=e1132]:
+                    - heading "Organization Management" [level=2] [ref=e1133] [cursor=pointer]:
+                      - button "Organization Management" [expanded] [ref=e1134]:
+                        - heading "Organization Management" [level=4] [ref=e1135]
+                        - img [ref=e1136]
+                    - region "Organization Management" [ref=e1139]:
+                      - group [ref=e1140]: Creating and updating organizations, admins, and teachers
+                  - generic [ref=e1141]:
+                    - heading "Classroom Inspection" [level=2] [ref=e1142] [cursor=pointer]:
+                      - button "Classroom Inspection" [expanded] [ref=e1143]:
+                        - heading "Classroom Inspection" [level=4] [ref=e1144]
+                        - img [ref=e1145]
+                    - region "Classroom Inspection" [ref=e1148]:
+                      - group [ref=e1149]: Jumping into any classroom for debugging or support
+                  - generic [ref=e1150]:
+                    - heading "License Adjustments" [level=2] [ref=e1151] [cursor=pointer]:
+                      - button "License Adjustments" [expanded] [ref=e1152]:
+                        - heading "License Adjustments" [level=4] [ref=e1153]
+                        - img [ref=e1154]
+                    - region "License Adjustments" [ref=e1157]:
+                      - group [ref=e1158]: Managing edge-case data issues without raw database access
+                  - generic [ref=e1159]:
+                    - heading "Auditability & Security" [level=2] [ref=e1160] [cursor=pointer]:
+                      - button "Auditability & Security" [expanded] [ref=e1161]:
+                        - heading "Auditability & Security" [level=4] [ref=e1162]
+                        - img [ref=e1163]
+                    - region "Auditability & Security" [ref=e1166]:
+                      - group [ref=e1167]: Eliminated the need for backend-only tools and ensured all critical actions flowed through audited, API-driven pathways.
+            - generic [ref=e1168]:
+              - heading "Architecture Highlights" [level=2] [ref=e1169] [cursor=pointer]:
+                - button "Architecture Highlights" [expanded] [ref=e1170]:
+                  - heading "Architecture Highlights" [level=2] [ref=e1173]
+                  - img [ref=e1174]
+              - region "Architecture Highlights" [ref=e1177]:
+                - paragraph [ref=e1178]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Architecture Highlights" [ref=e1180]:
+                  - generic [ref=e1181]:
+                    - heading "Role-Based Access Control" [level=2] [ref=e1182] [cursor=pointer]:
+                      - button "Role-Based Access Control" [expanded] [ref=e1183]:
+                        - heading "Role-Based Access Control" [level=4] [ref=e1184]
+                        - img [ref=e1185]
+                    - region "Role-Based Access Control" [ref=e1188]:
+                      - group [ref=e1189]: RBAC model with clearly defined role boundaries
+                  - generic [ref=e1190]:
+                    - heading "Tenant Isolation" [level=2] [ref=e1191] [cursor=pointer]:
+                      - button "Tenant Isolation" [expanded] [ref=e1192]:
+                        - heading "Tenant Isolation" [level=4] [ref=e1193]
+                        - img [ref=e1194]
+                    - region "Tenant Isolation" [ref=e1197]:
+                      - group [ref=e1198]: "Multi-tenant isolation: admins manage only their own organization"
+                  - generic [ref=e1199]:
+                    - heading "Super Admin Interface" [level=2] [ref=e1200] [cursor=pointer]:
+                      - button "Super Admin Interface" [expanded] [ref=e1201]:
+                        - heading "Super Admin Interface" [level=4] [ref=e1202]
+                        - img [ref=e1203]
+                    - region "Super Admin Interface" [ref=e1206]:
+                      - group [ref=e1207]: Super Admins manage any tenant through a dedicated UI, not by editing the database
+                  - generic [ref=e1208]:
+                    - heading "API-Driven Modifications" [level=2] [ref=e1209] [cursor=pointer]:
+                      - button "API-Driven Modifications" [expanded] [ref=e1210]:
+                        - heading "API-Driven Modifications" [level=4] [ref=e1211]
+                        - img [ref=e1212]
+                    - region "API-Driven Modifications" [ref=e1215]:
+                      - group [ref=e1216]: All modifications go through the same API layer used by the app, keeping behavior consistent and auditable
+      - generic [ref=e1217]:
+        - heading "Curriculum Builder A modular system for creating and reusing courses, units, lessons, and resources across organizations." [level=2] [ref=e1218] [cursor=pointer]:
+          - button "Curriculum Builder A modular system for creating and reusing courses, units, lessons, and resources across organizations." [expanded] [ref=e1219]:
+            - generic [ref=e1220]:
+              - generic [ref=e1221]:
+                - img [ref=e1222]
+                - heading "Curriculum Builder" [level=2] [ref=e1224]
+              - heading "A modular system for creating and reusing courses, units, lessons, and resources across organizations." [level=4] [ref=e1225]
+            - img [ref=e1226]
+        - region "Curriculum Builder A modular system for creating and reusing courses, units, lessons, and resources across organizations." [ref=e1229]:
+          - generic [ref=e1230]:
+            - region "The Problem" [ref=e1231]:
+              - heading "The Problem" [level=2] [ref=e1232] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e1233]:
+                  - generic [ref=e1234]: The Problem
+                  - img [ref=e1235]
+              - region "The Problem" [ref=e1238]:
+                - paragraph [ref=e1239]: As more organizations came onto the platform, we needed a better way to build and manage curriculum. Teachers and content teams wanted to assemble courses from reusable units and lessons rather than recreating the same content for each classroom or school.
+                - paragraph [ref=e1240]: "We also needed a clear separation between curriculum design and classroom delivery: a course might be taught across multiple organizations, and organizations might customize or extend their own copies over time."
+            - region [ref=e1241]:
+              - heading "Curriculum Model" [level=2] [ref=e1242] [cursor=pointer]:
+                - button "Curriculum Model" [expanded] [ref=e1243]:
+                  - generic [ref=e1244]: Curriculum Model
+                  - img [ref=e1245]
+              - region "Curriculum Model" [ref=e1248]:
+                - generic [ref=e1249]:
+                  - img "Curriculum Model" [ref=e1250]:
+                    - document [ref=e1251]:
+                      - generic [ref=e1259]:
+                        - paragraph [ref=e1266]: Organization
+                        - paragraph [ref=e1273]: Curriculum Dashboard
+                        - paragraph [ref=e1280]: Course
+                        - paragraph [ref=e1287]: Unit
+                        - paragraph [ref=e1294]: Lesson
+                        - paragraph [ref=e1301]: Resources
+                        - paragraph [ref=e1308]: Lesson Template
+                        - paragraph [ref=e1315]: Classroom Usage
+                  - paragraph [ref=e1316]: Courses are composed of reusable units and lessons that classrooms consume consistently.
+            - region "The Solution" [ref=e1317]:
+              - heading "The Solution" [level=2] [ref=e1318] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e1319]:
+                  - generic [ref=e1320]: The Solution
+                  - img [ref=e1321]
+              - region "The Solution" [ref=e1324]:
+                - paragraph [ref=e1325]: "I built a Curriculum Builder that allows users to compose courses from modular pieces: courses contain units, units contain lessons, and lessons can have attached resources. Once a lesson is part of a course, organizations can attach additional resources or tweak metadata without breaking the underlying lesson template."
+                - paragraph [ref=e1326]: A dedicated curriculum dashboard lets authorized users browse all courses, units, and lessons within their active organization. Adding a lesson to a course uses a searchable, tabular picker (powered by RSuite) that reinforces the idea that lessons are reusable assets rather than one-off copies.
+            - generic [ref=e1327]:
+              - heading "Curriculum Screens" [level=2] [ref=e1328] [cursor=pointer]:
+                - button "Curriculum Screens" [expanded] [ref=e1329]:
+                  - heading "Curriculum Screens" [level=3] [ref=e1330]
+                  - img [ref=e1331]
+              - region "Curriculum Screens" [ref=e1334]:
+                - generic [ref=e1335]:
+                  - generic [ref=e1336]:
+                    - img "Organization curriculum library with shared coding courses and resources." [ref=e1338] [cursor=pointer]
+                    - paragraph [ref=e1339]: The organization library allows institutions to share and manage coding courses, lessons, and resources across multiple classes and instructors.
+                  - generic [ref=e1340]:
+                    - img "My Content page with personal curriculum pieces created for an organization." [ref=e1342] [cursor=pointer]
+                    - paragraph [ref=e1343]: The My Content page allows instructors to view, edit, and manage their personal curriculum pieces created for their organization.
+                  - generic [ref=e1344]:
+                    - img "Course builder interface with curriculum creation tools and lesson organization." [ref=e1346] [cursor=pointer]
+                    - paragraph [ref=e1347]: The course builder interface allows instructors to create and organize curriculum pieces, design lessons, and structure coding courses effectively.
+                  - generic [ref=e1348]:
+                    - img "Lesson attachment interface with list of available lessons and button to attach them to a course." [ref=e1350] [cursor=pointer]
+                    - paragraph [ref=e1351]: The lesson attachment interface allows instructors to select and attach lessons a unit in a course. Streamlining the process of building curriculum by letting instructors easily combine curriculumn pieces into a complete course.
+            - generic [ref=e1352]:
+              - heading "Benefits" [level=2] [ref=e1353] [cursor=pointer]:
+                - button "Benefits" [expanded] [ref=e1354]:
+                  - heading "Benefits" [level=2] [ref=e1357]
+                  - img [ref=e1358]
+              - region "Benefits" [ref=e1361]:
+                - paragraph [ref=e1362]: "Keyboard: ↑/↓ navigate • ← collapse • → expand • Enter/Space toggle"
+                - tree "Benefits" [ref=e1364]:
+                  - generic [ref=e1365]:
+                    - heading "Reusable Curriculum" [level=2] [ref=e1366] [cursor=pointer]:
+                      - button "Reusable Curriculum" [expanded] [ref=e1367]:
+                        - heading "Reusable Curriculum" [level=4] [ref=e1368]
+                        - img [ref=e1369]
+                    - region "Reusable Curriculum" [ref=e1372]:
+                      - group [ref=e1373]: Modular curriculum that can be reused across courses and organizations
+                  - generic [ref=e1374]:
+                    - heading "Separation of Concerns" [level=2] [ref=e1375] [cursor=pointer]:
+                      - button "Separation of Concerns" [expanded] [ref=e1376]:
+                        - heading "Separation of Concerns" [level=4] [ref=e1377]
+                        - img [ref=e1378]
+                    - region "Separation of Concerns" [ref=e1381]:
+                      - group [ref=e1382]: Clear separation between content creation and classroom delivery
+                  - generic [ref=e1383]:
+                    - heading "Centralized Management" [level=2] [ref=e1384] [cursor=pointer]:
+                      - button "Centralized Management" [expanded] [ref=e1385]:
+                        - heading "Centralized Management" [level=4] [ref=e1386]
+                        - img [ref=e1387]
+                    - region "Centralized Management" [ref=e1390]:
+                      - group [ref=e1391]: Structured dashboard for curriculum teams and admins
+                  - generic [ref=e1392]:
+                    - heading "Efficiency Gains" [level=2] [ref=e1393] [cursor=pointer]:
+                      - button "Efficiency Gains" [expanded] [ref=e1394]:
+                        - heading "Efficiency Gains" [level=4] [ref=e1395]
+                        - img [ref=e1396]
+                    - region "Efficiency Gains" [ref=e1399]:
+                      - group [ref=e1400]: Reduces duplication and makes updates easier to roll out
+      - generic [ref=e1401]:
+        - heading "Conclusion" [level=2] [ref=e1402] [cursor=pointer]:
+          - button "Conclusion" [expanded] [ref=e1403]:
+            - generic [ref=e1405]:
+              - img [ref=e1406]
+              - heading "Conclusion" [level=2] [ref=e1408]
+            - img [ref=e1409]
+        - region "Conclusion" [ref=e1412]:
+          - region [ref=e1414]:
+            - region [ref=e1416]:
+              - paragraph [ref=e1417]: My time at CodeStream Studios LLC was defined by building real products for real classrooms. As the sole front-end developer—and often the person connecting engineering, instruction, and operations—I had to design systems that worked not just in theory, but in the hands of teachers and students who depended on them every week.
+              - paragraph [ref=e1418]: "Although the company ultimately closed due to financial and organizational challenges, the experience gave me deep, practical exposure to product design, system architecture, and long-term platform stewardship. I'm bringing those lessons forward into my next role: designing tools that are robust, understandable, and genuinely useful to the people who rely on them."
+    - complementary [ref=e1419]:
+      - navigation "Section navigation" [ref=e1420]:
+        - listbox [ref=e1421]:
+          - listitem [ref=e1422]:
+            - paragraph [ref=e1423]: Overview
+          - listitem [ref=e1424]:
+            - paragraph [ref=e1425]: Key Features
+          - listitem [ref=e1426]:
+            - paragraph [ref=e1427]: 3 Panel Editor System
+          - listitem [ref=e1428]:
+            - paragraph [ref=e1429]: Organizations & Licensing
+          - listitem [ref=e1430]:
+            - paragraph [ref=e1431]: Virtual Classrooms
+          - listitem [ref=e1432]:
+            - paragraph [ref=e1433]: Grades & Reports
+          - listitem [ref=e1434]:
+            - paragraph [ref=e1435]: Admin Monitoring & Super Admin
+          - listitem [ref=e1436]:
+            - paragraph [ref=e1437]: Curriculum Builder
+          - listitem [ref=e1438]:
+            - paragraph [ref=e1439]: Conclusion
+  - generic [ref=e1441]:
+    - generic [ref=e1442]:
+      - generic [ref=e1444]:
+        - heading "Contact" [level=2] [ref=e1445]:
+          - heading "Contact" [level=4] [ref=e1446]
+        - generic [ref=e1448]:
+          - paragraph [ref=e1449] [cursor=pointer]:
+            - strong [ref=e1450]: "Phone:"
+            - text: (469) 410-5286
+          - paragraph [ref=e1451] [cursor=pointer]:
+            - strong [ref=e1452]: "Phone 2:"
+            - text: (972) 802-9397
+          - paragraph [ref=e1453]:
+            - strong [ref=e1454]: "Email:"
+            - link "fosterkyle6456@gmail.com" [ref=e1455] [cursor=pointer]:
+              - /url: mailto:fosterkyle6456@gmail.com
+      - generic [ref=e1457]:
+        - heading "Social" [level=2] [ref=e1458]:
+          - heading "Social" [level=4] [ref=e1459]
+        - generic [ref=e1461]:
+          - button "GitHub Profile" [ref=e1462] [cursor=pointer]:
+            - button "GitHub Profile" [ref=e1463]:
+              - button [ref=e1464]
+              - text: GitHub
+          - button "LinkedIn Profile" [ref=e1466] [cursor=pointer]:
+            - button "LinkedIn Profile" [ref=e1467]:
+              - button [ref=e1468]
+              - text: LinkedIn
+          - button "Preview resume" [ref=e1470] [cursor=pointer]:
+            - button [ref=e1471]
+            - text: View Resume
+    - generic [ref=e1473]: © 2026 Kyle Foster. All rights reserved.
+```

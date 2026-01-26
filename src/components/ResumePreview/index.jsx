@@ -1,70 +1,106 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal } from "rsuite";
+import { faFileLines, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import Btn from "components/Btn";
-import "./ResumePreview.css";
+
+// ✅ Import PDF as a Vite asset
+import resumePdf from "assets/data/Kyle_Foster_React_Resume.pdf";
+
+/**
+ * @file index.jsx
+ * @description Modal-based resume preview and download component.
+ * @module components/ResumePreview
+ */
 
 /**
  * ResumePreview
- * ------------------------------------------------------------
- * Frosted modal that previews the resume PDF and allows download.
+ * ---------------------------------------------------------------------------
+ * Frosted modal component that allows users to preview and download
+ * the resume PDF.
  *
- * Features:
- * - RSuite Modal (ESC, focus trap, accessibility)
- * - Embedded PDF preview
- * - Download CTA
- * - Uses existing frosted UI + Btn component
+ * Core responsibilities:
+ * - Opens a modal containing an embedded PDF preview
+ * - Provides a direct download link for the resume
+ * - Uses Vite asset imports to ensure correct bundling across environments
+ *
+ * Technical notes:
+ * - PDF is imported as a Vite-managed asset
+ * - Works consistently in local development and production builds
+ * - Modal styling is shared via global utility classes
+ *
+ * Accessibility:
+ * - RSuite Modal provides focus trapping and ESC-to-close behavior
+ * - Buttons include descriptive aria-labels and tooltips
+ * - Embedded iframe includes a fallback message
+ *
+ * @public
+ * @component
+ * @returns {JSX.Element} Rendered resume preview modal and trigger button.
  */
 const ResumePreview = () => {
   const [open, setOpen] = useState(false);
 
+  /**
+   * Opens the resume preview modal.
+   *
+   * @returns {void}
+   */
+  const openModal = () => setOpen(true);
+
+  /**
+   * Closes the resume preview modal.
+   *
+   * @returns {void}
+   */
+  const closeModal = () => setOpen(false);
+
   return (
     <>
-      {/* Trigger */}
+      {/* Trigger button */}
       <Btn
         text="View Resume"
-        icon="file-lines"
+        icon={faFileLines}
         variant="primary"
         size="lg"
-        onClick={() => setOpen(true)}
+        onClick={openModal}
         ariaLabel="Preview resume"
+        tooltip="Preview resume"
       />
 
       {/* Modal */}
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        size="lg"
-        className="resume-modal"
-        backdrop="static"
-      >
+      <Modal open={open} onClose={closeModal} size="lg" backdrop="static" className="modal-glass">
         <Modal.Header>
           <Modal.Title>Kyle Foster — Resume</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body className="resume-modal-body">
-          <iframe
-            src="../../assets/data/Kyle Foster - Resume.pdf"
-            title="Resume preview"
-            className="resume-iframe"
-          />
+        <Modal.Body className="modal-body-pad text-center">
+          <iframe src={resumePdf} title="Resume preview" className="modal-embed">
+            <p>
+              Your browser does not support embedded PDFs.
+              <a href={resumePdf} target="_blank" rel="noopener noreferrer">
+                Click here to download the resume.
+              </a>
+            </p>
+          </iframe>
         </Modal.Body>
 
-        <Modal.Footer className="resume-modal-footer">
-          <a
-            href="../../assets/data/Kyle Foster - Resume.pdf"
-            download="Kyle_Foster_Resume.pdf"
-          >
-            <Btn
-              text="Download"
-              icon="file-pdf"
-              variant="primary"
-            />
-          </a>
+        <Modal.Footer className="modal-footer-row">
+          <Btn
+            text="Download"
+            icon={faFilePdf}
+            variant="primary"
+            href={resumePdf}
+            download
+            ariaLabel="Download resume as a PDF"
+            tooltip="Download resume"
+          />
 
           <Btn
             text="Close"
             variant="secondary"
-            onClick={() => setOpen(false)}
+            onClick={closeModal}
+            ariaLabel="Close resume preview"
+            tooltip="Close resume preview"
           />
         </Modal.Footer>
       </Modal>

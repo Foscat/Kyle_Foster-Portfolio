@@ -1,14 +1,19 @@
 /* Base */
 .sticky-section-nav {
   position: sticky;
-  top: 1rem;
-  max-height: calc(100vh - 2rem);
+  margin-top: 2rem;
+  top: 8rem;
+  border-radius: var(--radius-xs);
   overflow-y: auto;
+  border: var(--frost-border);
+  box-shadow: var(--gold-glow);
 }
 
 /* Desktop */
 .sticky-section-nav--desktop {
-  padding-left: 1rem;
+  padding-left: 10px;
+  font-size: var(--font-sm);
+  box-shadow: var(--blue-glow);
 }
 
 /* Mobile */
@@ -27,25 +32,77 @@
 /* Items */
 .section-nav-item {
   margin-bottom: 0.5rem;
+  filter: blur(0px);
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    filter 220ms ease;
 }
 
 .section-nav-link {
   display: block;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 5px 0.5rem;
+  border-radius: var(--radius-xs);
+  line-height: normal;
   text-decoration: none;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   outline: none;
+  font-size: var(--font-md);
 }
 
 .section-nav-item.is-active .section-nav-link {
-  color: var(--text-primary);
+  color: var(--accent);
   background: var(--accent-soft);
   font-weight: 600;
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1.05);
+  animation: sectionActivate 180ms ease-out;
 }
 
 /* Focus styles (keyboard users) */
 .section-nav-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.section-nav-item:hover,
+.section-nav-link:hover,
+.section-nav-link:active {
+  opacity: 0.85;
+  transform: scale(0.995);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.section-nav-item:hover,
+.section-nav-link:hover,
+.section-nav-item:active,
+.section-nav-link:active,
+.section-nav-item:focus,
+.section-nav-link:focus {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+@keyframes sectionActivate {
+  from {
+    opacity: 0.6;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-nav-item,
+  .section-nav-item.is-active {
+    animation: none;
+    transition: none;
+    transform: none;
+    filter: none;
+  }
 }

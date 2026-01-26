@@ -19,19 +19,20 @@ B. Central Mermaid config (single source of truth)
 Create:
 
 src/diagrams/mermaidTheme.js
-/**
- * Mermaid theme generator
- * ------------------------------------------------------------
- * Keeps diagrams visually aligned with frosted UI + brand colors
- */
+/\*\*
+
+- Mermaid theme generator
+- ***
+- Keeps diagrams visually aligned with frosted UI + brand colors
+  \*/
 
 export const getMermaidTheme = (mode = "dark") => {
-  const isDark = mode === "dark";
+const isDark = mode === "dark";
 
-  return {
-    theme: "base",
-    themeVariables: {
-      background: "transparent",
+return {
+theme: "base",
+themeVariables: {
+background: "transparent",
 
       primaryColor: isDark
         ? "rgba(37, 99, 235, 0.35)"   // blue depth
@@ -53,9 +54,9 @@ export const getMermaidTheme = (mode = "dark") => {
 
       clusterBorder: "transparent",
     },
-  };
-};
 
+};
+};
 
 This ensures:
 
@@ -74,23 +75,24 @@ import { useTheme } from "../../theme/ThemeContext";
 import { getMermaidTheme } from "../../diagrams/mermaidTheme";
 import "./styles.css";
 
-/**
- * DiagramBlock
- * ------------------------------------------------------------
- * Renders a Mermaid diagram with theme-aware styling
- * Supports auto/light/dark and export-to-PNG
- */
-const DiagramBlock = ({ title, description, mermaid: code, theme = "auto" }) => {
+/\*\*
+
+- DiagramBlock
+- ***
+- Renders a Mermaid diagram with theme-aware styling
+- Supports auto/light/dark and export-to-PNG
+  \*/
+  const DiagramBlock = ({ title, description, mermaid: code, theme = "auto" }) => {
   const ref = useRef(null);
   const { resolvedTheme } = useTheme();
 
-  const finalTheme = theme === "auto" ? resolvedTheme : theme;
+const finalTheme = theme === "auto" ? resolvedTheme : theme;
 
-  useEffect(() => {
-    mermaid.initialize({
-      startOnLoad: false,
-      ...getMermaidTheme(finalTheme),
-    });
+useEffect(() => {
+mermaid.initialize({
+startOnLoad: false,
+...getMermaidTheme(finalTheme),
+});
 
     if (ref.current) {
       mermaid.render(
@@ -101,16 +103,18 @@ const DiagramBlock = ({ title, description, mermaid: code, theme = "auto" }) => 
         }
       );
     }
-  }, [code, finalTheme]);
 
-  return (
-    <Panel bordered className="diagram-panel frosted">
-      {title && <h4 className="diagram-title">{title}</h4>}
-      {description && <p className="diagram-description">{description}</p>}
+}, [code, finalTheme]);
+
+return (
+<Panel bordered className="diagram-panel frosted">
+{title && <h4 className="diagram-title">{title}</h4>}
+{description && <p className="diagram-description">{description}</p>}
 
       <div ref={ref} className="diagram-canvas" />
     </Panel>
-  );
+
+);
 };
 
 export default DiagramBlock;
@@ -120,20 +124,19 @@ D. Mobile expand / collapse (already planned)
 Add this CSS (minimal):
 
 .diagram-panel {
-  position: relative;
+position: relative;
 }
 
 .diagram-canvas {
-  overflow-x: auto;
+overflow-x: auto;
 }
 
 @media (max-width: 640px) {
-  .diagram-canvas {
-    max-height: 320px;
-    overflow-y: auto;
-  }
+.diagram-canvas {
+max-height: 320px;
+overflow-y: auto;
 }
-
+}
 
 You already wired export-to-PNG → this continues to work because Mermaid outputs SVG.
 
@@ -143,41 +146,41 @@ You already did 90% of the work with tokens. We’re just refining them.
 
 A. Extend your CSS tokens (no new classes)
 src/styles/tokens.css
-/* ============================================================
-   Brand Color Tokens
-   ============================================================ */
+/_ ============================================================
+Brand Color Tokens
+============================================================ _/
 
 :root {
-  --blue-500: 37, 99, 235;
-  --blue-700: 30, 58, 138;
+--blue-500: 37, 99, 235;
+--blue-700: 30, 58, 138;
 
-  --gold-400: 212, 175, 55;
-  --gold-500: 184, 134, 11;
+--gold-400: 212, 175, 55;
+--gold-500: 184, 134, 11;
 }
 
 B. Theme-specific gradient tuning
 Dark mode → blue depth
 html[data-theme="dark"] {
-  --glass-bg: linear-gradient(
-    135deg,
-    rgba(var(--blue-700), 0.45),
-    rgba(var(--blue-500), 0.18)
-  );
+--glass-bg: linear-gradient(
+135deg,
+rgba(var(--blue-700), 0.45),
+rgba(var(--blue-500), 0.18)
+);
 
-  --glass-border: rgba(var(--blue-500), 0.35);
-  --glass-glow: rgba(var(--blue-500), 0.45);
+--glass-border: rgba(var(--blue-500), 0.35);
+--glass-glow: rgba(var(--blue-500), 0.45);
 }
 
 Light mode → gold emphasis
 html[data-theme="light"] {
-  --glass-bg: linear-gradient(
-    135deg,
-    rgba(var(--gold-400), 0.35),
-    rgba(255, 255, 255, 0.85)
-  );
+--glass-bg: linear-gradient(
+135deg,
+rgba(var(--gold-400), 0.35),
+rgba(255, 255, 255, 0.85)
+);
 
-  --glass-border: rgba(var(--gold-500), 0.45);
-  --glass-glow: rgba(var(--gold-400), 0.55);
+--glass-border: rgba(var(--gold-500), 0.45);
+--glass-glow: rgba(var(--gold-400), 0.55);
 }
 
 C. One frosted class, no duplication
@@ -185,12 +188,11 @@ C. One frosted class, no duplication
 Your existing frosted components should already use:
 
 .frosted {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px var(--glass-glow);
-  backdrop-filter: blur(14px);
+background: var(--glass-bg);
+border: 1px solid var(--glass-border);
+box-shadow: 0 8px 32px var(--glass-glow);
+backdrop-filter: blur(14px);
 }
-
 
 This now automatically adapts across:
 
@@ -219,3 +221,23 @@ Responsive technical storytelling
 A design system that scales
 
 This is lead frontend / senior React engineer work, not portfolio fluff.
+
+---
+
+Add Mermaid syntax validation
+
+Add diagram snapshot tests
+
+Auto-generate PNGs for docs + GitHub Pages
+
+Add a diagram linter so this never breaks again
+
+Centralize Mermaid config across your app
+
+Create a Mermaid style guide for contributors
+
+Add Mermaid lint rules
+
+Auto-generate PNG/SVG during builds
+
+Add zoom + minimap for huge diagrams

@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
-import { FlexboxGrid } from "rsuite";
-import PageMetas from "assets/data/pageMetas";
-import hackathonSections from "assets/data/hackathonSections";
-import { renderTechUsedString } from "assets/utils";
+import { useEffect } from "react";
+import Data from "assets/data/pageMetas";
+import { restoreScrollPosition } from "navigation/restoreScrollPosition";
+import SectionRegistryProvider from "navigation/SectionRegistryProvider";
 import PageHeader from "components/PageHeader";
 import StickyNav from "components/StickyNav";
 import SectionRenderer from "components/SectionRenderer";
 import StickySectionNav from "components/StickySectionNav";
-import { restoreScrollPosition } from "navigation/restoreScrollPosition";
+import Footer from "components/Footer";
 
-const hack = PageMetas.Hackathon;
+const hack = Data.Hackathon;
 
 /**
  * Hackathon Page
@@ -26,31 +25,29 @@ const Hackathon = () => {
   }, []);
 
   return (
-    <div className="container">
-      <PageHeader
-        title={hack.title}
-        jobTitle={hack.jobTitle}
-        subTitle={`Tech Used: ${renderTechUsedString(hack.tech)}`}
-        timespan={hack.timespan}
-      />
-      <StickyNav />
-      <FlexboxGrid justify="space-around">
-        <FlexboxGrid.Item colspan={18}>
-          {hackathonSections.map((sect, i) => {
-            return (
-              <SectionRenderer
-                section={sect}
-                key={"hackathon-section" + i + 1}
-              />
-            );
-          })}
-        </FlexboxGrid.Item>
-        <FlexboxGrid.Item colspan={5}>
-          <StickySectionNav sections={hackathonSections} />
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
-      <Footer />
-    </div>
+    <SectionRegistryProvider>
+      <div className="container">
+        <PageHeader
+          title={hack.title}
+          jobTitle={hack.jobTitle}
+          subTitle={hack.description}
+          timespan={hack.timespan}
+          tech={hack.tech}
+        />
+        <StickyNav activePage={hack.url} />
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
+            {hack.sections.map((sect) => {
+              return <SectionRenderer section={sect} key={sect.id} />;
+            })}
+          </main>
+          <aside className="page-sidebar">
+            <StickySectionNav pageUrl={hack.url} sections={hack.sections} />
+          </aside>
+        </div>
+        <Footer />
+      </div>
+    </SectionRegistryProvider>
   );
 };
 
