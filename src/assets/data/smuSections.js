@@ -26,19 +26,49 @@ import imgObjs from "assets/images/smu";
 const smuSections = [
   {
     id: "smu-education",
+    icon: faGraduationCap,
     title: "SMU Full Stack Bootcamp",
     subtitle: "Foundational projects that launched my software development career",
-    icon: faGraduationCap,
     isScroller: true,
     blocks: [
       {
-        id: "smu-overview",
-        type: BlockType.RichText,
+        id: "smu-overview-text",
         title: "Overview",
+        type: BlockType.RICH_TEXT,
         icon: faTowerObservation,
-        paragraphs: [
-          "My time at Southern Methodist University marked the foundation of my transition into professional software development. During this period, I built a strong technical baseline in HTML, CSS, JavaScript, Node.js, Express, and React, while learning how to apply those skills through real projects rather than isolated exercises.",
-          "This page highlights three milestone projects that reflect my growth trajectory: Gif Freak, my first hands-on experience consuming external APIs; Stock Memer, my first collaborative team project involving live data and persistence; and Scion Matches, my capstone project where I designed a real-world matching system and took ownership of core business logic.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "My time at " },
+              { type: "strong", text: "Southern Methodist University" },
+              {
+                type: "text",
+                text: " marked the foundation of my transition into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "Rather than isolated exercises, I worked through " },
+              { type: "em", text: "end-to-end projects" },
+              {
+                type: "text",
+                text: " that required planning, iteration, and trade-off analysis. These projects exposed me to early system thinking and the realities of maintaining code beyond the first successful demo.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "graduation-cap" },
+              {
+                type: "text",
+                text: " This section represents the shift from learning how to code to learning how to build software.",
+              },
+            ],
+          },
         ],
       },
     ],
@@ -56,12 +86,49 @@ const smuSections = [
     blocks: [
       {
         id: "gif-freak-problem",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
         title: "The Problem",
-        paragraphs: [
-          "Early in my education, I needed hands-on experience working with third-party APIs and asynchronous JavaScript. Most learning exercises felt abstract and disconnected from real user interaction.",
-          "I wanted to build something interactive that demonstrated how front-end applications communicate with external services and respond dynamically to user input.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Early in my education, I needed hands-on experience working with ",
+              },
+              { type: "strong", text: "third-party APIs" },
+              {
+                type: "text",
+                text: " and asynchronous JavaScript. Many learning exercises felt abstract and disconnected from how users actually interact with software.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "I wanted a project that would force me to confront:" },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [{ type: "text", text: "Network latency and unpredictable responses" }],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Event-driven UI updates triggered by async data" },
+                ],
+              },
+              {
+                type: "li",
+                children: [{ type: "text", text: "External data shaping the user experience" }],
+              },
+            ],
+          },
         ],
       },
       {
@@ -71,12 +138,50 @@ const smuSections = [
       },
       {
         id: "gif-freak-solution",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         icon: faLightbulb,
         title: "The Solution",
-        paragraphs: [
-          "I built Gif Freak, a lightweight client-side web application that integrates with the Giphy API to fetch and display animated content based on user input.",
-          "Users can trigger predefined searches or generate custom search buttons, each making asynchronous API requests and rendering results in real time. While persistence was limited to session state at the time, the project provided direct exposure to API consumption, event-driven UI updates, and async data handling.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "I built " },
+              { type: "strong", text: "Gif Freak" },
+              {
+                type: "text",
+                text: ", a lightweight client-side application that integrates with the Giphy API to fetch and render animated content based on user input.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Each interaction triggers an asynchronous request, updating the UI in real time. While persistence was limited to session state, the project gave me early exposure to:",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "code", text: "fetch()" },
+                  { type: "text", text: "-based request lifecycles" },
+                ],
+              },
+              {
+                type: "li",
+                children: [{ type: "text", text: "Managing loading and empty states" }],
+              },
+              {
+                type: "li",
+                children: [{ type: "text", text: "Mapping raw API data into usable UI models" }],
+              },
+            ],
+          },
         ],
       },
       diagrams.gifSystemFlow,
@@ -104,32 +209,32 @@ const smuSections = [
       },
       {
         id: "gif-freak-takeaways",
-        type: BlockType.BulletedList,
+        type: BlockType.BULLETED_LIST,
         title: "Key Takeaways",
         items: [
           {
             id: "smu-kt-1",
             title: "API Integration",
-            text: "First hands-on experience consuming third-party APIs",
+            text: "This project was my first hands-on experience consuming a third-party API in a real application. I learned how to structure requests, handle responses, and map external data into a user-facing interface. It highlighted how dependent front-end behavior is on the shape and reliability of external services. That understanding became foundational for all future API-driven work.",
             icon: faDiagramProject,
           },
           {
             id: "smu-kt-2",
             title: "Asynchronous JavaScript",
-            text: "Learned asynchronous JavaScript and event-driven UI updates",
+            text: "Working with asynchronous requests forced me to think differently about control flow and UI state. I learned how to manage loading states, event-driven updates, and user feedback while data was in transit. This was my first exposure to real-world async behavior outside of contrived examples. It significantly improved my confidence working with non-blocking JavaScript.",
             icon: faLaptopCode,
           },
           {
-            id: "smpu-kt-3",
+            id: "smu-kt-3",
             title: "User Interaction",
-            text: "Built an interactive front-end application responding to user input",
+            text: "Gif Freak reinforced the importance of designing interfaces that clearly respond to user input. Each interaction needed immediate visual feedback to feel responsive and intuitive. I began thinking not just about functionality, but about how users perceive system behavior. That mindset carried forward into more complex UI systems later on.",
             icon: faCommentNodes,
           },
         ],
       },
       {
         id: "gif-freak-improvements",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "What I'd Improve Today",
         icon: faHelmetSafety,
         paragraphs: [
@@ -153,11 +258,39 @@ const smuSections = [
     blocks: [
       {
         id: "stock-memer-problem",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "The Problem",
-        paragraphs: [
-          "Financial data is often presented in dense, inaccessible formats, making it difficult for casual users to understand trends.",
-          "Additionally, this project introduced the challenge of working within a team — coordinating responsibilities, merging code, and integrating multiple systems into a cohesive product.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Financial data is often presented in dense, inaccessible formats, making it difficult for casual users to identify meaningful trends.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "This project also introduced a new constraint: " },
+              { type: "strong", text: "team-based development" },
+              {
+                type: "text",
+                text: ". Coordinating responsibilities, merging code, and integrating multiple systems added complexity well beyond solo projects.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "users" },
+              {
+                type: "text",
+                text: " This was my first exposure to shared ownership of both code and decisions.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -175,11 +308,37 @@ const smuSections = [
       },
       {
         id: "stock-memer-solution",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "The Solution",
-        paragraphs: [
-          "Stock Memer combined real-time stock data with user-generated content, allowing users to view live market trends while creating memes associated with specific stocks.",
-          "My role focused on API integrations and Firebase persistence, designing how live data and user content were retrieved, stored, and associated within the application.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Stock Memer combined real-time stock data with user-generated content, allowing users to explore market trends while creating memes tied to specific stocks.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "My role focused on " },
+              { type: "strong", text: "API integrations and Firebase persistence" },
+              {
+                type: "text",
+                text: ", specifically designing how live data and user content were retrieved, stored, and associated across the application.",
+              },
+            ],
+          },
+          {
+            type: "pre",
+            language: "js",
+            text: `// Example responsibility
+        fetchStockData(symbol)
+          .then(storeSnapshot)
+          .then(renderUI);`,
+          },
         ],
       },
       diagrams.stockMemerFlow,
@@ -194,29 +353,31 @@ const smuSections = [
           },
         ],
       },
-
       {
         id: "stock-memer-takeaways",
-        type: BlockType.BulletedList,
+        type: BlockType.BULLETED_LIST,
         title: "Key Takeaways",
         items: [
           {
             id: "sm-kt-1",
-            text: "First experience working in a multi-developer codebase",
+            title: "Team-Based Development",
+            text: "This was my first experience working inside a multi-developer codebase with shared ownership. I learned how individual decisions impact others and why consistency matters. Navigating merge conflicts and overlapping responsibilities exposed gaps in communication and planning. It was a pivotal introduction to collaborative software development.",
           },
           {
             id: "sm-kt-2",
-            text: "Built API and database integrations collaboratively",
+            title: "API & Database Integration",
+            text: "I worked directly on integrating external stock APIs alongside Firebase persistence. This required coordinating data flow between live services and stored user-generated content. Seeing how real-time data and persistence interact helped me understand the importance of clear data boundaries. It also highlighted the risks of tightly coupling front-end logic to external APIs.",
           },
           {
             id: "sm-kt-3",
-            text: "Learned to coordinate responsibilities across a team",
+            title: "Cross-Team Coordination",
+            text: "Stock Memer forced me to coordinate responsibilities across a team rather than working in isolation. We had to divide work, align on interfaces, and trust each other’s implementations. This experience exposed the need for clearer ownership and shared contracts. It shaped how I approach collaboration in professional environments.",
           },
         ],
       },
       {
         id: "stock-memer-improvements",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "What I'd Improve Today",
         paragraphs: [
           "Today, I would redesign the backend to decouple data services, replace deprecated APIs, and introduce caching for stock data.",
@@ -239,21 +400,67 @@ const smuSections = [
     blocks: [
       {
         id: "scion-problem",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "The Problem",
-        paragraphs: [
-          "Matching Intended Parents with Gestational Carriers is emotionally, financially, and logistically complex.",
-          "Existing processes relied heavily on manual review, creating delays and inefficiencies during an already stressful journey.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Matching Intended Parents with Gestational Carriers is emotionally, financially, and logistically complex. Existing processes relied heavily on manual review, creating delays during an already stressful journey.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "heart" },
+              {
+                type: "text",
+                text: " This problem demanded more than technical correctness — it required trust and care.",
+              },
+            ],
+          },
         ],
       },
 
       {
         id: "scion-solution",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "The Solution",
-        paragraphs: [
-          "Scion Matches was my capstone project and marked a shift toward building impact-driven software.",
-          "I designed and implemented the core matching algorithm, analyzing survey responses to generate compatibility scores and identify strong potential pairings.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Scion Matches was my capstone project and marked a shift toward building ",
+              },
+              { type: "strong", text: "impact-driven software" },
+              {
+                type: "text",
+                text: ". I designed and implemented the core matching algorithm, translating survey responses into compatibility scores.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "The algorithm balanced multiple weighted factors, prioritizing transparency and explainability over opaque scoring.",
+              },
+            ],
+          },
+          {
+            type: "pre",
+            language: "js",
+            text: `score =
+          valuesMatch * 0.4 +
+          expectationsAlign * 0.35 +
+          logisticsFit * 0.25;`,
+          },
         ],
       },
       diagrams.matchFlow,
@@ -271,17 +478,26 @@ const smuSections = [
       },
       {
         id: "scion-takeaways",
-        type: BlockType.BulletedList,
+        type: BlockType.BULLETED_LIST,
         title: "Key Takeaways",
         items: [
-          { text: "Designed and implemented a real-world matching algorithm" },
-          { text: "Owned core business logic in a capstone project" },
-          { text: "Shifted from experimental apps to purpose-driven software" },
+          {
+            title: "Real-World Matching Algorithms",
+            text: "Designing a compatibility algorithm for a real-world domain forced me to think beyond theoretical correctness. Each decision had human consequences, which raised the bar for accuracy and transparency. I learned how to translate qualitative survey data into quantitative scores. This was my first exposure to algorithmic decision-making with real stakes.",
+          },
+          {
+            title: "Business Logic Ownership",
+            text: "I took full ownership of the core matching logic, from requirements through implementation. This meant making judgment calls where specifications were ambiguous. The experience taught me how central business logic defines the value of a system. It also reinforced the responsibility that comes with owning critical code paths.",
+          },
+          {
+            title: "Purpose-Driven Software",
+            text: "Scion Matches marked a shift from experimental projects to impact-driven software. The problem space demanded empathy, care, and precision. I began thinking more deeply about ethics, data handling, and long-term maintainability. This project reshaped how I evaluate the success of a technical solution.",
+          },
         ],
       },
       {
         id: "scion-improvements",
-        type: BlockType.RichText,
+        type: BlockType.RICH_TEXT,
         title: "What I'd Improve Today",
         paragraphs: [
           "With my current experience, I would formalize the matching logic into a versioned service, add explainability to match scores, and introduce audit logging.",

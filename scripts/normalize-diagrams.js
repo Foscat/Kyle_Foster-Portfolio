@@ -17,30 +17,42 @@
  */
 
 /**
+ * Normalizes Mermaid diagram source for consistent linting.
+ * This function ensures:
+ * - Proper newline after init block
+ * - Blank line after diagram declaration
+ */
+function normalizeMermaidSource(source) {
+  if (typeof source !== "string") return source;
+
+  let cleaned = source.replace(/\r\n/g, "\n");
+
+  // Extract init block safely
+  const initMatch = cleaned.match(/^%%\{init:[\s\S]*?\}%%\s*/);
+
+  let initBlock = "";
+  if (initMatch) {
+    initBlock = initMatch[0];
+    cleaned = cleaned.slice(initBlock.length);
+  }
+
+  const lines = cleaned.split("\n");
+
+  if (!lines.length) return source;
+
+  // Ensure blank line after declaration
+  if (lines.length > 1 && lines[1].trim() !== "") {
+    lines.splice(1, 0, "");
+  }
+
+  const body = lines.join("\n");
+
+  // Ensure newline after init block
+  return initBlock ? initBlock.replace(/\s*$/, "\n") + body : body;
+}
+
+/**
  * Normalizes a diagram collection into an array.
- *
- * Accepted input formats:
- * 1. Object map:
- *    {
- *      diagramId: { ...diagramData }
- *    }
- *
- * 2. Array (legacy):
- *    [
- *      { ...diagramData }
- *    ]
- *
- * Normalization rules:
- * - Null/undefined input yields an empty array
- * - Array input is filtered to remove falsy entries
- * - Object input is converted into an array with injected `key`
- * - Unsupported input types return an empty array
- *
- * @param {Object<string, Object>|Array<Object>|undefined|null} input
- *   Raw diagram collection.
- *
- * @returns {Array<Object>}
- *   Normalized diagram array suitable for downstream processing.
  */
 export function normalizeDiagrams(input) {
   if (!input) return [];
@@ -51,11 +63,21 @@ export function normalizeDiagrams(input) {
 
   if (typeof input === "object") {
     return Object.entries(input).map(([key, diagram]) => {
-      // Inject the object key as a stable identifier for downstream tools
       const entry = {
         key,
         ...diagram,
       };
+
+      ["diagram", "mobile", "desktop"].forEach((field) => {
+        if (typeof entry[field] === "string") {
+          entry[field] = normalizeMermaidSource(entry[field]);
+        } else if (entry[field] && typeof entry[field] === "object") {
+          if (typeof entry[field].diagram === "string") {
+            entry[field].diagram = normalizeMermaidSource(entry[field].diagram);
+          }
+        }
+      });
+
       if (process.env.DEBUG_DIAGRAMS) {
         console.log("Normalized diagram entry:", entry);
       }

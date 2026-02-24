@@ -101,12 +101,13 @@ const SectionRenderer = ({ section }) => {
       data-section-renderer
     >
       {section.blocks.map((block, i) => {
-        console.debug("Rendering block:", block);
+        {
+          /* console.debug("Rendering block:", block); */
+        }
 
         switch (block.type) {
           case BlockType.RICH_TEXT: {
-            const rtb = createRichTextBlock(block);
-            return <RichTextBlock key={`rtb-${i}-${block.id}`} {...rtb} />;
+            return <RichTextBlock key={`rtb-${i}-${block.id}`} {...createRichTextBlock(block)} />;
           }
 
           case BlockType.IMAGE_GALLERY:
@@ -122,13 +123,18 @@ const SectionRenderer = ({ section }) => {
               <AccordionList
                 key={`acl-${i}-${block.id}`}
                 {...createBulletListBlock(block)}
-                bordered={true}
+                className="scroll-anchor"
               />
             );
 
           case BlockType.DIAGRAM:
+            console.log("Rendering diagram block:", block);
             return (
-              <MermaidDiagram key={`diagram-${i}-${block.id}`} {...createDiagramBlock(block)} />
+              <MermaidDiagram
+                key={`diagram-${i}-${block.id}`}
+                {...createDiagramBlock(block)}
+                className="scroll-anchor"
+              />
             );
 
           /**

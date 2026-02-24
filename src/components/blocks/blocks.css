@@ -1,0 +1,92 @@
+/* ============================================================
+   Block — Base Contract
+   ============================================================
+   Blocks are content primitives rendered inside InfoSection.
+   They must be lightweight, readable, and mobile-first.
+*/
+
+.block {
+  width: 100%;
+
+  /* Block separation is controlled by InfoSection gap */
+  margin: 0;
+
+  /* Prevent blocks from becoming layout containers */
+  overflow: visible;
+  position: relative;
+}
+
+/* ------------------------------------------------------------
+   Block headings
+   ------------------------------------------------------------ */
+
+.block h3,
+.block h4 {
+  margin: 0.25rem 0 0.25rem;
+
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-accent);
+}
+
+/* ------------------------------------------------------------
+   Block text
+   ------------------------------------------------------------ */
+
+.block-paragraph {
+  font-size: var(--font-xs);
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.block-list {
+  font-size: var(--font-xs);
+  font-family: var(--font-Heebo);
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.block-quote {
+  font-size: var(--font-sm);
+  font-family: var(--font-Golos);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  border-left: 4px solid var(--accent-dark);
+  padding-left: 1rem;
+  margin-left: -1rem;
+}
+
+.code-block {
+  font-family: var(--font-Audiowide);
+  font-size: var(--font-md);
+  line-height: 1.4;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0.5rem auto;
+}
+
+.block-em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent-light);
+}
+
+/* Prevent stacked paragraph gaps */
+.block p + p {
+  margin-top: 0.5rem;
+}
+
+/** Increase text size on larger screens for better readability */
+@media (min-width: 900px) {
+  .block-paragraph,
+  .block-list,
+  .block-quote,
+  .code-block {
+    font-size: var(--font-md);
+  }
+}

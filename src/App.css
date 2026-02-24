@@ -91,16 +91,18 @@
   --warning: rgb(250, 204, 21);
   --warning-rgb: 250, 204, 21;
   --error-dark: rgb(185, 28, 28);
+  --error-dark-rgb: 185, 28, 28;
   --error: rgb(220, 38, 38);
-  --error-light: rgb(248, 113, 113);
   --error-rgb: 220, 38, 38;
+  --error-light: rgb(248, 113, 113);
+  --error-light-rgb: 248, 113, 113;
 
   /* Typography scale */
   --font-xxl: clamp(2.5rem, 1.5rem + 3vw, 5.625rem);
   --font-xl: clamp(1.75rem, 1.2rem + 1.6vw, 3rem);
   --font-lg: clamp(1.5rem, 1.1rem + 1.2vw, 2.5rem);
-  --font-md: clamp(1.25rem, 1rem + 0.5vw, 2rem);
-  --font-sm: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --font-md: clamp(1.18rem, 1rem + 0.8vw, 1.5rem);
+  --font-sm: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);
   --font-xs: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
   --font-xxs: clamp(0.575rem, 0.6rem + 0.15vw, 0.8rem);
 
@@ -122,8 +124,9 @@
   --divider-spacing: 1.5rem;
 
   /* Motion */
-  --transition-speed: 0.25s;
+  --transition-speed: 200ms;
   --easing-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --scale-up: translateY(-3px) scale(1.03);
 
   /* Blur */
   --slight-blur: blur(6px);
@@ -139,25 +142,37 @@
 
   /* Surfaces */
   --text-primary: rgba(var(--white-rgb), 0.85);
-  --text-secondary: rgba(var(--gray-300-rgb), 0.75);
-  --text-dark: rgba(var(--gray-700-rgb), 0.9);
+  --text-secondary: rgba(var(--gray-200-rgb), 0.85);
+  --text-secondary-dark: rgba(var(--gray-700-rgb), 0.85);
+  --text-dark: rgba(var(--black-rgb), 0.9);
+  --text-blue-dark: rgba(var(--primary-darkest-rgb), 0.9);
+  --text-blue: rgba(var(--primary-dark-rgb), 0.9);
+  --text-blue-light: rgba(var(--primary-light-rgb), 0.9);
+  --text-accent-dark: var(--accent-dark);
   --text-accent: rgba(var(--accent-rgb), 0.98);
   --text-accent-light: rgba(var(--accent-light-rgb), 0.95);
+  --text-error: rgba(var(--error-rgb), 0.9);
+  --text-warning: rgba(var(--warning-rgb), 0.9);
 
   --bg-primary: var(--primary-dark);
   --bg-secondary: var(--gray-900);
+  --bg-bright: var(--gray-100);
+  --bg-error: rgba(var(--error-light-rgb), 0.15);
+  --bg-warning: rgba(var(--warning-rgb), 0.15);
 
   /* Glass fill variants */
   --bg-elevated: rgba(var(--white-rgb), 0.06);
   --frost-bg: rgba(var(--white-rgb), 0.08);
   --glass-bg: rgba(var(--white-rgb), 0.14);
   --glass-bg-strong: rgba(var(--white-rgb), 0.22);
+  --glass-bg-heavy: rgba(var(--white-rgb), 0.72);
   --primary-dark-bg: rgba(var(--primary-darkest-rgb), 0.5);
   --primary-darker-bg: rgba(var(--primary-darkest-rgb), 0.75);
   --accent-bg: rgba(var(--accent-rgb), 0.5);
   --accent-bg-dark: rgba(var(--accent-rgb), 0.75);
 
   /* Borders */
+  --mini-dark: 1px groove rgba(var(--deep-black-rgb), 0.75);
   --frost-border: 2px inset rgba(var(--white-rgb), 0.18);
   --fb-TL: 2px inset rgba(var(--white-rgb), 0.22);
   --fb-BR: 2px outset rgba(var(--deep-black-rgb), 0.22);
@@ -166,8 +181,9 @@
   --gb-BR: 3px outset rgba(var(--gray-500-rgb), 0.32);
   --tile-border: 2px outset rgba(var(--white-rgb), 0.38);
   --accent-border: 3px outset rgba(var(--accent-rgb), 0.45);
-  --bubble-border: outset inset inset outset;
-  --rev-bubble-border: inset outset outset inset;
+  --accent-dark-border: 3px outset rgba(var(--accent-dark-rgb), 0.45);
+  --bubble-border: 3px outset inset inset outset rgba(var(--gray-700-rgb), 0.45);
+  --rev-bubble-border: 3px inset outset outset inset rgba(var(--gray-200-rgb), 0.45);
 
   /* Shadows */
   --shadow-accent: 0 14px 46px rgba(var(--accent-dark-rgb), 0.55);
@@ -181,37 +197,50 @@
   --bg-gradient: linear-gradient(
     145deg,
     rgba(var(--primary-darkest-rgb), 0.92),
-    rgba(var(--primary-dark-rgb), 0.7),
-    rgba(var(--primary-rgb), 0.55)
+    rgba(var(--primary-dark-rgb), 0.8),
+    rgba(var(--primary-rgb), 0.65)
   );
 
   --gold-glow: radial-gradient(
     circle at 85% 18%,
-    rgba(var(--accent-rgb), 0.24),
+    rgba(var(--accent-dark-rgb), 0.24),
     rgba(var(--accent-rgb), 0) 52%
   );
 
   --blue-glow: radial-gradient(
     circle at 14% 28%,
-    rgba(var(--primary-lighter-rgb), 0.28),
+    rgba(var(--primary-dark-rgb), 0.28),
     rgba(var(--primary-lighter-rgb), 0) 55%
   );
 
   --vignette: radial-gradient(
     ellipse at 50% 55%,
-    rgba(var(--deep-black-rgb), 0.2),
+    rgba(var(--black-rgb), 0.2),
     rgba(var(--deep-black-rgb), 0.72)
   );
 
-  /* Motion durations */
-  --motion-fast: 120ms ease-out;
-  --motion-base: 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  --motion-slow: 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  --sticky-header-height: 96px; /* adjust to StickyNav height */
+  /* App-level layout tokens
+     ---------------------------------------------------------------------
+     Keep these in App.css because many pages rely on the same rhythm.
+     Component CSS should consume these variables rather than redefining
+     container widths/padding.
+  */
+  --page-max-width: 1500px;
+  --page-gutter: clamp(0.75rem, 4vw, 2rem);
+  --page-gap: clamp(1rem, 1vw, 2rem);
+  --mobile-breakpoint: 900px;
+  --mobile-gap: clamp(0.5rem, 0.75rem);
+  --sidebar-width: 350px;
+  --sticky-header-height: 96px;
+  /* adjust to StickyNav height */
 }
+
 html {
+  /* Smooth scrolling is an enhancement; keep it on the root scroller only. */
   scroll-behavior: smooth;
+  height: 100%;
+  /* Prevent minor sub-pixel overflow from causing horizontal scroll on mobile. */
+  overflow-x: clip;
 }
 
 /* ------------------------------------------------------------
@@ -287,8 +316,25 @@ body {
   margin: 0;
   padding: 0;
   letter-spacing: 0.2px;
-  scroll-behavior: smooth;
+
+  /* Mobile-first viewport behavior
+     -------------------------------------------------------------------------
+     - 100vh is unstable on iOS Safari due to browser chrome resizing.
+     - Prefer dynamic viewport units where available, with a safe fallback. */
   min-height: 100vh;
+  min-height: 100dvh;
+
+  /* Prevent iOS Safari from auto-scaling text on rotation / zoom heuristics. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /* Reduce accidental horizontal scrolling on narrow devices. */
+
+  overflow-x: clip;
+}
+
+body.rs-drawer-open.rs-drawer-has-backdrop {
+  background-color: var(--bg-primary);
 }
 
 /* Background layers: blue depth + gold accent + soft vignette */
@@ -298,6 +344,13 @@ body::before {
   inset: 0;
   background: var(--gold-glow), var(--blue-glow), var(--bg-gradient), var(--vignette);
   z-index: -1;
+}
+
+/* Root mount node should participate in the height contract.
+   This keeps full-height layouts predictable without forcing nested containers
+   to redeclare min-heights. */
+#root {
+  min-height: 100%;
 }
 
 /* ------------------------------------------------------------
@@ -321,15 +374,19 @@ h6 {
 h1 {
   font-size: var(--font-xxl);
 }
+
 h2 {
   font-size: var(--font-xl);
 }
+
 h3 {
   font-size: var(--font-lg);
 }
+
 h4 {
   font-size: var(--font-md);
 }
+
 p {
   color: var(--text-primary);
   font-size: var(--font-sm);
@@ -354,7 +411,12 @@ a {
 }
 
 a:hover {
-  color: rgba(var(--accent-light-rgb), 1);
+  color: rgba(var(--accent-dark-rgb), 1);
+}
+
+section[id],
+.scroll-anchor {
+  scroll-margin-top: 120px;
 }
 
 /* ------------------------------------------------------------
@@ -365,19 +427,8 @@ a:hover {
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-soft);
   padding: 1.5rem 2rem;
   border: 1px solid rgba(var(--white-rgb), 0.1);
-  transition:
-    transform var(--transition-speed) var(--easing-standard),
-    box-shadow var(--transition-speed) var(--easing-standard),
-    background-color var(--transition-speed) var(--easing-standard);
-}
-
-.glass-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--glass-shadow);
-  background: rgba(var(--white-rgb), 0.09);
 }
 
 .frosted {
@@ -386,47 +437,40 @@ a:hover {
   -webkit-backdrop-filter: var(--backdrop-blur);
   backdrop-filter: var(--backdrop-blur);
   border-radius: var(--radius-xl);
-  padding: 2rem;
-  margin: 2rem 0;
-  box-shadow: var(--glass-shadow);
+  /* padding: 2rem; */
+}
+
+.frosted-tile {
+  background: var(--glass-bg);
+  border-radius: var(--radius-sm);
+  border: var(--frost-border);
+  padding: 1rem;
+  color: var(--text-blue);
 }
 
 .blue-tile {
   background: var(--bg-gradient);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  box-shadow: var(--shadow-dark);
   border: 1px solid rgba(var(--white-rgb), 0.12);
   color: var(--text-primary);
-  transition:
-    transform var(--motion-base),
-    box-shadow var(--motion-base),
-    border-color var(--motion-base);
-}
-
-.blue-tile:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-accent);
-  border-color: var(--tile-border);
-}
-
-.blue-tile:active {
-  transform: translateY(-2px) scale(0.985);
+  margin: 0.5rem 0;
 }
 
 .block-header {
-  margin: 0 0 1rem;
+  margin: 0;
   font-size: var(--font-lg);
   font-weight: 600;
   color: var(--accent);
   text-align: left;
 }
 
+.info-content .rs-panel-collapsible > .rs-panel-header {
+  padding: 0;
+}
+
 .frosted.rs-panel .rs-panel-header .rs-panel-btn:hover,
 .frosted.rs-panel .rs-panel-header .rs-panel-btn:hover .block-header {
-  transform: translateY(-1px) scale(1.002);
-  transition-timing-function: var(--easing-standard);
-  transition-duration: var(--transition-speed);
   background-color: transparent;
 }
 
@@ -457,12 +501,7 @@ a:hover {
   margin: var(--divider-spacing) 0;
   border: none;
   height: var(--divider-thickness);
-  background: linear-gradient(to right, transparent, var(--divider-color), transparent);
-}
-
-.clickable {
-  cursor: pointer;
-  transition: transform var(--transition-speed) var(--easing-standard);
+  background: var(--divider-color);
 }
 
 /* ------------------------------------------------------------
@@ -470,12 +509,16 @@ a:hover {
    ------------------------------------------------------------ */
 
 /* Apply to <Modal className="modal-glass"> */
-.modal-glass .rs-modal-dialog {
+.rs-modal-dialog .modal-glass {
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
   background: rgba(var(--primary-darkest-rgb), 0.35);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
+}
+
+.rs-modal-dialog .frosted.rs-modal-body {
+  height: 75dvh;
 }
 
 /* Apply to <Modal.Body className="modal-body-pad"> */
@@ -486,11 +529,12 @@ a:hover {
 /* A sane default for embedded content (iframes, diagrams, etc.) */
 .modal-embed {
   width: min(1100px, 100%);
-  height: min(75vh, 900px);
+  height: min(75dvh, 900px);
   border: 0;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
   background: rgba(var(--black-rgb), 0.25);
+  overflow: hidden;
 }
 
 /* Footer row alignment helper */
@@ -507,7 +551,8 @@ a:hover {
 
 /* App chrome wrapper */
 .app-shell {
-  min-height: 100vh;
+  /* App chrome wrapper: follows the same viewport contract as <body>. */
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -521,8 +566,12 @@ a:hover {
 }
 
 .page-container {
-  width: min(1100px, calc(100% - 2rem));
-  contain: content;
+  /* Centered, mobile-safe page container.
+     - Uses a fluid gutter so content remains readable at 320–390px.
+     - Avoid `contain: content` here: containment can interfere with sticky
+       descendants and creates surprising clipping/stacking behavior. */
+  width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
+  /* margin-inline: auto; */
 }
 
 .page-section {
@@ -530,29 +579,41 @@ a:hover {
 }
 
 .page-layout {
+  /* Mobile-first page layout: single column by default.
+     Desktop/tablet enhancements are layered via min-width queries below. */
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 2rem;
-  align-items: start; /* critical */
-  margin: 0 15px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--page-gap);
+  align-items: start;
+  /* critical: prevents uneven grid stretch */
+  margin: 0;
+  padding: 0 15px;
+  width: 100%;
 }
 
 .page-content {
   min-width: 0;
+  width: 100%;
 }
 
 .page-sidebar {
-  position: relative; /* required for sticky context */
-  height: 100%;
+  /* Sidebar behavior is *not* assumed on mobile.
+     The mobile layout treats navigation as in-flow content unless the
+     component chooses a mobile-specific affordance (drawer/sheet/etc.). */
+  position: static;
+  height: auto;
+  width: 100%;
 }
 
 /* Text alignment helpers */
 .text-center {
   text-align: center;
 }
+
 .text-left {
   text-align: left;
 }
+
 .text-right {
   text-align: right;
 }
@@ -569,48 +630,152 @@ a:hover {
 .flex-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }
 
 .flex-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.flex-sa {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-se {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.flex-c {
+  display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 /* Margin helpers */
+.mt-1 {
+  margin-top: 0.5rem;
+}
+
+.mr-1 {
+  margin-right: 0.5rem;
+}
+
+.ml-1 {
+  margin-left: 0.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+
 .mt-2 {
   margin-top: 1rem;
 }
-.mt-4 {
-  margin-top: 2rem;
+
+.mr-2 {
+  margin-right: 1rem;
 }
+
+.ml-2 {
+  margin-left: 1rem;
+}
+
 .mb-2 {
   margin-bottom: 1rem;
 }
+
+.mt-3 {
+  margin-top: 1.5rem;
+}
+
+.mr-3 {
+  margin-right: 1.5rem;
+}
+
+.ml-3 {
+  margin-left: 1.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
 .mb-4 {
   margin-bottom: 2rem;
+}
+
+.mt-4 {
+  margin-top: 2rem;
+}
+
+.ml-4 {
+  margin-left: 2rem;
+}
+
+.mr-4 {
+  margin-right: 2rem;
+}
+
+.pa-1 {
+  padding: 0.5rem;
 }
 
 .pt-2 {
   padding-top: 1rem;
 }
-.pt-4 {
-  padding-top: 2rem;
-}
+
 .pb-2 {
   padding-bottom: 1rem;
 }
+
+.pr-2 {
+  padding-right: 1rem;
+}
+
+.pl-2 {
+  padding-left: 1rem;
+}
+
+.pa-2 {
+  padding: 1rem;
+}
+
+.pa-3 {
+  padding: 1.5rem;
+}
+
+.pt-4 {
+  padding-top: 2rem;
+}
+
 .pb-4 {
   padding-bottom: 2rem;
+}
+
+.pr-4 {
+  padding-right: 2rem;
+}
+
+.pl-4 {
+  padding-left: 2rem;
+}
+
+.pa-4 {
+  padding: 2rem;
 }
 
 .stack-2 {
   display: grid;
   gap: 0.75rem;
 }
+
 .stack-3 {
   display: grid;
   gap: 1.25rem;
@@ -630,25 +795,7 @@ a:hover {
 .rs-panel-btn:hover,
 .rs-panel-btn:focus,
 .rs-panel-btn:active {
-  background-color: rgba(var(--accent-rgb), 0.12);
-}
-
-/* ------------------------------------------------------------
-   Motion helpers
-   ------------------------------------------------------------ */
-.fade-in {
-  animation: fadeInUp var(--motion-base) both;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  background-color: transparent;
 }
 
 /* ------------------------------------------------------------
@@ -658,8 +805,8 @@ nav,
 footer {
   background-color: rgba(var(--primary-darkest-rgb), 0.6);
   color: var(--text-secondary);
-  padding: 1rem 2rem;
-  border-top: 1px solid var(--glass-border);
+  padding: 1rem var(--page-gutter);
+  border-top: var(--glass-border);
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
 }
@@ -667,31 +814,64 @@ footer {
 /* ------------------------------------------------------------
    Responsive adjustments
    ------------------------------------------------------------ */
+
+/* Layout breakpoint: enable a persistent sidebar only when there's real lateral space.
+   900px is a pragmatic threshold that covers tablets in landscape and desktops. */
+@media (min-width: 900px) {
+  .page-layout {
+    grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
+  }
+
+  .page-sidebar {
+    position: relative;
+    /* establishes a stable context for sticky descendants */
+    height: 100%;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .block-header {
+    margin: 0 0 1rem;
+  }
+
+  .info-content .rs-panel-collapsible > .rs-panel-header {
+    padding: 10px;
+  }
+}
+
 @media (max-width: 850px) {
   :root {
     --sticky-header-height: 72px;
   }
 }
 
-@media (max-width: 768px) {
-}
-
 @media (max-width: 700px) {
-  .glass-card {
-    padding: 1.25rem 1.25rem;
-  }
-  .glassBox,
-  .frosted {
-    padding: 1.25rem;
+  .frosted .glass-card,
+  .frosted,
+  .blue-tile {
+    padding: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .page-container {
-    width: calc(100% - 1.25rem);
+  /* Smartphone ergonomics: reduce chrome padding and let buttons stretch. */
+  nav,
+  footer {
+    padding: 0.5rem var(--page-gutter);
   }
+
   .link-box,
   .rb_linkBox {
     justify-content: stretch;
   }
+
+  .frosted .glass-card,
+  .frosted,
+  .blue-tile {
+    padding: 0.25rem;
+  }
 }
+
+/* ============================================================
+   End of Portfolio Theme: Midnight Blue + Gold (Frosted Glass)
+   ============================================================ */

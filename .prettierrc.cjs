@@ -21,5 +21,5 @@ module.exports = {
   embeddedLanguageFormatting: "off",
 
   // Line endings (Windows-safe, CI-safe)
-  endOfLine: "lf",
+  endOfLine: "crlf",
 };

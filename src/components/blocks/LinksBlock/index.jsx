@@ -1,5 +1,7 @@
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import Btn from "components/Btn";
 import { ButtonToolbar } from "rsuite";
+import { Size, Variant } from "types/ui.types";
 
 /**
  * @file LinksBlock.jsx
@@ -31,7 +33,8 @@ import { ButtonToolbar } from "rsuite";
  * ```jsx
  * <LinksBlock
  *   links={[
- *     { title: "GitHub", url: "https://github.com", icon: "github" }
+ *     { title: "GitHub", url: "https://github.com", icon: faGithub },
+ *     { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },
  *   ]}
  * />
  * ```
@@ -41,24 +44,24 @@ const LinksBlock = ({ links = [] }) => {
   if (!links.length) return null;
 
   return (
-    <Panel collapsible defaultExpanded className="frosted">
-      <ButtonToolbar className="linklist-block">
+    <Panel collapsible defaultExpanded className="frosted block">
+      <ButtonToolbar className="links-block-list">
         {links.map((link, i) => {
           // Determine whether the link should be treated as external
           const isExternal = /^https?:\/\//.test(link.url);
-
+          const isDownload = link.download;
           return (
             <Btn
               key={i}
-              className="link-list-item"
+              className="links-block-item"
               href={link.url}
               hrefLocal={link.local}
-              icon={link.icon || "link"}
-              size={link.size || "sm"}
-              variant={link.variant || "primary"}
+              icon={link.icon || faLink}
+              size={link.size || Size.MD}
+              variant={link.variant || Variant.Primary}
               target={isExternal ? link.target : undefined}
               rel={isExternal ? link.rel : undefined}
-              download={link.download}
+              download={isDownload ? link.download : undefined}
               text={link.title || "Open Link"}
               tooltip={link.tooltip}
               aria-label={link.ariaLabel}

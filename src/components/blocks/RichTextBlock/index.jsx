@@ -1,4 +1,5 @@
 import { Panel } from "rsuite";
+import RichText from "components/RichText/index.jsx";
 
 /**
  * @file RichTextBlock.jsx
@@ -25,33 +26,36 @@ import { Panel } from "rsuite";
  * @public
  * @component
  * @param {object} props - Component props.
+ * @param {string} [props.id] - DOM id assigned to the panel container, used as a scroll anchor and for accessibility.
  * @param {string} [props.title] - Optional heading displayed in the panel header.
- * @param {string[]} props.paragraphs - Paragraph text content to render.
+ * @param {string[] | RichTextNode} props.content - Paragraph text content to render.
  * @returns {JSX.Element | null} Rendered rich text panel or null if empty.
  */
-const RichTextBlock = ({ title, paragraphs }) => {
-  console.log({ title, paragraphs });
-
+const RichTextBlock = ({ id, title, content }) => {
   // Defensive guards to prevent invalid or empty paragraph rendering
-  if (!Array.isArray(paragraphs) || paragraphs.length === 0) {
+  if (!Array.isArray(content) || content.length === 0) {
     return null;
   }
 
   return (
     <Panel
+      id={id}
       collapsible
       defaultExpanded
-      bordered
-      header={title && <span className="block-header">{title}</span>}
+      header={
+        title && (
+          <span id={id ? id : undefined} className="block-header">
+            {title}
+          </span>
+        )
+      }
       role="region"
       aria-label={title}
-      className="frosted"
+      className="blue-tile block scroll-anchor"
     >
-      {paragraphs.map((text, index) => (
-        <p key={`paragraph-${index}`} className="block-paragraph">
-          {text}
-        </p>
-      ))}
+      {content.map((text, index) => {
+        return <RichText key={index} text={text} index={index} />;
+      })}
     </Panel>
   );
 };

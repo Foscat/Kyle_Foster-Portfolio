@@ -41,6 +41,8 @@ import Btn from "components/Btn";
  * @returns {JSX.Element} Clickable image with modal viewer.
  */
 const ClickableImg = ({
+  id = "clickable_img",
+  index = 0,
   src = "../../assets/images/home/stem.jpg",
   alt = "Default alt text",
   className = "",
@@ -48,7 +50,7 @@ const ClickableImg = ({
   caption = "",
   ariaLabel = "Clickable image, click to expand",
 }) => {
-  console.log("Clickable image", { src, alt, title, caption });
+  console.log("Clickable image", { id, index, src, alt, title, caption });
 
   /**
    * Local modal open/close state.
@@ -57,9 +59,10 @@ const ClickableImg = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div id={id} className="frosted-tile clickable-img-container">
       {/* Thumbnail (lazy-loaded) */}
       <Image
+        id={`${id}-img-${index + 1}`}
         rounded
         src={src}
         alt={alt}
@@ -67,7 +70,7 @@ const ClickableImg = ({
         aria-label={ariaLabel}
         loading="lazy"
         placeholder={<Placeholder.Graph active />}
-        className={`clickable-thumb glass-outline ${className}`}
+        className={`clickable-thumb interactive-surface glass-outline ${className}`}
         onClick={() => setOpen(true)}
       />
 
@@ -92,8 +95,7 @@ const ClickableImg = ({
         {/* Modal body */}
         <Modal.Body className="frosted-modal-body text-center">
           <div className="modal-img-wrapper">
-            <Image
-              rounded
+            <img
               src={src}
               alt={alt}
               aria-label={ariaLabel}
@@ -107,11 +109,11 @@ const ClickableImg = ({
         </Modal.Body>
 
         {/* Modal footer */}
-        <Modal.Footer>
+        <Modal.Footer className="flex-c">
           {caption && <p className="img-caption modal-caption">{caption}</p>}
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

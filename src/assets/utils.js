@@ -6,6 +6,20 @@
  */
 
 /**
+ * Capitalizes the first letter of a string.
+ *
+ * @param {string} str - Input string.
+ * @returns {string} String with the first letter capitalized.
+ *
+ * @example
+ * capFirstLetter("hello world"); // "Hello world"
+ */
+export function capFirstLetter(str) {
+  if (typeof str !== "string" || str.length === 0) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1).trim();
+}
+
+/**
  * Safely joins multiple class name values into a single string.
  * Falsy values are ignored.
  *

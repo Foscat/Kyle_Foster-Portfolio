@@ -2,18 +2,38 @@
    AccordionList — Frosted UI + Accessibility
    ============================================================ */
 
+.accordion-item {
+  border-bottom: var(--mini-dark);
+}
+
+/* Header */
+.accordion-header {
+  padding: 0.75rem 0;
+  font-weight: 500;
+}
+
+/* Content */
+.accordion-content {
+  padding-bottom: 0.75rem;
+  font-size: var(--font-sm);
+}
+
 .frosted-accordion {
   background: var(--bg-elevated);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--glass-border);
+  border: var(--glass-border);
   padding: 1rem;
   box-shadow: var(--glass-shadow);
   margin: 1rem 0;
 }
 
 /* Optional title is handled by Panel header */
+.block-key {
+  color: var(--text-accent);
+  margin-bottom: 0.5rem;
+}
 
 /* Keyboard help hint */
 .fa-help {
@@ -28,7 +48,7 @@
   border-radius: var(--radius-xs);
   padding: 0.1rem 0.35rem;
   font-family: var(--font-L);
-  border: 1px solid rgba(var(--white-rgb), 0.12);
+  border: var(--mini-dark);
 }
 
 /* Screen reader only content */
@@ -63,28 +83,26 @@
 
 /* Individual item */
 .fa-list-item {
-  background: rgba(var(--white-rgb), 0.04);
-  border: 1px solid rgba(var(--white-rgb), 0.08);
+  background: var(--glass-bg-heavy);
+  border: var(--frost-border);
   border-radius: var(--radius-sm);
   padding: 0.75rem 1.5rem;
-  transition:
-    background var(--transition-speed),
-    border-color var(--transition-speed),
-    transform var(--transition-speed),
-    box-shadow var(--transition-speed);
+}
+
+.fa-list-item .block-key {
+  font-size: var(--font-lg);
 }
 
 /* Hover */
 .fa-list-item:hover {
-  background: rgba(var(--white-rgb), 0.08);
-  border-color: rgba(var(--white-rgb), 0.15);
+  border-color: var(--glass-border);
   cursor: pointer;
 }
 
 /* Open state */
 .fa-list-item.open {
-  background: rgba(var(--white-rgb), 0.14);
-  border-color: rgba(var(--white-rgb), 0.25);
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
   transform: translateY(-2px);
   box-shadow: var(--shadow-soft);
 }
@@ -101,7 +119,7 @@
 
 /* Focus ring for keyboard users */
 .fa-left:focus-visible {
-  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.9);
+  box-shadow: var(--shadow-soft);
   border-radius: var(--radius-sm);
 }
 
@@ -143,23 +161,23 @@
 .fa-content {
   margin-top: 0.75rem;
   padding: 0.85rem 1rem;
-  background: rgba(var(--white-rgb), 0.06);
+  background: var(--frost-bg);
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(var(--white-rgb), 0.1);
+  border: var(--frost-border);
   font-size: var(--font-sm);
   line-height: 1.6;
   color: var(--text-secondary);
-  animation: fa-fadeIn 0.25s ease-out;
+  animation: fa-fadeIn var(--transition-speed) var(--easing-standard);
 }
 
 /* Fade animation */
 @keyframes fa-fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: var(--scale-up);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }

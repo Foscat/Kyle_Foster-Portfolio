@@ -1,92 +1,75 @@
-/* ================================================================
-   Footer Styles — Frosted Glass + Smooth Fade-In Animation
-   ================================================================= */
+/* ============================================================
+   Site Footer
+   ============================================================
+   Purpose:
+   - Provide quiet closure to the page
+   - Offer secondary actions only
+   - Stay compact on all viewports
+*/
 
-/* Wrapper adds background blur and translucency */
-.footer-wrapper {
-  width: 100%;
-  padding: 30px 0;
-  background: rgba(var(--white-rgb), 0.12);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--shadow-soft);
-  animation: footerFade 0.8s ease-out forwards;
-}
+/* ------------------------------------------------------------
+   Root
+   ------------------------------------------------------------ */
 
-/* Main container spacing */
-.footer-container {
-  width: 90%;
-  margin: 0 auto;
-}
+.site-footer {
+  margin-top: 1rem;
 
-/* RSuite Panels with frosted effect */
-.footer-panel {
-  background: var(--);
-  border-radius: var(--border-radius) !important;
-  border: 1px solid rgba(var(--white-rgb), 0.25) !important;
-  box-shadow: var(--shadow-soft);
-}
+  padding: 20px 0;
 
-/* Typography inside footer */
-.footer-text p,
-.footer-text a {
+  background: var(--bg-gradient);
+  border-top: var(--mini-dark);
+
   font-size: var(--font-sm);
-  margin: 6px 0;
-  transition-property: var(--easing-standard);
-  transition-delay: 250ms;
-  animation: footerFade 0.8s ease-out forwards;
+  color: var(--text-secondary);
 }
 
-.footer-text a:hover {
-  text-decoration: none;
-  transform: scale(1.5%);
-  color: var(--primary-dark);
-}
+/* ------------------------------------------------------------
+   Inner layout
+   ------------------------------------------------------------ */
 
-.footer-text strong {
-  color: var(--primary-dark);
-  font-weight: 900;
-}
+.site-footer_inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
 
-/* Social Buttons */
-.footer-socials {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
+  gap: var(--page-gap);
 
-.footer-icon {
-  color: rgb(var(--grey-100-rgb)) !important;
-  text-align: left;
-}
-
-/* Bottom text section */
-.footer-bottom {
-  margin-top: 25px;
+  align-items: center;
   text-align: center;
-  font-size: var(--font-xs);
-  color: rgb(var(--gray-300-rgb));
-  opacity: 0.85;
 }
 
-/* Fade-in animation for a polished entrance */
-@keyframes footerFade {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* ------------------------------------------------------------
+   Left / Right
+   ------------------------------------------------------------ */
+
+.site-footer_right {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* ------------------------------------------------------------ 
+  Very small screen enhancement 
+  ------------------------------------------------------------- */
+
+@media (max-width: 360px) {
+  .site-footer__right {
+    display: none;
   }
 }
 
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .footer-socials {
-    align-items: center;
+/* ------------------------------------------------------------
+   Desktop enhancement
+   ------------------------------------------------------------ */
+
+@media (min-width: 900px) {
+  .site-footer {
+    padding: 0.75rem 2rem;
   }
-  .footer-text {
-    text-align: center;
+
+  .site-footer_inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }

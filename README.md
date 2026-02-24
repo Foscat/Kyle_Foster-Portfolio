@@ -8,10 +8,10 @@ The application is not just a UI showcase—it is a fully documented system with
 
 ## 🚀 Project Goals
 
-* Demonstrate production-quality React architecture
-* Enforce consistency through tooling and documentation
-* Showcase maintainable UI composition patterns
-* Provide clear onboarding context for reviewers and contributors
+- Demonstrate production-quality React architecture
+- Enforce consistency through tooling and documentation
+- Showcase maintainable UI composition patterns
+- Provide clear onboarding context for reviewers and contributors
 
 ---
 
@@ -28,10 +28,10 @@ Start here to understand how the entire system fits together:
 
 This document explains:
 
-* Page → Section → Block composition
-* Navigation and scroll coordination
-* Section registration lifecycle
-* Why responsibilities are intentionally separated
+- Page → Section → Block composition
+- Navigation and scroll coordination
+- Section registration lifecycle
+- Why responsibilities are intentionally separated
 
 ---
 
@@ -45,9 +45,9 @@ All major subsystems are documented independently to keep the documentation focu
 
 Covers:
 
-* Reusable UI components
-* Props, accessibility contracts, and behavior
-* Frosted UI patterns and variants
+- Reusable UI components
+- Props, accessibility contracts, and behavior
+- Frosted UI patterns and variants
 
 ---
 
@@ -57,9 +57,9 @@ Covers:
 
 Covers:
 
-* `StickyNav` and `StickySectionNav`
-* Section registration and scroll tracking
-* Navigation state coordination
+- `StickyNav` and `StickySectionNav`
+- Section registration and scroll tracking
+- Navigation state coordination
 
 ---
 
@@ -69,10 +69,10 @@ Covers:
 
 Covers:
 
-* Diagram generation pipeline
-* Formatting, linting, and rendering scripts
-* Codemods and safety guidelines
-* CI vs manual tooling distinctions
+- Diagram generation pipeline
+- Formatting, linting, and rendering scripts
+- Codemods and safety guidelines
+- CI vs manual tooling distinctions
 
 ---
 
@@ -82,10 +82,10 @@ Covers:
 
 Covers:
 
-* Component testing philosophy
-* Page-level contract testing
-* Shared test helpers and factories
-* What tests guarantee—and what they intentionally do not
+- Component testing philosophy
+- Page-level contract testing
+- Shared test helpers and factories
+- What tests guarantee—and what they intentionally do not
 
 ---
 
@@ -95,9 +95,9 @@ Covers:
 
 Covers:
 
-* Shared UI enums and types
-* Variant and size contracts
-* Block and section data shapes
+- Shared UI enums and types
+- Variant and size contracts
+- Block and section data shapes
 
 ---
 
@@ -107,9 +107,9 @@ This project includes **automatically rendered Mermaid diagrams** used throughou
 
 Diagrams are:
 
-* Authored in Mermaid syntax
-* Validated and linted
-* Rendered to transparent PNGs using Playwright
+- Authored in Mermaid syntax
+- Validated and linted
+- Rendered to transparent PNGs using Playwright
 
 ### Diagram Assets
 
@@ -117,9 +117,9 @@ Diagrams are:
 
 Example diagrams include:
 
-* Page → Section → Block rendering flow
-* Navigation and registry relationships
-* UI composition patterns
+- Page → Section → Block rendering flow
+- Navigation and registry relationships
+- UI composition patterns
 
 These images are generated via documented scripts and should not be edited manually.
 
@@ -148,26 +148,26 @@ Strict JSDoc rules are enforced to prevent documentation drift and generation fa
 
 Testing is treated as a **first-class architectural concern**.
 
-* Components are tested for behavior, not structure
-* Pages are tested declaratively via shared contracts
-* Navigation and utilities are tested at invariant boundaries
+- Components are tested for behavior, not structure
+- Pages are tested declaratively via shared contracts
+- Navigation and utilities are tested at invariant boundaries
 
 Tests are designed to answer:
 
-> *“What must always be true?”*
+> _“What must always be true?”_
 
-—not *“How is this implemented?”*
+—not _“How is this implemented?”_
 
 ---
 
 ## 🧱 Technology Stack
 
-* **React** — UI framework
-* **RSuite** — component primitives
-* **FontAwesome** — iconography
-* **Mermaid** — diagram authoring
-* **Playwright** — diagram rendering
-* **Vitest / Testing Library** — testing
+- **React** — UI framework
+- **RSuite** — component primitives
+- **FontAwesome** — iconography
+- **Mermaid** — diagram authoring
+- **Playwright** — diagram rendering
+- **Vitest / Testing Library** — testing
 
 ---
 
@@ -177,9 +177,9 @@ This repository is intentionally opinionated.
 
 It prioritizes:
 
-* Predictability over flexibility
-* Documentation over tribal knowledge
-* Tooling discipline over convenience
+- Predictability over flexibility
+- Documentation over tribal knowledge
+- Tooling discipline over convenience
 
 Every abstraction, script, and convention exists for a reason—and that reasoning is documented.
 

@@ -19,8 +19,6 @@
  * - It only normalizes formatting
  */
 
-const DIAGRAM_DECL_RE = /^(flowchart|sequenceDiagram|classDiagram|stateDiagram|erDiagram)\b/;
-
 /**
  * Formats a Mermaid diagram source string into a deterministic,
  * readable, and Mermaid-safe structure.
@@ -46,6 +44,8 @@ export function formatMermaid(source) {
    * - Replaces tabs with two spaces (Mermaid is indentation-sensitive)
    */
   let text = source.replace(/\r\n/g, "\n").replace(/\t/g, "  ");
+  text = text.replace(/^%{init:/, "%%{init:");
+  text = text.replace(/}%$/, "}%%");
 
   /**
    * Step 2: Extract Mermaid init block (if present)
@@ -63,22 +63,26 @@ export function formatMermaid(source) {
     text = text.slice(init.length);
   }
 
-  /**
-   * Step 3: Remove leading whitespace after the init block
-   *
-   * This prevents accidental indentation from creeping
-   * into the formatted output.
-   */
-  text = text.replace(/^\s+/, "");
+  // IMPORTANT: do NOT strip leading whitespace for mindmap safety
+  if (!text.startsWith("\n")) {
+    text = "\n" + text;
+  }
 
-  /**
-   * Step 4: Line-by-line structural formatting
-   *
-   * We re-indent based on Mermaid block structure rather
-   * than trusting existing whitespace.
-   */
   const lines = text.split("\n");
 
+  if (!lines.length) return source;
+
+  const declarationIndex = lines.findIndex((l) => l.trim() !== "");
+  const declaration = lines[declarationIndex]?.trim().split(" ")[0];
+
+  if (!declaration) return source;
+
+  // Ensure exactly one blank line after declaration
+  if (lines[declarationIndex + 1]?.trim() !== "") {
+    lines.splice(declarationIndex + 1, 0, "");
+  }
+
+  // For other diagram types, manage indentation structurally
   let indent = 0;
   const out = [];
 
@@ -132,7 +136,7 @@ export function formatMermaid(source) {
    * parsing edge cases.
    */
   const bodyLines = body.split("\n");
-  if (bodyLines.length > 1 && DIAGRAM_DECL_RE.test(bodyLines[0]) && bodyLines[1].trim() !== "") {
+  if (bodyLines.length > 1 && bodyLines[1].trim() !== "") {
     bodyLines.splice(1, 0, "");
     body = bodyLines.join("\n");
   }

@@ -41,6 +41,11 @@
   color: var(--accent-light);
 }
 
+.rs-nav:hover > .rs-nav-item.no-popup {
+  transform: none;
+  box-shadow: none;
+}
+
 /* Hide desktop menu on mobile */
 .desktop-menu {
   background-color: var(--glass-bg);
@@ -78,14 +83,38 @@
   display: none;
 }
 
-/* Mobile slide-out menu */
-.mobile-menu {
-  width: 100%;
-  background: rgba(var(--gray-900), 0.85);
-  padding: 0.5rem 1rem;
-  animation: slideDown 180ms ease-out;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+.rs-drawer-backdrop,
+.mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content,
+.rs-drawer-backdrop .mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content {
+  background-color: var(--primary-darker-bg);
+  color: var(--text-primary);
+}
+
+.rs-drawer-header,
+.rs-drawer-header .rs-btn-icon.rs-btn-sm > .rs-icon,
+.rs-drawer-header .rs-drawer-title {
+  color: var(--text-accent);
+  font-weight: 600;
+}
+
+.rs-drawer-header .rs-drawer-title {
+  font-size: var(--font-xl);
+}
+
+.rs-drawer-header .rs-drawer-header-close {
+  background-color: var(--glass-bg);
+  padding: 5px;
+  top: 23px;
+  border-radius: 5px;
+  font-size: var(--icon-sm);
+}
+
+.rs-drawer-body,
+.rs-drawer-body > .rs-nav > a {
+  font-size: var(--font-xl);
+  color: var(--text-primary);
+  font-family: var(--font-Golos);
+  font-weight: 500;
 }
 
 /* Slide-down animation */
@@ -101,12 +130,46 @@
 }
 
 /* Mobile responsiveness */
-@media (max-width: 850px) {
+@media (max-width: 900px) {
   .desktop-menu {
     display: none;
   }
 
   .mobile-only {
+    display: none;
+    position: relative;
+  }
+
+  /* Mobile slide-out menu */
+  .rs-drawer-backdrop .mobile-nav-drawer {
+    width: 100%;
+    background: rgba(var(--gray-900), 0.85);
+    padding: 0.5rem 1rem;
+    animation: slideDown 180ms ease-out;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .mobile-only {
     display: block;
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .mobile-only .btn.icon-only {
+    padding: 0px;
+  }
+
+  .mobile-only .frosted-icon {
+    background-color: rgba(var(--gray-900), 0.85);
+  }
+
+  .nav-toggle-btn {
+    top: 10px;
+    left: 10px;
+  }
+  .sect-nav-toggle-btn {
+    top: 0;
+    right: 0;
   }
 }

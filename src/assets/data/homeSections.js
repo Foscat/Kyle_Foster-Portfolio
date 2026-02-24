@@ -42,10 +42,42 @@ const homeSections = [
         id: "hero-about-me",
         title: "About Me",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "I'm a full-stack engineer that specializes on front-end with a strong product mindset. I specializes in building complex, user-facing systems that scale beyond individual features.",
-          "From education platforms used by real classrooms, to hackathon-winning prototypes, to deeply personal side projects, my work reflects a strong bias toward solving meaningful problems through software.",
-          "In the pursuit of productivity and excellence, I uphold a commitment to continuous improvement and quality. Striving for competency and impact, both as an individual and my role within an organization. Having these traits are essential to creating meaningful outcomes and achieving success.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "I'm a " },
+              { type: "strong", text: "full-stack engineer" },
+              {
+                type: "text",
+                text: " who specializes in front-end development, with a strong product mindset and a systems-oriented approach to building software. I focus on designing user-facing experiences that remain maintainable and scalable as products grow beyond their initial scope.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "From education platforms used daily in real classrooms, to hackathon-winning prototypes, to deeply personal side projects, my work consistently centers on ",
+              },
+              { type: "em", text: "solving meaningful problems" },
+              {
+                type: "text",
+                text: " rather than chasing novelty. I care deeply about how tools are actually used, not just how they look in isolation.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "lightbulb" },
+              {
+                type: "text",
+                text: " Quality, for me, is not just clean code — it’s building systems teams can understand, extend, and rely on over time.",
+              },
+            ],
+          },
         ],
       },
     ],
@@ -63,38 +95,75 @@ const homeSections = [
         title: "CodeStream Studios LLC",
         subtitle: "Lead Front-end Engineer 2019-2025",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "My professional work centers on building and scaling a production education platform used in schools by real students, teachers, and organizations.",
-          "At CodeStream Studios, I served as the sole front-end engineer. I built the platform from the ground up. Personally architecting the core systems that empowered the platform. From a multi-panel code editor that ran compleatly in the browser. Created a role-based access control system for organizations, virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "My professional work centers on building and scaling a " },
+              { type: "strong", text: "production education platform" },
+              {
+                type: "text",
+                text: " used by real students, teachers, and organizations. The platform was not theoretical — it supported live instruction, grading, and classroom operations at scale.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "At CodeStream Studios, I served as the " },
+              { type: "em", text: "sole front-end engineer" },
+              {
+                type: "text",
+                text: ", owning the UI architecture end-to-end. I personally architected and built core systems including a multi-panel browser-based code editor, role-based access control for organizations, virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [{ type: "text", text: "Zero-install 3-panel IDE for Web and Python" }],
+              },
+              {
+                type: "li",
+                children: [{ type: "text", text: "Organization-aware permissions and licensing" }],
+              },
+              {
+                type: "li",
+                children: [{ type: "text", text: "Teacher grading, reporting, and admin tooling" }],
+              },
+            ],
+          },
         ],
       },
       {
         id: "professional-key-features",
         type: BlockType.BULLETED_LIST,
-        title: "Noteable Features",
+        title: "Notable Features",
         items: [
           {
             id: "pro-grading",
             title: "Teacher Tools",
-            text: "Teacher-facing grading tools and downloadable classroom reports to support real instructional workflows.",
+            text: "I built teacher-facing grading tools designed around real instructional workflows rather than abstract evaluation models. Instructors can review student projects, run code, and leave feedback without disrupting live teaching. Downloadable reports allow classroom performance to be shared with coordinators and leadership. These tools reduced friction and made grading feel like a natural extension of teaching.",
             icon: faChartLine,
-            url: `${PageRoute.HOME}#grading`,
+            url: `${PageRoute.PROFESSIONAL}#grading`,
             ariaLabel: "View Teacher Tools Section",
           },
           {
             id: "pro-organizations",
-            title: "Organizations and Licensing",
-            text: "Role-based permissions for organizations (Student, Teacher, Admin). Flexable licensing system that limited number of teachers and students allowed to join. As well as paywalling propritary curriculum their classes were allowed to use.",
+            title: "Organizations & Licensing",
+            text: "The platform supports role-based permissions across organizations, including Students, Teachers, and Admins. I designed a flexible licensing system that enforces limits on active teachers and students while also controlling access to proprietary curriculum. These rules are applied consistently across classrooms and features, allowing the platform to scale from a single classroom to multi-school deployments. Licensing logic balances business constraints with educational continuity.",
             icon: faIdBadge,
-            url: `${PageRoute.HOME}#organizations`,
+            url: `${PageRoute.PROFESSIONAL}#organizations`,
             ariaLabel: "View Organizations and Licensing Section",
           },
           {
             id: "pro-editor",
-            title: "3 Panel Browser Based IDE",
-            text: "Designed a zero-install coding environment supporting Web (HTML,CSS,JS) and Python projects with live execution and cloud persistence.",
+            title: "3-Panel Browser-Based IDE",
+            text: "I designed a zero-install, browser-based coding environment that supports Web (HTML, CSS, JavaScript) and Python projects. The three-panel layout keeps instructions, code, and output visible at all times, reducing cognitive load for learners. Live execution and cloud persistence ensure students can work from any device without setup friction. The experience mirrors a lightweight IDE while remaining accessible to beginners.",
             icon: faLaptopCode,
-            url: `${PageRoute.HOME}#editor`,
+            url: `${PageRoute.PROFESSIONAL}#editor`,
             ariaLabel: "View 3 Panel Browser Based IDE Section",
           },
         ],
@@ -128,7 +197,7 @@ const homeSections = [
   },
   {
     id: "hackathon",
-    title: "Daimler Trucking Hackathon Winner 2019",
+    title: "Daimler Trucking Hackathon",
     isScroller: true,
     subtitle: "Rapid problem-solving under real-world constraints to real-world problems.",
     icon: faTrophy,
@@ -137,9 +206,37 @@ const homeSections = [
         id: "hackathon-overview",
         title: "Hackathon Overview",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "In 2019, I had the honor of participating in the Daimler Trucking Hackathon in Austin, Texas. Tasked with improving the repair process for the company, I joined forces with fellow junior developers after being initially overlooked by senior teams. Despite the odds, our collaborative effort resulted in a resounding victory, outperforming 20 other teams comprised of senior developers.",
-          "We won due to prioritizing the client's actual needs and delivering a solution tailored to their specific challenges, showcasing our ability to innovate and deliver impactful solutions under pressure.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "In 2019, I participated in the " },
+              { type: "strong", text: "Daimler Trucking Hackathon" },
+              {
+                type: "text",
+                text: " in Austin, Texas, where teams were tasked with improving real-world repair workflows under tight time constraints.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "After being initially overlooked by senior teams, I joined a group of junior developers and focused on understanding the client's actual pain points. We prioritized usability and practical constraints over technical flash.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "trophy" },
+              {
+                type: "text",
+                text: "By grounding our solution in real operator needs, we outperformed over 20 teams of senior engineers.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -149,8 +246,8 @@ const homeSections = [
         items: [
           {
             id: "h-kf-mvp-solution",
-            title: "Innovative MVP soloution",
-            text: "Built a voice-driven repair assistant to guide technicians hands-free while tracking workflow efficiency.",
+            title: "Innovative MVP Solution",
+            text: "Our team delivered a voice-driven repair assistant designed specifically for real-world shop environments. The solution guided technicians step-by-step while tracking workflow efficiency and bottlenecks. We focused on reducing cognitive load and physical constraints rather than adding complexity. This clear alignment with the client’s actual needs set our MVP apart from competing solutions.",
             icon: faHeadset,
             url: `${PageRoute.HACKATHON}#reinforce`,
             local: true,
@@ -158,7 +255,7 @@ const homeSections = [
           {
             id: "h-kf-voice-interface",
             title: "Hands-Free Voice Interface",
-            text: "Enabled technicians to receive step-by-step spoken instructions without screens or new hardware.",
+            text: "The voice interface allowed technicians to receive spoken instructions without looking at screens or handling devices. This design choice respected the realities of repair environments, where hands are often occupied. No specialized hardware was required, lowering adoption barriers. The result was a practical, immediately usable interface.",
             icon: faMicrophone,
             url: `${PageRoute.HACKATHON}#workflow-diagram`,
             local: true,
@@ -166,7 +263,7 @@ const homeSections = [
           {
             id: "h-kf-post-hackathon",
             title: "Post-Hackathon Product Work",
-            text: "Continued development as the sole engineer, transitioning the prototype into a mobile-first React Native app.",
+            text: "After the hackathon, I continued development as the sole engineer, transitioning the prototype into a mobile-first React Native application. This phase focused on stability, usability, and real-world deployment considerations. The experience reinforced my ability to take a concept beyond a demo and into a production-ready direction.",
             icon: faMobileScreenButton,
             url: `${PageRoute.HACKATHON}#tech_assist`,
             local: true,
@@ -202,9 +299,35 @@ const homeSections = [
         id: "sp-projects-overview",
         title: "Projects Overview",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "My side projects are where I like to experiment, explore new tools, and solve practical problems outside of client constraints.",
-          "These projects range from hardware-integrated automation systems to encryption tools and creative applications, each reflecting my curiosity and ability to take an idea from concept to execution.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "My side projects are where I experiment, explore new tools, and solve ",
+              },
+              { type: "strong", text: "practical problems" },
+              { type: "text", text: " outside of client or organizational constraints." },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "These projects range from hardware-integrated automation systems to encryption tools and creative applications. Each one reflects my ability to take an idea from concept to execution while owning the full technical lifecycle.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              { type: "li", children: [{ type: "text", text: "Hardware + software integration" }] },
+              { type: "li", children: [{ type: "text", text: "Algorithmic experimentation" }] },
+              { type: "li", children: [{ type: "text", text: "End-to-end product ownership" }] },
+            ],
+          },
         ],
       },
       {
@@ -215,20 +338,20 @@ const homeSections = [
         items: [
           {
             id: "sp-agile-robust-programs",
-            title: "Agile and Robust Programs",
-            text: "Full-stack (MERN) experimentation and rapid prototyping using my custom made template.",
+            title: "Agile & Robust Programs",
+            text: "I use side projects to experiment with full-stack architectures and rapid prototyping techniques. Many of these projects are built using my custom MERN template, allowing me to iterate quickly while maintaining structure. This balance helps me test ideas without sacrificing code quality. Lessons learned here often inform my professional work.",
             icon: faLayerGroup,
           },
           {
             id: "sp-practical-applications",
             title: "Practical Applications",
-            text: "Hardware and software integration that is still running in the field today.",
+            text: "Several of my side projects integrate hardware and software to solve real problems I’ve encountered firsthand. These systems are not proof-of-concepts; many are still running in the field today. Designing for reliability outside controlled environments has strengthened my problem-solving approach. Practical constraints drive better design decisions.",
             icon: faUniversalAccess,
           },
           {
             id: "sp-full-sdlc-experiance",
-            title: "Full SDLC experiance",
-            text: "Independent problem-solving and product ownership from beginning to end.",
+            title: "Full SDLC Experience",
+            text: "I take full ownership of projects from ideation through deployment and maintenance. This includes requirements gathering, architecture, implementation, and iteration. Working end-to-end exposes tradeoffs that are often hidden in narrow roles. It has made me a more thoughtful and accountable engineer.",
             icon: faLayerGroup,
           },
         ],
@@ -299,9 +422,27 @@ const homeSections = [
         id: "ed-smu-experience",
         title: "SMU Experience",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "My formal training at Southern Methodist University laid the technical foundation for my career, introducing me to web development, APIs, collaboration, and project-based learning.",
-          "The projects from this period showcase my early growth, my first experiences working in teams, and the transition from learning syntax to solving meaningful problems.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "My formal training at " },
+              { type: "strong", text: "Southern Methodist University" },
+              {
+                type: "text",
+                text: " laid the technical foundation for my career, introducing me to web development, APIs, collaboration, and project-based learning.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "This period represents the transition from learning syntax to solving meaningful problems through software. The projects from this phase highlight early growth, first team experiences, and increasing ownership of technical decisions.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -312,7 +453,7 @@ const homeSections = [
           {
             id: "ed-np-driven-interfaces",
             title: "API-Driven Interfaces",
-            text: "Early projects integrating public APIs, asynchronous data flows, and dynamic rendering.",
+            text: "These early projects focused on integrating third-party APIs and managing asynchronous data flows. I learned how to design interfaces that react to changing data rather than static inputs. This work laid the groundwork for my understanding of state management and dynamic rendering. It marked my shift from static pages to interactive systems.",
             icon: faPlug,
             url: `${PageRoute.EDUCATION}#gif_freak`,
             isScroller: false,
@@ -320,7 +461,7 @@ const homeSections = [
           {
             id: "ed-np-collaborative-development",
             title: "Collaborative Development",
-            text: "First exposure to team workflows, task division, and backend responsibilities.",
+            text: "This phase introduced me to team-based development, task division, and shared ownership of code. I gained early exposure to backend responsibilities and coordination challenges. Working in a group highlighted the importance of communication and clear interfaces. These experiences shaped how I collaborate today.",
             icon: faPeopleGroup,
             url: `${PageRoute.EDUCATION}#stock_memer`,
             isScroller: false,
@@ -328,7 +469,7 @@ const homeSections = [
           {
             id: "ed-np-matching-algorithms",
             title: "Matching Algorithms",
-            text: "Designed a compatibility scoring system as part of a real-world problem-solving capstone.",
+            text: "As part of a capstone project, I designed a compatibility scoring system to solve a real-world matching problem. This work required balancing algorithmic logic with user expectations. It was my first exposure to translating abstract requirements into concrete, testable logic. The project reinforced the value of thoughtful data modeling.",
             icon: faChartDiagram,
             url: `${PageRoute.EDUCATION}#scion_matches`,
             isScroller: false,
@@ -363,9 +504,27 @@ const homeSections = [
         id: "cta-get-in-touch",
         title: "Get in Touch",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "If you're looking for an engineer who can take ownership of UI architecture, think in systems, and collaborate across product and engineering teams, I'd love to talk.",
-          "Whether you're hiring, exploring a collaboration, or just want to discuss ideas, feel free to reach out.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "If you're looking for an engineer who can " },
+              { type: "strong", text: "own UI architecture" },
+              {
+                type: "text",
+                text: ", think in systems, and collaborate closely across product and engineering teams, I’d love to connect.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Whether you're hiring, exploring a collaboration, or simply want to talk through ideas, feel free to reach out. I’m always open to meaningful conversations and new challenges.",
+              },
+            ],
+          },
         ],
       },
       {

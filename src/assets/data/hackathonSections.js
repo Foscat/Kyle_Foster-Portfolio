@@ -11,7 +11,7 @@ import {
   faTruckFast,
   faTruckFront,
 } from "@fortawesome/free-solid-svg-icons";
-import { BlockType } from "../../types/ui.types";
+import { BlockType } from "types/ui.types";
 import { diagrams } from "./diagrams.js";
 import imageObjs from "../images/hackathon";
 
@@ -122,21 +122,21 @@ const hackathonSections = [
           "Our team designed a fully voice-operated repair assistant that delivered step-by-step instructions to technicians without requiring any screen interaction. Using my MERN starter template as the backend foundation, we rapidly assembled a modular system tailored to Daimler's workflow. One teammate developed an XML parser capable of reading and structuring Daimler's service documentation, while another built an AWS Lambda function responsible for tracking step progression and timing. My role centered on the natural-language command system: interpreting technician speech, translating it into actionable commands, routing those commands to the backend, and reading the next instruction aloud through synthesized speech.",
         ],
       },
-      diagrams.repairWorkflow,
       {
         id: "group-collaboration",
         type: BlockType.IMAGE_GALLERY,
         title: "Collaboration in Action",
         images: [imageObjs.chatbotting],
       },
-      diagrams.voiceCommands,
+      diagrams.repairWorkflow,
+
       {
         id: "focused-collaboration",
         type: BlockType.IMAGE_GALLERY,
         title: "Focused Collaboration",
         images: [imageObjs.focused],
       },
-      diagrams.systemArchitecture,
+      diagrams.voiceCommands,
       {
         id: "outcome-text",
         type: BlockType.RICH_TEXT,
@@ -151,7 +151,6 @@ const hackathonSections = [
         title: "The Winners Circle",
         images: [imageObjs.check],
       },
-      diagrams.commandLifecycle,
     ],
   },
   {

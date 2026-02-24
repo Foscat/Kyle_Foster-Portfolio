@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "tests/renderWithProviders";
-import ImageGalleryBlock from "./ImageGalleryBlock";
+import ImageGalleryBlock from ".";
 
 /**
  * @file ImageGalleryBlock.test.jsx

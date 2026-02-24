@@ -1,10 +1,7 @@
 .theme-toggle {
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  background: var(--gold-glow);
   border-radius: var(--border-radius);
   border: 1px solid rgba(var(--accent), 0.25);
-  box-shadow: var(--glass-shadow);
+  background-color: var(--bg-elevated);
   display: flex;
   justify-content: center;
   width: 100%;

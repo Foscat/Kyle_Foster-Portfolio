@@ -39,7 +39,7 @@ const Smu = () => {
         <div className="page-layout">
           <main className="page-content app-main" role="main">
             {smu.sections.map((sect, i) => {
-              return <SectionRenderer section={sect} key={"smu-section" + i + 1} />;
+              return <SectionRenderer section={sect} key={"smu-section-" + (i + 1)} />;
             })}
           </main>
           <aside className="page-sidebar">

@@ -2,6 +2,7 @@ import { Tooltip, Whisper } from "rsuite";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
+import { Size } from "types/ui.types";
 
 /**
  * @file index.jsx
@@ -112,6 +113,8 @@ const FrostedIcon = ({
   className = "",
   loading = false,
   tooltip = "",
+  followCursor,
+  tooltipPlacement,
   ariaLabel = "",
   noBG = false,
   // FontAwesomeIcon specific props
@@ -140,7 +143,8 @@ const FrostedIcon = ({
     <Whisper
       delay={250}
       trigger={tooltip ? "hover" : "none"}
-      followCursor={true}
+      followCursor={followCursor}
+      placement={tooltipPlacement}
       speaker={<Tooltip>{tooltip}</Tooltip>}
     >
       <FontAwesomeIcon
@@ -159,8 +163,8 @@ const FrostedIcon = ({
             ${clickable ? "fi-clickable" : ""}
             ${className}
           `}
+        size={Size.SM}
         spin={loading || spin}
-        size={size}
         icon={loading ? faSpinner : icon}
         border={border}
         mask={mask}

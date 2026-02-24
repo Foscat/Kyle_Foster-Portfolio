@@ -81,34 +81,130 @@ export const BlockType = Object.freeze({
  */
 export const PageRoute = Object.freeze({
   HOME: "/",
-  PROFESSIONAL: "/codestream/",
-  HACKATHON: "/hackathon/",
-  SIDE_PROJECTS: "/side-projects/",
-  EDUCATION: "/smu/",
-  CONNECT: "/contact/",
+  PROFESSIONAL: "/codestream",
+  HACKATHON: "/hackathon",
+  SIDE_PROJECTS: "/side-projects",
+  EDUCATION: "/smu",
+  CONNECT: "/contact",
 });
 
 /* ============================================================================
-   CALLBACK SIGNATURES (JSDOC-ONLY)
-   ========================================================================== */
+   RSuite Constants
+   ========================================================================= */
+
+/** */
 
 /**
- * Generic click handler
- * @callback ClickHandler
- * @param {MouseEvent} event
- * @returns {void | Promise<void>}
+ * TooltipPlacement
+ * ---------------------------------------------------------------------------
+ * Standardized placement options for RSuite Tooltip / Whisper components.
+ *
+ * These values map directly to RSuite's supported `placement` strings and
+ * should be used instead of inline string literals to ensure consistency
+ * and discoverability across the codebase.
+ *
+ * Reference:
+ * RSuite Tooltip & Whisper placement API
+ *
+ * @readonly
+ * @enum {string}
  */
+export const TooltipPlacement = Object.freeze({
+  /** Top-center placement (default) */
+  TOP: "top",
+  /** Top-left placement */
+  TOP_START: "topStart",
+  /** Top-right placement */
+  TOP_END: "topEnd",
+
+  /** Bottom-center placement */
+  BOTTOM: "bottom",
+  /** Bottom-left placement */
+  BOTTOM_START: "bottomStart",
+  /** Bottom-right placement */
+  BOTTOM_END: "bottomEnd",
+
+  /** Left-center placement */
+  LEFT: "left",
+  /** Left-top placement */
+  LEFT_START: "leftStart",
+  /** Left-bottom placement */
+  LEFT_END: "leftEnd",
+
+  /** Right-center placement */
+  RIGHT: "right",
+  /** Right-top placement */
+  RIGHT_START: "rightStart",
+  /** Right-bottom placement */
+  RIGHT_END: "rightEnd",
+});
 
 /**
- * Generic change handler
- * @callback ChangeHandler
- * @param {*} value
- * @returns {void}
+ * HoverAnimation
+ * ---------------------------------------------------------------------------
+ * Standardized hover animation behaviors for interactive UI elements.
+ *
+ * This enum defines *intent*, not implementation. Components map these
+ * values to approved motion patterns (e.g. translate, shadow, none).
+ *
+ * Design constraints enforced by this enum:
+ * - No scale-based hover animations
+ * - No blur animation
+ * - No fast (<180ms) transitions
+ * - Hover applies only to intentful interactive elements
+ *
+ * @readonly
+ * @enum {string}
  */
+export const HoverAnimation = Object.freeze({
+  /**
+   * No hover animation.
+   * Use for static elements or where motion would be distracting.
+   */
+  NONE: "none",
+
+  /**
+   * Subtle vertical lift.
+   * Maps to a small translateY + shadow.
+   *
+   * Safe for glass UIs.
+   */
+  LIFT: "lift",
+
+  /**
+   * Background color change only.
+   * No transform, no shadow.
+   *
+   * Use for text links or low-emphasis actions.
+   */
+  HIGHLIGHT: "highlight",
+
+  /**
+   * Shadow emphasis without movement.
+   * Use when layout stability is critical.
+   */
+  EMPHASIZE: "emphasize",
+});
 
 /* ============================================================================
    SHARED DATA TYPES (JSDOC TYPEDEFS)
    ========================================================================== */
+
+/**
+ * @typedef {object} RichTextNode
+ * @property {'text'|'p'|'strong'|'em'|'a'|'code'|'pre'|'ul'|'ol'|'li'|'blockquote'|'inlineIcon'} type
+ *   Node type identifier that determines rendering behavior.
+ * @property {string} [text]
+ *   Text content for inline nodes and code blocks.
+ * @property {string} [href]
+ *   Destination URL for anchor (`a`) nodes.
+ * @property {string} [language]
+ *   Programming language identifier for syntax-highlighted code blocks.
+ * @property {string} [icon]
+ *   Icon identifier used by `inlineIcon` nodes.
+ * @property {RichTextNode[]} [children]
+ *   Nested child nodes for block-level or composite elements.
+ */
 
 /**
  * Image metadata
@@ -150,22 +246,23 @@ export const PageRoute = Object.freeze({
  */
 
 /**
+ * Diagram Variant
+ * @typedef {object} DiagramVariant
+ * @property {string} diagram - Mermaid.js definition.
+ * @property {RichTextNode | string} description - Diagram explanation.
+ * 
+ * /
+
+/**
  * Diagram block
  * @typedef {object} DiagramBlock
  * @property {"diagram"} type - Block discriminator.
  * @property {string} title - Diagram title.
- * @property {string} diagram - Mermaid.js definition.
+ * @property {DiagramVariant} desktop - Mermaid.js definition an description optomized for desktop.
+ * @property {DiagramVariant} mobile - Mermaid.js definition and description optomized for mobile devices.
  * @property {"light"|"dark"|"auto"} [theme="auto"] - Theme preference.
  * @property {string} [description] - Optional explanation.
  * @property {boolean} [collapsible=true] - Allow collapse.
- */
-
-/**
- * Rich text block
- * @typedef {object} RichTextBlock
- * @property {"richText"} type - Block discriminator.
- * @property {string} [title] - Optional heading.
- * @property {string[]} paragraphs - Paragraph content.
  */
 
 /**
@@ -201,7 +298,6 @@ export const PageRoute = Object.freeze({
  * Feature section definition
  * @typedef {object} FeatureSection
  * @property {string} id - DOM anchor id.
- * @property {string} slug - URL-safe slug.
  * @property {string} title - Section title.
  * @property {string} [subtitle] - Optional subtitle.
  * @property {string} [icon] - Icon key.
@@ -238,6 +334,8 @@ export const PageRoute = Object.freeze({
  * @returns {FeatureImage}
  */
 export const createFeatureImage = (block) => ({
+  ...block,
+  id: block.id || "",
   src: block.src || "",
   alt: block.alt || "",
   title: block.title || "",
@@ -245,7 +343,14 @@ export const createFeatureImage = (block) => ({
   ariaLabel: block.ariaLabel || "",
 });
 
+/**
+ *
+ * @param {Partial<ImageGalleryBlock>} block - Image gallery block properties.
+ * @returns {ImageGalleryBlock}
+ */
 export const createImageGalleryBlock = (block) => ({
+  ...block,
+  id: block.id || "",
   type: BlockType.IMAGE_GALLERY,
   title: block.title || "",
   images: block.images || [],
@@ -253,36 +358,44 @@ export const createImageGalleryBlock = (block) => ({
 
 /**
  * Create a default RichTextBlock
- * @param {Partial<RichTextBlock>} block
+ * @param {Partial<RichTextBlock>} block - Rich text block properties.
  * @returns {RichTextBlock}
  */
 export const createRichTextBlock = (block) => ({
+  ...block,
   type: BlockType.RICH_TEXT,
+  id: block.id || "",
   title: block.title || "",
-  paragraphs: block.paragraphs || [],
+  content: block.content || block.paragraphs || [],
 });
 
 /**
  * Create a default DiagramBlock
- * @param {Partial<BulletListBlock>} block
+ * @param {Partial<BulletListBlock>} block - Diagram block properties.
  * @returns {DiagramBlock}
  */
 export const createDiagramBlock = (block) => ({
   type: BlockType.DIAGRAM,
+  id: block.id || "",
   title: block.title || "",
   diagram: block.diagram || "",
+  mobileDiagram: block.mobile || {},
+  desktopDiagram: block.desktop || {},
   theme: block.theme || Theme.AUTO,
   description: block.description || "",
   collapsible: block.collapsible || false,
+  ...block,
 });
 
 /**
  * Create a default BulletListItem
- * @param {Partial<BulletListBlock>} item
- * @param {number} position
- * @returns {DiagramBlock}
+ * @param {Partial<BulletListBlock>} item - Bullet item properties.
+ * @param {number} [position] - Index position used for generating fallback ids.
+ * @returns {BulletItem}
  */
 const createBulletItem = (item, position) => ({
+  ...item,
+  type: BlockType.BULLETED_LIST,
   id: item.id || "bullet-" + position,
   text: item.text || "",
   title: item.title || "",
@@ -296,11 +409,14 @@ const createBulletItem = (item, position) => ({
 });
 
 /**
- * @param {Partial<BulletListBlock>} block
+ * Create a default BulletListBlock
+ * @param {Partial<BulletListBlock>} block - Bullet list block properties.
  * @returns {BulletListBlock}
  */
 export const createBulletListBlock = (block) => ({
+  ...block,
   type: BlockType.BULLETED_LIST,
+  id: block.id || "",
   title: block.title || "",
   items: Array.isArray(block.items)
     ? block.items.map((item, index) => createBulletItem(item, index))
@@ -309,11 +425,13 @@ export const createBulletListBlock = (block) => ({
 
 /**
  * Create a default LinkListBlock
- * @param {Partial<LinkListBlock>} block
+ * @param {Partial<LinkListBlock>} block - Link list block properties.
  * @returns {LinkListBlock}
  */
 export const createLinkListBlock = (block) => ({
+  ...block,
   type: BlockType.LINKS,
+  id: block.id || "",
   title: block.title || "",
   links: Array.isArray(block.items)
     ? block.links.map((link, index) => createBulletItem(link, index))
@@ -326,7 +444,6 @@ export const createLinkListBlock = (block) => ({
  */
 export const createFeatureSection = () => ({
   id: "",
-  slug: "",
   title: "",
   subtitle: "",
   icon: "",

@@ -3,6 +3,10 @@
   "private": true,
   "version": "1.1.1",
   "type": "module",
+  "engines": {
+    "node": ">=18 <23",
+    "npm": ">=10 <11"
+  },
   "scripts": {
     "build": "vite build",
     "codemod:keys": "jscodeshift -t scripts/codemods/add-react-keys.js src",
@@ -29,6 +33,7 @@
     "docs:verify": "npm-run-all --sequential lint:ci docs:build",
     "lint": "eslint . --max-warnings=0",
     "lint:ci": "eslint src --max-warnings=0",
+    "lint:css": "stylelint \"src/**/*.css\"",
     "lint:fix": "eslint . --fix",
     "lint:fix-safe": "eslint src --fix",
     "lint:cleanup": "npm-run-all --sequential codemod:keys codemod:map-index codemod:fix-jsdoc format lint:fix-safe lint",
@@ -51,7 +56,8 @@
     "@rsuite/icons": "1.4.0",
     "@testing-library/jest-dom": "^6.9.1",
     "html-to-image": "1.11.13",
-    "mermaid": "11.12.1",
+    "mermaid": "^11.12.3",
+    "prismjs": "^1.30.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-helmet-async": "2.0.5",
@@ -61,9 +67,9 @@
     "svg-pan-zoom": "3.6.2"
   },
   "devDependencies": {
-    "@eslint/js": "8.57.1",
+    "@eslint/js": "9.39.2",
     "@mermaid-js/mermaid-cli": "11.12.0",
-    "@mermaid-js/parser": "0.6.3",
+    "@mermaid-js/parser": "1.0.0",
     "@playwright/test": "1.57.0",
     "@swc/core": "1.9.3",
     "@testing-library/react": "16.1.0",
@@ -73,7 +79,7 @@
     "@vitejs/plugin-react": "4.3.1",
     "@vitest/coverage-v8": "4.0.16",
     "cross-env": "7.0.3",
-    "eslint": "8.57.1",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-formatter-html": "2.7.3",
     "eslint-plugin-import": "2.32.0",
@@ -98,6 +104,9 @@
     "npm-run-all": "^4.1.5",
     "prettier": "3.7.4",
     "rimraf": "6.1.2",
+    "stylelint": "^17.1.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-order": "^7.0.1",
     "vite": "5.4.21",
     "vitest": "4.0.16"
   },
@@ -107,6 +116,8 @@
     ]
   },
   "overrides": {
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "lodash-es": "^4.17.23",
+    "minimatch": "^10.2.1"
   }
 }

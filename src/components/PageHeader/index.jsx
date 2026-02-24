@@ -86,8 +86,6 @@ const PageHeader = ({
       return "";
     }
 
-    console.log({ techArray });
-
     const techList = techArray.map((tech, i) => {
       return (
         <span key={tech.label + i} className={`${tech.type}`}>
@@ -101,7 +99,7 @@ const PageHeader = ({
   };
 
   return (
-    <Panel bordered className={`page-header blue-tile fade-in ${className}`} role="banner" expanded>
+    <Panel className={`page-header blue-tile ${className}`} role="banner" expanded>
       <FlexboxGrid justify="center" align="middle" className="page-header-inner">
         <FlexboxGrid.Item colspan={24} className="text-center">
           <h1 className="page-header-title">{title}</h1>

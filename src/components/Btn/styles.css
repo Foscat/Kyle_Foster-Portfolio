@@ -2,12 +2,13 @@
    Frosted Glass Button — Core Styles (Updated)
    ============================================================ */
 
-.btn {
+.rs-btn.btn.interactive-surface,
+.rs-panel-btn.interactive-surface {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  gap: 0.5rem;
+  gap: var(--mobile-gap);
   padding: 10px 14px;
 
   border-radius: var(--border-radius);
@@ -29,8 +30,8 @@
 /* ------------------------------------------------------------
    RSuite IconButton Normalization
 ------------------------------------------------------------ */
-.btn > .rs-btn-icon,
-.btn > .rs-icon {
+.rs-btn.btn.interactive-surface > .rs-btn-icon,
+.rs-btn.btn.interactive-surface > .rs-icon {
   margin: 0 auto;
   display: flex;
   justify-self: center;
@@ -41,21 +42,16 @@
 /* ------------------------------------------------------------
    Icon-only Mode
 ------------------------------------------------------------ */
-.btn.icon-only {
+.rs-btn.btn.interactive-surface.icon-only {
   padding: 0;
   margin: 0 auto;
-  padding: 10px;
-  /* width: 45px; */
-  /* height: 45px; */
 }
 
-.btn.icon-only .frosted-icon {
+.rs-btn.btn.interactive-surface.icon-only .frosted-icon {
   margin: 0;
-  background-color: rgba(var(--primary-dark-rgb), 0.7);
-  box-shadow: var(--gold-glow);
 }
 
-.btn.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
   padding: 6px 10px 6px 8px;
   font-weight: 600;
 }
@@ -63,51 +59,26 @@
 /* ------------------------------------------------------------
    Size Variants (sync Btn + FrostedIcon)
 ------------------------------------------------------------ */
-.rs-btn.btn-xs {
+.rs-btn.btn.btn-xs.interactive-surface {
   font-size: var(--font-xs);
 }
-.rs-btn.btn-sm {
+.rs-btn.btn.btn-sm.interactive-surface {
   font-size: var(--font-sm);
 }
-.rs-btn.btn-md {
+.rs-btn.btn.btn-md.interactive-surface {
   font-size: var(--font-md);
 }
-.rs-btn.btn-lg {
+.rs-btn.btn.btn-lg.interactive-surface {
   font-size: var(--font-lg);
 }
-.rs-btn.btn-xl {
+.rs-btn.btn.btn-xl.interactive-surface {
   font-size: var(--font-xl);
-}
-
-/* ------------------------------------------------------------
-   Hover / Active
------------------------------------------------------------- */
-.btn:hover:not(:disabled):not(.loading) {
-  transform: translateY(-3px);
-  transition-duration: 250ms;
-  transition-delay: 200ms;
-  box-shadow: var(--glass-shadow);
-}
-
-.btn:active:not(:disabled):not(.loading) {
-  transform: scale(0.97);
-  transition-duration: 250ms;
-  transition-delay: 200ms;
-  box-shadow: var(--shadow-dark);
-}
-
-/* ------------------------------------------------------------
-   Focus
------------------------------------------------------------- */
-.btn:focus-visible {
-  outline: 3px solid var(--accent-light);
-  outline-offset: 2px;
 }
 
 /* ------------------------------------------------------------
    Disabled
 ------------------------------------------------------------ */
-.btn:disabled,
+.rs-btn.btn.interactive-surface:disabled,
 .icon.disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -119,54 +90,63 @@
    Variant Styles (mapped to Variant enum)
    ============================================================ */
 
-.btn.primary {
+.rs-btn.btn.interactive-surface.primary {
   background-color: var(--frost-bg);
   border: var(--frost-border);
   color: var(--accent);
 }
 
-.btn.primary:hover:not(:disabled):not(.loading),
-.btn.primary:active:not(:disabled):not(.loading),
-.btn.primary:focus {
+.rs-btn.btn.interactive-surface.primary:hover:not(:disabled):not(.loading),
+.rs-btn.btn.interactive-surface.primary:active:not(:disabled):not(.loading),
+.rs-btn.btn.interactive-surface.primary:focus {
   background-color: var(--glass-bg);
-  border-top: 2px outset var(--accent);
-  border-right: 2px inset var(--accent-dark);
-  border-bottom: 2px inset var(--accent-dark);
-  border-left: 2px outset var(--accent);
+  border-color: var(--glass-border);
   box-shadow: var(--shadow-accent);
+  color: var(--accent-dark);
 }
 
-.btn.secondary {
-  background-color: var(--bg-secondary);
-  border: 1px solid rgba(var(--gray-700-rgb), 0.28);
+.rs-btn.btn.interactive-surface.secondary {
+  background-color: var(--glass-bg);
+  border: var(--glass-border);
   color: var(--text-primary);
 }
 
-.btn.secondary:hover:not(:disabled):not(.loading),
-.btn.secondary:active:not(:disabled):not(.loading),
-.btn.secondary:focus {
-  box-shadow: var(--shadow-accent);
+.rs-btn.btn.interactive-surface.secondary:hover:not(:disabled):not(.loading),
+.rs-btn.btn.interactive-surface.secondary:active:not(:disabled):not(.loading),
+.rs-btn.btn.interactive-surface.secondary:focus {
+  background-color: var(--frost-bg);
+  border: var(--frost-border);
+  color: var(--text-secondary);
 }
 
-.btn.accent {
-  background-color: rgba(var(--accent-rgb), 0.25);
-  border: 1px solid rgba(var(--accent-rgb), 0.45);
-  color: var(--primary-dark-rgb);
+.rs-btn.btn.interactive-surface.accent {
+  background-color: var(--accent-bg);
+  border: var(--accent-border);
+  color: var(--primary-dark);
 }
 
-.btn.subtle {
+.rs-btn.btn.interactive-surface.accent:hover:not(:disabled):not(.loading),
+.rs-btn.btn.interactive-surface.accent:active:not(:disabled):not(.loading),
+.rs-btn.btn.interactive-surface.accent:focus {
+  background-color: var(--accent-bg-dark);
+  border: var(--accent-dark-border);
+  color: var(--text-secondary);
+}
+
+.rs-btn.btn.interactive-surface.subtle {
   background-color: rgba(var(--white-rgb), 0.08);
   border: 1px solid rgba(var(--white-rgb), 0.18);
   color: var(--text-primary);
 }
 
-.btn.danger {
+.rs-btn.btn.interactive-surface.danger {
   background-color: rgba(var(--error-rgb), 0.25);
   border: 1px solid rgba(var(--error-rgb), 0.45);
-  color: var(--accent-light);
+  color: var(--error);
 }
 
-.btn.btn-noBG {
+.rs-btn.btn.interactive-surface.btn-noBG,
+.rs-btn.btn.interactive-surface.noBG {
   background: none;
   border: none;
   box-shadow: none;
@@ -174,16 +154,45 @@
   backdrop-filter: none;
 }
 
-.btn.btn-noBG:hover:not(:disabled):not(.loading) {
-  box-shadow: var(--shadow-accent);
-  border-radius: var(--border-radius);
+.rs-btn.btn.interactive-surface.not-clickable:hover .not-clickable:hover {
+  cursor: not-allowed;
 }
 
 /* ============================================================
    Loading
    ============================================================ */
 
-.btn.loading {
+.rs-btn.btn.interactive-surface.loading {
   pointer-events: none;
   opacity: 0.75;
+}
+/* ============================================================
+   Tooltip Overrides
+   ============================================================ */
+.btn-tooltip {
+  font-size: var(--font-sm);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--primary-dark-bg);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+    Hover & Active States (Desktop Only)
+      - Overrides RSuite's default hover/active styles for buttons
+      - Ensures consistent behavior across all variants
+   ============================================================ */
+
+@media screen and (max-width: 900px) {
+  .rs-btn.btn.interactive-surface.interactive-surface:hover,
+  .rs-btn.btn.interactive-surface.interactive-surface:hover .rs-icon.btn-icon,
+  a:hover
+    .rs-btn.btn.interactive-surface.interactive-surface
+    .rs-btn.btn.interactive-surface.accent:active:not(:disabled):not(.loading),
+  .rs-btn.btn.interactive-surface.primary:active:not(:disabled):not(.loading),
+  .rs-btn.btn.interactive-surface.secondary:active:not(:disabled):not(.loading),
+  .rs-btn.btn.interactive-surface:active:not(:disabled):not(.loading) {
+    transform: none;
+    text-decoration: none;
+  }
 }
