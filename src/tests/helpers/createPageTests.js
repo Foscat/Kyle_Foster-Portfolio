@@ -75,7 +75,7 @@ export function createPageTests({ PageComponent, sections, pageRoute, pageName }
      */
     it("passes correct activePage to StickyNav", () => {
       const StickyNav = require("components/StickyNav").default;
-      const spy = vi.spyOn(StickyNav, "default" ?? StickyNav);
+      const spy = vi.spyOn(StickyNav, "default");
 
       render(<PageComponent />);
 

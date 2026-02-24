@@ -36,6 +36,16 @@ const imgObjs = {
     ariaLabel:
       'Group photo of team "Reinforce" at the Daimler Truck North America Hackathon in 2019',
   },
+  check: {
+    id: "hack_check_img",
+    src: check,
+    alt: "Team Reinforce celebrating our victory at the Daimler Truck North America Hackathon in 2019",
+    title: "Team Reinforce Celebrating Victory",
+    caption:
+      "Team Reinforce celebrating our victory at the Daimler Truck North America Hackathon in 2019.",
+    ariaLabel:
+      "Team Reinforce holding up our winning check at the Daimler Truck North America Hackathon in 2019",
+  },
   taLogo: {
     id: "hack_ta_logo_img",
     src: taLogo,

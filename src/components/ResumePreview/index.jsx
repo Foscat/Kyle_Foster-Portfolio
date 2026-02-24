@@ -37,7 +37,9 @@ import resumePdf from "assets/data/Kyle_Foster_React_Resume.pdf";
  * @component
  * @returns {JSX.Element} Rendered resume preview modal and trigger button.
  */
-const ResumePreview = () => {
+const ResumePreview = ({
+  block = false, // Optional prop for future extensibility
+}) => {
   const [open, setOpen] = useState(false);
 
   /**
@@ -62,19 +64,25 @@ const ResumePreview = () => {
         icon={faFileLines}
         variant="primary"
         size="lg"
+        block={block}
         onClick={openModal}
         ariaLabel="Preview resume"
         tooltip="Preview resume"
       />
 
       {/* Modal */}
-      <Modal open={open} onClose={closeModal} size="lg" backdrop="static" className="modal-glass">
+      <Modal open={open} onClose={closeModal} size="lg" backdrop="static" className="blue-tile">
         <Modal.Header>
           <Modal.Title>Kyle Foster — Resume</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body className="modal-body-pad text-center">
-          <iframe src={resumePdf} title="Resume preview" className="modal-embed">
+        <Modal.Body className="frosted">
+          <iframe
+            src={resumePdf}
+            title="Resume preview"
+            className="modal-embed"
+            aria-label="Embedded PDF preview of resume"
+          >
             <p>
               Your browser does not support embedded PDFs.
               <a href={resumePdf} target="_blank" rel="noopener noreferrer">

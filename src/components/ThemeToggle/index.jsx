@@ -42,7 +42,7 @@ import "./styles.css";
  *
  * @returns {JSX.Element} Rendered theme toggle control.
  */
-const ThemeToggle = ({ size = Size.SM }) => {
+const ThemeToggle = ({ size = Size.MD }) => {
   /**
    * Current theme state and setter provided by ThemeContext.
    */
@@ -58,7 +58,6 @@ const ThemeToggle = ({ size = Size.SM }) => {
         size={size}
         noBG
         variant={theme === Theme.LIGHT ? Variant.PRIMARY : Variant.SUBTLE}
-        disabled={theme === Theme.LIGHT}
         onClick={() => {
           if (theme === Theme.LIGHT) return;
           else setTheme(Theme.LIGHT);
@@ -72,8 +71,7 @@ const ThemeToggle = ({ size = Size.SM }) => {
         icon={faMoon}
         size={size}
         noBG
-        variant={theme === Theme.DARK ? Variant.SUBTLE : Variant.PRIMARY}
-        disabled={theme === Theme.DARK}
+        variant={theme === Theme.DARK ? Variant.ACCENT : Variant.PRIMARY}
         onClick={() => {
           if (theme === Theme.DARK) return;
           else setTheme(Theme.DARK);

@@ -3,7 +3,7 @@ import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { renderWithProviders } from "tests/renderWithProviders";
-import RichTextBlock from "./RichTextBlock";
+import RichTextBlock from ".";
 
 /**
  * @file RichTextBlock.test.jsx

@@ -16,16 +16,15 @@ import {
   faUnlockKeyhole,
   faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
-import { BlockType } from "../../types/ui.types";
+import { BlockType } from "types/ui.types";
 import { diagrams } from "./diagrams.js";
 import imgObjs from "assets/images/sideProjects";
 
 const sideProjectSections = [
   {
     id: "overview",
-    slug: "overview",
-    title: "Side Projects Overview",
-    icon: faFlaskVial,
+    title: "Overview",
+    icon: faTowerObservation,
     isScroller: true,
     blocks: [
       {
@@ -34,8 +33,8 @@ const sideProjectSections = [
         title: "Exploring Real-World Solutions",
         icon: faTowerObservation,
         paragraphs: [
-          "Alongside my professional work, I consistently build personal side projects to solve real problems, explore new technologies, and deepen my engineering skill set. These projects are self-directed, production-minded systems — not tutorials or proof-of-concepts — and each reflects how I approach software design in real-world conditions.",
-          "Across hardware automation, security tooling, and full-stack application design, these projects demonstrate ownership, technical range, and an ability to translate abstract ideas into working systems. They mirror the same problem-solving mindset I bring to professional teams: identify constraints, design pragmatically, and iterate until the solution is reliable.",
+          "Alongside my professional work, I consistently build personal side projects to solve real problems, explore new technologies, and deepen my engineering skill set. These projects are self-directed and production-minded, not tutorials or throwaway experiments. Each one reflects how I approach software design when I’m responsible for the entire system.",
+          "Across hardware automation, security tooling, and full-stack application design, these projects demonstrate ownership, technical range, and a willingness to work through ambiguity. They mirror the same mindset I bring to professional teams: understand the constraints, design pragmatically, and iterate until the solution is reliable in real-world conditions.",
         ],
       },
     ],
@@ -47,13 +46,12 @@ const sideProjectSections = [
 
   {
     id: "greenhouse",
-    slug: "greenhouse-climate-controller",
-    title: "Greenhouse Climate Controller",
+    title: "Greenhouse Controller",
     icon: faSeedling,
     isScroller: true,
     blocks: [
       {
-        id: "greenhouseproblem-text",
+        id: "greenhouse-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
         title: "The Problem",
@@ -61,6 +59,7 @@ const sideProjectSections = [
           "Maintaining stable environmental conditions inside a greenhouse requires constant monitoring. Manual checks are time-consuming, error-prone, and impractical when conditions fluctuate throughout the day. Without automation, achieving consistent year-round growth becomes difficult, especially when physical access is limited.",
         ],
       },
+      diagrams.greenhouseMentalModel,
       {
         id: "greenhouse-control-board",
         type: BlockType.IMAGE_GALLERY,
@@ -86,19 +85,19 @@ const sideProjectSections = [
           {
             id: "gh-takeaway-1",
             title: "Automation & Control Systems",
-            text: "Designed a real-world automation system combining hardware, software, and environmental feedback loops",
+            text: "This project required designing a real-world automation system that tightly integrates hardware, software, and environmental feedback loops. Sensors continuously inform control decisions, and actuators respond without human intervention. The system had to remain stable despite fluctuating conditions and imperfect inputs. It reinforced the importance of deterministic control logic in physical systems.",
             icon: faCodeCompare,
           },
           {
             id: "gh-takeaway-2",
             title: "Embedded Systems",
-            text: "Demonstrated embedded systems thinking and fault-tolerant control logic",
+            text: "Working with a Raspberry Pi Zero and sensor modules pushed me to think in terms of embedded constraints rather than abstract software models. I designed fault-tolerant logic that could recover from transient failures without crashing or requiring manual resets. Resource limitations influenced architectural decisions throughout the project. This experience strengthened my systems-level thinking.",
             icon: faBrain,
           },
           {
             id: "gh-takeaway-3",
             title: "Reliability Focus",
-            text: "Built a solution optimized for reliability over constant user interaction",
+            text: "The system was intentionally designed to minimize ongoing user interaction. Once configured, it operates autonomously for long periods of time. Reliability and predictability mattered more than rich interfaces or frequent adjustments. This focus mirrors how production infrastructure must behave when human oversight is limited.",
             icon: faArrowsToCircle,
           },
         ],
@@ -144,7 +143,13 @@ const sideProjectSections = [
       {
         id: "enigma-screenshots",
         type: BlockType.IMAGE_GALLERY,
-        images: [imgObjs.enigma],
+        title: "Application Screenshots",
+        images: [
+          imgObjs.enigmaApp,
+          imgObjs.enigmaEncryption,
+          imgObjs.enigmaDecryption,
+          imgObjs.enigmaGuide,
+        ],
       },
       {
         id: "enigma-solution-text",
@@ -157,6 +162,7 @@ const sideProjectSections = [
         ],
       },
       diagrams.encryptionFlow,
+      diagrams.decryptFlow,
       {
         id: "enigma-takeaways",
         type: BlockType.BULLETED_LIST,
@@ -165,19 +171,19 @@ const sideProjectSections = [
           {
             id: "enigma-takeaway-1",
             title: "Cryptography Principles",
-            text: "Designed a real-world automation system combining hardware, software, and environmental feedback loops",
+            text: "This project allowed me to explore classical cryptography concepts in a hands-on, practical way. By implementing rotating alphabets and deterministic transformations, I gained a deeper understanding of how simple ciphers can be composed into more complex systems. The exercise emphasized clarity and correctness over brute-force complexity. It reinforced the importance of well-defined transformations in security-related code.",
             icon: faKey,
           },
           {
             id: "enigma-takeaway-2",
             title: "Client-Side Security",
-            text: "Demonstrated embedded systems thinking and fault-tolerant control logic",
+            text: "All encryption and decryption occurs entirely in the browser, without sending data to a server. This design choice prioritizes user privacy and reduces the attack surface of the application. It also required careful consideration of performance and determinism in a client-only environment. The result is a tool that demonstrates secure behavior through architectural choices, not just algorithms.",
             icon: faUserShield,
           },
           {
             id: "enigma-takeaway-3",
             title: "Usability Focus",
-            text: "Built a solution optimized for reliability over constant user interaction",
+            text: "A major goal of the project was making cryptography approachable rather than intimidating. The interface is designed to guide users through encryption and decryption without requiring prior knowledge of ciphers. Clear feedback and predictable behavior were prioritized over advanced configuration. This balance between technical depth and usability shaped many implementation decisions.",
             icon: faLaptopCode,
           },
         ],
@@ -235,7 +241,7 @@ const sideProjectSections = [
         id: "d20-screenshots",
         type: BlockType.IMAGE_GALLERY,
         title: "Development Screenshots",
-        images: [imgObjs.d20Dashboard, imgObjs.oppEdit],
+        images: [imgObjs.d20Dashboard, imgObjs.opponentEditor],
       },
       {
         id: "d20-solution-text",
@@ -256,19 +262,19 @@ const sideProjectSections = [
           {
             id: "d20-takeaway-1",
             title: "MERN at Scale",
-            text: "Architected a modular data model for scalable campaign management",
+            text: "D20 King pushed me to design a modular data model capable of supporting long-running campaigns with evolving structures. Relationships between story elements had to remain flexible without becoming unmanageable. This required careful schema design and clear ownership boundaries. The project reinforced how early data modeling decisions impact long-term scalability.",
             icon: faLaptopCode,
           },
           {
             id: "d20-takeaway-2",
             title: "Creator Productivity",
-            text: "Built a scalable system focused on creator productivity",
+            text: "The platform is built around the needs of Dungeon Masters as content creators, not just end users. Tools are designed to reduce friction when building, editing, and reusing campaign components. By prioritizing creator workflows, the system supports both improvisation and planning. This focus mirrors how professional tools should empower their primary users.",
             icon: faBrush,
           },
           {
             id: "d20-takeaway-3",
             title: "Structured Flexibility",
-            text: "Balanced structured data with flexible content creation",
+            text: "D20 King balances structured data with the flexibility required for creative storytelling. While campaigns follow a defined hierarchy, individual elements remain editable and adaptable. This balance prevents chaos without stifling creativity. Designing for structured flexibility became a recurring theme throughout the system.",
             icon: faBookBookmark,
           },
         ],

@@ -2,16 +2,16 @@ import { useState } from "react";
 import { Nav, Drawer } from "rsuite";
 import Btn from "components/Btn";
 import {
-  faBars,
   faHome,
   faBriefcase,
   faGraduationCap,
   faTrophy,
   faFolderOpen,
   faEnvelope,
+  faMap,
 } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
-import { PageRoute, Variant } from "types/ui.types";
+import { PageRoute, Size, Variant } from "types/ui.types";
 import FrostedIcon from "components/FrostedIcon";
 import ThemeToggle from "components/ThemeToggle";
 
@@ -53,13 +53,18 @@ const NAV_ITEMS = [
   {
     id: "ni-professional",
     route: PageRoute.PROFESSIONAL,
-    label: "Professional",
+    label: "Professional Work",
     icon: faBriefcase,
   },
   { id: "ni-education", route: PageRoute.EDUCATION, label: "Education", icon: faGraduationCap },
   { id: "ni-hackathon", route: PageRoute.HACKATHON, label: "Hackathon", icon: faTrophy },
-  { id: "ni-projects", route: PageRoute.PROJECTS, label: "Projects", icon: faFolderOpen },
-  { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact", icon: faEnvelope },
+  {
+    id: "ni-projects",
+    route: PageRoute.SIDE_PROJECTS,
+    label: "Personal Projects",
+    icon: faFolderOpen,
+  },
+  { id: "ni-contact", route: PageRoute.CONNECT, label: "Contact Me", icon: faEnvelope },
 ];
 
 /**
@@ -140,14 +145,15 @@ const StickyNav = ({ activePage }) => {
                   tooltip={label}
                   ariaLabel={label}
                   clickable
-                  className="nav-icon"
+                  className="nav-icon interactive-surface"
+                  size={Size.LG}
                 />
               </Nav.Item>
             );
           })}
-          <Nav.Item className="theme-toggle-desktop">
+          {/* <Nav.Item className="no-popup">
             <ThemeToggle />
-          </Nav.Item>
+          </Nav.Item> */}
         </Nav>
       </nav>
 
@@ -156,12 +162,14 @@ const StickyNav = ({ activePage }) => {
          ------------------------------------------------------------
          Burger button toggles Drawer-based navigation.
          ============================================================ */}
-      <div className="mobile-only">
+      <div className="nav-toggle-btn mobile-only">
         <Btn
-          icon={faBars}
-          variant={Variant.PRIMARY}
+          icon={faMap}
+          variant={Variant.ACCENT}
           ariaLabel="Open navigation menu"
           tooltip="Open Navigation Menu"
+          tooltipPlacement="bottom"
+          tooltipFollowCursor={false}
           onClick={() => setMobileOpen(true)}
         />
       </div>
@@ -178,11 +186,10 @@ const StickyNav = ({ activePage }) => {
         className="mobile-nav-drawer"
       >
         <Drawer.Header>
-          <Drawer.Title>Navigation</Drawer.Title>
+          <Drawer.Title>Site Navigation</Drawer.Title>
         </Drawer.Header>
 
         <Drawer.Body>
-          <ThemeToggle />
           <Nav vertical>
             {NAV_ITEMS.map(({ route, label, id }) => {
               const isActive = activePage === route;
@@ -193,6 +200,7 @@ const StickyNav = ({ activePage }) => {
                   eventKey={route}
                   href={route}
                   active={isActive}
+                  className="interactive-surface"
                   aria-current={isActive ? "page" : undefined}
                   onClick={(e) => {
                     handleNavClick(e, isActive);
@@ -203,6 +211,7 @@ const StickyNav = ({ activePage }) => {
                 </Nav.Item>
               );
             })}
+            <ThemeToggle size={Size.MD} />
           </Nav>
         </Drawer.Body>
       </Drawer>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Divider } from "rsuite";
 
 /**
  * @file index.jsx
@@ -82,11 +83,12 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="glassBox">
+        <div className="glass-card blue-tile">
           <h1>Something went wrong</h1>
-          <p>
+          <h3>
             A runtime error prevented the application from loading. Check the console for details.
-          </p>
+          </h3>
+          <Divider />
           <pre>{String(this.state.error)}</pre>
         </div>
       );

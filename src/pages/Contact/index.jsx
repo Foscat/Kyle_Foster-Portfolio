@@ -7,6 +7,7 @@ import { Form } from "rsuite";
 import Btn from "components/Btn";
 import Footer from "components/Footer";
 import { PageRoute, Size, Variant } from "types/ui.types";
+import ResumePreview from "components/ResumePreview";
 
 /**
  * Contact Component
@@ -71,6 +72,9 @@ export default function Contact() {
                 <p className="text-center page-subtitle">
                   Have a question, project idea, or opportunity? Let's connect.
                 </p>
+                <div className="flex-row-center mt-1">
+                  <ResumePreview block />
+                </div>
               </header>
             }
             className="frosted contact-panel"

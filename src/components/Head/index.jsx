@@ -1,5 +1,6 @@
 import PageMetas from "assets/data/pageMetas";
 import { Helmet } from "react-helmet-async";
+import { PageRoute } from "types/ui.types";
 
 /**
  * @file index.jsx
@@ -41,18 +42,17 @@ export default function Head() {
    */
   const getMetaByPath = () => {
     const currentURL = window.location.pathname;
-    switch (currentURL.split("/")[currentURL.split("/").length - 1]) {
-      case "hackathon":
+    const splitPath = currentURL.split("/");
+    switch (splitPath[splitPath.length - 1]) {
+      case PageRoute.HACKATHON:
         return PageMetas.Hackathon;
-      case "smu":
+      case PageRoute.EDUCATION:
         return PageMetas.Smu;
-      case "sideProjects":
+      case PageRoute.SIDE_PROJECTS:
         return PageMetas.SideProjects;
-      case "freelance":
-        return PageMetas.FreelanceWork;
-      case "codestream":
+      case PageRoute.CODESTREAM:
         return PageMetas.Codestream;
-      case "contact":
+      case PageRoute.CONTACT:
         return PageMetas.Contact;
       default:
         return PageMetas.Home;

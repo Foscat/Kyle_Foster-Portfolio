@@ -1,7 +1,9 @@
 import {
   faArrowDownUpLock,
+  faArrowsToCircle,
   faBinoculars,
   faBook,
+  faBookAtlas,
   faBoxArchive,
   faBugSlash,
   faChalkboardTeacher,
@@ -20,13 +22,16 @@ import {
   faFilePdf,
   faFileShield,
   faGear,
+  faHandHoldingMedical,
   faHourglassEnd,
   faHouseLaptop,
   faIdCard,
+  faIndustry,
   faLayerGroup,
   faLightbulb,
   faMagnifyingGlass,
   faNetworkWired,
+  faObjectUngroup,
   faPenFancy,
   faPeopleGroup,
   faPersonChalkboard,
@@ -90,9 +95,37 @@ const codestreamSections = [
         title: "My Role at CodeStream Studios LLC",
         icon: faHouseLaptop,
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "During my tenure at CodeStream Studios LLC, I served as the sole front-end developer responsible for taking our React.js application from concept to production. I owned the front-end architecture, translated rough ideas into concrete features, and shipped a platform that became the backbone of our classroom operations.",
-          "Working with a lean team meant I routinely stepped outside a typical developer lane: I handled implementation, bug fixing, UI polish, documentation, and coordination with instructors using the platform in real classrooms. That blend of hands-on coding and tight feedback loops allowed me to build features that were practical, resilient, and directly informed by real-world usage.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "During my tenure at " },
+              { type: "strong", text: "CodeStream Studios LLC" },
+              {
+                type: "text",
+                text: ", I served as the sole front-end engineer responsible for taking a React-based application from concept to production. I owned the front-end architecture and translated rough ideas into durable, user-facing systems.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Working within a lean team meant operating well beyond a narrow implementation role. I handled feature design, UI polish, bug fixing, documentation, and instructor feedback loops — often simultaneously.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "fa-solid fa-laptop" },
+              {
+                type: "text",
+                text: "This role required creating systems, not just components.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -100,15 +133,57 @@ const codestreamSections = [
         title: "Building a Teaching Platform",
         icon: faSchoolFlag,
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "In addition to building the platform, I also taught on it. I used the system to run live classes, onboard students, and grade real assignments. That dual perspective—as both developer and instructor—let me quickly identify friction points and improve the experience without waiting on lengthy feedback cycles.",
-          "What started as a single-school tool evolved into a multi-organization teaching platform with virtual classrooms, curriculum management, licensing, grading, and admin controls—all layered on top of the core 3-panel code editor.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "In addition to developing the platform, I also " },
+              { type: "strong", text: "taught on it" },
+              {
+                type: "text",
+                text: ". I used the system to teach classes, build curriculum, manage teachers, onboard students, grade assignments. This dual perspective shaped every design decision I made.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "What began as a single-school solution evolved into a multi-organization teaching platform with:",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [{ type: "text", text: "Users can be a part of multiple organizations" }],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Organizational curriculum and member role management" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Project grading, curriculum building and role based oversight tools",
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
       {
         id: "live-platform-screenshots",
         type: BlockType.IMAGE_GALLERY,
-        title: "CodeStream Online Studio Screenshots",
+        title: "CSOS Screenshots",
         images: [imgObj.csos_home, imgObj.csos_profile],
       },
       {
@@ -141,9 +216,27 @@ const codestreamSections = [
         icon: faTowerObservation,
         id: "kf-overview",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "CodeStream Online Studio was designed as a full teaching environment—not just a code editor. The platform brought together browser-based coding, role-aware organizations, virtual classrooms, grading and reporting, admin monitoring tools, and a modular curriculum builder.",
-          "What started as a way to run a single class during COVID grew into an ecosystem where schools, after-school programs, and training organizations could manage courses, licenses, and student outcomes across multiple classrooms and organizations.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "CodeStream Online Studio was designed as a " },
+              { type: "strong", text: "complete teaching environment" },
+              {
+                type: "text",
+                text: ", not just a code editor. The platform unified browser-based coding, classroom management, grading workflows, and administrative oversight into a single system.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "What started as a COVID-era workaround matured into an ecosystem capable of supporting multiple schools, programs, and organizations with differing needs and constraints.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -162,37 +255,37 @@ const codestreamSections = [
             id: "kp-p-editor-system",
             title: "3-Panel Editor System",
             icon: faTableColumns,
-            text: "A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers without installing software.",
+            text: "The three-panel editor was designed to give students everything they need in a single, predictable workspace. Instructions, code, and output live side-by-side so learners never have to context-switch between tools. This structure dramatically reduces setup friction and allows instructors to teach concepts instead of troubleshooting environments. By mirroring the feel of a lightweight IDE, students gain confidence with professional workflows without being overwhelmed.",
           },
           {
             id: "kp-p-orgs-licensing",
             title: "Organizations & Licensing",
             icon: faPeopleGroup,
-            text: "Tenant-aware roles and licensing rules that scale from a single classroom to multiple schools.",
+            text: "Organizations and licensing form the backbone of how access is controlled across the platform. Rather than treating users as isolated accounts, the system models real institutions with teachers, students, and administrators operating under shared constraints. Licenses define capacity, expiration, and feature access, allowing the platform to scale cleanly from a single classroom to multi-school deployments. These rules are enforced consistently across classrooms, curriculum, and reporting.",
           },
           {
             id: "kp-p-virtual-classrooms",
             title: "Virtual Classrooms",
             icon: faChalkboardTeacher,
-            text: "A centralized space where teachers deliver lessons and students access projects, resources, and grades.",
+            text: "Virtual Classrooms act as the primary teaching surface for instructors and the main entry point for students. Each classroom brings together lessons, projects, rosters, and grades in a way that mirrors how real classes operate. Teachers can manage instruction without juggling links or tools, while students always know where to go to continue their work. This structure became critical as the platform scaled across multiple organizations.",
           },
           {
             id: "kp-p-grades-reports",
             title: "Grades & Reports",
             icon: faUserGraduate,
-            text: "Integrated grading tools and exportable progress reports",
+            text: "Grading and reporting were built directly into the learning workflow rather than treated as an afterthought. Teachers can review student code, leave written feedback, and assign grades without interrupting class flow. Progress data aggregates automatically at the classroom and organization level, reducing reliance on external spreadsheets. This gave instructors better insight while giving administrators meaningful visibility into outcomes.",
           },
           {
             id: "kp-p-admin-monitoring",
             title: "Admin Monitoring & Super Admin",
             icon: faMagnifyingGlass,
-            text: "Admin oversight tools that let coordinators and platform staff manage classrooms without touching the database.",
+            text: "Administrative monitoring tools were designed to provide oversight without requiring direct database access. Coordinators and platform staff can inspect classrooms, troubleshoot issues, and manage licenses through dedicated UIs. This approach reduces risk, improves auditability, and allows operational tasks to be handled safely within the same system teachers and students use. It also ensured that support and maintenance scaled alongside the platform.",
           },
           {
             id: "kp-p-curriculum-builder",
             title: "Curriculum Builder",
             icon: faLayerGroup,
-            text: "A modular system for creating and reusing courses, units, lessons, and resources across organizations.",
+            text: "The curriculum builder enables courses to be assembled from reusable units and lessons rather than copied repeatedly. Content teams can design high-quality lessons once and deploy them across multiple organizations. Individual schools can then extend or customize curriculum without breaking the underlying templates. This modular approach made long-term curriculum maintenance and iteration significantly more sustainable.",
           },
         ],
       },
@@ -215,9 +308,41 @@ const codestreamSections = [
         type: BlockType.RICH_TEXT,
         title: "The Problem",
         icon: faCircleExclamation,
-        paragraphs: [
-          "Students needed a single, intuitive workspace where they could read instructions, write code, and see results—without installing tools or configuring complex environments. Instructors needed every learner to be on the same setup, whether they were writing HTML/CSS/JavaScript or Python.",
-          "Existing options were either too fragmented (separate tools for instructions, coding, and output), too technical for middle- and high-school students, or too difficult to manage at scale across dozens of classrooms. We needed a way to support Web and Python projects in a consistent, classroom-friendly experience.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Students needed a single, intuitive workspace where they could read instructions, write code, and see results without installing or configuring local tools.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [{ type: "text", text: "Existing options were either:" }],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [{ type: "text", text: "Too fragmented across multiple tools" }],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Too technical for middle and high school students" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Too difficult to manage consistently across classrooms" },
+                ],
+              },
+            ],
+          },
         ],
       },
       diagrams.panelEditor, // 3 Panel Editor Architecture
@@ -226,10 +351,44 @@ const codestreamSections = [
         type: BlockType.RICH_TEXT,
         title: "The Solution",
         icon: faLightbulb,
-        paragraphs: [
-          "I designed and built a three-panel interface that acts like a small IDE inside the browser. The left panel renders Markdown-based lesson instructions via ReactMarkdown. The center panel uses AceEditor to provide a real coding experience with language-aware editing for HTML, CSS, JavaScript, and Python. The right panel shows the live result—either a sandboxed iframe for Web projects or an in-browser terminal for Python.",
-          "For Web lessons, the editor combines separate HTML/CSS/JS files into a single sandboxed bundle that runs safely inside an iframe. For Python, I integrated Skulpt via CDN to compile and execute code in the browser, streaming output into a dedicated console view.",
-          "I wired custom keyboard shortcuts into AceEditor to support behaviors like save-on-Ctrl+S. Project files are persisted to AWS S3 instead of local storage, allowing students and teachers to open and review work from any device. Teachers see exactly what students see, which became critical for grading and real-time assistance.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "I designed and built a " },
+              { type: "strong", text: "three-panel browser-based IDE" },
+              {
+                type: "text",
+                text: " that keeps instructions, code, and output visible at all times. This layout reduces cognitive load while reinforcing the relationship between code and results.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Markdown-based lesson instructions (ReactMarkdown)" },
+                ],
+              },
+              {
+                type: "li",
+                children: [{ type: "text", text: "Ace Editor with language-aware editing" }],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Sandboxed Web iframe or in-browser Python execution" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "pre",
+            language: "js",
+            text: `Ctrl+S → save project\nRun → execute safely\nReview → grade identically`,
+          },
         ],
       },
       {
@@ -257,9 +416,27 @@ const codestreamSections = [
         type: BlockType.RICH_TEXT,
         title: "The Problem",
         icon: faTriangleExclamation,
-        paragraphs: [
-          "Individual accounts were easy to manage—but real customers weren't individuals; they were organizations: schools, after-school programs, and training partners. Each organization needed to manage teachers, student rosters, active classrooms, and course access, all under a single license.",
-          "We had to enforce limits on how many students and teachers could be active, gate access to premium curriculum, and gracefully handle expired licenses. At the same time, students needed to keep access to their personal projects, even when a school's license expired. The challenge was building a flexible permission system that felt simple to users but could express all of these rules reliably.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "Real customers were not individual users — they were " },
+              { type: "strong", text: "organizations" },
+              {
+                type: "text",
+                text: " such as schools and training programs. Each organization needed to manage teachers, students, classrooms, and licensing under a single umbrella.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "The challenge was enforcing access rules while preserving student ownership of their work, even when licenses expired.",
+              },
+            ],
+          },
         ],
       },
       diagrams.organizationLicenseModel, // Organization & License Model
@@ -268,10 +445,28 @@ const codestreamSections = [
         icon: faLightbulb,
         type: BlockType.RICH_TEXT,
         title: "The Solution",
-        paragraphs: [
-          "I implemented an Organization & Licensing subsystem that became the backbone of the platform's access control. Every user existed as an independent account but could be attached to one or more organizations with a specific role: Admin, Teacher, or Student.",
-          "Organizations were bound to a license object that defined teacher and student counts, active classroom limits, and expiration dates. Each classroom and enrollment was validated against that license. If a license expired, classrooms became inaccessible for new lesson activity—but students still retained access to previously created projects in their personal workspace.",
-          "Under the hood, organization-scoped queries, role checks, and a centralized license gatekeeper were used across classroom and curriculum routes, ensuring consistent behavior without duplicating permission logic throughout the codebase.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "I implemented an " },
+              { type: "strong", text: "organization-aware access model" },
+              {
+                type: "text",
+                text: " where users exist independently but assume scoped roles within organizations.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "lock" },
+              {
+                type: "text",
+                text: "Licensing constraints were enforced without deleting student work.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -283,30 +478,22 @@ const codestreamSections = [
           {
             id: "org-o-scalable-multi-tenancy",
             title: "Scalable Multi-Tenancy",
-            text: "Multi-tenant SaaS-style structure without leaking data between organizations",
-            isScroller: false,
-            icon: faUserLock,
+            text: "The platform uses a true multi-tenant architecture that cleanly isolates data between organizations. Each school or partner operates within its own boundary while still sharing the same application infrastructure. This prevents data leakage while allowing the platform to grow without duplicating deployments. The model proved stable as more organizations were onboarded over time.",
           },
           {
             id: "org-o-role-based-access",
             title: "Role-Based Access",
-            text: "Clear roles for Admin, Teacher, and Student tied to each organization",
-            isScroller: false,
-            icon: faUserTie,
+            text: "Clear role definitions ensure that users only see the tools and data relevant to their responsibilities. Teachers focus on instruction, students focus on learning, and administrators manage structure and oversight. These roles are enforced consistently across routes and features, reducing ambiguity and preventing privilege creep. This clarity also made onboarding new users significantly easier.",
           },
           {
             id: "org-o-license-enforcement",
             title: "License Enforcement",
-            text: "License-aware classroom behavior that still preserves student work",
-            isScroller: false,
-            icon: faUserShield,
+            text: "Licensing rules are enforced at the classroom and activity level rather than through blunt access cutoffs. When a license expires, new instructional activity is restricted, but students retain access to their personal projects. This approach balances business requirements with educational continuity. It also reduced support issues during renewals and contract transitions.",
           },
           {
             id: "org-o-flexible-org-model",
             title: "Flexible Organization Model",
-            text: "Predictable access rules that scaled as new organizations were onboarded",
-            isScroller: false,
-            icon: faPersonCirclePlus,
+            text: "Organizations can evolve over time without requiring schema changes or manual intervention. New roles, classrooms, and users can be added as programs grow. This flexibility allowed the platform to support after-school programs, summer camps, and full academic courses using the same underlying model. Predictable behavior made the system easier to reason about and maintain.",
           },
         ],
       },
@@ -328,9 +515,69 @@ const codestreamSections = [
         id: "vc-problem",
         type: BlockType.RICH_TEXT,
         title: "The Problem",
-        paragraphs: [
-          "Once organizations and licensing were in place, we still needed a structured way for teachers to actually teach. Teachers needed a home base for each course where they could present curriculum, share resources, and track student progress. Students needed a simple, predictable place to join class, access lessons, and open project work.",
-          "We also needed a unified entry point where any user—teacher or student—could see every classroom they belonged to without exposing the underlying organization and licensing complexity.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Once organizations and licensing were in place, I still needed a structured way for teachers to ",
+              },
+              { type: "strong", text: "actually teach" },
+              {
+                type: "text",
+                text: ". Teachers needed a consistent home base for each course—somewhere to present curriculum, share resources, and track progress without duct-taping tools together.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Students needed a predictable place to join class, open lessons, and access their projects. The biggest risk was fragmentation: if the experience felt different per teacher or per lesson, it would slow down learning and increase support overhead.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "A single entry point for all classrooms a user belongs to",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Clear distinction between teacher-owned vs student-enrolled views",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "A stable workflow from lesson → project → grade" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "door-open" },
+              {
+                type: "text",
+                text: " I wanted classrooms to feel like a hub—not another page you click through.",
+              },
+            ],
+          },
         ],
       },
       diagrams.classroomFlow, // Classroom Flow
@@ -357,30 +604,22 @@ const codestreamSections = [
           {
             id: "vc-b-unified-classroom-access",
             title: "Unified Classroom Access",
-            text: "Single, role-aware entry point for all classes a user belongs to",
-            isScroller: false,
-            icon: faDoorOpen,
+            text: "All classrooms a user belongs to are accessible from a single, role-aware entry point. Teachers and students no longer need separate links or dashboards for different courses. Ownership and enrollment status are clearly indicated, reducing confusion as users participate in multiple classes. This became especially valuable for instructors teaching several cohorts at once.",
           },
           {
             id: "vc-b-centralized-lesson-hub",
             title: "Centralized Course Hub",
-            text: "Automatic cloning of lesson templates into student projects",
-            isScroller: false,
-            icon: faCopy,
+            text: "Each classroom serves as a centralized hub for lessons, projects, and resources. When a student opens a lesson, the system automatically initializes a project based on a template rather than starting from scratch. This ensures consistency across submissions while still allowing individual experimentation. It also simplifies grading by standardizing project structure.",
           },
           {
             id: "vc-b-resource-management",
             title: "Streamlined Project Management",
-            text: "Tight integration with grading and reporting features",
-            isScroller: false,
-            icon: faNetworkWired,
+            text: "Projects, resources, and grades are tightly integrated rather than managed as separate concerns. Teachers can attach resources once and trust that students will see the same materials across lessons. Project state is preserved automatically, reducing accidental loss of work. This cohesion makes the classroom experience feel stable and intentional.",
           },
           {
             id: "vc-b-enhanced-learning-experience",
             title: "Enhanced Learning Experience",
-            text: "Classroom dashboard that keeps lessons, resources, and projects in sync",
-            isScroller: false,
-            icon: faTableColumns,
+            text: "The classroom dashboard provides a clear, predictable flow from lesson to project to feedback. Students spend less time navigating and more time learning. Teachers gain confidence that everyone is working from the same source of truth. Over time, this consistency improved both engagement and instructional pace.",
           },
         ],
       },
@@ -402,9 +641,56 @@ const codestreamSections = [
         id: "gr-problem",
         type: BlockType.RICH_TEXT,
         title: "The Problem",
-        paragraphs: [
-          "As the primary instructor for several cohorts, I kept running into the same pattern: when a student's project wasn't working, the only option was to stop class and have them share their screen. It was slow, awkward, and made it difficult to give deep feedback without sacrificing everyone else's time.",
-          "On top of that, leadership needed a way to monitor how classes were performing as a whole. There was no built-in system for assigning grades, leaving written feedback, or viewing classroom-level progress across lessons. Everything lived in spreadsheets and memory.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "As the primary instructor for several cohorts, I kept hitting the same bottleneck: when a student's project wasn't working, the only option was to stop class and have them share their screen. It was slow, disruptive, and made it hard to give deep feedback without sacrificing everyone else’s time.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "On top of that, leadership needed a way to understand classroom outcomes without relying on spreadsheets and memory. We didn’t have a consistent workflow for:",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [{ type: "text", text: "Assigning grades in a repeatable way" }],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Leaving written feedback tied to specific work" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Viewing classroom-level progress across lessons" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "triangle-exclamation" },
+              {
+                type: "text",
+                text: " The platform needed to support real teaching workflows—not just store projects.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -430,31 +716,31 @@ const codestreamSections = [
           {
             id: "gr-f-secure-grading",
             title: "Secure Grading Interface",
-            text: "Secure project viewer limited to teachers and organization admins",
+            text: "The grading interface is intentionally restricted to teachers and organization administrators to protect student work and academic integrity. From this view, instructors can open a student’s project exactly as it was submitted, run the code, and inspect behavior without modifying the original work. This made it possible to diagnose issues and give meaningful feedback without interrupting live instruction. The security boundaries ensured grading remained both safe and trustworthy.",
             icon: faFileShield,
           },
           {
             id: "gr-f-inline-feedback",
             title: "Integrated Grading Workflow",
-            text: "Grading UI integrated directly into the project view",
+            text: "Grading is performed directly alongside the student’s project rather than in a separate tool or modal. Teachers can review code, leave written feedback, and assign a grade in one continuous flow. This reduces context switching and allows feedback to stay tightly coupled to the work being evaluated. Over time, this workflow significantly sped up grading while improving the quality of instructor comments.",
             icon: faSchoolCircleCheck,
           },
           {
             id: "gr-f-flexible-grading-models",
             title: "Flexible Grading Models",
-            text: "Support for Pass/Fail and Numeric/Letter grading styles",
+            text: "Different organizations had different expectations around grading, so the system was designed to support both Pass/Fail and Numeric or Letter-based models. Teachers can switch grading modes depending on course requirements without changing how projects are stored or reviewed. Internally, all grades map to a consistent numeric representation, which keeps reporting logic simple. This flexibility allowed the platform to adapt to multiple educational contexts without fragmentation.",
             icon: faFileCircleCheck,
           },
           {
             id: "gr-f-real-time-feedback",
             title: "Real-Time Feedback",
-            text: "Integer-based grade model for simple aggregation and reporting",
+            text: "Grades and feedback are immediately reflected across the classroom experience once submitted. Students can see updated scores, written comments, and class averages without waiting for manual updates. This immediacy reinforces learning by keeping feedback timely and actionable. It also reduces follow-up questions since students always have a clear view of their current standing.",
             icon: faSchool,
           },
           {
             id: "gr-f-student-visibility",
             title: "Student Visibility",
-            text: "Real-time class average and per-assignment feedback visibility for students",
+            text: "Students have direct access to their assignment grades and overall class performance metrics from the Classroom dashboard. This transparency helps learners understand expectations and track their progress over time. By surfacing both individual feedback and aggregate context, students gain a clearer picture of how they’re performing relative to the course. This visibility encouraged accountability without adding pressure.",
             icon: faCommentDots,
           },
         ],
@@ -464,8 +750,47 @@ const codestreamSections = [
         icon: faChartDiagram,
         title: "Reporting Layer",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "To give educators and coordinators a higher-level view, I also built a reporting layer using RSuite's Table component. Teachers can export results as a simple .txt summary for archival purposes or as a fully styled, color-coded PDF that's ready for presentations or parent meetings.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "To give educators and coordinators a higher-level view, I built a reporting layer using ",
+              },
+              { type: "strong", text: "RSuite tables" },
+              {
+                type: "text",
+                text: " so classroom performance could be reviewed quickly and consistently. The focus wasn’t flashy dashboards—it was reliable visibility into completion, averages, and trends.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "Reports could be exported as a simple " },
+              { type: "code", text: ".txt" },
+              {
+                type: "text",
+                text: " summary for archival use or as a fully styled, color-coded ",
+              },
+              { type: "code", text: "PDF" },
+              {
+                type: "text",
+                text: " for presentations and parent-facing meetings. That export path mattered because it made the data portable and useful outside the app.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "chart" },
+              {
+                type: "text",
+                text: " Reporting is where classroom activity becomes measurable outcomes.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -476,25 +801,25 @@ const codestreamSections = [
           {
             id: "gr-c-classroom-reports",
             title: "Classroom-Level Reports",
-            text: "Aggregate performance data across all students and lessons in a classroom",
+            text: "Classroom-level reports aggregate performance data across all students and lessons in a single view. Teachers and administrators can quickly assess overall progress without manually compiling results. This made it easier to identify trends, struggling students, or lessons that needed adjustment. Reports were designed to reflect how instructors actually evaluate class health.",
             icon: faTable,
           },
           {
             id: "gr-c-automated-averages",
             title: "Automated Averages",
-            text: "Automatic calculation of averages, completion rates, and grade distributions",
+            text: "The reporting system automatically calculates averages, completion rates, and grade distributions as new grades are submitted. This removes the need for external spreadsheets or manual calculations. Because the data updates in real time, instructors always have an up-to-date snapshot of class performance. This automation significantly reduced administrative overhead.",
             icon: faTableList,
           },
           {
             id: "gr-c-export-reports",
             title: "Export Reports (PDF & Text)",
-            text: "Ready-to-use text summaries for archives and color-coded PDFs for presentations",
+            text: "Reports can be exported as lightweight text summaries or fully styled PDFs depending on the use case. Text exports support simple archival and record-keeping, while PDFs are formatted for presentations and meetings. This flexibility allows the same data to serve both operational and communication needs. Exports are generated directly from live data, ensuring accuracy.",
             icon: faFileLines,
           },
           {
             id: "gr-c-presentation-ready-pdfs",
             title: "Presentation-Ready PDFs",
-            text: "Color-coded PDF classroom reports for polished, presentation-ready summaries",
+            text: "PDF reports are color-coded and structured for clarity, making them suitable for parent meetings, leadership reviews, or partner updates. Visual cues help surface key performance indicators at a glance. Because the formatting is handled automatically, instructors don’t need to manually prepare slides or charts. This made reporting feel polished without extra effort.",
             icon: faFilePdf,
           },
         ],
@@ -517,17 +842,87 @@ const codestreamSections = [
         id: "am-problem",
         type: BlockType.RICH_TEXT,
         title: "The Problem",
-        paragraphs: [
-          "As the platform grew, it wasn't just teachers and students who needed visibility. School partners had coordinators responsible for configuring classrooms, enrolling students, and supporting teachers. They needed more control than a teacher—but not full platform-wide access.",
-          "Internally, our team also needed a way to manage every organization from a central place: adjusting licenses, helping with onboarding, and debugging edge cases. Without an admin UI, the only option was to manipulate data directly in the database, which was both risky and slow.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "As the platform grew, it wasn’t just teachers and students who needed visibility. School partners had coordinators responsible for setting up classrooms, enrolling students, and supporting teachers. They needed more control than a teacher—but not full platform-wide access.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Internally, we also needed a safe way to manage organizations at scale: licensing changes, onboarding support, and debugging edge cases. Without an admin UI, the only option was manipulating the database directly—which was both risky and slow.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [{ type: "text", text: "Reduce dependency on direct database edits" }],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Provide scoped tools aligned to role boundaries" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Keep operations auditable and consistent with app behavior",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "binoculars" },
+              {
+                type: "text",
+                text: " If support requires the database, the product isn’t finished.",
+              },
+            ],
+          },
         ],
       },
       {
         id: "am-solution",
         type: BlockType.RICH_TEXT,
         title: "The Solution",
-        paragraphs: [
-          "I implemented a role-based access control (RBAC) system with a clear hierarchy: Student → Teacher → Organization Admin → Super Admin. On top of that, I built dedicated admin UIs so that each level had the tools they needed without exposing internals they shouldn't see.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "As the platform grew, visibility and control were required beyond individual classrooms. I implemented a role hierarchy culminating in ",
+              },
+              { type: "strong", text: "Super Admin" },
+              { type: "text", text: " access." },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "shield" },
+              {
+                type: "text",
+                text: "Every action flowed through the same audited API paths — no database shortcuts.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -538,49 +933,49 @@ const codestreamSections = [
           {
             id: "am-r-capabilities",
             title: "Organization Admin Capabilities",
-            text: "Organization Admins gained full visibility into everything within their tenant, including all classrooms owned by any teacher in that organization. They could:",
+            text: "Organization Admins are responsible for overseeing all activity within their tenant. They have visibility into every classroom, teacher, and student tied to the organization. This role bridges the gap between instructional staff and platform operations. It allows coordinators to support teachers without needing platform-wide access.",
             icon: faEye,
           },
           {
             id: "am-r-view-rosters",
             title: "View Classrooms & Rosters",
-            text: "View any teacher's classroom and its roster",
+            text: "Admins can view any classroom within their organization along with full student rosters. This makes it easy to audit enrollment, resolve access issues, and understand how courses are structured. Visibility is read-only by default, reducing the risk of accidental changes. It provides clarity without overstepping teacher ownership.",
             icon: faPersonChalkboard,
           },
           {
             id: "am-r-manage-classrooms",
             title: "Manage Classrooms",
-            text: "Modify classroom settings, meeting links, and attached resources",
+            text: "Organization Admins can update classroom-level settings such as metadata, meeting links, and attached resources. This allows logistical adjustments to be handled centrally instead of relying on individual teachers. Changes are applied through the same APIs used elsewhere in the system, ensuring consistency. This capability reduced operational bottlenecks as organizations scaled.",
             icon: faGear,
           },
           {
             id: "am-r-edit-students",
             title: "Add & Remove Students & Teachers",
-            text: "Add or remove students and teachers from the organization",
+            text: "Admins can manage organization membership by adding or removing students and teachers as needed. This is especially important during onboarding, schedule changes, or staff transitions. By handling membership at the organization level, classrooms stay aligned without manual cleanup. The process remains auditable and role-restricted.",
             icon: faUserXmark,
           },
           {
             id: "am-r-override-grades",
             title: "Override & Update Student Grades",
-            text: "Override or update student grades when needed",
+            text: "In rare cases, Organization Admins can intervene to correct grading issues or handle exceptions. This might include resolving disputes, accommodating late submissions, or fixing clerical errors. Overrides are intentional and limited to prevent misuse. This ensures fairness without undermining instructor authority.",
             icon: faWandMagicSparkles,
           },
           {
             id: "am-r-retrieve-reports",
             title: "Retrieve Reports",
-            text: "Retrieve reports for both active and archived classrooms",
+            text: "Admins can retrieve reports for both active and archived classrooms. This supports long-term record keeping, audits, and post-term reviews. Even after a classroom is no longer active, its data remains accessible in a controlled way. This continuity proved important for institutional partners.",
             icon: faBoxArchive,
           },
           {
             id: "am-r-troubleshoot-projects",
             title: "Troubleshoot Student Projects",
-            text: "Inspect student projects directly when troubleshooting issues",
+            text: "When technical issues arise, Admins can inspect student projects directly to help diagnose problems. This reduces reliance on screen sharing or vague descriptions from students. Troubleshooting happens within the same environment used for instruction and grading. It significantly improves response time and support quality.",
             icon: faMagnifyingGlass,
           },
           {
             id: "am-r-logistical-support",
             title: "Logistical Support",
-            text: "Allowed classroom coordinators to handle logistics and quality control while teachers focused on instruction.",
+            text: "By handling scheduling, enrollment, and configuration tasks, Organization Admins free teachers to focus on instruction. This separation of responsibilities improves classroom quality and reduces burnout. It also ensures that operational changes don’t disrupt lesson flow. The result is a more sustainable teaching model.",
             icon: faTruckFast,
           },
         ],
@@ -595,48 +990,72 @@ const codestreamSections = [
         id: "am-super",
         type: BlockType.RICH_TEXT,
         title: "Super Admin",
-        paragraphs: [
-          "To support platform operations, I built a Super Admin dashboard available only to a small group of trusted users. From this view, we could see every organization, inspect its classrooms, and manage licensing without leaving the UI.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "To support platform operations, I built a " },
+              { type: "strong", text: "Super Admin dashboard" },
+              {
+                type: "text",
+                text: " available only to a small group of trusted users. From this view, we could inspect organizations, classrooms, and licensing without needing backend-only tools.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: 'The goal was operational safety: actions should follow the same API pathways as normal usage, so behavior stays predictable and auditable. That meant fewer one-off scripts and fewer risky "just change it in the DB" moments.',
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "shield" },
+              {
+                type: "text",
+                text: " Super Admin wasn’t about power—it was about safe, repeatable support.",
+              },
+            ],
+          },
         ],
       },
       {
-        id: "am-super",
+        id: "am-super-capabilities",
         type: BlockType.BULLETED_LIST,
         title: "Super Admin Capabilities",
         items: [
           {
             id: "am-s-platform-oversight",
             title: "Platform-Wide Oversight",
-            text: "Viewing and editing any organization's license and limits",
-            isScroller: false,
+            text: "Super Admins have visibility across every organization on the platform. They can inspect licenses, usage limits, and overall system health without accessing the database directly. This oversight is essential for platform operations and support. It allows issues to be diagnosed quickly and safely.",
             icon: faIdCard,
           },
           {
             id: "am-s-organization-management",
             title: "Organization Management",
-            text: "Creating and updating organizations, admins, and teachers",
-            isScroller: false,
+            text: "Super Admins can create and manage organizations, assign admins, and configure teachers. This centralizes onboarding and support workflows. Changes made here flow through the same APIs as standard user actions, keeping behavior predictable. It prevents the need for one-off backend scripts.",
             icon: faPenFancy,
           },
           {
             id: "am-s-classroom-inspection",
             title: "Classroom Inspection",
-            text: "Jumping into any classroom for debugging or support",
-            isScroller: false,
+            text: "Super Admins can jump into any classroom for debugging or support purposes. This allows platform staff to reproduce issues exactly as users experience them. Inspection is read-only by default, minimizing risk. It greatly improves the effectiveness of technical support.",
             icon: faBugSlash,
           },
           {
             id: "am-s-license-adjustments",
             title: "License Adjustments",
-            text: "Managing edge-case data issues without raw database access",
-            isScroller: false,
+            text: "Edge-case license issues can be resolved through the UI rather than database edits. This includes correcting counts, extending expirations, or handling special cases. UI-driven changes are logged and auditable. This approach dramatically reduces operational risk.",
             icon: faDatabase,
           },
           {
             id: "am-s-auditability-security",
             title: "Auditability & Security",
-            text: "Eliminated the need for backend-only tools and ensured all critical actions flowed through audited, API-driven pathways.",
-            isScroller: false,
+            text: "All critical actions taken by Super Admins pass through audited, API-driven workflows. This eliminates hidden state changes and improves traceability. Security boundaries are enforced consistently, even at the highest privilege levels. The result is a safer, more maintainable platform.",
             icon: faScissors,
           },
         ],
@@ -649,29 +1068,25 @@ const codestreamSections = [
           {
             id: "am-a-rbac",
             title: "Role-Based Access Control",
-            text: "RBAC model with clearly defined role boundaries",
-            isScroller: false,
+            text: "The platform uses a clearly defined RBAC hierarchy to control access across all features. Each role has explicit boundaries that prevent privilege creep. These checks are enforced consistently at both the UI and API layers. This clarity made the system easier to reason about and secure.",
             icon: faArrowDownUpLock,
           },
           {
             id: "am-a-tenant-isolation",
             title: "Tenant Isolation",
-            text: "Multi-tenant isolation: admins manage only their own organization",
-            isScroller: false,
+            text: "Each organization operates within its own isolated tenant context. Admins can manage only the data and users belonging to their organization. This prevents accidental cross-organization access while still allowing shared infrastructure. Tenant isolation was foundational to platform trust.",
             icon: faUserGroup,
           },
           {
             id: "am-a-super-admin-ui",
             title: "Super Admin Interface",
-            text: "Super Admins manage any tenant through a dedicated UI, not by editing the database",
-            isScroller: false,
+            text: "Super Admins manage organizations through a dedicated UI rather than direct database access. This ensures all changes follow the same code paths as regular actions. It improves consistency, auditability, and safety. The UI becomes the single source of truth for platform operations.",
             icon: faBlackTie,
           },
           {
             id: "am-a-api-driven-modifications",
             title: "API-Driven Modifications",
-            text: "All modifications go through the same API layer used by the app, keeping behavior consistent and auditable",
-            isScroller: false,
+            text: "All administrative changes are performed through the platform’s API layer. This guarantees that business rules, validations, and side effects are applied uniformly. It also makes behavior easier to test and reason about. Over time, this reduced bugs and operational surprises.",
             icon: faServer,
           },
         ],
@@ -694,9 +1109,68 @@ const codestreamSections = [
         id: "cb-problem",
         type: BlockType.RICH_TEXT,
         title: "The Problem",
-        paragraphs: [
-          "As more organizations came onto the platform, we needed a better way to build and manage curriculum. Teachers and content teams wanted to assemble courses from reusable units and lessons rather than recreating the same content for each classroom or school.",
-          "We also needed a clear separation between curriculum design and classroom delivery: a course might be taught across multiple organizations, and organizations might customize or extend their own copies over time.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "As more organizations came onto the platform, we needed a better way to build and manage curriculum. Teachers and content teams wanted to assemble courses from reusable units and lessons rather than recreating content for every classroom.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "We also needed a clean separation between " },
+              { type: "em", text: "curriculum design" },
+              { type: "text", text: " and " },
+              { type: "em", text: "classroom delivery" },
+              {
+                type: "text",
+                text: ". A course might be taught across multiple organizations, and each organization might customize resources or presentation without breaking the underlying lesson templates.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Reuse lessons across courses without duplication" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Allow org-specific extensions without corrupting templates",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Enable fast assembly of courses, units, and lesson sequences",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "book" },
+              {
+                type: "text",
+                text: " Curriculum needed to behave like modular building blocks, not copy-pasted pages.",
+              },
+            ],
+          },
         ],
       },
       diagrams.curriculumModel, // Curriculum Data Model
@@ -704,9 +1178,64 @@ const codestreamSections = [
         id: "cb-solution",
         type: BlockType.RICH_TEXT,
         title: "The Solution",
-        paragraphs: [
-          "I built a Curriculum Builder that allows users to compose courses from modular pieces: courses contain units, units contain lessons, and lessons can have attached resources. Once a lesson is part of a course, organizations can attach additional resources or tweak metadata without breaking the underlying lesson template.",
-          "A dedicated curriculum dashboard lets authorized users browse all courses, units, and lessons within their active organization. Adding a lesson to a course uses a searchable, tabular picker (powered by RSuite) that reinforces the idea that lessons are reusable assets rather than one-off copies.",
+        content: [
+          {
+            type: "p",
+            children: [
+              { type: "text", text: "I built a " },
+              { type: "strong", text: "Curriculum Builder" },
+              {
+                type: "text",
+                text: " that allows authorized users to compose courses from modular pieces. The structure is intentionally simple and scalable:",
+              },
+            ],
+          },
+          {
+            type: "ol",
+            children: [
+              { type: "li", children: [{ type: "text", text: "Courses contain Units" }] },
+              { type: "li", children: [{ type: "text", text: "Units contain Lessons" }] },
+              {
+                type: "li",
+                children: [{ type: "text", text: "Lessons can have attached Resources" }],
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Once a lesson is part of a course, organizations can attach additional resources or tweak metadata without breaking the underlying lesson template. That separation let us reuse core lesson content while still supporting organization-specific needs.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "A dedicated curriculum dashboard lets authorized users browse courses, units, and lessons within their active organization. Adding a lesson to a course uses a searchable, tabular picker (powered by RSuite), reinforcing the idea that lessons are ",
+              },
+              { type: "em", text: "reusable assets" },
+              { type: "text", text: " rather than one-off copies." },
+            ],
+          },
+          {
+            type: "pre",
+            language: "txt",
+            text: `Lesson Template + Org Extensions → Course Assembly\nReuse without duplication → Update once, teach many`,
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "book" },
+              {
+                type: "text",
+                text: " I treated curriculum like composable building blocks, not static pages.",
+              },
+            ],
+          },
         ],
       },
       {
@@ -724,34 +1253,31 @@ const codestreamSections = [
         id: "cb-benefits",
         type: BlockType.BULLETED_LIST,
         title: "Benefits",
+        icon: faHandHoldingMedical,
         items: [
           {
             id: "cb-b-reusable-curriculum",
+            icon: faBookAtlas,
             title: "Reusable Curriculum",
-            text: "Modular curriculum that can be reused across courses and organizations",
-            isScroller: false,
-            icon: faChartDiagram,
+            text: "Curriculum is designed as a reusable asset rather than disposable content. Lessons and units can be shared across courses and organizations without duplication. This reduces maintenance overhead and ensures improvements benefit every classroom using that content. It also encourages intentional curriculum design from the start.",
           },
           {
             id: "cb-b-separation-of-concerns",
+            icon: faObjectUngroup,
             title: "Separation of Concerns",
-            text: "Clear separation between content creation and classroom delivery",
-            isScroller: false,
-            icon: faNetworkWired,
+            text: "Curriculum creation is intentionally separated from classroom delivery. Content teams can focus on lesson quality while instructors focus on teaching. Organizations can customize resources without altering the base lesson structure. This separation made long-term evolution of both curriculum and classrooms significantly easier.",
           },
           {
             id: "cb-b-centralized-management",
+            icon: faArrowsToCircle,
             title: "Centralized Management",
-            text: "Structured dashboard for curriculum teams and admins",
-            isScroller: false,
-            icon: faTableColumns,
+            text: "A centralized curriculum dashboard provides visibility into all available courses, units, and lessons. Authorized users can browse, attach, and manage content without relying on informal knowledge. This structure supports collaboration across teams and organizations. It also reduces the risk of orphaned or duplicated lessons.",
           },
           {
             id: "cb-b-efficiency-gains",
+            icon: faIndustry,
             title: "Efficiency Gains",
-            text: "Reduces duplication and makes updates easier to roll out",
-            isScroller: false,
-            icon: faClone,
+            text: "By reducing duplication and manual setup, the curriculum builder significantly lowers the time required to launch new courses. Updates can be made once and propagated intentionally. This efficiency became increasingly important as more organizations and classrooms came online. It allowed the platform to scale without proportional increases in overhead.",
           },
         ],
       },
@@ -770,9 +1296,26 @@ const codestreamSections = [
       {
         id: "cl-text",
         type: BlockType.RICH_TEXT,
-        paragraphs: [
-          "My time at CodeStream Studios LLC was defined by building real products for real classrooms. As the sole front-end developer—and often the person connecting engineering, instruction, and operations—I had to design systems that worked not just in theory, but in the hands of teachers and students who depended on them every week.",
-          "Although the company ultimately closed due to financial and organizational challenges, the experience gave me deep, practical exposure to product design, system architecture, and long-term platform stewardship. I'm bringing those lessons forward into my next role: designing tools that are robust, understandable, and genuinely useful to the people who rely on them.",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "My time at CodeStream was defined by building software that people relied on daily. As the sole front-end engineer, I learned how architectural decisions ripple through real classrooms and organizations.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              { type: "inlineIcon", icon: "forward" },
+              {
+                type: "text",
+                text: "This experience reshaped how I design systems — with durability, clarity, and people in mind.",
+              },
+            ],
+          },
         ],
       },
     ],

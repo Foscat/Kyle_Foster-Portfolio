@@ -4,7 +4,7 @@ import "./styles.css";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import FrostedIcon from "components/FrostedIcon";
-import { Variant, Size } from "types/ui.types";
+import { Variant, Size, TooltipPlacement, HoverAnimation } from "types/ui.types";
 
 /**
  * @file index.jsx
@@ -103,13 +103,19 @@ import { Variant, Size } from "types/ui.types";
  * @param {Function} [props.onClick]
  *   Click handler. May return a Promise to enable async loading state.
  *
+ * @param {boolean} [props.clickable=true] Indicates whether the button/icon is clickable or not.
+ *
  * @param {string} [props.ariaLabel]
  *   Accessible label. Required for icon-only buttons if no tooltip is provided.
  *
  * @param {string} [props.tooltip]
  *   Tooltip text displayed on hover.
  *
- * @param {"none"|"pulse"|"scale"|"fade"} [props.animation="none"]
+ * @param {boolean} [props.tooltipFollowCursor=true]   When true, the tooltip will follow the cursor.
+ *
+ * @param {TooltipPlacement} [props.tooltipPlacement="right"]   Placement of the tooltip relative to the button.
+ *
+ * @param {HoverAnimation} [props.animation="scale"]
  *   Optional hover animation preset.
  *
  * @param {string} [props.href]
@@ -144,6 +150,7 @@ const Btn = ({
   text = "",
   className = "",
   icon = undefined,
+  clickable = true,
   onClick = () => {},
   ariaLabel = undefined,
   href = undefined,
@@ -151,12 +158,12 @@ const Btn = ({
   target = undefined,
   rel = undefined,
   tooltip = "",
-  animation = "none",
+  tooltipFollowCursor = false,
+  tooltipPlacement = TooltipPlacement.BOTTOM,
   download = undefined,
   noBG = false,
-  type = "button",
   // RSuite Btn props
-  active = true,
+  active = false,
   as = "button",
   block = false,
   classPrefix = "btn",
@@ -237,19 +244,16 @@ const Btn = ({
     <Component
       role="button"
       onClick={handleClick}
-      type={type}
+      type={as}
       aria-label={resolvedAriaLabel}
       aria-busy={loading || asyncLoading}
       aria-disabled={disabled || loading || asyncLoading}
       className={`
-        btn 
-        ${noBG ? "btn-noBG" : ""}
+        btn btn-${size} btn-${active ? "active" : "inactive"}
+        ${clickable ? "interactive-surface" : "not-clickable "}
         ${variant ? variant : Variant.PRIMARY}
-        ${isIconOnly ? "icon-only" : ""}
-        ${size ? `btn-${size}` : `btn-${Size.MD}`}
-        ${loading || asyncLoading ? "loading" : ""}
-        ${animation !== "none" ? `anim-${animation}` : ""}
-        ${className}
+        ${noBG ? "btn-noBG" : ""} ${isIconOnly ? "icon-only" : ""} 
+        ${loading || asyncLoading ? "loading" : ""} ${className}
       `}
       active={active}
       as={as}
@@ -264,11 +268,14 @@ const Btn = ({
           size={size}
           icon={loading ? faSpinner : icon}
           variant={variant}
-          clickable={!disabled}
+          clickable={isIconOnly && clickable && !(disabled || loading || asyncLoading)}
           spin={loading}
           noBG={noBG}
-          tooltip={tooltip}
-          className="btn-icon"
+          className={
+            "btn-icon" +
+            (isIconOnly ? " icon-only" : "") +
+            (clickable && isIconOnly ? " interactiveSurface" : " not-clickable")
+          }
           ariaLabel="Button icon"
           border={border}
           mask={mask}
@@ -290,6 +297,9 @@ const Btn = ({
           transform={transform}
           swapOpacity={swapOpacity}
           widthAuto={widthAuto}
+          tooltip={tooltip}
+          tooltipFollowCursor={tooltipFollowCursor}
+          tooltipPlacement={tooltipPlacement}
         />
       }
     >
@@ -300,10 +310,11 @@ const Btn = ({
   return (
     <Whisper
       delay={250}
-      trigger={tooltip ? "hover" : "none"}
-      followCursor={true}
+      trigger={tooltip.length ? "hover" : "none"}
+      followCursor={tooltipFollowCursor}
+      placement={tooltipPlacement}
       speaker={
-        <Tooltip className="frosted ">
+        <Tooltip className="btn-tooltip">
           <p>{disabled ? "Button is disabled" : tooltip}</p>
         </Tooltip>
       }
@@ -313,10 +324,10 @@ const Btn = ({
           <Link
             role="button"
             to={href}
-            type={type}
             aria-label={resolvedAriaLabel}
             aria-busy={loading || asyncLoading}
-            aria-disabled={disabled || loading}
+            aria-disabled={disabled || loading || asyncLoading}
+            viewTransition
           >
             {button}
           </Link>
@@ -324,12 +335,12 @@ const Btn = ({
           <a
             role="button"
             href={href}
-            rel={rel || "noopener noreferrer"}
-            target={target || "_blank"}
+            rel={hrefLocal ? undefined : rel || "noopener noreferrer"}
+            target={hrefLocal ? undefined : target || "_blank"}
             download={download || null}
             aria-label={resolvedAriaLabel}
             aria-busy={loading || asyncLoading}
-            aria-disabled={disabled || loading}
+            aria-disabled={disabled || loading || asyncLoading}
           >
             {button}
           </a>

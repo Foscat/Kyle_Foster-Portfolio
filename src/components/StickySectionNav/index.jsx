@@ -1,81 +1,77 @@
-import React, { useEffect, useRef } from "react";
-import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
+import React, { useEffect, useRef, useState } from "react";
+import { buildSectionTree, useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
+import MobileSectionNavTrigger from "components/MobileSectionNavTrigger";
+import { capFirstLetter } from "assets/utils";
 import "./styles.css";
+import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import Btn from "components/Btn";
+import { Size, Variant } from "types/ui.types";
+import userOnMobile from "assets/hooks/userOnMobile";
 
 /**
  * @file index.jsx
- * @description Sticky, accessible intra-page section navigator that tracks
- * scroll position, updates URL hash state, and highlights the active section.
- * @module components/StickySectionNav
+ * @description Sticky, accessible intra-page section navigator with
+ * hierarchical scroll tracking and collapsible subsection groups.
  */
 
 const SCROLL_OFFSET = 120;
 
-/**
- * SectionNavItem
- * ---------------------------------------------------------------------------
- * Describes a single section entry used by StickySectionNav.
- *
- * @typedef {Object} SectionNavItem
- * @property {string} id - DOM id of the section element to scroll to.
- * @property {string} title - Human-readable label shown in the nav list.
- */
-
-/**
- * StickySectionNav
- * ---------------------------------------------------------------------------
- * Sticky, accessible section navigation for **individual pages**.
- *
- * Responsibilities:
- * - Highlights the currently active section based on scroll position
- * - Syncs navigation state with the URL hash (via History API)
- * - Supports both desktop and mobile presentation modes via CSS
- * - Keeps the active item visible by auto-scrolling the nav container
- *
- * Behavior:
- * - Uses a fixed `SCROLL_OFFSET` to account for sticky headers / top padding
- * - Uses smooth scrolling to navigate to target sections
- * - Marks programmatic scroll to avoid scroll-spy churn during animated scroll
- *
- * Accessibility:
- * - Root uses `aria-label="Section navigation"`
- * - Active item uses `aria-current="location"`
- * - Uses list semantics for predictable screen reader interaction
- *
- * @public
- * @component
- *
- * @param {Object} props - Component props.
- * @param {SectionNavItem[]} props.sections - List of sections to render and navigate.
- * @param {"desktop"|"mobile"} [props.mode="desktop"] - Layout mode used by styling rules.
- * @param {string} [props.pageUrl="/"] - Base page URL used for hash updates.
- * @param {boolean} [props.isOpen=true] - Controls open-state styling in mobile mode.
- *
- * @returns {JSX.Element} Rendered sticky section navigation.
- */
 const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOpen = true }) => {
-  const sectionIds = sections.map((s) => s.id);
   const navRef = useRef(null);
+  const isMobile = userOnMobile();
 
-  const { activeId, markProgrammaticScroll } = useScrollSpyWithHistory(sectionIds, SCROLL_OFFSET);
+  /* ---------------------------------------------------------------------- */
+  /* Scroll spy setup                                                        */
+  /* ---------------------------------------------------------------------- */
+
+  const { nodes, byId } = buildSectionTree(sections);
+
+  const { activeLeafId, activeChain, markProgrammaticScroll } = useScrollSpyWithHistory(
+    nodes,
+    byId,
+    SCROLL_OFFSET
+  );
+
+  /* ---------------------------------------------------------------------- */
+  /* Dropdown expansion state                                                */
+  /* ---------------------------------------------------------------------- */
 
   /**
-   * Navigates to a target section by ID, updating URL hash and scrolling smoothly.
-   *
-   * Implementation notes:
-   * - Uses `history.pushState` to update the hash without a full navigation
-   * - Uses requestAnimationFrame to allow layout to settle before measuring
-   *
-   * @param {string} id - Target section id.
-   * @returns {void}
+   * expandedOverrides:
+   *   undefined → derive from activeChain
+   *   true      → forced open
+   *   false     → forced closed
    */
+  const [expandedOverrides, setExpandedOverrides] = useState({});
+
+  const isExpanded = (sectionId) => {
+    if (expandedOverrides[sectionId] !== undefined) {
+      return expandedOverrides[sectionId];
+    }
+    return activeChain.includes(sectionId);
+  };
+
+  // Toggles the expanded state of a section, overriding the default activeChain behavior
+  const toggleSection = (sectionId) => {
+    setExpandedOverrides((prev) => ({
+      ...prev,
+      [sectionId]: !isExpanded(sectionId),
+    }));
+  };
+
+  /* ---------------------------------------------------------------------- */
+  /* Navigation                                                              */
+  /* ---------------------------------------------------------------------- */
+
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
 
+    // Update URL hash without page jump and mark programmatic scroll to prevent observer churn
     history.pushState(null, "", `${pageUrl}#${id}`);
-    markProgrammaticScroll();
+    markProgrammaticScroll(id);
 
+    // Use requestAnimationFrame to ensure the DOM has updated before calculating positions
     requestAnimationFrame(() => {
       const y = el.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
 
@@ -86,64 +82,140 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
     });
   };
 
-  /**
-   * Keeps the active nav item visible/centered within the nav container.
-   * Only performs scrolling when the nav container itself is scrollable.
-   */
+  /* ---------------------------------------------------------------------- */
+  /* Keep active item visible in nav                                         */
+  /* ---------------------------------------------------------------------- */
+
   useEffect(() => {
-    if (!navRef.current || !activeId) return;
+    if (!navRef.current || !activeLeafId) return;
 
     const container = navRef.current;
-    const activeItem = container.querySelector(`.section-nav-item[data-id="${activeId}"]`);
+    const activeItem = container.querySelector(`[data-nav-id="${activeLeafId}"]`);
 
     if (!activeItem) return;
 
-    // Only scroll the nav if it can scroll
+    // Only scroll if the container is scrollable and the active item is out of view
     if (container.scrollHeight > container.clientHeight) {
       activeItem.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
     }
-  }, [activeId]);
+  }, [activeLeafId]);
+
+  /* ---------------------------------------------------------------------- */
+  /* Desktop                                                                 */
+  /* ---------------------------------------------------------------------- */
+
+  if (isMobile) {
+    return (
+      <nav
+        ref={navRef}
+        className={`
+          blue-tile
+          sticky-section-nav
+          sticky-section-nav--${mode}
+          ${mode === "mobile" && isOpen ? "is-open" : ""}
+        `}
+        aria-label="Section navigation"
+      >
+        <ul className="section-nav-list" role="listbox">
+          {sections.map((section) => {
+            const sectionActive = activeChain.includes(section.id);
+            const expanded = isExpanded(section.id);
+            const hasBlocks = section.blocks?.length > 0;
+
+            return (
+              <li
+                key={section.id}
+                className={`section-nav-item ${sectionActive ? "is-active" : "is-inactive"}`}
+                data-nav-id={section.id}
+              >
+                <div className="section-nav-row">
+                  {/* SECTION TITLE → SCROLL */}
+                  <button
+                    type="button"
+                    className="section-nav-link interactive-surface"
+                    aria-current={sectionActive ? "location" : undefined}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigate(section.id);
+                    }}
+                  >
+                    {section.title}
+                  </button>
+
+                  {/* CARET → DROPDOWN */}
+                  {hasBlocks && (
+                    <Btn
+                      noBG
+                      size={Size.XS}
+                      variant={Variant.SUBTLE}
+                      icon={expanded ? faCaretDown : faCaretRight}
+                      className="section-nav-caret interactive-surface"
+                      as="button"
+                      ariaExpanded={expanded}
+                      ariaLabel={`Toggle ${section.title} subsections`}
+                      onClick={(e) => {
+                        // Prevent section title click when toggling dropdown
+                        e.preventDefault();
+                        toggleSection(section.id);
+                      }}
+                    />
+                  )}
+                </div>
+
+                {/* SUBSECTIONS */}
+                {hasBlocks && (
+                  <ul className="sub-section-nav-list" hidden={!expanded}>
+                    {section.blocks.map((block) => {
+                      if (!block.title) return null;
+                      // A block is active if it's the active leaf or if it contains the active leaf
+                      const blockActive = activeLeafId === block.id;
+
+                      return (
+                        <li key={block.id} data-nav-id={block.id}>
+                          <button
+                            type="button"
+                            aria-label={`Navigate to subsection ${block.title}`}
+                            className={`sub-section-nav-block interactive-surface ${blockActive ? "is-active" : ""}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleNavigate(block.id);
+                            }}
+                          >
+                            {block.title}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
+  }
+
+  /* ---------------------------------------------------------------------- */
+  /* Mobile                                                                  */
+  /* ---------------------------------------------------------------------- */
 
   return (
-    <nav
-      ref={navRef}
-      className={`
-        blue-tile
-        sticky-section-nav
-        sticky-section-nav--${mode}
-        ${mode === "mobile" && isOpen ? "is-open" : ""}
-      `}
-      aria-label="Section navigation"
-    >
-      <ul role="listbox" aria-orientation="vertical" className="section-nav-list">
-        {sections.map((section) => {
-          const isActive = section.id === activeId;
-
-          return (
-            <li
-              key={section.id + "-li"}
-              className={`section-nav-item ${isActive ? "is-active" : "is-inactive"}`}
-            >
-              <p
-                key={section.id + "-a"}
-                data-id={section.id}
-                className="section-nav-link"
-                aria-current={isActive ? "location" : undefined}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavigate(section.id);
-                }}
-              >
-                {section.title}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <MobileSectionNavTrigger
+      title={capFirstLetter(pageUrl.replace("/", "")) || "Home"}
+      sections={sections}
+      activeLeafId={activeLeafId}
+      activeChain={activeChain}
+      onToggleSection={toggleSection}
+      isExpanded={isExpanded}
+      navigate={(e, id) => {
+        e.preventDefault();
+        handleNavigate(id);
+      }}
+    />
   );
 };
 

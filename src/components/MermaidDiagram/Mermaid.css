@@ -14,15 +14,21 @@
    ------------------------------------------------------------ */
 
 .mermaid {
-  font-family: var(--font-Lexend), system-ui, sans-serif;
-  background: transparent !important;
+  font-family: var(--font-Audiowide), system-ui, sans-serif;
+  letter-spacing: normal;
+  background: var(--bg-secondary);
   color: var(--text-primary);
+  font-size: var(--font-sm);
+}
+
+.mermaid p {
+  font-size: var(--font-sm);
 }
 
 /* Ensure SVG scales correctly */
 .mermaid svg {
   width: 100%;
-  height: auto !important;
+  height: auto;
   min-height: 600px;
   overflow: visible;
 }
@@ -31,25 +37,35 @@
 .mermaid {
   overflow: auto;
   padding: 1.5rem 1rem;
+  border-radius: var(--border-radius);
 }
 
 /* Avoid transforms on the SVG when svg-pan-zoom is active */
 .mermaid-container:hover {
   box-shadow: var(--glass-shadow);
-  transition: box-shadow 0.25s ease;
-  transform: none !important;
+  transition: none;
+  transform: none;
 }
 
 .mermaid-svg-host {
   overflow: auto;
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 80dvh;
   display: flex;
   justify-content: center;
 }
 
 .mermaid-svg-host svg {
-  transform-origin: 0 0;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.mermaid-svg-host.fade-out svg {
+  opacity: 0;
+  transform: scale(0.98);
 }
 
 /* ============================================================
@@ -58,31 +74,41 @@
 
 /* Base container (works for SVG + foreignObject) */
 /* Edge label background box (Mermaid creates a rect behind labels in SVG mode) */
-.mermaid .edgeLabel {
-  background: transparent !important; /* no foreignObject backgrounds */
+.mermaid .edgeLabel,
+.edgeLabel rect.background {
+  background-color: transparent;
+  fill: transparent;
+  color: var(--text-primary);
+  box-sizing: content-box;
 }
 
 /* Label text */
 .mermaid .edgeLabel text {
-  fill: #ffffff !important;
-  font-weight: 800;
+  fill: var(--text-primary);
+  font-weight: 500;
   font-size: var(--font-sm);
   paint-order: stroke; /* stroke behind fill for contrast */
-  stroke: rgba(10, 12, 20, 0.9); /* dark outline */
+  stroke: var(--text-dark); /* dark outline */
   stroke-width: 3px;
   stroke-linejoin: round;
+  padding: 1px 3px;
+  background-color: var(--primary-darker-bg);
+}
+
+.mermaid .text-outer-tspan .text-inner-tspan {
+  fill: var(--text-primary);
 }
 
 /* HTML-based labels (Mermaid v11 default) */
 .mermaid .edgeLabel foreignObject,
 .mermaid .edgeLabel div,
 .mermaid .edgeLabel span {
-  color: #ffffff !important;
-  font-size: 0.75rem;
-  font-weight: 700;
-  background: transparent !important;
-  opacity: 1 !important;
-  text-shadow: none !important;
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  background: var(--bg-primary);
+  opacity: 1;
+  text-shadow: none;
 }
 
 /* Lift labels above clusters */
@@ -96,42 +122,43 @@
 
 /* Core entities (User, Organization, Classroom, Project) */
 .mermaid .mermaid-svg-host #mermaid[id] .node.entity rect {
-  fill: rgba(var(--white-rgb), 0.08) !important;
-  stroke: var(--primary) !important;
+  fill: var(--text-dark);
+  stroke: var(--primary-dark);
 }
 
 /* Control logic (License, Resolver, Permissions) */
 .mermaid .mermaid-svg-host #mermaid[id] .node.control rect {
-  fill: rgba(var(--accent-rgb), 0.12) !important;
-  stroke: var(--accent) !important;
+  fill: var(--accent-dark);
+  stroke: var(--accent);
+  font-size: var(--text-sm);
 }
 
 /* States (Read-only, Expired, Access states) */
 .mermaid .mermaid-svg-host #mermaid[id] .node.state rect {
-  fill: rgba(var(--secondary-rgb), 0.14) !important;
-  stroke: var(--secondary) !important;
+  fill: var(--text-blue-dark);
+  stroke: var(--primary-dark);
 }
 
 /* Roles (Teacher, Student, Admin) */
 .mermaid .mermaid-svg-host #mermaid[id] .node.role rect {
-  fill: rgba(var(--warning-rgb), 0.14) !important;
-  stroke: var(--warning) !important;
+  fill: var(--text-accent-dark);
+  stroke: var(--accent);
 }
 
 /* External systems (AWS, Runtime, iframe) */
 .mermaid .mermaid-svg-host #mermaid[id] .mermaid-svg-host #mermaid[id] .node.external rect {
-  fill: rgba(var(--info-rgb), 0.14) !important;
-  stroke: var(--info) !important;
+  fill: var(--text-blue);
+  stroke: var(--primary-light);
 
   /* Semantic edge label accents */
   .mermaid .edgeLabel:has(span:contains("Valid")),
   .mermaid .edgeLabel:has(text:contains("Valid")) {
-    border-color: rgba(var(--success-rgb), 0.8);
+    border-color: var(--success-rgb);
   }
 
   .mermaid .edgeLabel:has(span:contains("Expired")),
   .mermaid .edgeLabel:has(text:contains("Expired")) {
-    border-color: rgba(var(--error-rgb), 0.8);
+    border-color: var(--error-rgb);
   }
 }
 
@@ -140,13 +167,13 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host #mermaid[id] .edgePath .path {
-  stroke: var(--accent) !important;
+  stroke: var(--accent);
   stroke-width: 2px;
   stroke-linecap: round;
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .arrowheadPath {
-  fill: var(--accent-light) !important;
+  fill: var(--bg-bright);
 }
 
 /* ------------------------------------------------------------
@@ -154,14 +181,14 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host #mermaid[id] .edgeLabel {
-  background-color: rgba(0, 0, 0, 0.55) !important;
-  border-radius: 6px;
-  color: black;
+  background-color: var(--bg-primary-dark);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .edgeLabel text {
-  fill: #ffffff !important;
-  font-size: 0.75rem;
+  fill: var(--text-primary);
+  font-size: var(--font-sm);
   font-weight: 600;
 }
 
@@ -170,30 +197,30 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host #mermaid[id] .label text {
-  fill: var(--text-primary) !important;
-  font-size: 0.85rem;
+  fill: var(--text-primary);
+  font-size: var(--font-sm);
   font-weight: 600;
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .messageText {
-  fill: var(--text-primary) !important;
+  fill: var(--text-primary);
   font-weight: 600;
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .loopText,
 .mermaid .mermaid-svg-host #mermaid[id] .noteText {
-  fill: var(--text-primary) !important;
+  fill: var(--text-primary);
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .activation0,
 .mermaid .mermaid-svg-host #mermaid[id] .activation1,
 .mermaid .mermaid-svg-host #mermaid[id] .activation2 {
-  fill: rgba(var(--accent-rgb), 0.25) !important;
+  fill: var(--text-accent-dark);
 }
 
 .mermaid .cluster rect {
-  fill: rgba(var(--black-rgb), 0.08) !important;
-  stroke: var(--glass-border) !important;
+  fill: rgba(var(--black-rgb), 0.08);
+  stroke: var(--glass-border);
   stroke-dasharray: 6 4;
 }
 
@@ -202,13 +229,13 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host #mermaid[id] .cluster rect {
-  fill: rgba(var(--black-rgb), 0.15) !important;
-  stroke: var(--glass-border) !important;
+  fill: rgba(var(--black-rgb), 0.15);
+  stroke: var(--glass-border);
   stroke-dasharray: 6 4;
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .cluster text {
-  fill: var(--accent-light) !important;
+  fill: var(--accent-light);
   font-weight: 700;
   font-size: 0.9rem;
 }
@@ -218,14 +245,14 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host #mermaid[id] .note {
-  fill: rgba(var(--black-rgb), 0.35) !important;
-  stroke: var(--accent) !important;
+  fill: var(--black-rgb);
+  stroke: var(--accent);
   rx: 10px;
   ry: 10px;
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .noteText {
-  fill: var(--text-primary) !important;
+  fill: var(--text-primary);
   font-size: 0.8rem;
 }
 
@@ -234,20 +261,20 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host #mermaid[id] .actor rect {
-  fill: rgba(var(--white-rgb), 0.1) !important;
-  stroke: var(--primary) !important;
+  fill: rgba(var(--white-rgb), 0.1);
+  stroke: var(--primary);
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .actor text {
-  fill: var(--text-primary) !important;
+  fill: var(--text-primary);
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] .lifeline {
-  stroke: var(--primary-light) !important;
+  stroke: var(--primary-light);
 }
 
 .mermaid .mermaid-svg-host #mermaid[id] line {
-  stroke: var(--accent-light) !important;
+  stroke: var(--accent-light);
 }
 
 /* ------------------------------------------------------------
@@ -255,25 +282,25 @@
    ------------------------------------------------------------ */
 
 .mermaid-container.light .mermaid-diagram .node rect {
-  fill: rgba(0, 0, 0, 0.06) !important;
-  stroke: var(--primary-dark) !important;
+  fill: var(--black);
+  stroke: var(--primary-dark);
 }
 
 .mermaid-container.light .mermaid-diagram .label text {
-  fill: var(--primary-darkest) !important;
+  fill: var(--primary-darkest);
 }
 
 .mermaid-container.light .mermaid-diagram .edgePath .path {
-  stroke: var(--primary) !important;
+  stroke: var(--primary);
 }
 
 .mermaid-container.dark .mermaid-diagram .node rect {
-  fill: rgba(var(--white-rgb), 0.08) !important;
-  stroke: var(--accent-light) !important;
+  fill: var(--text-dark);
+  stroke: var(--accent-light);
 }
 
 .mermaid-container.dark .mermaid-diagram .edgePath .path {
-  stroke: var(--accent) !important;
+  stroke: var(--accent);
 }
 
 /* ------------------------------------------------------------
@@ -283,12 +310,12 @@
 .mermaid-collapsed {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease;
+  transition: max-height var(--transition-duration) var(--easing-standard);
 }
 
 .mermaid-expanded {
   max-height: 2000px;
-  transition: max-height 0.45s ease;
+  transition: max-height var(--transition-duration) var(--easing-standard);
 }
 
 /* ------------------------------------------------------------
@@ -305,13 +332,13 @@
   cursor: pointer;
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  transition: 0.25s ease;
+  transition: var(--transition-duration) var(--easing-standard);
 }
 
 .mermaid-export-btn:hover {
   background: var(--primary);
   color: var(--white);
-  transform: translateY(-2px);
+  transform: var(--scale-up);
 }
 
 /* ------------------------------------------------------------

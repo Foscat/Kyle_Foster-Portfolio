@@ -1,53 +1,124 @@
+/* ============================================================
+   PageHeader
+   ============================================================
+   Purpose:
+   - Provide page context (title + metadata)
+   - Establish visual identity without dominating mobile screens
+   - Stay sticky-safe (no transforms, no containment, no overflow)
+
+   Mobile-first by default.
+   Desktop enhancements layered later.
+*/
+
 /* ------------------------------------------------------------
-   Page Header
------------------------------------------------------------- */
+   Root container
+   ------------------------------------------------------------ */
 
 .page-header {
-  margin-bottom: 3rem;
+  position: relative;
+
+  /* Mobile vertical rhythm: tight but breathable */
+  padding: clamp(0.75rem, 3vw, 1.25rem) 1rem clamp(0.75rem, 3vw, 1.25rem);
+
+  /* Keep header visually distinct but lightweight on mobile */
+  background: var(--bg-gradient);
+
+  border-bottom: var(--gb-BR);
+
+  /* Sticky-safe: do NOT add overflow, transform, or contain */
 }
 
-.page-header-inner {
-  width: 100%;
-}
+/* ------------------------------------------------------------
+   Title
+   ------------------------------------------------------------ */
 
 .page-header-title {
-  font-size: var(--font-xxl);
-  margin-bottom: 0.5rem;
-  color: rgba(var(--accent-rgb), 0.9);
+  margin: 0;
+
+  /* Clamp prevents oversized headlines on phones */
+  font-size: var(--font-lg);
+  font-weight: 600;
+  line-height: 1.2;
+
+  color: var(--accent);
+
+  /* Avoid text-shadow on mobile for clarity */
 }
+
+/* ------------------------------------------------------------
+   Subtitle / description
+   ------------------------------------------------------------ */
 
 .page-header-subtitle {
+  margin-top: 0.25rem;
+
   font-size: var(--font-md);
-  color: var(--grey-300);
-  opacity: 0.8;
+  line-height: 1.4;
+
+  color: var(--text-secondary);
 }
 
-.page-header-description {
+/* ------------------------------------------------------------
+   Metadata row (timespan, job title, tech, etc.)
+   ------------------------------------------------------------
+   On mobile, metadata is present but visually secondary.
+*/
+
+.page-header-meta {
+  margin-top: 0.5rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+
   font-size: var(--font-sm);
   color: var(--text-secondary);
-  margin-top: 0.5rem;
 }
 
-/* Motion alignment with frosted UI */
-.fade-in {
-  animation: fadeInUp 0.6s ease forwards;
+/* Individual meta item */
+.page-header-meta-item {
+  white-space: nowrap;
 }
 
-p.tech-used span {
-  color: var(--text-secondary);
-}
+/* ------------------------------------------------------------
+   Desktop enhancement
+   ------------------------------------------------------------ */
 
-p.tech-used span em {
-  color: var(--text-primary);
-}
+@media (min-width: 900px) {
+  .page-header {
+    padding: 2.5rem 2rem 2rem;
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
+    /* Desktop glass depth restored */
+    background: var(--primary-dark-bg);
+    -webkit-backdrop-filter: var(--backdrop-blur);
+    backdrop-filter: var(--backdrop-blur);
+    border-bottom: var(--frost-border);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .page-header-title {
+    font-size: var(--font-xxl);
+  }
+
+  .page-header-subtitle {
+    font-size: var(--font-lg);
+  }
+
+  .page-header-meta {
+    margin-top: 0.75rem;
+    font-size: var(--font-sm);
+  }
+}
+
+/* ------------------------------------------------------------
+   Reduced motion support
+   ------------------------------------------------------------
+   PageHeader intentionally avoids animation.
+   This section exists only to document intent.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }

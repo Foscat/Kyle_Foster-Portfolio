@@ -10,6 +10,7 @@ import Contact from "pages/Contact";
 import Health from "components/Health";
 import NotFound from "pages/NotFound";
 import "./App.css";
+import "./click-animate/click-animate.css";
 
 console.log("🚀 App component executing");
 
@@ -30,7 +31,14 @@ export default function App() {
     console.log("🚀 App mounted successfully");
   });
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_preventAbandonedRoutes: true,
+        v7_preventUnnecessaryRerenders: true,
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <div className="app-shell">
         <Head />
         <Routes>

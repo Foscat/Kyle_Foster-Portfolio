@@ -4,6 +4,8 @@ import { Accordion, Panel } from "rsuite";
 import Btn from "components/Btn";
 import { faReadme } from "@fortawesome/free-brands-svg-icons";
 import { Size } from "types/ui.types";
+import FrostedIcon from "components/FrostedIcon";
+import RichText from "components/RichText";
 
 /**
  * @file index.jsx
@@ -276,16 +278,12 @@ const AccordionList = ({
       defaultExpanded
       bordered={bordered}
       header={
-        <div>
-          <div className="flex-row">
-            {icon && <FrostedIcon size="lg" icon={icon} />}
-            {title && <h2 className="block-header">{title}</h2>}
-          </div>
-          {subtitle && <h4 className="block-subtitle">{subtitle}</h4>}
+        <div id={id ? id : undefined} className="flex-column">
+          <div className="flex-row">{title && <span className="block-header">{title}</span>}</div>
+          {subtitle && <span className="block-subtitle">{subtitle}</span>}
         </div>
       }
-      className={`frosted ${variant} ${className}`}
-      id={id}
+      className={`frosted-accordian blue-tile block ${variant} ${className}`}
     >
       {/* Keyboard help for users & screen readers */}
       <p className="fa-help">
@@ -304,7 +302,6 @@ const AccordionList = ({
         aria-label={title || "Section navigation"}
       >
         {items.map((item, i) => {
-          console.log(item);
           const headerId = `accordion-header-${item.id || i}`;
           const panelId = `accordion-panel-${item.id || i}`;
 
@@ -312,13 +309,21 @@ const AccordionList = ({
             <Accordion.Panel
               defaultExpanded
               key={"acp-" + headerId}
-              className={"fa-list-item blue-tile"}
-              header={<h4 key={headerId}>{item.title}</h4>}
+              className={"fa-list-item frosted"}
+              header={
+                <span className="block-key" key={headerId}>
+                  {item.title}
+                </span>
+              }
             >
               {item.text && (
-                <p key={panelId} id={panelId} role="group" aria-labelledby={headerId}>
-                  {item.text}
-                </p>
+                <RichText
+                  key={panelId}
+                  id={panelId}
+                  role="group"
+                  aria-labelledby={headerId}
+                  text={item.text}
+                />
               )}
               {item.url && (
                 <div key={panelId + "-btnWrap"} className="center-v mt-2">
@@ -328,7 +333,9 @@ const AccordionList = ({
                     icon={faReadme}
                     href={item.url}
                     hrefLocal={item.local}
-                    size={Size.SM}
+                    size={Size.MD}
+                    ariaLabel={`Learn more about ${item.title.toLowerCase()}`}
+                    tooltip={`Get more info about ${item.title.toLowerCase()}`}
                   />
                 </div>
               )}

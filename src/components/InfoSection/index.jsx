@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Panel } from "rsuite";
 import FrostedIcon from "components/FrostedIcon";
 import "./styles.css";
 import { Size, Variant } from "types/ui.types";
+import useLongPress from "assets/hooks/useLongPress";
 
 /**
  * @file index.jsx
@@ -76,7 +77,7 @@ const InfoSection = ({
           {subtitle && <h4 className="info-subtitle">{subtitle}</h4>}
         </div>
       }
-      className={`info-section frosted blue-tile ${className}`}
+      className={`info-section frosted ${className}`}
       as="section"
     >
       {/* CONTENT AREA */}

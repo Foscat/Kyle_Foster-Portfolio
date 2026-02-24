@@ -36,7 +36,7 @@ export type PageTestConfig = {
  * - Sticky section navigation exists (where applicable)
  * - Full-page visual snapshot (stabilized)
  */
-export function registerPageTests(config: PageTestConfig) {
+export function createPageTestSuite(config: PageTestConfig) {
   test.describe(config.name, () => {
     test("renders core layout regions", async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });

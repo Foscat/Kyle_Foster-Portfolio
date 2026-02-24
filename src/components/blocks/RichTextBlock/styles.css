@@ -1,0 +1,15 @@
+/* Lists */
+.rich-text-block ul,
+.rich-text-block ol {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.rich-text-block li {
+  margin-bottom: 0.25rem;
+}
+
+/* Inline emphasis */
+.rich-text-block strong {
+  color: rgba(var(--white-rgb), 0.95);
+}

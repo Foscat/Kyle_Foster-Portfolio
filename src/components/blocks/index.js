@@ -12,7 +12,7 @@
 import ImageGalleryBlock from "./ImageGalleryBlock";
 import LinksBlock from "./LinksBlock";
 import RichTextBlock from "./RichTextBlock";
-
+import "./blocks.css";
 /**
  * ImageGalleryBlock
  * Renders a gallery-style block for displaying one or more images.

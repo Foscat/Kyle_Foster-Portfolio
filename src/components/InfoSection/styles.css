@@ -3,22 +3,27 @@
    ------------------------------------------------------------ */
 
 .info-section {
-  padding: 0 10px 5px;
+  margin: 10px 0 35px;
+  width: 100%;
   border-radius: var(--border-radius);
-  margin: 20px 0 45px;
   box-shadow: var(--glass-shadow);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
 }
 
 .info-section.section-renderer {
-  margin: 10px 0 25px;
   background-color: var(--glass-bg-strong);
   box-shadow: var(--tile-shadow);
   border-top: var(--gb-TL);
   border-left: var(--gb-TL);
   border-right: var(--gb-BR);
   border-bottom: var(--gb-BR);
+  padding: 5px;
+}
+
+section.info-section .rs-panel-header .rs-panel-btn:hover .rs-icon.rs-panel-btn-icon {
+  font-size: var(--icon-sm);
+  color: var(--accent-dark);
 }
 
 /* Title area */
@@ -39,6 +44,7 @@
   font-size: var(--font-xl);
   font-weight: 600;
   color: var(--text-accent);
+  text-shadow: var(--shadow-dark);
 }
 
 .info-subtitle {
@@ -46,12 +52,13 @@
   text-align: center;
   font-size: var(--font-md);
   color: var(--text-secondary);
+  text-shadow: var(--shadow);
 }
 
 /* Content area */
 .info-content {
   font-size: var(--font-xs);
-  color: var(--text-normal, var(--white));
+  color: var(--text-primary, var(--white));
   line-height: 1.6;
 }
 
@@ -59,11 +66,81 @@
   border: 1px solid var(--frost-border);
 }
 
+/* ============================================================ */
+
+/* ============================================================
+   InfoSection
+   ============================================================
+   Purpose:
+   - Provide consistent vertical rhythm between sections
+   - Group related content without overpowering it
+   - Stay lightweight on mobile, richer on desktop
+   - Remain sticky-safe (no transforms / containment)
+*/
+
+/* ------------------------------------------------------------
+   Root section
+   ------------------------------------------------------------ */
+
+.info-section,
+.info-section.section-renderer {
+  position: relative;
+
+  /* Mobile-first spacing: readable, not theatrical */
+  padding: var(--mobile-gap);
+
+  /* Subtle separation without heavy visual weight */
+  border-bottom: var(--fb-BR);
+}
+
+.info-section.section-renderer .rs-panel-header .rs-panel-btn .rs-icon.rs-panel-btn-icon {
+  font-size: var(--icon-sm);
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Inner content wrapper
+   ------------------------------------------------------------
+   This controls max width and reading comfort.
+*/
+
+.info-content {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------
+   Typography normalization
+   ------------------------------------------------------------
+   InfoSection should not fight child components.
+*/
+
+.info-section h2,
+.info-section h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.info-section p {
+  margin: 0;
+  line-height: 1.6;
+  color: rgba(var(--white-rgb), 0.85);
+}
+
 /* Mobile adjustments */
 @media (max-width: 600px) {
   .info-section {
-    padding: 22px;
+    padding: 0px;
   }
+
+  .rs-panel.info-section .rs-panel-body {
+    padding: 10px 2px;
+  }
+  /*.rs-panel.info-section .rs-panel-header*/
+  /* padding: 2px; */
+  /* } */
 
   .info-title {
     font-size: var(--font-lg);
@@ -75,5 +152,38 @@
 
   .info-content {
     font-size: var(--font-sm);
+  }
+}
+
+/* ------------------------------------------------------------
+   Desktop enhancement
+   ------------------------------------------------------------ */
+
+@media (min-width: 900px) {
+  .info-section {
+    /* padding: 2.5rem 2rem; */
+
+    /* Glass restored only where GPU cost is acceptable */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(var(--white-rgb), 0.12);
+  }
+
+  .info-section__inner {
+    gap: 1rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   Reduced motion support
+   ------------------------------------------------------------
+   InfoSection avoids animation entirely by design.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  .info-section {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
