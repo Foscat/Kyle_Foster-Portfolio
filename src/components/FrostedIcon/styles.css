@@ -77,7 +77,7 @@
 
 .frosted-icon.fi-variant-secondary,
 .rs-nav-item .fi-variant-secondary {
-  color: var(--gray-700);
+  color: var(--text-primary);
 }
 
 .rs-nav-item .fi-variant-secondary:hover,

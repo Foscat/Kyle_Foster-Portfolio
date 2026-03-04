@@ -3,15 +3,16 @@ import { useSectionRegistry } from "navigation/SectionRegistryProvider";
 import {
   BlockType,
   createBulletListBlock,
+  createCardGridBlock,
   createDiagramBlock,
   createImageGalleryBlock,
   createLinkListBlock,
   createRichTextBlock,
 } from "types/ui.types";
 import InfoSection from "components/InfoSection";
-import { ImageGalleryBlock, LinksBlock, RichTextBlock } from "components/blocks";
-import AccordionList from "components/AccordionList";
+import { CardGridBlock, ImageGalleryBlock, LinksBlock, RichTextBlock } from "components/blocks";
 import MermaidDiagram from "components/MermaidDiagram";
+import AccordionList from "components/AccordionList";
 
 /**
  * @file index.jsx
@@ -126,6 +127,9 @@ const SectionRenderer = ({ section }) => {
                 className="scroll-anchor"
               />
             );
+
+          case BlockType.CARD_GRID:
+            return <CardGridBlock key={`cgb-${i}-${block.id}`} {...createCardGridBlock(block)} />;
 
           case BlockType.DIAGRAM:
             console.log("Rendering diagram block:", block);

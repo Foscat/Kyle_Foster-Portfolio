@@ -10,7 +10,7 @@
    Font Imports
    ------------------------------------------------------------ */
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
 
@@ -74,7 +74,7 @@
   --accent-dark: rgb(168, 137, 0);
   --accent-dark-rgb: 168, 137, 0;
 
-  --accent: rgb(201, 162, 39);
+  --accent: #c9a227;
   --accent-rgb: 201, 162, 39;
 
   --accent-light: rgb(230, 199, 103);
@@ -82,11 +82,12 @@
 
   --gold-400: rgb(212, 175, 55);
   --gold-400-rgb: 212, 175, 55;
-  --gold-500: rgb(184, 134, 11);
+  --gold-500: lab(59.22% 9.87 62.73);
   --gold-500-rgb: 184, 134, 11;
 
   /* System */
   --success: rgb(22, 163, 74);
+  --success-dark: rgb(20, 120, 50);
   --success-rgb: 22, 163, 74;
   --warning: rgb(250, 204, 21);
   --warning-rgb: 250, 204, 21;
@@ -228,8 +229,9 @@
   --page-max-width: 1500px;
   --page-gutter: clamp(0.75rem, 4vw, 2rem);
   --page-gap: clamp(1rem, 1vw, 2rem);
-  --mobile-breakpoint: 900px;
+  --mobile-breakpoint: 768px;
   --mobile-gap: clamp(0.5rem, 0.75rem);
+  --tablet-breakpoint: 1024;
   --sidebar-width: 350px;
   --sticky-header-height: 96px;
   /* adjust to StickyNav height */
@@ -469,23 +471,11 @@ section[id],
   padding: 0;
 }
 
-.frosted.rs-panel .rs-panel-header .rs-panel-btn:hover,
-.frosted.rs-panel .rs-panel-header .rs-panel-btn:hover .block-header {
-  background-color: transparent;
-}
-
-.frosted.rs-panel .rs-panel-header .rs-panel-btn:active,
-.frosted.rs-panel .rs-panel-header .rs-panel-btn:focus,
-.fa-list
-  .fa-list-item
-  .rs-panel-btn:focus
-  .fa-list
-  .fa-list-item.rs-panel-in.rs-panel-collapsible
-  .rs-panel-title {
-  color: var(--accent-dark);
-  background-color: transparent;
-}
-
+.rs-panel .rs-panel-header .rs-panel-btn:hover,
+.rs-panel .rs-panel-header .rs-panel-btn:hover .block-header,
+.rs-panel .rs-panel-header .rs-panel-btn:active,
+.rs-panel .rs-panel-header .rs-panel-btn:focus,
+.fa-list .fa-list-item .rs-panel-btn:focus,
 .rs-panel-header .rs-panel-title.block-header:active {
   color: var(--accent-dark);
   background-color: transparent;
@@ -792,6 +782,7 @@ section[id],
 }
 
 /* RSuite Overides */
+.rs-panel-btn,
 .rs-panel-btn:hover,
 .rs-panel-btn:focus,
 .rs-panel-btn:active {

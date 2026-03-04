@@ -27,7 +27,7 @@
  */
 
 import { normalizeDiagrams } from "./normalize-diagrams.js";
-import diagrams from "../src/assets/data/diagrams.js";
+import diagrams from "../src/assets/data/content/diagrams.js";
 import { BlockType } from "../src/types/ui.types.js";
 
 /**

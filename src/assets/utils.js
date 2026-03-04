@@ -34,6 +34,31 @@ export function classNames(...classes) {
 }
 
 /**
+ * Formats a string of class names by trimming whitespace, normalizing spaces, removing duplicates, and eliminating newlines. Returned string is suitable for use in a `className` attribute by stripping out unnessicary blanks.
+ *
+ * @param {string} classStrBlock - A string of space-delimited class names.
+ * @returns {string} The formatted string with whitespace normalized and duplicates removed.
+ */
+export function formatClassNames(classStrBlock = "") {
+  if (typeof classStrBlock !== "string") {
+    console.warn("formatClassNames: Expected a string but received:", classStrBlock);
+    return "";
+  } else if (classStrBlock.trim() === "") {
+    return "";
+  } else {
+    // Coerce input to string to avoid errors when null/number is passed
+    const input = typeof classStrBlock === "string" ? classStrBlock : String(classStrBlock);
+    // Remove newline characters first and replace them with spaces
+    const noNewlines = input.replace(/\n/g, " ");
+    // Trim leading and trailing whitespace and collapse multiple whitespace into a single space
+    const normalized = noNewlines.trim().replace(/\s+/g, " ");
+    // Remove duplicate class names while preserving order and ignore empty tokens
+    const uniqueClasses = [...new Set(normalized.split(" ").filter(Boolean))].join(" ");
+    return uniqueClasses;
+  }
+}
+
+/**
  * Determines whether the code is executing in a browser environment.
  * Useful for guarding DOM or window access during SSR or tests.
  *

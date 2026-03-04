@@ -70,7 +70,8 @@ export const BlockType = Object.freeze({
   RICH_TEXT: "richText",
   IMAGE_GALLERY: "imageGallery",
   DIAGRAM: "diagram",
-  BULLETED_LIST: "bulletedList",
+  CARD_GRID: "cardGrid",
+  BULLETED_LIST: "bulletedList", // TODO: (deprecated - use RichText with ul/ol nodes instead)
   LINKS: "links",
 });
 
@@ -246,6 +247,27 @@ export const HoverAnimation = Object.freeze({
  */
 
 /**
+ * InsightCard
+ * @typedef {object} InsightCard
+ * @property {string} id - Unique card identifier.
+ * @property {string} title - Card title.
+ * @property {string} [subtitle] - Optional subtitle.
+ * @property {string} [icon] - Optional icon key.
+ * @property {Variant} [variant="primary"] - Visual style variant.
+ * @property {RichTextNode} content - Card content, either as rich text nodes or plain string.
+ */
+
+/**
+ * CardGridBlock
+ * @typedef {object} CardGridBlock
+ * @property {string} id - Unique block identifier.
+ * @property {"cardGrid"} type - Block discriminator.
+ * @property {string} title - Section title.
+ * @property {number} [columns=3] - Number of grid columns.
+ * @property {Array<InsightCard>} items - Array of card items to display.
+ */
+
+/**
  * Diagram Variant
  * @typedef {object} DiagramVariant
  * @property {string} diagram - Mermaid.js definition.
@@ -408,6 +430,31 @@ const createBulletItem = (item, position) => ({
   ariaLabel: item.ariaLabel || "",
 });
 
+const createInsightCard = (item, position) => ({
+  ...item,
+  id: item.id || "card-" + position,
+  title: item.title || "",
+  subtitle: item.subtitle || "",
+  icon: item.icon || "",
+  variant: item.variant || Variant.PRIMARY,
+  content: item.content || "",
+});
+
+/**
+ * Create a default CardGridBlock
+ * @param {Partial<CardGridBlock>} block - Card grid block properties.
+ * @returns {CardGridBlock}
+ */
+export const createCardGridBlock = (block) => ({
+  ...block,
+  type: BlockType.CARD_GRID,
+  id: block.id || "",
+  title: block.title || "",
+  items: Array.isArray(block.items)
+    ? block.items.map((item, index) => createInsightCard(item, index))
+    : [],
+});
+
 /**
  * Create a default BulletListBlock
  * @param {Partial<BulletListBlock>} block - Bullet list block properties.
@@ -433,7 +480,7 @@ export const createLinkListBlock = (block) => ({
   type: BlockType.LINKS,
   id: block.id || "",
   title: block.title || "",
-  links: Array.isArray(block.items)
+  links: Array.isArray(block.links)
     ? block.links.map((link, index) => createBulletItem(link, index))
     : [],
 });

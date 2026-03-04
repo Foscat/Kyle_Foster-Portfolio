@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { CustomProvider } from "rsuite";
 
-import { ThemeProvider } from "assets/theme/ThemeContext";
+import { ThemeProvider } from "assets/context/ThemeContext";
 
 /**
  * Render helper that wraps a component with the same app-level providers.

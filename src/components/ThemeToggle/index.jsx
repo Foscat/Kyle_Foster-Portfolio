@@ -1,7 +1,7 @@
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup, ButtonToolbar } from "rsuite";
 import Btn from "components/Btn";
-import { useTheme } from "assets/theme/ThemeContext";
+import { useTheme } from "assets/context/ThemeContext";
 import { Size, Theme, Variant } from "types/ui.types";
 import "./styles.css";
 

@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./styles.css";
-import { Accordion, Panel } from "rsuite";
+import { Panel, PanelGroup } from "rsuite";
 import Btn from "components/Btn";
 import { faReadme } from "@fortawesome/free-brands-svg-icons";
 import { Size } from "types/ui.types";
-import FrostedIcon from "components/FrostedIcon";
 import RichText from "components/RichText";
 
 /**
@@ -104,9 +103,8 @@ const AccordionList = ({
   id,
   title,
   subtitle,
-  icon,
   items = [],
-  accordion = false,
+  accordion = true,
   variant = "dark",
   className = "",
   bordered = false,
@@ -275,15 +273,15 @@ const AccordionList = ({
   return (
     <Panel
       collapsible
-      defaultExpanded
+      expanded
       bordered={bordered}
       header={
-        <div id={id ? id : undefined} className="flex-column">
-          <div className="flex-row">{title && <span className="block-header">{title}</span>}</div>
+        <div id={id} className="flex-column">
+          {title && <span className="block-header">{title}</span>}
           {subtitle && <span className="block-subtitle">{subtitle}</span>}
         </div>
       }
-      className={`frosted-accordian blue-tile block ${variant} ${className}`}
+      className={`frosted-accordion blue-tile block ${variant} ${className}`}
     >
       {/* Keyboard help for users & screen readers */}
       <p className="fa-help">
@@ -294,7 +292,7 @@ const AccordionList = ({
       <div className="sr-only" aria-live="polite">
         {srMessage}
       </div>
-      <Accordion
+      <PanelGroup
         id={id}
         className="fa-list"
         ref={listRef}
@@ -302,18 +300,27 @@ const AccordionList = ({
         aria-label={title || "Section navigation"}
       >
         {items.map((item, i) => {
-          const headerId = `accordion-header-${item.id || i}`;
-          const panelId = `accordion-panel-${item.id || i}`;
+          const headerId = `-${item.id || i}`;
+          const panelId = `ac-panel-${item.id || i}`;
 
           return (
-            <Accordion.Panel
-              defaultExpanded
-              key={"acp-" + headerId}
-              className={"fa-list-item frosted"}
+            <Panel
+              collapsible
+              bordered
+              onSelect={() => togglePanel(i)}
+              defaultExpanded={item.defaultExpanded}
+              onKeyDown={(e) => handleKeyDown(e, i, items[i], openIndex === i)}
+              key={`${id}-${item.id || i}`}
+              className={"fa-list-item"}
               header={
-                <span className="block-key" key={headerId}>
-                  {item.title}
-                </span>
+                <div className="flex-column">
+                  <span className="block-key" key={`${headerId}_${i}`}>
+                    {item.title}
+                  </span>
+                  <span className="block-subkey" key={`${headerId}_subtitle${i}`}>
+                    {item.subtitle}
+                  </span>
+                </div>
               }
             >
               {item.text && (
@@ -321,6 +328,7 @@ const AccordionList = ({
                   key={panelId}
                   id={panelId}
                   role="group"
+                  className="mt-1 mb-1"
                   aria-labelledby={headerId}
                   text={item.text}
                 />
@@ -339,10 +347,10 @@ const AccordionList = ({
                   />
                 </div>
               )}
-            </Accordion.Panel>
+            </Panel>
           );
         })}
-      </Accordion>
+      </PanelGroup>
     </Panel>
   );
 };

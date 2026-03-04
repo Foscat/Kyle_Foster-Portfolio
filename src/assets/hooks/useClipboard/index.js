@@ -19,7 +19,7 @@
 
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import useClipboard from "assets/hooks/useClipboard";
+import useClipboard from "assets/hooks/useClipboard/useClipboard";
 
 /* ------------------------------------------------------------------
  * Clipboard API mock

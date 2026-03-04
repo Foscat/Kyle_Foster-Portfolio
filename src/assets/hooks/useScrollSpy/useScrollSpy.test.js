@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react";
-import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
+import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy/useScrollSpy";
 
 /**
  * @file useScrollSpy.test.js

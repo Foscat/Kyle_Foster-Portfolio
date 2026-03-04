@@ -1,115 +1,335 @@
-import {
-  faTimeline,
-  faTableColumns,
-  faIdCard,
-  faChalkboardTeacher,
-  faLayerGroup,
-  faHandsHelping,
-  faHeadset,
-  faUsersViewfinder,
-  faSeedling,
-  faFileShield,
-  faFolderTree,
-  faUserAstronaut,
-  faArrowTrendDown,
-  faBrain,
-} from "@fortawesome/free-solid-svg-icons";
-import { BlockType, Theme } from "../../types/ui.types.js";
-import { formatMermaid } from "../../../scripts/format-mermaid.js";
+import { BlockType } from "../../../types/ui.types.js";
+import formatMermaid from "../../../../scripts/format-mermaid.js";
+
+// Mermaid configuration blocks are standardized across diagrams for consistency and maintainability.
+const themeVariables = `themeVariables: {
+  "fontFamily": "Lexend Deca, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
+  "fontSize": "18px",
+
+  "/* Midnight Blue Base */
+  "primaryColor": "#131A77",
+  "primaryTextColor": "#FFFFFF",
+  "primaryBorderColor": "#C9A227",
+  "primaryBorderWidth": "2px",
+
+  "secondaryColor": "#131A77",
+  "secondaryTextColor": "#e1e1e3",
+  "secondaryBorderColor": "#C9A227",
+
+  "/* Force node styling */
+  "nodeBkg": "#1f2793",
+  "nodeBorder": "#b8860b",
+  "nodeTextColor": "#FFFFFF",
+
+  "/* Lines */
+  "lineColor": "#C9A227",
+  "stroke": "#C9A227",
+  "strokeWidth": "3px",
+  "fill": "#C9A227",
+
+  "/* Subgraphs */
+  "clusterTitle": "#C9A227",
+  "clusterColor": "#1C1C1E",
+  "clusterBkg": "#147832",
+  "clusterBorder": "#a88900",
+  "clusterTextColor": "#C9A227",
+}`;
+
 
 /**
  * Standard Mermaid init blocks
  * Enforced by diagram linting & formatting pipeline
+ * 
+ *  
+  
+  * 
  */
 const FLOWCHART_INIT = `
 %%{init:{
-
   "flowchart":{
-    curve: "cardinal",
+    "curve":"natural",
+    "nodeSpacing":45,
+    "rankSpacing":86,
+    "subgraphMargin":"1.5em",
+    "subgraphPadding":"0.5em",
+    "htmlLabels":true
   },
-  
-  "themeVariables":{
-    shape:"rounded",
-    primaryColor: "rgba(var(--blue-rgb), 0.15)",
-  }
+  ${themeVariables}
 }}%%
-
 `;
 
-const MOBILE_FLOWCHART_INIT = `
+export const MOBILE_FLOWCHART_INIT = `
 %%{init:{
   "flowchart":{
-    curve:"cardinal",
-    nodeSpacing: 20,
-    rankSpacing: 35,
-    shape:"rounded",
-
+    "curve":"natural",
+    "nodeSpacing":24,
+    "rankSpacing":36,
+    "htmlLabels":true
   },
-  "themeVariables":{
-    fontSize: 25,
-    padding: 5,
-    nodePadding: 6
-  }
-}}%%
-`;
-
-const SEQUENCE_INIT = `%%{init:{
-  "sequence":{
-    "diagramMarginX":50,
-    "diagramMarginY":20,
-    "messageMargin":35
-  }
+  ${themeVariables}
 }}%%`;
 
-const STATE_INIT = `
+export const SEQUENCE_INIT = `%%{init:{
+  "sequence":{
+    "diagramMarginX":50,
+    "diagramMarginY":22,
+    "messageMargin":34,
+    "actorMargin":55,
+    "boxMargin":12,
+    "boxTextMargin":10,
+    "noteMargin":10,
+    "mirrorActors":false
+  },
+  ${themeVariables}
+}}%%`;
+
+export const STATE_INIT = `
 %%{init:{
   "state":{
     "nodeSpacing":50,
     "rankSpacing":60,
     "fontSize":16,
     "transitionLength":2,
-    "shape": "rounded
+    "shape":"rounded"
   },
-  "themeVariables":{
-    "fontSize":"15px",
-    "primaryBorderWidth":"2px",
-    "nodePadding":"6px"
-  }
-}}%%
-`;
+  ${themeVariables}
+}}%%`;
 
-const MOBILE_STATE_INIT = `
+export const MOBILE_STATE_INIT = `
 %%{init:{
   "state":{
     "nodeSpacing":25,
     "rankSpacing":30,
     "fontSize":13,
-    "transitionLength":1
+    "transitionLength":1,
+    "shape":"rounded"
   },
-  "themeVariables":{
-    "fontSize":"13px",
-    "primaryBorderWidth":"1.5px",
-    "nodePadding":"4px"
-  }
-}}%%
-`;
+  ${themeVariables}
+}}%%`;
+
+const ARCH_FLOWCHART_PALETTE = `
+%% ==========================================================
+%% Architecture Layer Palette (Mermaid-safe)
+%% - hex colors only (no rgba)
+%% - integer px only
+%% - avoid rx/ry (parser inconsistencies)
+%% ==========================================================
+
+%% Default
+classDef default fill:#131A77,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;
+
+%% Presentation
+classDef layerPresentation fill:#131A77,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;
+
+%% Application (glass)
+classDef layerApplication fill:#1C1C1E,stroke:#D1D1D6,stroke-width:2px,color:#F5F7FF;
+
+%% Domain (gold)
+classDef layerDomain fill:#C9A227,stroke:#E6C767,stroke-width:2px,color:#0F0F12;
+
+%% Infrastructure
+classDef layerInfrastructure fill:#0F0F12,stroke:#3A3A3C,stroke-width:2px,color:#F5F7FF;
+
+%% Persistence (success)
+classDef layerPersistence fill:#147832,stroke:#147832,stroke-width:2px,color:#cBc8ff;
+
+%% External (warning)
+classDef layerExternal fill:#a88900,stroke:#a88900,stroke-width:2px,color:#cBc8ff;
+
+%% Common node types
+classDef datastore fill:#000000,stroke:#D1D1D6,stroke-width:2px,color:#F5F7FF;
+classDef core fill:#C9A227,stroke:#E6C767,stroke-width:3px,color:#0F0F12;
+classDef text fill:#131A77,stroke:#C9A227,stroke-width:0px,color:#F5F7FF;
+classDef animate stroke-dasharray: 9,5,stroke-dashoffset: 900,animation: dash 25s linear infinite;
+classDef accent stroke:#C9A227,stroke-width:2px,color:#c9a227;
+`.trim();
 
 /**
- * Helper to generate consistently formatted Mermaid diagrams.
+ * Generates a Mermaid init block based on responsive and accessibility context.
+ * This allows diagrams to adapt to user preferences and device constraints.
+ * Currently adjusts flowchart diagrams for mobile breakpoint, reduced motion, reduced transparency, and high contrast modes.
+ *
+ * @param {Object} options - Configuration options for diagram initialization.
+ * @param {"mobile"|"tablet"|"desktop"} options.breakpoint - Current responsive breakpoint.
+ * @param {boolean} options.reducedMotion - Whether the user prefers reduced motion.
+ * @param {boolean} options.reducedTransparency - Whether the user prefers reduced transparency.
+ * @param {boolean} options.highContrast - Whether the user prefers high contrast mode.
+ *
+ * @return {string} Mermaid init block string with appropriate adjustments based on context.
+ *
+ * This function is designed to be used in conjunction with the `diagram` helper to ensure that Mermaid diagrams are rendered with context-aware styling and behavior adjustments, enhancing accessibility and usability across different devices and user preferences.
  */
-const diagram = (init, body) => formatMermaid(`${init}\n${body}`);
+export function getResponsiveFlowchartInit({
+  breakpoint,
+  reducedMotion,
+  reducedTransparency,
+  highContrast,
+}) {
+  const isMobile = breakpoint === "mobile";
 
+  let init = isMobile ? MOBILE_FLOWCHART_INIT : FLOWCHART_INIT;
+
+  // High contrast
+  if (highContrast) {
+    init = init.replace(`"primaryBorderWidth":"2px"`, `"primaryBorderWidth":"3px"`);
+  }
+
+  // Reduced transparency
+  if (reducedTransparency) {
+    init = init.replace(`"clusterBkg":"#1C1C1E"`, `"clusterBkg":"#000000"`);
+  }
+
+  // Reduced motion
+  if (reducedMotion) {
+    init = init.replace(/"nodeSpacing":\d+/, `"nodeSpacing":28`);
+  }
+
+  return init;
+}
+
+/**
+ * Diagram helper that injects a standard architecture layer palette into flowchart diagrams and formats with Mermaid init.
+ * This ensures consistent styling and layer definitions across all architecture diagrams without requiring manual palette inclusion, while leaving non-flowchart diagrams unaffected.
+ *
+ * @param {string} init - Mermaid init block string.
+ * @param {string} body - Mermaid diagram body string.
+ * @return {string} Fully formatted Mermaid diagram string with palette injection for flowcharts.
+ *
+ * The function checks if the diagram body contains a flowchart definition. If it does, it verifies whether the architecture layer palette is already included to avoid duplication. If the palette is missing, it injects the palette immediately after the first flowchart header. Finally, it formats the entire diagram with the provided Mermaid init block for consistent styling and rendering.
+ *
+ * This helper abstracts away the need for manual palette management in architecture diagrams, ensuring that all such diagrams adhere to a unified visual language while allowing other diagram types to remain unaffected.
+ */
+const diagram = (init, body) => {
+  const initStr = String(init || "").trim();
+  const bodyStr = String(body || "").trim();
+
+  // Non-flowcharts: leave untouched.
+  if (!/^\s*flowchart\b/m.test(bodyStr)) {
+    return formatMermaid(`${initStr}\n${bodyStr}`);
+  }
+
+  // Avoid double injection.
+  const alreadyHasPalette =
+    bodyStr.includes("classDef layerPresentation") ||
+    bodyStr.includes("Architecture Layer Palette");
+
+  // If palette already exists, skip injection but still format for consistency.
+  if (alreadyHasPalette) {
+    return formatMermaid(`${initStr}\n${bodyStr}`);
+  }
+
+  // Inject palette immediately after the first flowchart header to preserve Mermaid type detection.
+  const lines = bodyStr.split("\n");
+  const headerIndex = lines.findIndex((l) => /^\s*flowchart\b/.test(l));
+  if (headerIndex === -1) {
+    return formatMermaid(`${initStr}\n${bodyStr}`);
+  }
+
+  // Inject palette immediately after the first flowchart header.
+  const injectedBody = [
+    ...lines.slice(0, headerIndex + 1),
+    ARCH_FLOWCHART_PALETTE,
+    ...lines.slice(headerIndex + 1),
+  ].join("\n");
+
+  // Format the final diagram with the provided init block.
+  return formatMermaid(`${initStr}\n${injectedBody}`);
+};
+
+/**
+ * Generates a strictly layered architectural Mermaid diagram.
+ *
+ * Enforces:
+ * - Subgraph per layer
+ * - Class assignment per layer
+ * - Datastore formatting
+ * - Deterministic structure
+ *
+ * @param {string} init - Mermaid init block
+ * @param {Object} config - Architecture configuration
+ *
+ * Config structure:
+ * {
+ *   layers: [
+ *     {
+ *       key: "presentation",
+ *       label: "Presentation Layer",
+ *       className: "layerPresentation",
+ *       nodes: [
+ *         { id: "A", label: "Component A", type: "component" },
+ *         { id: "B", label: "Database B", type: "datastore" },
+ *       ],
+ *     },
+ *     {
+ *        key: "application",
+ *        label: "Application Layer",
+ *        className: "layerApplication",
+ *        nodes: [
+ *          { id: "C", label: "Service C", type: "component" },
+ *        ],
+ *    },
+ *   ],
+ *  edges: [
+ *    ["A", "C", "calls"],
+ *    ["C", "B", "reads/writes"],
+ *  ],
+ *  direction: "LR" // or "TB"
+ * }
+ */
+export function architectureDiagram(init, config) {
+  const { layers = [], edges = [], direction = "LR" } = config;
+
+  const lines = [];
+  lines.push(`flowchart ${direction}`);
+  lines.push("");
+
+  // ----- Layers -----
+  layers.forEach((layer) => {
+    lines.push(`subgraph ${layer.key}["${layer.label}"]`);
+
+    layer.nodes.forEach((node) => {
+      const isStore = node.type === "datastore";
+
+      const nodeSyntax = isStore ? `${node.id}((${node.label}))` : `${node.id}[${node.label}]`;
+
+      lines.push(`  ${nodeSyntax}`);
+    });
+
+    lines.push("end");
+    lines.push("");
+
+    // Apply class to each node in layer
+    const nodeIds = layer.nodes.map((n) => n.id).join(",");
+    lines.push(`class ${nodeIds} ${layer.className}`);
+    lines.push("");
+  });
+
+  // ----- Edges -----
+  edges.forEach(([from, to, label]) => {
+    if (label) {
+      lines.push(`${from} ==>|${label}| ${to}`);
+    } else {
+      lines.push(`${from} ==> ${to}`);
+    }
+  });
+
+  return diagram(init, lines.join("\n"));
+}
+
+/**
+ * Centralized diagram definitions for portfolio content.
+ * Each diagram includes responsive variants and rich descriptions to ensure clarity and accessibility across devices.
+ * This structure allows for consistent diagram management and reuse throughout the portfolio, while providing detailed context and explanations to enhance viewer understanding.
+ */
 export const diagrams = {
   /* ============================================================
-     CodeStream – Core Platform
+     CodeStream - 
      ============================================================ */
 
   panelEditor: {
     id: "diagram-3panel-editor",
     type: BlockType.DIAGRAM,
     title: "3-Panel Editor – Architecture Flow",
-    theme: Theme.DARK,
-    icon: faTableColumns,
     mobile: {
       diagram: diagram(
         FLOWCHART_INIT,
@@ -118,27 +338,27 @@ export const diagrams = {
 %% Authoring
 A[Lesson Markdown]
 B[Instruction Panel]
-C[Ace Editor]
+C[Ace Editor<br/>HTML · CSS · JS · Python]
 
-A --> B
-C --> D
+A ==> B
+C ==> D
 
 %% Execution
 D[Execution Router]
-E[Web Sandbox]
-F[Python Runtime]
+E[Web Sandbox<br/>iframe]
+F[Python Runtime<br/>Skulpt]
 G[Terminal Output]
 
-D --> E
-D --> F
-F --> G
+D ==> E
+D ==> F
+F ==> G
 
 %% Persistence
 H[Save]
 I[AWS S3]
 J[Teacher & Student Access]
 
-C --> H --> I --> J
+C ==> H ==> I ==> J
 `
       ),
     },
@@ -152,19 +372,21 @@ subgraph Authoring Layer
   A[Lesson Markdown]
   B[Instruction Panel]
   C[Ace Editor<br/>HTML · CSS · JS · Python]
-  A --> B
+  A ==> B
 end
 
 %% --- Runtime Layer ---
-subgraph Execution Layer
+subgraph Runtime Layer
   D[Execution Router]
   E[Web Sandbox<br/>iframe]
   F[Python Runtime<br/>Skulpt]
   G[Terminal Output]
+  H[Web Output<br/?>iframe]
 
-  D -->|Web| E
-  D -->|Python| F
-  F --> G
+  D ==>|Web| E
+  D ==>|Python| F
+  E ==> H
+  F ==> G
 end
 
 %% --- Persistence Layer ---
@@ -173,11 +395,11 @@ subgraph Persistence Layer
   I[AWS S3 Storage]
   J[Teacher & Student Access]
 
-  H --> I --> J
+  H ==> I ==> J
 end
 
-C --> D
-C --> H
+C ==> D
+C ==> H
 `
       ),
     },
@@ -269,13 +491,10 @@ C --> H
       },
     ],
   },
-
   organizationLicenseModel: {
     id: "diagram-organization-license-model",
     type: BlockType.DIAGRAM,
     title: "Organization & License Model",
-    theme: Theme.DARK,
-    icon: faIdCard,
     description: [
       {
         type: "p",
@@ -374,15 +593,15 @@ R[Read-Only Projects]
 S[Students]
 T[Teachers]
 
-U --> O
-U --> P
+U ==> O
+U ==> P
 
-O --> L --> G
-G -->|Valid| C
-G -->|Expired| R
+O ==> L ==> G
+G ==>|Valid| C
+G ==>|Expired| R
 
-C --> S
-C --> T
+C ==> S
+C ==> T
 `
       ),
     },
@@ -415,26 +634,23 @@ subgraph Classroom
 end
 
 %% Relationships
-U --> O
-U --> P
+U ==> O
+U ==> P
 
-O --> L --> G
-G -->|Valid| C
-G -->|Expired| R
+O ==> L ==> G
+G ==>|Valid| C
+G ==>|Expired| R
 
-C --> S
-C --> T
+C ==> S
+C ==> T
 `
       ),
     },
   },
-
   classroomFlow: {
     id: "diagram-classroom-flow",
     type: BlockType.DIAGRAM,
     title: "Classroom → Project Flow",
-    theme: Theme.DARK,
-    icon: faChalkboardTeacher,
     description: [
       {
         type: "p",
@@ -503,91 +719,49 @@ C --> T
         ],
       },
     ],
-    mobile: {
+    desktop: {
       diagram: diagram(
         FLOWCHART_INIT,
         `flowchart TB
       
-U[User]
-CP[Classrooms Page]
+U[User] ==> CP[Classrooms Page]
 
-CT[Teacher List]
-CS[Student List]
+CP ==>|Teacher| CT[Teacher Classroom List]
+CP ==>|Student| CS[Student Classroom List]
 
-CD[Classroom Dashboard]
-LL[Lesson List]
+CT ==> CD[Classroom Dashboard]
+CS ==> CD
 
-PR[Project Resolver]
+CD ==> LL[Lesson List]
 
-OP[Open Project]
-CL[Clone Template]
+LL ==> PR[Project Resolver]
 
-SP[Student Project]
+PR ==>|Existing Project| OP[Open Project]
+PR ==>|New Project| CL[Clone Lesson Template]
 
-U --> CP
-
-CP --> CT
-CP --> CS
-
-CT --> CD
-CS --> CD
-
-CD --> LL
-LL --> PR
-
-PR --> OP
-PR --> CL
-
-CL --> SP
-`
-      ),
-    },
-    desktop: {
-      diagram: diagram(
-        FLOWCHART_INIT,
-        `flowchart LR
-      
-U[User] --> CP[Classrooms Page]
-
-CP -->|Teacher| CT[Teacher Classroom List]
-CP -->|Student| CS[Student Classroom List]
-
-CT --> CD[Classroom Dashboard]
-CS --> CD
-
-CD --> LL[Lesson List]
-
-LL --> PR[Project Resolver]
-
-PR -->|Existing Project| OP[Open Project]
-PR -->|New Project| CL[Clone Lesson Template]
-
-CL --> SP[Student Project<br/>+ Grade Record]
+CL ==> SP[Student Project<br/>+ Grade Record]
 `
       ),
     },
   },
-
   curriculumModel: {
     id: "diagram-curriculum-model",
     type: BlockType.DIAGRAM,
     title: "Curriculum Composition Model",
-    theme: Theme.DARK,
-    icon: faLayerGroup,
     mobile: {
       diagram: diagram(
         MOBILE_FLOWCHART_INIT,
         `flowchart TD
     
-    Organization --> Dashboard
-    Dashboard --> Course
-    Course --> Unit
-    Unit --> Lesson
+    Organization ==> Dashboard
+    Dashboard ==> Course
+    Course ==> Unit
+    Unit ==> Lesson
     
-    Lesson --> Template
-    Course --> Classroom
+    Lesson ==> Template
+    Course ==> Classroom
     
-    Lesson --> Resources`
+    Lesson ==> Resources`
       ),
     },
     desktop: {
@@ -603,7 +777,7 @@ CL --> SP[Student Project<br/>+ Grade Record]
       Unit[Unit]
       Lesson[Lesson]
     
-      Org --> Dashboard --> Course --> Unit --> Lesson
+      Org ==> Dashboard ==> Course ==> Unit ==> Lesson
     end
     
     %% --- Execution Layer ---
@@ -611,14 +785,14 @@ CL --> SP[Student Project<br/>+ Grade Record]
       Template[Lesson Template]
       Classroom[Classroom Usage]
     
-      Lesson --> Template
-      Course --> Classroom
+      Lesson ==> Template
+      Course ==> Classroom
     end
     
     %% --- Extensibility ---
     subgraph Extensibility
       Resources[Lesson Resources]
-      Lesson --> Resources
+      Lesson ==> Resources
     end
     `
       ),
@@ -680,8 +854,6 @@ CL --> SP[Student Project<br/>+ Grade Record]
     id: "diagram-hands-free-repair-workflow",
     type: BlockType.DIAGRAM,
     title: "Hands-Free Repair Workflow",
-    theme: Theme.DARK,
-    icon: faHandsHelping,
     diagram: diagram(
       MOBILE_FLOWCHART_INIT,
       `flowchart TD
@@ -694,7 +866,7 @@ E[AWS Lambda]
 F[Instruction Parser]
 G[Audio Instruction]
 
-A --> B --> C --> D --> E --> F --> G --> A
+A ==> B ==> C ==> D ==> E ==> F ==> G ==> A
 `
     ),
     description: [
@@ -764,13 +936,10 @@ A --> B --> C --> D --> E --> F --> G --> A
       },
     ],
   },
-
   voiceCommands: {
     id: "diagram-voice-command-lifecycle",
     type: BlockType.DIAGRAM,
     title: "Voice Command Lifecycle",
-    theme: Theme.DARK,
-    icon: faHeadset,
     mobile: {
       diagram: diagram(
         MOBILE_FLOWCHART_INIT,
@@ -784,13 +953,13 @@ A --> B --> C --> D --> E --> F --> G --> A
     Engine[Instruction Engine]
     Audio[Audio Output]
     
-    Tech --> Mic
-    Mic --> STT
-    STT --> NLP
-    NLP --> Lambda
-    Lambda --> Engine
-    Engine --> Audio
-    Audio --> Tech`
+    Tech ==> Mic
+    Mic ==> STT
+    STT ==> NLP
+    NLP ==> Lambda
+    Lambda ==> Engine
+    Engine ==> Audio
+    Audio ==> Tech`
       ),
       description: [
         {
@@ -831,7 +1000,7 @@ STT ->> NLP: Transcribed command
 NLP ->> Lambda: Intent + extracted entities
 Lambda ->> Engine: Structured action request
 Engine ->> Audio: Instruction payload
-Audio -->> Tech: Spoken guidance
+Audio ==>> Tech: Spoken guidance
 `
       ),
       description: [
@@ -904,8 +1073,6 @@ Audio -->> Tech: Spoken guidance
     id: "diagram-greenhouse-mental-model",
     type: BlockType.DIAGRAM,
     title: "Mental Model",
-    theme: Theme.DARK,
-    icon: faBrain,
     description: [
       {
         type: "p",
@@ -986,7 +1153,6 @@ Audio -->> Tech: Spoken guidance
       {
         type: "blockquote",
         children: [
-          { type: "inlineIcon", icon: "cpu" },
           {
             type: "text",
             text: " The system functions as a closed feedback loop: measure → evaluate → actuate → repeat. This mental model keeps the automation predictable, transparent, and resilient over long-running execution.",
@@ -1007,6 +1173,7 @@ Audio -->> Tech: Spoken guidance
       diagram: diagram(
         FLOWCHART_INIT,
         `flowchart TD
+
 Sensor([DHT11 Sensor])
 Controller[Sensor Controller]
 Settings[Growth Mode Configuration]
@@ -1024,9 +1191,9 @@ ControlLoop[Device State Management]
 subgraph SensorPipeline
 direction RL
 
-Sensor --> Controller
-Controller --> Settings
-Settings --> Logic
+Sensor ==> Controller
+Controller ==> Settings
+Settings ==> Logic
 
 end
 
@@ -1035,17 +1202,17 @@ end
 %% --------------------------------------------------
 subgraph ControlLoop
 direction RL
-Logic --> ChangeCheck
+Logic ==> ChangeCheck
 
 
-ChangeCheck -->|No| Delay
-ChangeCheck -->|Yes| StateCompare
+ChangeCheck ==>|No| Delay
+ChangeCheck ==>|Yes| StateCompare
 
-StateCompare -->|No| Delay
-StateCompare -->|Yes| Apply
+StateCompare ==>|No| Delay
+StateCompare ==>|Yes| Apply
 
-Apply --> Delay
-Delay --> SensorPipeline
+Apply ==> Delay
+Delay ==> SensorPipeline
 
 end        
 `
@@ -1061,17 +1228,15 @@ Evaluate[Evaluate Conditions]
 Actuate[Update Device State]
 Delay[Stability Delay]
 
-Sensor --> Evaluate --> Actuate --> Delay --> Sensor
+Sensor ==> Evaluate ==> Actuate ==> Delay ==> Sensor
 `
       ),
     },
   },
-
   greenhouseAutomation: {
     id: "diagram-greenhouse",
     type: BlockType.DIAGRAM,
     title: "Automation System",
-    icon: faSeedling,
     description: [
       {
         type: "p",
@@ -1142,20 +1307,20 @@ Sensor --> Evaluate --> Actuate --> Delay --> Sensor
         MOBILE_FLOWCHART_INIT,
         `flowchart TD
 
-Sensor[DHT11 Sensor] --> Controller[Control Loop]
-Controller --> Logic[Threshold Evaluator]
+Sensor[DHT11 Sensor] ==> Controller[Control Loop]
+Controller ==> Logic[Threshold Evaluator]
 
-Logic -->|Temp >= Max| Cooling[Activate Cooling]
-Logic -->|Temp <= Min| ReduceAir[Reduce Airflow]
-Logic -->|Temp Stable| CheckHumidity[Check Humidity]
+Logic ==>|Temp >= Max| Cooling[Activate Cooling]
+Logic ==>|Temp <= Min| ReduceAir[Reduce Airflow]
+Logic ==>|Temp Stable| CheckHumidity[Check Humidity]
 
-CheckHumidity -->|Out of Range| AdjustHumidity[Adjust Humidity]
-CheckHumidity -->|Ideal| Maintain[Maintain State]
+CheckHumidity ==>|Out of Range| AdjustHumidity[Adjust Humidity]
+CheckHumidity ==>|Ideal| Maintain[Maintain State]
 
-Cooling --> Sensor
-ReduceAir --> Sensor
-AdjustHumidity --> Sensor
-Maintain --> Sensor`
+Cooling ==> Sensor
+ReduceAir ==> Sensor
+AdjustHumidity ==> Sensor
+Maintain ==> Sensor`
       ),
     },
     desktop: {
@@ -1171,19 +1336,19 @@ participant Devices as Environmental Devices
 
 loop Continuous Control Cycle
   Controller ->> Sensor: Poll temperature + humidity
-  Sensor -->> Controller: Sensor readings
+  Sensor ==>> Controller: Sensor readings
   Controller ->> Logic: Evaluate thresholds
 
   alt Temperature >= Max
-    Logic -->> Controller: Overheat
+    Logic ==>> Controller: Overheat
     Controller ->> Relays: Enable vent + fan
     Relays ->> Devices: Activate cooling
   else Temperature <= Min
-    Logic -->> Controller: Undercool
+    Logic ==>> Controller: Undercool
     Controller ->> Relays: Disable vent + fan
     Relays ->> Devices: Reduce airflow
   else Temperature within range
-    Logic -->> Controller: Temp stable
+    Logic ==>> Controller: Temp stable
     Controller ->> Relays: Adjust humidity if needed
     Relays ->> Devices: Apply humidity change
   end
@@ -1195,8 +1360,6 @@ end`
     id: "enigma-client-encrypt-flow",
     type: BlockType.DIAGRAM,
     title: "Encryption Pipeline",
-    theme: Theme.DARK,
-    icon: faFileShield,
     description: [
       {
         type: "p",
@@ -1276,7 +1439,7 @@ end`
     // Trigger["Encrypt Trigger"]
     // Mode["Encryption Mode"]
 
-    // Input --> Trigger --> Mode
+    // Input ==> Trigger ==> Mode
 
     // %% --------------------------------------------------
     // %% SETUP (ROW 1)
@@ -1287,8 +1450,8 @@ end`
     //   Magic["Generate Magic Number"]
     // end
 
-    // Mode --> Version
-    // Mode --> Magic
+    // Mode ==> Version
+    // Mode ==> Magic
 
     // %% --------------------------------------------------
     // %% CIPHER PIPELINE (ROW 2)
@@ -1299,14 +1462,14 @@ end`
     //   Tag["Append Encryption Tag"]
     // end
 
-    // Version --> Rotate
-    // Magic --> Rotate
-    // Rotate --> Tag
+    // Version ==> Rotate
+    // Magic ==> Rotate
+    // Rotate ==> Tag
 
     // %% --------------------------------------------------
     // %% OUTPUT
     // %% --------------------------------------------------
-    // Tag --> Output["Encrypted Output"]
+    // Tag ==> Output["Encrypted Output"]
     // `
     //       ),
     //     },
@@ -1320,8 +1483,8 @@ end`
 %% --------------------------------------------------
 subgraph Interaction[User Interaction]
 direction LR
-  Input[Plaintext Input]-- submit -->Trigger[Encrypt Action]
-  Trigger-- Keys  -->Mode[Mode Resolver]
+  Input[Plaintext Input]-- submit ==>Trigger[Encrypt Action]
+  Trigger-- Keys  ==>Mode[Mode Resolver]
 end
 
 subgraph Configuration[Cipher Configuration]
@@ -1338,17 +1501,16 @@ Interaction --- Configuration
 Configuration --- Engine
 Engine --- OutputStage
 
-Mode --> Version
-Mode --> Magic
-Version --> Rotate
-Magic --> Rotate`
+Mode ==> Version
+Mode ==> Magic
+Version ==> Rotate
+Magic ==> Rotate`
       ),
     },
-
     mobile: {
       diagram: diagram(
         FLOWCHART_INIT,
-        `flowchart LR
+        `flowchart TD
 
 %% --------------------------------------------------
 %% CLIENT EXECUTION BOUNDARY
@@ -1366,7 +1528,7 @@ direction LR
   Mode["Mode Resolver"]
 end
 
-Input --> Trigger --> Mode
+Input ==> Trigger ==> Mode
 
 %% --------------------------------------------------
 %% CONFIGURATION LAYER
@@ -1377,8 +1539,8 @@ direction LR
   Magic[Random Magic Number]
 end
 
-Mode --> Version
-Mode --> Magic
+Mode ==> Version
+Mode ==> Magic
 
 %% --------------------------------------------------
 %% TRANSFORMATION LAYER
@@ -1387,8 +1549,8 @@ subgraph Transformation["Deterministic Rotation Engine"]
 Rotate["Position-Aware Character Rotation"]
 end
 
-Version --> Rotate
-Magic --> Rotate
+Version ==> Rotate
+Magic ==> Rotate
 
 %% --------------------------------------------------
 %% METADATA + OUTPUT
@@ -1398,7 +1560,7 @@ Tag["Append Encryption Tag"]
 Ciphertext["Encrypted Text Output"]
 end
 
-Rotate --> Tag --> Ciphertext
+Rotate ==> Tag ==> Ciphertext
 
 end`
       ),
@@ -1408,8 +1570,6 @@ end`
     id: "diagram-enigma-decrypt-flow",
     type: BlockType.DIAGRAM,
     title: "Decryption Lifecycle",
-    theme: Theme.DARK,
-    icon: faTimeline,
 
     /* ============================================================
        📱 MOBILE VERSION (Vertical Flowchart)
@@ -1445,7 +1605,6 @@ end`
           ],
         },
       ],
-
       diagram: diagram(
         MOBILE_FLOWCHART_INIT,
         `flowchart TD
@@ -1457,14 +1616,13 @@ Resolve{Resolve alphabet set by version number}
 Reverse(Reverse rotation decoding each char using magic number and alphabet)
 Output[\\Return decrypted output\\]
   
-Input --> Detect
-Detect --> Parse
-Parse --> Resolve
-Resolve --> Reverse
-Reverse --> Output`
+Input ==> Detect
+Detect ==> Parse
+Parse ==> Resolve
+Resolve ==> Reverse
+Reverse ==> Output`
       ),
     },
-
     /* ============================================================
        🖥 DESKTOP VERSION (Sequence Diagram)
        ============================================================ */
@@ -1551,7 +1709,6 @@ Reverse --> Output`
           ],
         },
       ],
-
       diagram: diagram(
         SEQUENCE_INIT,
         `sequenceDiagram
@@ -1568,83 +1725,225 @@ Parser ->> Resolver: Extract version + magic number
 Resolver ->> Engine: Resolve alphabet set
 Engine ->> Engine: Reverse rotation per character
 Engine ->> Output: Decrypted text
-Output -->> User: Display result`
+Output ==>> User: Display result`
       ),
     },
   },
-
   domainModel: {
     id: "diagram-domain-model",
     type: BlockType.DIAGRAM,
-    title: "Domain Model",
-    icon: faFolderTree,
-    description:
-      "The domain model outlines the hierarchical structure used to manage campaigns in the D20 King project. Storybooks decompose into acts, rooms, encounters, and rewards, enabling complex narratives to remain organized and scalable.",
+    title: "Narrative Domain Architecture",
+    description: [
+      {
+        type: "p",
+        children: [
+          {
+            type: "text",
+            text: "The campaign system is modeled as a hierarchical domain with clearly bounded aggregates. Each layer owns its structural scope while referencing subordinate narrative components.",
+          },
+        ],
+      },
+      {
+        type: "blockquote",
+        children: [
+          {
+            type: "text",
+            text: "Storybook acts as the aggregate root, ensuring consistency across acts, rooms, and encounters.",
+          },
+        ],
+      },
+    ],
     diagram: diagram(
       FLOWCHART_INIT,
-      `flowchart TD
-
-Storybook --> Act
-Act --> Room
-Room --> Encounter
-Encounter --> Opponent
-Encounter --> Treasure
-`
+      `flowchart LR
+  
+  %% -------------------------
+  %% Aggregate Root
+  %% -------------------------
+  subgraph Root["Aggregate Root"]
+    SB[(Storybook<br/>Campaign Root)]
+  end
+  
+  %% -------------------------
+  %% Narrative Layers
+  %% -------------------------
+  subgraph Narrative
+    ACT[(Act)]
+    ROOM[(Room)]
+    ENC[(Encounter)]
+  end
+  
+  %% -------------------------
+  %% Encounter Components
+  %% -------------------------
+  subgraph EncounterContext
+    OPP[Opponent]
+    TRE[Treasure]
+  end
+  
+  SB ==> ACT
+  ACT ==> ROOM
+  ROOM ==> ENC
+  
+  ENC ==> OPP
+  ENC ==> TRE
+  `
     ),
   },
+  //   domainModel: {
+  //     id: "diagram-domain-model",
+  //     type: BlockType.DIAGRAM,
+  //     title: "Narrative Domain Model",
+  //     description:
+  //       "The domain model decomposes a campaign into modular narrative layers. Storybooks contain Acts, which contain Rooms, which define Encounters composed of opponents and rewards. This hierarchy allows complex branching narratives to remain predictable and extensible. In MongoDB, structural boundaries are defined at logical aggregation levels to balance document size, query efficiency, and narrative reuse.",
+  //     diagram: diagram(
+  //       FLOWCHART_INIT,
+  //       `flowchart TD
+
+  // Storybook{{Game Campaign}}
+  // Act{{Major Story Arc}}
+  // Room[[Explorable Location]]
+  // Encounter(Challenge or Event)
+  // Opponent>Adversary]
+  // Treasure>Reward]
+
+  // Storybook== "Has nany" ==>Act
+  // Act== "Has many" ==>Room
+  // Room-- "May have" ==> Encounter
+  // Encounter-- "May have" ==>Opponent
+  // Encounter-- "May have" ==> Treasure
+  // Room-- "May have" ==>Treasure`
+  //     ),
+  //   },
   gifSystemFlow: {
     id: "diagram-gif-freak-system-flow",
     type: BlockType.DIAGRAM,
-    title: "GIF Freak – System Flow",
-    icon: faUserAstronaut,
-    description:
-      "This diagram shows how user input propagates through the UI to fetch data from the Giphy API and render results dynamically. It represents early hands-on experience with asynchronous requests and reactive interfaces.",
+    title: "GIF Freak – Client/API Architecture",
+    description: [
+      {
+        type: "p",
+        children: [
+          {
+            type: "text",
+            text: "The system models a reactive client consuming a third-party API through an asynchronous request lifecycle.",
+          },
+        ],
+      },
+    ],
     diagram: diagram(
       FLOWCHART_INIT,
       `flowchart LR
-
-UserInput --> UI
-UI --> GiphyAPI
-GiphyAPI --> UI
-UI --> GIFDisplay
-`
+  
+  %% -------------------------
+  %% Client Layer
+  %% -------------------------
+  subgraph Client
+    UI[Search Interface]
+    State[Client State Manager]
+    Renderer[Dynamic Render Engine]
+  end
+  
+  %% -------------------------
+  %% Network Layer
+  %% -------------------------
+  subgraph Network
+    Fetch[Async Fetch Request]
+  end
+  
+  %% -------------------------
+  %% External Service
+  %% -------------------------
+  subgraph External
+    API[Giphy API]
+  end
+  
+  UI ==> State
+  State ==> Fetch
+  Fetch ==> API
+  API ==> Fetch
+  Fetch ==> State
+  State ==> Renderer
+  `
     ),
   },
-
   stockMemerFlow: {
-    id: "diagram-stock-memer-flow",
+    id: "diagram-stock-memer-architecture",
     type: BlockType.DIAGRAM,
-    title: "Stock Memer – Data & Content Flow",
-    icon: faArrowTrendDown,
-    description:
-      "This diagram illustrates how live stock data and user-generated content move through the application. It highlights the interaction between external APIs, client-side processing, and Firebase persistence.",
-    diagram: diagram(
-      FLOWCHART_INIT,
-      `flowchart LR
-
-StockAPI --> DataProcessor --> ChartUI
-User --> MemeGenerator --> Firebase
-Firebase --> StockPage
-`
-    ),
+    title: "Stock Memer – Multi-Service Architecture",
+    description: [
+      {
+        type: "p",
+        children: [
+          {
+            type: "text",
+            text: "Stock Memer integrates external market data with user-generated content through a layered architecture separating presentation, application state, persistence, and third-party services.",
+          },
+        ],
+      },
+    ],
+    diagram: architectureDiagram(FLOWCHART_INIT, {
+      direction: "TB",
+      layers: [
+        {
+          key: "external",
+          label: "External Services",
+          className: "layerExternal",
+          nodes: [{ id: "StockAPI", label: "Stock Data API", type: "datastore" }],
+        },
+        {
+          key: "application",
+          label: "Application State",
+          className: "layerApplication",
+          nodes: [{ id: "AppState", label: "Central State Store" }],
+        },
+        {
+          key: "persistence",
+          label: "Persistence Layer",
+          className: "layerPersistence",
+          nodes: [{ id: "Firebase", label: "Firebase Database", type: "datastore" }],
+        },
+        {
+          key: "presentation",
+          label: "Presentation Layer",
+          className: "layerPresentation",
+          nodes: [
+            { id: "ChartUI", label: "Chart Interface" },
+            { id: "MemeUI", label: "Meme Generator" },
+          ],
+        },
+      ],
+      edges: [
+        ["StockAPI", "AppState"],
+        ["Firebase", "AppState"],
+        ["AppState", "ChartUI"],
+        ["MemeUI", "Firebase"],
+      ],
+    }),
   },
-
   matchFlow: {
     id: "diagram-scion-algorithm-flow",
     type: BlockType.DIAGRAM,
-    title: "Matching Algorithm Flow",
-    icon: faUsersViewfinder,
-    description:
-      "This flow represents how survey responses are processed through a compatibility algorithm to generate ranked matches. It reflects a shift toward building purpose-driven systems with real-world impact.",
+    title: "Compatibility Engine Architecture",
     diagram: diagram(
       FLOWCHART_INIT,
-      `flowchart TD
-
-UserProfiles --> SurveyEngine
-SurveyEngine --> MatchAlgorithm
-MatchAlgorithm --> MatchScores
-MatchScores --> UserMatches
-`
+      `
+      flowchart LR
+       subgraph Input["Input Domain"]
+              Survey[("Survey Response Data")]
+        end
+       subgraph Engine["Scoring Engine"]
+              Normalize["Normalization Module"]
+              Features["Feature Vector Model"]
+              Weighting["Weight Matrix"]
+              Aggregate["Compatibility Aggregator"]
+        end
+       subgraph Output["Output Domain"]
+              Ranking["Ranking Resolver"]
+              Explanation["Transparency Module"]
+        end
+        Survey ==> Normalize
+        Aggregate ==> Ranking
+        Explanation ==> Survey`
     ),
   },
 };

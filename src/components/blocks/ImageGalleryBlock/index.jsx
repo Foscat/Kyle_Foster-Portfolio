@@ -1,6 +1,6 @@
-import userOnMobile from "assets/hooks/isMobile";
-import ClickableImg from "components/ClickableImg";
 import { FlexboxGrid, Panel } from "rsuite";
+import ClickableImg from "components/ClickableImg";
+import useBreakpoint from "assets/hooks/useBreakpoint";
 
 /**
  * @file ImageGalleryBlock.jsx
@@ -57,7 +57,7 @@ const ImageGalleryBlock = ({ id, title, images = [] }) => {
             img.id = key;
           }
           return (
-            <FlexboxGrid.Item className="mb-2" key={key} colspan={userOnMobile() ? 24 : 11}>
+            <FlexboxGrid.Item className="mb-2" key={key} colspan={useBreakpoint() ? 24 : 11}>
               <ClickableImg index={i} key={img.id} {...img} className="gallery-thumb" />
             </FlexboxGrid.Item>
           );

@@ -1,24 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
-import { buildSectionTree, useScrollSpyWithHistory } from "assets/hooks/useScrollSpy";
+import { buildSectionTree, useScrollSpyWithHistory } from "assets/hooks/useScrollSpy/useScrollSpy";
 import MobileSectionNavTrigger from "components/MobileSectionNavTrigger";
 import { capFirstLetter } from "assets/utils";
 import "./styles.css";
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import Btn from "components/Btn";
-import { Size, Variant } from "types/ui.types";
-import userOnMobile from "assets/hooks/userOnMobile";
-
+import { BlockType, Size, Variant } from "types/ui.types";
+import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 /**
  * @file index.jsx
  * @description Sticky, accessible intra-page section navigator with
  * hierarchical scroll tracking and collapsible subsection groups.
  */
 
-const SCROLL_OFFSET = 120;
-
+/**
+ *
+ *
+ */
 const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOpen = true }) => {
   const navRef = useRef(null);
-  const isMobile = userOnMobile();
+  const { isMobile, spacing } = useResponsive();
+  const SCROLL_OFFSET = parseInt(spacing.section, 10) + 80;
 
   /* ---------------------------------------------------------------------- */
   /* Scroll spy setup                                                        */
@@ -107,7 +109,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
   /* Desktop                                                                 */
   /* ---------------------------------------------------------------------- */
 
-  if (isMobile) {
+  if (!isMobile) {
     return (
       <nav
         ref={navRef}
@@ -169,10 +171,10 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                 {hasBlocks && (
                   <ul className="sub-section-nav-list" hidden={!expanded}>
                     {section.blocks.map((block) => {
-                      if (!block.title) return null;
+                      if (!block.title || block.id.trim() === "" || block.type === BlockType.LINKS)
+                        return null;
                       // A block is active if it's the active leaf or if it contains the active leaf
                       const blockActive = activeLeafId === block.id;
-
                       return (
                         <li key={block.id} data-nav-id={block.id}>
                           <button

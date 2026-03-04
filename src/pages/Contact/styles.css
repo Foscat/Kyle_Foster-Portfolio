@@ -111,24 +111,6 @@
   animation: fadeInOut 3.5s ease forwards;
 }
 
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-}
-
 /* =======================
    Responsive Layout
    ======================= */
@@ -139,28 +121,5 @@
   }
   .contact-list li {
     font-size: var(--font-sm);
-  }
-}
-
-/* ------------------------------
-   Animations
--------------------------------- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

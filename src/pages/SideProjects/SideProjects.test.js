@@ -1,7 +1,7 @@
 import { PageRoute } from "types/ui.types";
 import { createPageTests } from "tests/helpers/createPageTests";
 import SideProjects from "pages/SideProjects";
-import sideProjectsData from "assets/data/sideprojectSections";
+import sideProjectsData from "assets/data/content/sideprojectSections";
 sideProjectsData;
 
 /**

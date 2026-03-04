@@ -91,6 +91,9 @@ const MobileSectionNavTrigger = ({
                       size={Size.MD}
                       variant={Variant.SUBTLE}
                       className="mobile-section-title"
+                      tooltip="Go to section"
+                      tooltipFollowCursor={true}
+                      tooltipPlacement="right"
                       ariaCurrent={sectionActive ? "location" : undefined}
                       onClick={(e) => {
                         e.preventDefault();
@@ -132,9 +135,9 @@ const MobileSectionNavTrigger = ({
                             noBG
                             size={Size.SM}
                             variant={Variant.SUBTLE}
-                            tooltip="Go to section"
-                            tooltipFollowCursor={false}
-                            tooltipPlacement="left"
+                            tooltip="Go to sub-section"
+                            tooltipFollowCursor={true}
+                            tooltipPlacement="right"
                             type="button"
                             className={`mobile-subsection ${blockActive ? "is-active" : ""}`}
                             onClick={(e) => {

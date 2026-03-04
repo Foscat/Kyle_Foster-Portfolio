@@ -1,5 +1,5 @@
 import SMU from "pages/SMU";
-import smuSections from "assets/data/smuSections";
+import smuSections from "assets/data/content/smuSections";
 import { PageRoute } from "types/ui.types";
 import { createPageTests } from "tests/helpers/createPageTests";
 

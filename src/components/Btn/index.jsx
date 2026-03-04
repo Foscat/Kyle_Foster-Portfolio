@@ -5,6 +5,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import FrostedIcon from "components/FrostedIcon";
 import { Variant, Size, TooltipPlacement, HoverAnimation } from "types/ui.types";
+import { formatClassNames } from "assets/utils";
 
 /**
  * @file index.jsx
@@ -240,6 +241,12 @@ const Btn = ({
   // Choose Button or IconButton depending on icon presence
   const Component = icon ? IconButton : Button;
 
+  const classes = formatClassNames(`btn btn-${size} btn-${active ? "active" : "inactive"}
+    ${clickable ? "interactive-surface" : "not-clickable "}
+    ${variant ? variant : Variant.PRIMARY}
+    ${noBG ? "btn-noBG" : ""} ${isIconOnly ? "icon-only" : ""} 
+    ${loading || asyncLoading ? "loading" : ""} ${className}`);
+
   const button = (
     <Component
       role="button"
@@ -248,13 +255,7 @@ const Btn = ({
       aria-label={resolvedAriaLabel}
       aria-busy={loading || asyncLoading}
       aria-disabled={disabled || loading || asyncLoading}
-      className={`
-        btn btn-${size} btn-${active ? "active" : "inactive"}
-        ${clickable ? "interactive-surface" : "not-clickable "}
-        ${variant ? variant : Variant.PRIMARY}
-        ${noBG ? "btn-noBG" : ""} ${isIconOnly ? "icon-only" : ""} 
-        ${loading || asyncLoading ? "loading" : ""} ${className}
-      `}
+      className={classes}
       active={active}
       as={as}
       block={block}
@@ -297,9 +298,6 @@ const Btn = ({
           transform={transform}
           swapOpacity={swapOpacity}
           widthAuto={widthAuto}
-          tooltip={tooltip}
-          tooltipFollowCursor={tooltipFollowCursor}
-          tooltipPlacement={tooltipPlacement}
         />
       }
     >

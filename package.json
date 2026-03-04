@@ -44,6 +44,9 @@
     "format": "npm run prettier:fix",
     "prepare": "husky",
     "preview": "vite preview",
+    "richtext:lint": "node scripts/richtext-lint.cjs",
+    "richtext:fix": "node scripts/richtext-lint.cjs --fix",
+    "richtext:codemod": "jscodeshift -t scripts/codemods/fix-richtext.cjs src",
     "test": "vitest run > scripts/test-output.txt && tail -n 10 scripts/test-output.txt",
     "quality": "npm-run-all --sequential lint:cleanup docs:build test"
   },
@@ -67,6 +70,10 @@
     "svg-pan-zoom": "3.6.2"
   },
   "devDependencies": {
+    "@babel/generator": "~7.29.1",
+    "@babel/parser": "~7.29.0",
+    "@babel/traverse": "~7.29.0",
+    "@babel/types": "~7.29.0",
     "@eslint/js": "9.39.2",
     "@mermaid-js/mermaid-cli": "11.12.0",
     "@mermaid-js/parser": "1.0.0",
@@ -92,6 +99,7 @@
     "eslint-plugin-testing-library": "^7.15.4",
     "eslint-plugin-unused-imports": "4.3.0",
     "eslint-plugin-vitest": "0.5.4",
+    "glob": "~13.0.6",
     "globals": "16.5.0",
     "husky": "9.1.7",
     "identity-obj-proxy": "3.0.0",

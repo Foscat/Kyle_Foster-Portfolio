@@ -27,9 +27,9 @@
 
 import fs from "fs";
 import path from "path";
-import { formatMermaid } from "./format-mermaid.js";
+import formatMermaid from "./format-mermaid.js";
 
-const DIAGRAMS_FILE = path.resolve("src/assets/data/diagrams.js");
+const DIAGRAMS_FILE = path.resolve("src/assets/data/content/diagrams.js");
 
 let source = fs.readFileSync(DIAGRAMS_FILE, "utf8");
 

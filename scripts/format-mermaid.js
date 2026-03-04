@@ -33,7 +33,7 @@
  * @param {string} source - Raw Mermaid source text.
  * @returns {string} Canonically formatted Mermaid source.
  */
-export function formatMermaid(source) {
+export default function formatMermaid(source) {
   // Defensive: only operate on strings
   if (typeof source !== "string") return source;
 
@@ -44,8 +44,9 @@ export function formatMermaid(source) {
    * - Replaces tabs with two spaces (Mermaid is indentation-sensitive)
    */
   let text = source.replace(/\r\n/g, "\n").replace(/\t/g, "  ");
-  text = text.replace(/^%{init:/, "%%{init:");
-  text = text.replace(/}%$/, "}%%");
+  // Normalize init directive only when it is exactly the Mermaid directive form.
+  text = text.replace(/^%\s*%?\{init:/, "%%{init:");
+  text = text.replace(/\}%%\s*$/, "}%%");
 
   /**
    * Step 2: Extract Mermaid init block (if present)

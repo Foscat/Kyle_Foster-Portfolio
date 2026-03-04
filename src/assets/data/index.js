@@ -1,17 +1,21 @@
-import codestreamSections from "./codestreamSections";
-import diagramValues, { diagrams } from "./diagrams";
-import hackathonSections from "./hackathonSections";
-import homeSections from "./homeSections";
+import {
+  codestreamSections,
+  hackathonSections,
+  homeSections,
+  sideProjectsSections,
+  smuSections,
+} from "./content";
 import pageMetas from "./pageMetas";
-import sideProjectsSections from "./sideprojectSections";
-import smuSections from "./smuSections";
+import projectMetas from "./projectMetas";
+import resume from "./Kyle_Foster_React_Resume.pdf";
 
 export {
   codestreamSections,
-  diagrams,
   hackathonSections,
   homeSections,
-  pageMetas,
   sideProjectsSections,
   smuSections,
+  pageMetas,
+  projectMetas,
+  resume,
 };
