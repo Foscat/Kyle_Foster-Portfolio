@@ -100,6 +100,7 @@ const renderNode = (node, key) => {
         </strong>
       );
 
+    // Italicized text
     case "em":
       return (
         <em className="block-em" key={key}>
@@ -107,6 +108,7 @@ const renderNode = (node, key) => {
         </em>
       );
 
+    // Hyperlink
     case "a":
       return (
         <a key={key} href={node.href} className="block-link">
@@ -114,8 +116,13 @@ const renderNode = (node, key) => {
         </a>
       );
 
+    // Emogi icon
     case "inlineIcon":
-      return <InlineIcon key={key} name={node.icon} />;
+      return (
+        <i key={key} className={`inline-icon `}>
+          {node.icon}
+        </i>
+      );
 
     /* ---------------------------------------------------------------------
        Lists

@@ -1,4 +1,4 @@
-import { PageRoute } from "../../types/ui.types";
+import { PageRoute } from "../../types/ui.types.js";
 import {
   codestreamSections,
   homeSections,

@@ -3,6 +3,8 @@ import "./styles.css";
 import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { Size, Variant } from "types/ui.types";
 import { faEnvelopeOpenText, faMailBulk } from "@fortawesome/free-solid-svg-icons";
+import useClipboard from "assets/hooks/useClipboard/useClipboard";
+import { Tooltip, Whisper } from "rsuite";
 
 /**
  * @file index.jsx
@@ -45,6 +47,7 @@ const Footer = () => {
    * Computed at render time to avoid manual updates.
    */
   const currentYear = new Date().getFullYear();
+  const clipboard = useClipboard();
 
   return (
     <footer className="site-footer" role="contentinfo">
@@ -55,6 +58,23 @@ const Footer = () => {
         <div className="site-footer_left">
           <span className="site-footer_copyright">© {currentYear} Kyle Foster</span>
         </div>
+
+        {/* Center: Phone */}
+        <Whisper
+          speaker={
+            <Tooltip>{clipboard.copied ? "Phone number copied!" : "Copy phone number"}</Tooltip>
+          }
+          trigger="hover"
+        >
+          <span
+            className="site-footer_phone interactive-surface"
+            onClick={() => {
+              clipboard.copy("4694105286");
+            }}
+          >
+            (469) 410-5286
+          </span>
+        </Whisper>
 
         {/* ----------------------------------------------------
             Right: Social / Utility Actions

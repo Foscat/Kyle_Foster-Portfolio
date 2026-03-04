@@ -42,6 +42,7 @@
 .block-list {
   font-size: var(--font-xs);
   font-family: var(--font-Heebo);
+  font-weight: 300;
   line-height: 1.6;
   color: var(--text-primary);
 }
@@ -72,8 +73,13 @@
 
 .block-em {
   font-style: italic;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent-light);
+}
+
+.block-strong {
+  font-weight: 600;
+  color: var(--text-accent);
 }
 
 /* Prevent stacked paragraph gaps */
@@ -84,9 +90,13 @@
 /** Increase text size on larger screens for better readability */
 @media (min-width: 900px) {
   .block-paragraph,
+  .code-block {
+    font-size: var(--font-md);
+    margin-bottom: 0.5rem;
+  }
   .block-list,
   .block-quote,
   .code-block {
-    font-size: var(--font-md);
+    font-size: var(--font-sm);
   }
 }

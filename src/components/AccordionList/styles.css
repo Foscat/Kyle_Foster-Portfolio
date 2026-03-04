@@ -2,31 +2,27 @@
    AccordionList — Frosted UI + Accessibility
    ============================================================ */
 
-.accordion-item {
+.frosted-accordion {
+  padding: 1rem;
+}
+
+.fa_accordion-item {
   border-bottom: var(--mini-dark);
 }
 
 /* Header */
-.accordion-header {
+.fa-accordion-header {
   padding: 0.75rem 0;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 /* Content */
-.accordion-content {
+.fa-accordion-content {
   padding-bottom: 0.75rem;
   font-size: var(--font-sm);
-}
-
-.frosted-accordion {
-  background: var(--bg-elevated);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border-radius: var(--radius-lg);
-  border: var(--glass-border);
-  padding: 1rem;
-  box-shadow: var(--glass-shadow);
-  margin: 1rem 0;
 }
 
 /* Optional title is handled by Panel header */
@@ -83,7 +79,6 @@
 
 /* Individual item */
 .fa-list-item {
-  background: var(--glass-bg-heavy);
   border: var(--frost-border);
   border-radius: var(--radius-sm);
   padding: 0.75rem 1.5rem;
@@ -91,6 +86,11 @@
 
 .fa-list-item .block-key {
   font-size: var(--font-lg);
+}
+
+.fa-list-item .block-subkey {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
 }
 
 /* Hover */
@@ -103,7 +103,6 @@
 .fa-list-item.open {
   background: var(--glass-bg);
   border-color: var(--glass-border);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-soft);
 }
 
@@ -140,7 +139,6 @@
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  transition: transform var(--transition-speed);
 }
 
 .fa-list-item.open .fa-expand-icon {
@@ -167,17 +165,4 @@
   font-size: var(--font-sm);
   line-height: 1.6;
   color: var(--text-secondary);
-  animation: fa-fadeIn var(--transition-speed) var(--easing-standard);
-}
-
-/* Fade animation */
-@keyframes fa-fadeIn {
-  from {
-    opacity: 0;
-    transform: var(--scale-up);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }

@@ -12,6 +12,7 @@
 import ImageGalleryBlock from "./ImageGalleryBlock";
 import LinksBlock from "./LinksBlock";
 import RichTextBlock from "./RichTextBlock";
+import CardGridBlock from "./CardGridBlock";
 import "./blocks.css";
 /**
  * ImageGalleryBlock
@@ -34,4 +35,4 @@ import "./blocks.css";
  *
  * @type {React.ComponentType<any>}
  */
-export { ImageGalleryBlock, LinksBlock, RichTextBlock };
+export { ImageGalleryBlock, LinksBlock, RichTextBlock, CardGridBlock };

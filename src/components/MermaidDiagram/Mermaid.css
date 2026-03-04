@@ -14,20 +14,24 @@
    ------------------------------------------------------------ */
 
 .mermaid {
-  font-family: var(--font-Audiowide), system-ui, sans-serif;
+  font-family: var(--font-Audiowide), system-ui, sans-serif !important;
   letter-spacing: normal;
-  background: var(--bg-secondary);
+  background: var(--glass-bg-strong);
+  fill: var(--text-primary);
+  stroke: var(--accent);
   color: var(--text-primary);
-  font-size: var(--font-sm);
+  font-size: var(--font-md);
 }
 
 .mermaid p {
   font-size: var(--font-sm);
+  word-wrap:break-word;
 }
 
 /* Ensure SVG scales correctly */
 .mermaid svg {
   width: 100%;
+  min-width: 300px;
   height: auto;
   min-height: 600px;
   overflow: visible;
@@ -50,7 +54,7 @@
 .mermaid-svg-host {
   overflow: auto;
   max-width: 100%;
-  max-height: 80dvh;
+  max-height: 75dvh;
   display: flex;
   justify-content: center;
 }
@@ -84,36 +88,46 @@
 
 /* Label text */
 .mermaid .edgeLabel text {
-  fill: var(--text-primary);
   font-weight: 500;
   font-size: var(--font-sm);
   paint-order: stroke; /* stroke behind fill for contrast */
   stroke: var(--text-dark); /* dark outline */
-  stroke-width: 3px;
-  stroke-linejoin: round;
-  padding: 1px 3px;
   background-color: var(--primary-darker-bg);
 }
 
 .mermaid .text-outer-tspan .text-inner-tspan {
-  fill: var(--text-primary);
+  fill: var(--text-accent) !important;
+  font-weight: 600;
+  stroke-width: 3px;
+  stroke: var(--text-dark) !important;
+  font-size: var(--font-sm) !important;
 }
 
 /* HTML-based labels (Mermaid v11 default) */
+.mermaid .cluster text > .text-outer-tspan > tspan.text-inner-tspan{
+  fill: var(--text-accent) !important;
+  letter-spacing:calc(-0.02em);
+  stroke-width: .5px;
+  stroke: transparent !important;
+  font-size: var(--font-md) !important;
+}
+
+
+
 .mermaid .edgeLabel foreignObject,
 .mermaid .edgeLabel div,
-.mermaid .edgeLabel span {
-  color: var(--text-primary);
-  font-size: var(--font-sm);
+.mermaid .edgeLabel span,
+.mermaid .edgeLabel rect {
+  fill: transparent !important;
+  background-color: transparent !important;
+  opacity: 0 !important;
   font-weight: 600;
-  background: var(--bg-primary);
-  opacity: 1;
   text-shadow: none;
 }
 
 /* Lift labels above clusters */
 .mermaid .edgeLabel {
-  z-index: 10;
+  z-index: 100;
 }
 
 /* ------------------------------------------------------------
@@ -121,72 +135,73 @@
    ------------------------------------------------------------ */
 
 /* Core entities (User, Organization, Classroom, Project) */
-.mermaid .mermaid-svg-host #mermaid[id] .node.entity rect {
+.mermaid .mermaid-svg-host .node.entityrect {
   fill: var(--text-dark);
   stroke: var(--primary-dark);
 }
 
 /* Control logic (License, Resolver, Permissions) */
-.mermaid .mermaid-svg-host #mermaid[id] .node.control rect {
+.mermaid .mermaid-svg-host .node.control rect {
   fill: var(--accent-dark);
   stroke: var(--accent);
   font-size: var(--text-sm);
 }
 
 /* States (Read-only, Expired, Access states) */
-.mermaid .mermaid-svg-host #mermaid[id] .node.state rect {
+.mermaid .mermaid-svg-host .node.state rect {
   fill: var(--text-blue-dark);
   stroke: var(--primary-dark);
 }
 
 /* Roles (Teacher, Student, Admin) */
-.mermaid .mermaid-svg-host #mermaid[id] .node.role rect {
-  fill: var(--text-accent-dark);
+.mermaid .mermaid-svg-host .node.role rect {
+  fill: var(--text-accent);
   stroke: var(--accent);
 }
 
 /* External systems (AWS, Runtime, iframe) */
-.mermaid .mermaid-svg-host #mermaid[id] .mermaid-svg-host #mermaid[id] .node.external rect {
+.mermaid .mermaid-svg-host .mermaid-svg-host .node.external rect {
   fill: var(--text-blue);
   stroke: var(--primary-light);
+}
 
-  /* Semantic edge label accents */
-  .mermaid .edgeLabel:has(span:contains("Valid")),
-  .mermaid .edgeLabel:has(text:contains("Valid")) {
-    border-color: var(--success-rgb);
-  }
+/* Semantic edge label accents */
+.mermaid .edgeLabel:has(span:contains("Valid")),
+.mermaid .edgeLabel:has(text:contains("Valid")) {
+  border-color: var(--success-rgb);
+}
 
-  .mermaid .edgeLabel:has(span:contains("Expired")),
-  .mermaid .edgeLabel:has(text:contains("Expired")) {
-    border-color: var(--error-rgb);
-  }
+.mermaid .edgeLabel:has(span:contains("Expired")),
+.mermaid .edgeLabel:has(text:contains("Expired")) {
+  border-color: var(--error-rgb);
 }
 
 /* ------------------------------------------------------------
    Edges / Arrows
    ------------------------------------------------------------ */
 
-.mermaid .mermaid-svg-host #mermaid[id] .edgePath .path {
+.mermaid .mermaid-svg-host .edgePath .path {
   stroke: var(--accent);
-  stroke-width: 2px;
+  stroke-width: 5px;
   stroke-linecap: round;
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .arrowheadPath {
-  fill: var(--bg-bright);
+.mermaid .mermaid-svg-host .arrowheadPath {
+  fill: var(--accent);
+  stroke: var(--accent);
 }
 
 /* ------------------------------------------------------------
    Edge Labels (CRITICAL for readability)
    ------------------------------------------------------------ */
 
-.mermaid .mermaid-svg-host #mermaid[id] .edgeLabel {
+.mermaid .mermaid-svg-host .edgeLabel {
   background-color: var(--bg-primary-dark);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .edgeLabel text {
+.mermaid .mermaid-svg-host .edgeLabel text {
   fill: var(--text-primary);
   font-size: var(--font-sm);
   font-weight: 600;
@@ -196,85 +211,77 @@
    Diagram Titles & Labels
    ------------------------------------------------------------ */
 
-.mermaid .mermaid-svg-host #mermaid[id] .label text {
+.mermaid .mermaid-svg-host .label text {
   fill: var(--text-primary);
   font-size: var(--font-sm);
   font-weight: 600;
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .messageText {
+.mermaid .mermaid-svg-host .messageText {
   fill: var(--text-primary);
   font-weight: 600;
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .loopText,
-.mermaid .mermaid-svg-host #mermaid[id] .noteText {
+.mermaid .mermaid-svg-host .loopText,
+.mermaid .mermaid-svg-host .noteText {
   fill: var(--text-primary);
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .activation0,
-.mermaid .mermaid-svg-host #mermaid[id] .activation1,
-.mermaid .mermaid-svg-host #mermaid[id] .activation2 {
+.mermaid .mermaid-svg-host .activation0,
+.mermaid .mermaid-svg-host .activation1,
+.mermaid .mermaid-svg-host .activation2 {
   fill: var(--text-accent-dark);
 }
-
-.mermaid .cluster rect {
-  fill: rgba(var(--black-rgb), 0.08);
-  stroke: var(--glass-border);
-  stroke-dasharray: 6 4;
-}
-
 /* ------------------------------------------------------------
    Subgraphs
    ------------------------------------------------------------ */
 
-.mermaid .mermaid-svg-host #mermaid[id] .cluster rect {
-  fill: rgba(var(--black-rgb), 0.15);
+.mermaid .mermaid-svg-host g.clusters g.cluster rect {
+  fill: var(--bg-gradient) !important;
   stroke: var(--glass-border);
-  stroke-dasharray: 6 4;
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .cluster text {
+.mermaid .mermaid-svg-host .cluster text {
   fill: var(--accent-light);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: var(--font-md);
 }
 
 /* ------------------------------------------------------------
    Notes
    ------------------------------------------------------------ */
 
-.mermaid .mermaid-svg-host #mermaid[id] .note {
+.mermaid .mermaid-svg-host .note {
   fill: var(--black-rgb);
   stroke: var(--accent);
   rx: 10px;
   ry: 10px;
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .noteText {
+.mermaid .mermaid-svg-host .noteText {
   fill: var(--text-primary);
-  font-size: 0.8rem;
+  font-size: var(--font-sm);
 }
 
 /* ------------------------------------------------------------
    Sequence Diagrams
    ------------------------------------------------------------ */
 
-.mermaid .mermaid-svg-host #mermaid[id] .actor rect {
+.mermaid .mermaid-svg-host .actor rect {
   fill: rgba(var(--white-rgb), 0.1);
   stroke: var(--primary);
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .actor text {
+.mermaid .mermaid-svg-host .actor text {
   fill: var(--text-primary);
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] .lifeline {
+.mermaid .mermaid-svg-host .lifeline {
   stroke: var(--primary-light);
 }
 
-.mermaid .mermaid-svg-host #mermaid[id] line {
-  stroke: var(--accent-light);
+.mermaid .mermaid-svg-host line {
+  stroke: var(--accent);
 }
 
 /* ------------------------------------------------------------

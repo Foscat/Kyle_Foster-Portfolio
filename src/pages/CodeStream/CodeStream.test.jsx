@@ -1,5 +1,5 @@
 import CodeStream from "pages/CodeStream";
-import codeStreamSections from "assets/data/codestreamSections";
+import codeStreamSections from "assets/data/content/codestreamSections";
 import { PageRoute } from "types/ui.types";
 import { createPageTests } from "tests/helpers/createPageTests";
 

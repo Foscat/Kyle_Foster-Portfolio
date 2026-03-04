@@ -168,7 +168,7 @@ const StickyNav = ({ activePage }) => {
           variant={Variant.ACCENT}
           ariaLabel="Open navigation menu"
           tooltip="Open Navigation Menu"
-          tooltipPlacement="bottom"
+          tooltipPlacement="right"
           tooltipFollowCursor={false}
           onClick={() => setMobileOpen(true)}
         />

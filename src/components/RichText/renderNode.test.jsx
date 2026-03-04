@@ -131,7 +131,7 @@ describe("renderNode", () => {
       type: "p",
       children: [
         { type: "text", text: "Star:" },
-        { type: "inlineIcon", icon: "star" },
+        { type: "inlineIcon", icon: "⭐" },
       ],
     });
 

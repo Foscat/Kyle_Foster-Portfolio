@@ -1,6 +1,6 @@
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import Btn from "components/Btn";
-import { ButtonToolbar } from "rsuite";
+import { ButtonToolbar, Panel } from "rsuite";
 import { Size, Variant } from "types/ui.types";
 
 /**
@@ -41,11 +41,12 @@ import { Size, Variant } from "types/ui.types";
  */
 const LinksBlock = ({ links = [] }) => {
   // Guard against empty link lists
+  console.log("Rendering LinksBlock with links:", links);
   if (!links.length) return null;
 
   return (
-    <Panel collapsible defaultExpanded className="frosted block">
-      <ButtonToolbar className="links-block-list">
+    <Panel collapsible defaultExpanded className="block mt-2">
+      <div className="links-block-list flex-row flex-sa">
         {links.map((link, i) => {
           // Determine whether the link should be treated as external
           const isExternal = /^https?:\/\//.test(link.url);
@@ -58,17 +59,18 @@ const LinksBlock = ({ links = [] }) => {
               hrefLocal={link.local}
               icon={link.icon || faLink}
               size={link.size || Size.MD}
-              variant={link.variant || Variant.Primary}
+              variant={link.variant || Variant.SECONDARY}
               target={isExternal ? link.target : undefined}
               rel={isExternal ? link.rel : undefined}
               download={isDownload ? link.download : undefined}
               text={link.title || "Open Link"}
               tooltip={link.tooltip}
               aria-label={link.ariaLabel}
+              // noBG
             />
           );
         })}
-      </ButtonToolbar>
+      </div>
     </Panel>
   );
 };

@@ -208,12 +208,12 @@ Common patterns:
 
 ---
 
-### `inlineIcon`
+### `inlineIcon` Emogi emphasis
 
 **Use for:** Semantic callouts
 
 ```js
-{ type: 'inlineIcon', icon: 'lightbulb' }
+{ type: 'inlineIcon', icon: '💡' }
 ```
 
 Best used:

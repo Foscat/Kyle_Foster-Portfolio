@@ -106,8 +106,9 @@
 }
 
 .rs-btn.btn.interactive-surface.secondary {
-  background-color: var(--glass-bg);
-  border: var(--glass-border);
+  background-color: var(--primary-darker-bg);
+  border: var(--fb-TL);
+  box-shadow: var(--tile-shadow);
   color: var(--text-primary);
 }
 
@@ -182,8 +183,7 @@
       - Overrides RSuite's default hover/active styles for buttons
       - Ensures consistent behavior across all variants
    ============================================================ */
-
-@media screen and (max-width: 900px) {
+@media screen and (min-width: 900px) {
   .rs-btn.btn.interactive-surface.interactive-surface:hover,
   .rs-btn.btn.interactive-surface.interactive-surface:hover .rs-icon.btn-icon,
   a:hover
