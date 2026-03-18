@@ -24,6 +24,9 @@ The system is built around **declarative pages**, **data-driven sections**, and 
 Start here to understand how the entire system fits together:
 
 📄 **Architecture Overview**
+
+![Architecture Diagram](public/portfolio_flow.png)
+
 → [`architecture_overview.md`](architecture_overview.md)
 
 This document explains:

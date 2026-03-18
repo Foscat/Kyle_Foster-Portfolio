@@ -1,0 +1,384 @@
+/* ============================================================
+   Mermaid Theme — Midnight Gold (Architecture Scale)
+   ------------------------------------------------------------
+   Goals:
+   - High readability for large / dense diagrams
+   - Semantic visual hierarchy
+   - Dark + Light theme support
+   - Export-safe (PNG/SVG)
+   - Accessible labels and edges
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Base Mermaid Container
+   ------------------------------------------------------------ */
+
+.mermaid {
+  color: var(--text-primary);
+  background: var(--glass-bg-strong);
+  font-family: var(--font-Lexend), system-ui, sans-serif !important;
+  letter-spacing: normal;
+  fill: var(--text-primary);
+  stroke: var(--accent);
+}
+
+.mermaid p {
+  font-size: 18px !important;
+  overflow-wrap: break-word;
+}
+
+/* Ensure SVG scales correctly */
+.mermaid svg {
+  width: 100%;
+  min-width: 300px;
+  height: auto;
+  min-height: 600px;
+  overflow: visible;
+}
+
+/* Scroll + zoom support */
+.mermaid {
+  overflow: auto;
+  padding: 1.5rem 1rem;
+  border-radius: var(--border-radius);
+}
+
+/* Avoid transforms on the SVG when svg-pan-zoom is active */
+.mermaid-container:hover {
+  transform: none;
+  transition: none;
+  box-shadow: var(--glass-shadow);
+}
+
+.mermaid-svg-host {
+  max-width: 100%;
+  max-height: 75dvh;
+  display: flex;
+  justify-content: center;
+}
+
+.mermaid-svg-host svg {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.mermaid-svg-host.fade-out svg {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+/* ============================================================
+   Edge Labels — FORCE READABILITY (Mermaid v11)
+   ============================================================ */
+
+/* Base container (works for SVG + foreignObject) */
+
+/* Edge label background box (Mermaid creates a rect behind labels in SVG mode) */
+.mermaid .edgeLabel,
+.edgeLabel rect.background {
+  background-color: transparent;
+  fill: transparent;
+  color: var(--text-primary);
+  box-sizing: content-box;
+}
+
+/* Label text */
+.mermaid .edgeLabel text {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  paint-order: stroke; /* stroke behind fill for contrast */
+  stroke: var(--text-dark); /* dark outline */
+  background-color: var(--primary-darker-bg);
+}
+
+.mermaid .text-outer-tspan .text-inner-tspan {
+  font-size: var(--font-sm) !important;
+  font-weight: 600;
+  fill: var(--text-accent) !important;
+  stroke-width: 3px;
+  stroke: var(--text-dark) !important;
+}
+
+/* HTML-based labels (Mermaid v11 default) */
+.mermaid .cluster text > .text-outer-tspan > tspan.text-inner-tspan {
+  fill: var(--text-accent) !important;
+  letter-spacing: calc(-0.02em);
+  stroke-width: 0.5px;
+  stroke: transparent !important;
+  font-size: var(--font-md) !important;
+}
+
+.mermaid .edgeLabel foreignObject,
+.mermaid .edgeLabel div,
+.mermaid .edgeLabel span,
+.mermaid .edgeLabel rect,
+.mermaid .edgeLabel p {
+  font-weight: 600;
+  opacity: 1 !important;
+  fill: transparent !important;
+  background-color: var(--primary-darker-bg) !important;
+  text-shadow: none;
+}
+
+/* Lift labels above clusters */
+.mermaid .edgeLabel {
+  z-index: 100;
+}
+
+/* ------------------------------------------------------------
+   Semantic Node Classes
+   ------------------------------------------------------------ */
+
+/* Core entities (User, Organization, Classroom, Project) */
+.mermaid .mermaid-svg-host .node.entityrect {
+  fill: var(--text-dark);
+  stroke: var(--primary-dark);
+}
+
+/* Control logic (License, Resolver, Permissions) */
+.mermaid .mermaid-svg-host .node.control rect {
+  fill: var(--accent-dark);
+  stroke: var(--accent);
+  font-size: var(--text-sm);
+}
+
+/* States (Read-only, Expired, Access states) */
+.mermaid .mermaid-svg-host .node.state rect {
+  fill: var(--text-blue-dark);
+  stroke: var(--primary-dark);
+}
+
+/* Roles (Teacher, Student, Admin) */
+.mermaid .mermaid-svg-host .node.role rect {
+  fill: var(--text-accent);
+  stroke: var(--accent);
+}
+
+/* External systems (AWS, Runtime, iframe) */
+.mermaid .mermaid-svg-host .mermaid-svg-host .node.external rect {
+  fill: var(--text-blue);
+  stroke: var(--primary-light);
+}
+
+/* Semantic edge label accents */
+.mermaid .edgeLabel:has(span:contains("Valid")),
+.mermaid .edgeLabel:has(text:contains("Valid")) {
+  border-color: var(--success-rgb);
+}
+
+.mermaid .edgeLabel:has(span:contains("Expired")),
+.mermaid .edgeLabel:has(text:contains("Expired")) {
+  border-color: var(--error-rgb);
+}
+
+/* ------------------------------------------------------------
+   Edges / Arrows
+   ------------------------------------------------------------ */
+
+.mermaid svg .edgePath path.flowchart-link,
+.mermaid svg.flowchart g g.edgePaths path.flowchart-link,
+.flowchart-link {
+  stroke: var(--accent);
+  fill: var(--accent);
+  stroke-width: 4px;
+}
+
+.mermaid .mermaid-svg-host .arrowheadPath {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.mermaid svg .actor rect {
+  fill: #131a77;
+  stroke: #c9a227;
+}
+
+.mermaid .mermaid-svg-host svg g text tspan {
+  font-weight: 600;
+  fill: var(--text-primary);
+}
+
+.mermaid .mermaid-svg-host svg g text.loopText > tspan {
+  font-weight: 600 !important;
+}
+
+.mermaid svg .edgeLabel text {
+  font-size: var(--font-md);
+  font-weight: 600;
+  fill: var(--text-primary);
+}
+
+/* ------------------------------------------------------------
+   Edge Labels (CRITICAL for readability)
+   ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host .edgeLabel {
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary-dark);
+}
+
+.mermaid .mermaid-svg-host .edgeLabel text {
+  fill: var(--text-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   Diagram Titles & Labels
+   ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host .label text {
+  fill: var(--text-primary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+.mermaid .mermaid-svg-host .messageText {
+  fill: var(--text-primary);
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+
+.mermaid .mermaid-svg-host text.loopText,
+.mermaid .mermaid-svg-host .noteText {
+  fill: var(--text-primary);
+  font-size: 20px !important;
+}
+
+.mermaid .mermaid-svg-host .activation0,
+.mermaid .mermaid-svg-host .activation1,
+.mermaid .mermaid-svg-host .activation2 {
+  fill: var(--text-accent-dark);
+}
+
+/* ------------------------------------------------------------
+   Subgraphs
+   ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host g.clusters g.cluster rect {
+  fill: var(--bg-gradient) !important;
+  stroke: var(--glass-border);
+}
+
+.mermaid .mermaid-svg-host .cluster text {
+  font-size: var(--font-md);
+  font-weight: 700;
+  fill: var(--accent-light);
+}
+
+/* ------------------------------------------------------------
+   Notes
+   ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host .note {
+  fill: var(--black-rgb);
+  stroke: var(--accent);
+  rx: 10px;
+  ry: 10px;
+}
+
+.mermaid .mermaid-svg-host .noteText {
+  fill: var(--text-primary);
+  font-size: var(--font-sm);
+}
+
+/* ------------------------------------------------------------
+   Sequence Diagrams
+   ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host .actor rect {
+  fill: rgb(var(--white-rgb), 0.1);
+  stroke: var(--primary);
+}
+
+.mermaid .mermaid-svg-host .actor text {
+  fill: var(--text-primary);
+}
+
+.mermaid .mermaid-svg-host .lifeline {
+  stroke: var(--primary-light);
+}
+
+.mermaid .mermaid-svg-host line {
+  stroke: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   Light / Dark Theme Variants
+   ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host.dark g.node rect {
+  fill: var(--black);
+  stroke: var(--primary-dark);
+}
+
+.mermaid .mermaid-svg-host.dark g.label text {
+  fill: var(--primary-darkest);
+}
+
+.mermaid .mermaid-svg-host.dark svg.flowchart g.edgePaths path.flowchart-link {
+  stroke: var(--primary) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node rect,
+.mermaid .mermaid-svg-host.auto g.node rect {
+  fill: var(--text-dark);
+  stroke: var(--accent-light);
+}
+
+.mermaid .mermaid-svg-host.dark svg.flowchart g.edgePaths path.flowchart-link,
+.mermaid .mermaid-svg-host.auto svg.flowchart g.edgePaths path.flowchart-link,
+.mermaid .mermaid-svg-host.dark g.edgePaths .marker,
+.mermaid .mermaid-svg-host.auto g.edgePaths .marker {
+  stroke: var(--accent) !important;
+}
+
+/* ------------------------------------------------------------
+   Collapsible Behavior
+   ------------------------------------------------------------ */
+
+.mermaid-collapsed {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-duration) var(--easing-standard);
+}
+
+.mermaid-expanded {
+  max-height: 2000px;
+  transition: max-height var(--transition-duration) var(--easing-standard);
+}
+
+/* ------------------------------------------------------------
+   Export Button Styling
+   ------------------------------------------------------------ */
+
+.mermaid-export-btn {
+  padding: 0.5rem 1rem;
+  color: var(--accent-light);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-duration) var(--easing-standard);
+  margin-top: 0.75rem;
+  cursor: pointer;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+.mermaid-export-btn:hover {
+  color: var(--white);
+  background: var(--primary);
+  transform: var(--scale-up);
+}
+
+/* ------------------------------------------------------------
+   Accessibility
+   ------------------------------------------------------------ */
+
+.mermaid [aria-hidden="true"] {
+  pointer-events: none;
+}

@@ -15,13 +15,13 @@
     "ci:gate": "npm-run-all --sequential lint:cleanup test diagrams:check diagrams:test docs:build",
     "dev": "vite",
     "diagrams:format": "node scripts/format-diagrams.js",
-    "diagrams:lint": "node scripts/lint-diagrams.js",
+    "diagrams:lint": "node scripts/lint-diagrams.js && node scripts/diagrams/lint-custom-diagrams.mjs",
     "diagrams:check": "npm-run-all --sequential diagrams:format diagrams:lint",
     "diagrams:assets": "node scripts/build-diagram-assets.js",
     "diagrams:test": "playwright test",
     "diagrams:run-all": "npm-run-all --sequential diagrams:check diagrams:assets diagrams:test",
     "docs:clean": "rimraf docs",
-    "docs:components": "jsdoc2md \"src/components/**/*.jsx\" \"src/components/**/*.js\" > docs/components.md",
+    "docs:components": "jsdoc2md \"src/components/**/*.jsx\" > docs/components.md",
     "docs:navigation": "jsdoc2md \"src/navigation/**/*.jsx\" \"src/navigation/**/*.js\" > docs/navigation.md",
     "docs:types": "jsdoc2md \"src/types/**/*.js\" > docs/types.md",
     "docs:test-helpers": "jsdoc2md \"src/tests/**/*.js\" > docs/tests.md",
@@ -31,8 +31,10 @@
     "docs:diff": "npm-run-all --sequential docs:build git diff --exit-code docs",
     "docs:mkdir": "mkdirp docs",
     "docs:verify": "npm-run-all --sequential lint:ci docs:build",
-    "lint": "eslint . --max-warnings=0",
-    "lint:ci": "eslint src --max-warnings=0",
+    "lint": "eslint src --max-warnings=0",
+    "lint:all": "npm-run-all --sequential lint:ci lint:css richtext:lint diagrams:lint lint:scripts lint:playwright",
+    "lint:scripts": "eslint \"scripts/**/*.ts\" --max-warnings=0",
+    "lint:playwright": "eslint \"playwright/**/*.{js,ts}\" --max-warnings=0",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:fix": "eslint . --fix",
     "lint:fix-safe": "eslint src --fix",
@@ -48,6 +50,7 @@
     "richtext:fix": "node scripts/richtext-lint.cjs --fix",
     "richtext:codemod": "jscodeshift -t scripts/codemods/fix-richtext.cjs src",
     "test": "vitest run > scripts/test-output.txt && tail -n 10 scripts/test-output.txt",
+    "test-diagrams": "playwright test",
     "quality": "npm-run-all --sequential lint:cleanup docs:build test"
   },
   "dependencies": {
@@ -67,6 +70,7 @@
     "react-router": "6.30.3",
     "react-router-dom": "6.30.3",
     "rsuite": "5.83.3",
+    "stylelint-config-recess-order": "~7.6.1",
     "svg-pan-zoom": "3.6.2"
   },
   "devDependencies": {
@@ -75,7 +79,7 @@
     "@babel/traverse": "~7.29.0",
     "@babel/types": "~7.29.0",
     "@eslint/js": "9.39.2",
-    "@mermaid-js/mermaid-cli": "11.12.0",
+    "@mermaid-js/mermaid-cli": "~11.12.0",
     "@mermaid-js/parser": "1.0.0",
     "@playwright/test": "1.57.0",
     "@swc/core": "1.9.3",
@@ -126,6 +130,7 @@
   "overrides": {
     "esbuild": "^0.25.0",
     "lodash-es": "^4.17.23",
-    "minimatch": "^10.2.1"
+    "minimatch": "^10.2.1",
+    "yauzl": "3.2.1"
   }
 }

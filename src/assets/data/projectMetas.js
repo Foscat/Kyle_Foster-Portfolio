@@ -20,88 +20,6 @@ export default {
       "Jest",
       "Swagger API",
     ],
-    images: [
-      {
-        id: "cs1",
-        title: "Screenshot of the portfolio page of the CSOS platform.",
-        alt: "Screenshot of the portfolio page of the CSOS platform. Displaying options to navigate the platform and showing a list of the projects a student has started",
-        src: "../assets/images/codestream/Screenshot (1313).png",
-        caption:
-          "Screenshot of the portfolio page of the CSOS platform. Displaying options to navigate the platform and showing a list of the projects a student has started",
-      },
-      {
-        id: "cs2",
-        title: "Screenshot of the classrooms page of the CSOS platform.",
-        alt: "Screenshot of the classrooms page of the CSOS platform. Displaying active and epired classrooms attached to the users account.",
-        src: "../assets/images/codestream/Screenshot (1314).png",
-        caption:
-          "Screenshot of the classrooms page of the CSOS platform. Displaying active and epired classrooms attached to the users account.",
-      },
-      {
-        id: "cs3",
-        title: "Classroom page of the CSOS platform.",
-        alt: "Screenshot of the classroom page of the CSOS platform. Displaying the course curriculum and an intro video to the course.",
-        src: "../assets/images/codestream/Screenshot (1332).png",
-        caption:
-          "On the classroom roster page, we display easy access to lesson materials, assignments, and supplementary resources. The inclusion of an introductory video offers a dynamic introduction to the course content, enhancing engagement and comprehension for students.",
-      },
-      {
-        id: "cs4",
-        title: "Web Projects",
-        alt: "Screenshot of the 3 panel code editor of a Web based lesson. Showing lesson instructions and a toolbar on the left side of the screen, a text editor in the middle panel and the output is a mini-browser displaying the working code.",
-        src: "../assets/images/codestream/Screenshot (1330).png",
-        caption:
-          "The left panel features clear instructions and a robust set of tools, empowering learners to navigate the coding process with ease. In the middle panel, students can access and edit their code in real-time, with convenient tabs for switching between HTML, CSS, and JS files, facilitating seamless multi-language development. On the right panel, a mini web browser displays the live output of the student's code in a custom i-frame, allowing for immediate feedback and debugging.",
-      },
-      {
-        id: "cs5",
-        title: "Python Projects",
-        alt: "Screenshot of the 3 panel code editor of a Python based lesson. Showing lesson instructions and a toolbar on the left side of the screen, a text editor in the middle panel and the output is a terminal displaying the working code.",
-        src: "../assets/images/codestream/Screenshot (1333).png",
-        caption:
-          "The left panel retains familiar tools and lesson information, ensuring consistency in the user experience. However, the middle panel adapts to the unique requirements of Python development, displaying a single file interface optimized for Python coding projects. Meanwhile, the right panel transforms into a dedicated terminal output section, providing students with essential feedback and execution results specific to Python programming.",
-      },
-      {
-        id: "cs6",
-        title: "Grading Projects",
-        alt: "Grading page for a classroom on the CSOS platform. With selectable grades as well as a feedback input section.",
-        src: "../assets/images/codestream/Screenshot (1335).png",
-        caption:
-          "Teachers can seamlessly view a student's project, offer personalized feedback, and assign a grade, with the flexibility to choose between interchangeable pass/fail or numeric/letter grading styles. Students can conveniently access this feedback from their teachers directly within the platform, fostering a collaborative and transparent learning environment.",
-      },
-      {
-        id: "cs7",
-        title: "Classroom Report",
-        alt: "Screenshot of the classroom roster page of the CSOS platform. Displaying the students enrolled and an option to view each students projects.",
-        src: "../assets/images/codestream/Screenshot (1336).png",
-        caption:
-          "The report displays each student's name alongside their respective grades for all projects, providing a clear overview of individual achievements. Additionally, the platform calculates each student's average grade and progress in the course, facilitating informed decision-making and targeted support. Moreover, the option to toggle between 'Numeric' and 'Letter' grade views allows for customizable assessment perspectives, ensuring flexibility and accuracy in grading practices.",
-      },
-      {
-        id: "cs8",
-        title: "Creating New Content",
-        alt: "Screenshot of the course editor page of the CSOS platform. Displaying the course curriculum and an intro video to the course.",
-        src: "../assets/images/codestream/Screenshot (1337).png",
-        caption:
-          "On the course builder users can seamlessly craft courses by adding lessons and resources, structuring content to suit the needs of their curriculum. Once a lesson is integrated into a course, users have the flexibility to attach resources directly to individual lessons, enhancing the accessibility and comprehensiveness of course materials.",
-      },
-      {
-        id: "cs9",
-        title: "Modular Structure",
-        alt: "Screenshot of the classroom roster page of the CSOS platform. Displaying the students enrolled and an option to view each students projects.",
-        src: "../assets/images/codestream/Screenshot (1338).png",
-        caption:
-          "Users are presented with a convenient popup menu for adding lessons to course units within the CSOS platform. The menu displays a table of lessons available within the user's organization, showcasing the modular nature of lessons and resources. Users can easily select and add lessons from this centralized repository, promoting efficiency and flexibility in curriculum development. This feature underscores the platform's commitment to modularity, allowing lessons and resources to be utilized across multiple courses and units.",
-      },
-      {
-        id: "cs10",
-        title: "Curriculum Dashboard",
-        alt: "Screenshot of the classroom roster page of the CSOS platform. Displaying the students enrolled and an option to view each students projects.",
-        src: "../assets/images/codestream/Screenshot (1317).png",
-        caption:
-          "All curriculum creation and management activities are centralized under the 'Active Organization,' streamlining administrative processes and promoting organizational cohesion. Users can easily access and manage all curriculum assets within this dedicated dashboard, facilitating effective curriculum planning and oversight.",
-      },
-    ],
   },
   Freelance_1: {
     id: "nodemailer",
@@ -113,7 +31,6 @@ export default {
     tech: ["Node.js", "Express.js", "Nodemailer", "Render"],
     url: "https://email-microservice-grem.onrender.com",
     repo: "https://github.com/Foscat/email-microservice",
-    images: [],
   },
   Freelance_2: {
     id: "menOfHan",

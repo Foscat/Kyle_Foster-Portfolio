@@ -33,7 +33,7 @@
 }
 
 /* Mobile polish */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .notFound-glassBox {
     padding: 2rem 1.5rem;
   }

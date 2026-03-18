@@ -7,32 +7,49 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ResponsiveContext } from "./ResponsiveContext";
-import { MidnightGoldTheme } from "@/theme/midnightGold.theme.js";
+import { MidnightGoldTheme } from "../../../theme/midnightGold.theme.js";
 
+// Destructure breakpoints, spacing scale, and CSS variable mappings from the theme configuration. These values will be used for determining the current breakpoint and for syncing spacing tokens to CSS variables.
 const { breakpoints, spacing: SPACING_SCALE, cssVars } = MidnightGoldTheme;
 
-/// getBreakpoint and getOrientation functions are defined in useBreakpoint.js, but we need to replicate their logic here to avoid circular dependencies. In a future refactor, we may want to extract this logic into a separate utility file to avoid duplication.
+/**
+ * @function getBreakpoint
+ * @description Determines the current breakpoint based on the given width. This function replicates the logic from useBreakpoint.js to avoid circular dependencies. It checks the width against defined breakpoints for mobile and tablet, and returns "mobile", "tablet", or "desktop" accordingly.
+ * @param {number} width - The current width of the viewport.
+ * @return {string} The current breakpoint ("mobile", "tablet", or "desktop").
+ * @throws Will throw an error if width is not a number or if breakpoints are not defined properly.
+ * @see useBreakpoint.js for the original breakpoint detection logic that this function replicates to avoid circular dependencies.
+ */
 function getBreakpoint(width) {
   if (width <= breakpoints.mobile) return "mobile";
   if (width <= breakpoints.tablet) return "tablet";
   return "desktop";
 }
 
-// Similar to getBreakpoint, we replicate getOrientation logic here to avoid circular dependencies.
+/**
+ * @function getOrientation
+ * @description Determines the current orientation of the viewport. This function replicates the logic from useBreakpoint.js to avoid circular dependencies. It checks the orientation using the window.matchMedia API and returns "portrait" or "landscape" accordingly.
+ * @return {string} The current orientation ("portrait" or "landscape").
+ */
 function getOrientation() {
   if (typeof window === "undefined") return "landscape";
   return window.matchMedia("(orientation: portrait)").matches ? "portrait" : "landscape";
 }
 
-// Similar to getBreakpoint, we replicate getReducedMotion logic here to avoid circular dependencies.
+/**
+ * @function getReducedMotion
+ * @description Determines if the user has requested reduced motion. This function replicates the logic from useBreakpoint.js to avoid circular dependencies. It checks the prefers-reduced-motion media query and returns a boolean accordingly.
+ * @return {boolean} True if the user has requested reduced motion, false otherwise.
+ */
 function getReducedMotion() {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 /**
- * NOTE: prefers-reduced-transparency is not supported in all browsers.
- * Treat unsupported as false.
+ * @function getReducedTransparency
+ * @description Determines if the user has requested reduced transparency. This function replicates the logic from useBreakpoint.js to avoid circular dependencies. It checks the prefers-reduced-transparency media query and returns a boolean accordingly.
+ * @return {boolean} True if the user has requested reduced transparency, false otherwise.
  */
 function getReducedTransparency() {
   if (typeof window === "undefined") return false;
@@ -46,12 +63,9 @@ function getReducedTransparency() {
 }
 
 /**
- * High contrast mode detection is complex due to varying support across browsers and platforms. This function checks for both prefers-contrast and forced-colors media queries to provide a more comprehensive detection of high contrast mode.
- *
- * Note that prefers-contrast has variable support and values:
- * - (prefers-contrast: more)
- * - (prefers-contrast: less)
- * forced-colors is a strong fallback for Windows High Contrast Mode.
+ * @function getHighContrast
+ * @description Determines if the user has requested high contrast mode. This function replicates the logic from useBreakpoint.js to avoid circular dependencies. It checks the prefers-contrast and forced-colors media queries and returns a boolean accordingly.
+ * @return {boolean} True if the user has requested high contrast mode, false otherwise.
  */
 function getHighContrast() {
   if (typeof window === "undefined") return false;
@@ -64,9 +78,8 @@ function getHighContrast() {
 }
 
 /**
- * ResponsiveProvider
- * ---------------------------------------------------------------------------
- * Provides responsive design context to the app, including current breakpoint, orientation, and spacing values.
+ * @function ResponsiveProvider
+ * @description Provides responsive design context to the app, including current breakpoint, orientation, and spacing values.
  * Listens for window resize events and updates context values accordingly.
  * This allows any component in the app to access responsive information and adapt its layout or behavior based on screen size and orientation.
  *
@@ -102,7 +115,11 @@ export function ResponsiveProvider({ children }) {
 
   // Listen for window resize events and update state accordingly
   useEffect(() => {
-    // Throttle resize events using requestAnimationFrame for better performance
+    /**
+     * @function handleResize
+     * @description Event handler for window resize events. This function uses requestAnimationFrame to optimize performance by batching state updates and avoiding excessive re-renders during rapid resize events. When the window is resized, it updates the width, breakpoint, and orientation state based on the new window dimensions.
+     * @throws Will throw an error if window properties are not available (e.g., in a non-browser environment), but this is mitigated by the initial state setup that defaults to safe values when window is undefined.
+     */
     const handleResize = () => {
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
       // Schedule an update on the next animation frame to avoid excessive re-renders during rapid resize events
@@ -128,13 +145,24 @@ export function ResponsiveProvider({ children }) {
     const mqPrefersContrastMore = window.matchMedia("(prefers-contrast: more)");
     const mqForcedColors = window.matchMedia("(forced-colors: active)");
 
-    //------ Event handlers for media query changes -----\\
+    // Add event listener for window resize
 
-    // Since prefers-reduced-motion is widely supported, we can safely add a listener for it. When the user changes their reduced motion preference, we update our state to reflect that change.
+    /**
+     * @function handleMotionChange
+     * @description Event handler for changes in the prefers-reduced-motion media query. Updates the reducedMotion state based on the media query's match status.
+     * @param {MediaQueryListEvent} e - The media query change event.
+     */
     const handleMotionChange = (e) => setReducedMotion(e.matches);
-    // Since reduced transparency may not be supported, we check if the media query exists before adding a listener. If it doesn't exist, we won't be able to listen for changes, but we also won't throw an error.
+    /**
+     * @function handleTransparencyChange
+     * @description Event handler for changes in the prefers-reduced-transparency media query. Updates the reducedTransparency state based on the media query's match status.
+     * @param {MediaQueryListEvent} e - The media query change event.
+     */
     const handleTransparencyChange = (e) => setReducedTransparency(!!e.matches);
-    // Since high contrast mode can be indicated by either prefers-contrast: more or forced-colors: active, we need to listen to both and update state accordingly.
+    /**
+     * @function handleContrastChange
+     * @description Event handler for changes in the prefers-contrast: more or forced-colors: active media queries. Updates the highContrast state based on the current media query match status.
+     */
     const handleContrastChange = () => setHighContrast(getHighContrast());
 
     // Add event listener for window resize
@@ -164,9 +192,12 @@ export function ResponsiveProvider({ children }) {
   }, []);
 
   /**
-   * Sync spacing tokens to CSS variables automatically.
-   * This keeps JS + CSS aligned with zero duplication.
+   * @description Updates CSS variables for spacing based on the current breakpoint. This effect runs whenever the breakpoint changes and sets CSS variables on the document root according to the mapping defined in the theme's cssVars configuration. This allows for dynamic theming and responsive spacing in CSS based on the current breakpoint tier.
+   *
+   * The effect first checks if the document object is available (to ensure it is running in a browser environment). It then retrieves the spacing values for the current breakpoint tier and the mapping of spacing tokens to CSS variable names from the theme configuration. If both are available, it iterates over the mapping and sets the corresponding CSS variables on the document root using the values from the current breakpoint's spacing configuration. This enables the use of CSS variables in stylesheets that automatically adapt to the current responsive state of the app.
+   * @throws Will throw an error if document is not defined (e.g., in a non-browser environment), but this is mitigated by the initial check for document availability. It will also fail silently if the theme configuration does not include the expected spacing and cssVars properties.
    */
+
   useEffect(() => {
     if (typeof document === "undefined") return;
 
@@ -184,10 +215,7 @@ export function ResponsiveProvider({ children }) {
     });
   }, [breakpoint]);
 
-  /**
-   * Expose accessibility flags as CSS variables too.
-   * This lets CSS do conditional styling without JS branching.
-   */
+  // Update CSS variables for accessibility preferences (reduced motion, reduced transparency, high contrast) whenever they change. This allows for dynamic theming and responsive design adjustments in CSS based on the user's accessibility settings.
   useEffect(() => {
     if (typeof document === "undefined") return;
 
@@ -202,7 +230,12 @@ export function ResponsiveProvider({ children }) {
     document.documentElement.style.setProperty("--prefers-high-contrast", highContrast ? "1" : "0");
   }, [reducedMotion, reducedTransparency, highContrast]);
 
-  // Memoize the context value to prevent unnecessary re-renders of consuming components when unrelated state changes. The context value includes the current theme ID, width, breakpoint, orientation, accessibility preferences, boolean flags for responsive states, and the spacing values for the current breakpoint tier.
+  /**
+   * @function contextValue
+   * @description Memoized context value object that contains all responsive information and flags. This object is created using useMemo to optimize performance by preventing unnecessary re-renders of context consumers when the responsive state changes. The context value includes the current theme ID, width, breakpoint, orientation, accessibility preferences (reduced motion, reduced transparency, high contrast), boolean flags for device type and orientation, and the spacing values for the current breakpoint tier. By memoizing this object, we ensure that components consuming the ResponsiveContext only re-render when relevant responsive values actually change, improving overall app performance.
+   * @return {object} The context value object containing responsive information and flags.
+   * @throws Will throw an error if any of the dependencies (width, breakpoint, orientation, reducedMotion, reducedTransparency, highContrast) are not defined, but this is mitigated by the initial state setup that provides default values.
+   */
   const contextValue = useMemo(() => {
     const tierSpacing = SPACING_SCALE[breakpoint];
 

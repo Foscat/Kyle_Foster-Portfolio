@@ -1,7 +1,7 @@
 import { FlexboxGrid, Panel } from "rsuite";
-import "./styles.css";
-import Btn from "components/Btn";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { Btn } from "components/ui";
+import "./styles.css";
 
 /**
  * NotFound Component

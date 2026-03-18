@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import Data from "assets/data/pageMetas";
-import { restoreScrollPosition } from "navigation/restoreScrollPosition";
-import SectionRegistryProvider from "navigation/SectionRegistryProvider";
-import PageHeader from "components/PageHeader";
-import StickyNav from "components/StickyNav";
-import SectionRenderer from "components/SectionRenderer";
-import StickySectionNav from "components/StickySectionNav";
-import Footer from "components/Footer";
+import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
+import { PageHeader } from "components/layout";
+import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { SectionRenderer } from "components/renderers";
 
 const hack = Data.Hackathon;
 
@@ -21,7 +18,7 @@ const hack = Data.Hackathon;
  */
 const Hackathon = () => {
   useEffect(() => {
-    restoreScrollPosition();
+    helpers.restoreScrollPosition();
   }, []);
 
   return (

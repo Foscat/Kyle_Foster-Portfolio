@@ -1,30 +1,30 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Head from "components/Head";
-import Home from "pages/Home";
-import CodeStream from "pages/CodeStream";
-import SideProjects from "pages/SideProjects";
-import Hackathon from "pages/Hackathon";
-import Smu from "pages/SMU";
-import Contact from "pages/Contact";
-import Health from "components/Health";
-import NotFound from "pages/NotFound";
+import { Head } from "components/navigation";
+import { Home, CodeStream, SideProjects, Hackathon, Smu, Contact, NotFound, Health } from "pages";
 import "./App.css";
+// Custom CSS library for click animations
 import "./click-animate/click-animate.css";
 
 console.log("🚀 App component executing");
 
 /**
- * App.jsx
- * ---------------------------------------------------------------------------
- * Top-level router
- *
- * Notes:
- * - React Router v6+ requires <Routes> and <Route element={...} />.
- * - <Head /> is rendered inside the router so it can read the current location.
- *
+ * @public
  * @component
- * @returns {JSX.Element}
+ * @name App
+ * @description The root component of the portfolio application. Sets up global routing using React Router and defines the main layout structure. This component is responsible for rendering the appropriate page component based on the current URL path, as well as including the global `Head` component for consistent navigation and metadata across all pages.
+ *
+ * Features:
+ * - Uses `BrowserRouter` for client-side routing with support for future React Router v7 features.
+ * - Defines routes for all main pages: Home, CodeStream, Side Projects, Hackathon, SMU, Contact, and a catch-all NotFound page.
+ * - Includes a global `Head` component that renders the site header and navigation links on all pages.
+ * - Applies global CSS styles from `App.css` and a custom click animation library for enhanced interactivity.
+ *
+ * @returns {JSX.Element} The rendered application component with routing and global layout.
+ * @example
+ * ```jsx
+ * <App />
+ * ```
  */
 export default function App() {
   useEffect(() => {

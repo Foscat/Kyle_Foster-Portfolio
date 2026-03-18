@@ -1,5 +1,23 @@
-// scripts/normalizeMermaid.js
-
+/**
+ * @function normalizeMermaidSource
+ * @description Normalizes a Mermaid diagram source string by removing init blocks,
+ * normalizing line endings, and trimming leading whitespace.
+ * @param {string} source - The Mermaid diagram source string.
+ * @returns {string} The normalized Mermaid diagram source string.
+ *
+ * @example
+ * ```js
+ * const source = `%%{init: {"theme": "dark"}}%%
+ * graph TD
+ * A --> B
+ * `;
+ * const normalized = normalizeMermaidSource(source);
+ * console.log(normalized);
+ * // Output:
+ * // graph TD
+ * // A --> B
+ * ```
+ */
 export function normalizeMermaidSource(source) {
   if (typeof source !== "string") return "";
 

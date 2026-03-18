@@ -14,7 +14,7 @@ const { fixRichText } = require("./codemods/fix-richtext.cjs");
 
 const shouldFix = process.argv.includes("--fix");
 
-const files = glob.sync("src/assets/content/*.js");
+const files = glob.sync("src/assets/data/content/**/*.js");
 
 let errorCount = 0;
 let warnCount = 0;

@@ -1,5 +1,5 @@
 import Hackathon from "pages/Hackathon";
-import hackathonSections from "assets/data/content/hackathonSections";
+import hackathonSections from "assets/data/content/hackathon";
 import { PageRoute } from "types/ui.types";
 import { createPageTests } from "tests/helpers/createPageTests";
 

@@ -5,7 +5,8 @@ import {
   hackathonSections,
   sideProjectsSections,
   smuSections,
-} from "./index.js";
+  contactSections,
+} from "./content";
 
 const pageMetas = {
   Home: {
@@ -126,6 +127,7 @@ const pageMetas = {
     title: "Contact Kyle Foster | Developer & Collaborator",
     description:
       "Get in touch with Kyle Foster — full-stack developer, creative problem solver, and software craftsman. Find contact details and collaboration inquiries here.",
+    sections: contactSections,
   },
 };
 

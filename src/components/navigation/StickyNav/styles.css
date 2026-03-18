@@ -1,0 +1,174 @@
+/* 
+  * @file styles.css
+  * @fileoverview CSS styles for the StickyNav component, including layout, theming,
+  * and responsive design for both desktop and mobile navigation variants.
+  * @module components/StickyNav/styles
+ */
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Brand text styling */
+.brand-text {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--primary-darkest);
+}
+
+/* Mobile hamburger button */
+.burger-btn {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  color: var(--white);
+  border-radius: var(--radius-xs);
+}
+
+/* Override default class from rsuite */
+.rs-navbar-default.rs-navbar {
+  background-color: var(--primary-dark-bg);
+  display: flex;
+  justify-content: center;
+}
+
+.rs-navbar.rs-navbar-default .rs-navbar-item.rs-navbar-item-active,
+.rs-navbar.rs-navbar-default .rs-navbar-item:hover,
+.rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
+.rs-nav.rs-nav-default .rs-nav-item:hover {
+  color: var(--accent-light);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-gradient);
+}
+
+.rs-nav:hover > .rs-nav-item.no-popup {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Hide desktop menu on mobile */
+.desktop-menu {
+  background-color: var(--glass-bg);
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px;
+  border-top: 2px outset var(--frost-bg);
+  margin-bottom: 5px;
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: var(--backdrop-blur);
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  transition: var(--easing-standard);
+  transition-duration: var(--transition-speed);
+}
+
+.rs-nav-item-active,
+.rs-nav-item[aria-current="page"] {
+  font-weight: 600;
+  color: var(--accent-light);
+}
+
+.fi-desk-nav-item.rs-nav-item:active,
+.fi-desk-nav-item.rs-nav-item:hover {
+  background-color: transparent;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.rs-drawer-backdrop,
+.mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content,
+.rs-drawer-backdrop .mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content {
+  background-color: var(--primary-darker-bg);
+  color: var(--text-primary);
+}
+
+.rs-drawer-header,
+.rs-drawer-header .rs-btn-icon.rs-btn-sm > .rs-icon,
+.rs-drawer-header .rs-drawer-title {
+  font-weight: 600;
+  color: var(--text-accent);
+}
+
+.rs-drawer-header .rs-drawer-title {
+  font-size: var(--font-xl);
+}
+
+.rs-drawer-header .rs-drawer-header-close {
+  top: 23px;
+  padding: 5px;
+  font-size: var(--icon-sm);
+  border-radius: 5px;
+  background-color: var(--glass-bg);
+}
+
+.rs-drawer-body,
+.rs-drawer-body > .rs-nav > a {
+  font-size: var(--font-xl);
+  font-weight: 500;
+  color: var(--text-primary);
+  font-family: var(--font-Golos);
+}
+
+/* Slide-down animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (width <= 900px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-only {
+    position: relative;
+    display: none;
+  }
+
+  /* Mobile slide-out menu */
+  .rs-drawer-backdrop .mobile-nav-drawer {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: rgba(var(--gray-900), 0.85);
+    animation: slideDown 180ms ease-out;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .mobile-only {
+    position: fixed;
+    z-index: 1000;
+    display: block;
+  }
+
+  .mobile-only .btn.icon-only {
+    padding: 0;
+  }
+
+  .mobile-only .frosted-icon {
+    background-color: rgba(var(--gray-900), 0.85);
+  }
+
+  .nav-toggle-btn {
+    top: 10px;
+    left: 10px;
+  }
+
+  .sect-nav-toggle-btn {
+    top: 0;
+    right: 0;
+  }
+}

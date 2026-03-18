@@ -19,17 +19,17 @@
 
 .page-overlay {
   position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(10, 16, 92, 0.65), rgba(31, 39, 147, 0.5));
   z-index: -1;
+  background: linear-gradient(135deg, rgba(10, 16, 92, 0.65), rgba(31, 39, 147, 0.5));
+  inset: 0;
 }
 
 /* =======================
    Contact Panel
    ======================= */
 .contact-panel {
-  padding: 2.5rem;
   margin: 3rem 1rem;
+  padding: 2.5rem;
 }
 
 .page-title {
@@ -50,17 +50,18 @@
 }
 
 .frosted-input {
+  height: 3.5rem;
+  color: var(--white);
   background: rgba(var(--white-rgb), 0.06);
   border: 1px solid rgba(var(--white-rgb), 0.12);
+  border-radius: var(--border-radius);
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
-  color: var(--white);
-  border-radius: var(--border-radius);
-  height: 3.5rem;
 }
+
 .frosted-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 10px rgba(250, 224, 130, 0.3);
+  box-shadow: 0 0 10px rgba(250 224 130 / 30%);
 }
 
 .rs-form-group .rs-input.frosted-input {
@@ -76,9 +77,9 @@
 }
 
 .contact-list {
-  list-style: none;
-  padding: 0;
   margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 .contact-list li {
@@ -90,8 +91,8 @@
 }
 
 .contact-icon {
-  color: var(--accent-light);
   font-size: 1.25rem;
+  color: var(--accent-light);
 }
 
 /* =======================
@@ -99,14 +100,14 @@
    ======================= */
 .toast {
   position: fixed;
-  bottom: 2rem;
   right: 2rem;
+  bottom: 2rem;
   padding: 1rem 1.5rem;
-  border-radius: var(--border-radius);
   background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: var(--shadow-soft);
   animation: fadeInOut 3.5s ease forwards;
 }
@@ -115,10 +116,11 @@
    Responsive Layout
    ======================= */
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .contact-panel {
     padding: 1.5rem;
   }
+
   .contact-list li {
     font-size: var(--font-sm);
   }

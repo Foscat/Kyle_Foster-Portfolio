@@ -1,0 +1,126 @@
+.insight-card {
+  position: relative;
+  outline: none;
+}
+
+.insight-card:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(212, 175, 55, 0.6),
+    0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.insight-card:focus-visible::after {
+  position: absolute;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.15) 50%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  animation: goldShimmer 900ms ease forwards;
+}
+
+.insight-card:hover .insight-card__metric-value {
+  transform: translateY(-1px);
+  transition: transform 160ms ease;
+}
+
+.insight-card__header {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.insight-card__icon {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.insight-card__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.insight-card__subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.insight-card__divider {
+  height: 1px;
+  background: linear-gradient(to right, rgba(var(--white-rgb), 0.08), rgba(var(--white-rgb), 0.04));
+  margin-top: 0.25rem;
+}
+
+.insight-card__body {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.insight-card__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.insight-card__metric-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-gold);
+}
+
+.insight-card__metric-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.insight-card--primary {
+  border-left: 3px solid var(--accent);
+}
+
+.insight-card--danger {
+  border-left: 3px solid var(--error);
+}
+
+.insight-card--secondary {
+  border-left: 3px solid var(--grey-200);
+}
+
+.insight-card--subtle {
+  border-left: 3px solid rgba(var(--grey-500), 0.12);
+}
+
+@media (width <= 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (width <= 640px) {
+  .card-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@keyframes goldShimmer {
+  from {
+    transform: translateX(-60%);
+  }
+
+  to {
+    transform: translateX(60%);
+  }
+}

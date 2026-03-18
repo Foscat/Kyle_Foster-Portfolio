@@ -1,7 +1,30 @@
 /**
- * Safe RichText normalizer
+ * @function fixRichText
+ * @description Cleans and normalizes rich text nodes by trimming whitespace, removing empty text nodes, and merging adjacent text nodes.
+ * @param {Array} nodes - An array of rich text nodes to be processed.
+ * @returns {Array} A new array of cleaned and normalized rich text nodes.
+ * @example
+ * ```js
+ * const input = [
+ *  { type: "text", text: "  Hello " },
+ *  { type: "text", text: "World  " },
+ *  { type: "text", text: "   " },
+ *  { type: "element", children: [
+ *    { type: "text", text: "  Nested " },
+ *    { type: "text", text: "Text  " }
+ *  ]}
+ * ];
+ * const output = fixRichText(input);
+ * console.log(output);
+ * // Output:
+ * // [
+ * //   { type: "text", text: "Hello World" },
+ * //   { type: "element", children: [
+ * //     { type: "text", text: "Nested Text" }
+ * //   ] }
+ * // ]
+ * ```
  */
-
 function fixRichText(nodes) {
   if (!Array.isArray(nodes)) return nodes;
 
@@ -13,9 +36,11 @@ function fixRichText(nodes) {
       if (node.type === "text" && node.text.trim() === "") return null;
     }
 
+    // Recursively clean children if present
     if (Array.isArray(node.children)) {
       node.children = node.children.map(clean).filter(Boolean);
 
+      // Merge adjacent text nodes after cleaning
       const merged = [];
       for (const child of node.children) {
         const prev = merged[merged.length - 1];

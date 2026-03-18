@@ -48,10 +48,8 @@ export const MEDIA_QUERIES = {
 };
 
 /**
- * getBreakpoint
- * ---------------------------------------------------------------------------
- * Helper function that checks the current viewport against defined media queries
- *
+ * @function getBreakpoint
+ * @description Helper function that checks the current viewport width against defined breakpoints using media queries. It returns a string indicating the current breakpoint category: "mobile", "tablet", or "desktop". This function is used internally by the `useBreakpoint` hook to determine the initial breakpoint state and to update it when the viewport size changes.
  * @returns {string} The current breakpoint: "mobile", "tablet", or "desktop"
  * Note: This function is designed to be called in a browser environment where window.matchMedia is available.
  * In server-side rendering contexts, it will default to "desktop" to avoid errors.
@@ -66,10 +64,9 @@ function getBreakpoint() {
 }
 
 /**
- * getOrientation
- * ---------------------------------------------------------------------------
- * Helper function that checks the current viewport orientation using media queries
- *
+ * @function getOrientation
+ * @description
+ * Helper function that checks the current viewport orientation using media queries.
  * @returns {string} The current orientation: "portrait" or "landscape"
  * Note: This function is designed to be called in a browser environment where window.matchMedia is available.
  * In server-side rendering contexts, it will default to "landscape" to avoid errors.
@@ -94,9 +91,12 @@ function getOrientation() {
  */
 
 /**
- * useBreakpoint
- * ---------------------------------------------------------------------------
- * Custom React hook that detects the current responsive breakpoint (mobile, tablet, desktop) and orientation (portrait, landscape).
+ * @@function useBreakpoint
+ * @description
+ * Custom React hook that provides responsive breakpoint and orientation information based on window.matchMedia.
+ * It returns the current breakpoint and orientation, along with boolean flags for convenience.
+ * The hook listens for changes in viewport size and orientation, updating the state accordingly.
+ * It is designed to be used in any component that needs to adapt its layout or behavior based on the current screen size and orientation.
  *
  * @returns {BreakpointState} An object containing the current breakpoint and orientation, along with boolean flags for each.
  * The hook listens for changes in viewport size and orientation, updating the state accordingly.
@@ -139,10 +139,14 @@ function useBreakpoint() {
 }
 
 /**
- * useResponsiveValue
+ * @function useResponsiveValue
+ * @description
+ * Custom React hook that returns a value based on the current responsive breakpoint.
+ * It accepts an object with optional values for mobile, tablet, and desktop breakpoints.
+ * The hook uses the `useBreakpoint` hook to determine the current breakpoint and returns
+ * the corresponding value, falling back to smaller breakpoints if a value is not provided.
  *
- * Returns a value based on current breakpoint.
- *
+
  * @param {{
  *  mobile?: any,
  *  tablet?: any,

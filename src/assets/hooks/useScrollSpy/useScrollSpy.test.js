@@ -1,91 +1,131 @@
-import { renderHook, act } from "@testing-library/react";
-import { useScrollSpyWithHistory } from "assets/hooks/useScrollSpy/useScrollSpy";
+import { renderHook, act, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+
+import { buildSectionTree, useScrollSpyWithHistory } from "./index";
 
 /**
  * @file useScrollSpy.test.js
- * @description Unit tests for the `useScrollSpyWithHistory` hook.
+ * @fileoverview Behavioral tests for the useScrollSpyWithHistory hook.
  *
- * Testing focus:
- * - Defensive guarantees around return shape
- * - Safe behavior with empty or missing section IDs
- * - Stability for consumer destructuring
- * - Non-throwing behavior for exposed methods
+ * Testing rules applied:
+ * - browser APIs are mocked
+ * - calls are wrapped in act()
+ * - async updates use waitFor()
+ * - assertions target public return values only
  *
- * Rationale:
- * This test suite exists primarily to prevent regressions that could
- * cause runtime crashes when consumers destructure the hook return
- * value without null guards.
- *
- * @module tests/hooks/useScrollSpyWithHistory
+ * Test plan:
+ * - builds a flat observable tree from section data
+ * - updates the active chain when the closest visible node changes
+ * - marks a programmatic scroll immediately without waiting for the observer
  */
 
 /**
- * useScrollSpyWithHistory
- * ---------------------------------------------------------------------------
- * Ensures the hook always returns a stable, non-null object shape,
- * even when provided with empty input.
+ * Hook tests for useScrollSpyWithHistory.
+ *
+ * Gold-standard rules followed:
+ * - browser APIs are mocked
+ * - calls are wrapped in act()
+ * - async updates use waitFor()
+ * - assertions target public return values only
+ *
+ * @module tests/hooks/useScrollSpy
  */
+
+// Note: the hook's internal IntersectionObserver is mocked to allow deterministic testing of scroll behavior.
 describe("useScrollSpyWithHistory", () => {
-  /**
-   * Verifies that the hook always returns an object containing the
-   * expected properties, regardless of input.
-   */
-  test("always returns an object with expected properties", () => {
-    const { result } = renderHook(() => useScrollSpyWithHistory([]));
+  let observedElements;
+  let observerCallback;
+  let replaceStateSpy;
+  let originalIntersectionObserver;
 
-    expect(result.current).toBeDefined();
-    expect(typeof result.current).toBe("object");
+  // Before each test, we set up a fresh mock IntersectionObserver and spy on history.replaceState to verify URL updates.
+  beforeEach(() => {
+    observedElements = [];
+    replaceStateSpy = vi.spyOn(window.history, "replaceState").mockImplementation(() => {});
+    originalIntersectionObserver = globalThis.IntersectionObserver;
 
-    expect(result.current).toHaveProperty("activeId");
-    expect(result.current).toHaveProperty("markProgrammaticScroll");
+    globalThis.IntersectionObserver = class {
+      constructor(callback) {
+        observerCallback = callback;
+      }
 
-    expect(typeof result.current.markProgrammaticScroll).toBe("function");
+      observe = (element) => {
+        observedElements.push(element);
+      };
+
+      unobserve = () => {};
+      disconnect = () => {};
+    };
   });
 
-  /**
-   * Ensures the hook never returns null when invoked with an empty
-   * section list.
-   */
-  test("does not return null when sectionIds is empty", () => {
-    const { result } = renderHook(() => useScrollSpyWithHistory([]));
-
-    expect(result.current).not.toBeNull();
+  // After each test, we restore the original IntersectionObserver and history.replaceState, and clear the document body.
+  afterEach(() => {
+    replaceStateSpy.mockRestore();
+    globalThis.IntersectionObserver = originalIntersectionObserver;
+    document.body.innerHTML = "";
   });
 
-  /**
-   * Verifies that `activeId` initializes safely to null.
-   */
-  test("activeId initializes to null safely", () => {
-    const { result } = renderHook(() => useScrollSpyWithHistory([]));
+  // Test case: the hook should build a flat observable tree from the provided section data.
+  it("builds a flat observable tree from section data", () => {
+    const { nodes, byId } = buildSectionTree([
+      {
+        id: "overview",
+        blocks: [{ id: "overview-block" }],
+      },
+    ]);
 
-    expect(result.current.activeId).toBeNull();
+    expect(nodes.map((node) => node.id)).toEqual(["overview", "overview-block"]);
+    expect(byId.get("overview-block")?.parentId).toBe("overview");
   });
 
-  /**
-   * Ensures that `markProgrammaticScroll` is callable and does not
-   * throw when invoked without active scroll context.
-   */
-  test("markProgrammaticScroll can be called without errors", () => {
-    const { result } = renderHook(() => useScrollSpyWithHistory([]));
+  // Test case: the hook should update the active chain when the closest visible node changes.
+  it("updates the active chain when the closest visible node changes", async () => {
+    document.body.innerHTML = '<section id="overview"></section><div id="overview-block"></div>';
 
-    expect(() => {
-      act(() => {
-        result.current.markProgrammaticScroll();
-      });
-    }).not.toThrow();
+    const sections = [
+      {
+        id: "overview",
+        blocks: [{ id: "overview-block" }],
+      },
+    ];
+
+    const { nodes, byId } = buildSectionTree(sections);
+    const { result } = renderHook(() => useScrollSpyWithHistory(nodes, byId, 96));
+
+    await waitFor(() => {
+      expect(observedElements).toHaveLength(2);
+    });
+
+    act(() => {
+      observerCallback([
+        {
+          isIntersecting: true,
+          target: document.getElementById("overview-block"),
+          boundingClientRect: { top: 24 },
+        },
+      ]);
+    });
+
+    await waitFor(() => {
+      expect(result.current.activeLeafId).toBe("overview-block");
+      expect(result.current.activeChain).toEqual(["overview", "overview-block"]);
+    });
+
+    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "#overview-block");
   });
 
-  /**
-   * Regression test ensuring consumers can safely destructure
-   * the hook return value without defensive checks.
-   */
-  test("supports safe destructuring by consumers", () => {
-    const { result } = renderHook(() => useScrollSpyWithHistory([]));
+  // Test case: when markProgrammaticScroll is called, the hook should immediately update the active chain without waiting for the observer callback.
+  it("marks a programmatic scroll immediately without waiting for the observer", async () => {
+    const { nodes, byId } = buildSectionTree([{ id: "summary", blocks: [] }]);
+    const { result } = renderHook(() => useScrollSpyWithHistory(nodes, byId));
 
-    // Mirrors the destructuring pattern that previously caused crashes
-    const { activeId, markProgrammaticScroll } = result.current;
+    await act(async () => {
+      result.current.markProgrammaticScroll("summary");
+    });
 
-    expect(activeId).toBeNull();
-    expect(typeof markProgrammaticScroll).toBe("function");
+    await waitFor(() => {
+      expect(result.current.activeLeafId).toBe("summary");
+      expect(result.current.activeChain).toEqual(["summary"]);
+    });
   });
 });

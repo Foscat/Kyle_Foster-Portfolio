@@ -1,12 +1,9 @@
 import { useEffect } from "react";
+import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import Data from "assets/data/pageMetas";
-import { restoreScrollPosition } from "navigation/restoreScrollPosition";
-import SectionRegistryProvider from "navigation/SectionRegistryProvider";
-import PageHeader from "components/PageHeader";
-import StickyNav from "components/StickyNav";
-import SectionRenderer from "components/SectionRenderer";
-import StickySectionNav from "components/StickySectionNav";
-import Footer from "components/Footer";
+import { PageHeader } from "components/layout";
+import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { SectionRenderer } from "components/renderers";
 
 const smu = Data.Smu;
 
@@ -22,7 +19,7 @@ const smu = Data.Smu;
  */
 const Smu = () => {
   useEffect(() => {
-    restoreScrollPosition();
+    helpers.restoreScrollPosition();
   }, []);
 
   return (
@@ -39,7 +36,7 @@ const Smu = () => {
         <div className="page-layout">
           <main className="page-content app-main" role="main">
             {smu.sections.map((sect, i) => {
-              return <SectionRenderer section={sect} key={"smu-section-" + (i + 1)} />;
+              return <SectionRenderer section={sect} key={`rt-${sect.id}-${i}`} />;
             })}
           </main>
           <aside className="page-sidebar">

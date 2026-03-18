@@ -1,5 +1,8 @@
-/** ResponsiveContext.js
+/**
+ * @file ResponsiveContext.js
+ * @description Provides a React context for responsive design, allowing components to access viewport size and device type information.
  */
+
 import { createContext, useContext } from "react";
 
 export const ResponsiveContext = createContext(null);

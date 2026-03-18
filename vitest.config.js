@@ -20,7 +20,7 @@ export default defineConfig({
     globals: true,
     setupFiles: "./src/tests/setupTests.js",
 
-    exclude: ["playwright/**", "docs/**.*", "node_modules/**", "**/*.spec.ts", "**/*.spec.js"],
+    exclude: ["playwright/**.*", "docs/**.*", "node_modules/**", "**/*.spec.ts", "**/*.spec.js"],
 
     coverage: {
       provider: "v8",

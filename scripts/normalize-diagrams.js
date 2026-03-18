@@ -17,10 +17,31 @@
  */
 
 /**
- * Normalizes Mermaid diagram source for consistent linting.
+ * @function normalizeMermaidSource
+ * @description Normalizes Mermaid diagram source for consistent linting.
  * This function ensures:
  * - Proper newline after init block
  * - Blank line after diagram declaration
+ * - Consistent line endings
+ * - Trims leading whitespace
+ * This is a best-effort normalization to improve linting consistency.
+ * It does NOT attempt to fully parse or validate Mermaid syntax.
+ * It simply applies common formatting fixes to reduce false positives in linters.
+ * @param {string} source - The raw Mermaid diagram source string.
+ * @returns {string} The normalized Mermaid diagram source string.
+ * @example
+ * ```js
+ * const source = `%%{init: {"theme": "dark"}}%%
+ * graph TD
+ * A --> B
+ * `;
+ * const normalized = normalizeMermaidSource(source);
+ * console.log(normalized);
+ * // Output:
+ * // %%{init: {"theme": "dark"}}%%
+ * // graph TD
+ * // A --> B
+ * ```
  */
 function normalizeMermaidSource(source) {
   if (typeof source !== "string") return source;
@@ -52,7 +73,29 @@ function normalizeMermaidSource(source) {
 }
 
 /**
- * Normalizes a diagram collection into an array.
+ * @function normalizeDiagrams
+ * @description Normalizes a diagram collection into a consistent array format.
+ * Supports both object maps and legacy arrays. Applies Mermaid source normalization.
+ * This function is designed to be flexible and forgiving, allowing for various input shapes while ensuring a predictable output structure for downstream processing.
+ * @param {object|array} input - The raw diagram collection, either as an object map or an array.
+ * @returns {array} An array of normalized diagram entries, each with a consistent structure.
+ * @example
+ * ```js
+ * // Object map input
+ * const diagramsMap = {
+ * "diagram1": { diagram: "graph TD\nA --> B" },
+ * "diagram2": { diagram: "graph LR\nC --> D" }
+ * };
+ * const normalizedFromMap = normalizeDiagrams(diagramsMap);
+ * console.log(normalizedFromMap);
+ * // Output:
+ * // [
+ * //   { key: "diagram1", diagram: "graph TD\nA --> B" },
+ * //   { key: "diagram2", diagram: "graph LR\nC --> D" }
+ * // ]
+ *
+ * // Array input
+ * ```
  */
 export function normalizeDiagrams(input) {
   if (!input) return [];

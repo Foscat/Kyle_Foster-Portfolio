@@ -1,5 +1,5 @@
 import SMU from "pages/SMU";
-import smuSections from "assets/data/content/smuSections";
+import smuSections from "assets/data/content/smu";
 import { PageRoute } from "types/ui.types";
 import { createPageTests } from "tests/helpers/createPageTests";
 
@@ -34,6 +34,6 @@ import { createPageTests } from "tests/helpers/createPageTests";
 createPageTests({
   PageComponent: SMU,
   sections: smuSections,
-  pageRoute: PageRoute.SMU,
+  pageRoute: PageRoute.EDUCATION,
   pageName: "SMU",
 });

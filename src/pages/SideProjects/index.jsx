@@ -1,12 +1,9 @@
 import { useEffect } from "react";
-import { restoreScrollPosition } from "navigation/restoreScrollPosition";
-import SectionRegistryProvider from "navigation/SectionRegistryProvider";
-import Data from "assets/data/pageMetas";
-import PageHeader from "components/PageHeader";
-import StickyNav from "components/StickyNav";
-import SectionRenderer from "components/SectionRenderer";
-import Footer from "components/Footer";
-import StickySectionNav from "components/StickySectionNav";
+import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
+import Data from "assets/data/pageMetas.js";
+import { PageHeader } from "components/layout";
+import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { SectionRenderer } from "components/renderers";
 
 const sidePro = Data.SideProjects;
 
@@ -21,7 +18,7 @@ const sidePro = Data.SideProjects;
  */
 const SideProjects = () => {
   useEffect(() => {
-    restoreScrollPosition();
+    helpers.restoreScrollPosition();
   }, []);
 
   return (

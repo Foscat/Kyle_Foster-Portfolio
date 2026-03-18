@@ -6,8 +6,8 @@ import { normalizeDiagrams } from "./normalize-diagrams.js";
 const OUTPUT = path.resolve("docs/diagrams.json");
 
 /**
- * build-diagram-assets.js
- * ---------------------------------------------------------------------------
+ * @file build-diagram-assets.js
+ * @description
  * Post-processing script to generate a clean JSON file of diagrams for
  * runtime consumption.
  *
@@ -27,6 +27,18 @@ const OUTPUT = path.resolve("docs/diagrams.json");
  * IMPORTANT:
  * - This script should only be run after normalization, formatting, and linting
  * - It assumes input data is already clean and valid
+ * - Failures here should block documentation generation, as missing or malformed
+ *   diagram data would cause runtime errors in the app
+ * - This script does NOT perform any rendering or image generation; it only prepares
+ *   the JSON data for runtime use. Rendering is handled separately by `render-diagram-pngs.js`.
+ *
+ * @throws {Error}
+ *   Exits with non-zero status if any unexpected issues occur during processing.
+ */
+
+/**
+ * @function run
+ * @description Main execution function for building diagram assets.
  */
 function run() {
   const normalized = normalizeDiagrams(diagrams);

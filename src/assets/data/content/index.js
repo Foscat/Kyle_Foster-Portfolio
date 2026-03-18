@@ -1,17 +1,17 @@
-import codestreamSections from "./codestreamSections";
-import { diagrams } from "./diagrams";
-import hackathonSections from "./hackathonSections";
-import homeSections from "./homeSections";
-import pageMetas from "../pageMetas";
-import sideProjectsSections from "./sideprojectSections";
-import smuSections from "./smuSections";
+import codestreamSections from "./codestream";
+import contactSections from "./contact";
+import hackathonSections from "./hackathon";
+import homeSections from "./home";
+import sideProjectsSections from "./side-projects";
+import smuSections from "./smu";
+import diagrams from "./diagrams.js";
 
 export {
   codestreamSections,
-  diagrams,
+  contactSections,
   hackathonSections,
   homeSections,
-  pageMetas,
   sideProjectsSections,
   smuSections,
+  diagrams,
 };

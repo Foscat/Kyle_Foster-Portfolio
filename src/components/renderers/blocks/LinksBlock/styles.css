@@ -1,0 +1,20 @@
+/*  */
+
+.links-block__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.links-block a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-md);
+  color: var(--gold-400);
+  text-decoration: none;
+}
+
+.links-block a:hover {
+  text-decoration: none;
+}
