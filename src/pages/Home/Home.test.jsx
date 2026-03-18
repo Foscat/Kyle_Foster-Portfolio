@@ -1,5 +1,5 @@
 import Home from "pages/Home";
-import { homeSections } from "assets/data/content/homeSections";
+import homeSections from "assets/data/content/home";
 import { PageRoute } from "types/ui.types";
 import { createPageTests } from "tests/helpers/createPageTests";
 

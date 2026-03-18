@@ -1,10 +1,8 @@
-/* ============================================================
-   Portfolio Theme: Midnight Blue + Gold (Frosted Glass)
-   ------------------------------------------------------------
-   - Correct rgba(var(--*-rgb), a) usage (fixes "flat gray" look).
-   - Adds blue/gold glass gradients + subtle glows.
-   - Provides shared layout utilities to keep pages centered.
-   ============================================================ */
+/* 
+  @file App.css
+  @fileoverview Global CSS styles and design tokens for the portfolio application, including typography, color schemes, layout utilities, and theme variants. This file establishes the foundational styles and variables that are consumed by individual components to ensure a cohesive visual identity and responsive design across the entire app.
+  @module App.css
+ */
 
 /* ------------------------------------------------------------
    Font Imports
@@ -19,74 +17,57 @@
    ------------------------------------------------------------ */
 :root {
   /* Base neutrals (colors + rgb numbers) */
-  --white: rgb(255, 255, 255);
+  --white: rgba(255, 255, 255);
   --white-rgb: 255, 255, 255;
-
   --black: rgb(15, 15, 18);
   --black-rgb: 15, 15, 18;
-
   --deep-black: rgb(0, 0, 0);
   --deep-black-rgb: 0, 0, 0;
-
   --gray-100: rgb(245, 245, 247);
   --gray-100-rgb: 245, 245, 247;
-
   --gray-200: rgb(225, 225, 227);
   --gray-200-rgb: 225, 225, 227;
-
   --gray-300: rgb(209, 209, 214);
   --gray-300-rgb: 209, 209, 214;
-
   --gray-400: rgb(200, 200, 255);
   --gray-400-rgb: 200, 200, 255;
-
   --gray-500: rgb(142, 142, 147);
   --gray-500-rgb: 142, 142, 147;
-
   --gray-700: rgb(58, 58, 60);
   --gray-700-rgb: 58, 58, 60;
-
   --gray-900: rgb(28, 28, 30);
   --gray-900-rgb: 28, 28, 30;
 
   /* Brand blues (hex + rgb companions) */
   --primary-darkest: rgb(10, 16, 92);
   --primary-darkest-rgb: 10, 16, 92;
-
   --primary-dark: rgb(19, 26, 119);
   --primary-dark-rgb: 19, 26, 119;
-
   --primary: rgb(31, 39, 147);
   --primary-rgb: 31, 39, 147;
-
   --primary-light: rgb(58, 66, 165);
   --primary-light-rgb: 58, 66, 165;
-
   --primary-lighter: rgb(87, 94, 180);
   --primary-lighter-rgb: 87, 94, 180;
-
   --blue-500: rgb(37, 99, 235);
   --blue-500-rgb: 37, 99, 235;
-  --blue-700-rgb: rgb(30, 58, 138);
+  --blue-700: rgb(30, 58, 138);
   --blue-700-rgb: 30, 58, 138;
 
   /* Accent golds (hex + rgb companions) */
   --accent-dark: rgb(168, 137, 0);
   --accent-dark-rgb: 168, 137, 0;
-
-  --accent: #c9a227;
+  --accent: rgb(201, 162, 39);
   --accent-rgb: 201, 162, 39;
-
   --accent-light: rgb(230, 199, 103);
   --accent-light-rgb: 230, 199, 103;
-
   --gold-400: rgb(212, 175, 55);
   --gold-400-rgb: 212, 175, 55;
-  --gold-500: lab(59.22% 9.87 62.73);
+  --gold-500: rgb(184, 134, 11);
   --gold-500-rgb: 184, 134, 11;
 
   /* System */
-  --success: rgb(22, 163, 74);
+  --success: rgba(22, 163, 74);
   --success-dark: rgb(20, 120, 50);
   --success-rgb: 22, 163, 74;
   --warning: rgb(250, 204, 21);
@@ -97,16 +78,17 @@
   --error-rgb: 220, 38, 38;
   --error-light: rgb(248, 113, 113);
   --error-light-rgb: 248, 113, 113;
+  --ui_ux: rgb(155, 89, 182);
+  --ui_ux-rgb: 155, 89, 182;
 
   /* Typography scale */
-  --font-xxl: clamp(2.5rem, 1.5rem + 3vw, 5.625rem);
+  --font-xxl: clamp(2rem, 1.3rem + 2vw, 3.625rem);
   --font-xl: clamp(1.75rem, 1.2rem + 1.6vw, 3rem);
   --font-lg: clamp(1.5rem, 1.1rem + 1.2vw, 2.5rem);
-  --font-md: clamp(1.18rem, 1rem + 0.8vw, 1.5rem);
-  --font-sm: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);
-  --font-xs: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
-  --font-xxs: clamp(0.575rem, 0.6rem + 0.15vw, 0.8rem);
-
+  --font-md: clamp(1.18rem, 1rem + 0.9vw, 1.5rem);
+  --font-sm: clamp(1.05rem, 0.97rem + 0.7vw, 1.25rem);
+  --font-xs: clamp(0.89rem, 0.75rem + 0.5vw, 1rem);
+  --font-xxs: clamp(0.675rem, 0.6rem + 0.35vw, 0.8rem);
   --icon-xs: clamp(16px, 14px + 1vw, 20px);
   --icon-sm: clamp(24px, 20px + 1vw, 30px);
   --icon-md: clamp(32px, 28px + 1vw, 40px);
@@ -154,7 +136,6 @@
   --text-accent-light: rgba(var(--accent-light-rgb), 0.95);
   --text-error: rgba(var(--error-rgb), 0.9);
   --text-warning: rgba(var(--warning-rgb), 0.9);
-
   --bg-primary: var(--primary-dark);
   --bg-secondary: var(--gray-900);
   --bg-bright: var(--gray-100);
@@ -207,13 +188,11 @@
     rgba(var(--accent-dark-rgb), 0.24),
     rgba(var(--accent-rgb), 0) 52%
   );
-
   --blue-glow: radial-gradient(
     circle at 14% 28%,
     rgba(var(--primary-dark-rgb), 0.28),
     rgba(var(--primary-lighter-rgb), 0) 55%
   );
-
   --vignette: radial-gradient(
     ellipse at 50% 55%,
     rgba(var(--black-rgb), 0.2),
@@ -234,6 +213,7 @@
   --tablet-breakpoint: 1024;
   --sidebar-width: 350px;
   --sticky-header-height: 96px;
+
   /* adjust to StickyNav height */
 }
 
@@ -241,6 +221,7 @@ html {
   /* Smooth scrolling is an enhancement; keep it on the root scroller only. */
   scroll-behavior: smooth;
   height: 100%;
+
   /* Prevent minor sub-pixel overflow from causing horizontal scroll on mobile. */
   overflow-x: clip;
 }
@@ -255,32 +236,27 @@ html[data-theme="dark"] {
 
 html[data-theme="light"] {
   color-scheme: light;
+
   --text-primary: rgba(var(--black-rgb), 0.8);
   --text-secondary: rgba(var(--primary-dark-rgb), 0.7);
-
   --bg-primary: rgba(var(--gray-300-rgb), 0.75);
   --bg-secondary: rgba(var(--white-rgb), 0.75);
-
   --bg-elevated: rgba(var(--gray-100-rgb), 0.7);
   --frost-bg: rgba(var(--gray-100-rgb), 0.78);
   --glass-bg: rgba(var(--gray-100-rgb), 0.84);
   --glass-bg-strong: rgba(var(--gray-100-rgb), 0.92);
-
   --frost-border: rgba(var(--deep-black-rgb), 0.2);
   --glass-border: rgba(var(--deep-black-rgb), 0.34);
   --divider-color: rgba(var(--deep-black-rgb), var(--divider-opacity));
-
   --shadow-soft: 0 10px 40px rgba(var(--black-rgb), 0.12);
   --glass-shadow: 0 14px 60px rgba(var(--black-rgb), 0.14);
   --text-shadow: 0 0 16px rgba(var(--accent-rgb), 0.2);
-
   --bg-gradient: linear-gradient(
     145deg,
     rgba(var(--primary-lighter-rgb), 0.22),
     rgba(var(--primary-light-rgb), 0.1),
     rgba(var(--accent-rgb), 0.06)
   );
-
   --vignette: radial-gradient(
     ellipse at 50% 55%,
     rgba(var(--deep-black-rgb), 0.06),
@@ -303,31 +279,31 @@ html[data-theme="auto"] {
    Base Typography & Layout
    ------------------------------------------------------------ */
 body {
-  font-family:
-    "Lexend Deca",
-    "Heebo",
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    sans-serif;
+  margin: 0;
+  padding: 0;
   font-size: var(--font-md);
   line-height: 1.6;
   color: var(--text-primary);
+  font-family:
+    "Lexend Deca",
+    Heebo,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   background-color: var(--bg-primary);
-  margin: 0;
-  padding: 0;
   letter-spacing: 0.2px;
 
   /* Mobile-first viewport behavior
      -------------------------------------------------------------------------
      - 100vh is unstable on iOS Safari due to browser chrome resizing.
      - Prefer dynamic viewport units where available, with a safe fallback. */
-  min-height: 100vh;
   min-height: 100dvh;
 
   /* Prevent iOS Safari from auto-scaling text on rotation / zoom heuristics. */
   -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
 
   /* Reduce accidental horizontal scrolling on narrow devices. */
@@ -341,11 +317,11 @@ body.rs-drawer-open.rs-drawer-has-backdrop {
 
 /* Background layers: blue depth + gold accent + soft vignette */
 body::before {
-  content: "";
   position: fixed;
-  inset: 0;
-  background: var(--gold-glow), var(--blue-glow), var(--bg-gradient), var(--vignette);
   z-index: -1;
+  background: var(--gold-glow), var(--blue-glow), var(--bg-gradient), var(--vignette);
+  content: "";
+  inset: 0;
 }
 
 /* Root mount node should participate in the height contract.
@@ -361,7 +337,7 @@ body::before {
 h1,
 h2,
 h3 {
-  font-family: "Audiowide", cursive;
+  font-family: Audiowide, cursive;
   color: var(--text-accent);
   text-shadow: var(--text-shadow);
   margin-top: 0;
@@ -390,15 +366,15 @@ h4 {
 }
 
 p {
-  color: var(--text-primary);
   font-size: var(--font-sm);
+  color: var(--text-primary);
   font-family: var(--font-Lexend);
 }
 
 small,
 .muted {
-  color: var(--text-secondary);
   font-size: var(--font-sm);
+  color: var(--text-secondary);
   font-family: var(--font-Heebo);
 }
 
@@ -409,7 +385,6 @@ a {
   color: rgba(var(--accent-rgb), 0.98);
   text-decoration: none;
   transition: color var(--transition-speed) var(--easing-standard);
-  font-family: var(--font-Audiowide);
 }
 
 a:hover {
@@ -425,12 +400,12 @@ section[id],
    Frosted Glass Containers (shared)
    ------------------------------------------------------------ */
 .glass-card {
+  padding: 1.5rem 2rem;
   background: var(--bg-elevated);
+  border: 1px solid rgba(var(--white-rgb), 0.1);
+  border-radius: var(--border-radius);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border-radius: var(--border-radius);
-  padding: 1.5rem 2rem;
-  border: 1px solid rgba(var(--white-rgb), 0.1);
 }
 
 .frosted {
@@ -439,24 +414,23 @@ section[id],
   -webkit-backdrop-filter: var(--backdrop-blur);
   backdrop-filter: var(--backdrop-blur);
   border-radius: var(--radius-xl);
-  /* padding: 2rem; */
 }
 
 .frosted-tile {
-  background: var(--glass-bg);
-  border-radius: var(--radius-sm);
-  border: var(--frost-border);
   padding: 1rem;
   color: var(--text-blue);
+  background: var(--glass-bg);
+  border: var(--frost-border);
+  border-radius: var(--radius-sm);
 }
 
 .blue-tile {
-  background: var(--bg-gradient);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  border: 1px solid rgba(var(--white-rgb), 0.12);
-  color: var(--text-primary);
   margin: 0.5rem 0;
+  padding: 1.5rem;
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  border: 1px solid rgba(var(--white-rgb), 0.12);
+  border-radius: var(--radius-lg);
 }
 
 .block-header {
@@ -483,15 +457,16 @@ section[id],
 
 .block-subtitle {
   margin: 0 0 1rem;
+  font-weight: 400;
   font-size: var(--font-md);
   color: var(--text-secondary);
 }
 
 .block-divider {
-  margin: var(--divider-spacing) 0;
-  border: none;
   height: var(--divider-thickness);
+  margin: var(--divider-spacing) 0;
   background: var(--divider-color);
+  border: none;
 }
 
 /* ------------------------------------------------------------
@@ -520,10 +495,10 @@ section[id],
 .modal-embed {
   width: min(1100px, 100%);
   height: min(75dvh, 900px);
+  background: rgba(var(--black-rgb), 0.25);
   border: 0;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
-  background: rgba(var(--black-rgb), 0.25);
   overflow: hidden;
 }
 
@@ -561,6 +536,7 @@ section[id],
      - Avoid `contain: content` here: containment can interfere with sticky
        descendants and creates surprising clipping/stacking behavior. */
   width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
+
   /* margin-inline: auto; */
 }
 
@@ -572,13 +548,14 @@ section[id],
   /* Mobile-first page layout: single column by default.
      Desktop/tablet enhancements are layered via min-width queries below. */
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--page-gap);
   align-items: start;
+  width: 100%;
+
   /* critical: prevents uneven grid stretch */
   margin: 0;
   padding: 0 15px;
-  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--page-gap);
 }
 
 .page-content {
@@ -591,8 +568,8 @@ section[id],
      The mobile layout treats navigation as in-flow content unless the
      component chooses a mobile-specific affordance (drawer/sheet/etc.). */
   position: static;
-  height: auto;
   width: 100%;
+  height: auto;
 }
 
 /* Text alignment helpers */
@@ -611,8 +588,8 @@ section[id],
 /* Vertical centering */
 .center-v {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   margin: auto;
 }
 
@@ -794,9 +771,9 @@ section[id],
    ------------------------------------------------------------ */
 nav,
 footer {
-  background-color: rgba(var(--primary-darkest-rgb), 0.6);
-  color: var(--text-secondary);
   padding: 1rem var(--page-gutter);
+  color: var(--text-secondary);
+  background-color: rgba(var(--primary-darkest-rgb), 0.6);
   border-top: var(--glass-border);
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
@@ -808,16 +785,17 @@ footer {
 
 /* Layout breakpoint: enable a persistent sidebar only when there's real lateral space.
    900px is a pragmatic threshold that covers tablets in landscape and desktops. */
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .page-layout {
     grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
   }
 
   .page-sidebar {
     position: relative;
+    width: 100%;
+
     /* establishes a stable context for sticky descendants */
     height: 100%;
-    width: 100%;
     padding: 0 15px;
   }
 
@@ -830,13 +808,13 @@ footer {
   }
 }
 
-@media (max-width: 850px) {
+@media (width <= 850px) {
   :root {
     --sticky-header-height: 72px;
   }
 }
 
-@media (max-width: 700px) {
+@media (width <= 700px) {
   .frosted .glass-card,
   .frosted,
   .blue-tile {
@@ -844,7 +822,7 @@ footer {
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   /* Smartphone ergonomics: reduce chrome padding and let buttons stretch. */
   nav,
   footer {

@@ -1,0 +1,178 @@
+/* ============================================================
+   AccordionList — Frosted UI + Accessibility
+   ============================================================ */
+
+.frosted-accordion {
+  padding: 1rem;
+}
+
+.fa_accordion-item {
+  border-bottom: var(--mini-dark);
+}
+
+.fa-accordion-content .rs-divider-horizontal {
+  margin: 12px 0 24px;
+}
+
+/* Header */
+.fa-accordion-header {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0;
+  font-weight: 500;
+  gap: 0.25rem;
+  font-size: var(--font-md);
+}
+
+/* Content */
+.fa-accordion-content {
+  padding-bottom: 0.75rem;
+  font-size: var(--font-sm);
+}
+
+/* Optional title is handled by Panel header */
+.block-key {
+  color: var(--text-accent);
+  margin-bottom: 0.5rem;
+  font-size: var(--font-sm);
+}
+
+/* Keyboard help hint */
+.fa-help {
+  margin: 0 0 0.5rem;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  opacity: 0.85;
+  text-align: center;
+}
+
+.fa-help kbd {
+  padding: 0.1rem 0.35rem;
+  background: rgba(var(--white-rgb), 0.08);
+  border: var(--mini-dark);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-xs);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* List container */
+.fa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-right: 4px;
+}
+
+/* Scrollbar styling */
+.fa-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.fa-list::-webkit-scrollbar-thumb {
+  background: rgba(var(--white-rgb), 0.2);
+  border-radius: var(--radius-sm);
+}
+
+/* Individual item */
+.fa-list-item {
+  padding: 0.75rem 1.5rem;
+  border: var(--frost-border);
+  border-radius: var(--radius-sm);
+}
+
+.fa-list-item.rs-panel .block-key {
+  font-size: var(--font-md);
+  font-weight: 600;
+}
+
+.fa-list-item .block-subkey {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+/* Hover */
+.fa-list-item:hover {
+  border-color: var(--glass-border);
+  cursor: pointer;
+}
+
+/* Open state */
+.fa-list-item.open {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Header row */
+.fa-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  outline: none; /* rely on custom focus styles */
+}
+
+/* Focus ring for keyboard users */
+.fa-left:focus-visible {
+  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-sm);
+}
+
+/* Text label */
+.fa-text {
+  font-size: var(--font-md);
+  color: var(--text-primary);
+  flex-grow: 1;
+}
+
+/* Icons */
+.fa-icon {
+  flex-shrink: 0;
+}
+
+/* Expand icon for chevron */
+.fa-expand-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.fa-list-item.open .fa-expand-icon {
+  transform: rotate(180deg);
+}
+
+/* When item represents a scroll link */
+.fa-link {
+  cursor: pointer;
+  color: var(--accent-light);
+}
+
+.fa-link:hover .fa-text {
+  color: var(--accent);
+}
+
+/* Content area of accordion */
+.fa-content {
+  padding: 0.85rem 1rem;
+  font-size: var(--font-md);
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--frost-bg);
+  border: var(--frost-border);
+  border-radius: var(--radius-sm);
+  margin-top: 0.75rem;
+}

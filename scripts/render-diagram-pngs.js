@@ -24,7 +24,7 @@ import fs from "fs";
 import path from "path";
 import mermaid from "mermaid";
 import { chromium } from "playwright";
-import diagrams from "../src/assets/data/diagrams.js";
+import diagrams from "../src/assets/data/content/diagrams.js";
 
 /* -------------------------------------------------------------------------- */
 /* Config                                                                     */
@@ -124,7 +124,7 @@ async function render() {
     const { id, diagram } = block;
     if (!diagram) continue;
 
-    console.log(`🖼️  Rendering ${id}.png`);
+    // console.log(`🖼️  Rendering ${id}.png`);
 
     /**
      * Inject diagram source into the DOM and trigger Mermaid rendering.

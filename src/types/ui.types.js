@@ -5,20 +5,14 @@
  * @module types/ui
  */
 
-// ============================================================================
-// UI Type System (JSDoc-based)
-// ---------------------------------------------------------------------------
-// This file is the single source of truth for:
-// - Runtime UI enums
-// - Shared data contracts (JSDoc typedefs)
-// - Callback signatures
-// - Default object factories
-//
-// IMPORTANT:
-// - JSDoc does NOT support indexed access types (Enum[keyof Enum])
-// - Therefore, shared typedefs use literal unions
-// - Components may still use Enum[keyof Enum] in their own JSDoc
-// ============================================================================
+import {
+  RichTextBlock,
+  ImageGalleryBlock,
+  LinksBlock,
+  CardGridBlock,
+  HeroBlock,
+} from "components/renderers";
+import { AccordionList, MermaidDiagram } from "../components/ui";
 
 /* ============================================================================
    ENUMS (RUNTIME VALUES)
@@ -62,17 +56,36 @@ export const Theme = Object.freeze({
 });
 
 /**
- * Feature block discriminator types
+ * Block types for feature sections
  * @readonly
  * @enum {string}
  */
 export const BlockType = Object.freeze({
+  HERO: "hero",
   RICH_TEXT: "richText",
   IMAGE_GALLERY: "imageGallery",
   DIAGRAM: "diagram",
   CARD_GRID: "cardGrid",
-  BULLETED_LIST: "bulletedList", // TODO: (deprecated - use RichText with ul/ol nodes instead)
+  BULLETED_LIST: "bulletedList",
   LINKS: "links",
+});
+
+/**
+ * Mapping of BlockType to corresponding React components responsible for rendering that block type.
+ * This serves as a central registry for block renderers, allowing feature sections to dynamically select the appropriate component based on the block's type.
+ * Each renderer component should accept props that align with the expected data structure for its corresponding BlockType.
+ * For example, the `MermaidDiagram` component should expect props that include Mermaid diagram definitions and descriptions, while the `ImageGalleryBlock` should expect an array of image metadata.
+ *
+ * Note:*When adding new block types, ensure to update both the BlockType enum and this mapping to include the new type and its renderer component.*
+ */
+export const BLOCK_RENDERERS = Object.freeze({
+  [BlockType.RICH_TEXT]: RichTextBlock,
+  [BlockType.IMAGE_GALLERY]: ImageGalleryBlock,
+  [BlockType.DIAGRAM]: MermaidDiagram,
+  [BlockType.CARD_GRID]: CardGridBlock,
+  [BlockType.BULLETED_LIST]: AccordionList,
+  [BlockType.LINKS]: LinksBlock,
+  [BlockType.HERO]: HeroBlock,
 });
 
 /**
@@ -93,20 +106,13 @@ export const PageRoute = Object.freeze({
    RSuite Constants
    ========================================================================= */
 
-/** */
-
 /**
- * TooltipPlacement
- * ---------------------------------------------------------------------------
- * Standardized placement options for RSuite Tooltip / Whisper components.
- *
- * These values map directly to RSuite's supported `placement` strings and
- * should be used instead of inline string literals to ensure consistency
- * and discoverability across the codebase.
- *
- * Reference:
- * RSuite Tooltip & Whisper placement API
- *
+ * @constant {Object} TooltipPlacement
+ * @description Standardized tooltip placement options for RSuite components.
+ * This enum provides a centralized reference for all tooltip placements used across the application, ensuring consistency and ease of maintenance.
+ * Each value corresponds to a valid placement option accepted by RSuite's tooltip components, allowing developers to use descriptive keys instead of hardcoding strings throughout the codebase.
+ * For example, instead of using "bottomStart" directly in a component, developers can use `TooltipPlacement.BOTTOM_START`, which improves readability and reduces the risk of typos.
+ * When adding new placements, simply include them in this enum to maintain a single source of truth for tooltip positioning.
  * @readonly
  * @enum {string}
  */
@@ -141,19 +147,12 @@ export const TooltipPlacement = Object.freeze({
 });
 
 /**
- * HoverAnimation
- * ---------------------------------------------------------------------------
- * Standardized hover animation behaviors for interactive UI elements.
- *
- * This enum defines *intent*, not implementation. Components map these
- * values to approved motion patterns (e.g. translate, shadow, none).
- *
- * Design constraints enforced by this enum:
- * - No scale-based hover animations
- * - No blur animation
- * - No fast (<180ms) transitions
- * - Hover applies only to intentful interactive elements
- *
+ * @constant {Object} AccordionVariants
+ * @description Standardized variant options for accordion components.
+ * This enum provides a centralized reference for all accordion variants used across the application, ensuring consistency in styling and behavior.
+ * Each value corresponds to a specific visual style or behavior pattern for accordion components, allowing developers to use descriptive keys instead of hardcoding strings throughout the codebase.
+ * For example, instead of using "default" directly in a component, developers can use `AccordionVariants.DEFAULT`, which improves readability and reduces the risk of typos.
+ * When adding new variants, simply include them in this enum to maintain a single source of truth for accordion styling options.
  * @readonly
  * @enum {string}
  */
@@ -397,6 +396,7 @@ export const createRichTextBlock = (block) => ({
  * @returns {DiagramBlock}
  */
 export const createDiagramBlock = (block) => ({
+  ...block,
   type: BlockType.DIAGRAM,
   id: block.id || "",
   title: block.title || "",
@@ -406,7 +406,6 @@ export const createDiagramBlock = (block) => ({
   theme: block.theme || Theme.AUTO,
   description: block.description || "",
   collapsible: block.collapsible || false,
-  ...block,
 });
 
 /**
@@ -483,6 +482,36 @@ export const createLinkListBlock = (block) => ({
   links: Array.isArray(block.links)
     ? block.links.map((link, index) => createBulletItem(link, index))
     : [],
+});
+
+/**
+ * Create a default HeroBlock
+ * @param {Partial<HeroBlock>} block - Hero block properties.
+ * @returns {HeroBlock}
+ */
+export const createHeroBlock = (block) => ({
+  ...block,
+  type: BlockType.HERO,
+  id: block.id || "",
+  title: block.title || "",
+  subtitle: block.subtitle || "",
+  backgroundImage: block.backgroundImage || null,
+  cta: block.cta || null,
+});
+
+/**
+ * Create a default FormBlock
+ * @param {Partial<FormBlock>} block - Form block properties.
+ * @returns {FormBlock}
+ */
+export const createFormBlock = (block) => ({
+  ...block,
+  type: BlockType.FORM,
+  id: block.id || "",
+  title: block.title || "",
+  fields: block.fields || [],
+  submitText: block.submitText || "Submit",
+  onSubmit: block.onSubmit || (() => {}),
 });
 
 /**

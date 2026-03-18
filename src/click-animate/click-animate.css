@@ -34,10 +34,8 @@
   /* ------------------------------------------------------------
      Shadows (glass-friendly, layered)
      ------------------------------------------------------------ */
-  --shadow-base: 0 0 0 rgba(0, 0, 0, 0);
-
+  --shadow-base: 0 0 0 rgba(0, 0, 0, 0%);
   --shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
-
   --shadow-active: 0 6px 18px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2);
 
   /* ------------------------------------------------------------
@@ -69,12 +67,10 @@
   transition-delay: var(--motion-default);
   transform: translateY(var(--lift-base));
   box-shadow: var(--shadow-base);
-
   transition:
     transform var(--motion-default) var(--ease-standard),
     box-shadow var(--motion-default) var(--ease-standard),
     filter var(--motion-default) linear;
-
   will-change: transform, box-shadow;
 }
 
@@ -107,7 +103,6 @@
   transform: translateY(var(--lift-base));
   box-shadow: var(--shadow-base);
   filter: brightness(1);
-
   transition-duration: var(--motion-press);
   transition-timing-function: var(--ease-press);
 }
@@ -120,14 +115,13 @@
 .interactive-surface.size-sm {
   --lift-hover: -4px;
   --lift-active: -2px;
-
   --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.28), 0 1px 4px rgba(0, 0, 0, 0.2);
-
   --shadow-active: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* ---------------- Medium (Default) ---------------- */
-/**.interactive-surface.size-md {
+
+/** .interactive-surface.size-md {
    Uses root defaults
 } */
 
@@ -135,9 +129,7 @@
 .interactive-surface.size-lg {
   --lift-hover: -8px;
   --lift-active: -4px;
-
   --shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.3);
-
   --shadow-active: 0 8px 22px rgba(0, 0, 0, 0.32);
 }
 
@@ -149,15 +141,12 @@
   --lift-hover: -3px;
   --lift-active: -1.5px;
   --motion-default: 140ms;
-
   --shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.3);
-
   --shadow-active: 0 2px 6px rgba(0, 0, 0, 0.25);
 
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-
+  align-items: center;
   border-radius: 0.5rem;
 }
 
@@ -212,11 +201,9 @@
 .interactive-surface:disabled {
   cursor: not-allowed;
   pointer-events: none;
-
   transform: none;
   box-shadow: none;
   filter: grayscale(0.2) brightness(0.9);
-
   transition: none;
 }
 
@@ -226,8 +213,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .interactive-surface {
-    transition: none;
     transform: none;
+    transition: none;
   }
 
   .interactive-surface:hover,

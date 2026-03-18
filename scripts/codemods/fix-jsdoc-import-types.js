@@ -25,6 +25,13 @@
  * - Leaves source unchanged if no safe replacement is found
  */
 
+/**
+ * @function fixJsdocImportTypes
+ * @description Codemod function that rewrites unsupported JSDoc `import()` type references into plain type identifiers.
+ * @param {*} file - The file object provided by `jscodeshift`, containing the source code to be transformed.
+ * @param {*} api - The `jscodeshift` API object, used for AST manipulation.
+ * @returns {string} The transformed source code with fixed JSDoc import types.
+ */
 const fixJsdocImportTypes = (file, api) => {
   /* eslint-disable no-unused-vars */
   const j = api.jscodeshift;

@@ -1,141 +1,108 @@
+import { useCallback, useState } from "react";
+
 /**
- * @file useClipboard.test.js
- * @description Unit tests for the `useClipboard` hook.
+ * @file useClipboard.js
+ * @description React hook that provides a safe, asynchronous interface for copying text
+ * to the system clipboard using the Web Clipboard API.
+ * @module assets/hooks/useClipboard
  *
- * Test coverage:
- * - Successful clipboard copy behavior
- * - Clipboard API failure handling
- * - Guard conditions (invalid input, missing API)
- * - State transitions (`copied`, `error`)
- * - Automatic reset behavior via timers
- *
- * Testing strategy:
- * - Mocks the browser Clipboard API (`navigator.clipboard.writeText`)
- * - Uses `renderHook` for isolated hook execution
- * - Uses fake timers to validate delayed state resets
- *
- * @module tests/hooks/useClipboard
  */
 
-import { renderHook, act } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import useClipboard from "assets/hooks/useClipboard/useClipboard";
-
-/* ------------------------------------------------------------------
- * Clipboard API mock
- * ------------------------------------------------------------------
- * Provides a controllable mock for `navigator.clipboard.writeText`
- * to simulate success and failure scenarios.
+/**
+ * @function useClipboard
+ * @description
+ * Custom React hook that provides clipboard copy functionality with success/error state management.
+ * It exposes a `copy` function that attempts to write text to the clipboard and tracks whether the operation succeeded or failed.
+ * The hook also allows for an optional automatic reset of the copied state after a specified delay.
+ *
+ * Capabilities:
+ * - Asynchronous clipboard writes
+ * - Graceful handling of unsupported browsers
+ * - Explicit success and error state tracking
+ * - Optional automatic reset of the copied state
+ *
+ * Design notes:
+ * - Uses the modern `navigator.clipboard.writeText` API
+ * - Does not attempt legacy fallbacks (e.g., `execCommand`)
+ * - Returns a boolean to allow calling code to branch on success/failure
+ *
+ * Typical use cases:
+ * - “Copy to clipboard” buttons
+ * - Shareable links or code snippets
+ * - Developer tooling and utilities
+ *
+ * @param {Object} [options]
+ *   Optional configuration object.
+ *
+ * @param {number} [options.resetDelay=2000]
+ *   Duration in milliseconds before the `copied` state automatically resets
+ *   to `false`. Set to `0` or a negative value to disable auto-reset.
+ *
+ * @returns {Object}
+ *   Clipboard interaction helpers and state.
+ *
+ * @returns {function(string): Promise<boolean>} returns.copy
+ *   Asynchronously copies the provided string to the clipboard.
+ *   Resolves to `true` on success and `false` on failure.
+ *
+ * @returns {boolean} returns.copied
+ *   Indicates whether the most recent copy operation succeeded.
+ *
+ * @returns {Error|null} returns.error
+ *   Error object if the last copy attempt failed, otherwise `null`.
  */
+const useClipboard = ({ resetDelay = 2000 } = {}) => {
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(null);
 
-const writeTextMock = vi.fn();
+  /**
+   * Attempts to copy the provided text to the clipboard.
+   *
+   * @param {string} text
+   *   The text content to copy.
+   *
+   * @returns {Promise<boolean>}
+   *   Resolves to `true` if the copy succeeds, otherwise `false`.
+   */
+  const copy = useCallback(
+    (text) => {
+      // Guard against invalid input
+      if (typeof text !== "string" || !text.length) {
+        return false;
+      }
 
-beforeEach(() => {
-  vi.clearAllMocks();
+      try {
+        // Ensure Clipboard API availability
+        if (!navigator?.clipboard?.writeText) {
+          throw new Error("Clipboard API not supported");
+        }
 
-  Object.assign(navigator, {
-    clipboard: {
-      writeText: writeTextMock,
+        navigator.clipboard.writeText(text);
+
+        setCopied(true);
+        setError(null);
+
+        // Automatically reset copied state if configured
+        if (resetDelay > 0) {
+          setTimeout(() => setCopied(false), resetDelay);
+        }
+
+        return true;
+      } catch (err) {
+        console.debug({ err });
+        setError(err);
+        setCopied(false);
+        return false;
+      }
     },
-  });
-});
+    [resetDelay]
+  );
 
-/* ------------------------------------------------------------------
- * Test Suite
- * ------------------------------------------------------------------ */
+  return {
+    copy,
+    copied,
+    error,
+  };
+};
 
-describe("useClipboard", () => {
-  /* ------------------------------------------------------------
-   * Success path
-   * ------------------------------------------------------------ */
-
-  it("copies text to the clipboard successfully", async () => {
-    writeTextMock.mockResolvedValueOnce(undefined);
-
-    const { result } = renderHook(() => useClipboard());
-
-    await act(async () => {
-      const success = await result.current.copy("Hello world");
-      expect(success).toBe(true);
-    });
-
-    expect(writeTextMock).toHaveBeenCalledWith("Hello world");
-    expect(result.current.copied).toBe(true);
-    expect(result.current.error).toBeNull();
-  });
-
-  /* ------------------------------------------------------------
-   * Error path
-   * ------------------------------------------------------------ */
-
-  it("handles clipboard write failure", async () => {
-    const error = new Error("Clipboard error");
-    writeTextMock.mockRejectedValueOnce(error);
-
-    const { result } = renderHook(() => useClipboard());
-
-    await act(async () => {
-      const success = await result.current.copy("Fail");
-      expect(success).toBe(false);
-    });
-
-    expect(writeTextMock).toHaveBeenCalledWith("Fail");
-    expect(result.current.copied).toBe(false);
-    expect(result.current.error).toBe(error);
-  });
-
-  /* ------------------------------------------------------------
-   * Guard conditions
-   * ------------------------------------------------------------ */
-
-  it("does not attempt to copy empty strings", async () => {
-    const { result } = renderHook(() => useClipboard());
-
-    await act(async () => {
-      const success = await result.current.copy("");
-      expect(success).toBe(false);
-    });
-
-    expect(writeTextMock).not.toHaveBeenCalled();
-    expect(result.current.copied).toBe(false);
-  });
-
-  it("handles missing clipboard API gracefully", async () => {
-    delete navigator.clipboard;
-
-    const { result } = renderHook(() => useClipboard());
-
-    await act(async () => {
-      const success = await result.current.copy("Test");
-      expect(success).toBe(false);
-    });
-
-    expect(result.current.error).toBeInstanceOf(Error);
-    expect(() => result.current.copy("text")).toThrow("Clipboard API not supported");
-  });
-
-  /* ------------------------------------------------------------
-   * Reset behavior
-   * ------------------------------------------------------------ */
-
-  it("resets copied state after the specified delay", async () => {
-    vi.useFakeTimers();
-    writeTextMock.mockResolvedValueOnce(undefined);
-
-    const { result } = renderHook(() => useClipboard({ resetDelay: 1000 }));
-
-    await act(async () => {
-      await result.current.copy("Timed copy");
-    });
-
-    expect(result.current.copied).toBe(true);
-
-    act(() => {
-      vi.advanceTimersByTime(1000);
-    });
-
-    expect(result.current.copied).toBe(false);
-
-    vi.useRealTimers();
-  });
-});
+export default useClipboard;

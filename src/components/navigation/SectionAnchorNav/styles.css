@@ -1,0 +1,109 @@
+/* ============================================================
+   SectionAnchorNav — Sticky Navigation System
+   ============================================================ */
+
+.san-container {
+  position: sticky;
+  top: 10rem;
+
+  /* Desktop only */
+  display: none;
+  height: fit-content;
+  border-radius: var(--glass-border);
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-bottom: 3rem;
+  background-color: var(--glass-bg);
+  box-shadow: var(--glass-shadow);
+}
+
+@media (width >= 992px) {
+  .san-container {
+    display: block;
+  }
+}
+
+/* ------------------------------------------------------------
+   Mobile FAB toggle button
+   ------------------------------------------------------------ */
+.san-mobile-toggle {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 9000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  cursor: pointer;
+}
+
+.san-mobile-toggle:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+/* ------------------------------------------------------------
+   Mobile drawer overlay
+   ------------------------------------------------------------ */
+.san-mobile-overlay {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  background: rgb(0 0 0 / 55%);
+  inset: 0;
+  -webkit-backdrop-filter: var(--slight-blur);
+  backdrop-filter: var(--slight-blur);
+}
+
+.san-mobile-drawer {
+  width: 82%;
+  max-width: 380px;
+  height: 100%;
+  overflow-y: auto;
+  animation: san-slideIn 0.35s ease forwards;
+}
+
+@keyframes san-slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+/* ------------------------------------------------------------
+   Mobile drawer header
+   ------------------------------------------------------------ */
+.san-mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.san-close-btn {
+  color: var(--accent-light);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+   Desktop accordion wrapper
+   ------------------------------------------------------------ */
+.san-accordion {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+}

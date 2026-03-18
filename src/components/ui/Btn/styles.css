@@ -1,0 +1,201 @@
+/* ============================================================
+   Frosted Glass Button — Core Styles (Updated)
+   ============================================================ */
+
+.rs-btn.btn.interactive-surface,
+.rs-panel-btn.interactive-surface {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent-dark);
+  background: var(--frost-bg);
+  border: 1px solid var(--frost-border);
+  border-radius: var(--border-radius);
+  gap: var(--mobile-gap);
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-soft);
+}
+
+/* ------------------------------------------------------------
+   RSuite IconButton Normalization
+------------------------------------------------------------ */
+.rs-btn.btn.interactive-surface > .rs-btn-icon,
+.rs-btn.btn.interactive-surface > .rs-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  justify-self: center;
+}
+
+/* ------------------------------------------------------------
+   Icon-only Mode
+------------------------------------------------------------ */
+.rs-btn.btn.interactive-surface.icon-only {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.rs-btn.btn.interactive-surface.icon-only .frosted-icon {
+  margin: 0;
+}
+
+.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+  padding: 6px 10px 6px 8px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   Size Variants (sync Btn + FrostedIcon)
+------------------------------------------------------------ */
+.rs-btn.btn.btn-xs.interactive-surface {
+  font-size: var(--font-xs);
+}
+
+.rs-btn.btn.btn-sm.interactive-surface {
+  font-size: var(--font-sm);
+}
+
+.rs-btn.btn.btn-md.interactive-surface {
+  font-size: var(--font-md);
+}
+
+.rs-btn.btn.btn-lg.interactive-surface {
+  font-size: var(--font-lg);
+}
+
+.rs-btn.btn.btn-xl.interactive-surface {
+  font-size: var(--font-xl);
+}
+
+/* ------------------------------------------------------------
+   Disabled
+------------------------------------------------------------ */
+.rs-btn.btn.interactive-surface:disabled,
+.icon.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(30%);
+}
+
+/* ============================================================
+   Variant Styles (mapped to Variant enum)
+   ============================================================ */
+
+.rs-btn.btn.interactive-surface.primary {
+  color: var(--accent);
+  border: var(--frost-border);
+  background-color: var(--frost-bg);
+}
+
+.rs-btn.btn.interactive-surface.primary:hover:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface.primary:active:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface.primary:focus {
+  background-color: var(--glass-bg);
+  border-color: var(--glass-border);
+  box-shadow: var(--shadow-accent);
+  color: var(--accent-dark);
+}
+
+.rs-btn.btn.interactive-surface.secondary {
+  color: var(--text-primary);
+  border: var(--fb-TL);
+  background-color: var(--primary-darker-bg);
+  box-shadow: var(--tile-shadow);
+}
+
+.rs-btn.btn.interactive-surface.secondary:hover:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface.secondary:active:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface.secondary:focus {
+  color: var(--text-secondary);
+  border: var(--frost-border);
+  background-color: var(--frost-bg);
+}
+
+.rs-btn.btn.interactive-surface.accent {
+  color: var(--primary-dark);
+  border: var(--accent-border);
+  background-color: var(--accent-bg);
+}
+
+.rs-btn.btn.interactive-surface.accent:hover:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface.accent:active:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface.accent:focus {
+  color: var(--text-secondary);
+  border: var(--accent-dark-border);
+  background-color: var(--accent-bg-dark);
+}
+
+.rs-btn.btn.interactive-surface.subtle {
+  color: var(--text-primary);
+  border: 1px solid rgb(var(--white-rgb), 0.18);
+  background-color: rgb(var(--white-rgb), 0.08);
+}
+
+.rs-btn.btn.interactive-surface.danger {
+  color: var(--error);
+  border: 1px solid rgb(var(--error-rgb), 0.45);
+  background-color: rgb(var(--error-rgb), 0.25);
+}
+
+.rs-btn.btn.interactive-surface.btn-noBG,
+.rs-btn.btn.interactive-surface.noBG {
+  background: none;
+  border: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.rs-btn.btn.interactive-surface.not-clickable:hover .not-clickable:hover {
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   Loading
+   ============================================================ */
+
+.rs-btn.btn.interactive-surface.loading {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* ============================================================
+   Tooltip Overrides
+   ============================================================ */
+.btn-tooltip {
+  padding: 4px 8px;
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  border-radius: 4px;
+  background-color: var(--primary-dark-bg);
+}
+
+/* ============================================================
+    Hover & Active States (Desktop Only)
+      - Overrides RSuite's default hover/active styles for buttons
+      - Ensures consistent behavior across all variants
+   ============================================================ */
+@media screen and (width >= 900px) {
+  .rs-btn.btn.interactive-surface.interactive-surface:hover,
+  .rs-btn.btn.interactive-surface.interactive-surface:hover .rs-icon.btn-icon,
+  a:hover
+    .rs-btn.btn.interactive-surface.interactive-surface
+    .rs-btn.btn.interactive-surface.accent:active:not(:disabled, .loading),
+  .rs-btn.btn.interactive-surface.primary:active:not(:disabled, .loading),
+  .rs-btn.btn.interactive-surface.secondary:active:not(:disabled, .loading),
+  .rs-btn.btn.interactive-surface:active:not(:disabled, .loading) {
+    transform: none;
+    text-decoration: none;
+  }
+}

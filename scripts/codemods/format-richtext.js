@@ -1,3 +1,28 @@
+/**
+ * @function formatRichText
+ * @description Cleans and formats a rich text node tree by:
+ * - Trimming whitespace from text nodes (end only)
+ * - Removing empty text nodes
+ * - Merging adjacent text nodes into single nodes
+ * - Recursively applying the same logic to child nodes
+ *
+ * This function is designed to be idempotent and can be safely re-run on already formatted rich text structures.
+ * It does not modify the structure of non-text nodes, but it will clean their children if they exist.
+ *
+ * @param {Array} nodes - An array of rich text nodes to be processed.
+ * @return {Array} A new array of cleaned and formatted rich text nodes.
+ * @example
+ * ```js
+ * const input = [
+ *   { type: "text", text: "  Hello " },
+ *   { type: "text", text: "World  " },
+ *   { type: "text", text: "   " },
+ *   { type: "element", children: [
+ *     { type: "text", text: "  Nested " },
+ *     { type: "text", text: "Text  " }
+ *   ]}
+ * ];
+ */
 export default function formatRichText(nodes) {
   if (!Array.isArray(nodes)) return nodes;
 
