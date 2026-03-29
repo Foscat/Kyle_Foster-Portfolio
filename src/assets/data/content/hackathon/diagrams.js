@@ -1,10 +1,13 @@
-import { BlockType } from "types/ui.types";
-import { diagramConfig, resolveDiagram, diagram } from "components/features/CustomDiagram/core";
+import {
+  diagramConfig,
+  resolveDiagram,
+  diagram,
+} from "../../../../components/features/CustomDiagram/core/index.js";
 
 const diagrams = {
   repairWorkflow: {
     id: "diagram-hands-free-repair-workflow",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Hands-Free Repair Workflow",
     mobile: {
       diagram: diagram(
@@ -116,7 +119,7 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
   },
   voiceCommands: {
     id: "diagram-voice-command-lifecycle",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Voice Command Lifecycle",
     mobile: {
       diagram: diagram(

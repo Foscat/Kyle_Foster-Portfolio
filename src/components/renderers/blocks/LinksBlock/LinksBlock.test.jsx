@@ -1,9 +1,17 @@
 import React from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "tests/renderWithProviders";
 import LinksBlock from ".";
+
+vi.mock("components/ui", async () => {
+  const actual = await vi.importActual("components/ui");
+  return {
+    ...actual,
+    Btn: ({ href, text }) => <a href={href}>{text}</a>,
+  };
+});
 
 /**
  * @file LinksBlock.test.jsx
@@ -34,7 +42,7 @@ describe("LinksBlock", () => {
   it("renders nothing if links are missing", () => {
     renderWithProviders(
       <div data-testid="root">
-        <LinksBlock links={null} />
+        <LinksBlock items={null} />
       </div>
     );
 
@@ -48,9 +56,9 @@ describe("LinksBlock", () => {
   it("renders a list of links", () => {
     renderWithProviders(
       <LinksBlock
-        links={[
-          { label: "GitHub", url: "https://github.com" },
-          { label: "Website", url: "https://example.com" },
+        items={[
+          { title: "GitHub", url: "https://github.com" },
+          { title: "Website", url: "https://example.com" },
         ]}
       />
     );

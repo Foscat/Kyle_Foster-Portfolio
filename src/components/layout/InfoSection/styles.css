@@ -24,6 +24,11 @@
 section.info-section .rs-panel-header .rs-panel-btn:hover .rs-icon.rs-panel-btn-icon {
   font-size: var(--icon-sm);
   color: var(--accent-dark);
+  border: var(--bubble-border);
+}
+
+section.info-section.section-renderer .rs-panel {
+  margin: 5px 0;
 }
 
 /* Title area */
@@ -31,6 +36,19 @@ section.info-section .rs-panel-header .rs-panel-btn:hover .rs-icon.rs-panel-btn-
   margin-bottom: 25px;
   display: flex;
   flex-direction: column;
+}
+
+.info-section-tag {
+  align-self: center;
+  margin-bottom: 0.5rem;
+  padding: 0.18rem 0.6rem;
+  border: 1px solid rgb(var(--white-rgb), 0.18);
+  border-radius: 999px;
+  font-size: var(--font-xxs);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: rgb(var(--black-rgb), 0.18);
 }
 
 .title-wrapper {
@@ -124,7 +142,7 @@ section.info-section .rs-panel-header .rs-panel-btn:hover .rs-icon.rs-panel-btn-
 .info-section p {
   margin: 0;
   line-height: 1.6;
-  color: rgb(var(--white-rgb), 0.85);
+  color: var(--text-primary);
 }
 
 .info-section span.nodeLabel p {

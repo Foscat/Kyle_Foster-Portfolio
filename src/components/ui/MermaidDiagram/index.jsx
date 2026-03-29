@@ -1,13 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import mermaid from "mermaid";
 import { toPng } from "html-to-image";
 import { Panel } from "rsuite";
 import { faEye, faFileDownload } from "@fortawesome/free-solid-svg-icons";
-import { Size, Variant } from "types/ui.types";
-import { useResponsive } from "assets/context/responsive/ResponsiveContext";
+import { Size, Theme, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
 import { Btn } from "components/ui";
 import "./Mermaid.css";
+import { useResponsive } from "assets/context/responsive/ResponsiveContext";
+import { useTheme } from "assets/context/ThemeContext.jsx";
+
+let mermaidInstancePromise;
+let mermaidInitialized = false;
+
+function getMermaidInstance() {
+  if (!mermaidInstancePromise) {
+    mermaidInstancePromise = import("mermaid").then((mod) => mod.default || mod);
+  }
+
+  return mermaidInstancePromise;
+}
 
 /**
  * @file index.jsx
@@ -39,7 +50,7 @@ function normalizeProps(props) {
     diagram: source.diagram || "",
     mobileDiagram: source.mobileDiagram || source.mobile || null,
     desktopDiagram: source.desktopDiagram || source.desktop || null,
-    theme: source.theme || "dark",
+    theme: source.theme || Theme.AUTO,
     className: source.className || "",
   };
 }
@@ -103,26 +114,51 @@ function MermaidDiagram(props) {
   const hostRef = useRef(null);
   const [forceAlt, setForceAlt] = useState(false);
   const { isMobile } = useResponsive();
+  const { theme: appTheme } = useTheme();
   const { id, title, description, diagram, mobileDiagram, desktopDiagram, theme, className } =
     useMemo(() => normalizeProps(props), [props]);
   const hasBoth = Boolean(mobileDiagram?.diagram && desktopDiagram?.diagram);
   const baseDiagram = isMobile ? mobileDiagram : desktopDiagram;
   const altDiagram = isMobile ? desktopDiagram : mobileDiagram;
   const activeDiagram = forceAlt && hasBoth ? altDiagram : baseDiagram;
+  const renderId = useMemo(() => {
+    const sourceId = id || title || "mermaid-diagram";
+    return sourceId.toLowerCase().replace(/[^a-z0-9_-]+/g, "-");
+  }, [id, title]);
 
   const finalDiagram = activeDiagram?.diagram || diagram;
   const finalDescription = activeDiagram?.description || description;
+  const resolvedTheme = theme === Theme.AUTO ? appTheme : theme;
 
   // Initialize Mermaid with appropriate configuration on component mount, ensuring that Mermaid is ready to render diagrams when the source changes. The configuration includes:
   // - `startOnLoad: false` to prevent Mermaid from automatically rendering diagrams on page load, allowing for controlled rendering within the component.
   // - `securityLevel: "loose"` to allow for more flexible diagram definitions, while being mindful of potential security implications in a real application.
   // - `theme: "base"` to provide a neutral starting point for styling, with the option to customize further via CSS or additional Mermaid themes as needed.
   useEffect(() => {
-    mermaid.initialize({
-      startOnLoad: false,
-      securityLevel: "loose",
-      theme: "base",
-    });
+    let cancelled = false;
+
+    async function initializeMermaid() {
+      const mermaid = await getMermaidInstance();
+
+      if (cancelled || mermaidInitialized) return;
+
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "loose",
+        theme: "base",
+        look: "classic",
+        handDrawnSeed: 0,
+        deterministicIds: true,
+        deterministicIDSeed: "portfolio-diagrams",
+      });
+      mermaidInitialized = true;
+    }
+
+    initializeMermaid();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // Render the Mermaid diagram into the host element whenever the diagram source changes, while handling asynchronous rendering and potential errors gracefully. The effect includes a cancellation mechanism to prevent state updates on unmounted components, ensuring stability during rapid prop changes or component unmounting. The rendering process involves:
@@ -138,10 +174,8 @@ function MermaidDiagram(props) {
     // Render the Mermaid diagram asynchronously, allowing for smooth updates and error handling without blocking the main thread or causing jank in the UI. The rendering function is defined as an async function to accommodate Mermaid's rendering process, which may involve asynchronous operations such as parsing the diagram source and generating the SVG. This approach ensures that the component remains responsive and can handle rapid updates to the diagram source without freezing or crashing.
     async function renderDiagram() {
       try {
-        const { svg } = await mermaid.render(
-          `mermaid-${Math.random().toString(36).slice(2)}`,
-          finalDiagram
-        );
+        const mermaid = await getMermaidInstance();
+        const { svg } = await mermaid.render(`mermaid-${renderId}`, finalDiagram);
 
         if (cancelled) return;
 
@@ -172,10 +206,11 @@ function MermaidDiagram(props) {
     return () => {
       cancelled = true;
     };
-  }, [finalDiagram]);
+  }, [finalDiagram, renderId]);
 
   /**
-   * @async @function handleExport
+   * @function handleExport
+   * @async
    * @description Handle diagram export by converting the rendered SVG to a PNG image using `html-to-image`, while ensuring that the host element and SVG are present before attempting the export. The function includes error handling to catch and log any issues during the export process, providing feedback in case of failure. The exported file is named based on the provided title or defaults to "diagram.png" if no title is available, ensuring a user-friendly download experience.
    * The export process involves:
    * - Selecting the SVG element from the host container to ensure that the correct content is exported.
@@ -209,24 +244,24 @@ function MermaidDiagram(props) {
   // Render the Mermaid diagram within a styled panel, including optional title and description, while providing buttons for exporting the diagram and toggling between mobile and desktop versions if both are available.
   return (
     <Panel
+      id={id}
       defaultExpanded
       collapsible
-      className={`frosted blue-tile block scroll-anchor mermaid-container ${theme} ${className}`}
+      className={`frosted blue-tile block scroll-anchor mermaid-container ${resolvedTheme} ${className}`}
       header={
         title && (
           <div className="flex-row">
-            <span id={id} className="block-header">
-              {title}
-            </span>
+            <span className="block-header">{title}</span>
           </div>
         )
       }
       role="region"
+      aria-label={title || "Mermaid diagram"}
     >
       <div className="mermaid">
         <div
           ref={hostRef}
-          className={`mermaid-svg-host ${theme}`}
+          className={`mermaid-svg-host ${resolvedTheme}`}
           tabIndex={0}
           role="img"
           aria-label={title || "Mermaid diagram"}
@@ -237,8 +272,8 @@ function MermaidDiagram(props) {
           size={Size.SM}
           icon={faFileDownload}
           onClick={handleExport}
-          tooltip="Download diagram as SVG"
-          aria-label="Export diagram as SVG"
+          tooltip="Download diagram as PNG"
+          aria-label="Export diagram as PNG"
           variant={Variant.ACCENT}
           text="Download diagram"
           className="mb-2 pl-4 pr-4"

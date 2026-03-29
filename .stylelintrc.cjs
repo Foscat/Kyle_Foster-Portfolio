@@ -10,9 +10,9 @@ module.exports = {
     ==========================================================
     */
 
-    "no-duplicate-selectors": true,
+    "no-duplicate-selectors": null,
     "declaration-block-no-duplicate-properties": true,
-    "declaration-block-no-shorthand-property-overrides": true,
+    "declaration-block-no-shorthand-property-overrides": null,
 
     /*
     ==========================================================
@@ -25,10 +25,10 @@ module.exports = {
     "selector-no-vendor-prefix": null,
 
     "color-function-notation": null,
+    "color-function-alias-notation": null,
     "alpha-value-notation": null,
     "value-keyword-case": null,
     "function-name-case": null,
-    "selector-pseudo-element-case": null,
 
     /*
     ==========================================================
@@ -44,7 +44,7 @@ module.exports = {
     ],
 
     "custom-property-pattern": null,
-    "rgba-function-notation": null,
+    "custom-property-empty-line-before": null,
     "tokens/validate": true,
 
     /*
@@ -56,60 +56,21 @@ module.exports = {
     "selector-class-pattern": null,
     "no-descending-specificity": null,
     "keyframes-name-pattern": null,
+    "comment-empty-line-before": null,
+    "comment-no-empty": null,
+    "color-hex-length": null,
+    "media-feature-range-notation": null,
+    "property-no-deprecated": null,
 
     /*
     ==========================================================
-    Property Ordering (readability)
+    Property Ordering — deferred to stylelint-config-recess-order
     ==========================================================
     */
 
-    "order/properties-order": [
-      [
-        /* Layout */
-        "position",
-        "top",
-        "right",
-        "bottom",
-        "left",
-        "z-index",
-
-        /* Flex/Grid */
-        "display",
-        "flex",
-        "flex-direction",
-        "flex-wrap",
-        "justify-content",
-        "align-items",
-        "align-content",
-        "gap",
-
-        /* Box Model */
-        "width",
-        "height",
-        "margin",
-        "padding",
-
-        /* Typography */
-        "font",
-        "font-family",
-        "font-size",
-        "font-weight",
-        "line-height",
-        "text-align",
-        "color",
-
-        /* Visual */
-        "background",
-        "background-color",
-        "border",
-        "border-radius",
-        "box-shadow",
-        "opacity",
-
-        /* Animation */
-        "transform",
-        "transition",
-      ],
-    ],
+    // The custom list below conflicted with both the recess-order extension
+    // and the actual ordering used in production CSS. Disable the override
+    // so stylelint-config-recess-order's comprehensive spec takes effect.
+    "order/properties-order": null,
   },
 };

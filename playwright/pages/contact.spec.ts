@@ -36,8 +36,10 @@ test.describe("Contact page", () => {
 
     // Simulate user input for the contact form fields and submit the form. This involves filling in the name, email, and message fields with test data and then clicking the submit button. After submission, we check for the presence of a success message to confirm that the form submission process is working correctly and providing appropriate feedback to the user.
     await page.getByLabel(/name/i).fill("Kyle Foster");
-    await page.getByLabel(/email/i).fill("kyle@example.com");
-    await page.getByLabel(/message/i).fill("Playwright contact test");
+    await page.getByRole("textbox", { name: /email/i }).fill("kyle@example.com");
+    await page
+      .getByRole("textbox", { name: /message|project details/i })
+      .fill("Playwright contact test");
     await page.getByRole("button", { name: /send message/i }).click();
 
     await expect(page.getByText(/message sent successfully/i)).toBeVisible();

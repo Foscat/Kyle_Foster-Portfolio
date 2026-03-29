@@ -15,6 +15,7 @@ export const contactForm = {
   fields: [
     {
       name: "fullName",
+      id: "cf_fni",
       type: FIELD_TYPES.TEXT,
       label: "Full Name",
       placeholder: "Enter your name",
@@ -23,6 +24,7 @@ export const contactForm = {
     },
     {
       name: "email",
+      id: "cf_ei",
       type: FIELD_TYPES.INPUT_GROUP_TEXT,
       label: "Email",
       placeholder: "name@example.com",
@@ -35,6 +37,7 @@ export const contactForm = {
       },
     },
     {
+      id: "cf_ri",
       name: "reason",
       type: FIELD_TYPES.SELECT,
       label: "Reason",
@@ -48,6 +51,7 @@ export const contactForm = {
       ],
     },
     {
+      id: "cf_bi",
       name: "budget",
       type: FIELD_TYPES.NUMBER,
       label: "Estimated Budget",
@@ -59,6 +63,7 @@ export const contactForm = {
       },
     },
     {
+      id: "cf_cm",
       name: "contactMethods",
       type: FIELD_TYPES.CHECKBOX_GROUP,
       label: "Preferred Contact Methods",
@@ -70,6 +75,7 @@ export const contactForm = {
       ],
     },
     {
+      id: "cf_ti",
       name: "timeline",
       type: FIELD_TYPES.RADIO_GROUP,
       label: "Timeline",
@@ -82,6 +88,7 @@ export const contactForm = {
       ],
     },
     {
+      id: "cf_nda",
       name: "wantsNda",
       type: FIELD_TYPES.CHECKBOX,
       label: "NDA",
@@ -89,6 +96,7 @@ export const contactForm = {
       defaultValue: false,
     },
     {
+      id: "cf_msg",
       name: "message",
       type: FIELD_TYPES.TEXTAREA,
       label: "Project Details",
@@ -100,6 +108,7 @@ export const contactForm = {
       },
     },
     {
+      id: "cf_ldi",
       name: "launchDate",
       type: FIELD_TYPES.DATE,
       label: "Target Launch Date",

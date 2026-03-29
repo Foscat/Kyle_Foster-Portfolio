@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { FlexboxGrid, Input, Message, Panel } from "rsuite";
-import { Form } from "rsuite";
-
+import { FlexboxGrid, Form, Input, Message, Panel } from "rsuite";
 import { StickyNav, Footer } from "components/navigation";
-import { Btn } from "components/ui";
-
-import { ResumePreview } from "components/features";
-import { PageRoute, Size, Variant } from "types/ui.types";
-
+import resumeData from "assets/data/content/resumeData.js";
+import contactForm from "assets/data/content/contactForm.js";
+import { resume as resumePdf } from "assets/data";
+import { PageRoute } from "types/navigation.types";
+import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
+import { Size, Variant } from "types/ui.types";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
+import { Btn } from "components/ui";
 
 /**
  * Contact service endpoint used by the public portfolio form.
@@ -18,6 +18,79 @@ import "./styles.css";
  * @type {string}
  */
 export const CONTACT_API_URL = "https://email-microservice-grem.onrender.com/api/contact";
+
+const FALLBACK_CONTACT_FORM_CONTENT = Object.freeze({
+  title: "Contact",
+  submitLabel: "Send Message",
+  fields: {
+    name: {
+      label: "Name",
+      placeholder: "John Doe",
+    },
+    email: {
+      label: "Email",
+      placeholder: "john@example.com",
+    },
+    message: {
+      label: "Message",
+      placeholder: "Your message...",
+      rows: 5,
+    },
+  },
+});
+
+/**
+ * Finds a form field configuration using one or more candidate names.
+ *
+ * @param {Array<{name?: string}>} fields - Schema field list.
+ * @param {string[]} names - Candidate field names in priority order.
+ * @returns {Object|undefined} Matching field config or undefined.
+ */
+function findFieldByNames(fields, names) {
+  if (!Array.isArray(fields) || !Array.isArray(names)) return undefined;
+  return fields.find((field) => names.includes(field?.name));
+}
+
+/**
+ * Derives presentational content for the contact form from content data.
+ *
+ * This keeps visual copy in CMS-like data while preserving this page's current
+ * API payload contract (`name`, `email`, and `message`).
+ *
+ * @param {Object} schema - Contact form schema content.
+ * @returns {Object} Render-safe copy for form UI.
+ */
+function buildContactFormContent(schema) {
+  const fields = Array.isArray(schema?.fields) ? schema.fields : [];
+  const nameField = findFieldByNames(fields, ["name", "fullName"]);
+  const emailField = findFieldByNames(fields, ["email"]);
+  const messageField = findFieldByNames(fields, ["message"]);
+
+  return {
+    title: schema?.title || FALLBACK_CONTACT_FORM_CONTENT.title,
+    submitLabel: schema?.submitLabel || FALLBACK_CONTACT_FORM_CONTENT.submitLabel,
+    fields: {
+      name: {
+        label: nameField?.label || FALLBACK_CONTACT_FORM_CONTENT.fields.name.label,
+        placeholder:
+          nameField?.placeholder || FALLBACK_CONTACT_FORM_CONTENT.fields.name.placeholder,
+      },
+      email: {
+        label: emailField?.label || FALLBACK_CONTACT_FORM_CONTENT.fields.email.label,
+        placeholder:
+          emailField?.placeholder || FALLBACK_CONTACT_FORM_CONTENT.fields.email.placeholder,
+      },
+      message: {
+        label: messageField?.label || FALLBACK_CONTACT_FORM_CONTENT.fields.message.label,
+        placeholder:
+          messageField?.placeholder || FALLBACK_CONTACT_FORM_CONTENT.fields.message.placeholder,
+        rows:
+          Number(messageField?.componentProps?.rows) ||
+          FALLBACK_CONTACT_FORM_CONTENT.fields.message.rows,
+      },
+    },
+  };
+}
 
 /**
  * Safely normalizes user-entered contact form values before transmission.
@@ -85,6 +158,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const formUiContent = useMemo(() => buildContactFormContent(contactForm), []);
 
   /**
    * Shared field updater to keep form state changes predictable.
@@ -152,12 +226,24 @@ export default function Contact() {
           <Panel
             header={
               <header>
-                <h1 className="page-title text-center">Get in Touch</h1>
-                <p className="text-center page-subtitle">
-                  Have a question, project idea, or opportunity? Let&apos;s connect.
-                </p>
-                <div className="flex-row-center mt-1">
-                  <ResumePreview block />
+                <div className="contact-page__copy">
+                  <h1>{formUiContent.title}</h1>
+                  <p>
+                    I build polished frontend systems, clear user flows, and maintainable React
+                    interfaces. Reach out for roles, freelance work, collaborations, or technical
+                    discussions.
+                  </p>
+                </div>
+
+                <div className="contact-page__actions">
+                  <ResumePreviewTrigger
+                    buttonText="Preview Resume"
+                    title="Kyle Foster — Resume"
+                    subtitle="A cleaner, document-first preview with improved spacing and a real paper stage."
+                    resume={resumeData}
+                    pdfHref={resumePdf}
+                    downloadName="Kyle-Foster-Resume.pdf"
+                  />
                 </div>
               </header>
             }
@@ -168,14 +254,15 @@ export default function Contact() {
                 {errorMessage}
               </Message>
             ) : null}
-
             <Form fluid onSubmit={handleSubmit} className="contact-form mt-2">
               <Form.Group>
-                <Form.ControlLabel htmlFor="contact-name">Name</Form.ControlLabel>
+                <Form.ControlLabel htmlFor="contact-name">
+                  {formUiContent.fields.name.label}
+                </Form.ControlLabel>
                 <Input
                   id="contact-name"
                   name="name"
-                  placeholder="John Doe"
+                  placeholder={formUiContent.fields.name.placeholder}
                   value={formData.name}
                   onChange={(value) => updateField("name", value)}
                   className="input-field frosted-input"
@@ -183,12 +270,14 @@ export default function Contact() {
               </Form.Group>
 
               <Form.Group>
-                <Form.ControlLabel htmlFor="contact-email">Email</Form.ControlLabel>
+                <Form.ControlLabel htmlFor="contact-email">
+                  {formUiContent.fields.email.label}
+                </Form.ControlLabel>
                 <Input
                   id="contact-email"
                   name="email"
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder={formUiContent.fields.email.placeholder}
                   value={formData.email}
                   onChange={(value) => updateField("email", value)}
                   className="input-field frosted-input"
@@ -196,12 +285,14 @@ export default function Contact() {
               </Form.Group>
 
               <Form.Group>
-                <Form.ControlLabel htmlFor="contact-message">Message</Form.ControlLabel>
+                <Form.ControlLabel htmlFor="contact-message">
+                  {formUiContent.fields.message.label}
+                </Form.ControlLabel>
                 <Input
                   id="contact-message"
                   as="textarea"
-                  rows={5}
-                  placeholder="Your message..."
+                  rows={formUiContent.fields.message.rows}
+                  placeholder={formUiContent.fields.message.placeholder}
                   name="message"
                   value={formData.message}
                   onChange={(value) => updateField("message", value)}
@@ -213,7 +304,7 @@ export default function Contact() {
                 variant={Variant.PRIMARY}
                 type="submit"
                 className="w-100 mt-2"
-                text={isSending ? "Sending..." : "Send Message"}
+                text={isSending ? "Sending..." : formUiContent.submitLabel}
                 icon={faEnvelope}
                 ariaLabel="Send message"
                 tooltip="Send email message"

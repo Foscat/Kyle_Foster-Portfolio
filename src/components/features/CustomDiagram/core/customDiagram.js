@@ -139,6 +139,10 @@ export function architectureDiagram(init, config) {
 
       lines.push(`  ${shape(node.id, safeLabel)}`);
 
+      if (className) {
+        lines.push(`  class ${node.id} ${className}`);
+      }
+
       if (node.className) {
         lines.push(`  class ${node.id} ${node.className}`);
       }

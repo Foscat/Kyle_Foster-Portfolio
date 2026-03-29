@@ -44,7 +44,7 @@ import "./styles.css";
 const LinksBlock = ({ items = [] }) => {
   // Guard against empty link lists
   // console.log("Rendering LinksBlock with items:", items);
-  if (!items.length) return null;
+  if (!Array.isArray(items) || items.length === 0) return null;
 
   return (
     <Panel collapsible defaultExpanded className="block mt-2">

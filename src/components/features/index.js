@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
-const ResumePreview = lazy(() => import("./ResumePreview"));
+const ResumePreviewModal = lazy(() => import("./ResumePreview/ResumePreviewModal"));
+const PreviewResume = lazy(() => import("./ResumePreview"));
 const ThemeToggle = lazy(() => import("./ThemeToggle"));
 
-export { ResumePreview, ThemeToggle };
+export { ResumePreviewModal, PreviewResume, ThemeToggle };

@@ -78,6 +78,7 @@
 /* Scrollbar styling */
 .fa-list::-webkit-scrollbar {
   width: 6px;
+  border-radius: var(--radius-xs);
 }
 
 .fa-list::-webkit-scrollbar-thumb {

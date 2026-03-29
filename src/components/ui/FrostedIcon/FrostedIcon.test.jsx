@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { screen } from "@testing-library/react";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 import { renderWithProviders } from "tests/renderWithProviders";
 import FrostedIcon from "./index";
@@ -34,9 +35,7 @@ describe("FrostedIcon", () => {
    * not configured as clickable.
    */
   it("renders an image role when not clickable", () => {
-    renderWithProviders(
-      <FrostedIcon icon={{ prefix: "fas", iconName: "home" }} ariaLabel="Home" clickable={false} />
-    );
+    renderWithProviders(<FrostedIcon icon={faHouse} ariaLabel="Home" clickable={false} />);
 
     expect(screen.getByRole("img", { name: "Home" })).toBeInTheDocument();
   });
@@ -45,9 +44,7 @@ describe("FrostedIcon", () => {
    * the `clickable` prop is enabled.
    */
   it("renders a button role when clickable", () => {
-    renderWithProviders(
-      <FrostedIcon icon={{ prefix: "fas", iconName: "home" }} ariaLabel="Home" clickable />
-    );
+    renderWithProviders(<FrostedIcon icon={faHouse} ariaLabel="Home" clickable />);
 
     expect(screen.getByRole("button", { name: "Home" })).toBeInTheDocument();
   });
@@ -57,12 +54,7 @@ describe("FrostedIcon", () => {
    */
   it("applies size class on the rendered element", () => {
     renderWithProviders(
-      <FrostedIcon
-        icon={{ prefix: "fas", iconName: "home" }}
-        ariaLabel="Home"
-        clickable={false}
-        size="xl"
-      />
+      <FrostedIcon icon={faHouse} ariaLabel="Home" clickable={false} size="xl" />
     );
 
     expect(screen.getByRole("img", { name: "Home" })).toHaveClass("fi-size-xl");
@@ -72,9 +64,7 @@ describe("FrostedIcon", () => {
    * for accessibility tooling.
    */
   it("exposes aria-busy when loading", () => {
-    renderWithProviders(
-      <FrostedIcon icon={{ prefix: "fas", iconName: "home" }} ariaLabel="Home" loading />
-    );
+    renderWithProviders(<FrostedIcon icon={faHouse} ariaLabel="Home" loading />);
 
     expect(screen.getByRole("img", { name: "Home" })).toHaveAttribute("aria-busy", "true");
   });

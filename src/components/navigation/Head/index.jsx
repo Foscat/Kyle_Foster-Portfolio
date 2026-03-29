@@ -1,6 +1,6 @@
 import PageMetas from "assets/data/pageMetas";
 import { Helmet } from "react-helmet-async";
-import { PageRoute } from "types/ui.types";
+import { PageRoute } from "types/navigation.types";
 
 /**
  * @file index.jsx
@@ -41,18 +41,20 @@ export default function Head() {
    * @returns {Object} Page metadata object containing title and description.
    */
   const getMetaByPath = () => {
-    const currentURL = window.location.pathname;
-    const splitPath = currentURL.split("/");
-    switch (splitPath[splitPath.length - 1]) {
+    const currentPath = window.location.pathname;
+
+    switch (currentPath) {
       case PageRoute.HACKATHON:
         return PageMetas.Hackathon;
       case PageRoute.EDUCATION:
         return PageMetas.Smu;
       case PageRoute.SIDE_PROJECTS:
         return PageMetas.SideProjects;
-      case PageRoute.CODESTREAM:
+      case PageRoute.PROFESSIONAL:
         return PageMetas.Codestream;
-      case PageRoute.CONTACT:
+      case PageRoute.DOCS:
+        return PageMetas.Docs;
+      case PageRoute.CONNECT:
         return PageMetas.Contact;
       default:
         return PageMetas.Home;

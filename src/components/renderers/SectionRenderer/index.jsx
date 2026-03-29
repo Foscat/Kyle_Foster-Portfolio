@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSectionRegistry } from "assets/context/SectionRegistryProvider.jsx";
 import {
   BlockType,
@@ -20,7 +20,9 @@ import {
   LinksBlock,
   RichTextBlock,
 } from "components/renderers/blocks";
+import MarkdownDocsBlock from "components/renderers/blocks/MarkdownDocs.Block";
 import { AccordionList, MermaidDiagram } from "components/ui";
+import "./styles.css";
 
 /**
  * @file index.jsx
@@ -78,7 +80,64 @@ import { AccordionList, MermaidDiagram } from "components/ui";
  * />
  * ```
  */
-const SectionRenderer = ({ section }) => {
+function DeferredMount({ children, rootMargin = "320px 0px" }) {
+  const hostRef = useRef(null);
+  const [shouldMount, setShouldMount] = useState(false);
+
+  useEffect(() => {
+    if (shouldMount) return undefined;
+
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") {
+      setShouldMount(true);
+      return undefined;
+    }
+
+    const host = hostRef.current;
+    if (!host) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        setShouldMount(true);
+        observer.disconnect();
+      },
+      {
+        root: null,
+        rootMargin,
+        threshold: 0.01,
+      }
+    );
+
+    observer.observe(host);
+
+    return () => observer.disconnect();
+  }, [rootMargin, shouldMount]);
+
+  return (
+    <div ref={hostRef}>
+      {shouldMount ? (
+        children
+      ) : (
+        <div
+          className="frosted blue-tile block scroll-anchor mermaid-container mermaid-deferred-placeholder"
+          role="status"
+          aria-live="polite"
+          aria-label="Loading diagram"
+        >
+          <div className="mermaid-deferred-header-skeleton" />
+          <div className="mermaid-deferred-canvas-skeleton" aria-hidden="true">
+            <span className="mermaid-deferred-line w-90" />
+            <span className="mermaid-deferred-line w-65" />
+            <span className="mermaid-deferred-line w-80" />
+            <span className="mermaid-deferred-line w-70" />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
   const { registerSection, unregisterSection } = useSectionRegistry();
 
   /**
@@ -90,69 +149,80 @@ const SectionRenderer = ({ section }) => {
    * - Active section highlighting
    * - Programmatic scrolling
    */
+  const blocks = Array.isArray(section.blocks) ? section.blocks.filter(Boolean) : [];
+
   useEffect(() => {
+    if (!section?.id) return undefined;
+
     registerSection(section.id, {
       id: section.id,
       title: section.title,
     });
 
     return () => unregisterSection(section.id);
-  }, [section.id, section.title, registerSection, unregisterSection]);
+  }, [section?.id, section?.title, registerSection, unregisterSection]);
 
   return (
     <InfoSection
       id={section.id}
       title={section.title}
       subtitle={section.subtitle}
+      sectionTag={section.sourceTag}
       icon={section.icon}
       className="section-renderer"
       data-section-renderer
     >
-      {section.blocks.map((block, i) => {
-        {
-          /* console.debug("Rendering block:", block); */
-        }
+      {blocks.map((block, i) => {
+        const blockKey = `${block?.type ?? "unknown"}-${i}-${block?.id ?? "missing-id"}`;
 
         switch (block.type) {
           case BlockType.RICH_TEXT: {
-            return <RichTextBlock key={`rtb-${i}-${block.id}`} {...createRichTextBlock(block)} />;
+            return <RichTextBlock key={blockKey} {...createRichTextBlock(block)} />;
           }
 
           case BlockType.IMAGE_GALLERY:
-            return (
-              <ImageGalleryBlock key={`igb-${i}-${block.id}`} {...createImageGalleryBlock(block)} />
-            );
+            return <ImageGalleryBlock key={blockKey} {...createImageGalleryBlock(block)} />;
 
           case BlockType.LINKS:
-            return <LinksBlock key={`lnk-${i}-${block.id}`} {...createLinkListBlock(block)} />;
+            return <LinksBlock key={blockKey} {...createLinkListBlock(block)} />;
 
           case BlockType.BULLETED_LIST:
             return (
               <AccordionList
-                key={`acl-${i}-${block.id}`}
+                key={blockKey}
                 {...createBulletListBlock(block)}
                 className="scroll-anchor"
               />
             );
 
           case BlockType.CARD_GRID:
-            return <CardGridBlock key={`cgb-${i}-${block.id}`} {...createCardGridBlock(block)} />;
+            return <CardGridBlock key={blockKey} {...createCardGridBlock(block)} />;
 
           case BlockType.DIAGRAM:
-            console.log("Rendering diagram block:", block);
+            if (!deferDiagrams) {
+              return (
+                <MermaidDiagram
+                  key={blockKey}
+                  {...createDiagramBlock(block)}
+                  className="scroll-anchor"
+                />
+              );
+            }
+
             return (
-              <MermaidDiagram
-                key={`diagram-${i}-${block.id}`}
-                {...createDiagramBlock(block)}
-                className="scroll-anchor"
-              />
+              <DeferredMount key={blockKey}>
+                <MermaidDiagram {...createDiagramBlock(block)} className="scroll-anchor" />
+              </DeferredMount>
             );
 
           case BlockType.FORM:
-            return <FormBlock key={`form-${i}-${block.id}`} {...createFormBlock(block)} />;
+            return <FormBlock key={blockKey} {...createFormBlock(block)} />;
 
           case BlockType.HERO:
-            return <HeroBlock key={`hero-${i}-${block.id}`} {...createHeroBlock(block)} />;
+            return <HeroBlock key={blockKey} {...createHeroBlock(block)} />;
+
+          case BlockType.MARKDOWN_DOCS:
+            return <MarkdownDocsBlock key={blockKey} block={block} />;
 
           /**
            * Defensive fallback:
@@ -160,8 +230,7 @@ const SectionRenderer = ({ section }) => {
            * render a visible warning instead of silently failing.
            */
           default:
-            console.debug("Corrupted data block", { block });
-            return <p key={block.id}>{block?.title || "Unknown block"} data is corrupted.</p>;
+            return <p key={blockKey}>{block?.title || "Unknown block"} data is corrupted.</p>;
         }
       })}
     </InfoSection>

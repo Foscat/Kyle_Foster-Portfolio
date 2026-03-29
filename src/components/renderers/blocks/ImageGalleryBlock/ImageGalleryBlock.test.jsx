@@ -33,7 +33,7 @@ describe("ImageGalleryBlock", () => {
   it("renders nothing if images is missing", () => {
     renderWithProviders(
       <div data-testid="root">
-        <ImageGalleryBlock images={null} />
+        <ImageGalleryBlock items={null} />
       </div>
     );
 
@@ -43,17 +43,17 @@ describe("ImageGalleryBlock", () => {
   /**
    * Verifies that a valid images array renders accessible image elements.
    */
-  it("renders an image list", () => {
+  it("renders an image list", async () => {
     renderWithProviders(
       <ImageGalleryBlock
-        images={[
+        items={[
           { src: "/img1.jpg", alt: "Image 1" },
           { src: "/img2.jpg", alt: "Image 2" },
         ]}
       />
     );
 
-    expect(screen.getByAltText("Image 1")).toBeInTheDocument();
-    expect(screen.getByAltText("Image 2")).toBeInTheDocument();
+    expect(await screen.findByAltText("Image 1")).toBeInTheDocument();
+    expect(await screen.findByAltText("Image 2")).toBeInTheDocument();
   });
 });

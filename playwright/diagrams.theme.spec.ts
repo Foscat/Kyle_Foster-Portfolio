@@ -1,14 +1,27 @@
 import { test } from "@playwright/test";
-import { DIAGRAM_IDS } from "./fixtures/diagrams";
+import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
 import { waitForMermaidRender } from "./utils/waitForMermaid";
+import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 
-test.describe("Mermaid Diagrams – Theme Safety", () => {
-  for (const theme of ["light", "dark"]) {
+// Unique page routes that contain diagrams
+const DIAGRAM_ROUTES = [...new Set(DIAGRAM_ENTRIES.map((e) => e.route))];
+
+test.describe("Mermaid Diagrams - Theme Safety", () => {
+  for (const theme of ["dark", "light"] as const) {
     test(`diagrams render in ${theme} theme`, async ({ page }) => {
-      await page.goto(`/?theme=${theme}`);
+      test.setTimeout(120_000);
 
-      for (const diagramId of DIAGRAM_IDS) {
-        await waitForMermaidRender(page, diagramId);
+      await preparePageForStableTests(page, { theme });
+
+      for (const route of DIAGRAM_ROUTES) {
+        const entries = DIAGRAM_ENTRIES.filter((e) => e.route === route);
+
+        await page.goto(`${route}?theme=${theme}`);
+        await stabilizePage(page, { theme });
+
+        for (const entry of entries) {
+          await waitForMermaidRender(page, entry.id);
+        }
       }
     });
   }

@@ -1,7 +1,7 @@
 import Hackathon from "pages/Hackathon";
 import hackathonSections from "assets/data/content/hackathon";
-import { PageRoute } from "types/ui.types";
-import { createPageTests } from "tests/helpers/createPageTests";
+import { PageRoute } from "types/navigation.types";
+import { createPageTests } from "tests/helpers/createPageTests.jsx";
 
 /**
  * @file Hackathon.test.js

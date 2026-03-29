@@ -163,4 +163,5 @@ export const useSectionRegistry = () => {
   return ctx;
 };
 
+export { SectionRegistryProvider };
 export default SectionRegistryProvider;

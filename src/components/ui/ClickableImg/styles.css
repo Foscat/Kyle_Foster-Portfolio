@@ -17,7 +17,9 @@
 /* Ensure the overlay doesn't allow horizontal scroll */
 .frosted-modal {
   overflow: hidden;
-  background-color: var(--glass-bg-strong);
+  background:
+    radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.9), rgba(var(--primary-dark-rgb), 0.68));
 }
 
 .frosted-modal.rs-modal-full .rs-modal-content .rs-modal-body {
@@ -50,8 +52,9 @@
 .frosted-modal.rs-modal-full .rs-modal-content {
   -webkit-backdrop-filter: var(--backdrop-blur);
   backdrop-filter: var(--backdrop-blur);
-  background: var(--glass-bg);
-  border: var(--glass-border);
+  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.34), rgba(var(--white-rgb), 0.06));
+  border: 1px solid rgba(var(--white-rgb), 0.08);
+  box-shadow: 0 24px 60px rgba(var(--deep-black-rgb), 0.32);
 }
 
 /* Header stays fixed-size, never scrolls horizontally */
@@ -59,8 +62,9 @@
   flex: 0 0 auto;
   padding: 1rem;
   overflow-x: hidden;
-  background-color: var(--glass-bg-heavy);
+  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.24), rgba(var(--white-rgb), 0.1));
   border-radius: var(--radius-xs);
+  border: 1px solid rgba(var(--white-rgb), 0.08);
 }
 
 .frosted-modal-header .rs-modal-title {
@@ -91,7 +95,7 @@
   flex: 1 1 auto;
   overflow: hidden;
   padding: 0;
-  background-color: var(--glass-bg-strong);
+  background: linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.28), rgba(var(--white-rgb), 0.04));
 }
 
 /* Image wrapper: center image without affecting page width */
@@ -104,6 +108,9 @@
   border-radius: var(--radius-xs);
   overflow: hidden; /* prevents horizontal scroll */
   object-fit: contain;
+  padding: 1.25rem;
+  background: rgba(var(--white-rgb), 0.05);
+  border: 1px solid rgba(var(--white-rgb), 0.08);
 }
 
 /* Image should scale INSIDE wrapper, never in vw */
@@ -123,5 +130,6 @@
   color: var(--text-blue);
   border-radius: var(--radius-xs);
   text-align: center;
-  background-color: var(--glass-bg-heavy);
+  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.26), rgba(var(--white-rgb), 0.08));
+  border: 1px solid rgba(var(--white-rgb), 0.08);
 }

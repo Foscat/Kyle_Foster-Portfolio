@@ -65,13 +65,16 @@ const ImageGalleryBlock = (block = {}) => {
           if (!img || !img.src) return null;
           // Prefer a stable image ID; fall back to index-based key
           const key = img?.id ? `gallery-img-${img.id}` : `gallery-img-${i}`;
-          if (img.id === undefined) {
-            console.error("ImageGalleryBlock img with undefined id", { img, i, key });
-            img.id = key;
-          }
+
           return (
             <FlexboxGrid.Item className="mb-2" key={key} colspan={isMobile ? 24 : 11}>
-              <ClickableImg index={i} key={img.id} {...img} className="gallery-thumb" />
+              <ClickableImg
+                index={i}
+                key={img?.id ?? key}
+                {...img}
+                id={img?.id ?? key}
+                className="gallery-thumb"
+              />
             </FlexboxGrid.Item>
           );
         })}

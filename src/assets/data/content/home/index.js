@@ -28,6 +28,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faGitSquare } from "@fortawesome/free-brands-svg-icons";
 import { BlockType, PageRoute } from "types/ui.types.js";
+import {
+  diagram,
+  diagramConfig,
+} from "../../../../components/features/CustomDiagram/core/index.js";
 
 const homeSections = [
   {
@@ -35,7 +39,7 @@ const homeSections = [
     slug: "hero",
     icon: faCode,
     title: "Overview",
-    subtitle: "Front-End Engineering Built on Systems Thinking",
+    subtitle: "Frontend Engineering Built on Systems Thinking",
     isScroller: true,
     blocks: [
       {
@@ -50,7 +54,7 @@ const homeSections = [
               { type: "strong", text: "full-stack (MERN) engineer" },
               {
                 type: "text",
-                text: " I design user-facing experiences grounded in clear domain models and scalable architecture — building interfaces that evolve cleanly as products grow in complexity, data, and organizational scope.",
+                text: " I design user-facing experiences grounded in clear domain models and scalable architecture, building interfaces that evolve cleanly as products grow in complexity, data, and organizational scope.",
               },
             ],
           },
@@ -59,12 +63,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I have years of tested experiance that range from, a custom education platform that is used daily in real classrooms all around the world. I've won every hackathon I've attended  so far by quickly making advanced prototypes using one of my custom MERN app boilerplates. Even in my personal side projects, my work consistently centers around ",
+                text: "I bring tested experience across production systems and rapid prototyping. I built a custom education platform used in real classrooms, and I have repeatedly delivered hackathon prototypes under tight constraints using my own MERN boilerplates. Across side projects, my work consistently centers around ",
               },
               { type: "em", text: "solving real-world problems" },
               {
                 type: "text",
-                text: " with robust and pratical soloutions. I take pride in writing code that is not only functional but also maintainable and scalable, ensuring that the systems I build can grow and adapt over time without becoming unwieldy.",
+                text: " with robust, practical solutions. I prioritize code that is maintainable and scalable so the systems I build can evolve without becoming brittle over time.",
               },
             ],
           },
@@ -74,7 +78,55 @@ const homeSections = [
               { type: "inlineIcon", icon: "👨‍🔬" },
               {
                 type: "text",
-                text: " I believe that great engineering is not just about writing code, but about understanding the problem domain deeply and designing solutions that are equally elegant and effective.",
+                text: " I believe great engineering is not just about writing code, but about understanding the problem domain deeply and designing solutions that are elegant and effective.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "hero-engineering-flow",
+        title: "Engineering Workflow",
+        type: BlockType.DIAGRAM,
+        mobile: {
+          diagram: diagram(
+            diagramConfig.MOBILE_FLOWCHART_INIT,
+            `flowchart TB
+
+Problem[Problem + Domain Context]
+Model[Domain Model + Constraints]
+Ux[UX + Interaction Design]
+Build[Implementation + Integration]
+Verify[Testing + Feedback]
+Deploy[Deploy + Observe]
+
+Problem ==> Model ==> Ux ==> Build ==> Verify ==> Deploy
+Verify -. refine .-> Model
+Deploy -. iterate .-> Ux`
+          ),
+        },
+        desktop: {
+          diagram: diagram(
+            diagramConfig.FLOWCHART_INIT,
+            `flowchart LR
+
+Problem[Problem + Domain Context] --> Model[Domain Model + Constraints]
+Model --> Ux[UX + Interaction Design]
+Ux --> Build[Implementation + Integration]
+Build --> Verify[Testing + Feedback]
+Verify --> Deploy[Deploy + Observe]
+Verify -. refine .-> Model
+Deploy -. iterate .-> Ux`
+          ),
+        },
+        description: [
+          {
+            type: "p",
+            children: [
+              { type: "strong", text: "How I ship." },
+              {
+                type: "text",
+                text: " I start with domain clarity, translate that into usable interaction design, implement with system boundaries in mind, then loop through testing and production feedback to improve the next iteration.",
               },
             ],
           },
@@ -86,14 +138,14 @@ const homeSections = [
     id: "professional",
     slug: "professional-work",
     title: "Professional Work",
-    subtitle: "Lead Front-end Engineer for CodeStream Studios LLC",
+    subtitle: "Lead Frontend Engineer for CodeStream Studios LLC",
     icon: faBuildingUser,
     isScroller: true,
     blocks: [
       {
         id: "professional-codestream",
         title: "CodeStream Studios LLC",
-        subtitle: "Lead Front-end Engineer 2019-2025",
+        subtitle: "Lead Frontend Engineer 2019-2025",
         type: BlockType.RICH_TEXT,
         content: [
           {
@@ -101,12 +153,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My professional work so far centered on building and scaling a ",
+                text: "My professional work has centered on building and scaling a ",
               },
               { type: "strong", text: "production education platform" },
               {
                 type: "text",
-                text: " used by real students, teachers, and organizations. It supported syncronis and non-sycronis learning. The dissemination of lessons, grading the asssignments tied to a classroom all the way to organization level operations in a scaleable way.",
+                text: " used by real students, teachers, and organizations. It supported both synchronous and asynchronous learning, from lesson delivery and assignment grading to classroom and organization-level operations in a scalable model.",
               },
             ],
           },
@@ -114,10 +166,10 @@ const homeSections = [
             type: "p",
             children: [
               { type: "text", text: "At CodeStream Studios, I served as the " },
-              { type: "em", text: "sole front-end engineer" },
+              { type: "em", text: "sole frontend engineer" },
               {
                 type: "text",
-                text: ", owning the UI architecture end-to-end. I personally architected and built core systems including a multi-panel browser-based IDE, role-based access control for organizations and classrooms. Defined and implemented virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.",
+                text: ", owning the UI architecture end-to-end. I personally architected and built core systems, including a multi-panel browser-based IDE, role-based access control for organizations and classrooms, virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.",
               },
             ],
           },
@@ -129,7 +181,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Zero-install 3-panel IDE for Web(HTML, CSS, JS) and Python",
+                    text: "Zero-install 3-panel IDE for Web (HTML, CSS, JS) and Python",
                   },
                 ],
               },
@@ -144,7 +196,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Complete with a grading interface, bug tracking that auto-assigns and forwards app issues in real-time to the developers",
+                    text: "Integrated grading interface and bug tracking that auto-assigns and forwards app issues to developers in real time",
                   },
                 ],
               },
@@ -168,7 +220,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Comprehensive grading and feedback system integrated directly into the learning platform. Designed to streamline the evaluation process for teachers while providing actionable insights into student performance.",
+                    text: "Integrated grading and feedback system built into the learning platform to streamline evaluation and provide actionable student performance insights.",
                   },
                 ],
               },
@@ -212,7 +264,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Multi-tenant role and licensing system supporting classroom to multi-school scale. Designed to manage user access, permissions, and licensing across different organizational levels while maintaining a seamless user experience.",
+                    text: "Multi-tenant role and licensing system that scales from individual classrooms to multi-school deployments while maintaining clear access boundaries and a consistent user experience.",
                   },
                 ],
               },
@@ -244,7 +296,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Governance designed to scale with organizational growth.",
+                    text: "Governance designed to scale with organizational growth",
                   },
                 ],
               },
@@ -256,14 +308,14 @@ const homeSections = [
           {
             id: "pro-editor",
             title: "3-Panel Browser-Based IDE",
-            subtitle: "Browser based coding environment for Web and Python projects",
+            subtitle: "Browser-based coding environment for Web and Python projects",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Zero-install 3-panel IDE for Web(HTML, CSS, JS) and Python projects. Designed to provide a seamless coding experience directly in the browser, eliminating setup friction and enabling immediate access to coding environments for students and teachers.",
+                    text: "Zero-install 3-panel IDE for Web (HTML, CSS, JS) and Python projects, designed to provide a seamless browser-based coding experience with no setup friction for students and teachers.",
                   },
                 ],
               },
@@ -297,15 +349,69 @@ const homeSections = [
             ],
             icon: faLaptopCode,
             url: `${PageRoute.PROFESSIONAL}/#editor`,
-            ariaLabel: "View 3 Panel Browser Based IDE Section",
+            ariaLabel: "View 3 Panel Browser-Based IDE Section",
+          },
+        ],
+      },
+      {
+        id: "professional-platform-diagram",
+        title: "Platform Architecture",
+        type: BlockType.DIAGRAM,
+        mobile: {
+          diagram: diagram(
+            diagramConfig.MOBILE_FLOWCHART_INIT,
+            `flowchart TB
+
+subgraph Platform[CodeStream Studios Platform]
+  IDE[3-Panel Browser-Based IDE\nLesson · Editor · Output]
+  Classroom[Virtual Classroom & Grading\nAssignments · Feedback · Reports]
+  Org[Organizations & Licensing\nRoles · Seats · Access Gates]
+end
+
+Student([Student]) --> IDE
+Teacher([Teacher]) --> IDE
+Teacher --> Classroom
+Admin([Admin]) --> Org
+Org --> Classroom`
+          ),
+        },
+        desktop: {
+          diagram: diagram(
+            diagramConfig.FLOWCHART_INIT,
+            `flowchart LR
+
+Student([Student]) --> IDE
+Teacher([Teacher]) --> IDE
+Teacher --> Classroom
+Admin([Admin]) --> Org
+
+subgraph Platform[CodeStream Studios Platform]
+  IDE[3-Panel Browser-Based IDE]
+  Classroom[Virtual Classroom + Grading]
+  Org[Organizations + Licensing]
+end
+
+Org --> Classroom`
+          ),
+        },
+        description: [
+          {
+            type: "p",
+            children: [
+              { type: "strong", text: "Three connected systems." },
+              {
+                type: "text",
+                text: " The IDE delivers instruction and execution. The classroom layer handles grading, feedback, and reporting. The organization layer governs roles, licensing, and seat access — all built and owned as the sole frontend engineer.",
+              },
+            ],
           },
         ],
       },
       {
         id: "professional-learn-more",
         title: "Learn More",
-        type: "links",
-        links: [
+        type: BlockType.LINKS,
+        items: [
           {
             id: "pro-case-study",
             title: "View Professional Case Study",
@@ -389,7 +495,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Delivered a hands-free repair assistant aligned directly with real-world shop workflows. We focused on the actual constraints of the environment, such as technicians needing to keep their hands free and attention focused on the task, rather than trying to implement flashy but impractical features.",
+                    text: "Delivered a hands-free repair assistant aligned with real-world shop workflows. We prioritized practical constraints, including technicians needing to keep both hands free and attention on the task, instead of building flashy but impractical features.",
                   },
                 ],
               },
@@ -473,7 +579,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Continued development as sole engineer, transitioning the prototype into a mobile-first React Native application.first focused on reinforcing the core value proposition and addressing real-world deployment challenges rather than adding new features. This phase emphasized the importance of building for durability and maintainability in a production environment.",
+                    text: "Continued development as sole engineer, transitioning the prototype into a mobile-first React Native application. I focused first on reinforcing the core value proposition and addressing real-world deployment challenges rather than adding new features. This phase emphasized building for durability and long-term maintainability.",
                   },
                 ],
               },
@@ -680,7 +786,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects have pushed me to learn and direct myself through every phase of the software development lifecycle. from requirements gathering to deployment and maintenance.",
+                    text: "Side projects have pushed me to learn and direct myself through every phase of the software development lifecycle, from requirements gathering to deployment and maintenance.",
                   },
                 ],
               },
@@ -822,7 +928,7 @@ const homeSections = [
             id: "sp-d20-king",
             title: "D20 King (Private)",
             subtitle:
-              "A modular tabletop RPG campaign management platform with a emphasis on sharing with others and building on top of each other's work",
+              "A modular tabletop RPG campaign management platform focused on sharing content and building on top of community-created work",
             icon: faDiceD20,
             url: `${PageRoute.SIDE_PROJECTS}/#d20`,
             isScroller: false,
@@ -872,7 +978,7 @@ const homeSections = [
       {
         id: "sp-learn-more",
         title: "Learn More",
-        type: "links",
+        type: BlockType.LINKS,
         items: [
           {
             id: "sp-explore-side-projects",
@@ -1094,7 +1200,7 @@ const homeSections = [
       {
         id: "ed-learn-more",
         title: "Learn More",
-        type: "links",
+        type: BlockType.LINKS,
         items: [
           {
             id: "ed-explore-smu-projects",
@@ -1144,7 +1250,7 @@ const homeSections = [
       },
       {
         id: "cta-contact-links",
-        type: "links",
+        type: BlockType.LINKS,
         items: [
           {
             id: "cta-contact-me",

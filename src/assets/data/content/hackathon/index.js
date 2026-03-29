@@ -16,7 +16,7 @@ import diagrams from "./diagrams.js";
 import imageObjs from "assets/images/hackathon";
 
 /**
- * Hackathon experiance
+ * Hackathon experience
  * ------------------------------------------------------------
  * This file powers the Hackathon portfolio page using a
  * data-driven approach. It is designed to work with:
@@ -165,6 +165,7 @@ const hackathonSections = [
     id: "reinforce",
     slug: "reinforce",
     title: "Hackathon App (Reinforce)",
+    navLabel: "Reinforce App",
     subtitle: "A hands-free, voice-powered repair assistant.",
     icon: faTruckFast,
     isScroller: true,

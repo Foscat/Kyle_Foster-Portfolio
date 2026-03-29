@@ -4,6 +4,29 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    chunkSizeWarningLimit: 3000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) {
+            return;
+          }
+
+          // Keep RSuite internals together to avoid circular chunk-order warnings.
+          if (id.includes("node_modules/rsuite")) {
+            return "vendor-rsuite";
+          }
+
+          if (id.includes("node_modules/mermaid")) {
+            return "vendor-mermaid";
+          }
+
+          return "vendor";
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

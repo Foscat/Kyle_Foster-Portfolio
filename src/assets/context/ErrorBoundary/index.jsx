@@ -55,14 +55,6 @@ class ErrorBoundary extends React.Component {
   }
 
   /**
-   * Lifecycle hook invoked after the component mounts.
-   * Used here as a simple diagnostic log.
-   */
-  componentDidMount() {
-    console.log("Error watchdog has mounted");
-  }
-
-  /**
    * Lifecycle hook invoked when an error is caught.
    * Used for logging error details and component stack trace.
    *

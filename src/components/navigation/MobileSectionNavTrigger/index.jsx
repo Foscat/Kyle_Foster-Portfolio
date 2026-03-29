@@ -75,6 +75,23 @@ const MobileSectionNavTrigger = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  // Utility to filter out invalid blocks (e.g. missing id or title)
+  const getNavigableBlocks = (section) => {
+    if (Array.isArray(section?.navItems) && section.navItems.length > 0) {
+      return section.navItems.filter(
+        (item) =>
+          item && typeof item.id === "string" && item.id.trim() !== "" && Boolean(item.title)
+      );
+    }
+
+    if (!Array.isArray(section?.blocks)) return [];
+
+    return section.blocks.filter(
+      (block) =>
+        block && typeof block.id === "string" && block.id.trim() !== "" && Boolean(block.title)
+    );
+  };
+
   return (
     <>
       {/* Trigger Button */}
@@ -102,23 +119,24 @@ const MobileSectionNavTrigger = ({
 
         <Drawer.Body>
           <div className="mobile-section-list">
-            {sections.map((section) => {
+            {sections.map((section, sectionIndex) => {
               const expanded = isExpanded(section.id);
               const sectionActive = activeChain.includes(section.id);
-              const hasBlocks = section.blocks?.length > 0;
+              const navigableBlocks = getNavigableBlocks(section);
+              const hasBlocks = navigableBlocks.length > 0;
+              const sectionNavLabel = section.navLabel || section.title;
 
               return (
                 <div
-                  key={section.id}
+                  key={`mobile-section-${section.id}-${sectionIndex}`}
                   className={`mobile-section-group ${sectionActive ? "is-active" : ""}`}
                 >
                   {/* SECTION ROW */}
-                  <div key={section.id} className="mobile-section-row">
+                  <div className="mobile-section-row">
                     {/* Title → Navigate */}
                     <Btn
-                      key={section.id}
                       type="button"
-                      text={section.title}
+                      text={sectionNavLabel}
                       noBG
                       size={Size.MD}
                       variant={Variant.SUBTLE}
@@ -137,14 +155,13 @@ const MobileSectionNavTrigger = ({
                     {/* Caret → Toggle */}
                     {hasBlocks && (
                       <Btn
-                        key={section.id}
                         type="button"
                         className="mobile-section-caret"
                         noBG
                         size={Size.SM}
                         variant={Variant.SUBTLE}
                         icon={expanded ? faCaretDown : faCaretRight}
-                        ariaLabel={`Toggle ${section.title} subsections`}
+                        ariaLabel={`Toggle ${sectionNavLabel} subsections`}
                         aria-expanded={expanded}
                         onClick={(e) => {
                           e.preventDefault();
@@ -156,14 +173,15 @@ const MobileSectionNavTrigger = ({
                   </div>
                   {/* Subsections */}
                   {hasBlocks && expanded && (
-                    <div key={section.id} className="mobile-subsection-list">
-                      {section.blocks.map((block) => {
+                    <div className="mobile-subsection-list">
+                      {navigableBlocks.map((block, blockIndex) => {
                         const blockActive = activeLeafId === block.id;
+                        const blockLabel = block.title;
 
                         return (
                           <Btn
-                            key={block.id}
-                            text={block.title}
+                            key={`mobile-block-${section.id}-${block.id}-${blockIndex}`}
+                            text={blockLabel}
                             noBG
                             size={Size.SM}
                             variant={Variant.SUBTLE}
@@ -190,6 +208,6 @@ const MobileSectionNavTrigger = ({
       </Drawer>
     </>
   );
-};
+};;
 
 export default MobileSectionNavTrigger;

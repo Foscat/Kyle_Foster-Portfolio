@@ -76,7 +76,7 @@ const sideProjectSections = [
               },
               {
                 type: "li",
-                children: [{ type: "text", text: "Backend and frontend implementation." }],
+                children: [{ type: "text", text: "Frontend and backend implementation." }],
               },
               {
                 type: "li",
@@ -389,7 +389,7 @@ const sideProjectSections = [
               {
                 type: "blockquote",
                 children: [
-                  { inlineIcon: "🧠" },
+                  { type: "inlineIcon", icon: "🧠" },
                   {
                     type: "text",
                     text: "Principle: embedded systems reward simplicity, predictability, and disciplined state management.",
@@ -620,7 +620,7 @@ const sideProjectSections = [
           {
             type: "h3",
             children: [
-              { type: "inlineIcon", icon: faKey },
+              { type: "inlineIcon", icon: "🔑" },
               { type: "text", text: " Cryptography Principles" },
             ],
           },
@@ -645,7 +645,7 @@ const sideProjectSections = [
           {
             type: "h3",
             children: [
-              { type: "inlineIcon", icon: faUserShield },
+              { type: "inlineIcon", icon: "🛡️" },
               { type: "text", text: " Client-Side Security" },
             ],
           },
@@ -670,7 +670,7 @@ const sideProjectSections = [
           {
             type: "h3",
             children: [
-              { type: "inlineIcon", icon: faLaptopCode },
+              { type: "inlineIcon", icon: "💻" },
               { type: "text", text: " Usability Focus" },
             ],
           },

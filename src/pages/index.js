@@ -6,5 +6,6 @@ import SideProjects from "./SideProjects";
 import Smu from "./SMU";
 import NotFound from "./NotFound";
 import Health from "./Health";
+import Docs from "./Docs";
 
-export { CodeStream, Contact, Hackathon, Home, SideProjects, Smu, NotFound, Health };
+export { CodeStream, Contact, Hackathon, Home, SideProjects, Smu, NotFound, Health, Docs };

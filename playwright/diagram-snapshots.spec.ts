@@ -1,15 +1,13 @@
 import { test } from "@playwright/test";
-import { DIAGRAM_IDS } from "./fixtures/diagrams";
+import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
 import { snapshotDiagram } from "./utils/snapshotDiagram";
 
 test.describe("Mermaid SVG snapshots", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("/");
-  });
-
-  for (const diagramId of DIAGRAM_IDS) {
-    test(`snapshot ${diagramId}`, async ({ page }) => {
-      await snapshotDiagram(page, diagramId);
+  for (const entry of DIAGRAM_ENTRIES) {
+    test(`snapshot ${entry.id}`, async ({ page }) => {
+      test.setTimeout(60_000);
+      await page.goto(entry.route);
+      await snapshotDiagram(page, entry.id);
     });
   }
 });

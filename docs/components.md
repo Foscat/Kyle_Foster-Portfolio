@@ -1,15 +1,18 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_components/ResumePreview">components/ResumePreview</a></dt>
+<dt><a href="#module_components/ResumePreview/PreviewResume">components/ResumePreview/PreviewResume</a></dt>
 <dd><p>Modal-based resume preview and download component.</p>
+</dd>
+<dt><a href="#module_components/ResumePreview">components/ResumePreview</a></dt>
+<dd><p>Main export for the resume preview feature.</p>
 </dd>
 <dt><a href="#module_tests/components/ResumePreview">tests/components/ResumePreview</a></dt>
 <dd><p>Unit tests for the ResumePreview component.</p>
 <p>Test coverage:</p>
 <ul>
 <li>Modal opens when the trigger button is clicked</li>
-<li>Iframe with the correct title is rendered inside the modal</li>
+<li>Modal renders the resume content when opened</li>
 <li>Modal closes when the close button is clicked</li>
 </ul>
 <p>Testing strategy:</p>
@@ -163,6 +166,9 @@ Tests focus on:</p>
 <li>Navigation side effects (history + scroll)</li>
 <li>Integration boundaries with the scroll-spy hook</li>
 </ul>
+</dd>
+<dt><a href="#module_components/renderers/blocks/CardGridBlock">components/renderers/blocks/CardGridBlock</a></dt>
+<dd><p>Tests for the CardGridBlock component, ensuring it renders insight cards correctly when items are provided and returns nothing when there are no items.</p>
 </dd>
 <dt><a href="#module_components/renderers/blocks/CardGridBlock">components/renderers/blocks/CardGridBlock</a></dt>
 <dd><p>A block component for displaying a grid of InsightCards. It takes a block object containing the title, number of columns, and an array of items to be displayed as cards. Each item should have properties such as title, icon, subtitle, variant (accent color), and content.</p>
@@ -361,9 +367,32 @@ portfolio projects with images, repository links, and live URLs.</p>
 </dd>
 </dl>
 
+## Members
+
+<dl>
+<dt><a href="#ResumeSection">ResumeSection</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>A section within the resume document, used to group related content under a common heading.</p>
+</dd>
+<dt><a href="#ResumeDocument">ResumeDocument</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>Component responsible for rendering a structured resume document based on provided data.</p>
+</dd>
+<dt><a href="#LazyDisplay">LazyDisplay</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>A simple component to display a loading message and an optional icon while a lazy-loaded component is being fetched.</p>
+</dd>
+</dl>
+
 ## Functions
 
 <dl>
+<dt><a href="#collectDocumentStyles">collectDocumentStyles()</a> ⇒ <code>string</code></dt>
+<dd><p>Collects all styles from the current document to ensure that the print preview has consistent styling. This function gathers both inline styles and linked stylesheets, concatenating their outer HTML into a single string that can be injected into the print preview document.</p>
+</dd>
+<dt><a href="#PreviewResumeModal">PreviewResumeModal(props)</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>Modal component for previewing the resume with print and download options.</p>
+</dd>
+<dt><a href="#ResumePreviewTrigger">ResumePreviewTrigger(props)</a> ⇒ <code>JSX.Element</code></dt>
+<dd><p>Component that triggers the resume preview modal.</p>
+</dd>
 <dt><a href="#InlineIcon">InlineIcon(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><h2 id="inlineicon">InlineIcon</h2>
 <p>Renders a lightweight, inline icon placeholder.</p>
@@ -384,47 +413,29 @@ icon system.</p>
 </dd>
 </dl>
 
-<a name="module_components/ResumePreview"></a>
+<a name="module_components/ResumePreview/PreviewResume"></a>
 
-## components/ResumePreview
+## components/ResumePreview/PreviewResume
 Modal-based resume preview and download component.
 
+<a name="module_components/ResumePreview/PreviewResume..PreviewResume"></a>
 
-* [components/ResumePreview](#module_components/ResumePreview)
-    * [~ResumePreview()](#module_components/ResumePreview..ResumePreview) ⇒ <code>JSX.Element</code>
-        * [~openModal()](#module_components/ResumePreview..ResumePreview..openModal) ⇒ <code>void</code>
-        * [~closeModal()](#module_components/ResumePreview..ResumePreview..closeModal) ⇒ <code>void</code>
+### components/ResumePreview/PreviewResume~PreviewResume ⇒ <code>JSX.Element</code>
+A modal component that allows users to preview and download the resume PDF. It provides an embedded PDF viewer along with action buttons for opening the PDF in a new tab, printing, and closing the modal. The component is designed to work seamlessly in both development and production environments by leveraging Vite's asset management system.Core responsibilities:- Opens a modal containing an embedded PDF preview- Provides a direct download link for the resume- Uses Vite asset imports to ensure correct bundling across environmentsTechnical notes:- PDF is imported as a Vite-managed asset- Works consistently in local development and production builds- Uses RSuite's ButtonToolbar for action buttons- The embedded PDF viewer is implemented using an iframe for broad compatibility- The component is styled to fit within the overall design system and maintain readability of the PDF contentAccessibility:- RSuite Modal provides focus trapping and ESC-to-close behavior- Buttons include descriptive aria-labels and tooltips- Embedded iframe includes a fallback message
 
-<a name="module_components/ResumePreview..ResumePreview"></a>
-
-### components/ResumePreview~ResumePreview() ⇒ <code>JSX.Element</code>
-ResumePreview---------------------------------------------------------------------------Frosted modal component that allows users to preview and downloadthe resume PDF.Core responsibilities:- Opens a modal containing an embedded PDF preview- Provides a direct download link for the resume- Uses Vite asset imports to ensure correct bundling across environmentsTechnical notes:- PDF is imported as a Vite-managed asset- Works consistently in local development and production builds- Modal styling is shared via global utility classesAccessibility:- RSuite Modal provides focus trapping and ESC-to-close behavior- Buttons include descriptive aria-labels and tooltips- Embedded iframe includes a fallback message
-
-**Kind**: inner method of [<code>components/ResumePreview</code>](#module_components/ResumePreview)  
+**Kind**: inner property of [<code>components/ResumePreview/PreviewResume</code>](#module_components/ResumePreview/PreviewResume)  
 **Returns**: <code>JSX.Element</code> - Rendered resume preview modal and trigger button.  
 **Access**: public  
 **Component**:   
+<a name="module_components/ResumePreview"></a>
 
-* [~ResumePreview()](#module_components/ResumePreview..ResumePreview) ⇒ <code>JSX.Element</code>
-    * [~openModal()](#module_components/ResumePreview..ResumePreview..openModal) ⇒ <code>void</code>
-    * [~closeModal()](#module_components/ResumePreview..ResumePreview..closeModal) ⇒ <code>void</code>
+## components/ResumePreview
+Main export for the resume preview feature.
 
-<a name="module_components/ResumePreview..ResumePreview..openModal"></a>
-
-#### ResumePreview~openModal() ⇒ <code>void</code>
-Opens the resume preview modal.
-
-**Kind**: inner method of [<code>ResumePreview</code>](#module_components/ResumePreview..ResumePreview)  
-<a name="module_components/ResumePreview..ResumePreview..closeModal"></a>
-
-#### ResumePreview~closeModal() ⇒ <code>void</code>
-Closes the resume preview modal.
-
-**Kind**: inner method of [<code>ResumePreview</code>](#module_components/ResumePreview..ResumePreview)  
 <a name="module_tests/components/ResumePreview"></a>
 
 ## tests/components/ResumePreview
-Unit tests for the ResumePreview component.Test coverage:- Modal opens when the trigger button is clicked- Iframe with the correct title is rendered inside the modal- Modal closes when the close button is clickedTesting strategy:- Mocks external dependencies (Btn and rsuite Modal components) to isolate testing to ResumePreview's behavior- Uses user-facing queries to verify the presence of interactive elements and content- Simulates user interactions (clicks) to test modal open/close behavior- Asserts the presence or absence of the modal and its content based on user actions
+Unit tests for the ResumePreview component.Test coverage:- Modal opens when the trigger button is clicked- Modal renders the resume content when opened- Modal closes when the close button is clickedTesting strategy:- Mocks external dependencies (Btn and rsuite Modal components) to isolate testing to ResumePreview's behavior- Uses user-facing queries to verify the presence of interactive elements and content- Simulates user interactions (clicks) to test modal open/close behavior- Asserts the presence or absence of the modal and its content based on user actions
 
 <a name="module_components/ThemeToggle"></a>
 
@@ -798,12 +809,54 @@ Sticky, accessible intra-page section navigator withhierarchical scroll trackin
 ## tests/components/StickySectionNav
 Unit tests for the StickySectionNav component.Test coverage:- Rendering of section navigation links- Active section highlighting via `aria-current="location"`- History hash updates on navigation- Programmatic scroll coordination with scroll-spy logicTesting strategy:- Mocks `useScrollSpyWithHistory` to control active section state- Mocks `window.scrollTo` to prevent actual scrolling- Uses real DOM nodes to simulate anchor targetsArchitectural intent:StickySectionNav is an **intra-page navigation controller**.Tests focus on:- Accessibility semantics- Navigation side effects (history + scroll)- Integration boundaries with the scroll-spy hook
 
+
+* [tests/components/StickySectionNav](#module_tests/components/StickySectionNav)
+    * [~s1](#module_tests/components/StickySectionNav..s1)
+    * [~markProgrammaticScroll](#module_tests/components/StickySectionNav..markProgrammaticScroll)
+
+<a name="module_tests/components/StickySectionNav..s1"></a>
+
+### tests/components/StickySectionNav~s1
+Ensure target section elements exist in the DOM soscroll and offset calculations can resolve correctly.
+
+**Kind**: inner property of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
 <a name="module_tests/components/StickySectionNav..markProgrammaticScroll"></a>
 
 ### tests/components/StickySectionNav~markProgrammaticScroll
 Mock scroll-spy hook to control active section stateand observe programmatic scroll suppression behavior.
 
 **Kind**: inner constant of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
+<a name="module_components/renderers/blocks/CardGridBlock"></a>
+
+## components/renderers/blocks/CardGridBlock
+Tests for the CardGridBlock component, ensuring it renders insight cards correctly when items are provided and returns nothing when there are no items.
+
+<a name="module_components/renderers/blocks/CardGridBlock..CardGridBlock"></a>
+
+### components/renderers/blocks/CardGridBlock~CardGridBlock ⇒ <code>JSX.Element</code>
+A block component for displaying a grid of InsightCards. It takes a block object containing the title, number of columns, and an array of items to be displayed as cards. Each item should have properties such as title, icon, subtitle, variant (accent color), and content.
+
+**Kind**: inner property of [<code>components/renderers/blocks/CardGridBlock</code>](#module_components/renderers/blocks/CardGridBlock)  
+**Returns**: <code>JSX.Element</code> - The rendered CardGridBlock component.  
+**Access**: public  
+**Component**:   
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| block | <code>object</code> | The block data containing title, columns, and items. |
+| block.title | <code>string</code> | The title of the card grid section. |
+| block.columns | <code>number</code> | The number of columns in the card grid. |
+| block.items | <code>Array</code> | An array of items to be displayed as cards. Each item should have the following properties: |
+| block.items[].id | <code>string</code> | A unique identifier for the card item. |
+| block.items[].title | <code>string</code> | The title text for the card. |
+| block.items[].icon | <code>string</code> | The name of the icon to be displayed on the card. |
+| block.items[].subtitle | <code>string</code> | The subtitle text for the card. |
+| block.items[].variant | <code>string</code> | The variant (accent color) for the card, e.g., "blue", "green", "red". |
+| block.items[].content | <code>string</code> | The content for the card, which can include rich text. |
+
+**Example**  
+```jsconst blockData = {  title: "Key Insights", columns: 3, items: [   {    id: "1",    title: "Insight One",    icon: "lightbulb",    subtitle: "An important finding",    variant: "blue",    content: "This insight reveals that..."  },  {   id: "2",   title: "Insight Two",   icon: "chart-bar",   subtitle: "Another key point",   variant: "green",   content: "This insight highlights that..."   }, ],};<CardGridBlock block={blockData} />```
 <a name="module_components/renderers/blocks/CardGridBlock"></a>
 
 ## components/renderers/blocks/CardGridBlock
@@ -1164,6 +1217,11 @@ Tests for the renderNode function, ensuring it correctly renders various node ty
 ## components/SectionRenderer
 Central render orchestrator for feature sections composed ofdeclarative content blocks.
 
+
+* [components/SectionRenderer](#module_components/SectionRenderer)
+    * [~SectionRenderer](#module_components/SectionRenderer..SectionRenderer) ⇒ <code>JSX.Element</code>
+        * [~blocks](#module_components/SectionRenderer..SectionRenderer..blocks)
+
 <a name="module_components/SectionRenderer..SectionRenderer"></a>
 
 ### components/SectionRenderer~SectionRenderer ⇒ <code>JSX.Element</code>
@@ -1182,6 +1240,12 @@ Central render orchestrator for a single feature section.This component acts as
 
 **Example**  
 ```js<SectionRenderer  section={{    id: "projects",    title: "Projects",    subtitle: "Selected work",    blocks: [...]  }}/>```
+<a name="module_components/SectionRenderer..SectionRenderer..blocks"></a>
+
+#### SectionRenderer~blocks
+Registers the section for scroll tracking on mountand unregisters it on unmount.Enables:- Sticky section navigation- Active section highlighting- Programmatic scrolling
+
+**Kind**: inner constant of [<code>SectionRenderer</code>](#module_components/SectionRenderer..SectionRenderer)  
 <a name="module_tests/components/SectionRenderer"></a>
 
 ## tests/components/SectionRenderer
@@ -1597,7 +1661,7 @@ Fully featured Mermaid diagram renderer with dark/light theme support, responsiv
 
 * [components/MermaidDiagram](#module_components/MermaidDiagram)
     * [~MermaidDiagram](#module_components/MermaidDiagram..MermaidDiagram) ⇒ <code>JSX.Element</code>
-        * [~handleExport()](#module_components/MermaidDiagram..MermaidDiagram..handleExport) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [~handleExport()](#module_components/MermaidDiagram..handleExport) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="module_components/MermaidDiagram..MermaidDiagram"></a>
 
@@ -1625,12 +1689,12 @@ Fully featured Mermaid diagram renderer with dark/light theme support, responsiv
 
 **Example**  
 ```js<MermaidDiagramid="example-diagram"title="Example Mermaid Diagram"description="This is an example of a Mermaid diagram rendered within the MermaidDiagram component."diagram="graph TD; A-->B; A-->C; B-->D; C-->D;"theme="dark"/>// In this example, the `MermaidDiagram` component renders a simple flowchart defined by the Mermaid syntax in the `diagram` prop. The component applies the "dark" theme to the rendered SVG and includes a title and description for context. The diagram is rendered within a styled panel that is accessible and includes functionality for exporting the diagram as a PNG image.```
-<a name="module_components/MermaidDiagram..MermaidDiagram..handleExport"></a>
+<a name="module_components/MermaidDiagram..handleExport"></a>
 
-#### MermaidDiagram~handleExport() ⇒ <code>Promise.&lt;void&gt;</code>
+### components/MermaidDiagram~handleExport() ⇒ <code>Promise.&lt;void&gt;</code>
 Handle diagram export by converting the rendered SVG to a PNG image using `html-to-image`, while ensuring that the host element and SVG are present before attempting the export. The function includes error handling to catch and log any issues during the export process, providing feedback in case of failure. The exported file is named based on the provided title or defaults to "diagram.png" if no title is available, ensuring a user-friendly download experience.The export process involves:- Selecting the SVG element from the host container to ensure that the correct content is exported.- Using `html-to-image`'s `toPng` function to convert the SVG to a PNG data URL, with options for cache busting and background color to ensure a clean export.- Creating a temporary anchor element to trigger the download of the PNG file, setting the `href` to the generated data URL and the `download` attribute to specify the filename.- Handling any errors that occur during the export process by logging them to the console, allowing for debugging and user feedback in case of issues.
 
-**Kind**: inner method of [<code>MermaidDiagram</code>](#module_components/MermaidDiagram..MermaidDiagram)  
+**Kind**: inner method of [<code>components/MermaidDiagram</code>](#module_components/MermaidDiagram)  
 **Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the export process is complete, allowing for asynchronous handling of the export operation.  
 <a name="module_components/ProjectCard"></a>
 
@@ -1675,6 +1739,92 @@ A reusable card component for showcasing portfolio projects, featuring a frosted
 | alt | <code>string</code> | Alt text for accessibility. |
 | [title] | <code>string</code> | Optional image title. |
 | [caption] | <code>string</code> | Optional caption displayed with the image. |
+
+<a name="ResumeSection"></a>
+
+## ResumeSection ⇒ <code>JSX.Element</code>
+A section within the resume document, used to group related content under a common heading.
+
+**Kind**: global variable  
+**Returns**: <code>JSX.Element</code> - The rendered section component.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | The properties object. |
+| props.title | <code>string</code> | The title of the section. |
+| props.children | <code>React.ReactNode</code> | The content of the section. |
+
+<a name="ResumeDocument"></a>
+
+## ResumeDocument ⇒ <code>JSX.Element</code>
+Component responsible for rendering a structured resume document based on provided data.
+
+**Kind**: global variable  
+**Returns**: <code>JSX.Element</code> - The rendered resume document component.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | The properties object. |
+| props.resume | <code>Object</code> | The resume data object. |
+
+<a name="LazyDisplay"></a>
+
+## LazyDisplay ⇒ <code>JSX.Element</code>
+A simple component to display a loading message and an optional icon while a lazy-loaded component is being fetched.
+
+**Kind**: global variable  
+**Returns**: <code>JSX.Element</code> - Rendered loading placeholder.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| loadingMessage | <code>string</code> | The message to display while loading. Defaults to "Loading...". |
+| icon | <code>string</code> | An optional FontAwesome icon class to display above the loading message. |
+| iconSpin | <code>boolean</code> | If true, the icon will have the "fa-spin" class applied for animation. |
+
+<a name="collectDocumentStyles"></a>
+
+## collectDocumentStyles() ⇒ <code>string</code>
+Collects all styles from the current document to ensure that the print preview has consistent styling. This function gathers both inline styles and linked stylesheets, concatenating their outer HTML into a single string that can be injected into the print preview document.
+
+**Kind**: global function  
+**Returns**: <code>string</code> - A concatenated string of all styles from the current document, used for ensuring consistent styling in the print preview.  
+<a name="PreviewResumeModal"></a>
+
+## PreviewResumeModal(props) ⇒ <code>JSX.Element</code>
+Modal component for previewing the resume with print and download options.
+
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - The rendered modal component.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | The properties object. |
+| props.open | <code>boolean</code> | Whether the modal is open. |
+| props.onClose | <code>function</code> | Function to call when the modal is closed. |
+| props.title | <code>string</code> | The title of the resume. |
+| props.subtitle | <code>string</code> | The subtitle of the resume. |
+| props.pdfHref | <code>string</code> | The URL of the PDF version of the resume. |
+| props.downloadName | <code>string</code> | The name for the downloaded PDF file. |
+| props.children | <code>React.ReactNode</code> | The content of the modal. |
+
+<a name="ResumePreviewTrigger"></a>
+
+## ResumePreviewTrigger(props) ⇒ <code>JSX.Element</code>
+Component that triggers the resume preview modal.
+
+**Kind**: global function  
+**Returns**: <code>JSX.Element</code> - The rendered trigger component.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | The properties object. |
+| props.buttonText | <code>string</code> | The text for the trigger button. |
+| props.title | <code>string</code> | The title of the resume preview. |
+| props.subtitle | <code>string</code> | The subtitle of the resume preview. |
+| props.resume | <code>Object</code> | The resume data object. |
+| props.pdfHref | <code>string</code> | The URL of the PDF version of the resume. |
+| props.downloadName | <code>string</code> | The name for the downloaded PDF file. |
+| props.buttonClassName | <code>string</code> | Additional class names for the trigger button. |
 
 <a name="InlineIcon"></a>
 

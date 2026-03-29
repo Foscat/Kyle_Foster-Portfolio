@@ -27,11 +27,14 @@ import renderWithProviders from "tests/renderWithProviders";
  * ------------------------------------------------------------------ */
 
 // Mock RSuite components to simple semantic wrappers
-vi.mock("rsuite", () => {
+vi.mock("rsuite", async () => {
+  const actual = await vi.importActual("rsuite");
+
   const FlexboxGrid = ({ children }) => <div>{children}</div>;
   FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
 
   return {
+    ...actual,
     Panel: ({ children, className, role }) => (
       <header className={className} role={role}>
         {children}

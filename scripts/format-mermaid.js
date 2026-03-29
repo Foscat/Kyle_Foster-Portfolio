@@ -1,5 +1,6 @@
 /**
  * @file format-mermaid.js
+ * @module format-mermaid
  * @description
  * Deterministic formatter for Mermaid diagram source strings.
  *

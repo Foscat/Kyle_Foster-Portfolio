@@ -1,7 +1,7 @@
 import CodeStream from "../CodeStream";
 import codeStreamSections from "assets/data/content/codestream";
-import { PageRoute } from "types/ui.types";
-import { createPageTests } from "tests/helpers/createPageTests";
+import { PageRoute } from "types/navigation.types";
+import { createPageTests } from "tests/helpers/createPageTests.jsx";
 
 /**
  * @file CodeStream.test.jsx

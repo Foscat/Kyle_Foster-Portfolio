@@ -78,6 +78,20 @@ describe("useScrollSpyWithHistory", () => {
     expect(byId.get("overview-block")?.parentId).toBe("overview");
   });
 
+  it("builds section children from navItems when provided", () => {
+    const { nodes, byId } = buildSectionTree([
+      {
+        id: "docs",
+        navItems: [{ id: "doc-components", title: "Components" }],
+        blocks: [{ id: "legacy-block" }],
+      },
+    ]);
+
+    expect(nodes.map((node) => node.id)).toEqual(["docs", "doc-components"]);
+    expect(byId.get("doc-components")?.parentId).toBe("docs");
+    expect(byId.has("legacy-block")).toBe(false);
+  });
+
   // Test case: the hook should update the active chain when the closest visible node changes.
   it("updates the active chain when the closest visible node changes", async () => {
     document.body.innerHTML = '<section id="overview"></section><div id="overview-block"></div>';
@@ -100,7 +114,7 @@ describe("useScrollSpyWithHistory", () => {
       observerCallback([
         {
           isIntersecting: true,
-          target: document.getElementById("overview-block"),
+          target: observedElements.find((element) => element.id === "overview-block"),
           boundingClientRect: { top: 24 },
         },
       ]);

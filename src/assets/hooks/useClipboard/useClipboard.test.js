@@ -19,7 +19,7 @@
  *
  */
 
-import { renderHook, act, waitFor } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import useClipboard from "./";
 
@@ -40,13 +40,15 @@ describe("useClipboard", () => {
     Object.defineProperty(navigator, "clipboard", {
       configurable: true,
       value: {
-        writeText: vi.fn(() => Promise.resolve()),
+        writeText: vi.fn(),
       },
     });
   });
 
   afterEach(() => {
+    vi.runOnlyPendingTimers();
     vi.useRealTimers();
+    vi.restoreAllMocks();
 
     Object.defineProperty(navigator, "clipboard", {
       configurable: true,
@@ -54,36 +56,33 @@ describe("useClipboard", () => {
     });
   });
 
-  // Happy path: valid text is copied and the "copied" state resets after the delay.
-  it("copies valid text and resets copied state after the configured delay", async () => {
+  it("copies valid text and resets copied state after the configured delay", () => {
+    navigator.clipboard.writeText.mockResolvedValue(undefined);
+
     const { result } = renderHook(() => useClipboard({ resetDelay: 2000 }));
 
     let didCopy;
-    await act(async () => {
-      didCopy = result.current.copy("https://example.com");
+    act(() => {
+      didCopy = result.current.copy("hello");
     });
 
     expect(didCopy).toBe(true);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith("hello");
+    expect(result.current.copied).toBe(true);
 
-    await waitFor(() => {
-      expect(result.current.copied).toBe(true);
-    });
-
-    await act(async () => {
+    act(() => {
       vi.advanceTimersByTime(2000);
     });
 
-    await waitFor(() => {
-      expect(result.current.copied).toBe(false);
-    });
+    expect(result.current.copied).toBe(false);
   });
 
   // Edge case: empty input should not trigger a clipboard write and should return false.
-  it("returns false and does not call the clipboard API for empty input", async () => {
+  it("returns false and does not call the clipboard API for empty input", () => {
     const { result } = renderHook(() => useClipboard());
 
     let didCopy;
-    await act(async () => {
+    act(() => {
       didCopy = result.current.copy("");
     });
 
@@ -92,7 +91,7 @@ describe("useClipboard", () => {
   });
 
   // Edge case: if the clipboard API is unavailable, the hook should return false and set an error.
-  it("surfaces an error when the clipboard API is unavailable", async () => {
+  it("surfaces an error when the clipboard API is unavailable", () => {
     Object.defineProperty(navigator, "clipboard", {
       configurable: true,
       value: undefined,
@@ -101,14 +100,11 @@ describe("useClipboard", () => {
     const { result } = renderHook(() => useClipboard());
 
     let didCopy;
-    await act(async () => {
+    act(() => {
       didCopy = result.current.copy("Copy me");
     });
 
     expect(didCopy).toBe(false);
-
-    await waitFor(() => {
-      expect(result.current.error).toBeInstanceOf(Error);
-    });
+    expect(result.current.error).toBeInstanceOf(Error);
   });
 });

@@ -20,9 +20,36 @@
 
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import ClickableImg from "./index";
 import renderWithProviders from "tests/renderWithProviders";
+
+vi.mock("rsuite", async () => {
+  const React = await vi.importActual("react");
+  const actual = await vi.importActual("rsuite");
+  const Modal = ({ open, children, onClose, keyboard = true }) => {
+    React.useEffect(() => {
+      if (!open || !keyboard) return undefined;
+      const handleKeyDown = (event) => {
+        if (event.key === "Escape") onClose?.();
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [open, keyboard, onClose]);
+
+    return open ? <div role="dialog">{children}</div> : null;
+  };
+  Modal.Header = ({ children }) => <div>{children}</div>;
+  Modal.Title = ({ children }) => <h2>{children}</h2>;
+  Modal.Body = ({ children }) => <div>{children}</div>;
+  Modal.Footer = ({ children }) => <div>{children}</div>;
+
+  return {
+    ...actual,
+    Modal,
+  };
+});
 
 /* ------------------------------------------------------------------
  * Test data
@@ -64,7 +91,7 @@ describe("ClickableImg", () => {
   it("renders the thumbnail image", () => {
     renderClickableImg();
 
-    const thumbnail = screen.getByRole("img", { name: IMAGE_ALT });
+    const thumbnail = screen.getByRole("img", { name: /clickable image, click to expand/i });
     expect(thumbnail).toBeInTheDocument();
     expect(thumbnail).toHaveAttribute("src", IMAGE_SRC);
   });
@@ -83,7 +110,7 @@ describe("ClickableImg", () => {
   it("opens the modal when the thumbnail is clicked", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: IMAGE_ALT }));
+    await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
 
     // RSuite Modal renders with role="dialog"
     expect(screen.getByRole("dialog")).toBeVisible();
@@ -94,9 +121,11 @@ describe("ClickableImg", () => {
   it("renders the expanded image inside the modal", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: IMAGE_ALT }));
+    await userEvent.click(screen.getByRole("img", { name: /Clickable image, click to expand/i }));
 
-    const modalImage = screen.getAllByRole("img", { name: IMAGE_ALT })[1];
+    const modalImage = screen.getAllByRole("img", {
+      name: /clickable image, click to expand/i,
+    })[1];
     expect(modalImage).toBeInTheDocument();
   });
 
@@ -104,9 +133,11 @@ describe("ClickableImg", () => {
   it("closes the modal when the expanded image is clicked", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: IMAGE_ALT }));
+    await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
 
-    const modalImage = screen.getAllByRole("img", { name: IMAGE_ALT })[1];
+    const modalImage = screen.getAllByRole("img", {
+      name: /clickable image, click to expand/i,
+    })[1];
     await userEvent.click(modalImage);
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -120,7 +151,7 @@ describe("ClickableImg", () => {
   it("closes the modal when Escape is pressed", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: IMAGE_ALT }));
+    await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
     expect(screen.getByRole("dialog")).toBeInTheDocument();
 
     await userEvent.keyboard("{Escape}");
@@ -134,13 +165,15 @@ describe("ClickableImg", () => {
   // Test that the ClickableImg component renders the thumbnail image with the correct alt text, ensuring that the image is accessible to users who rely on screen readers. This verifies that the component correctly uses the alt prop to provide an accessible name for the thumbnail image, allowing it to be identified and understood by assistive technologies.
   it("provides an accessible name for the thumbnail image", () => {
     renderClickableImg();
-    expect(screen.getByRole("img", { name: IMAGE_ALT })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: /Clickable image, click to expand/i })
+    ).toBeInTheDocument();
   });
 
   // Test that when the ClickableImg component is rendered with an ariaLabel prop, the thumbnail image has the correct accessible name for screen readers, ensuring that the component is accessible to users who rely on assistive technologies. This verifies that the ClickableImg component correctly uses the ariaLabel prop to provide an accessible name for the thumbnail image, allowing it to be identified and interacted with by screen readers.
   it("sets aria-label when provided", () => {
     renderClickableImg({ ariaLabel: "Expandable screenshot" });
 
-    expect(screen.getByRole("img", { name: "Expandable screenshot" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Expandable screenshot/i })).toBeInTheDocument();
   });
 });

@@ -1,0 +1,374 @@
+/*
+  PreviewResume.css
+  Styles for the resume preview modal and its contents.
+*/
+
+.resume-preview-modal .rs-modal-dialog {
+  width: 98dvw;
+  margin: 0.75rem auto;
+}
+
+.resume-preview-modal .rs-modal-content {
+  background:
+    radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.1), transparent 24%),
+    linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.9), rgba(var(--primary-dark-rgb), 0.7));
+  border: 1px solid rgba(var(--white-rgb), 0.08);
+  box-shadow: 0 24px 64px rgba(var(--deep-black-rgb), 0.34);
+  overflow: hidden;
+}
+
+.resume-preview-modal .rs-modal-body {
+  padding: 0;
+}
+
+.resume-preview-modal__body {
+  min-height: calc(100vh - 1.5rem);
+  background: linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.38), rgba(var(--primary-dark-rgb), 0.18));
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: var(--backdrop-blur);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Shell                                                                       */
+/* -------------------------------------------------------------------------- */
+
+.resume-preview__shell {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  min-height: calc(100vh - 1.5rem);
+  padding: 1rem;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.5), rgba(var(--primary-darkest-rgb), 0.72));
+  border: 1px solid rgba(var(--white-rgb), 0.1);
+  box-shadow: 0 24px 60px rgba(var(--deep-black-rgb), 0.34);
+  color: var(--text-primary, #f5f7ff);
+}
+
+.resume-preview__toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding: 1.2rem 1.3rem;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.26), rgba(var(--white-rgb), 0.05));
+  border: 1px solid rgba(var(--white-rgb), 0.08);
+  box-shadow: inset 0 1px 0 rgba(var(--white-rgb), 0.05);
+}
+
+.resume-preview__heading {
+  max-width: 50rem;
+}
+
+.resume-preview__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-gold, #d4af37);
+}
+
+.resume-preview__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 1rem + 1vw, 1.9rem);
+  line-height: 1.15;
+  color: #f7f8ff;
+}
+
+.resume-preview__subtitle {
+  margin: 0.45rem 0 0;
+  max-width: 42rem;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(245, 247, 255, 0.82);
+}
+
+.resume-preview__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.resume-preview__action.rs-btn {
+  min-width: 7rem;
+  padding: 0.62rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.3), rgba(var(--white-rgb), 0.04));
+  border: 1px solid rgba(var(--white-rgb), 0.12);
+  color: #edf1ff;
+  box-shadow: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.resume-preview__action.rs-btn:hover,
+.resume-preview__action.rs-btn:focus-visible {
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.34), rgba(var(--white-rgb), 0.08));
+  border-color: rgba(var(--accent-rgb), 0.32);
+  color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.08);
+}
+
+.resume-preview__action--download.rs-btn {
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.24), rgba(var(--primary-dark-rgb), 0.18));
+  border-color: rgba(var(--accent-rgb), 0.22);
+}
+
+.resume-preview__action--open.rs-btn,
+.resume-preview__action--close.rs-btn {
+  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.24), rgba(var(--white-rgb), 0.04));
+}
+
+.resume-preview__action--close.rs-btn {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.resume-preview__viewport {
+  min-height: clamp(44rem, 78vh, 60rem);
+  padding: clamp(1rem, 1.4vw, 1.5rem);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.42), rgba(var(--white-rgb), 0.06));
+  border: 1px solid rgba(var(--white-rgb), 0.08);
+  overflow: auto;
+}
+
+.resume-preview__paper {
+  width: min(100%, 900px);
+  min-height: 1140px;
+  margin: 0 auto;
+  padding: clamp(2rem, 3vw, 3rem);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fffefb 0%, #fffdfa 100%);
+  color: #1f2937;
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.28);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Resume document                                                             */
+/* -------------------------------------------------------------------------- */
+
+.resume-document {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.resume-document__header {
+  display: grid;
+  gap: 0.85rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid rgba(10, 16, 92, 0.12);
+}
+
+.resume-document__name {
+  margin: 0;
+  font-size: clamp(2rem, 1.6rem + 1vw, 2.7rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: #0f1b4d;
+}
+
+.resume-document__role {
+  margin: 0.3rem 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #7a5d10;
+}
+
+.resume-document__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  font-size: 0.93rem;
+  color: #4b5563;
+}
+
+.resume-document__meta-item {
+  position: relative;
+}
+
+.resume-document__meta-item:not(:last-child)::after {
+  content: "•";
+  margin-left: 1rem;
+  color: rgba(15, 27, 77, 0.28);
+}
+
+.resume-document__section {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.resume-document__section-header {
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(10, 16, 92, 0.1);
+}
+
+.resume-document__section-header h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f1b4d;
+}
+
+.resume-document__section-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.resume-document__summary {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+.resume-document__stack {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.resume-document__entry {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.resume-document__entry-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.resume-document__entry-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.resume-document__entry-subtitle {
+  margin: 0.2rem 0 0;
+  font-size: 0.94rem;
+  color: #4b5563;
+}
+
+.resume-document__entry-dates {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.resume-document__entry-summary {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.resume-document__bullet-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.resume-document__bullet-list li {
+  color: #374151;
+  line-height: 1.65;
+}
+
+.resume-document__skills {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.resume-document__skill-group {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.resume-document__skill-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f1b4d;
+}
+
+.resume-document__skill-values {
+  margin: 0;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.resume-preview-trigger.rs-btn {
+  border-radius: 999px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive                                                                  */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .resume-preview__shell {
+    min-height: calc(100vh - 1rem);
+    padding: 0.75rem;
+    border-radius: 22px;
+  }
+
+  .resume-preview__toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .resume-preview__actions {
+    justify-content: flex-start;
+  }
+
+  .resume-preview__paper {
+    min-height: 0;
+    padding: 1.4rem;
+    border-radius: 16px;
+  }
+
+  .resume-document__entry-topline {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .resume-document__entry-dates {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .resume-preview-modal .rs-modal-dialog {
+    width: 98dvw;
+    margin: auto;
+  }
+
+  .resume-preview__viewport {
+    min-height: calc(100vh - 15rem);
+    padding: 0.75rem;
+  }
+
+  .resume-document__meta {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .resume-document__meta-item:not(:last-child)::after {
+    content: "";
+    margin: 0;
+  }
+}

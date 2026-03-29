@@ -56,6 +56,7 @@ import { Size } from "types/ui.types";
 const InfoSection = ({
   title = "",
   subtitle = "",
+  sectionTag = "",
   icon = null,
   className = "",
   id = "",
@@ -68,6 +69,7 @@ const InfoSection = ({
       id={id}
       header={
         <div className="info-header">
+          {sectionTag ? <span className="info-section-tag">{sectionTag}</span> : null}
           <div className="title-wrapper">
             {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}
             {title && <h2 className="info-title">{title}</h2>}
@@ -75,7 +77,7 @@ const InfoSection = ({
           {subtitle && <h4 className="info-subtitle">{subtitle}</h4>}
         </div>
       }
-      className={`info-section frosted ${className}`}
+      className={`info-section glass-card ${className}`}
       as="section"
     >
       {/* CONTENT AREA */}

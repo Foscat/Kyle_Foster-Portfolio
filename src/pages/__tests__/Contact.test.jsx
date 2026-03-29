@@ -2,8 +2,13 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Contact from "../Contact";
+import Contact from "../Contact/index.jsx";
+import contactForm from "assets/data/content/contactForm.js";
 import renderWithProviders from "tests/renderWithProviders";
+
+const toLabelMatcher = (label, fallback) =>
+  new RegExp(String(label || fallback).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
+const fieldSelector = "input,textarea";
 
 /**
  * @fileoverview
@@ -23,6 +28,12 @@ import renderWithProviders from "tests/renderWithProviders";
  */
 
 describe("Contact page", () => {
+  const schemaFields = Array.isArray(contactForm?.fields) ? contactForm.fields : [];
+  const nameLabel = schemaFields.find((field) => ["name", "fullName"].includes(field?.name))?.label;
+  const emailLabel = schemaFields.find((field) => field?.name === "email")?.label;
+  const messageLabel = schemaFields.find((field) => field?.name === "message")?.label;
+  const submitLabel = contactForm?.submitLabel || "Send Message";
+
   // Store the original fetch function to restore it after tests, ensuring that other tests are not affected by our mock.
   const originalFetch = global.fetch;
 
@@ -51,10 +62,21 @@ describe("Contact page", () => {
     });
 
     // Simulate user input for the contact form fields and submit the form. This involves typing a name, email, and message into the respective form fields and then clicking the submit button. After the submission, we wait for the fetch function to be called and verify that it was called with the correct URL and options, confirming that the form submission process is working as expected.
-    await user.type(screen.getByLabelText(/name/i), "Kyle Foster");
-    await user.type(screen.getByLabelText(/email/i), "kyle@example.com");
-    await user.type(screen.getByLabelText(/message/i), "Testing contact form");
-    await user.click(screen.getByRole("button", { name: /send message/i }));
+    await user.type(
+      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      "Testing contact form"
+    );
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledTimes(1);
@@ -91,17 +113,30 @@ describe("Contact page", () => {
     });
 
     // Simulate user input for the contact form fields and submit the form. This involves typing a name, email, and message into the respective form fields and then clicking the submit button. After the first submission, we wait for an error message to be displayed, simulating a failed submission. Then we simulate another submission to verify that the fetch function is called again, allowing for a retry of the contact form submission process. This ensures that users have the opportunity to correct any issues and resubmit the form if their initial attempt fails, improving the user experience and robustness of the contact form.
-    await user.type(screen.getByLabelText(/name/i), "Kyle Foster");
-    await user.type(screen.getByLabelText(/email/i), "kyle@example.com");
-    await user.type(screen.getByLabelText(/message/i), "Retry test");
+    await user.type(
+      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      "Retry test"
+    );
 
-    await user.click(screen.getByRole("button", { name: /send message/i }));
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
 
     await waitFor(() => {
       expect(screen.getByRole("alert")).toHaveTextContent(/failed to send message/i);
     });
 
-    await user.click(screen.getByRole("button", { name: /send message/i }));
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledTimes(2);

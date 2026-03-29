@@ -5,54 +5,46 @@
  * @module components/navigation/StickyNav
  */
 
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import StickyNav from "./index";
-import { PageRoute } from "types/ui.types";
+import { PageRoute } from "types/navigation.types";
 import renderWithProviders from "tests/renderWithProviders";
 
 // Mock the Nav and Drawer components from the rsuite library to prevent issues with their implementation during testing, allowing us to focus on the StickyNav's functionality without worrying about the complexities of these components.
-vi.mock("rsuite", () => {
-  const Nav = ({ children, vertical, ...rest }) => (
-    <nav aria-label={vertical ? "Section drawer navigation" : "Primary navigation"} {...rest}>
-      {children}
-    </nav>
-  );
+vi.mock("rsuite", async () => {
+  const actual = await vi.importActual("rsuite");
 
-  // Mock the Nav.Item component to render a simple link with the appropriate aria-current attribute when active, allowing us to test the navigation functionality and active state handling of the StickyNav component without relying on the actual implementation of the Nav.Item component.
-  Nav.Item = ({ children, href, active, onClick }) => (
-    <a href={href} aria-current={active ? "page" : undefined} onClick={onClick}>
-      {children}
-    </a>
-  );
+  const FlexboxGrid = ({ children }) => <div>{children}</div>;
+  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
 
-  // Mock the Drawer component to render a simple dialog with a close button, allowing us to test the mobile navigation functionality of the StickyNav component without relying on the actual implementation of the Drawer component.
-  const Drawer = ({ open, onClose, children }) =>
-    open ? (
-      <div role="dialog" aria-label="Site Navigation">
-        <button onClick={onClose}>Close navigation</button>
+  return {
+    ...actual,
+    Panel: ({ children, className, role }) => (
+      <header className={className} role={role}>
         {children}
-      </div>
-    ) : null;
-
-  Drawer.Header = ({ children }) => <div>{children}</div>;
-  Drawer.Title = ({ children }) => <h2>{children}</h2>;
-  Drawer.Body = ({ children }) => <div>{children}</div>;
-
-  return { Nav, Drawer };
+      </header>
+    ),
+    FlexboxGrid,
+  };
 });
 
 // Mock the Btn component from the UI library to simplify testing and focus on the StickyNav's functionality.
-vi.mock("components/ui", () => ({
-  Btn: ({ onClick, ariaLabel }) => (
-    <button onClick={onClick} aria-label={ariaLabel}>
-      Open
-    </button>
-  ),
-  FrostedIcon: ({ ariaLabel }) => <span>{ariaLabel}</span>,
-}));
+vi.mock("components/ui", async () => {
+  const actual = await vi.importActual("components/ui");
+
+  return {
+    ...actual,
+    Btn: ({ onClick, ariaLabel }) => (
+      <button onClick={onClick} aria-label={ariaLabel}>
+        Open
+      </button>
+    ),
+    FrostedIcon: ({ ariaLabel }) => <span>{ariaLabel}</span>,
+  };
+});
 
 // Mock the ThemeToggle component from the features library to prevent issues with its implementation during testing, allowing us to focus on the StickyNav's functionality without worrying about the complexities of the ThemeToggle component.
 vi.mock("components/features", () => ({
@@ -93,7 +85,9 @@ describe("StickyNav", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
     await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
-    await user.click(screen.getByRole("link", { name: /contact me/i }));
+
+    const dialog = await screen.findByRole("dialog", { name: /site navigation/i });
+    await user.click(within(dialog).getByRole("link", { name: /contact me/i }));
 
     await waitFor(() => {
       expect(screen.queryByRole("dialog", { name: /site navigation/i })).not.toBeInTheDocument();

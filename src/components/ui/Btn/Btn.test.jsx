@@ -31,24 +31,14 @@ import renderWithProviders from "tests/renderWithProviders";
  */
 
 // Mock the Button and IconButton components from the rsuite library to simplify testing and focus on the Btn component's behavior, allowing us to verify that the Btn component correctly handles button rendering and interactions without relying on the actual implementation of the rsuite components.
-vi.mock("rsuite", () => {
-  const Button = ({ children, icon, onClick, type = "button", disabled, ...rest }) => (
-    <button type={type} onClick={onClick} disabled={disabled} {...rest}>
-      {icon}
-      {children}
-    </button>
-  );
-
-  const IconButton = ({ icon, onClick, type = "button", disabled, ...rest }) => (
-    <button type={type} onClick={onClick} disabled={disabled} {...rest}>
-      {icon}
-    </button>
-  );
-
-  const Tooltip = ({ children }) => <span>{children}</span>;
-  const Whisper = ({ children }) => <>{children}</>;
-
-  return { Button, IconButton, Tooltip, Whisper };
+vi.mock("rsuite", async () => {
+  const actual = await vi.importActual("rsuite");
+  return {
+    ...actual,
+    Whisper: ({ children }) => <>{children}</>,
+    Tooltip: ({ children }) => <>{children}</>,
+    Loader: () => <span role="status">Loading button...</span>,
+  };
 });
 
 // Mock the FrostedIcon component to simplify testing and focus on the Btn component's behavior, allowing us to verify that icons are rendered correctly and that accessibility features are in place without relying on the actual implementation of the FrostedIcon component. This mock renders a simple span with an aria-hidden label, which allows us to test the presence of the icon and its accessibility attributes in the Btn component.

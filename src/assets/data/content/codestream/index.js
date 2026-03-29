@@ -77,7 +77,7 @@ const codestreamSections = [
     icon: faTowerObservation,
     title: "Overview",
     subtitle:
-      "The app that went from a quick fix to get the company out of a bind. That grew to be the most important asset the company has.",
+      "The platform that started as an urgent internal fix and evolved into the company's most critical product asset.",
 
     isScroller: true,
     blocks: [
@@ -95,7 +95,7 @@ const codestreamSections = [
               { type: "strong", text: "CodeStream Studios LLC" },
               {
                 type: "text",
-                text: ", I served as the sole front-end engineer responsible for taking a React-based application from concept to production. I owned the front-end architecture and translated rough ideas into durable, user-facing systems.",
+                text: ", I served as the sole frontend engineer responsible for taking a React-based application from concept to production. I owned the frontend architecture and translated rough ideas into durable, user-facing systems.",
               },
             ],
           },
@@ -133,7 +133,7 @@ const codestreamSections = [
               { type: "strong", text: "taught on it" },
               {
                 type: "text",
-                text: ". I used the system to teach classes, build curriculum, manage teachers, onboard students, grade assignments. This dual perspective shaped every design decision I made.",
+                text: ". I used the system to teach classes, build curriculum, manage teachers, onboard students, and grade assignments. That dual perspective shaped every major product decision I made.",
               },
             ],
           },
@@ -164,7 +164,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Project grading, curriculum building and role based oversight tools",
+                    text: "Project grading, curriculum building, and role-based oversight tools",
                   },
                 ],
               },
@@ -3293,7 +3293,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "Working as the sole front-end engineer required thinking beyond UI implementation — it demanded architectural accountability. That foundation now informs how I approach future systems — prioritizing clarity, separation of concerns, and long-term operational stability.",
+                text: "Working as the sole frontend engineer required thinking beyond UI implementation — it demanded architectural accountability. That foundation now informs how I approach future systems — prioritizing clarity, separation of concerns, and long-term operational stability.",
               },
             ],
           },

@@ -48,6 +48,19 @@
   box-shadow: none;
 }
 
+.sticky-nav-theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.sticky-nav-theme-toggle.rs-nav-item,
+.sticky-nav-theme-toggle.rs-nav-item:hover,
+.sticky-nav-theme-toggle.rs-nav-item:focus,
+.sticky-nav-theme-toggle.rs-nav-item:active {
+  background-color: transparent;
+}
+
 /* Hide desktop menu on mobile */
 .desktop-menu {
   background-color: var(--glass-bg);
@@ -112,6 +125,11 @@
   font-weight: 500;
   color: var(--text-primary);
   font-family: var(--font-Golos);
+}
+
+.rs-drawer-body .theme-toggle {
+  width: fit-content;
+  margin-top: 1rem;
 }
 
 /* Slide-down animation */

@@ -32,8 +32,10 @@ test("contact form sends correct payload and shows success state", async ({ page
   await page.goto("/contact");
 
   await page.getByLabel(/name/i).fill("Kyle Foster");
-  await page.getByLabel(/email/i).fill("kyle@example.com");
-  await page.getByLabel(/message/i).fill("Playwright contact test");
+  await page.getByRole("textbox", { name: /email/i }).fill("kyle@example.com");
+  await page
+    .getByRole("textbox", { name: /message|project details/i })
+    .fill("Playwright contact test");
 
   await page.getByRole("button", { name: /send message/i }).click();
 

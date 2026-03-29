@@ -15,11 +15,13 @@ import {
   faFolderOpen,
   faEnvelope,
   faMap,
+  faBook,
 } from "@fortawesome/free-solid-svg-icons";
-import { PageRoute, Size, Variant } from "types/ui.types";
+import { Size, Variant } from "types/ui.types";
 import { Btn, FrostedIcon } from "components/ui";
 import "./styles.css";
 import { ThemeToggle } from "components/features";
+import { PageRoute } from "types/navigation.types";
 
 /**
  * @typedef {Object} NavItem
@@ -59,6 +61,7 @@ const NAV_ITEMS = [
     label: "Personal Projects",
     icon: faFolderOpen,
   },
+  { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
   { id: "ni-contact", route: PageRoute.CONNECT, label: "Contact Me", icon: faEnvelope },
 ];
 
@@ -162,9 +165,9 @@ const StickyNav = ({ activePage }) => {
               </Nav.Item>
             );
           })}
-          {/* <Nav.Item className="no-popup">
+          <Nav.Item className="no-popup sticky-nav-theme-toggle">
             <ThemeToggle />
-          </Nav.Item> */}
+          </Nav.Item>
         </Nav>
       </nav>
 

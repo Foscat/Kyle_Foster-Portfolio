@@ -11,5 +11,5 @@
 
 /* Inline emphasis */
 .rich-text-block strong {
-  color: rgba(var(--white-rgb), 0.95);
+  color: var(--text-accent);
 }

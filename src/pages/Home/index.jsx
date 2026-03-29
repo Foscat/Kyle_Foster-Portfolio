@@ -38,7 +38,7 @@ const Home = () => {
         <div className="page-layout">
           <main className="page-content app-main" role="main">
             {home.sections.map((sect) => {
-              return <SectionRenderer section={sect} key={sect.id} />;
+              return <SectionRenderer section={sect} deferDiagrams key={sect.id} />;
             })}
           </main>
           <aside className="page-sidebar">

@@ -1,0 +1,91 @@
+.markdown-docs-block {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.markdown-docs-block__header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.markdown-docs-block__title {
+  margin: 0;
+  font-size: clamp(1.45rem, 1.2rem + 0.7vw, 2rem);
+  color: var(--text-primary, #f8faff);
+}
+
+.markdown-docs-block__intro {
+  margin: 0;
+  max-width: 64rem;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  line-height: 1.7;
+}
+
+.markdown-docs-block__jump-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.9rem;
+  padding: 0.45rem;
+  border-radius: 22px;
+  background: var(--bg-elevated);
+  border: var(--mini-dark);
+}
+
+.markdown-docs-block__jump-link {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  text-decoration: none;
+  color: var(--text-primary);
+  background-color: var(--primary-dark-bg);
+  border: var(--frost-border);
+  box-shadow: var(--shadow-soft);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 140ms ease;
+}
+
+.markdown-docs-block__jump-link:hover,
+.markdown-docs-block__jump-link:focus-visible {
+  color: var(--text-primary);
+  background-color: var(--primary-dark-bg);
+
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transform: translateY(-1px);
+}
+
+.markdown-docs-block__jump-meta {
+  color: var(--text-secondary);
+}
+
+.markdown-docs-block__jump-link:hover .markdown-docs-block__jump-meta,
+.markdown-docs-block__jump-link:focus-visible .markdown-docs-block__jump-meta {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.markdown-docs-block__stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.markdown-docs-block__panel.rs-panel {
+  background: var(--glass-bg-strong);
+  border: var(--glass-border);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.markdown-docs-block__panel .rs-panel-body {
+  padding: 1rem;
+}
+
+@media (max-width: 640px) {
+  .markdown-docs-block__panel .rs-panel-body {
+    padding: 0.75rem;
+  }
+}

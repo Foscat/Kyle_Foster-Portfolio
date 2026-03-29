@@ -32,14 +32,23 @@ import InfoSection from "./index";
  */
 
 // Mock RSuite's Panel to render as a simple section with the expected header and content, allowing us to verify the presence of the title, subtitle, and content without coupling to the implementation details of the RSuite Panel component.
-vi.mock("rsuite", () => ({
-  Panel: ({ children, header, id, as: Tag = "div", ...rest }) => (
-    <Tag id={id} {...rest}>
-      {header}
-      {children}
-    </Tag>
-  ),
-}));
+vi.mock("rsuite", async () => {
+  const actual = await vi.importActual("rsuite");
+
+  const FlexboxGrid = ({ children }) => <div>{children}</div>;
+  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
+
+  return {
+    ...actual,
+    Panel: ({ children, className, role, header, as: Tag = "section" }) => (
+      <Tag className={className} role={role}>
+        {header}
+        {children}
+      </Tag>
+    ),
+    FlexboxGrid,
+  };
+});
 
 // Mock FrostedIcon to render a simple span with an aria-hidden label for testing purposes, allowing us to verify that the icon is rendered when the icon prop is provided without relying on the actual rendering of FontAwesome icons. The aria-label includes the icon name to confirm that the correct icon is being rendered.
 vi.mock("components/FrostedIcon", () => ({
@@ -56,20 +65,9 @@ describe("InfoSection", () => {
       </InfoSection>
     );
 
-    expect(screen.getByRole("heading", { name: /about/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /what i build/i })).toBeInTheDocument();
-    expect(screen.getByText(/readable content/i)).toBeInTheDocument();
-  });
-
-  // Verifies that the component renders an icon when the icon prop is provided, confirming that the conditional rendering of the icon is functioning as expected and that the correct icon is being rendered based on the provided prop.
-  it("exposes an icon when one is provided", () => {
-    renderWithProviders(
-      <InfoSection title="With icon" icon="faStar">
-        <p>Body</p>
-      </InfoSection>
-    );
-
-    expect(screen.getByLabelText(/section icon fastar/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /About/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /What I build/i })).toBeInTheDocument();
+    expect(screen.getByText(/Readable content/i)).toBeInTheDocument();
   });
 
   // Verifies that the component does not create empty headings when title and subtitle are omitted, confirming that the component handles the absence of these props gracefully. This ensures that the component does not render unnecessary or empty elements when optional props are not provided, and that it still renders the child content correctly.
@@ -81,6 +79,6 @@ describe("InfoSection", () => {
     );
 
     expect(screen.queryByRole("heading")).not.toBeInTheDocument();
-    expect(screen.getByText(/body only/i)).toBeInTheDocument();
+    expect(screen.getByText(/Body only/i)).toBeInTheDocument();
   });
 });

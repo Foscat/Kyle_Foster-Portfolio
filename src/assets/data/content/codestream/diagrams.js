@@ -1,10 +1,13 @@
-import { BlockType } from "types/ui.types";
-import { diagramConfig, resolveDiagram, diagram } from "components/features/CustomDiagram/core";
+import {
+  diagramConfig,
+  resolveDiagram,
+  diagram,
+} from "../../../../components/features/CustomDiagram/core/index.js";
 
 const diagrams = {
   panelEditor: {
     id: "diagram-3panel-editor",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "3-Panel Editor – Delivery Architecture",
     mobile: {
       diagram: diagram(
@@ -136,7 +139,7 @@ Editor ==> Save`
   },
   organizationLicenseModel: {
     id: "diagram-organization-license-model",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Organization & License Model",
     mobile: {
       diagram: diagram(
@@ -254,7 +257,7 @@ ClassroomShell ==> Students`
   },
   classroomFlow: {
     id: "diagram-classroom-flow",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Classroom → Project Flow",
     mobile: {
       diagram: diagram(
@@ -374,7 +377,7 @@ Resolver ==>|No Prior Work| Clone ==> Grade`
   },
   curriculumModel: {
     id: "diagram-curriculum-model",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Curriculum Composition Model",
     mobile: {
       diagram: diagram(
