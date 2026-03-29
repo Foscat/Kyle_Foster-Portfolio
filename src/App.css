@@ -346,7 +346,6 @@ body {
   text-size-adjust: 100%;
 
   /* Reduce accidental horizontal scrolling on narrow devices. */
-
   overflow-x: clip;
 }
 
