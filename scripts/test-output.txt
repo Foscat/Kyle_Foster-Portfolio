@@ -1,40 +1,77 @@
 
 [1m[46m RUN [49m[22m [36mv4.0.16 [39m[90mC:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio[39m
 
- [2m[90m↓[39m[22m src/components/__tests__/diagrams.spec.test.js [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
- [2m[90m↓[39m[22m src/components/__tests__/SectionRenderer.test.jsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
- [31m❯[39m src/components/navigation/helpers/__tests__/SectionRegistryProvider.test.jsx [2m([22m[2m4 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 27[2mms[22m[39m
-[31m     [31m×[31m registers and retrieves sections[39m[32m 16[2mms[22m[39m
-[31m     [31m×[31m prevents duplicate section ids[39m[32m 3[2mms[22m[39m
-[31m     [31m×[31m unregisters sections correctly[39m[32m 3[2mms[22m[39m
-     [32m✓[39m throws if hook is used outside provider[32m 3[2mms[22m[39m
- [32m✓[39m src/assets/hooks/useScrollSpy/useScrollSpy.test.js [2m([22m[2m3 tests[22m[2m)[22m[32m 101[2mms[22m[39m
- [31m❯[39m src/components/features/ResumePreview/ResumePreview.test.jsx [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 8[2mms[22m[39m
-[31m     [31m×[31m renders the trigger button[39m[32m 4[2mms[22m[39m
-[31m     [31m×[31m opens the modal and renders the iframe[39m[32m 1[2mms[22m[39m
-[31m     [31m×[31m closes the modal when Close is clicked[39m[32m 1[2mms[22m[39m
- [31m❯[39m src/components/layout/PageHeader/PageHeader.test.jsx [2m([22m[2m9 tests[22m[2m | [22m[31m9 failed[39m[2m)[22m[32m 10[2mms[22m[39m
-[31m     [31m×[31m renders the main title[39m[32m 4[2mms[22m[39m
-[31m     [31m×[31m renders job title and timespan joined with a separator[39m[32m 1[2mms[22m[39m
-[31m     [31m×[31m renders only job title when timespan is omitted[39m[32m 0[2mms[22m[39m
-[31m     [31m×[31m renders only timespan when job title is omitted[39m[32m 0[2mms[22m[39m
-[31m     [31m×[31m does not render job/timespan row when both are missing[39m[32m 1[2mms[22m[39m
-[31m     [31m×[31m renders the subtitle when provided[39m[32m 0[2mms[22m[39m
-[31m     [31m×[31m does not render subtitle when omitted[39m[32m 0[2mms[22m[39m
-[31m     [31m×[31m renders with role='banner' for accessibility[39m[32m 0[2mms[22m[39m
-[31m     [31m×[31m applies custom className to the root element[39m[32m 1[2mms[22m[39m
 [90mstdout[2m | src/assets/hooks/useClipboard/useClipboard.test.js[2m > [22m[2museClipboard[2m > [22m[2msurfaces an error when the clipboard API is unavailable
 [22m[39m{
   err: Error: Clipboard API not supported
-      at Object.copy (C:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio/src/assets/hooks/useClipboard/index.js:72:17)
-      at C:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio/src/assets/hooks/useClipboard/useClipboard.test.js:105:32
+      at Object.copy (C:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio/src/assets/hooks/useClipboard/index.js:77:17)
+      at C:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio/src/assets/hooks/useClipboard/useClipboard.test.js:104:32
       at [90mC:\Users\Foscat Laptop\Desktop\Kyle_Foster-Portfolio\[39mnode_modules\[4m@testing-library[24m\react\dist\act-compat.js:48:24
       at act [90m(C:\Users\Foscat Laptop\Desktop\Kyle_Foster-Portfolio\[39mnode_modules\[4mreact[24m\cjs\react.development.js:2512:16[90m)[39m
       at [90mC:\Users\Foscat Laptop\Desktop\Kyle_Foster-Portfolio\[39mnode_modules\[4m@testing-library[24m\react\dist\act-compat.js:47:25
-      at C:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio/src/assets/hooks/useClipboard/useClipboard.test.js:104:14
+      at C:/Users/Foscat Laptop/Desktop/Kyle_Foster-Portfolio/src/assets/hooks/useClipboard/useClipboard.test.js:103:8
       at [90mfile:///C:/Users/Foscat%20Laptop/Desktop/Kyle_Foster-Portfolio/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:145:11
       at [90mfile:///C:/Users/Foscat%20Laptop/Desktop/Kyle_Foster-Portfolio/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:915:26
       at [90mfile:///C:/Users/Foscat%20Laptop/Desktop/Kyle_Foster-Portfolio/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1243:20
       at new Promise (<anonymous>)
 }
+
+ [32m✓[39m src/assets/hooks/useClipboard/useClipboard.test.js [2m([22m[2m3 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m src/assets/hooks/useScrollSpy/useScrollSpy.test.js [2m([22m[2m4 tests[22m[2m)[22m[32m 140[2mms[22m[39m
+[90mstdout[2m | src/components/navigation/helpers/__tests__/SectionRegistryProvider.test.jsx[2m > [22m[2mSectionRegistryProvider[2m > [22m[2mregisters and retrieves sections
+[22m[39m[SectionRegistry] Returning 1 registered section(s). [ { id: [32m'intro'[39m, title: [32m'Introduction'[39m } ]
+
+[90mstdout[2m | src/components/navigation/helpers/__tests__/SectionRegistryProvider.test.jsx[2m > [22m[2mSectionRegistryProvider[2m > [22m[2mprevents duplicate section ids
+[22m[39m[SectionRegistry] Returning 1 registered section(s). [ { id: [32m'intro'[39m, title: [32m'Introduction'[39m } ]
+[SectionRegistry] Returning 1 registered section(s). [ { id: [32m'intro'[39m, title: [32m'Introduction'[39m } ]
+
+ [32m✓[39m src/components/navigation/helpers/__tests__/SectionRegistryProvider.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[32m 81[2mms[22m[39m
+ [2m[90m↓[39m[22m src/components/__tests__/diagrams.spec.test.js [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/components/__tests__/SectionRenderer.test.jsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m src/assets/context/responsive/ResponsiveProvider.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 159[2mms[22m[39m
+ [32m✓[39m src/pages/Health/Health.test.jsx [2m([22m[2m1 test[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/ImageGalleryBlock/ImageGalleryBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 115[2mms[22m[39m
+ [32m✓[39m src/assets/context/ErrorBoundary/ErrorBoundary.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 99[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/CardGridBlock/CardGridBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 280[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/RichTextBlock/RichTextBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 411[2mms[22m[39m
+     [33m[2m✓[22m[39m renders a named region with readable paragraph content [33m 352[2mms[22m[39m
+ [32m✓[39m src/components/navigation/Head/Head.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[32m 257[2mms[22m[39m
+ [32m✓[39m src/components/renderers/RichText/renderNode.test.jsx [2m([22m[2m7 tests[22m[2m)[22m[33m 331[2mms[22m[39m
+ [32m✓[39m src/components/layout/PageHeader/PageHeader.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 388[2mms[22m[39m
+ [32m✓[39m src/components/ui/ClickableImg/ClickableImg.test.jsx [2m([22m[2m8 tests[22m[2m)[22m[33m 758[2mms[22m[39m
+ [32m✓[39m src/components/renderers/SectionRenderer/SectionRenderer.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[32m 112[2mms[22m[39m
+ [32m✓[39m src/components/layout/InfoSection/InfoSection.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 249[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/LinksBlock/LinksBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 283[2mms[22m[39m
+ [32m✓[39m src/components/ui/MermaidDiagram/MermaidDiagram.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 319[2mms[22m[39m
+ [32m✓[39m src/components/ui/FrostedIcon/FrostedIcon.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[33m 371[2mms[22m[39m
+ [32m✓[39m src/components/navigation/Footer/Footer.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 362[2mms[22m[39m
+ [32m✓[39m src/components/features/ResumePreview/PreviewResume.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 399[2mms[22m[39m
+ [32m✓[39m src/components/ui/Btn/Btn.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[33m 516[2mms[22m[39m
+     [33m[2m✓[22m[39m invokes the click handler when activated [33m 301[2mms[22m[39m
+ [32m✓[39m src/components/features/ThemeToggle/ThemeToggle.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 640[2mms[22m[39m
+     [33m[2m✓[22m[39m renders light and dark theme toggle buttons [33m 392[2mms[22m[39m
+ [32m✓[39m src/components/navigation/StickySectionNav/StickySectionNav.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 644[2mms[22m[39m
+ [32m✓[39m src/components/ui/AccordionList/AccordionList.test.jsx [2m([22m[2m7 tests[22m[2m)[22m[33m 730[2mms[22m[39m
+     [33m[2m✓[22m[39m toggles accordion item with Enter key [33m 310[2mms[22m[39m
+ [32m✓[39m src/components/__tests__/blockTypeExhaustive.test.js [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/components/navigation/StickyNav/StickyNav.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 964[2mms[22m[39m
+     [33m[2m✓[22m[39m closes the mobile navigation after a destination is chosen [33m 524[2mms[22m[39m
+ [32m✓[39m src/pages/SideProjects/SideProjects.test.js [2m([22m[2m3 tests[22m[2m)[22m[33m 748[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 519[2mms[22m[39m
+ [32m✓[39m src/pages/Hackathon/Hackathon.test.js [2m([22m[2m3 tests[22m[2m)[22m[33m 679[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 445[2mms[22m[39m
+ [32m✓[39m src/pages/Home/Home.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 838[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 543[2mms[22m[39m
+ [32m✓[39m src/pages/SMU/SMU.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 843[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 552[2mms[22m[39m
+ [32m✓[39m src/pages/__tests__/CodeStream.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 1178[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 829[2mms[22m[39m
+ [32m✓[39m src/pages/__tests__/Contact.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 2602[2mms[22m[39m
+     [33m[2m✓[22m[39m sends a contact request when the form is submitted [33m 1497[2mms[22m[39m
+     [33m[2m✓[22m[39m allows a retry after a failed request [33m 1102[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m32 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (34)[39m
+[2m      Tests [22m [1m[32m122 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (124)[39m
+[2m   Start at [22m 07:00:34
+[2m   Duration [22m 10.48s[2m (transform 11.82s, setup 6.55s, import 138.85s, tests 15.62s, environment 45.11s)[22m
 

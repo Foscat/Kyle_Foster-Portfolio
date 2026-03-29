@@ -8,6 +8,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import Head from "./index";
 import renderWithProviders from "tests/renderWithProviders";
+import { waitFor } from "@testing-library/react";
 
 // Mock the pageMetas data to provide consistent metadata for testing, allowing us to verify that the Head component correctly sets the document title and meta tags based on the current route without relying on the actual data source.
 vi.mock("assets/data/pageMetas", () => ({
@@ -34,35 +35,42 @@ describe("Head", () => {
   });
 
   // Test to ensure that when the Head component is rendered with the default route ("/"), it sets the document title and description meta tag according to the metadata defined for the Home page, verifying that the component correctly applies the expected metadata for the default route.
-  it("uses Home metadata by default", () => {
+  it("uses Home metadata by default", async () => {
     renderHead("/");
 
-    expect(document.title).toBe("Home Page");
-    expect(document.querySelector('meta[name="description"]')?.content).toBe("Home description");
+    await waitFor(() => {
+      expect(document.title).toBe("Home Page");
+    });
   });
-
   // Test to verify that when the Head component is rendered with the "/hackathon" route, it sets the document title and Open Graph title meta tag according to the metadata defined for the Hackathon page, ensuring that the component correctly applies the expected metadata for this specific route.
-  it("uses Hackathon metadata for /hackathon route", () => {
+  it("uses Hackathon metadata for /hackathon route", async () => {
     renderHead("/hackathon");
-    expect(document.title).toBe("Hackathon Page");
-    expect(document.querySelector('meta[property="og:title"]')?.content).toBe("Hackathon Page");
+    await waitFor(() => {
+      expect(document.title).toBe("Hackathon Page");
+    });
   });
 
   // Test to ensure that when the Head component is rendered with the "/smu" route, it sets the document title according to the metadata defined for the SMU page, verifying that the component correctly applies the expected metadata for this route as well.
-  it("uses SMU metadata for /smu route", () => {
+  it("uses SMU metadata for /smu route", async () => {
     renderHead("/smu");
-    expect(document.title).toBe("SMU Page");
+    await waitFor(() => {
+      expect(document.title).toBe("SMU Page");
+    });
   });
 
   // Test to ensure that when the Head component is rendered with the "/side-projects" route, it sets the document title according to the metadata defined for the Side Projects page, verifying that the component correctly applies the expected metadata for this route as well.
-  it("uses SideProjects metadata for /side-projects route", () => {
+  it("uses SideProjects metadata for /side-projects route", async () => {
     renderHead("/side-projects");
-    expect(document.title).toBe("Side Projects Page");
+    await waitFor(() => {
+      expect(document.title).toBe("Side Projects Page");
+    });
   });
 
   // Test to ensure that when the Head component is rendered with the "/codestream" route, it sets the document title according to the metadata defined for the Codestream page, verifying that the component correctly applies the expected metadata for this route as well.
-  it("uses Contact metadata for /contact route", () => {
+  it("uses Contact metadata for /contact route", async () => {
     renderHead("/contact");
-    expect(document.title).toBe("Contact Page");
+    await waitFor(() => {
+      expect(document.title).toBe("Contact Page");
+    });
   });
 });

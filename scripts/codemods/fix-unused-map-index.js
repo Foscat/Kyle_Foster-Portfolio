@@ -35,7 +35,7 @@
  * 5. If the index parameter is not used, rename it to `_index`.
  * @param {*} file
  * @param {*} api
- * @returns
+ * @returns {string} Updated source code after codemod transformations.
  */
 export default function fixUnusedMapIndex(file, api) {
   const j = api.jscodeshift;

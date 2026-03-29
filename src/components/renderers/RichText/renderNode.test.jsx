@@ -58,11 +58,18 @@ describe("renderNode", () => {
       text: "const sum = (a, b) => a + b;",
     });
 
-    const codeEl = screen.getByText(/const\s+sum\s*=\s*\(a,\s*b\)\s*=>/i, {
-      selector: "code",
+    const codeEl = screen.getByText((_, element) => {
+      if (!element?.matches("code.language-javascript")) {
+        return false;
+      }
+
+      return /const\s+sum\s+=\s+\(a,\s*b\)\s*=>\s*a\s*\+\s*b;/i.test(element.textContent || "");
     });
 
-    expect(codeEl.className).toContain("language-javascript");
+    expect(codeEl).toBeInTheDocument();
+    expect(codeEl).toHaveClass("language-javascript");
+    expect(codeEl).toHaveTextContent("const");
+    expect(codeEl).toHaveTextContent("sum");
   });
 
   // Test that the renderNode function correctly renders inline icon nodes as visible content, ensuring that inline icons are rendered as text elements with the correct icon representation when provided in the node data. This verifies that the renderNode function handles inline icon nodes properly and produces the expected output in the DOM for inline icon elements.
@@ -71,11 +78,11 @@ describe("renderNode", () => {
       type: "p",
       children: [
         { type: "text", text: "Star:" },
-        { type: "inlineIcon", icon: "⭐" },
+        { type: "inlineIcon", icon: "star" },
       ],
     });
 
-    expect(screen.getByText("⭐")).toBeInTheDocument();
+    expect(screen.getByTestId("inline-icon-star")).toBeInTheDocument();
   });
 
   // Test that the renderNode function does not throw errors when given unknown or null nodes, ensuring that it handles unexpected input gracefully without crashing. This verifies that the renderNode function is robust and can handle edge cases without producing errors, contributing to the overall stability of the RichText renderer.

@@ -28,7 +28,8 @@
 
 import { normalizeDiagrams } from "./normalize-diagrams.js";
 import diagrams from "../src/assets/data/content/diagrams.js";
-import { BlockType } from "../src/types/ui.types.js";
+
+const DIAGRAM_BLOCK_TYPE = "diagram";
 
 /**
  * VALID_MERMAID_TYPES
@@ -88,9 +89,9 @@ function extractSources(diagram) {
  * Performs structural validation on a single Mermaid diagram block.
  */
 function lintDiagram(diagram) {
-  if (diagram.type !== BlockType.DIAGRAM) {
+  if (diagram.type !== DIAGRAM_BLOCK_TYPE) {
     throw new Error(
-      `[${diagram.id}] Invalid block type ${diagram.type}. Expected BlockType.DIAGRAM`
+      `[${diagram.id}] Invalid block type ${diagram.type}. Expected ${DIAGRAM_BLOCK_TYPE}`
     );
   }
 

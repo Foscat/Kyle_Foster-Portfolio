@@ -22,8 +22,8 @@ import console from "node:console";
  *
  * Note: This linter focuses on architecture diagrams (entry.type === "architecture") since they have a well-defined config structure. If you have other diagram types, you may want to extend this linter or create separate linters for those types.
  */
-import diagrams from "../../src/assets/data/content/diagrams";
-import { buildArchitectureVariants } from "../../src/diagrams/core/architectureFactory.js";
+import diagrams from "../../src/assets/data/content/diagrams.js";
+import { buildArchitectureVariants } from "../../src/components/features/CustomDiagram/core/architectureFactory.js";
 
 const errors = [];
 

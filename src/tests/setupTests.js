@@ -30,6 +30,23 @@ if (!globalThis.cancelAnimationFrame) {
 }
 
 // -----------------------------------------------------------------------------
+// Viewport defaults
+// -----------------------------------------------------------------------------
+// JSDOM may report narrow/zero widths in some environments; force a stable
+// desktop viewport so responsive components render predictably in unit tests.
+Object.defineProperty(window, "innerWidth", {
+  configurable: true,
+  writable: true,
+  value: 1280,
+});
+
+Object.defineProperty(window, "innerHeight", {
+  configurable: true,
+  writable: true,
+  value: 720,
+});
+
+// -----------------------------------------------------------------------------
 // matchMedia
 // -----------------------------------------------------------------------------
 if (!window.matchMedia) {
@@ -112,6 +129,26 @@ if (!window.scrollTo) {
 if (!HTMLElement.prototype.scrollIntoView) {
   // eslint-disable-next-line no-extend-native
   HTMLElement.prototype.scrollIntoView = () => {};
+}
+
+// -----------------------------------------------------------------------------
+// JSDOM navigation noise
+// -----------------------------------------------------------------------------
+// JSDOM fires "Not implemented: navigation to another Document" directly to
+// the process stderr stream (not through the captured console) whenever a
+// rendered page contains external <a href> links. This is expected and
+// harmless; suppress it so it doesn't pollute the test tail output.
+{
+  const _notImplementedPattern = /Not implemented: navigation to another Document/i;
+  const _stderrWrite = process.stderr.write.bind(process.stderr);
+  process.stderr.write = (chunk, encodingOrCb, cb) => {
+    if (typeof chunk === "string" && _notImplementedPattern.test(chunk)) {
+      if (typeof encodingOrCb === "function") encodingOrCb();
+      else if (typeof cb === "function") cb();
+      return true;
+    }
+    return _stderrWrite(chunk, encodingOrCb, cb);
+  };
 }
 
 // -----------------------------------------------------------------------------

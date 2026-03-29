@@ -79,34 +79,34 @@ const ARCH_FLOWCHART_PALETTE = `
 %% ==========================================================
 
 %% Default
-classDef default fill:#131A77,stroke:#C9A227,stroke-width:2px,color:#0f0f12;
+classDef default fill:#1F2793,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;
 
 %% Presentation
-classDef layerPresentation fill:#131A77,stroke:#C9A227,stroke-width:2px,color:#0f0f12;
+classDef layerPresentation fill:#1F2793,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;
 
 %% Application (glass)
-classDef layerApplication fill:#1C1C1E,stroke:#D1D1D6,stroke-width:2px,color:#0F0F12;
+classDef layerApplication fill:#2A326E,stroke:#D1D1D6,stroke-width:2px,color:#F5F7FF;
 
 %% Domain (gold)
 classDef layerDomain fill:#C9A227,stroke:#E6C767,stroke-width:2px,color:#0F0F12;
 
 %% Infrastructure
-classDef layerInfrastructure fill:#0F0F12,stroke:#3A3A3C,stroke-width:2px,color:#0F0F12;
+classDef layerInfrastructure fill:#1A214C,stroke:#7E89C9,stroke-width:2px,color:#F5F7FF;
 
 %% Persistence (success)
-classDef layerPersistence fill:#147832,stroke:#147832,stroke-width:2px,color:#cBc8ff;
+classDef layerPersistence fill:#1F6D49,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;
 
 %% External (warning)
-classDef layerExternal fill:#a88900,stroke:#a88900,stroke-width:2px,color:#cBc8ff;
+classDef layerExternal fill:#8D710D,stroke:#E6C767,stroke-width:2px,color:#F5F7FF;
 
 %% Common node types
-classDef datastore fill:#000000,stroke:#c9a227,stroke-width:2px,color:#F5F7FF;
+classDef datastore fill:#22305F,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;
 classDef core fill:#C9A227,stroke:#E6C767,stroke-width:2px,color:#0F0F12;
-classDef text fill:#0f0f12,stroke:#C9A227,stroke-width:2px,color:#0f0f12;
+classDef text fill:#E8EEF9,stroke:#C9A227,stroke-width:2px,color:#0F0F12;
 classDef animate stroke-dasharray:,5,stroke-dashoffset:00,animation:ash 25s linear infinite;
 classDef accent stroke:#C9A227,stroke-width:2px,color:#c9a227;
 classDef dashed stroke-dasharray:,4,stroke-dashoffset:0;
-classDef edgePath fill:#C9A227,stroke:#C9A227,stroke-width:2px,color:#C9A227;
+classDef edgePath fill:none,stroke:#C9A227,stroke-width:2px,color:#C9A227;
 classDef path stroke:#C9A227,stroke-width:2px,color:#C9A227;
 classDef path stroke:#C9A227,stroke-width:2px,color:#C9A227;
 `.trim();
@@ -117,30 +117,30 @@ const themeVariables = {
   fontSize: "25px",
 
   primaryColor: "#131A77",
-  primaryTextColor: "#0f0f12",
+  primaryTextColor: "#F5F7FF",
   primaryBorderColor: "#b8860b",
   primaryBorderWidth: "3px",
 
   secondaryColor: "#131A77",
-  secondaryTextColor: "#0f0f12",
+  secondaryTextColor: "#F5F7FF",
   secondaryBorderColor: "#c9a227",
 
   nodeBkg: "#1f2793",
   nodeBorder: "#b8860b",
-  nodeTextColor: "#e1e1e3",
+  nodeTextColor: "#F5F7FF",
   nodeFontSize: "25px",
 
-  lineColor: "#e1e1e3",
+  lineColor: "#C9A227",
   stroke: "#b8860b",
   strokeWidth: "3px",
   strokeColor: "#b8860b",
   fill: "#b8860b",
 
   clusterTitle: "#C9A227",
-  clusterColor: "#1C1C1E",
-  clusterBkg: "#147832",
+  clusterColor: "#F5F7FF",
+  clusterBkg: "#22305F",
   clusterBorder: "#a88900",
-  clusterTextColor: "#1F2793",
+  clusterTextColor: "#F5F7FF",
   clusterFontSize: "25px",
   clusterFontWeight: "600",
 
@@ -150,17 +150,17 @@ const themeVariables = {
   actorFontSize: "25px",
 
   signalColor: "#C9A227",
-  signalTextColor: "#0f0f12",
+  signalTextColor: "#F5F7FF",
 
-  labelBoxBkgColor: "#1C1C1E",
+  labelBoxBkgColor: "#22305F",
   labelBoxBorderColor: "#C9A227",
   labelTextColor: "#C9A227",
 
   messageColor: "#C9A227",
-  messageTextColor: "#0f0f12",
+  messageTextColor: "#F5F7FF",
 
   loopLineColor: "#C9A227",
-  loopTextColor: "#0f0f12",
+  loopTextColor: "#F5F7FF",
 };
 
 // Mermaid init strings for flowcharts, with different spacing for desktop and mobile layouts. These are used to ensure that diagrams are rendered with appropriate spacing and styling across different devices, while keeping the callsites clean and consistent.
@@ -218,7 +218,7 @@ const SEQUENCE_INIT = `%%{init:{
     "messageFontSize":25,
     "noteFontSize":25
   },
-  "theme":"dark",
+  "theme":"base",
   "themeVariables": ${JSON.stringify(themeVariables)}
 }}%%`;
 
@@ -231,7 +231,7 @@ const STATE_INIT = `
     "transitionLength":2,
     "shape":"rounded"
   },
-  "theme":"dark",
+  "theme":"base",
   "themeVariables": ${JSON.stringify(themeVariables)}
 }}%%`;
 
@@ -244,7 +244,7 @@ const MOBILE_STATE_INIT = `
     "transitionLength":1,
     "shape":"rounded"
   },
-  "theme":"dark",
+  "theme":"base",
   "themeVariables": ${JSON.stringify(themeVariables)}
 }}%%`;
 

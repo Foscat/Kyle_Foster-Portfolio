@@ -1,10 +1,12 @@
-import { BlockType } from "types/ui.types";
-import { diagramConfig, diagram } from "components/features/CustomDiagram/core";
+import {
+  diagramConfig,
+  diagram,
+} from "../../../../components/features/CustomDiagram/core/index.js";
 
 const diagrams = {
   gifSystemFlow: {
     id: "diagram-gif-freak-system-flow",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "GIF Freak – Client/API Architecture",
     diagram: diagram(
       diagramConfig.FLOWCHART_INIT,
@@ -80,7 +82,7 @@ State ==> Renderer`
   },
   stockMemerFlow: {
     id: "diagram-stock-memer-architecture",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Stock Memer – Multi-Service Architecture",
     mobile: {
       diagram: diagram(
@@ -176,7 +178,7 @@ MemeUI ==> Firebase`
   },
   matchFlow: {
     id: "diagram-scion-algorithm-flow",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Compatibility Engine Architecture",
     diagram: diagram(
       diagramConfig.FLOWCHART_INIT,

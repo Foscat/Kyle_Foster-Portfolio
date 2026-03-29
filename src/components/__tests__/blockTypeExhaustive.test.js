@@ -17,6 +17,8 @@ describe("BlockType exhaustiveness", () => {
       BlockType.BULLETED_LIST,
       BlockType.CARD_GRID,
       BlockType.DIAGRAM,
+      BlockType.HERO,
+      BlockType.MARKDOWN_DOCS,
     ]);
 
     expect(new Set(Object.values(BlockType))).toEqual(supported);

@@ -1,61 +1,42 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
+
 import {
-  useSectionRegistry,
   SectionRegistryProvider,
+  useSectionRegistry,
 } from "assets/context/SectionRegistryProvider";
 
-/**
- * @file SectionRegistryProvider.test.jsx
- * @description Unit tests for the SectionRegistryProvider and useSectionRegistry hook.
- *
- * Test coverage:
- * - Section registration lifecycle
- * - Prevention of duplicate section IDs
- * - Section unregistration behavior
- * - Enforcement of provider usage boundaries
- *
- * Architectural intent:
- * SectionRegistryProvider acts as a global, in-memory registry for
- * scrollable page sections. It enables:
- * - Sticky section navigation
- * - Scroll-spy coordination
- * - Programmatic section lookup
- *
- * These tests focus on:
- * - State integrity
- * - Defensive behavior
- * - Correct hook usage constraints
- *
- * @module tests/navigation/SectionRegistryProvider
- */
+function wrapper({ children }) {
+  return <SectionRegistryProvider>{children}</SectionRegistryProvider>;
+}
 
-/* ------------------------------------------------------------------
- * Test utilities
- * ------------------------------------------------------------------
- */
+function withSuppressedWindowError(callback) {
+  const suppressExpectedError = (event) => {
+    event.preventDefault();
+  };
 
-/**
- * Wrapper component to provide SectionRegistry context
- * for hook-based tests.
- */
-const wrapper = ({ children }) => <SectionRegistryProvider>{children}</SectionRegistryProvider>;
+  window.addEventListener("error", suppressExpectedError);
 
-/* ------------------------------------------------------------------
- * Test Suite
- * ------------------------------------------------------------------ */
+  try {
+    return callback();
+  } finally {
+    window.removeEventListener("error", suppressExpectedError);
+  }
+}
 
 describe("SectionRegistryProvider", () => {
+  let consoleErrorSpy;
+  let consoleWarnSpy;
+
   beforeEach(() => {
-    /**
-     * Silence expected warnings triggered by duplicate registration attempts.
-     */
-    vi.spyOn(console, "warn").mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
-  /**
-   * Verifies that sections can be registered and retrieved.
-   */
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("registers and retrieves sections", () => {
     const { result } = renderHook(() => useSectionRegistry(), { wrapper });
 
@@ -66,45 +47,57 @@ describe("SectionRegistryProvider", () => {
       });
     });
 
-    const sections = result.current.getSections();
-    expect(sections).toHaveLength(1);
-    expect(sections[0].id).toBe("intro");
+    expect(result.current.getSections()).toEqual([{ id: "intro", title: "Introduction" }]);
   });
 
-  /**
-   * Verifies that duplicate section IDs are ignored
-   * to preserve registry integrity.
-   */
   it("prevents duplicate section ids", () => {
     const { result } = renderHook(() => useSectionRegistry(), { wrapper });
 
     act(() => {
-      result.current.registerSection("dup", { id: "dup", title: "One" });
-      result.current.registerSection("dup", { id: "dup", title: "Two" });
+      result.current.registerSection("intro", {
+        id: "intro",
+        title: "Introduction",
+      });
+      result.current.registerSection("intro", {
+        id: "intro",
+        title: "Duplicate",
+      });
     });
 
     expect(result.current.getSections()).toHaveLength(1);
+    expect(result.current.getSections()[0].title).toBe("Introduction");
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      '[SectionRegistry] Duplicate section id "intro" detected. Each section id must be unique per page.'
+    );
   });
 
-  /**
-   * Verifies that sections can be removed from the registry.
-   */
   it("unregisters sections correctly", () => {
     const { result } = renderHook(() => useSectionRegistry(), { wrapper });
 
     act(() => {
-      result.current.registerSection("a", { id: "a", title: "A" });
-      result.current.unregisterSection("a");
+      result.current.registerSection("intro", {
+        id: "intro",
+        title: "Introduction",
+      });
     });
 
-    expect(result.current.getSections()).toHaveLength(0);
+    act(() => {
+      result.current.unregisterSection("intro");
+    });
+
+    expect(result.current.getSections()).toEqual([]);
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "[SectionRegistry] No sections registered. Did you forget to render <SectionRenderer /> components?"
+    );
   });
 
-  /**
-   * Verifies that the hook enforces provider usage and
-   * throws when accessed outside its context.
-   */
   it("throws if hook is used outside provider", () => {
-    expect(() => renderHook(() => useSectionRegistry())).toThrow();
+    expect(() =>
+      withSuppressedWindowError(() => {
+        renderHook(() => useSectionRegistry());
+      })
+    ).toThrow(/must be used within <SectionRegistryProvider \/>/i);
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
   });
 });

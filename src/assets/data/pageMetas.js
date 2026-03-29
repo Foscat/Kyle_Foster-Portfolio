@@ -1,4 +1,4 @@
-import { PageRoute } from "../../types/ui.types.js";
+import { PageRoute } from "types/navigation.types";
 import {
   codestreamSections,
   homeSections,
@@ -6,6 +6,7 @@ import {
   sideProjectsSections,
   smuSections,
   contactSections,
+  docsSections,
 } from "./content";
 
 const pageMetas = {
@@ -128,6 +129,13 @@ const pageMetas = {
     description:
       "Get in touch with Kyle Foster — full-stack developer, creative problem solver, and software craftsman. Find contact details and collaboration inquiries here.",
     sections: contactSections,
+  },
+  Docs: {
+    url: PageRoute.DOCS,
+    title: "Technical Docs | Kyle Foster Portfolio",
+    description:
+      "Browse architecture, components, scripts, and testing documentation for this portfolio project.",
+    sections: docsSections,
   },
 };
 

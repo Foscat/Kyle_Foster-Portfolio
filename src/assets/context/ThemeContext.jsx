@@ -7,6 +7,25 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 
+const THEME_STORAGE_KEY = "portfolio-theme";
+
+function getInitialTheme() {
+  if (typeof window === "undefined") {
+    return "dark";
+  }
+
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+
+  if (window.matchMedia?.("(prefers-color-scheme: light)").matches) {
+    return "light";
+  }
+
+  return "dark";
+}
+
 /**
  * Supported application themes.
  *
@@ -33,7 +52,7 @@ const ThemeContext = createContext(null);
  * @returns {JSX.Element} Theme context provider.
  */
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(getInitialTheme);
 
   /**
    * Toggles the current theme.
@@ -46,6 +65,7 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     // Apply theme as a data attribute for CSS selectors
     document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
   return (

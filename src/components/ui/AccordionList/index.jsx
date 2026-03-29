@@ -301,30 +301,32 @@ const AccordionList = ({
         accordion={accordion}
       >
         {items.map((item, i) => {
-          const headerId = `-${item.id || i}`;
-          const panelId = `ac-panel-${item.id || i}`;
+          const panelIndex = i;
+          const headerId = `-${item.id || panelIndex}`;
+          const panelId = `ac-panel-${item.id || panelIndex}`;
 
           return (
             <Panel
               collapsible
+              defaultExpanded={i === 0}
               bordered={true}
-              eventKey={(i += 1)}
-              onSelect={() => togglePanel(i)}
-              onKeyDown={(e) => handleKeyDown(e, i, items[i], openIndex === i)}
-              key={`${id}-${item.id || i}`}
-              className={`fa-list-item ${openIndex === i ? "open" : ""}`}
+              eventKey={String(panelIndex)}
+              onSelect={() => togglePanel(panelIndex)}
+              onKeyDown={(e) => handleKeyDown(e, panelIndex, item, openIndex === panelIndex)}
+              key={`${id}-${item.id || panelIndex}`}
+              className={`fa-list-item ${openIndex === panelIndex ? "open" : ""}`}
               header={
                 <div key={item.id} className="flex-column">
-                  <span className="block-key" key={`${headerId}_${i}`}>
+                  <span className="block-key" key={`${headerId}_${panelIndex}`}>
                     {item.title}
                   </span>
-                  <span className="block-subkey" key={`${headerId}_subtitle${i}`}>
+                  <span className="block-subkey" key={`${headerId}_subtitle${panelIndex}`}>
                     {item.subtitle}
                   </span>
                 </div>
               }
             >
-              {openIndex === i && <Divider key={`${panelId}-divider`} />}
+              {openIndex === panelIndex && <Divider key={`${panelId}-divider`} />}
               {item.content && (
                 <RichText
                   key={panelId}

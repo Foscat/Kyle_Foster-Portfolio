@@ -59,7 +59,7 @@ export default FIELD_TYPES;
  * @property {string} [errorPlacement="bottomStart"] - Error placement for Form.Control.
  * @property {boolean} [shouldResetWithUnmount=false] - Clear value if field unmounts conditionally.
  * @property {InputGroupConfig} [inputGroup] - Prefix/suffix config for inputGroupText fields.
- * @property {(formValue: Object) => boolean} [renderWhen] - Conditional render predicate.
+ * @property {function(Object): boolean} [renderWhen] - Conditional render predicate.
  */
 
 /**

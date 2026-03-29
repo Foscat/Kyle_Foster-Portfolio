@@ -12,13 +12,18 @@ import Footer from "./index";
 import renderWithProviders from "tests/renderWithProviders";
 
 // Mock the Btn component from the UI library to simplify testing and focus on the Footer's functionality.
-vi.mock("components/ui", () => ({
-  Btn: ({ href, ariaLabel }) => (
-    <a href={href} aria-label={ariaLabel}>
-      {ariaLabel}
-    </a>
-  ),
-}));
+vi.mock("components/ui", async () => {
+  const actual = await vi.importActual("components/ui");
+
+  return {
+    ...actual,
+    Btn: (props) => (
+      <a href={props.href} aria-label={props["aria-label"] || props.ariaLabel}>
+        {props["aria-label"] || props.ariaLabel}
+      </a>
+    ),
+  };
+});
 
 const copyMock = vi.fn();
 
@@ -32,11 +37,22 @@ vi.mock("assets/hooks", () => ({
 }));
 
 // Mock the Tooltip and Whisper components from the rsuite library to prevent issues with their implementation during testing, allowing us to focus on the Footer's functionality without worrying about the complexities of these components.
-vi.mock("rsuite", () => ({
-  Tooltip: ({ children }) => <span>{children}</span>,
-  Whisper: ({ children }) => <>{children}</>,
-}));
+vi.mock("rsuite", async () => {
+  const actual = await vi.importActual("rsuite");
 
+  const FlexboxGrid = ({ children }) => <div>{children}</div>;
+  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
+
+  return {
+    ...actual,
+    Panel: ({ children, className, role }) => (
+      <header className={className} role={role}>
+        {children}
+      </header>
+    ),
+    FlexboxGrid,
+  };
+});
 // The test suite for the Footer component, which includes tests to verify that the current year and secondary profile actions are rendered correctly, and that the phone number is copied to the clipboard when the corresponding action is activated.
 describe("Footer", () => {
   beforeEach(() => {

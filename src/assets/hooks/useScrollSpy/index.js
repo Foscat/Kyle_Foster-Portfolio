@@ -100,7 +100,25 @@ export function buildSectionTree(sections = []) {
     nodes.push(sectionNode);
     byId.set(section.id, sectionNode);
 
-    // Process blocks within the section, if any
+    // Process section-level nav items first when provided.
+    if (Array.isArray(section.navItems) && section.navItems.length) {
+      section.navItems.forEach((item) => {
+        if (!item?.id) return;
+
+        const navNode = {
+          id: item.id,
+          type: "block",
+          parentId: section.id,
+        };
+
+        nodes.push(navNode);
+        byId.set(item.id, navNode);
+      });
+
+      return;
+    }
+
+    // Otherwise, process blocks within the section, if any.
     section.blocks?.forEach((block) => {
       if (!block?.id) return;
 

@@ -24,7 +24,7 @@
 
 import { screen, cleanup } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import SectionRenderer from "components/SectionRenderer";
+import SectionRenderer from "components/renderers/SectionRenderer";
 import { BlockType } from "types/ui.types";
 import renderWithProviders from "tests/renderWithProviders";
 
@@ -36,7 +36,7 @@ import renderWithProviders from "tests/renderWithProviders";
 const registerSection = vi.fn();
 const unregisterSection = vi.fn();
 
-vi.mock("navigation/SectionRegistryProvider", () => ({
+vi.mock("assets/context/SectionRegistryProvider.jsx", () => ({
   useSectionRegistry: () => ({
     registerSection,
     unregisterSection,
@@ -44,7 +44,7 @@ vi.mock("navigation/SectionRegistryProvider", () => ({
 }));
 
 // Mock InfoSection (layout-only)
-vi.mock("components/InfoSection", () => ({
+vi.mock("components/layout/InfoSection", () => ({
   default: ({ children, id, title }) => (
     <section data-testid="info-section" id={id}>
       <h2>{title}</h2>
@@ -54,19 +54,23 @@ vi.mock("components/InfoSection", () => ({
 }));
 
 // Mock block renderers (dispatch targets only)
-vi.mock("components/blocks", () => ({
+vi.mock("components/renderers/blocks", () => ({
   RichTextBlock: () => <div data-testid="rich-text-block" />,
   ImageGalleryBlock: () => <div data-testid="image-gallery-block" />,
   LinksBlock: () => <div data-testid="links-block" />,
+  CardGridBlock: () => <div data-testid="card-grid-block" />,
+  FormBlock: () => <div data-testid="form-block" />,
+  HeroBlock: () => <div data-testid="hero-block" />,
 }));
 
-vi.mock("components/AccordionList", () => ({
-  default: () => <div data-testid="accordion-block" />,
-}));
-
-vi.mock("components/MermaidDiagram", () => ({
-  default: () => <div data-testid="diagram-block" />,
-}));
+vi.mock("components/ui", async () => {
+  const actual = await vi.importActual("components/ui");
+  return {
+    ...actual,
+    AccordionList: () => <div data-testid="accordion-block" />,
+    MermaidDiagram: () => <div data-testid="diagram-block" />,
+  };
+});
 
 // Mock block factory helpers to return passthrough data
 vi.mock("types/ui.types", async () => {

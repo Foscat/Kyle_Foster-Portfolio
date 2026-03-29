@@ -9,13 +9,19 @@ export async function collectDiagramCoverage(
   page: Page,
   expectedIds: string[]
 ): Promise<DiagramCoverageResult> {
-  const rendered = await page.evaluate(() => {
-    return Array.from(document.querySelectorAll("[id^='diagram-']"))
-      .filter((el) => el.querySelector("svg"))
-      .map((el) => el.id);
-  });
+  const rendered: string[] = [];
+  const missing: string[] = [];
 
-  const missing = expectedIds.filter((id) => !rendered.includes(id));
+  for (const id of expectedIds) {
+    // Use .mermaid-svg-host to avoid matching icon SVGs inside the same panel.
+    const svg = page.locator(`#${id} .mermaid-svg-host svg`);
+    try {
+      await svg.waitFor({ state: "attached", timeout: 10000 });
+      rendered.push(id);
+    } catch {
+      missing.push(id);
+    }
+  }
 
   return { rendered, missing };
 }

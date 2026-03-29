@@ -14,7 +14,7 @@
  */
 
 import { Nav, Sidenav } from "rsuite";
-import { PageRoute } from "types/ui.types";
+import { PageRoute } from "types/navigation.types";
 import "./styles.css";
 
 /**

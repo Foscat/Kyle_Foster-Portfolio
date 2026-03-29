@@ -90,6 +90,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             aria-label="Visit GitHub profile"
             tooltip="👨🏻‍💻 GitHub"
+            tooltipPlacement="top"
           />
 
           <Btn
@@ -102,6 +103,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             aria-label="Visit LinkedIn profile"
             tooltip="🏢 LinkedIn"
+            tooltipPlacement="top"
           />
 
           <Btn
@@ -112,6 +114,7 @@ const Footer = () => {
             href="mailto:fosterkyle6456@gmail.com"
             aria-label="Send email"
             tooltip="📬 Email Me"
+            tooltipPlacement="top"
           />
         </div>
       </div>

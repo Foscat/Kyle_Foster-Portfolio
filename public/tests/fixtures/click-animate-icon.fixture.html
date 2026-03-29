@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Click Animate – Icon Fixture</title>
+
+    <link rel="stylesheet" href="../../src/click-animate/click-animate.css" />
+
+    <!-- Minimal token mocks -->
+    <style>
+                  :root {
+                    --bg-primary: #1e293b;
+                    --bg-accent-gold: #d4af37;
+                    --bg-surface-muted: #1f2937;
+
+                    --text-on-primary: #ffffff;
+                    --text-on-accent: #111827;
+                    --text-primary: #e5e7eb;
+                  }
+                  /* ------------------------------------------------------------
+               Theme tokens
+               ------------------------------------------------------------ */
+
+            :root[data-theme="dark"] {
+              --bg-primary: #1e293b;
+              --bg-secondary: #334155;
+              --bg-accent-gold: #d4af37;
+              --bg-warning: #f59e0b;
+              --bg-danger: #dc2626;
+              --bg-surface-muted: #1f2937;
+
+              --text-on-primary: #ffffff;
+              --text-on-secondary: #ffffff;
+              --text-on-accent: #111827;
+              --text-on-warning: #111827;
+              --text-on-danger: #ffffff;
+              --text-primary: #e5e7eb;
+
+              background-color: #0f172a;
+            }
+
+            :root[data-theme="light"] {
+              --bg-primary: #2563eb;
+              --bg-secondary: #e5e7eb;
+              --bg-accent-gold: #facc15;
+              --bg-warning: #f59e0b;
+              --bg-danger: #dc2626;
+              --bg-surface-muted: #f1f5f9;
+
+              --text-on-primary: #ffffff;
+              --text-on-secondary: #0f172a;
+              --text-on-accent: #422006;
+              --text-on-warning: #422006;
+              --text-on-danger: #ffffff;
+              --text-primary: #0f172a;
+
+              background-color: #f8fafc;
+            }
+
+
+            body {
+        padding: 4rem;
+        font-family: system-ui, sans-serif;
+      }
+
+
+                  /* Mock icon */
+                  .icon {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    background: currentColor;
+                    border-radius: 0.25rem;
+                  }
+
+                  .variant-primary {
+                    background: var(--bg-primary);
+                    color: var(--text-on-primary);
+                  }
+
+                  .variant-accent {
+                    background: var(--bg-accent-gold);
+                    color: var(--text-on-accent);
+                  }
+
+                  .variant-subtle {
+                    background: var(--bg-surface-muted);
+                    color: var(--text-primary);
+                  }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="icon-target"
+      class="interactive-surface icon-only variant-primary"
+      aria-label="Icon Action"
+    >
+      <div class="icon"></div>
+    </div>
+  </body>
+</html>

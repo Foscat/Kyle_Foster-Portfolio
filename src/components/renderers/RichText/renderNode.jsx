@@ -18,6 +18,7 @@ import "prismjs/themes/prism-tomorrow.css";
  * - Inline formatting (strong, em, links, icons)
  * - Lists (ul, ol, li)
  * - Blockquotes
+ * - Headings (h2, h3)
  * - Inline code
  * - Syntax-highlighted code blocks
  *
@@ -96,7 +97,7 @@ const renderNode = (node, key) => {
     case "strong":
       return (
         <strong key={key} className="block-strong">
-          {node.text}
+          {node.children ? node.children.map(renderNode) : node.text}
         </strong>
       );
 
@@ -104,7 +105,7 @@ const renderNode = (node, key) => {
     case "em":
       return (
         <em className="block-em" key={key}>
-          {node.text}
+          {node.children ? node.children.map(renderNode) : node.text}
         </em>
       );
 
@@ -116,7 +117,7 @@ const renderNode = (node, key) => {
         </a>
       );
 
-    // Emogi icon
+    // Inline icon
     case "inlineIcon":
       return <InlineIcon key={key} name={node.icon} />;
 
@@ -152,6 +153,23 @@ const renderNode = (node, key) => {
         <blockquote key={key} className="block-quote">
           {node.children?.map(renderNode)}
         </blockquote>
+      );
+
+    /* ---------------------------------------------------------------------
+       Headings
+       ------------------------------------------------------------------ */
+    case "h2":
+      return (
+        <h2 key={key} className="block-heading block-heading-2">
+          {node.children?.map(renderNode)}
+        </h2>
+      );
+
+    case "h3":
+      return (
+        <h3 key={key} className="block-heading block-heading-3">
+          {node.children?.map(renderNode)}
+        </h3>
       );
 
     /* ---------------------------------------------------------------------

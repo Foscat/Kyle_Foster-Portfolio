@@ -23,10 +23,10 @@ test("Mermaid diagram page loads without console errors", async ({ page }) => {
     }
   });
 
-  await page.goto(toUrl("/"));
+  await page.goto(toUrl("/codestream"));
   await page.waitForLoadState("networkidle");
 
-  // Adjust selectors based on your diagram component/container.
+  // Verify at least one Mermaid diagram rendered on this page.
   await expect(page.locator(".mermaid").first()).toBeVisible();
 
   // Keep a clean signal: fail if the page emitted any console errors.

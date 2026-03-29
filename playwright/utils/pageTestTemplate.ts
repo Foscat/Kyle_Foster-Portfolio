@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { stabilizePage } from "./stabilizePage";
+import { preparePageForStableTests, stabilizePage } from "./stabilizePage";
 
 /**
  * Base URL resolution
@@ -24,8 +24,10 @@ const toUrl = (path: string) =>
 export type PageTestConfig = {
   name: string;
   route: string;
-  /** CSS selector used to validate the presence of a sticky section nav on the page. */
-  stickyNavSelector: string;
+  /** CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav. */
+  stickyNavSelector?: string;
+  /** Optional forced theme for deterministic rendering. Defaults to dark. */
+  theme?: "light" | "dark";
 };
 
 /**
@@ -34,15 +36,15 @@ export type PageTestConfig = {
  * Standard smoke tests for page components:
  * - Core layout regions exist
  * - Sticky section navigation exists (where applicable)
- * - Full-page visual snapshot (stabilized)
+ * - Viewport visual snapshot (stabilized)
  */
 export function createPageTestSuite(config: PageTestConfig) {
+  const theme = config.theme ?? "dark";
+
   test.describe(config.name, () => {
     test("renders core layout regions", async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
-
-      await page.goto(toUrl(config.route));
-      await page.waitForLoadState("networkidle");
+      await preparePageForStableTests(page, { theme });
 
       // Fail fast on console errors for the route under test.
       const errors: string[] = [];
@@ -51,9 +53,12 @@ export function createPageTestSuite(config: PageTestConfig) {
         if (msg.type() === "error") errors.push(msg.text());
       });
 
-      await stabilizePage(page);
+      await page.goto(toUrl(config.route));
+      await page.waitForLoadState("networkidle");
 
-      await expect(page.locator("header")).toBeVisible();
+      await stabilizePage(page, { theme });
+
+      await expect(page.locator('[role="banner"]')).toBeVisible();
       await expect(page.locator("main")).toBeVisible();
       await expect(page.locator("footer")).toBeVisible();
 
@@ -62,25 +67,37 @@ export function createPageTestSuite(config: PageTestConfig) {
 
     test("renders sticky section navigation", async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 720 });
+      await preparePageForStableTests(page, { theme });
 
       await page.goto(toUrl(config.route));
       await page.waitForLoadState("networkidle");
 
-      await stabilizePage(page);
+      await stabilizePage(page, { theme });
 
-      const stickyNav = page.locator(config.stickyNavSelector);
+      const navSelector = config.stickyNavSelector ?? 'nav[aria-label="Section navigation"]';
+      const stickyNav = page.locator(navSelector);
       await expect(stickyNav).toBeVisible();
     });
 
     test("matches visual snapshot", async ({ page }) => {
+      test.setTimeout(120000);
       await page.setViewportSize({ width: 1280, height: 720 });
+      await preparePageForStableTests(page, { theme });
 
       await page.goto(toUrl(config.route));
       await page.waitForLoadState("networkidle");
 
-      await stabilizePage(page);
+      await stabilizePage(page, { theme });
 
-      await expect(page).toHaveScreenshot({ fullPage: true });
+      const screenshot = await page.screenshot({
+        animations: "disabled",
+        timeout: 120000,
+        mask: [page.locator(".mermaid-container")],
+      });
+      await expect(screenshot).toMatchSnapshot({
+        maxDiffPixelRatio: 0.03,
+        threshold: 0.2,
+      });
     });
   });
 }

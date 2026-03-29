@@ -1,7 +1,7 @@
 import SMU from "pages/SMU";
 import smuSections from "assets/data/content/smu";
-import { PageRoute } from "types/ui.types";
-import { createPageTests } from "tests/helpers/createPageTests";
+import { PageRoute } from "types/navigation.types";
+import { createPageTests } from "tests/helpers/createPageTests.jsx";
 
 /**
  * @file SMU.test.jsx

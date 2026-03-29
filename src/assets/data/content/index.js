@@ -4,6 +4,7 @@ import hackathonSections from "./hackathon";
 import homeSections from "./home";
 import sideProjectsSections from "./side-projects";
 import smuSections from "./smu";
+import docsSections from "./docs";
 import diagrams from "./diagrams.js";
 
 export {
@@ -13,5 +14,6 @@ export {
   homeSections,
   sideProjectsSections,
   smuSections,
+  docsSections,
   diagrams,
 };

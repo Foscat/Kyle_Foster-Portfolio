@@ -182,7 +182,7 @@
 .mermaid svg.flowchart g g.edgePaths path.flowchart-link,
 .flowchart-link {
   stroke: var(--accent);
-  fill: var(--accent);
+  fill: none;
   stroke-width: 4px;
 }
 
@@ -303,7 +303,9 @@
   stroke: var(--primary-light);
 }
 
-.mermaid .mermaid-svg-host line {
+.mermaid .mermaid-svg-host .messageLine0,
+.mermaid .mermaid-svg-host .messageLine1,
+.mermaid .mermaid-svg-host .actor-line {
   stroke: var(--accent);
 }
 
@@ -325,16 +327,297 @@
 }
 
 .mermaid .mermaid-svg-host.dark g.node rect,
-.mermaid .mermaid-svg-host.auto g.node rect {
+.mermaid .mermaid-svg-host.dark g.node polygon,
+.mermaid .mermaid-svg-host.dark g.node circle,
+.mermaid .mermaid-svg-host.dark g.node ellipse {
   fill: var(--text-dark);
   stroke: var(--accent-light);
 }
 
 .mermaid .mermaid-svg-host.dark svg.flowchart g.edgePaths path.flowchart-link,
-.mermaid .mermaid-svg-host.auto svg.flowchart g.edgePaths path.flowchart-link,
 .mermaid .mermaid-svg-host.dark g.edgePaths .marker,
-.mermaid .mermaid-svg-host.auto g.edgePaths .marker {
+.mermaid .mermaid-svg-host.dark g.edgePaths .marker {
   stroke: var(--accent) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation rect,
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation polygon,
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation circle,
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation ellipse {
+  fill: rgba(var(--primary-rgb), 0.88) !important;
+  stroke: var(--accent) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerApplication rect,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication polygon,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication circle,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication ellipse {
+  fill: rgba(var(--primary-dark-rgb), 0.82) !important;
+  stroke: rgba(var(--gray-300-rgb), 0.9) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerDomain rect,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain polygon,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain circle,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain ellipse,
+.mermaid .mermaid-svg-host.dark g.node.core rect,
+.mermaid .mermaid-svg-host.dark g.node.core polygon,
+.mermaid .mermaid-svg-host.dark g.node.core circle,
+.mermaid .mermaid-svg-host.dark g.node.core ellipse {
+  fill: rgba(var(--accent-rgb), 0.9) !important;
+  stroke: var(--accent-light) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure rect,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure polygon,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure circle,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure ellipse,
+.mermaid .mermaid-svg-host.dark g.node.datastore rect,
+.mermaid .mermaid-svg-host.dark g.node.datastore polygon,
+.mermaid .mermaid-svg-host.dark g.node.datastore circle,
+.mermaid .mermaid-svg-host.dark g.node.datastore ellipse {
+  fill: rgba(var(--primary-darkest-rgb), 0.92) !important;
+  stroke: var(--accent) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence rect,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence polygon,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence circle,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence ellipse {
+  fill: rgba(var(--success-dark-rgb), 0.84) !important;
+  stroke: var(--accent) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerExternal rect,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal polygon,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal circle,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal ellipse {
+  fill: rgba(var(--accent-dark-rgb), 0.86) !important;
+  stroke: var(--accent-light) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.datastore .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation .label p,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication .label p,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure .label p,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence .label p,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal .label p,
+.mermaid .mermaid-svg-host.dark g.node.datastore .label p,
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.datastore .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.layerPresentation text,
+.mermaid .mermaid-svg-host.dark g.node.layerApplication text,
+.mermaid .mermaid-svg-host.dark g.node.layerInfrastructure text,
+.mermaid .mermaid-svg-host.dark g.node.layerPersistence text,
+.mermaid .mermaid-svg-host.dark g.node.layerExternal text,
+.mermaid .mermaid-svg-host.dark g.node.datastore text {
+  fill: rgba(var(--white-rgb), 0.92) !important;
+  color: rgba(var(--white-rgb), 0.92) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.layerDomain .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain .label p,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain text,
+.mermaid .mermaid-svg-host.dark g.node.core .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.core .label p,
+.mermaid .mermaid-svg-host.dark g.node.core .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.core text {
+  fill: var(--text-dark) !important;
+  color: var(--text-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.dark g.node.default .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node.default .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node.default .label text,
+.mermaid .mermaid-svg-host.dark g.node.default text,
+.mermaid .mermaid-svg-host.dark g.node.default tspan {
+  fill: rgba(var(--gray-200-rgb), 0.96) !important;
+  color: rgba(var(--gray-200-rgb), 0.96) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.dark .cluster-label text,
+.mermaid .mermaid-svg-host.dark .cluster-label span,
+.mermaid .mermaid-svg-host.dark .cluster-label p {
+  fill: var(--text-blue-dark) !important;
+  color: var(--text-blue-dark) !important;
+  background: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node rect,
+.mermaid .mermaid-svg-host.light g.node polygon,
+.mermaid .mermaid-svg-host.light g.node circle,
+.mermaid .mermaid-svg-host.light g.node ellipse {
+  fill: rgba(var(--white-rgb), 0.9);
+  stroke: var(--accent-dark);
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerPresentation rect,
+.mermaid .mermaid-svg-host.light g.node.layerPresentation polygon,
+.mermaid .mermaid-svg-host.light g.node.layerPresentation circle,
+.mermaid .mermaid-svg-host.light g.node.layerPresentation ellipse {
+  fill: rgba(var(--primary-lighter-rgb), 0.26) !important;
+  stroke: var(--primary-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerApplication rect,
+.mermaid .mermaid-svg-host.light g.node.layerApplication polygon,
+.mermaid .mermaid-svg-host.light g.node.layerApplication circle,
+.mermaid .mermaid-svg-host.light g.node.layerApplication ellipse {
+  fill: rgba(var(--white-rgb), 0.96) !important;
+  stroke: rgba(var(--primary-dark-rgb), 0.42) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerDomain rect,
+.mermaid .mermaid-svg-host.light g.node.layerDomain polygon,
+.mermaid .mermaid-svg-host.light g.node.layerDomain circle,
+.mermaid .mermaid-svg-host.light g.node.layerDomain ellipse,
+.mermaid .mermaid-svg-host.light g.node.core rect,
+.mermaid .mermaid-svg-host.light g.node.core polygon,
+.mermaid .mermaid-svg-host.light g.node.core circle,
+.mermaid .mermaid-svg-host.light g.node.core ellipse {
+  fill: rgba(var(--accent-rgb), 0.38) !important;
+  stroke: var(--accent-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure rect,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure polygon,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure circle,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure ellipse {
+  fill: rgba(var(--primary-dark-rgb), 0.12) !important;
+  stroke: rgba(var(--primary-dark-rgb), 0.38) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerPersistence rect,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence polygon,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence circle,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence ellipse {
+  fill: rgba(var(--success-rgb), 0.16) !important;
+  stroke: rgba(var(--success-dark-rgb), 0.72) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerExternal rect,
+.mermaid .mermaid-svg-host.light g.node.layerExternal polygon,
+.mermaid .mermaid-svg-host.light g.node.layerExternal circle,
+.mermaid .mermaid-svg-host.light g.node.layerExternal ellipse {
+  fill: rgba(var(--warning-rgb), 0.22) !important;
+  stroke: var(--accent-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.datastore rect,
+.mermaid .mermaid-svg-host.light g.node.datastore polygon,
+.mermaid .mermaid-svg-host.light g.node.datastore circle,
+.mermaid .mermaid-svg-host.light g.node.datastore ellipse {
+  fill: rgba(var(--primary-light-rgb), 0.2) !important;
+  stroke: var(--primary-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.layerPresentation .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.layerPresentation .label p,
+.mermaid .mermaid-svg-host.light g.node.layerPresentation .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.layerApplication .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.layerApplication .label p,
+.mermaid .mermaid-svg-host.light g.node.layerApplication .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.layerDomain .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.layerDomain .label p,
+.mermaid .mermaid-svg-host.light g.node.layerDomain .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure .label p,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence .label p,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.layerExternal .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.layerExternal .label p,
+.mermaid .mermaid-svg-host.light g.node.layerExternal .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.datastore .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.datastore .label p,
+.mermaid .mermaid-svg-host.light g.node.datastore .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.core .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.core .label p,
+.mermaid .mermaid-svg-host.light g.node.core .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.layerPresentation text,
+.mermaid .mermaid-svg-host.light g.node.layerApplication text,
+.mermaid .mermaid-svg-host.light g.node.layerDomain text,
+.mermaid .mermaid-svg-host.light g.node.layerInfrastructure text,
+.mermaid .mermaid-svg-host.light g.node.layerPersistence text,
+.mermaid .mermaid-svg-host.light g.node.layerExternal text,
+.mermaid .mermaid-svg-host.light g.node.datastore text,
+.mermaid .mermaid-svg-host.light g.node.core text {
+  fill: var(--text-blue-dark) !important;
+  color: var(--text-blue-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node.default .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node.default .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node.default .label text,
+.mermaid .mermaid-svg-host.light g.node.default text,
+.mermaid .mermaid-svg-host.light g.node.default tspan {
+  fill: rgba(var(--gray-100-rgb), 0.96) !important;
+  color: rgba(var(--gray-100-rgb), 0.96) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light .cluster rect,
+.mermaid .mermaid-svg-host.light .cluster polygon {
+  fill: rgba(var(--primary-lighter-rgb), 0.38);
+  stroke: var(--primary-dark);
+}
+
+.mermaid .mermaid-svg-host.light .messageText,
+.mermaid .mermaid-svg-host.light text.loopText,
+.mermaid .mermaid-svg-host.light .noteText {
+  fill: var(--text-blue-dark) !important;
+  color: var(--text-blue-dark) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light svg.flowchart g.edgePaths path.flowchart-link,
+.mermaid .mermaid-svg-host.light g.edgePaths .marker,
+.mermaid .mermaid-svg-host.light .arrowheadPath,
+.mermaid .mermaid-svg-host.light .lifeline {
+  stroke: var(--accent-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light svg.flowchart g.edgePaths path.flowchart-link {
+  fill: none !important;
+}
+
+.mermaid .mermaid-svg-host.light g.edgePaths .marker,
+.mermaid .mermaid-svg-host.light .arrowheadPath {
+  fill: var(--accent-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light .messageLine0,
+.mermaid .mermaid-svg-host.light .messageLine1,
+.mermaid .mermaid-svg-host.light .actor-line {
+  stroke: var(--accent-dark) !important;
+}
+
+.mermaid .mermaid-svg-host.light .edgeLabel,
+.mermaid .mermaid-svg-host.light .edgeLabel foreignObject,
+.mermaid .mermaid-svg-host.light .edgeLabel div,
+.mermaid .mermaid-svg-host.light .edgeLabel span,
+.mermaid .mermaid-svg-host.light .edgeLabel p {
+  color: var(--text-blue-dark) !important;
+  background-color: rgba(var(--white-rgb), 0.96) !important;
+}
+
+.mermaid .mermaid-svg-host.light .edgeLabel text,
+.mermaid .mermaid-svg-host.light .text-outer-tspan .text-inner-tspan,
+.mermaid .mermaid-svg-host.light .cluster text > .text-outer-tspan > tspan.text-inner-tspan {
+  fill: var(--text-blue-dark) !important;
+  stroke: rgba(var(--white-rgb), 0.85) !important;
 }
 
 /* ------------------------------------------------------------

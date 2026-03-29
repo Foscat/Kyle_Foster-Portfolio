@@ -27,7 +27,8 @@ const smuSections = [
   {
     id: "smu-education",
     icon: faGraduationCap,
-    title: "SMU Full Stack Bootcamp",
+    title: "SMU Full-Stack Bootcamp",
+    navLabel: "SMU Bootcamp",
     subtitle: "Foundational projects that launched my software development career",
     isScroller: true,
     blocks: [

@@ -1,10 +1,12 @@
-import { BlockType } from "types/ui.types";
-import { diagramConfig, diagram } from "components/features/CustomDiagram/core";
+import {
+  diagramConfig,
+  diagram,
+} from "../../../../components/features/CustomDiagram/core/index.js";
 
 const diagrams = {
   greenhouseMentalModel: {
     id: "diagram-greenhouse-mental-model",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Greenhouse Controller – Mental Model",
     desktop: {
       diagram: diagram(
@@ -115,7 +117,7 @@ Delay ==> Read`
   },
   greenhouseAutomation: {
     id: "diagram-greenhouse",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Automation System",
     mobile: {
       diagram: diagram(
@@ -226,7 +228,7 @@ end`
   },
   encryptionFlow: {
     id: "enigma-client-encrypt-flow",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Encryption Pipeline",
     desktop: {
       diagram: diagram(
@@ -342,7 +344,7 @@ Rotate ==> Tag ==> Cipher`
   },
   decryptFlow: {
     id: "diagram-enigma-decrypt-flow",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Decryption Lifecycle",
     mobile: {
       diagram: diagram(
@@ -427,7 +429,7 @@ Output -->> User: Render result`
   },
   domainModel: {
     id: "diagram-domain-model",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     title: "Narrative Domain Architecture",
     diagram: diagram(
       diagramConfig.FLOWCHART_INIT,

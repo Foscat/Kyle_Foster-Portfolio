@@ -1,9 +1,7 @@
-import { PageRoute } from "types/ui.types";
-import { createPageTests } from "tests/helpers/createPageTests";
+import { PageRoute } from "types/navigation.types";
+import { createPageTests } from "tests/helpers/createPageTests.jsx";
 import SideProjects from "pages/SideProjects";
-import sideProjectsData from "assets/data/content/sideprojectSections";
-sideProjectsData;
-
+import sideProjectsSections from "assets/data/content/side-projects";
 /**
  * @file SideProjects.test.js
  * @description Page-level tests for the SideProjects page.
@@ -33,7 +31,7 @@ sideProjectsData;
 
 createPageTests({
   PageComponent: SideProjects,
-  sections: sideProjectsData,
+  sections: sideProjectsSections,
   pageRoute: PageRoute.SIDE_PROJECTS,
   pageName: "Side Projects",
 });

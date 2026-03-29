@@ -33,6 +33,8 @@ import { loadLastSection } from "./sectionPersistence";
  * @returns {void}
  */
 const restoreScrollPosition = () => {
+  if (window.__DISABLE_RESTORE_SCROLL_POSITION__) return;
+
   // Extract section ID from the URL hash (if present)
   const hashId = window.location.hash.replace("#", "");
 

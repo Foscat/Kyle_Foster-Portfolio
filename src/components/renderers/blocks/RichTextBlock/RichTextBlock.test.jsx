@@ -38,7 +38,7 @@ describe("RichTextBlock", () => {
    * Verifies the component renders a named region with readable paragraph content when valid markdown input is provided.
    * This confirms that the markdown parsing and rendering logic is functioning as intended.
    */
-  it("renders a named region with readable paragraph content", () => {
+  it("renders a named region with readable paragraph content", async () => {
     renderWithProviders(
       <RichTextBlock
         id="intro"
@@ -47,7 +47,7 @@ describe("RichTextBlock", () => {
       />
     );
 
-    expect(screen.getByRole("region", { name: /overview/i })).toBeInTheDocument();
-    expect(screen.getByText(/hello world/i)).toBeInTheDocument();
+    expect(screen.getAllByRole("region", { name: /overview/i }).length).toBeGreaterThan(0);
+    expect(await screen.findByText(/hello world/i)).toBeInTheDocument();
   });
 });

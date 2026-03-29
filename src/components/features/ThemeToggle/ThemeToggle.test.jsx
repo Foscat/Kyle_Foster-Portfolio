@@ -30,11 +30,11 @@ describe("ThemeToggle", () => {
    * Verifies that both theme toggle buttons are rendered and
    * accessible by role and label.
    */
-  test("renders light and dark theme toggle buttons", () => {
+  test("renders light and dark theme toggle buttons", async () => {
     renderWithProviders(<ThemeToggle />);
 
-    expect(screen.getByRole("button", { name: /light theme/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /dark theme/i })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: /light theme/i })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: /dark theme/i })).toBeInTheDocument();
   });
 
   /**
@@ -46,7 +46,7 @@ describe("ThemeToggle", () => {
 
     renderWithProviders(<ThemeToggle />);
 
-    await user.click(screen.getByRole("button", { name: /dark theme/i }));
+    await user.click(await screen.findByRole("button", { name: /dark theme/i }));
 
     await waitFor(() => {
       expect(document.documentElement.dataset.theme).toBe(Theme.DARK);
@@ -64,7 +64,7 @@ describe("ThemeToggle", () => {
       initialEntries: ["/"],
     });
 
-    await user.click(screen.getByRole("button", { name: /light theme/i }));
+    await user.click(await screen.findByRole("button", { name: /light theme/i }));
 
     await waitFor(() => {
       expect(document.documentElement.dataset.theme).toBe(Theme.LIGHT);

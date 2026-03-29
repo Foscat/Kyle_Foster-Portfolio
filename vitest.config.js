@@ -10,7 +10,7 @@ export default defineConfig({
       components: path.resolve(__dirname, "src/components"),
       assets: path.resolve(__dirname, "src/assets"),
       types: path.resolve(__dirname, "src/types"),
-      navigation: path.resolve(__dirname, "src/navigation"),
+      navigation: path.resolve(__dirname, "src/components/navigation"),
       tests: path.resolve(__dirname, "src/tests"),
       scripts: path.resolve(__dirname, "scripts"),
     },

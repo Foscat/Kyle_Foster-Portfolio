@@ -46,3 +46,19 @@
  * @param {string} sectionId - ID of the section to remove.
  * @returns {void}
  */
+
+/**
+ * Route types
+ * @readonly
+ * @enum {string}
+ */
+export const PageRoute = Object.freeze({
+  HOME: "/",
+  PROFESSIONAL: "/codestream",
+  CODE_STREAM: "/codestream",
+  HACKATHON: "/hackathon",
+  SIDE_PROJECTS: "/side-projects",
+  EDUCATION: "/smu",
+  DOCS: "/docs",
+  CONNECT: "/contact",
+});

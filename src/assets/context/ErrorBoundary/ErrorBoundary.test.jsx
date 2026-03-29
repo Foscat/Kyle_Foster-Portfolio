@@ -33,6 +33,20 @@ const ProblemChild = () => {
   throw new Error("Test error");
 };
 
+const withSuppressedWindowError = (callback) => {
+  const suppressExpectedError = (event) => {
+    event.preventDefault();
+  };
+
+  window.addEventListener("error", suppressExpectedError);
+
+  try {
+    return callback();
+  } finally {
+    window.removeEventListener("error", suppressExpectedError);
+  }
+};
+
 /* ------------------------------------------------------------------
  * Test Suite
  * ------------------------------------------------------------------ */
@@ -73,11 +87,13 @@ describe("ErrorBoundary", () => {
    * ------------------------------------------------------------ */
 
   it("renders fallback UI when a child throws an error", () => {
-    renderWithProviders(
-      <ErrorBoundary>
-        <ProblemChild />
-      </ErrorBoundary>
-    );
+    withSuppressedWindowError(() => {
+      renderWithProviders(
+        <ErrorBoundary>
+          <ProblemChild />
+        </ErrorBoundary>
+      );
+    });
 
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
     expect(
@@ -86,11 +102,13 @@ describe("ErrorBoundary", () => {
   });
 
   it("displays the error message in the fallback UI", () => {
-    renderWithProviders(
-      <ErrorBoundary>
-        <ProblemChild />
-      </ErrorBoundary>
-    );
+    withSuppressedWindowError(() => {
+      renderWithProviders(
+        <ErrorBoundary>
+          <ProblemChild />
+        </ErrorBoundary>
+      );
+    });
 
     expect(screen.getByText(/Test error/i)).toBeInTheDocument();
   });

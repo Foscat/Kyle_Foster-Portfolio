@@ -32,7 +32,12 @@ export function renderWithProviders(ui, { initialEntries = ["/"], rsuiteTheme = 
       <ThemeProvider>
         <ResponsiveProvider>
           <CustomProvider theme={rsuiteTheme}>
-            <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
+            <MemoryRouter
+              initialEntries={initialEntries}
+              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+            >
+              {ui}
+            </MemoryRouter>
           </CustomProvider>
         </ResponsiveProvider>
       </ThemeProvider>

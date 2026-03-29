@@ -1,10 +1,19 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Head } from "components/navigation";
-import { Home, CodeStream, SideProjects, Hackathon, Smu, Contact, NotFound, Health } from "pages";
+import Home from "pages/Home";
 import "./App.css";
 // Custom CSS library for click animations
 import "./click-animate/click-animate.css";
+
+const CodeStream = lazy(() => import("pages/CodeStream"));
+const SideProjects = lazy(() => import("pages/SideProjects"));
+const Hackathon = lazy(() => import("pages/Hackathon"));
+const Smu = lazy(() => import("pages/SMU"));
+const Contact = lazy(() => import("pages/Contact"));
+const Docs = lazy(() => import("pages/Docs"));
+const Health = lazy(() => import("pages/Health"));
+const NotFound = lazy(() => import("pages/NotFound"));
 
 console.log("🚀 App component executing");
 
@@ -33,26 +42,27 @@ export default function App() {
   return (
     <BrowserRouter
       future={{
-        v7_preventAbandonedRoutes: true,
-        v7_preventUnnecessaryRerenders: true,
         v7_startTransition: true,
         v7_relativeSplatPath: true,
       }}
     >
       <div className="app-shell">
         <Head />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/codestream" element={<CodeStream />} />
-          <Route path="/side-projects" element={<SideProjects />} />
-          <Route path="/hackathon" element={<Hackathon />} />
-          <Route path="/smu" element={<Smu />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/health" element={<Health />} />
+        <Suspense fallback={<div aria-live="polite">Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/codestream" element={<CodeStream />} />
+            <Route path="/side-projects" element={<SideProjects />} />
+            <Route path="/hackathon" element={<Hackathon />} />
+            <Route path="/smu" element={<Smu />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/docs" element={<Docs />} />
+            <Route path="/health" element={<Health />} />
 
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* Catch-all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
     </BrowserRouter>
   );
