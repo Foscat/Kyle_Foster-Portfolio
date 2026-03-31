@@ -216,7 +216,12 @@ export default function MarkdownRenderer({
                     key={heading.id}
                     className={`markdown-renderer__toc-item markdown-renderer__toc-item--h${heading.level}`}
                   >
-                    <a href={`#${heading.id}`}>{heading.text}</a>
+                    <a
+                      href={`#${heading.id}`}
+                      className="markdown-renderer__toc-link interactive-surface"
+                    >
+                      {heading.text}
+                    </a>
                   </li>
                 ))}
               </ul>

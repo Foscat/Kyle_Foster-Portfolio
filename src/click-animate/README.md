@@ -1,8 +1,8 @@
-# Click Animate — Interactive Motion Primitive
+# Interactive Surface — Interactive Motion Primitive
 
-## `click-animate.css`
+## `interactive-surface.css`
 
-`click-animate.css` provides a **design-system–grade interaction primitive** for clickable UI surfaces such as buttons, icon buttons, and glassmorphic tiles.
+`interactive-surface.css` provides a **design-system–grade interaction primitive** for clickable UI surfaces such as buttons, icon buttons, and glassmorphic tiles.
 
 It implements a **physically consistent elevation model** with hover lift, active selection, and tactile press feedback—without JavaScript and without layout shifts.
 
@@ -46,6 +46,12 @@ Apply the base class to any clickable surface:
   Clickable Tile
 </div>
 ```
+
+### Guardrail Rule
+
+If an element has `interactive-surface`, do not add other `transform`, `scale`, `translate`, or `rotate` rules on that same element in component CSS.
+
+`interactive-surface` is the single motion source for clickable controls so interaction behavior and accessibility stay consistent across the app.
 
 ---
 

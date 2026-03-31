@@ -181,21 +181,9 @@
   background-color: var(--primary-dark-bg);
 }
 
-/* ============================================================
-    Hover & Active States (Desktop Only)
-      - Overrides RSuite's default hover/active styles for buttons
-      - Ensures consistent behavior across all variants
-   ============================================================ */
-@media screen and (width >= 900px) {
-  .rs-btn.btn.interactive-surface.interactive-surface:hover,
-  .rs-btn.btn.interactive-surface.interactive-surface:hover .rs-icon.btn-icon,
-  a:hover
-    .rs-btn.btn.interactive-surface.interactive-surface
-    .rs-btn.btn.interactive-surface.accent:active:not(:disabled, .loading),
-  .rs-btn.btn.interactive-surface.primary:active:not(:disabled, .loading),
-  .rs-btn.btn.interactive-surface.secondary:active:not(:disabled, .loading),
-  .rs-btn.btn.interactive-surface:active:not(:disabled, .loading) {
-    transform: none;
-    text-decoration: none;
-  }
+/* Keep text decoration stable while letting interactive-surface own motion. */
+.rs-btn.btn.interactive-surface:hover:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface:active:not(:disabled, .loading),
+.rs-btn.btn.interactive-surface:focus-visible {
+  text-decoration: none;
 }

@@ -43,16 +43,6 @@
   overflow-y: auto;
 }
 
-.section-nav-list::-webkit-scrollbar {
-  width: 6px;
-  border-radius: var(--radius-xs);
-}
-
-.section-nav-list::-webkit-scrollbar-thumb {
-  background: rgba(var(--white-rgb), 0.2);
-  border-radius: var(--radius-sm);
-}
-
 /* Each top-level section item */
 .section-nav-item {
   list-style: none;

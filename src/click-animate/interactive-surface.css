@@ -1,5 +1,5 @@
 /* ======================================================================
-   click-animate.css
+   interactive-surface.css
    ----------------------------------------------------------------------
    Reusable interaction primitives for clickable UI surfaces.
    Designed for:
@@ -47,8 +47,8 @@
   /* ------------------------------------------------------------
      Motion timing
      ------------------------------------------------------------ */
-  --motion-default: 180ms;
-  --motion-press: 80ms;
+  --motion-default: 140ms;
+  --motion-press: 60ms;
 
   /* ------------------------------------------------------------
      Easing curves (stable, no flutter)
@@ -64,14 +64,19 @@
 .interactive-surface {
   position: relative;
   cursor: pointer;
-  transition-delay: var(--motion-default);
-  transform: translateY(var(--lift-base));
+  transform: translateY(var(--lift-base)) !important;
   box-shadow: var(--shadow-base);
   transition:
     transform var(--motion-default) var(--ease-standard),
     box-shadow var(--motion-default) var(--ease-standard),
     filter var(--motion-default) linear;
-  will-change: transform, box-shadow;
+  will-change: auto;
+}
+
+@media (hover: hover) {
+  .interactive-surface {
+    will-change: transform, box-shadow;
+  }
 }
 
 /* ======================================================================
@@ -80,7 +85,7 @@
 
 .interactive-surface:hover,
 .interactive-surface:focus-visible {
-  transform: translateY(var(--lift-hover));
+  transform: translateY(var(--lift-hover)) !important;
   box-shadow: var(--shadow-hover);
   filter: brightness(var(--surface-darken-hover));
 }
@@ -90,7 +95,7 @@
    ====================================================================== */
 
 .interactive-surface.is-active {
-  transform: translateY(var(--lift-active));
+  transform: translateY(var(--lift-active)) !important;
   box-shadow: var(--shadow-active);
   filter: brightness(var(--surface-darken-active));
 }
@@ -100,7 +105,7 @@
    ====================================================================== */
 
 .interactive-surface:active {
-  transform: translateY(var(--lift-base));
+  transform: translateY(var(--lift-base)) !important;
   box-shadow: var(--shadow-base);
   filter: brightness(1);
   transition-duration: var(--motion-press);
@@ -201,10 +206,21 @@
 .interactive-surface:disabled {
   cursor: not-allowed;
   pointer-events: none;
-  transform: none;
+  transform: none !important;
   box-shadow: none;
   filter: grayscale(0.2) brightness(0.9);
   transition: none;
+}
+
+/* Guardrail: this class owns motion primitives for clickable elements. */
+.interactive-surface,
+.interactive-surface:hover,
+.interactive-surface:focus-visible,
+.interactive-surface:active,
+.interactive-surface.is-active {
+  scale: 1 !important;
+  rotate: 0deg !important;
+  translate: 0 0 !important;
 }
 
 /* ======================================================================
@@ -213,13 +229,21 @@
 
 @media (prefers-reduced-motion: reduce) {
   .interactive-surface {
-    transform: none;
+    transform: none !important;
     transition: none;
   }
 
   .interactive-surface:hover,
   .interactive-surface:active,
   .interactive-surface.is-active {
-    transform: none;
+    transform: none !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .interactive-surface:hover {
+    transform: translateY(var(--lift-base)) !important;
+    box-shadow: var(--shadow-base);
+    filter: none;
   }
 }

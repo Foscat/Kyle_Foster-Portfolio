@@ -66,14 +66,16 @@ const Footer = () => {
           }
           trigger="hover"
         >
-          <span
+          <button
+            type="button"
+            aria-label="Copy phone number to clipboard"
             className="site-footer_phone interactive-surface"
             onClick={() => {
               clipboard.copy("4694105286");
             }}
           >
             (469) 410-5286
-          </span>
+          </button>
         </Whisper>
 
         {/* ----------------------------------------------------

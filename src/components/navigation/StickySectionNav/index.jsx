@@ -302,6 +302,6 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
       }}
     />
   );
-};;
+};
 
 export default StickySectionNav;

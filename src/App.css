@@ -5,12 +5,11 @@
  */
 
 /* ------------------------------------------------------------
-   Font Imports
-   ------------------------------------------------------------ */
-@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+   Font loading
+   ------------------------------------------------------------
+   Fonts are loaded from <head> in index.html using preconnect + stylesheet
+   links so they can begin downloading before CSS parsing.
+ */
 
 /* ------------------------------------------------------------
    Base colors & tokens
@@ -214,6 +213,14 @@
   --tablet-breakpoint: 1024;
   --sidebar-width: 350px;
   --sticky-header-height: 96px;
+  --accessibility-text-scale: 1;
+
+  /* Scrollbars */
+  --scrollbar-size: 8px;
+  --scrollbar-radius: var(--radius-sm);
+  --scrollbar-track: rgba(var(--primary-darkest-rgb), 0.28);
+  --scrollbar-thumb: rgba(var(--white-rgb), 0.28);
+  --scrollbar-thumb-hover: rgba(var(--accent-rgb), 0.55);
 
   /* adjust to StickyNav height */
 }
@@ -222,9 +229,110 @@ html {
   /* Smooth scrolling is an enhancement; keep it on the root scroller only. */
   scroll-behavior: smooth;
   height: 100%;
+  font-size: calc(16px * var(--accessibility-text-scale));
 
   /* Prevent minor sub-pixel overflow from causing horizontal scroll on mobile. */
   overflow-x: clip;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: var(--scrollbar-radius);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--scrollbar-radius);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+html[data-a11y-reduced-motion="true"] * {
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-a11y-reduced-transparency="true"] * {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html[data-a11y-reduced-transparency="true"] .frosted,
+html[data-a11y-reduced-transparency="true"] .blue-tile,
+html[data-a11y-reduced-transparency="true"] .glass-card,
+html[data-a11y-reduced-transparency="true"] .frosted-icon,
+html[data-a11y-reduced-transparency="true"] .desktop-menu,
+html[data-a11y-reduced-transparency="true"] .rs-modal-content,
+html[data-a11y-reduced-transparency="true"] .rs-drawer-content,
+html[data-a11y-reduced-transparency="true"] .btn {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: rgba(var(--primary-darkest-rgb), 0.92) !important;
+  border-color: rgba(var(--white-rgb), 0.28) !important;
+}
+
+html[data-theme="dark"][data-a11y-high-contrast="true"] {
+  --text-primary: rgba(var(--white-rgb), 0.98);
+  --text-secondary: rgba(var(--white-rgb), 0.92);
+  --text-accent: rgba(var(--gold-400-rgb), 1);
+  --frost-border: 2px solid rgba(var(--white-rgb), 0.82);
+  --glass-border: 2px solid rgba(var(--white-rgb), 0.86);
+}
+
+html[data-theme="light"][data-a11y-high-contrast="true"] {
+  --text-primary: rgba(var(--black-rgb), 0.98);
+  --text-secondary: rgba(var(--black-rgb), 0.9);
+  --text-accent: rgba(var(--accent-dark-rgb), 1);
+  --frost-border: 2px solid rgba(var(--black-rgb), 0.76);
+  --glass-border: 2px solid rgba(var(--black-rgb), 0.8);
+}
+
+html[data-a11y-high-contrast="true"] .frosted,
+html[data-a11y-high-contrast="true"] .blue-tile,
+html[data-a11y-high-contrast="true"] .glass-card,
+html[data-a11y-high-contrast="true"] .desktop-menu,
+html[data-a11y-high-contrast="true"] .rs-modal-content,
+html[data-a11y-high-contrast="true"] .rs-drawer-content {
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"][data-a11y-high-contrast="true"] .frosted,
+html[data-theme="dark"][data-a11y-high-contrast="true"] .blue-tile,
+html[data-theme="dark"][data-a11y-high-contrast="true"] .glass-card,
+html[data-theme="dark"][data-a11y-high-contrast="true"] .desktop-menu,
+html[data-theme="dark"][data-a11y-high-contrast="true"] .rs-modal-content,
+html[data-theme="dark"][data-a11y-high-contrast="true"] .rs-drawer-content {
+  background: rgba(var(--deep-black-rgb), 0.96) !important;
+  border: 2px solid rgba(var(--white-rgb), 0.86) !important;
+}
+
+html[data-theme="light"][data-a11y-high-contrast="true"] .frosted,
+html[data-theme="light"][data-a11y-high-contrast="true"] .blue-tile,
+html[data-theme="light"][data-a11y-high-contrast="true"] .glass-card,
+html[data-theme="light"][data-a11y-high-contrast="true"] .desktop-menu,
+html[data-theme="light"][data-a11y-high-contrast="true"] .rs-modal-content,
+html[data-theme="light"][data-a11y-high-contrast="true"] .rs-drawer-content {
+  background: rgba(var(--white-rgb), 0.98) !important;
+  border: 2px solid rgba(var(--black-rgb), 0.82) !important;
+}
+
+html[data-a11y-high-contrast="true"] :focus-visible {
+  outline: 3px solid var(--accent) !important;
+  outline-offset: 2px;
 }
 
 /* ------------------------------------------------------------
@@ -301,6 +409,9 @@ html[data-theme="light"] {
     rgba(var(--white-rgb), 0.18),
     rgba(var(--primary-dark-rgb), 0.08)
   );
+  --scrollbar-track: rgba(var(--primary-light-rgb), 0.3);
+  --scrollbar-thumb: rgba(var(--primary-dark-rgb), 0.32);
+  --scrollbar-thumb-hover: rgba(var(--accent-dark-rgb), 0.58);
 }
 
 html[data-theme="auto"] {

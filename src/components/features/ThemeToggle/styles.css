@@ -1,5 +1,6 @@
 .theme-toggle {
   display: inline-flex;
+  align-items: center;
   justify-content: center;
   width: auto;
   gap: 0.35rem;
@@ -10,10 +11,64 @@
   box-shadow: var(--shadow-soft);
 }
 
-.theme-toggle .rs-btn {
+.theme-toggle .rs-btn.btn.interactive-surface {
   color: var(--text-primary);
 }
 
-.theme-toggle .btn {
-  min-width: 44px;
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn {
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  padding: 6px;
+  margin: 4px;
+  box-sizing: border-box;
+  border: 1px solid transparent !important;
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn.btn-noBG,
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn.noBG {
+  border: 1px solid transparent !important;
+  border-radius: var(--radius-sm);
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn .frosted-icon.btn-icon {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 4px;
+  border-radius: var(--radius-xs);
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn .frosted-icon.btn-icon svg {
+  font-size: var(--icon-sm);
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:hover:not(:disabled, .loading),
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:focus-visible,
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:active:not(:disabled, .loading) {
+  border: 1px solid rgba(var(--accent-rgb), 0.6) !important;
+  background: rgba(var(--white-rgb), 0.06) !important;
+  box-shadow: var(--shadow-soft) !important;
+  color: var(--accent-dark);
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light.primary,
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent {
+  border: 1px solid rgba(var(--accent-rgb), 0.72) !important;
+}
+
+html[data-theme="light"]
+  .theme-toggle
+  .rs-btn.btn.interactive-surface.theme-toggle__btn:hover:not(:disabled, .loading),
+html[data-theme="light"]
+  .theme-toggle
+  .rs-btn.btn.interactive-surface.theme-toggle__btn:focus-visible,
+html[data-theme="light"]
+  .theme-toggle
+  .rs-btn.btn.interactive-surface.theme-toggle__btn:active:not(:disabled, .loading) {
+  background: rgba(var(--primary-dark-rgb), 0.08) !important;
 }

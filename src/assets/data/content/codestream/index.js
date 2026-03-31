@@ -243,7 +243,7 @@ const codestreamSections = [
       },
       {
         id: "kf-pillars",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Core Pillars",
         subtitle:
           "The platform was built around a few core pillars that are required to support the full teaching lifecycle.",
@@ -2719,7 +2719,7 @@ const codestreamSections = [
       },
       {
         id: "am-architecture",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Architecture Highlights",
         subtitle:
           "The Super Admin dashboard was built on a foundation of secure, auditable API design that informed the entire platform architecture.",
@@ -3051,7 +3051,7 @@ const codestreamSections = [
       },
       {
         id: "cb-benefits",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Feature Benefits",
         subtitle:
           "The Curriculum Builder’s modular design and centralized management provided clear benefits for content teams, instructors, and students.",

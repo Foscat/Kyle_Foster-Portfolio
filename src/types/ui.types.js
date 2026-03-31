@@ -622,7 +622,7 @@ const createInsightCard = (item, position) => ({
   title: item.title || "",
   subtitle: item.subtitle || "",
   icon: item.icon || "",
-  variant: item.variant || Variant.PRIMARY,
+  variant: item.variant || item.accent || Variant.PRIMARY,
   content: item.content || "",
 });
 

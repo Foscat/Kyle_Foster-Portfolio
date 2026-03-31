@@ -43,6 +43,22 @@
   gap: 0.25rem;
 }
 
+.site-footer_phone {
+  padding: 0.35rem 0.55rem;
+  font-size: var(--font-xs);
+  color: var(--text-accent);
+  background: transparent;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.site-footer_phone:hover,
+.site-footer_phone:focus-visible {
+  color: var(--text-accent-light);
+  border-color: rgba(var(--accent-rgb), 0.5);
+}
+
 /* ------------------------------------------------------------ 
   Very small screen enhancement 
   ------------------------------------------------------------- */

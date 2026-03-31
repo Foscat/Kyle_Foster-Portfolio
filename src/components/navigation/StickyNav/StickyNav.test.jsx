@@ -49,6 +49,7 @@ vi.mock("components/ui", async () => {
 // Mock the ThemeToggle component from the features library to prevent issues with its implementation during testing, allowing us to focus on the StickyNav's functionality without worrying about the complexities of the ThemeToggle component.
 vi.mock("components/features", () => ({
   ThemeToggle: () => <button aria-label="Toggle theme">Theme</button>,
+  AccessibilityMenu: () => <button aria-label="Open accessibility settings">Accessibility</button>,
 }));
 
 // The test suite for the StickyNav component, which includes tests to verify that the active route is marked correctly, that the mobile navigation opens when the menu trigger is activated, and that the mobile navigation closes after a destination is chosen, ensuring that the component behaves as expected in various scenarios.

@@ -208,6 +208,6 @@ const MobileSectionNavTrigger = ({
       </Drawer>
     </>
   );
-};;
+};
 
 export default MobileSectionNavTrigger;

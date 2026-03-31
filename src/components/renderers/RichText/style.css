@@ -9,7 +9,8 @@
 
 .block-em {
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .block-link {
@@ -39,10 +40,24 @@
   color: var(--text-primary);
 }
 
+.block-quote,
 blockquote {
   border-left: 4px solid var(--accent);
-  padding-left: 1rem;
+  padding: 0.6rem 0.95rem;
   margin-left: 0;
   margin-right: 0;
   color: var(--text-secondary);
+  background: rgba(var(--white-rgb), 0.05);
+  border-radius: var(--radius-xs);
+}
+
+html[data-theme="light"] .block-em {
+  color: rgba(var(--primary-darkest-rgb), 0.9);
+}
+
+html[data-theme="light"] .block-quote,
+html[data-theme="light"] blockquote {
+  color: rgba(var(--primary-darkest-rgb), 0.9);
+  border-left-color: rgba(var(--accent-dark-rgb), 0.85);
+  background: rgba(var(--primary-light-rgb), 0.16);
 }

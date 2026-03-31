@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import { Variant } from "types/ui.types";
-import { FrostedIcon } from "..";
+import { Children } from "react";
+import { Size, Variant } from "types/ui.types";
+import { Btn, FrostedIcon } from "..";
 import { RichText } from "components/renderers";
 import "./style.css";
 
@@ -37,11 +38,16 @@ import "./style.css";
  * - The grid uses consistent spacing and alignment to create a cohesive visual presentation of the insights.
  */
 export function CardGrid({ columns = 3, children }) {
+  const normalizedColumns = Number.isFinite(columns) && Number(columns) > 0 ? Number(columns) : 3;
+  const cardCount = Children.toArray(children).filter(Boolean).length;
+
   return (
     <div
       className="card-grid"
+      role="list"
       style={{
-        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        "--card-grid-columns": normalizedColumns,
+        "--card-grid-count": cardCount,
       }}
     >
       {children}
@@ -85,9 +91,27 @@ export function CardGrid({ columns = 3, children }) {
  *
  * - The component is designed to be reusable and composable, allowing it to be used in various contexts where insights need to be displayed in a card format.
  */
-export function InsightCard({ title, icon, subtitle, variant = Variant.PRIMARY, content }) {
+export function InsightCard({
+  title,
+  icon,
+  subtitle,
+  variant = Variant.PRIMARY,
+  content,
+  url,
+  local,
+  ariaLabel,
+  ctaText = "Learn More",
+  target,
+  rel,
+  download,
+}) {
+  const isLocalLink =
+    typeof local === "boolean"
+      ? local
+      : typeof url === "string" && (url.startsWith("/") || url.startsWith("#"));
+
   return (
-    <div className={clsx("insight-card", `insight-card--${variant}`)}>
+    <article className={clsx("insight-card", `insight-card--${variant}`)} role="listitem">
       <div className="insight-card__header">
         {icon && (
           <div className="insight-card__icon">
@@ -103,7 +127,23 @@ export function InsightCard({ title, icon, subtitle, variant = Variant.PRIMARY, 
 
       <div className="insight-card__body">
         <RichText content={content} />
+        {url ? (
+          <div className="insight-card__footer flex-row">
+            <Btn
+              className="flex-c"
+              text={ctaText}
+              href={url}
+              hrefLocal={isLocalLink}
+              target={target}
+              rel={rel}
+              download={download}
+              size={Size.SM}
+              variant={Variant.ACCENT}
+              ariaLabel={ariaLabel || `Learn more about ${title}`}
+            />
+          </div>
+        ) : null}
       </div>
-    </div>
+    </article>
   );
 }

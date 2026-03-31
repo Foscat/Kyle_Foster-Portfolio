@@ -107,3 +107,19 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--glass-shadow);
 }
+
+.san-nav-item.rs-nav-item {
+  margin: 0.2rem 0.35rem;
+  padding: 0.45rem 0.6rem;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.san-nav-item.rs-nav-item:hover,
+.san-nav-item.rs-nav-item:focus-visible,
+.san-nav-item.rs-nav-item.rs-nav-item-active {
+  color: var(--text-primary);
+  background: rgba(var(--white-rgb), 0.05);
+  border-color: rgba(var(--accent-rgb), 0.38);
+}

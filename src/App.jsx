@@ -1,10 +1,10 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Head } from "components/navigation";
 import Home from "pages/Home";
 import "./App.css";
 // Custom CSS library for click animations
-import "./click-animate/click-animate.css";
+import "./click-animate/interactive-surface.css";
 
 const CodeStream = lazy(() => import("pages/CodeStream"));
 const SideProjects = lazy(() => import("pages/SideProjects"));
@@ -14,8 +14,6 @@ const Contact = lazy(() => import("pages/Contact"));
 const Docs = lazy(() => import("pages/Docs"));
 const Health = lazy(() => import("pages/Health"));
 const NotFound = lazy(() => import("pages/NotFound"));
-
-console.log("🚀 App component executing");
 
 /**
  * @public
@@ -36,9 +34,6 @@ console.log("🚀 App component executing");
  * ```
  */
 export default function App() {
-  useEffect(() => {
-    console.log("🚀 App mounted successfully");
-  });
   return (
     <BrowserRouter
       future={{
