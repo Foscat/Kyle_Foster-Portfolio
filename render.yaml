@@ -2,14 +2,20 @@ services:
   - type: web
     name: kyle-foster-portfolio
     runtime: static
-    buildCommand: npm ci --include=dev && npm run build
+    buildCommand: npm ci --include=dev --no-audit --no-fund && npm run build
     staticPublishPath: dist
     pullRequestPreviewsEnabled: true
     envVars:
       - key: NODE_VERSION
-        value: "20"
+        value: "22"
+      - key: NPM_VERSION
+        value: "10"
       - key: HUSKY
         value: "0"
+      - key: CI
+        value: "true"
+      - key: PUPPETEER_SKIP_DOWNLOAD
+        value: "true"
     routes:
       - type: rewrite
         source: /*
