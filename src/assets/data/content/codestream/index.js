@@ -2730,7 +2730,7 @@ const codestreamSections = [
             subtitle:
               "The Super Admin dashboard provides visibility across all organizations, licenses, and usage boundaries.",
             icon: faIdCard,
-            accent: "primary",
+            variant: "primary",
             content: [
               {
                 type: "p",
