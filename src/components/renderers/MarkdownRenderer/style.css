@@ -71,14 +71,16 @@
   gap: 0.5rem;
 }
 
-.markdown-renderer__toc-item a {
+.markdown-renderer__toc-link {
+  display: inline-flex;
+  width: 100%;
   color: var(--text-secondary, rgba(255, 255, 255, 0.8));
   text-decoration: none;
   transition: color 140ms ease;
 }
 
-.markdown-renderer__toc-item a:hover,
-.markdown-renderer__toc-item a:focus-visible {
+.markdown-renderer__toc-link:hover,
+.markdown-renderer__toc-link:focus-visible {
   color: var(--text-primary, #ffffff);
 }
 
@@ -204,7 +206,10 @@
 .markdown-renderer__link {
   color: var(--primary-dark);
   text-decoration: none;
-  transition: color 120ms ease, text-shadow 120ms ease, text-decoration 120ms ease;
+  transition:
+    color 120ms ease,
+    text-shadow 120ms ease,
+    text-decoration 120ms ease;
   font-weight: 500;
 }
 
@@ -377,12 +382,12 @@ html[data-theme="dark"] .markdown-renderer__toc-label {
   color: rgba(var(--accent-light-rgb), 0.95);
 }
 
-html[data-theme="dark"] .markdown-renderer__toc-item a {
+html[data-theme="dark"] .markdown-renderer__toc-link {
   color: rgba(255, 255, 255, 0.75);
 }
 
-html[data-theme="dark"] .markdown-renderer__toc-item a:hover,
-html[data-theme="dark"] .markdown-renderer__toc-item a:focus-visible {
+html[data-theme="dark"] .markdown-renderer__toc-link:hover,
+html[data-theme="dark"] .markdown-renderer__toc-link:focus-visible {
   color: rgba(255, 255, 255, 0.95);
 }
 

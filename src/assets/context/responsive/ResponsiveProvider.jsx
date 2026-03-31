@@ -5,12 +5,50 @@
  * and provides this information to the rest of the app via context. It listens for window resize events
  * */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ResponsiveContext } from "./ResponsiveContext";
 import { MidnightGoldTheme } from "../../../theme/midnightGold.theme.js";
 
 // Destructure breakpoints, spacing scale, and CSS variable mappings from the theme configuration. These values will be used for determining the current breakpoint and for syncing spacing tokens to CSS variables.
 const { breakpoints, spacing: SPACING_SCALE, cssVars } = MidnightGoldTheme;
+const A11Y_OVERRIDES_STORAGE_KEY = "portfolio-a11y-overrides";
+const DEFAULT_A11Y_OVERRIDES = Object.freeze({
+  reducedMotion: null,
+  reducedTransparency: null,
+  highContrast: null,
+  largeText: false,
+});
+
+const sanitizeOverrideBoolean = (value) => {
+  if (value === true || value === false || value === null) return value;
+  return null;
+};
+
+const sanitizeStoredBoolean = (value, fallback = false) => {
+  if (value === true || value === false) return value;
+  if (value === "true") return true;
+  if (value === "false") return false;
+  return fallback;
+};
+
+function getStoredA11yOverrides() {
+  if (typeof window === "undefined") return { ...DEFAULT_A11Y_OVERRIDES };
+
+  try {
+    const raw = window.localStorage.getItem(A11Y_OVERRIDES_STORAGE_KEY);
+    if (!raw) return { ...DEFAULT_A11Y_OVERRIDES };
+
+    const parsed = JSON.parse(raw);
+    return {
+      reducedMotion: sanitizeOverrideBoolean(parsed?.reducedMotion),
+      reducedTransparency: sanitizeOverrideBoolean(parsed?.reducedTransparency),
+      highContrast: sanitizeOverrideBoolean(parsed?.highContrast),
+      largeText: sanitizeStoredBoolean(parsed?.largeText, false),
+    };
+  } catch {
+    return { ...DEFAULT_A11Y_OVERRIDES };
+  }
+}
 
 /**
  * @function getBreakpoint
@@ -109,9 +147,16 @@ export function ResponsiveProvider({ children }) {
   const [breakpoint, setBreakpoint] = useState(getBreakpoint(getInitialWidth()));
   const [orientation, setOrientation] = useState(getOrientation);
 
-  const [reducedMotion, setReducedMotion] = useState(getReducedMotion);
-  const [reducedTransparency, setReducedTransparency] = useState(getReducedTransparency);
-  const [highContrast, setHighContrast] = useState(getHighContrast);
+  const [systemReducedMotion, setSystemReducedMotion] = useState(getReducedMotion);
+  const [systemReducedTransparency, setSystemReducedTransparency] =
+    useState(getReducedTransparency);
+  const [systemHighContrast, setSystemHighContrast] = useState(getHighContrast);
+  const [a11yOverrides, setA11yOverrides] = useState(getStoredA11yOverrides);
+
+  const reducedMotion = a11yOverrides.reducedMotion ?? systemReducedMotion;
+  const reducedTransparency = a11yOverrides.reducedTransparency ?? systemReducedTransparency;
+  const highContrast = a11yOverrides.highContrast ?? systemHighContrast;
+  const largeText = Boolean(a11yOverrides.largeText);
 
   // Listen for window resize events and update state accordingly
   useEffect(() => {
@@ -152,18 +197,18 @@ export function ResponsiveProvider({ children }) {
      * @description Event handler for changes in the prefers-reduced-motion media query. Updates the reducedMotion state based on the media query's match status.
      * @param {MediaQueryListEvent} e - The media query change event.
      */
-    const handleMotionChange = (e) => setReducedMotion(e.matches);
+    const handleMotionChange = (e) => setSystemReducedMotion(e.matches);
     /**
      * @function handleTransparencyChange
      * @description Event handler for changes in the prefers-reduced-transparency media query. Updates the reducedTransparency state based on the media query's match status.
      * @param {MediaQueryListEvent} e - The media query change event.
      */
-    const handleTransparencyChange = (e) => setReducedTransparency(!!e.matches);
+    const handleTransparencyChange = (e) => setSystemReducedTransparency(!!e.matches);
     /**
      * @function handleContrastChange
      * @description Event handler for changes in the prefers-contrast: more or forced-colors: active media queries. Updates the highContrast state based on the current media query match status.
      */
-    const handleContrastChange = () => setHighContrast(getHighContrast());
+    const handleContrastChange = () => setSystemHighContrast(getHighContrast());
 
     // Add event listener for window resize
     window.addEventListener("resize", handleResize);
@@ -190,6 +235,39 @@ export function ResponsiveProvider({ children }) {
       mqForcedColors.removeEventListener("change", handleContrastChange);
     };
   }, []);
+
+  const setReducedMotionOverride = useCallback((value) => {
+    setA11yOverrides((prev) => ({ ...prev, reducedMotion: sanitizeOverrideBoolean(value) }));
+  }, []);
+
+  const setReducedTransparencyOverride = useCallback((value) => {
+    setA11yOverrides((prev) => ({
+      ...prev,
+      reducedTransparency: sanitizeOverrideBoolean(value),
+    }));
+  }, []);
+
+  const setHighContrastOverride = useCallback((value) => {
+    setA11yOverrides((prev) => ({ ...prev, highContrast: sanitizeOverrideBoolean(value) }));
+  }, []);
+
+  const setLargeTextEnabled = useCallback((value) => {
+    setA11yOverrides((prev) => ({ ...prev, largeText: Boolean(value) }));
+  }, []);
+
+  const resetAccessibilityPreferences = useCallback(() => {
+    setA11yOverrides({ ...DEFAULT_A11Y_OVERRIDES });
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      window.localStorage.setItem(A11Y_OVERRIDES_STORAGE_KEY, JSON.stringify(a11yOverrides));
+    } catch {
+      // Ignore storage failures in restricted environments.
+    }
+  }, [a11yOverrides]);
 
   /**
    * @description Updates CSS variables for spacing based on the current breakpoint. This effect runs whenever the breakpoint changes and sets CSS variables on the document root according to the mapping defined in the theme's cssVars configuration. This allows for dynamic theming and responsive spacing in CSS based on the current breakpoint tier.
@@ -219,16 +297,18 @@ export function ResponsiveProvider({ children }) {
   useEffect(() => {
     if (typeof document === "undefined") return;
 
-    document.documentElement.style.setProperty(
-      "--prefers-reduced-motion",
-      reducedMotion ? "1" : "0"
-    );
-    document.documentElement.style.setProperty(
-      "--prefers-reduced-transparency",
-      reducedTransparency ? "1" : "0"
-    );
-    document.documentElement.style.setProperty("--prefers-high-contrast", highContrast ? "1" : "0");
-  }, [reducedMotion, reducedTransparency, highContrast]);
+    const root = document.documentElement;
+
+    root.style.setProperty("--prefers-reduced-motion", reducedMotion ? "1" : "0");
+    root.style.setProperty("--prefers-reduced-transparency", reducedTransparency ? "1" : "0");
+    root.style.setProperty("--prefers-high-contrast", highContrast ? "1" : "0");
+    root.style.setProperty("--accessibility-text-scale", largeText ? "1.08" : "1");
+
+    root.dataset.a11yReducedMotion = reducedMotion ? "true" : "false";
+    root.dataset.a11yReducedTransparency = reducedTransparency ? "true" : "false";
+    root.dataset.a11yHighContrast = highContrast ? "true" : "false";
+    root.dataset.a11yLargeText = largeText ? "true" : "false";
+  }, [reducedMotion, reducedTransparency, highContrast, largeText]);
 
   /**
    * @function contextValue
@@ -238,6 +318,11 @@ export function ResponsiveProvider({ children }) {
    */
   const contextValue = useMemo(() => {
     const tierSpacing = SPACING_SCALE[breakpoint];
+    const hasAccessibilityOverrides =
+      a11yOverrides.reducedMotion !== null ||
+      a11yOverrides.reducedTransparency !== null ||
+      a11yOverrides.highContrast !== null ||
+      Boolean(a11yOverrides.largeText);
 
     return {
       themeId: MidnightGoldTheme.id,
@@ -249,6 +334,10 @@ export function ResponsiveProvider({ children }) {
       reducedMotion,
       reducedTransparency,
       highContrast,
+      systemReducedMotion,
+      systemReducedTransparency,
+      systemHighContrast,
+      largeText,
 
       isMobile: breakpoint === "mobile",
       isTablet: breakpoint === "tablet",
@@ -257,8 +346,32 @@ export function ResponsiveProvider({ children }) {
       isLandscape: orientation === "landscape",
 
       spacing: tierSpacing,
+      accessibilityOverrides: a11yOverrides,
+      hasAccessibilityOverrides,
+      setReducedMotionOverride,
+      setReducedTransparencyOverride,
+      setHighContrastOverride,
+      setLargeTextEnabled,
+      resetAccessibilityPreferences,
     };
-  }, [width, breakpoint, orientation, reducedMotion, reducedTransparency, highContrast]);
+  }, [
+    width,
+    breakpoint,
+    orientation,
+    reducedMotion,
+    reducedTransparency,
+    highContrast,
+    systemReducedMotion,
+    systemReducedTransparency,
+    systemHighContrast,
+    largeText,
+    a11yOverrides,
+    setReducedMotionOverride,
+    setReducedTransparencyOverride,
+    setHighContrastOverride,
+    setLargeTextEnabled,
+    resetAccessibilityPreferences,
+  ]);
 
   return <ResponsiveContext.Provider value={contextValue}>{children}</ResponsiveContext.Provider>;
 }

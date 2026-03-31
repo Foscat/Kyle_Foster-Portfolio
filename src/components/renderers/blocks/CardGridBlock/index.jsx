@@ -61,7 +61,7 @@ function CardGridBlock(props) {
   }
 
   return (
-    <InfoSection title={title} className="card-grid-block">
+    <InfoSection title={title} className="card-grid-block blue-tile">
       <CardGrid columns={columns}>
         {items.map((item) => (
           <InsightCard
@@ -71,6 +71,13 @@ function CardGridBlock(props) {
             subtitle={item.subtitle}
             variant={item.variant}
             content={item.content}
+            url={item.url}
+            local={item.local}
+            ariaLabel={item.ariaLabel}
+            ctaText={item.ctaText}
+            target={item.target}
+            rel={item.rel}
+            download={item.download}
           />
         ))}
       </CardGrid>

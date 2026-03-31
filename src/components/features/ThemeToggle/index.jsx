@@ -1,8 +1,8 @@
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { ButtonToolbar } from "rsuite";
+import { ButtonGroup, ButtonToolbar } from "rsuite";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Theme, Variant } from "types/ui.types";
-import { Btn } from "components/ui";
+import Btn from "components/ui/Btn";
 import "./styles.css";
 
 /**
@@ -49,13 +49,14 @@ const ThemeToggle = ({ size = Size.MD }) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <ButtonToolbar className="theme-toggle" aria-label="Theme selector">
+    <ButtonGroup className="theme-toggle" aria-label="Theme selector">
       {/* Light theme selector */}
       <Btn
         ariaLabel="Light theme"
         tooltip={theme === Theme.LIGHT ? "Light theme active" : "Switch to light theme"}
         icon={faSun}
         size={size}
+        className="theme-toggle__btn theme-toggle__btn--light"
         noBG
         variant={theme === Theme.LIGHT ? Variant.PRIMARY : Variant.SUBTLE}
         onClick={() => {
@@ -70,6 +71,7 @@ const ThemeToggle = ({ size = Size.MD }) => {
         tooltip={theme === Theme.DARK ? "Dark theme active" : "Switch to dark theme"}
         icon={faMoon}
         size={size}
+        className="theme-toggle__btn theme-toggle__btn--dark"
         noBG
         variant={theme === Theme.DARK ? Variant.ACCENT : Variant.PRIMARY}
         onClick={() => {
@@ -77,7 +79,7 @@ const ThemeToggle = ({ size = Size.MD }) => {
           else setTheme(Theme.DARK);
         }}
       />
-    </ButtonToolbar>
+    </ButtonGroup>
   );
 };
 

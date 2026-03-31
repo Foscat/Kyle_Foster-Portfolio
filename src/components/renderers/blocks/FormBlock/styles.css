@@ -13,6 +13,10 @@
   margin-top: 1rem;
 }
 
+.form-block__action-btn.rs-btn {
+  border-radius: var(--radius-sm);
+}
+
 .form-block__textarea {
   width: 100%;
   min-height: 7rem;

@@ -147,6 +147,11 @@ const FrostedIcon = ({
   swapOpacity = false,
   widthAuto = false,
 }) => {
+  const hasInteractiveClass = className.includes("interactive-surface");
+  const isEmbeddedInBtn = className.includes("btn-icon");
+  const interactiveClass =
+    clickable && !hasInteractiveClass && !isEmbeddedInBtn ? "interactive-surface" : "";
+
   return (
     <Whisper
       delay={250}
@@ -169,6 +174,7 @@ const FrostedIcon = ({
             fi-variant-${variant}
             ${noBG ? "fi-no-bg" : ""}
             ${clickable ? "fi-clickable" : ""}
+            ${interactiveClass}
             ${className}
           `}
         size={Size.SM}

@@ -2,9 +2,14 @@ services:
   - type: web
     name: kyle-foster-portfolio
     runtime: static
-    buildCommand: npm run build
+    buildCommand: npm ci --include=dev && npm run build
     staticPublishPath: dist
     pullRequestPreviewsEnabled: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: HUSKY
+        value: "0"
     routes:
       - type: rewrite
         source: /*

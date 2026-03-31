@@ -188,7 +188,7 @@ const smuSections = [
       diagrams.gifSystemFlow,
       {
         id: "gif-freak-takeaways",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Key Takeaways",
         subtitle:
           "Lessons learned from building a real-world API integration with asynchronous behavior and user-facing complexity",
@@ -567,7 +567,7 @@ const smuSections = [
       diagrams.stockMemerFlow,
       {
         id: "stock-memer-takeaways",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Key Takeaways",
         subtitle:
           "Lessons learned from integrating real-time financial data and coordinating development across a team",
@@ -898,7 +898,7 @@ const smuSections = [
       },
       {
         id: "scion-takeaways",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Key Takeaways",
         subtitle: "Lessons from designing a real-world matching algorithm with human impact",
         items: [

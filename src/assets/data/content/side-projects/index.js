@@ -287,7 +287,7 @@ const sideProjectSections = [
       diagrams.greenhouseAutomation,
       {
         id: "greenhouse-takeaways",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Key Takeaways",
         subtitle: "Lessons learned from designing and implementing a real-world automation system",
         items: [
@@ -894,7 +894,7 @@ const sideProjectSections = [
       diagrams.domainModel,
       {
         id: "d20-takeaways",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Key Takeaways",
         subtitle: "Architectural lessons from building a modular narrative system",
         items: [

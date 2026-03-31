@@ -55,7 +55,6 @@
 
   border: var(--glass-border);
   box-shadow: var(--glass-shadow);
-  transform: translateY(-1px);
 }
 
 .markdown-docs-block__jump-meta {

@@ -24,8 +24,6 @@ import "./index.css";
 // RSuite default styles
 import "rsuite/dist/rsuite.min.css";
 
-console.log("🧠 Bootstrapping React app");
-
 const container = document.getElementById("root");
 
 if (!container) {

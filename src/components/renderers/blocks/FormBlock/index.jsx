@@ -236,12 +236,21 @@ const FormBlock = ({
         ))}
 
         <Form.Group className="form-block__actions">
-          <Button appearance="primary" type="submit">
+          <Button
+            appearance="primary"
+            type="submit"
+            className="interactive-surface form-block__action-btn"
+          >
             {schema.submitLabel || "Submit"}
           </Button>
 
           {schema.resetLabel ? (
-            <Button appearance="subtle" type="button" onClick={handleReset}>
+            <Button
+              appearance="subtle"
+              type="button"
+              onClick={handleReset}
+              className="interactive-surface form-block__action-btn"
+            >
               {schema.resetLabel}
             </Button>
           ) : null}

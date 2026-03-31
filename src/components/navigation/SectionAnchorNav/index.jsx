@@ -56,6 +56,7 @@ const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.
                 <Nav.Item
                   key={"section-" + i}
                   href={sect.isScroller ? `${page}#${sect.id}` : sect.url}
+                  className="san-nav-item interactive-surface"
                 >
                   {sect.title}
                 </Nav.Item>

@@ -20,7 +20,7 @@ import {
 import { Size, Variant } from "types/ui.types";
 import { Btn, FrostedIcon } from "components/ui";
 import "./styles.css";
-import { ThemeToggle } from "components/features";
+import { AccessibilityMenu, ThemeToggle } from "components/features";
 import { PageRoute } from "types/navigation.types";
 
 /**
@@ -168,6 +168,9 @@ const StickyNav = ({ activePage }) => {
           <Nav.Item className="no-popup sticky-nav-theme-toggle">
             <ThemeToggle />
           </Nav.Item>
+          <Nav.Item className="no-popup sticky-nav-a11y-toggle">
+            <AccessibilityMenu size={Size.LG} enableHotkey />
+          </Nav.Item>
         </Nav>
       </nav>
 
@@ -180,12 +183,17 @@ const StickyNav = ({ activePage }) => {
         <Btn
           icon={faMap}
           variant={Variant.ACCENT}
+          size={Size.LG}
           ariaLabel="Open navigation menu"
           tooltip="Open Navigation Menu"
           tooltipPlacement="right"
           tooltipFollowCursor={false}
           onClick={() => setMobileOpen(true)}
         />
+      </div>
+
+      <div className="a11y-toggle-btn mobile-only">
+        <AccessibilityMenu size={Size.SM} />
       </div>
 
       {/* ============================================================
@@ -226,6 +234,9 @@ const StickyNav = ({ activePage }) => {
               );
             })}
             <ThemeToggle size={Size.MD} />
+            <div className="sticky-nav-mobile-a11y">
+              <AccessibilityMenu size={Size.MD} />
+            </div>
           </Nav>
         </Drawer.Body>
       </Drawer>

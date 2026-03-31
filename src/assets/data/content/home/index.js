@@ -206,7 +206,7 @@ Deploy -. iterate .-> Ux`
       },
       {
         id: "professional-key-features",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Notable Features",
         subtitle: "Systems designed for real-world educational contexts and organizational growth",
         items: [
@@ -481,7 +481,7 @@ Org --> Classroom`
         id: "hackathon-key-features",
         title: "Key Features",
         subtitle: "Core aspects of our winning solution that addressed real-world constraints",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         items: [
           {
             id: "h-kf-mvp-solution",
@@ -686,7 +686,7 @@ Org --> Classroom`
       },
       {
         id: "sp-focus-areas",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Focus Areas",
         subtitle: "Themes that run through my side projects and reflect my engineering values",
         icon: faArrowsToEye,
@@ -822,7 +822,7 @@ Org --> Classroom`
       },
       {
         id: "sp-programs-of-note",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         title: "Programs of Note",
         subtitle: "Selected projects demonstrating architectural range and systems ownership",
         icon: faBookOpenReader,
@@ -1035,7 +1035,7 @@ Org --> Classroom`
         id: "ed-notable-projects",
         title: "Notable Projects",
         subtitle: "Foundational work that introduced key architectural and collaborative concepts",
-        type: BlockType.BULLETED_LIST,
+        type: BlockType.CARD_GRID,
         items: [
           {
             id: "ed-np-driven-interfaces",

@@ -6,130 +6,210 @@
   cursor: pointer;
 }
 
-/* Header row */
+/* Full-screen modal shell */
+.frosted-modal.rs-modal-full,
+.frosted-modal.rs-modal-full .rs-modal-wrapper,
+.frosted-modal.rs-modal-full .rs-modal-dialog,
+.frosted-modal.rs-modal-full .rs-modal-content,
+.frosted-modal.rs-modal-full .rs-modal-body {
+  overflow-x: hidden !important;
+}
+
+.frosted-modal.rs-modal-full .rs-modal-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+.frosted-modal.rs-modal-full .rs-modal-content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(var(--accent-rgb), 0.16), transparent 28%),
+    linear-gradient(
+      180deg,
+      rgba(var(--primary-darkest-rgb), 0.94),
+      rgba(var(--primary-dark-rgb), 0.82)
+    );
+  border: 1px solid rgba(var(--white-rgb), 0.1);
+  box-shadow: 0 20px 64px rgba(var(--deep-black-rgb), 0.42);
+}
+
 .frosted-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-}
-
-/* Ensure the overlay doesn't allow horizontal scroll */
-.frosted-modal {
-  overflow: hidden;
-  background:
-    radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.08), transparent 24%),
-    linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.9), rgba(var(--primary-dark-rgb), 0.68));
-}
-
-.frosted-modal.rs-modal-full .rs-modal-content .rs-modal-body {
-  overflow: hidden;
-}
-
-/* The full-screen dialog must be exactly viewport sized */
-.frosted-modal.rs-modal-full .rs-modal-dialog {
-  top: 0;
-  right: 0;
-  left: 0;
-  width: 95vw;
-  height: 100%;
-  margin: 0; /* prevents RSuite centering margins */
-  padding: 0; /* IMPORTANT: do not pad the shell */
-  border-radius: 0; /* full-screen should not round edges */
-  max-width: 98dvh;
-  overflow-y: hidden;
-}
-
-/* Make the modal content fill the dialog */
-.frosted-modal.rs-modal-full .rs-modal-content {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  overflow: hidden; /* no sideways bleed */
-}
-
-/* Apply your frosted look on CONTENT, not dialog shell */
-.frosted-modal.rs-modal-full .rs-modal-content {
-  -webkit-backdrop-filter: var(--backdrop-blur);
-  backdrop-filter: var(--backdrop-blur);
-  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.34), rgba(var(--white-rgb), 0.06));
-  border: 1px solid rgba(var(--white-rgb), 0.08);
-  box-shadow: 0 24px 60px rgba(var(--deep-black-rgb), 0.32);
-}
-
-/* Header stays fixed-size, never scrolls horizontally */
-.frosted-modal-header {
-  flex: 0 0 auto;
-  padding: 1rem;
-  overflow-x: hidden;
-  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.24), rgba(var(--white-rgb), 0.1));
-  border-radius: var(--radius-xs);
-  border: 1px solid rgba(var(--white-rgb), 0.08);
+  gap: 1rem;
+  min-height: 4.25rem;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid rgba(var(--white-rgb), 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--white-rgb), 0.08),
+    rgba(var(--primary-darkest-rgb), 0.2)
+  );
 }
 
 .frosted-modal-header .rs-modal-title {
+  margin: 0;
   font-size: var(--font-md);
-  font-weight: 600;
-  color: var(--text-blue);
+  color: var(--text-accent);
 }
 
-.frosted-modal-header .rs-modal-header-close.rs-btn-close {
-  margin: 15px;
-  font-size: var(--icon-sm);
-  color: var(--text-blue);
-  background-color: var(--glass-bg-heavy);
-  -webkit-backdrop-filter: var(--backdrop-blur);
-  backdrop-filter: var(--backdrop-blur);
-  border-radius: var(--radius-xs);
+.frosted-modal .rs-modal-header-close.rs-btn-close {
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(var(--white-rgb), 0.2);
+  background: rgba(var(--white-rgb), 0.08);
+  color: var(--text-primary);
 }
 
-.frosted-modal-header .rs-modal-header-close.rs-btn-close:hover {
-  transition-duration: var(--transition-speed);
-  transform-style: var(--scale-up);
-  transition-delay: var(--transition-speed);
-  font-weight: 700;
+.frosted-modal .rs-modal-header-close.rs-btn-close:hover,
+.frosted-modal .rs-modal-header-close.rs-btn-close:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  background: rgba(var(--accent-rgb), 0.2);
+  color: var(--text-accent);
 }
 
-/* Body takes remaining height and can scroll vertically if needed */
 .frosted-modal-body {
-  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  padding: 1rem;
   overflow: hidden;
-  padding: 0;
-  background: linear-gradient(180deg, rgba(var(--primary-darkest-rgb), 0.28), rgba(var(--white-rgb), 0.04));
+  background: linear-gradient(
+    180deg,
+    rgba(var(--primary-darkest-rgb), 0.44),
+    rgba(var(--primary-dark-rgb), 0.26)
+  );
 }
 
-/* Image wrapper: center image without affecting page width */
 .modal-img-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: calc(100dvh - 170px); /* adjust if header/padding differs */
-  border-radius: var(--radius-xs);
-  overflow: hidden; /* prevents horizontal scroll */
-  object-fit: contain;
-  padding: 1.25rem;
-  background: rgba(var(--white-rgb), 0.05);
-  border: 1px solid rgba(var(--white-rgb), 0.08);
+  width: min(100%, 1400px);
+  height: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--white-rgb), 0.14);
+  background: rgba(var(--deep-black-rgb), 0.34);
+  box-shadow: inset 0 0 0 1px rgba(var(--white-rgb), 0.04);
 }
 
-/* Image should scale INSIDE wrapper, never in vw */
 .zoom-img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-soft);
-  object-fit: contain;
 }
 
-/* Caption */
+.frosted-modal .rs-modal-footer {
+  padding: 0.65rem 1.2rem 1rem;
+  border-top: 1px solid rgba(var(--white-rgb), 0.1);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--primary-darkest-rgb), 0.22),
+    rgba(var(--primary-darkest-rgb), 0.38)
+  );
+}
+
 .img-caption.modal-caption {
   width: fit-content;
-  margin: 5px 0 0;
-  padding: 2px 5px;
-  color: var(--text-blue);
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  max-width: min(92vw, 1200px);
+  max-height: 5.5rem;
+  overflow: auto;
+  color: var(--text-secondary);
   border-radius: var(--radius-xs);
-  text-align: center;
-  background: linear-gradient(180deg, rgba(var(--primary-dark-rgb), 0.26), rgba(var(--white-rgb), 0.08));
-  border: 1px solid rgba(var(--white-rgb), 0.08);
+  background: rgba(var(--white-rgb), 0.08);
+  border: 1px solid rgba(var(--white-rgb), 0.14);
+}
+
+html[data-theme="light"] .frosted-modal.rs-modal-full .rs-modal-content {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(var(--accent-rgb), 0.15), transparent 30%),
+    linear-gradient(180deg, rgba(var(--white-rgb), 0.98), rgba(var(--primary-lighter-rgb), 0.74));
+  border-color: rgba(var(--primary-dark-rgb), 0.2);
+  box-shadow: 0 20px 56px rgba(var(--primary-dark-rgb), 0.22);
+}
+
+html[data-theme="light"] .frosted-modal-header {
+  border-bottom-color: rgba(var(--primary-dark-rgb), 0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--white-rgb), 0.95),
+    rgba(var(--primary-lighter-rgb), 0.44)
+  );
+}
+
+html[data-theme="light"] .frosted-modal-header .rs-modal-title {
+  color: rgba(var(--primary-darkest-rgb), 0.96);
+}
+
+html[data-theme="light"] .frosted-modal .rs-modal-header-close.rs-btn-close {
+  border-color: rgba(var(--primary-dark-rgb), 0.24);
+  background: rgba(var(--white-rgb), 0.9);
+  color: rgba(var(--primary-darkest-rgb), 0.94);
+}
+
+html[data-theme="light"] .frosted-modal-body {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--primary-lighter-rgb), 0.4),
+    rgba(var(--white-rgb), 0.72)
+  );
+}
+
+html[data-theme="light"] .modal-img-wrapper {
+  border-color: rgba(var(--primary-dark-rgb), 0.24);
+  background: rgba(var(--white-rgb), 0.86);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--primary-dark-rgb), 0.08),
+    0 12px 34px rgba(var(--primary-dark-rgb), 0.16);
+}
+
+html[data-theme="light"] .frosted-modal .rs-modal-footer {
+  border-top-color: rgba(var(--primary-dark-rgb), 0.16);
+  background: rgba(var(--white-rgb), 0.9);
+}
+
+html[data-theme="light"] .img-caption.modal-caption {
+  color: rgba(var(--primary-dark-rgb), 0.92);
+  border-color: rgba(var(--primary-dark-rgb), 0.2);
+  background: rgba(var(--white-rgb), 0.88);
+}
+
+@media (max-width: 900px) {
+  .frosted-modal-header {
+    min-height: 3.75rem;
+    padding: 0.65rem 0.8rem;
+  }
+
+  .frosted-modal-body {
+    padding: 0.65rem;
+  }
+
+  .modal-img-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0.55rem;
+  }
+
+  .frosted-modal .rs-modal-footer {
+    padding: 0.5rem 0.8rem 0.75rem;
+  }
 }
