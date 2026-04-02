@@ -32,22 +32,7 @@ Start here to understand how the entire system fits together:
 This document explains:
 
 - Page → Section → Block composition
-- Navigation and scroll coordination
-- Section registration lifecycle
-- Why responsibilities are intentionally separated
-
----
-
-## 🧩 Documentation Index
-
-All major subsystems are documented independently to keep the documentation focused and readable.
-
-### Components
-
-📄 [`docs/components.md`](docs/components.md)
-
-Covers:
-
+- 
 - Reusable UI components
 - Props, accessibility contracts, and behavior
 - Frosted UI patterns and variants
