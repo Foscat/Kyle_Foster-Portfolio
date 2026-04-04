@@ -1,6 +1,7 @@
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { Panel } from "rsuite";
 import { Btn } from "components/ui";
+import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Variant } from "types/ui.types";
 import "./styles.css";
 
@@ -42,6 +43,8 @@ import "./styles.css";
  * ```
  */
 const LinksBlock = ({ items = [] }) => {
+  const { theme } = useTheme();
+
   // Guard against empty link lists
   // console.log("Rendering LinksBlock with items:", items);
   if (!Array.isArray(items) || items.length === 0) return null;
@@ -50,14 +53,17 @@ const LinksBlock = ({ items = [] }) => {
     <Panel collapsible defaultExpanded className="block mt-2">
       <div className="links-block-list">
         {items.map((link, i) => {
+          const resolvedUrl =
+            theme === "light" ? link.urlLight || link.url : link.urlDark || link.url;
+
           // Determine whether the link should be treated as external
-          const isExternal = /^https?:\/\//.test(link.url);
+          const isExternal = /^https?:\/\//.test(resolvedUrl);
           const isDownload = link?.download;
           return (
             <Btn
               key={i}
               className="links-block-item"
-              href={link.url}
+              href={resolvedUrl}
               hrefLocal={link.local}
               icon={link.icon || faLink}
               size={link.size || Size.MD}

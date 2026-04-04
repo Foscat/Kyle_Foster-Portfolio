@@ -1,7 +1,7 @@
 .markdown-renderer {
   display: grid;
   gap: 1.5rem;
-  color: var(--text-primary, #eef2ff);
+  color: var(--text-primary);
 }
 
 .markdown-renderer__header {
@@ -13,13 +13,13 @@
   margin: 0;
   font-size: clamp(1.4rem, 1.15rem + 0.8vw, 2rem);
   line-height: 1.15;
-  color: var(--text-primary, #f8faff);
+  color: var(--text-primary);
 }
 
 .markdown-renderer__intro {
   margin: 0;
   max-width: 64rem;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 
@@ -74,14 +74,14 @@
 .markdown-renderer__toc-link {
   display: inline-flex;
   width: 100%;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 140ms ease;
 }
 
 .markdown-renderer__toc-link:hover,
 .markdown-renderer__toc-link:focus-visible {
-  color: var(--text-primary, #ffffff);
+  color: var(--text-primary);
 }
 
 .markdown-renderer__toc-item--h2 {
@@ -113,7 +113,7 @@
   margin-bottom: 1.25rem;
   padding-top: 0.25rem;
   font-size: 1.45rem;
-  color: var(--text-primary, #f8faff);
+  color: var(--text-primary);
   border-top: 1px solid rgba(var(--accent-rgb), 0.35);
 }
 
@@ -127,13 +127,13 @@
 .markdown-renderer__h4,
 .markdown-renderer__h5,
 .markdown-renderer__h6 {
-  color: var(--text-secondary, rgba(255, 255, 255, 0.84));
+  color: var(--text-secondary);
 }
 
 .markdown-renderer__p,
 .markdown-renderer__li,
 .markdown-renderer__td {
-  color: var(--text-secondary, rgba(255, 255, 255, 0.84));
+  color: var(--text-secondary);
   line-height: 1.78;
 }
 
@@ -143,13 +143,13 @@
 
 .markdown-renderer__p strong,
 .markdown-renderer__li strong {
-  color: var(--text-accent, rgba(var(--accent-rgb), 0.98));
+  color: var(--text-accent);
   font-weight: 700;
 }
 
 .markdown-renderer__p em,
 .markdown-renderer__li em {
-  color: var(--text-accent-light, rgba(var(--accent-light-rgb), 0.95));
+  color: var(--text-accent-light);
   font-style: italic;
   font-weight: 500;
 }
@@ -168,7 +168,7 @@
 
 .markdown-renderer__dt {
   margin: 1rem 0 0.25rem;
-  color: var(--text-primary, #f8faff);
+  color: var(--text-primary);
   font-weight: 700;
 }
 
@@ -176,7 +176,7 @@
   margin: 0;
   padding-left: 0.9rem;
   border-left: 2px solid rgba(var(--accent-rgb), 0.4);
-  color: var(--text-secondary, rgba(255, 255, 255, 0.84));
+  color: var(--text-secondary);
 }
 
 .markdown-renderer__li + .markdown-renderer__li {
@@ -305,7 +305,7 @@
 html[data-theme="dark"] .markdown-renderer__p,
 html[data-theme="dark"] .markdown-renderer__li,
 html[data-theme="dark"] .markdown-renderer__dd {
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(var(--white-rgb), 0.92);
 }
 
 html[data-theme="dark"] .markdown-renderer__link {
@@ -322,7 +322,7 @@ html[data-theme="dark"] .markdown-renderer__link:focus-visible {
 
 html[data-theme="dark"] .markdown-renderer__p strong,
 html[data-theme="dark"] .markdown-renderer__li strong {
-  color: rgba(232, 196, 104, 0.98);
+  color: rgba(var(--accent-light-rgb), 0.98);
   font-weight: 700;
   text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.3);
 }
@@ -330,21 +330,21 @@ html[data-theme="dark"] .markdown-renderer__li strong {
 html[data-theme="dark"] .markdown-renderer__h4,
 html[data-theme="dark"] .markdown-renderer__h5,
 html[data-theme="dark"] .markdown-renderer__h6 {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(var(--white-rgb), 0.88);
 }
 
 html[data-theme="dark"] .markdown-renderer__blockquote {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(var(--white-rgb), 0.88);
   background: rgba(var(--accent-rgb), 0.12);
 }
 
 html[data-theme="dark"] .markdown-renderer__blockquote strong {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(var(--white-rgb), 0.95);
 }
 
 html[data-theme="dark"] .markdown-renderer__inline-code {
   background: rgba(var(--accent-rgb), 0.35);
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(var(--white-rgb), 0.95);
   border: 1px solid rgba(var(--accent-rgb), 0.4);
 }
 
@@ -354,7 +354,7 @@ html[data-theme="dark"] .markdown-renderer__p:hover .markdown-renderer__inline-c
 }
 
 html[data-theme="dark"] .markdown-renderer__pre {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(var(--deep-black-rgb), 0.4);
   border: 1px solid rgba(var(--accent-rgb), 0.2);
   box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.3);
 }
@@ -370,7 +370,7 @@ html[data-theme="dark"] .markdown-renderer__td {
 
 html[data-theme="dark"] .markdown-renderer__th {
   background: rgba(var(--accent-rgb), 0.15);
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(var(--white-rgb), 0.95);
   border-bottom-color: rgba(var(--accent-rgb), 0.6);
 }
 
@@ -383,12 +383,16 @@ html[data-theme="dark"] .markdown-renderer__toc-label {
 }
 
 html[data-theme="dark"] .markdown-renderer__toc-link {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(var(--white-rgb), 0.75);
 }
 
 html[data-theme="dark"] .markdown-renderer__toc-link:hover,
 html[data-theme="dark"] .markdown-renderer__toc-link:focus-visible {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(var(--white-rgb), 0.95);
+}
+
+html[data-theme="alt"] .markdown-renderer {
+  color: var(--text-primary);
 }
 
 html[data-theme="dark"] .markdown-renderer__hr {

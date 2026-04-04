@@ -20,6 +20,10 @@ export async function snapshotDiagram(page: Page, diagramId: string) {
         /<path d="[^"]+" stroke="#C9A227" stroke-width="2" fill="none" stroke-dasharray="0 0"/g,
         '<path d="__PATH__" stroke="#C9A227" stroke-width="2" fill="none" stroke-dasharray="0 0"'
       )
+      .replace(
+        /<path d="[^"]+" stroke="#5BA4FF" stroke-width="2" fill="none" stroke-dasharray="0 0"/g,
+        '<path d="__PATH__" stroke="#5BA4FF" stroke-width="2" fill="none" stroke-dasharray="0 0"'
+      )
   );
 
   expect(svgMarkup).toMatchSnapshot(`${diagramId}.svg`);

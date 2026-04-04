@@ -14,6 +14,8 @@ services:
         value: "0"
       - key: CI
         value: "true"
+      - key: VITE_SITE_URL
+        value: "https://kyle-foster.com"
       - key: PUPPETEER_SKIP_DOWNLOAD
         value: "true"
     routes:

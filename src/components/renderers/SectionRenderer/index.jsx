@@ -211,7 +211,11 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
 
             return (
               <DeferredMount key={blockKey}>
-                <MermaidDiagram {...createDiagramBlock(block)} className="scroll-anchor" />
+                <MermaidDiagram
+                  key={block.id}
+                  {...createDiagramBlock(block)}
+                  className="scroll-anchor"
+                />
               </DeferredMount>
             );
 

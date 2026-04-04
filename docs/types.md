@@ -118,6 +118,7 @@ Shared UI-related type definitions used across components,including buttons, ic
         * [.Size](#module_types/ui.Size) : <code>enum</code>
         * [.Variant](#module_types/ui.Variant) : <code>enum</code>
         * [.Theme](#module_types/ui.Theme) : <code>enum</code>
+        * [.Palette](#module_types/ui.Palette) : <code>enum</code>
         * [.createFeatureImage](#module_types/ui.createFeatureImage) ⇒ <code>FeatureImage</code>
         * [.createImageGalleryBlock](#module_types/ui.createImageGalleryBlock) ⇒ <code>ImageGalleryBlock</code>
         * [.createRichTextBlock](#module_types/ui.createRichTextBlock) ⇒ <code>RichTextBlock</code>
@@ -192,6 +193,13 @@ Visual style variants
 
 ### types/ui.Theme : <code>enum</code>
 Theme variants
+
+**Kind**: static enum of [<code>types/ui</code>](#module_types/ui)  
+**Read only**: true  
+<a name="module_types/ui.Palette"></a>
+
+### types/ui.Palette : <code>enum</code>
+Palette variants
 
 **Kind**: static enum of [<code>types/ui</code>](#module_types/ui)  
 **Read only**: true  

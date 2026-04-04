@@ -202,8 +202,8 @@
 }
 
 .mermaid svg .actor rect {
-  fill: #131a77;
-  stroke: #c9a227;
+  fill: var(--primary-dark);
+  stroke: var(--accent);
 }
 
 .mermaid .mermaid-svg-host svg g text tspan {

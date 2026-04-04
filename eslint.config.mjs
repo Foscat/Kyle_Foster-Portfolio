@@ -102,6 +102,8 @@ export default [
       "vitest.config.js",
       "playwright.config.js",
       "scripts/**/*.js",
+      "scripts/**/*.mjs",
+      "scripts/**/*.cjs",
     ],
     languageOptions: {
       ecmaVersion: "latest",

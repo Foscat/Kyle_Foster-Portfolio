@@ -62,13 +62,11 @@ const ResumeDocument = ({ resume }) => {
           ))}
         </div>
       </header>
-
       {summary ? (
         <ResumeSection title="Professional Summary">
           <p className="resume-document__summary">{summary}</p>
         </ResumeSection>
       ) : null}
-
       {experience.length ? (
         <ResumeSection title="Experience">
           <div className="resume-document__stack">
@@ -77,23 +75,29 @@ const ResumeDocument = ({ resume }) => {
                 key={`${item.company}-${item.role}-${item.dates}`}
                 className="resume-document__entry"
               >
-                <div className="resume-document__entry-topline">
-                  <div>
-                    <h4 className="resume-document__entry-title">{item.role}</h4>
-                    <p className="resume-document__entry-subtitle">
+                <div key={item.id} className="resume-document__entry-topline">
+                  <div key={item.id}>
+                    <h4 key={item.id} className="resume-document__entry-title">
+                      {item.role}
+                    </h4>
+                    <p key={item.id} className="resume-document__entry-subtitle">
                       {[item.company, item.location].filter(Boolean).join(" · ")}
                     </p>
                   </div>
 
-                  <p className="resume-document__entry-dates">{item.dates}</p>
+                  <p key={item.id} className="resume-document__entry-dates">
+                    {item.dates}
+                  </p>
                 </div>
 
                 {item.summary ? (
-                  <p className="resume-document__entry-summary">{item.summary}</p>
+                  <p key={item.id} className="resume-document__entry-summary">
+                    {item.summary}
+                  </p>
                 ) : null}
 
                 {item.bullets?.length ? (
-                  <ul className="resume-document__bullet-list">
+                  <ul key={item.id} className="resume-document__bullet-list">
                     {item.bullets.map((bullet) => (
                       <li key={bullet}>{bullet}</li>
                     ))}
@@ -104,7 +108,6 @@ const ResumeDocument = ({ resume }) => {
           </div>
         </ResumeSection>
       ) : null}
-
       {projects.length ? (
         <ResumeSection title="Selected Projects">
           <div className="resume-document__stack">
@@ -113,23 +116,33 @@ const ResumeDocument = ({ resume }) => {
                 key={`${item.name}-${item.dates || item.subtitle || ""}`}
                 className="resume-document__entry"
               >
-                <div className="resume-document__entry-topline">
-                  <div>
-                    <h4 className="resume-document__entry-title">{item.name}</h4>
+                <div key={item.id} className="resume-document__entry-topline">
+                  <div key={item.id}>
+                    <h4 key={item.id} className="resume-document__entry-title">
+                      {item.name}
+                    </h4>
                     {item.subtitle ? (
-                      <p className="resume-document__entry-subtitle">{item.subtitle}</p>
+                      <p key={item.id} className="resume-document__entry-subtitle">
+                        {item.subtitle}
+                      </p>
                     ) : null}
                   </div>
 
-                  {item.dates ? <p className="resume-document__entry-dates">{item.dates}</p> : null}
+                  {item.dates ? (
+                    <p key={item.id} className="resume-document__entry-dates">
+                      {item.dates}
+                    </p>
+                  ) : null}
                 </div>
 
                 {item.summary ? (
-                  <p className="resume-document__entry-summary">{item.summary}</p>
+                  <p key={item.id} className="resume-document__entry-summary">
+                    {item.summary}
+                  </p>
                 ) : null}
 
                 {item.bullets?.length ? (
-                  <ul className="resume-document__bullet-list">
+                  <ul key={item.id} className="resume-document__bullet-list">
                     {item.bullets.map((bullet) => (
                       <li key={bullet}>{bullet}</li>
                     ))}
@@ -140,20 +153,22 @@ const ResumeDocument = ({ resume }) => {
           </div>
         </ResumeSection>
       ) : null}
-
       {skills.length ? (
         <ResumeSection title="Skills">
           <div className="resume-document__skills">
             {skills.map((group) => (
               <div key={group.label} className="resume-document__skill-group">
-                <p className="resume-document__skill-label">{group.label}</p>
-                <p className="resume-document__skill-values">{group.items.join(" • ")}</p>
+                <p key={group.id} className="resume-document__skill-label">
+                  {group.label}
+                </p>
+                <p key={group.id} className="resume-document__skill-values">
+                  {group.items.join(" • ")}
+                </p>
               </div>
             ))}
           </div>
         </ResumeSection>
       ) : null}
-
       {education.length ? (
         <ResumeSection title="Education">
           <div className="resume-document__stack">
@@ -162,19 +177,25 @@ const ResumeDocument = ({ resume }) => {
                 key={`${item.school}-${item.program}-${item.dates || ""}`}
                 className="resume-document__entry"
               >
-                <div className="resume-document__entry-topline">
-                  <div>
-                    <h4 className="resume-document__entry-title">{item.program}</h4>
-                    <p className="resume-document__entry-subtitle">
+                <div key={item.id} className="resume-document__entry-topline">
+                  <div key={item.id}>
+                    <h4 key={item.id} className="resume-document__entry-title">
+                      {item.program}
+                    </h4>
+                    <p key={item.id} className="resume-document__entry-subtitle">
                       {[item.school, item.location].filter(Boolean).join(" · ")}
                     </p>
                   </div>
 
-                  {item.dates ? <p className="resume-document__entry-dates">{item.dates}</p> : null}
+                  {item.dates ? (
+                    <p key={item.id} className="resume-document__entry-dates">
+                      {item.dates}
+                    </p>
+                  ) : null}
                 </div>
 
                 {item.notes?.length ? (
-                  <ul className="resume-document__bullet-list">
+                  <ul key={item.id} className="resume-document__bullet-list">
                     {item.notes.map((note) => (
                       <li key={note}>{note}</li>
                     ))}

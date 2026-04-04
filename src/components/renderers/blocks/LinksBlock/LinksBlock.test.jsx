@@ -1,5 +1,5 @@
 import React from "react";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "tests/renderWithProviders";
@@ -35,6 +35,10 @@ vi.mock("components/ui", async () => {
  * ------------------------------------------------------------------ */
 
 describe("LinksBlock", () => {
+  beforeEach(() => {
+    window.localStorage.removeItem("portfolio-theme");
+  });
+
   /**
    * Verifies the component renders nothing when `links` is null.
    * Guards against malformed CMS or configuration input.
@@ -70,6 +74,52 @@ describe("LinksBlock", () => {
     expect(screen.getByRole("link", { name: "Website" })).toHaveAttribute(
       "href",
       "https://example.com"
+    );
+  });
+
+  it("uses the dark resume URL when dark theme is active", () => {
+    window.localStorage.setItem("portfolio-theme", "dark");
+
+    renderWithProviders(
+      <LinksBlock
+        items={[
+          {
+            title: "Download Resume",
+            url: "/resume-default.pdf",
+            urlLight: "/resume-light.pdf",
+            urlDark: "/resume-dark.pdf",
+            download: true,
+          },
+        ]}
+      />
+    );
+
+    expect(screen.getByRole("link", { name: "Download Resume" })).toHaveAttribute(
+      "href",
+      "/resume-dark.pdf"
+    );
+  });
+
+  it("uses the light resume URL when light theme is active", () => {
+    window.localStorage.setItem("portfolio-theme", "light");
+
+    renderWithProviders(
+      <LinksBlock
+        items={[
+          {
+            title: "Download Resume",
+            url: "/resume-default.pdf",
+            urlLight: "/resume-light.pdf",
+            urlDark: "/resume-dark.pdf",
+            download: true,
+          },
+        ]}
+      />
+    );
+
+    expect(screen.getByRole("link", { name: "Download Resume" })).toHaveAttribute(
+      "href",
+      "/resume-light.pdf"
     );
   });
 });

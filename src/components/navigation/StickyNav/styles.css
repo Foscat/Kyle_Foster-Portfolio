@@ -76,6 +76,7 @@
   --sticky-nav-utility-icon-button-size: 48px;
   --sticky-nav-page-icon-glyph-size: calc(var(--icon-sm) + 1px);
   --sticky-nav-utility-icon-glyph-size: var(--icon-sm);
+
   background-color: var(--glass-bg);
   display: flex;
   justify-content: center;
@@ -357,11 +358,33 @@ html[data-theme="dark"]
   display: none;
 }
 
-.rs-drawer-backdrop,
+.rs-drawer-backdrop {
+  background-color: rgba(var(--primary-darkest-rgb), 0.56);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
 .mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content,
 .rs-drawer-backdrop .mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content {
-  background-color: var(--primary-darker-bg);
   color: var(--text-primary);
+  background-color: rgba(var(--primary-darkest-rgb), 0.9);
+  box-shadow: 0 20px 48px rgba(var(--deep-black-rgb), 0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(145%);
+  backdrop-filter: blur(14px) saturate(145%);
+}
+
+html[data-theme="light"] .rs-drawer-backdrop {
+  background-color: rgba(var(--primary-dark-rgb), 0.32);
+}
+
+html[data-theme="light"] .mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content,
+html[data-theme="light"]
+  .rs-drawer-backdrop
+  .mobile-nav-drawer
+  > .rs-drawer-dialog
+  > .rs-drawer-content {
+  background-color: rgba(var(--white-rgb), 0.92);
+  box-shadow: 0 18px 42px rgba(var(--primary-dark-rgb), 0.16);
 }
 
 .mobile-nav-drawer .rs-drawer-header,
@@ -539,8 +562,10 @@ html[data-theme="dark"]
   }
 
   .rs-drawer-backdrop .mobile-section-nav-drawer {
-    width: min(92vw, 360px);
-    padding: 0.4rem 0.65rem;
+    left: auto;
+    right: 0;
+    width: auto;
+    padding: 0;
   }
 }
 

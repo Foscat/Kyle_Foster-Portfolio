@@ -2,6 +2,7 @@ import formatMermaid from "../../../../../scripts/format-mermaid.js";
 import {
   ARCH_LAYERS,
   ARCH_FLOWCHART_PALETTE,
+  ARCH_FLOWCHART_PALETTE_ALT,
   EDGE_STYLES,
   NODE_SHAPES,
 } from "./architecture.config.js";
@@ -74,14 +75,21 @@ const LAYER_ORDER = [
  *
  */
 export function architectureDiagram(init, config) {
-  const { layers = [], edges = [], direction = "LR", legend = false, mobile = false } = config;
+  const {
+    layers = [],
+    edges = [],
+    direction = "LR",
+    legend = false,
+    mobile = false,
+    palette = "default",
+  } = config;
 
   const lines = [];
   const ids = new Set();
   const adjacency = new Map();
 
   lines.push(`flowchart ${direction}`);
-  lines.push(ARCH_FLOWCHART_PALETTE);
+  lines.push(palette === "alt" ? ARCH_FLOWCHART_PALETTE_ALT : ARCH_FLOWCHART_PALETTE);
   lines.push("");
 
   // Sort layers according to predefined order, unknown layers go last in provided order

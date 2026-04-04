@@ -132,6 +132,7 @@
   --switch-width: 46px;
   --switch-height: 26px;
   --switch-pad: 3px;
+
   display: inline-flex;
   position: relative;
   width: var(--switch-width);

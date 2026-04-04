@@ -12,29 +12,32 @@ import { architectureDiagram, getResponsiveFlowchartInit } from "./index.js";
  * @returns {{ desktop: string, mobile: string }}
  */
 export function buildArchitectureVariants(config = {}) {
+  const palette = config.palette || "default";
   const desktopDirection = config.direction || "LR";
   const mobileDirection = config.mobile?.direction || "TB";
 
   const desktopConfig = {
     ...config,
     direction: desktopDirection,
+    palette,
   };
 
   const mobileConfig = {
     ...config,
     direction: mobileDirection,
+    palette,
     layers: config.mobile?.layers || config.layers || [],
     edges: config.mobile?.edges || config.edges || [],
     legend: config.mobile?.legend ?? config.legend ?? false,
   };
 
   const desktop = architectureDiagram(
-    getResponsiveFlowchartInit({ breakpoint: "desktop" }),
+    getResponsiveFlowchartInit({ breakpoint: "desktop", palette }),
     desktopConfig
   );
 
   const mobile = architectureDiagram(
-    getResponsiveFlowchartInit({ breakpoint: "mobile" }),
+    getResponsiveFlowchartInit({ breakpoint: "mobile", palette }),
     mobileConfig
   );
 

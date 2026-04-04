@@ -194,7 +194,7 @@
 .sub-section-nav-block:focus-visible,
 .sub-section-nav-block.is-active {
   color: var(--text-primary);
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(var(--white-rgb), 0.06);
 }
 
 /* ------------------------------------------------------------------
