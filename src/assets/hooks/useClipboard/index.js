@@ -1,12 +1,11 @@
-import { useCallback, useState } from "react";
-
 /**
  * @file useClipboard.js
  * @description React hook that provides a safe, asynchronous interface for copying text
  * to the system clipboard using the Web Clipboard API.
  * @module assets/hooks/useClipboard
- *
  */
+
+import { useCallback, useState } from "react";
 
 /**
  * @function useClipboard

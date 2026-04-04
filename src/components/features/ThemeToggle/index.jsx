@@ -1,16 +1,16 @@
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { ButtonGroup, ButtonToolbar } from "rsuite";
-import { useTheme } from "assets/context/ThemeContext.jsx";
-import { Size, Theme, Variant } from "types/ui.types";
-import Btn from "components/ui/Btn";
-import "./styles.css";
-
 /**
  * @file index.jsx
  * @description Compact theme selection control for switching between
  * light and dark application themes.
  * @module components/ThemeToggle
  */
+
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { ButtonGroup, ButtonToolbar } from "rsuite";
+import { useTheme } from "assets/context/ThemeContext.jsx";
+import { Size, Theme, Variant } from "types/ui.types";
+import Btn from "components/ui/Btn";
+import "./styles.css";
 
 /**
  * ThemeToggle
@@ -58,7 +58,7 @@ const ThemeToggle = ({ size = Size.MD }) => {
         size={size}
         className="theme-toggle__btn theme-toggle__btn--light"
         noBG
-        variant={theme === Theme.LIGHT ? Variant.PRIMARY : Variant.SUBTLE}
+        variant={theme === Theme.LIGHT ? Variant.SUBTLE : Variant.SECONDARY}
         onClick={() => {
           if (theme === Theme.LIGHT) return;
           else setTheme(Theme.LIGHT);

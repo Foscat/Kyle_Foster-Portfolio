@@ -5,7 +5,7 @@
  * @module components/StickyNav
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Nav, Drawer } from "rsuite";
 import {
   faHome,
@@ -64,6 +64,13 @@ const NAV_ITEMS = [
   { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
   { id: "ni-contact", route: PageRoute.CONNECT, label: "Contact Me", icon: faEnvelope },
 ];
+
+const isEditableTarget = (target) =>
+  target instanceof HTMLElement &&
+  (target.isContentEditable ||
+    target.tagName === "INPUT" ||
+    target.tagName === "TEXTAREA" ||
+    target.tagName === "SELECT");
 
 /**
  * @function handleNavClick
@@ -130,6 +137,30 @@ const handleNavClick = (e, isActive) => {
 const StickyNav = ({ activePage }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleGlobalNavKeys = (event) => {
+      if (event.defaultPrevented) return;
+      if (isEditableTarget(event.target)) return;
+
+      if (event.key === "Escape" && mobileOpen) {
+        event.preventDefault();
+        setMobileOpen(false);
+        return;
+      }
+
+      const noExtraModifiers = !event.altKey && !event.shiftKey && !event.metaKey;
+      if (event.key === "Control" && noExtraModifiers && !event.repeat) {
+        event.preventDefault();
+        setMobileOpen(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleGlobalNavKeys);
+    return () => window.removeEventListener("keydown", handleGlobalNavKeys);
+  }, [mobileOpen]);
+
   return (
     <>
       {/* ============================================================
@@ -137,8 +168,8 @@ const StickyNav = ({ activePage }) => {
          ------------------------------------------------------------
          Icon-only, horizontal layout with hover tooltips.
          ============================================================ */}
-      <nav className="sticky-nav desktop-menu" aria-label="Primary navigation">
-        <Nav>
+      <Nav className="sticky-nav desktop-menu" role="navigation" aria-label="Primary navigation">
+        <div className="sticky-nav-pages-group">
           {NAV_ITEMS.map(({ route, label, icon, id }) => {
             const isActive = activePage === route;
 
@@ -152,34 +183,37 @@ const StickyNav = ({ activePage }) => {
                 onClick={(e) => handleNavClick(e, isActive)}
                 className="fi-desk-nav-item"
               >
-                <FrostedIcon
+                <Btn
                   icon={icon}
-                  variant={isActive ? Variant.ACCENT : Variant.PRIMARY}
+                  variant={Variant.PRIMARY}
                   tooltip={label}
                   ariaLabel={label}
                   clickable
-                  className="nav-icon interactive-surface"
-                  size={Size.LG}
+                  className={`nav-icon interactive-surface ${isActive ? "is-active" : ""}`}
+                  size={Size.SM}
                   noBG
                 />
               </Nav.Item>
             );
           })}
+        </div>
+
+        <div className="sticky-nav-tools-group">
           <Nav.Item className="no-popup sticky-nav-theme-toggle">
             <ThemeToggle />
           </Nav.Item>
           <Nav.Item className="no-popup sticky-nav-a11y-toggle">
             <AccessibilityMenu size={Size.LG} enableHotkey />
           </Nav.Item>
-        </Nav>
-      </nav>
+        </div>
+      </Nav>
 
       {/* ============================================================
          Mobile Navigation Trigger
          ------------------------------------------------------------
          Burger button toggles Drawer-based navigation.
          ============================================================ */}
-      <div className="nav-toggle-btn mobile-only">
+      <div className="nav-toggle-btn mobile-only nav-mobile-only">
         <Btn
           icon={faMap}
           variant={Variant.ACCENT}
@@ -192,8 +226,8 @@ const StickyNav = ({ activePage }) => {
         />
       </div>
 
-      <div className="a11y-toggle-btn mobile-only">
-        <AccessibilityMenu size={Size.SM} />
+      <div className="a11y-toggle-btn mobile-only nav-mobile-only">
+        <AccessibilityMenu size={Size.LG} />
       </div>
 
       {/* ============================================================
@@ -235,7 +269,7 @@ const StickyNav = ({ activePage }) => {
             })}
             <ThemeToggle size={Size.MD} />
             <div className="sticky-nav-mobile-a11y">
-              <AccessibilityMenu size={Size.MD} />
+              <AccessibilityMenu size={Size.LG} />
             </div>
           </Nav>
         </Drawer.Body>

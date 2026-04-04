@@ -1,3 +1,10 @@
+/**
+ * @file index.jsx
+ * @description Home page composition that renders intro metadata, global navigation,
+ * section-driven content, and footer utilities.
+ * @module pages/Home
+ */
+
 import { useEffect } from "react";
 import Data from "assets/data/pageMetas";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";

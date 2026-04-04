@@ -161,8 +161,12 @@ const AccordionList = ({
       { threshold: 0.45 }
     );
 
-    // Observe targets (example)
-    const targets = items.map((it) => document.getElementById(it.id)).filter(Boolean);
+    // Observe only scroll-linked items so regular accordion content does not
+    // auto-shift open state while users navigate with keyboard.
+    const targets = items
+      .filter((it) => Boolean(it?.isScroller && it?.id))
+      .map((it) => document.getElementById(it.id))
+      .filter(Boolean);
 
     targets.forEach((el) => observer.observe(el));
 
@@ -195,6 +199,36 @@ const AccordionList = ({
     });
   }, [focusedIndex]);
 
+  // Respond to section navigation events so keyboard navigation opens exactly one accordion item.
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleSectionNavNavigate = (event) => {
+      const targetId = event?.detail?.id;
+      if (!targetId || !Array.isArray(items) || items.length === 0) return;
+
+      const targetItemIndex = items.findIndex((item) => item?.id === targetId);
+      const shouldOpenFirstForBlockTarget = Boolean(id) && targetId === id;
+
+      if (targetItemIndex < 0 && !shouldOpenFirstForBlockTarget) return;
+
+      const nextIndex = shouldOpenFirstForBlockTarget ? 0 : targetItemIndex;
+      if (nextIndex < 0) return;
+
+      manualToggle.current = true;
+      setOpenIndex(nextIndex);
+      setFocusedIndex(nextIndex);
+      setSrMessage(`Expanded section ${nextIndex + 1} of ${totalItems}`);
+      setTimeout(() => {
+        focusHeader(nextIndex);
+        manualToggle.current = false;
+      }, 0);
+    };
+
+    window.addEventListener("section-nav:navigate", handleSectionNavNavigate);
+    return () => window.removeEventListener("section-nav:navigate", handleSectionNavNavigate);
+  }, [id, items, totalItems]);
+
   /** Toggle accordion panel open/closed */
   const togglePanel = (index) => {
     manualToggle.current = true;
@@ -222,16 +256,48 @@ const AccordionList = ({
     });
   };
 
+  /**
+   * Move to adjacent accordion item and open exactly that item.
+   * This keeps arrow navigation deterministic and prevents skipping
+   * middle items during rapid key repeat.
+   */
+  const moveAndOpen = (direction) => {
+    manualToggle.current = true;
+    setFocusedIndex((prev) => {
+      let next = prev + direction;
+      if (next < 0) next = 0;
+      if (next >= totalItems) next = totalItems - 1;
+
+      // Already at edge: don't churn state or announce redundant updates.
+      if (next === prev) {
+        setTimeout(() => {
+          manualToggle.current = false;
+        }, 120);
+        return prev;
+      }
+
+      setOpenIndex(next);
+      setSrMessage(`Expanded section ${next + 1} of ${totalItems}`);
+      setTimeout(() => focusHeader(next), 0);
+      setTimeout(() => {
+        manualToggle.current = false;
+      }, 200);
+      return next;
+    });
+  };
+
   /** Keyboard handler for each header */
   const handleKeyDown = (e, index, item, isOpen) => {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        moveFocus(1);
+        if (e.repeat) break;
+        moveAndOpen(1);
         break;
       case "ArrowUp":
         e.preventDefault();
-        moveFocus(-1);
+        if (e.repeat) break;
+        moveAndOpen(-1);
         break;
       case "Home":
         e.preventDefault();
@@ -283,11 +349,6 @@ const AccordionList = ({
       }
       className={`frosted-accordion blue-tile block ${variant} ${className}`}
     >
-      {/* Keyboard help for users & screen readers */}
-      <p className="fa-help">
-        Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> navigate • <kbd>←</kbd> collapse • <kbd>→</kbd> expand •{" "}
-        <kbd>Enter</kbd>/<kbd>Space</kbd> toggle
-      </p>
       {/* Screen reader live region */}
       <div className="sr-only" aria-live="polite">
         {srMessage}
@@ -310,6 +371,7 @@ const AccordionList = ({
               collapsible
               defaultExpanded={i === 0}
               bordered={true}
+              id={item.id || undefined}
               eventKey={String(panelIndex)}
               onSelect={() => togglePanel(panelIndex)}
               onKeyDown={(e) => handleKeyDown(e, panelIndex, item, openIndex === panelIndex)}

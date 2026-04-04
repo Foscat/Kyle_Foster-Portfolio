@@ -1,3 +1,9 @@
+/**
+ * @file index.js
+ * @description Barrel export for shared data modules and static resume asset references.
+ * @module assets/data/index
+ */
+
 import {
   codestreamSections,
   contactSections,

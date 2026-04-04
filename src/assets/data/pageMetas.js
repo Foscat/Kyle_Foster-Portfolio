@@ -1,3 +1,10 @@
+/**
+ * @file pageMetas.js
+ * @description Central metadata registry for page-level titles, descriptions, route keys,
+ * and section collections.
+ * @module assets/data/pageMetas
+ */
+
 import { PageRoute } from "types/navigation.types";
 import {
   codestreamSections,

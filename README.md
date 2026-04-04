@@ -139,9 +139,17 @@ npm run docs:components
 npm run docs:navigation
 npm run docs:tests
 npm run docs:types
+npm run docs:api
+npm run docs:jsdoc:audit
 ```
 
 Each command outputs a focused Markdown file under `docs/`.
+
+For repository-wide output and quality checks:
+
+- `docs:api` generates a full API reference from `jsdoc.config.json`.
+- `docs:jsdoc:audit` writes `docs/jsdoc-audit.md` with compatibility and baseline quality findings.
+- `docs:jsdoc:audit:strict` fails CI when audit issues are present.
 
 Strict JSDoc rules are enforced to prevent documentation drift and generation failures.
 

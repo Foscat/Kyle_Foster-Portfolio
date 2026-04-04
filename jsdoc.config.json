@@ -9,7 +9,7 @@
       "scripts",
       "playwright"
     ],
-    "includePattern": ".+\\.(js|jsx|ts|cjs|mjs)$"
+    "includePattern": ".+\\.(js|jsx|cjs|mjs)$"
   },
   "opts": {
     "destination": "docs",

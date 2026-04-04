@@ -9,7 +9,13 @@
   align-items: center;
   padding: 10px 14px;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.2;
+  min-width: 0;
+  height: auto;
+  min-height: 2.5rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
   color: var(--accent-dark);
   background: var(--frost-bg);
   border: 1px solid var(--frost-border);
@@ -43,6 +49,7 @@
 .rs-btn.btn.interactive-surface.icon-only {
   margin: 0 auto;
   padding: 0;
+  min-height: 0;
 }
 
 .rs-btn.btn.interactive-surface.icon-only .frosted-icon {
@@ -52,6 +59,19 @@
 .rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
   padding: 6px 10px 6px 8px;
   font-weight: 600;
+  align-items: center;
+}
+
+.rs-btn.btn.interactive-surface > .rs-btn-icon {
+  flex-shrink: 0;
+}
+
+.rs-btn.btn.interactive-surface .btn-label {
+  display: block;
+  min-width: 0;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* ------------------------------------------------------------
@@ -98,9 +118,8 @@
   background-color: var(--frost-bg);
 }
 
-.rs-btn.btn.interactive-surface.primary:hover:not(:disabled, .loading),
 .rs-btn.btn.interactive-surface.primary:active:not(:disabled, .loading),
-.rs-btn.btn.interactive-surface.primary:focus {
+.rs-btn.btn.interactive-surface.primary:focus-visible {
   background-color: var(--glass-bg);
   border-color: var(--glass-border);
   box-shadow: var(--shadow-accent);
@@ -114,9 +133,8 @@
   box-shadow: var(--tile-shadow);
 }
 
-.rs-btn.btn.interactive-surface.secondary:hover:not(:disabled, .loading),
 .rs-btn.btn.interactive-surface.secondary:active:not(:disabled, .loading),
-.rs-btn.btn.interactive-surface.secondary:focus {
+.rs-btn.btn.interactive-surface.secondary:focus-visible {
   color: var(--text-secondary);
   border: var(--frost-border);
   background-color: var(--frost-bg);
@@ -128,9 +146,8 @@
   background-color: var(--accent-bg);
 }
 
-.rs-btn.btn.interactive-surface.accent:hover:not(:disabled, .loading),
 .rs-btn.btn.interactive-surface.accent:active:not(:disabled, .loading),
-.rs-btn.btn.interactive-surface.accent:focus {
+.rs-btn.btn.interactive-surface.accent:focus-visible {
   color: var(--text-secondary);
   border: var(--accent-dark-border);
   background-color: var(--accent-bg-dark);
@@ -155,6 +172,16 @@
   box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+}
+
+html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only,
+html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only {
+  color: var(--accent-light);
+}
+
+html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only .frosted-icon,
+html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only .frosted-icon {
+  color: inherit;
 }
 
 .rs-btn.btn.interactive-surface.not-clickable:hover .not-clickable:hover {
@@ -182,8 +209,32 @@
 }
 
 /* Keep text decoration stable while letting interactive-surface own motion. */
-.rs-btn.btn.interactive-surface:hover:not(:disabled, .loading),
 .rs-btn.btn.interactive-surface:active:not(:disabled, .loading),
 .rs-btn.btn.interactive-surface:focus-visible {
   text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .rs-btn.btn.interactive-surface.primary:hover:not(:disabled, .loading) {
+    background-color: var(--glass-bg);
+    border-color: var(--glass-border);
+    box-shadow: var(--shadow-accent);
+    color: var(--accent-dark);
+  }
+
+  .rs-btn.btn.interactive-surface.secondary:hover:not(:disabled, .loading) {
+    color: var(--text-secondary);
+    border: var(--frost-border);
+    background-color: var(--frost-bg);
+  }
+
+  .rs-btn.btn.interactive-surface.accent:hover:not(:disabled, .loading) {
+    color: var(--text-secondary);
+    border: var(--accent-dark-border);
+    background-color: var(--accent-bg-dark);
+  }
+
+  .rs-btn.btn.interactive-surface:hover:not(:disabled, .loading) {
+    text-decoration: none;
+  }
 }

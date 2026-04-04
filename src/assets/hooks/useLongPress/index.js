@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 /**
  * @file useLongPress.js
  * @description
@@ -16,6 +14,8 @@ import { useRef } from "react";
  * }, 700);
  * @module assets/hooks/useLongPress
  */
+
+import { useRef } from "react";
 
 /**
  * @public

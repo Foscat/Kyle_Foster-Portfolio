@@ -47,7 +47,6 @@
   font-size: var(--icon-sm);
 }
 
-.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:hover:not(:disabled, .loading),
 .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:focus-visible,
 .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:active:not(:disabled, .loading) {
   border: 1px solid rgba(var(--accent-rgb), 0.6) !important;
@@ -56,14 +55,40 @@
   color: var(--accent-dark);
 }
 
-.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light.primary,
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light.subtle,
 .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent {
   border: 1px solid rgba(var(--accent-rgb), 0.72) !important;
 }
 
-html[data-theme="light"]
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light {
+  color: rgba(var(--white-rgb), 0.72);
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark {
+  color: var(--accent-light);
+}
+
+html[data-theme="dark"]
   .theme-toggle
-  .rs-btn.btn.interactive-surface.theme-toggle__btn:hover:not(:disabled, .loading),
+  .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent {
+  color: var(--accent-light) !important;
+}
+
+html[data-theme="dark"]
+  .theme-toggle
+  .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent
+  .frosted-icon.btn-icon {
+  color: inherit;
+}
+
+html[data-theme="light"] .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light {
+  color: rgba(var(--primary-dark-rgb), 0.66);
+}
+
+html[data-theme="light"] .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark {
+  color: rgba(var(--accent-dark-rgb), 0.95);
+}
+
 html[data-theme="light"]
   .theme-toggle
   .rs-btn.btn.interactive-surface.theme-toggle__btn:focus-visible,
@@ -71,4 +96,19 @@ html[data-theme="light"]
   .theme-toggle
   .rs-btn.btn.interactive-surface.theme-toggle__btn:active:not(:disabled, .loading) {
   background: rgba(var(--primary-dark-rgb), 0.08) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn:hover:not(:disabled, .loading) {
+    border: 1px solid rgba(var(--accent-rgb), 0.6) !important;
+    background: rgba(var(--white-rgb), 0.06) !important;
+    box-shadow: var(--shadow-soft) !important;
+    color: var(--accent-dark);
+  }
+
+  html[data-theme="light"]
+    .theme-toggle
+    .rs-btn.btn.interactive-surface.theme-toggle__btn:hover:not(:disabled, .loading) {
+    background: rgba(var(--primary-dark-rgb), 0.08) !important;
+  }
 }

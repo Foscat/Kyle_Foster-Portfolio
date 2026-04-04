@@ -1,3 +1,9 @@
+/**
+ * @file projectMetas.js
+ * @description Static registry of project metadata for portfolio cards and detail surfaces.
+ * @module assets/data/projectMetas
+ */
+
 export default {
   Codestream: {
     id: "codestream",

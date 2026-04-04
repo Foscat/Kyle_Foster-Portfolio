@@ -1,3 +1,9 @@
+/**
+ * @file index.js
+ * @description Barrel export for top-level page modules used by route composition.
+ * @module pages/index
+ */
+
 import CodeStream from "./CodeStream";
 import Contact from "./Contact";
 import Hackathon from "./Hackathon";

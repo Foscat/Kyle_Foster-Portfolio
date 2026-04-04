@@ -1,15 +1,16 @@
-import { Tooltip, Whisper } from "rsuite";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { Size } from "types/ui.types";
-import "./styles.css";
-
 /**
  * @file index.jsx
  * @fileoverview Styled FontAwesome icon component integrated with the
  * Midnight Gold frosted UI system.
  * @module components/FrostedIcon
  */
+
+import { Tooltip, Whisper } from "rsuite";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { Size } from "types/ui.types";
+import { useCoarsePointer } from "assets/hooks";
+import "./styles.css";
 
 /**
  * Subset of props forwarded directly to the underlying `FontAwesomeIcon`
@@ -147,22 +148,34 @@ const FrostedIcon = ({
   swapOpacity = false,
   widthAuto = false,
 }) => {
+  const isCoarsePointer = useCoarsePointer();
   const hasInteractiveClass = className.includes("interactive-surface");
   const isEmbeddedInBtn = className.includes("btn-icon");
   const interactiveClass =
     clickable && !hasInteractiveClass && !isEmbeddedInBtn ? "interactive-surface" : "";
+  const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
+  const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
 
   return (
     <Whisper
       delay={250}
-      trigger={tooltip ? "hover" : "none"}
+      trigger={tooltipTrigger}
       followCursor={followCursor}
       placement={tooltipPlacement}
+      enterable={false}
       speaker={<Tooltip>{tooltip}</Tooltip>}
     >
       <FontAwesomeIcon
-        onClick={() => {
-          if (clickable) onClick();
+        onClick={(e) => {
+          if (clickable) {
+            onClick(e);
+
+            if (isCoarsePointer && e?.currentTarget instanceof HTMLElement) {
+              window.requestAnimationFrame(() => {
+                e.currentTarget.blur();
+              });
+            }
+          }
         }}
         role={clickable ? "button" : "img"}
         aria-label={ariaLabel || undefined}

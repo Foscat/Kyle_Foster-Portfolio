@@ -1,13 +1,13 @@
-import PageMetas from "assets/data/pageMetas";
-import { Helmet } from "react-helmet-async";
-import { PageRoute } from "types/navigation.types";
-
 /**
  * @file index.jsx
  * @description Centralized document head manager responsible for injecting
  * SEO, metadata, and social sharing tags based on the current route.
  * @module components/Head
  */
+
+import PageMetas from "assets/data/pageMetas";
+import { Helmet } from "react-helmet-async";
+import { PageRoute } from "types/navigation.types";
 
 /**
  * Head

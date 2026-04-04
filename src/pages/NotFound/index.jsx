@@ -1,3 +1,9 @@
+/**
+ * @file index.jsx
+ * @description 404 fallback page with navigation recovery action and branded messaging.
+ * @module pages/NotFound
+ */
+
 import { FlexboxGrid, Panel } from "rsuite";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Btn } from "components/ui";

@@ -55,4 +55,19 @@ describe("AccessibilityMenu", () => {
       expect(document.documentElement.dataset.a11yLargeText).toBe("true");
     });
   });
+
+  it("surfaces keyboard navigation guidance inside the accessibility modal", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<AccessibilityMenu enableHotkey />);
+
+    await user.click(screen.getByRole("button", { name: /open accessibility settings/i }));
+    await screen.findByRole("dialog", { name: /accessibility settings/i });
+
+    expect(screen.getByRole("heading", { name: /keyboard navigation/i })).toBeInTheDocument();
+    expect(screen.getByText("Tab")).toBeInTheDocument();
+    expect(screen.getByText("Shift+Tab")).toBeInTheDocument();
+    expect(screen.getByText("ArrowRight")).toBeInTheDocument();
+    expect(screen.queryByText("CapsLock")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Alt+A").length).toBeGreaterThan(0);
+  });
 });

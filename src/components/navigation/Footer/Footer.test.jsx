@@ -34,6 +34,7 @@ vi.mock("assets/hooks", () => ({
     copied: false,
     error: null,
   }),
+  useCoarsePointer: () => false,
 }));
 
 // Mock the Tooltip and Whisper components from the rsuite library to prevent issues with their implementation during testing, allowing us to focus on the Footer's functionality without worrying about the complexities of these components.

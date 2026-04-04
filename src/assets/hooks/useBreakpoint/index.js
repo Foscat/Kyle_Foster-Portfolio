@@ -9,6 +9,7 @@
  * Breakpoints:
  * - Mobile: max-width 768px
  * - Tablet: min-width 769px and max-width 1024px
+ * @module assets/hooks/useBreakpoint
  */
 
 import { useEffect, useState } from "react";
@@ -139,6 +140,13 @@ function useBreakpoint() {
 }
 
 /**
+ * @typedef {Object} ResponsiveValues
+ * @property {*} [mobile] - Value returned when mobile breakpoint is active.
+ * @property {*} [tablet] - Value returned when tablet breakpoint is active.
+ * @property {*} [desktop] - Value returned when desktop breakpoint is active.
+ */
+
+/**
  * @function useResponsiveValue
  * @description
  * Custom React hook that returns a value based on the current responsive breakpoint.
@@ -147,13 +155,9 @@ function useBreakpoint() {
  * the corresponding value, falling back to smaller breakpoints if a value is not provided.
  *
 
- * @param {{
- *  mobile?: any,
- *  tablet?: any,
- *  desktop?: any
- * }} values
+ * @param {ResponsiveValues} values
  *
- * @returns any
+ * @returns {*} Responsive value for the current breakpoint.
  */
 function useResponsiveValue(values) {
   const { breakpoint } = useResponsive();

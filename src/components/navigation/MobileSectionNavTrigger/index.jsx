@@ -19,7 +19,7 @@
  * @module components/MobileSectionNavTrigger
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { faCaretDown, faCaretRight, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { Drawer } from "rsuite";
 import { Size, Variant } from "types/ui.types";
@@ -75,6 +75,30 @@ const MobileSectionNavTrigger = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const isEditableTarget = (target) =>
+      target instanceof HTMLElement &&
+      (target.isContentEditable ||
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.tagName === "SELECT");
+
+    const handleGlobalSectionKeys = (event) => {
+      if (event.defaultPrevented) return;
+      if (isEditableTarget(event.target)) return;
+
+      if (event.key === "Escape" && open) {
+        event.preventDefault();
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleGlobalSectionKeys);
+    return () => window.removeEventListener("keydown", handleGlobalSectionKeys);
+  }, [open]);
+
   // Utility to filter out invalid blocks (e.g. missing id or title)
   const getNavigableBlocks = (section) => {
     if (Array.isArray(section?.navItems) && section.navItems.length > 0) {
@@ -98,6 +122,7 @@ const MobileSectionNavTrigger = ({
       <div className="sect-nav-toggle-btn mobile-only">
         <Btn
           icon={faCompass}
+          size={Size.MD}
           onClick={() => setOpen(true)}
           className="section-nav-trigger"
           ariaLabel="Open section navigation"
@@ -111,7 +136,7 @@ const MobileSectionNavTrigger = ({
         placement="right"
         open={open}
         onClose={() => setOpen(false)}
-        className="mobile-nav-drawer"
+        className="mobile-nav-drawer mobile-section-nav-drawer"
       >
         <Drawer.Header>
           <Drawer.Title>{title} Page</Drawer.Title>

@@ -1,3 +1,9 @@
+/**
+ * @file index.jsx
+ * @description Academic-project showcase page rendered from SMU content metadata.
+ * @module pages/SMU
+ */
+
 import { useEffect } from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import Data from "assets/data/pageMetas";

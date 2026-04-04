@@ -1,5 +1,3 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-
 /**
  * @file useScrollSpy.js
  * @description
@@ -24,6 +22,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
  *
  * @module assets/hooks/useScrollSpy
  */
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { BlockType } from "types/ui.types";
 
 /* -------------------------------------------------------------------------- */
 /* Section tree utilities                                                     */
@@ -130,6 +131,21 @@ export function buildSectionTree(sections = []) {
 
       nodes.push(blockNode);
       byId.set(block.id, blockNode);
+
+      if (block.type === BlockType.BULLETED_LIST && Array.isArray(block.items)) {
+        block.items.forEach((item) => {
+          if (!item?.id) return;
+
+          const itemNode = {
+            id: item.id,
+            type: "block",
+            parentId: block.id,
+          };
+
+          nodes.push(itemNode);
+          byId.set(item.id, itemNode);
+        });
+      }
     });
   });
 

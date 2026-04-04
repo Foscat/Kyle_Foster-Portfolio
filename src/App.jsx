@@ -1,3 +1,10 @@
+/**
+ * @file App.jsx
+ * @description Root application shell that configures route-level composition,
+ * lazy page loading, and global head metadata.
+ * @module src/App
+ */
+
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Head } from "components/navigation";

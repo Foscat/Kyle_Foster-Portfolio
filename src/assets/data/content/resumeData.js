@@ -4,7 +4,7 @@ const resumeData = {
   location: "Wills Point, TX",
   email: "fosterkyle6456@gmail.com",
   phone: "(469) 410-5286",
-  website: "your-portfolio-url.com",
+  website: "kyle-foster.com",
   summary:
     "Frontend developer focused on building scalable React interfaces, translating complex workflows into clear user experiences, and delivering polished UI systems that remain maintainable as products grow.",
 
@@ -38,7 +38,7 @@ const resumeData = {
     },
     {
       name: "Portfolio System",
-      subtitle: "React + RSuite case-study driven portfolio",
+      subtitle: "kyle-foster.com",
       summary:
         "Built a structured portfolio architecture focused on case-study presentation, reusable block rendering, responsive navigation, and polished visual hierarchy.",
       bullets: [

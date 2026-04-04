@@ -48,7 +48,7 @@ const LinksBlock = ({ items = [] }) => {
 
   return (
     <Panel collapsible defaultExpanded className="block mt-2">
-      <div className="links-block-list flex-row flex-sa">
+      <div className="links-block-list">
         {items.map((link, i) => {
           // Determine whether the link should be treated as external
           const isExternal = /^https?:\/\//.test(link.url);
