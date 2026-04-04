@@ -12,6 +12,12 @@ import "./styles.css";
 import { Btn } from "components/ui";
 
 /**
+ * @file Contact.jsx
+ * @description Contact page with form submission, validation-safe payload normalization, and async feedback handling.
+ * @module pages/Contact
+ */
+
+/**
  * Contact service endpoint used by the public portfolio form.
  * Exported for testability and to keep the request contract centralized.
  *
@@ -42,7 +48,7 @@ const FALLBACK_CONTACT_FORM_CONTENT = Object.freeze({
 /**
  * Finds a form field configuration using one or more candidate names.
  *
- * @param {Array<{name?: string}>} fields - Schema field list.
+ * @param {Array<{name: (string|undefined)}>} fields - Schema field list.
  * @param {string[]} names - Candidate field names in priority order.
  * @returns {Object|undefined} Matching field config or undefined.
  */
@@ -113,7 +119,7 @@ export function normalizeContactPayload(data) {
  * `express.json()` parsing on the `/api/contact` route.
  *
  * @param {{ name: string, email: string, message: string }} data - Raw form values.
- * @returns {Promise<{message?: string, error?: string}>} Parsed API payload.
+ * @returns {Promise<{message: (string|undefined), error: (string|undefined)}>} Parsed API payload.
  * @throws {Error} When the request fails or the API returns a non-OK response.
  */
 export async function sendMessage(data) {

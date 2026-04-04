@@ -114,7 +114,7 @@ describe("ClickableImg", () => {
 
     // RSuite Modal renders with role="dialog"
     expect(screen.getByRole("dialog")).toBeVisible();
-    expect(screen.getByText(IMAGE_TITLE)).toBeInTheDocument();
+    expect(screen.getAllByText(IMAGE_TITLE).length).toBeGreaterThan(0);
   });
 
   // Test that the expanded image is rendered inside the modal with the correct alt text, ensuring that the ClickableImg component correctly displays the expanded version of the image when the thumbnail is clicked. This verifies that the component handles the modal state and renders the expanded image with the appropriate accessibility attributes, allowing users to view the larger image while maintaining accessibility standards.
@@ -129,18 +129,13 @@ describe("ClickableImg", () => {
     expect(modalImage).toBeInTheDocument();
   });
 
-  // Test that clicking the expanded image inside the modal closes the modal, ensuring that the ClickableImg component provides an intuitive way for users to exit the expanded view. This verifies that the component correctly handles click events on the expanded image to close the modal, providing a user-friendly experience.
-  it("closes the modal when the expanded image is clicked", async () => {
+  // Test that zoom controls are available in the modal and adjust zoom state, ensuring users can enlarge tiny screenshots on smaller screens.
+  it("renders zoom controls and updates zoom level", async () => {
     renderClickableImg();
 
     await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
-
-    const modalImage = screen.getAllByRole("img", {
-      name: /clickable image, click to expand/i,
-    })[1];
-    await userEvent.click(modalImage);
-
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /zoom in image/i }));
+    expect(screen.getByRole("button", { name: /reset image zoom/i })).toHaveTextContent("125%");
   });
 
   /* ------------------------------------------------------------

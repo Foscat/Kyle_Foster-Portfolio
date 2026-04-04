@@ -29,5 +29,11 @@ jobs:
       - name: Run tests
         run: npm run test -- --run
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run mobile image regression test
+        run: npm run test:mobile-clickable-img
+
       - name: Build
         run: npm run build

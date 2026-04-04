@@ -5,7 +5,7 @@
  * @module components/navigation/StickyNav
  */
 
-import { screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
@@ -63,7 +63,7 @@ describe("StickyNav", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.PROFESSIONAL} />);
 
     expect(screen.getByRole("link", { current: "page" })).toBeInTheDocument();
-    expect(screen.getByText(/professional work/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /professional work/i })).toBeInTheDocument();
   });
 
   // Test to verify that when the menu trigger is activated, the mobile navigation opens and displays the site navigation dialog, ensuring that the StickyNav component correctly handles user interactions to open the mobile navigation menu and provides access to the site navigation options.
@@ -89,6 +89,30 @@ describe("StickyNav", () => {
 
     const dialog = await screen.findByRole("dialog", { name: /site navigation/i });
     await user.click(within(dialog).getByRole("link", { name: /contact me/i }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: /site navigation/i })).not.toBeInTheDocument();
+    });
+  });
+
+  it("opens the site navigation drawer when Control is pressed", async () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    fireEvent.keyDown(window, { key: "Control" });
+
+    await waitFor(() => {
+      expect(screen.getByRole("dialog", { name: /site navigation/i })).toBeInTheDocument();
+    });
+  });
+
+  it("closes the site navigation drawer when Escape is pressed", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
+    await screen.findByRole("dialog", { name: /site navigation/i });
+
+    fireEvent.keyDown(window, { key: "Escape" });
 
     await waitFor(() => {
       expect(screen.queryByRole("dialog", { name: /site navigation/i })).not.toBeInTheDocument();

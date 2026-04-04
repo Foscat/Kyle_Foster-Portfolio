@@ -1,3 +1,9 @@
+/**
+ * @file index.jsx
+ * @description Hackathon case-study page built from structured section data and sticky navigation.
+ * @module pages/Hackathon
+ */
+
 import { useEffect } from "react";
 import Data from "assets/data/pageMetas";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";

@@ -1,3 +1,9 @@
+/**
+ * @file index.jsx
+ * @description Side-projects page that renders portfolio sections from structured content metadata.
+ * @module pages/SideProjects
+ */
+
 import { useEffect } from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import Data from "assets/data/pageMetas.js";

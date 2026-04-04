@@ -1,0 +1,588 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e8]:
+      - heading "SMU Coding Bootcamp" [level=1] [ref=e9]
+      - heading "Student • August 2018 - Febuary 2019" [level=2] [ref=e10]
+      - paragraph [ref=e11]: Explore my journey through the SMU Coding Bootcamp, where he transformed from a curious learner into a professional developer through discipline, perseverance, and curiosity.
+      - paragraph [ref=e12]:
+        - text: "Tech Used:"
+        - generic [ref=e13]:
+          - text: HTML
+          - emphasis [ref=e14]: ","
+        - generic [ref=e15]:
+          - text: CSS
+          - emphasis [ref=e16]: ","
+        - generic [ref=e17]:
+          - text: Bootstrap CSS
+          - emphasis [ref=e18]: ","
+        - generic [ref=e19]:
+          - text: JavaScript
+          - emphasis [ref=e20]: ","
+        - generic [ref=e21]:
+          - text: jQuery
+          - emphasis [ref=e22]: ","
+        - generic [ref=e23]:
+          - text: Ajax
+          - emphasis [ref=e24]: ","
+        - generic [ref=e25]:
+          - text: 3rd Party APIs
+          - emphasis [ref=e26]: ","
+        - generic [ref=e27]:
+          - text: Materialize
+          - emphasis [ref=e28]: ","
+        - generic [ref=e29]:
+          - text: Firebase
+          - emphasis [ref=e30]: ","
+        - generic [ref=e31]:
+          - text: React.js
+          - emphasis [ref=e32]: ","
+        - generic [ref=e33]:
+          - text: Express.js
+          - emphasis [ref=e34]: ","
+        - generic [ref=e35]:
+          - text: MongoDB
+          - emphasis [ref=e36]: ","
+        - text: Node.js
+  - navigation "Primary navigation" [ref=e37]:
+    - generic [ref=e38]:
+      - link "Home" [ref=e39] [cursor=pointer]:
+        - /url: /
+        - button "Home" [ref=e40]:
+          - button "Button icon" [ref=e41]
+      - link "Professional Work" [ref=e43] [cursor=pointer]:
+        - /url: /codestream
+        - button "Professional Work" [ref=e44]:
+          - button "Button icon" [ref=e45]
+      - link "Education" [ref=e47] [cursor=pointer]:
+        - /url: /smu
+        - button "Education" [ref=e48]:
+          - button "Button icon" [ref=e49]
+      - link "Hackathon" [ref=e51] [cursor=pointer]:
+        - /url: /hackathon
+        - button "Hackathon" [ref=e52]:
+          - button "Button icon" [ref=e53]
+      - link "Personal Projects" [ref=e55] [cursor=pointer]:
+        - /url: /side-projects
+        - button "Personal Projects" [ref=e56]:
+          - button "Button icon" [ref=e57]
+      - link "Docs" [ref=e59] [cursor=pointer]:
+        - /url: /docs
+        - button "Docs" [ref=e60]:
+          - button "Button icon" [ref=e61]
+      - link "Contact Me" [ref=e63] [cursor=pointer]:
+        - /url: /contact
+        - button "Contact Me" [ref=e64]:
+          - button "Button icon" [ref=e65]
+    - generic [ref=e67]:
+      - button "Theme selector" [ref=e68] [cursor=pointer]:
+        - group "Theme selector" [ref=e69]:
+          - button "Light theme" [ref=e70]:
+            - button "Button icon" [ref=e71]
+          - button "Dark theme" [ref=e73]:
+            - button "Button icon" [ref=e74]
+      - button "Open accessibility settings" [ref=e76] [cursor=pointer]:
+        - button "Open accessibility settings" [ref=e78]:
+          - button "Button icon" [ref=e79]
+  - generic [ref=e81]:
+    - main [ref=e82]:
+      - generic [ref=e83]:
+        - heading "SMU Full-Stack Bootcamp Foundational projects that launched my software development career" [level=2] [ref=e84] [cursor=pointer]:
+          - button "SMU Full-Stack Bootcamp Foundational projects that launched my software development career" [expanded] [ref=e85]:
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - img [ref=e88]
+                - heading "SMU Full-Stack Bootcamp" [level=2] [ref=e90]
+              - heading "Foundational projects that launched my software development career" [level=4] [ref=e91]
+            - img [ref=e92]
+        - region "SMU Full-Stack Bootcamp Foundational projects that launched my software development career" [ref=e95]:
+          - region "Overview" [ref=e97]:
+            - heading "Overview" [level=2] [ref=e98] [cursor=pointer]:
+              - button "Overview" [expanded] [ref=e99]:
+                - generic [ref=e100]: Overview
+                - img [ref=e101]
+            - region "Overview" [ref=e104]:
+              - paragraph [ref=e105]:
+                - text: My time at
+                - strong [ref=e106]: Southern Methodist University
+                - text: marked the foundation of my transition into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.
+              - paragraph [ref=e107]:
+                - text: Rather than isolated exercises, I worked through
+                - emphasis [ref=e108]: end-to-end projects
+                - text: that required planning, iteration, and trade-off analysis. These projects exposed me to early system thinking and the realities of maintaining code beyond the first successful demo.
+              - blockquote [ref=e109]: This section represents the shift from learning how to code to learning how to build software.
+      - generic [ref=e110]:
+        - heading "Gif Freak" [level=2] [ref=e111] [cursor=pointer]:
+          - button "Gif Freak" [expanded] [ref=e112]:
+            - generic [ref=e114]:
+              - img [ref=e115]
+              - heading "Gif Freak" [level=2] [ref=e117]
+            - img [ref=e118]
+        - region "Gif Freak" [ref=e121]:
+          - generic [ref=e122]:
+            - region "The Problem" [ref=e123]:
+              - heading "The Problem" [level=2] [ref=e124] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e125]:
+                  - generic [ref=e126]: The Problem
+                  - img [ref=e127]
+              - region "The Problem" [ref=e130]:
+                - paragraph [ref=e131]:
+                  - text: Early in my education, I needed hands-on experience working with
+                  - strong [ref=e132]: third-party APIs
+                  - text: and asynchronous JavaScript. Many learning exercises felt abstract and disconnected from how users actually interact with software.
+                - paragraph [ref=e133]: "I wanted a project that would force me to confront:"
+                - list [ref=e134]:
+                  - listitem [ref=e135]: Network latency and unpredictable responses
+                  - listitem [ref=e136]: Event-driven UI updates triggered by async data
+                  - listitem [ref=e137]: External data shaping the user experience
+            - region [ref=e140]:
+              - generic [ref=e143]:
+                - img "Screenshot of GIF Freak web application showing a grid of GIF memes with a search bar and category buttons." [ref=e145] [cursor=pointer]
+                - paragraph [ref=e146]: A web application that allows users to search, view, and share GIF memes using the Giphy API.
+            - region "The Solution" [ref=e147]:
+              - heading "The Solution" [level=2] [ref=e148] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e149]:
+                  - generic [ref=e150]: The Solution
+                  - img [ref=e151]
+              - region "The Solution" [ref=e154]:
+                - paragraph [ref=e155]:
+                  - text: I built
+                  - strong [ref=e156]: Gif Freak
+                  - text: ", a lightweight client-side application that integrates with the Giphy API to fetch and render animated content based on user input."
+                - paragraph [ref=e157]: "Each interaction triggers an asynchronous request, updating the UI in real time. While persistence was limited to session state, the project gave me early exposure to:"
+                - list [ref=e158]:
+                  - listitem [ref=e159]:
+                    - code [ref=e160]: fetch()
+                    - text: "-based request lifecycles"
+                  - listitem [ref=e161]: Managing loading and empty states
+                  - listitem [ref=e162]: Mapping raw API data into usable UI models
+            - region "GIF Freak – Client/API Architecture" [ref=e163]:
+              - heading "GIF Freak – Client/API Architecture" [level=2] [ref=e164] [cursor=pointer]:
+                - button "GIF Freak – Client/API Architecture" [expanded] [ref=e165]:
+                  - generic [ref=e167]: GIF Freak – Client/API Architecture
+                  - img [ref=e168]
+              - region "GIF Freak – Client/API Architecture" [ref=e171]:
+                - img "GIF Freak – Client/API Architecture" [ref=e173]:
+                  - document [ref=e174]:
+                    - generic [ref=e176]:
+                      - generic [ref=e177]:
+                        - paragraph [ref=e182]: External Service
+                        - paragraph [ref=e187]: Network Layer
+                        - paragraph [ref=e192]: Client Layer
+                      - generic [ref=e199]:
+                        - paragraph [ref=e206]: Search Interface
+                        - paragraph [ref=e213]: Client State Manager
+                        - paragraph [ref=e220]: Dynamic Render Engine
+                        - paragraph [ref=e227]: Async Fetch Request
+                        - paragraph [ref=e234]: Giphy API
+                - button "Download diagram as PNG" [ref=e236] [cursor=pointer]:
+                  - img "Button icon" [ref=e237]
+                  - generic [ref=e239]: Download diagram
+                - paragraph [ref=e240]: GIF Freak models a reactive client that consumes a third-party API through an asynchronous request and render cycle.
+                - list [ref=e241]:
+                  - listitem [ref=e242]:
+                    - strong [ref=e243]: UI drives intent.
+                    - text: Search interaction updates client state instead of directly mutating the view.
+                  - listitem [ref=e244]:
+                    - strong [ref=e245]: Network access is isolated.
+                    - text: API communication lives behind an async fetch layer, keeping transport concerns separate from rendering concerns.
+                  - listitem [ref=e246]:
+                    - strong [ref=e247]: Rendering is state-driven.
+                    - text: Once the response returns, the state manager becomes the single source of truth for what the interface renders next.
+            - generic [ref=e248]:
+              - heading "Key Takeaways" [level=2] [ref=e249] [cursor=pointer]:
+                - button "Key Takeaways" [expanded] [ref=e250]:
+                  - heading "Key Takeaways" [level=2] [ref=e253]
+                  - img [ref=e254]
+              - region "Key Takeaways" [ref=e257]:
+                - list [ref=e259]:
+                  - listitem [ref=e260]:
+                    - generic [ref=e261]:
+                      - img [ref=e263]
+                      - generic [ref=e265]:
+                        - heading "API Integration" [level=3] [ref=e266]
+                        - paragraph [ref=e267]: Working with external data sources and designing around their constraints
+                    - generic [ref=e269]:
+                      - paragraph [ref=e270]:
+                        - text: This project was my first real implementation of
+                        - strong [ref=e271]: 3rd-party API integration
+                        - text: . It moved me from theory to production-minded thinking about data contracts, reliability, and user-facing behavior.
+                      - list [ref=e272]:
+                        - listitem [ref=e273]: Built request/response flows that transformed raw API data into clear UI output
+                        - listitem [ref=e274]: Handled inconsistent payloads and edge cases without breaking the user experience
+                        - listitem [ref=e275]: Learned to treat external APIs as dependencies that require validation and fallback thinking
+                      - blockquote [ref=e276]: External integrations are product design decisions, not just technical tasks.
+                  - listitem [ref=e277]:
+                    - generic [ref=e278]:
+                      - img [ref=e280]
+                      - generic [ref=e282]:
+                        - heading "Asynchronous JavaScript" [level=3] [ref=e283]
+                        - paragraph [ref=e284]: Designing user experiences that respond to asynchronous data flows and state changes
+                    - generic [ref=e286]:
+                      - paragraph [ref=e287]: Working with asynchronous requests reshaped how I approached control flow and UI state. I had to design interactions that stayed clear and responsive while data was in transit.
+                      - list [ref=e288]:
+                        - listitem [ref=e289]: Implemented loading, empty, and success states so users always understood system status
+                        - listitem [ref=e290]: Managed event-driven updates triggered by async fetch calls and user input
+                        - listitem [ref=e291]: Gained confidence writing non-blocking JavaScript in realistic UI scenarios
+                      - blockquote [ref=e292]: Perceived speed comes from clear state transitions, not just fast network calls.
+                  - listitem [ref=e293]:
+                    - generic [ref=e294]:
+                      - img [ref=e296]
+                      - generic [ref=e298]:
+                        - heading "User Interaction" [level=3] [ref=e299]
+                        - paragraph [ref=e300]: Designing interfaces that provide clear feedback and maintain user confidence
+                    - generic [ref=e302]:
+                      - paragraph [ref=e303]: Gif Freak reinforced that strong interfaces are defined by feedback quality, not just features. Every action needed to feel immediate, understandable, and trustworthy.
+                      - list [ref=e304]:
+                        - listitem [ref=e305]: Designed interactions that acknowledged user actions right away
+                        - listitem [ref=e306]: Improved clarity by making state changes visible and predictable
+                        - listitem [ref=e307]: Started prioritizing user perception and confidence alongside core functionality
+                      - blockquote [ref=e308]: A responsive interface should explain itself through behavior.
+            - region "What I'd Improve Today" [ref=e309]:
+              - heading "What I'd Improve Today" [level=2] [ref=e310] [cursor=pointer]:
+                - button "What I'd Improve Today" [expanded] [ref=e311]:
+                  - generic [ref=e312]: What I'd Improve Today
+                  - img [ref=e313]
+              - region "What I'd Improve Today" [ref=e316]:
+                - paragraph [ref=e317]: Revisiting this project with current standards in mind, several architectural and UX improvements would meaningfully elevate its robustness and maintainability.
+                - list [ref=e318]:
+                  - listitem [ref=e319]:
+                    - strong [ref=e320]: "Persistent data layer:"
+                    - text: introduce a backend service with structured storage to support saved searches, usage history, and rate-limit management.
+                  - listitem [ref=e321]:
+                    - strong [ref=e322]: "Resilient API handling:"
+                    - text: implement comprehensive error boundaries, retry strategies, and graceful degradation for third-party failures.
+                  - listitem [ref=e323]:
+                    - strong [ref=e324]: "Modern component patterns:"
+                    - text: refactor into more granular, composable components with clearer state ownership and separation of concerns.
+                - paragraph [ref=e325]: On the user experience side, accessibility refinements, explicit loading states, and performance optimizations such as memoization would reduce unnecessary re-renders and improve perceived responsiveness.
+                - blockquote [ref=e326]: The core API integration remains sound, but today I would harden the system around resilience, performance, and long-term maintainability.
+            - region [ref=e329]:
+              - generic [ref=e330]:
+                - button "GitHub Repository" [ref=e331] [cursor=pointer]:
+                  - button "GitHub Repository" [ref=e332]:
+                    - img "Button icon" [ref=e333]
+                    - generic [ref=e335]: See the code
+                - button "Live Project" [ref=e336] [cursor=pointer]:
+                  - button "Live Project" [ref=e337]:
+                    - img "Button icon" [ref=e338]
+                    - generic [ref=e340]: View the project
+      - generic [ref=e341]:
+        - heading "Stock Memer" [level=2] [ref=e342] [cursor=pointer]:
+          - button "Stock Memer" [expanded] [ref=e343]:
+            - generic [ref=e345]:
+              - img [ref=e346]
+              - heading "Stock Memer" [level=2] [ref=e348]
+            - img [ref=e349]
+        - region "Stock Memer" [ref=e352]:
+          - generic [ref=e353]:
+            - region "The Problem" [ref=e354]:
+              - heading "The Problem" [level=2] [ref=e355] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e356]:
+                  - generic [ref=e357]: The Problem
+                  - img [ref=e358]
+              - region "The Problem" [ref=e361]:
+                - paragraph [ref=e362]: Financial data is often presented in dense, inaccessible formats, making it difficult for casual users to identify meaningful trends.
+                - paragraph [ref=e363]:
+                  - text: "This project also introduced a new constraint:"
+                  - strong [ref=e364]: team-based development
+                  - text: . Coordinating responsibilities, merging code, and integrating multiple systems added complexity well beyond solo projects.
+                - blockquote [ref=e365]: This was my first exposure to shared ownership of both code and decisions.
+            - region [ref=e368]:
+              - generic [ref=e371]:
+                - img "Screenshot of the Stock Memer web application" [ref=e373] [cursor=pointer]
+                - paragraph [ref=e374]: A web application that generates stock market memes based on real-time stock data.
+            - region "The Solution" [ref=e375]:
+              - heading "The Solution" [level=2] [ref=e376] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e377]:
+                  - generic [ref=e378]: The Solution
+                  - img [ref=e379]
+              - region "The Solution" [ref=e382]:
+                - paragraph [ref=e383]: Stock Memer combined real-time stock data with user-generated content, allowing users to explore market trends while creating memes tied to specific stocks.
+                - paragraph [ref=e384]:
+                  - text: My role focused on
+                  - strong [ref=e385]: API integrations and Firebase persistence
+                  - text: ", specifically designing how live data and user content were retrieved, stored, and associated across the application."
+                - code [ref=e387]: // Example responsibility fetchStockData(symbol) .then(storeSnapshot) .then(renderUI);
+            - region "Stock Memer – Multi-Service Architecture" [ref=e388]:
+              - heading "Stock Memer – Multi-Service Architecture" [level=2] [ref=e389] [cursor=pointer]:
+                - button "Stock Memer – Multi-Service Architecture" [expanded] [ref=e390]:
+                  - generic [ref=e392]: Stock Memer – Multi-Service Architecture
+                  - img [ref=e393]
+              - region "Stock Memer – Multi-Service Architecture" [ref=e396]:
+                - img "Stock Memer – Multi-Service Architecture" [ref=e398]:
+                  - document [ref=e399]:
+                    - generic [ref=e401]:
+                      - generic [ref=e402]:
+                        - paragraph [ref=e407]: Presentation Layer
+                        - paragraph [ref=e412]: Persistence
+                        - paragraph [ref=e417]: Application State
+                        - paragraph [ref=e422]: External Services
+                      - generic [ref=e428]:
+                        - paragraph [ref=e435]:
+                          - text: Stock Data
+                          - text: API
+                        - paragraph [ref=e442]:
+                          - text: Central State
+                          - text: Store
+                        - paragraph [ref=e449]:
+                          - text: Firebase
+                          - text: Database
+                        - paragraph [ref=e456]:
+                          - text: Chart
+                          - text: Interface
+                        - paragraph [ref=e463]:
+                          - text: Meme
+                          - text: Generator
+                - generic [ref=e464]:
+                  - button "Download diagram as PNG" [ref=e465] [cursor=pointer]:
+                    - img "Button icon" [ref=e466]
+                    - generic [ref=e468]: Download diagram
+                  - button "View mobile version" [ref=e469] [cursor=pointer]:
+                    - img "Button icon" [ref=e470]
+                    - generic [ref=e472]: View mobile version
+                - paragraph [ref=e473]: Stock Memer combines external market data with user-generated content through a layered frontend architecture that separates presentation, state management, and persistence.
+                - list [ref=e474]:
+                  - listitem [ref=e475]:
+                    - strong [ref=e476]: External market data feeds application state.
+                    - text: Stock pricing and related inputs arrive from a third-party API and are normalized into the client state layer.
+                  - listitem [ref=e477]:
+                    - strong [ref=e478]: State coordinates multiple UI surfaces.
+                    - text: The charting and meme-generation experiences share a common application model instead of each managing disconnected data pipelines.
+                  - listitem [ref=e479]:
+                    - strong [ref=e480]: Persistence is selective.
+                    - text: Firebase stores user-created artifacts and supports continuity between content creation and later retrieval.
+            - generic [ref=e481]:
+              - heading "Key Takeaways" [level=2] [ref=e482] [cursor=pointer]:
+                - button "Key Takeaways" [expanded] [ref=e483]:
+                  - heading "Key Takeaways" [level=2] [ref=e486]
+                  - img [ref=e487]
+              - region "Key Takeaways" [ref=e490]:
+                - list [ref=e492]:
+                  - listitem [ref=e493]:
+                    - generic [ref=e495]:
+                      - heading "Team-Based Development" [level=3] [ref=e496]
+                      - paragraph [ref=e497]: Managing merge conflicts, handoffs, and shared standards in a collaborative codebase
+                    - generic [ref=e499]:
+                      - paragraph [ref=e500]: This was my first project in a multi-developer repository with shared ownership and overlapping responsibilities. It quickly showed me how one implementation decision can create friction across other workstreams.
+                      - list [ref=e501]:
+                        - listitem [ref=e502]: Learned to reduce merge risk by keeping changes scoped and consistent with existing patterns
+                        - listitem [ref=e503]: Improved communication around ownership boundaries and implementation timing
+                        - listitem [ref=e504]: Saw how unclear planning creates avoidable rework during integration
+                  - listitem [ref=e505]:
+                    - generic [ref=e507]:
+                      - heading "API & Database Integration" [level=3] [ref=e508]
+                      - paragraph [ref=e509]: Coordinating live stock feeds with Firebase persistence and stable data boundaries
+                    - generic [ref=e511]:
+                      - paragraph [ref=e512]: I implemented flows that combined external stock API responses with Firebase-stored user content. The work centered on making live and persisted data cooperate without breaking UI assumptions.
+                      - list [ref=e513]:
+                        - listitem [ref=e514]: Mapped external payloads into app-friendly models before rendering or persistence
+                        - listitem [ref=e515]: Kept user-generated records separate from volatile market data to avoid coupling
+                        - listitem [ref=e516]: Identified where API dependency risk should be isolated behind clear boundaries
+                  - listitem [ref=e517]:
+                    - generic [ref=e519]:
+                      - heading "Cross-Team Coordination" [level=3] [ref=e520]
+                      - paragraph [ref=e521]: Aligning interfaces and delivery across parallel contributors
+                    - generic [ref=e523]:
+                      - paragraph [ref=e524]: Stock Memer required real coordination instead of isolated execution. We split responsibility across contributors and had to keep interface decisions synchronized to avoid integration failures.
+                      - list [ref=e525]:
+                        - listitem [ref=e526]: Aligned on API contracts earlier to reduce downstream mismatches
+                        - listitem [ref=e527]: Used clearer ownership lines for faster debugging and decision-making
+                        - listitem [ref=e528]: Developed stronger habits for syncing assumptions across teammates
+            - region "What I'd Improve Today" [ref=e529]:
+              - heading "What I'd Improve Today" [level=2] [ref=e530] [cursor=pointer]:
+                - button "What I'd Improve Today" [expanded] [ref=e531]:
+                  - generic [ref=e532]: What I'd Improve Today
+                  - img [ref=e533]
+              - region "What I'd Improve Today" [ref=e536]:
+                - paragraph [ref=e537]: Revisiting the project with more architectural maturity, the primary improvements would focus on service decoupling, data reliability, and operational discipline.
+                - list [ref=e538]:
+                  - listitem [ref=e539]:
+                    - strong [ref=e540]: "Decoupled data services:"
+                    - text: separate market data ingestion, transformation, and delivery into independent service layers with clear contracts.
+                  - listitem [ref=e541]:
+                    - strong [ref=e542]: "API lifecycle management:"
+                    - text: replace deprecated providers with versioned integrations and abstraction layers to prevent vendor lock-in.
+                  - listitem [ref=e543]:
+                    - strong [ref=e544]: "Caching & rate control:"
+                    - text: introduce server-side caching and controlled refresh intervals to reduce external API strain and improve performance.
+                - paragraph [ref=e545]: From a team perspective, clearer ownership boundaries and formalized API contracts would improve coordination. Structured code reviews, shared documentation, and defined service interfaces would reduce ambiguity and make scaling contributors significantly easier.
+                - blockquote [ref=e546]: The core idea remains viable, but today the emphasis would be on modular services, resilience, and collaborative maintainability.
+            - region [ref=e549]:
+              - button "Button icon See the code" [ref=e551] [cursor=pointer]:
+                - button "Button icon See the code" [ref=e552]:
+                  - img "Button icon" [ref=e553]
+                  - generic [ref=e555]: See the code
+      - generic [ref=e556]:
+        - heading "Scion Matches" [level=2] [ref=e557] [cursor=pointer]:
+          - button "Scion Matches" [expanded] [ref=e558]:
+            - generic [ref=e560]:
+              - img [ref=e561]
+              - heading "Scion Matches" [level=2] [ref=e563]
+            - img [ref=e564]
+        - region "Scion Matches" [ref=e567]:
+          - generic [ref=e568]:
+            - region "The Problem" [ref=e569]:
+              - heading "The Problem" [level=2] [ref=e570] [cursor=pointer]:
+                - button "The Problem" [expanded] [ref=e571]:
+                  - generic [ref=e572]: The Problem
+                  - img [ref=e573]
+              - region "The Problem" [ref=e576]:
+                - paragraph [ref=e577]: Matching Intended Parents with Gestational Carriers is emotionally, financially, and logistically complex. Existing processes relied heavily on manual review, creating delays during an already stressful journey.
+                - blockquote [ref=e578]: This problem demanded more than technical correctness — it required trust and care.
+            - region "The Solution" [ref=e579]:
+              - heading "The Solution" [level=2] [ref=e580] [cursor=pointer]:
+                - button "The Solution" [expanded] [ref=e581]:
+                  - generic [ref=e582]: The Solution
+                  - img [ref=e583]
+              - region "The Solution" [ref=e586]:
+                - paragraph [ref=e587]:
+                  - text: Scion Matches was my capstone project and marked a shift toward building
+                  - strong [ref=e588]: impact-driven software
+                  - text: . I designed and implemented the core matching algorithm, translating survey responses into compatibility scores.
+                - paragraph [ref=e589]: The algorithm balanced multiple weighted factors, prioritizing transparency and explainability over opaque scoring.
+                - code [ref=e591]: score = valuesMatch * 0.4 + expectationsAlign * 0.35 + logisticsFit * 0.25;
+            - region "Compatibility Engine Architecture" [ref=e592]:
+              - heading "Compatibility Engine Architecture" [level=2] [ref=e593] [cursor=pointer]:
+                - button "Compatibility Engine Architecture" [expanded] [ref=e594]:
+                  - generic [ref=e596]: Compatibility Engine Architecture
+                  - img [ref=e597]
+              - region "Compatibility Engine Architecture" [ref=e600]:
+                - img "Compatibility Engine Architecture" [ref=e602]:
+                  - document [ref=e603]:
+                    - generic [ref=e605]:
+                      - generic [ref=e606]:
+                        - paragraph [ref=e611]: Output Domain
+                        - paragraph [ref=e616]: Scoring Engine
+                        - paragraph [ref=e621]: Input Domain
+                      - generic [ref=e625]:
+                        - paragraph [ref=e632]: Survey Response Data
+                        - paragraph [ref=e639]:
+                          - text: Normalization
+                          - text: Module
+                        - paragraph [ref=e646]:
+                          - text: Feature
+                          - text: Vector Model
+                        - paragraph [ref=e653]:
+                          - text: Weight
+                          - text: Matrix
+                        - paragraph [ref=e660]: Compatibility Aggregator
+                        - paragraph [ref=e667]:
+                          - text: Ranking
+                          - text: Resolver
+                        - paragraph [ref=e674]:
+                          - text: Transparency
+                          - text: Module
+                - button "Download diagram as PNG" [ref=e676] [cursor=pointer]:
+                  - img "Button icon" [ref=e677]
+                  - generic [ref=e679]: Download diagram
+                - paragraph [ref=e680]: The compatibility engine is framed as a staged scoring pipeline that transforms raw survey answers into ranked outcomes and explanatory output.
+                - list [ref=e681]:
+                  - listitem [ref=e682]:
+                    - strong [ref=e683]: Normalization makes inputs comparable.
+                    - text: Survey responses are standardized before scoring so heterogeneous answers can participate in the same downstream model.
+                  - listitem [ref=e684]:
+                    - strong [ref=e685]: Feature modeling and weighting remain explicit.
+                    - text: The engine surfaces its scoring stages instead of collapsing them into a black-box function, which makes the logic easier to tune and explain.
+                  - listitem [ref=e686]:
+                    - strong [ref=e687]: Output is both ranked and interpretable.
+                    - text: A ranking resolver determines final ordering while a transparency layer provides reasoning context for the result.
+            - region [ref=e690]:
+              - button "GitHub Repository" [ref=e692] [cursor=pointer]:
+                - button "GitHub Repository" [ref=e693]:
+                  - img "Button icon" [ref=e694]
+                  - generic [ref=e696]: See the code
+            - generic [ref=e697]:
+              - heading "Key Takeaways" [level=2] [ref=e698] [cursor=pointer]:
+                - button "Key Takeaways" [expanded] [ref=e699]:
+                  - heading "Key Takeaways" [level=2] [ref=e702]
+                  - img [ref=e703]
+              - region "Key Takeaways" [ref=e706]:
+                - list [ref=e708]:
+                  - listitem [ref=e709]:
+                    - generic [ref=e711]:
+                      - heading "Real-World Matching Algorithms" [level=3] [ref=e712]
+                      - paragraph [ref=e713]: Designing a compatibility engine that balances fairness, interpretability, and predictability
+                    - generic [ref=e715]:
+                      - paragraph [ref=e716]: Designing a compatibility engine required translating qualitative survey responses into structured, weighted scoring logic. The algorithm needed to balance fairness, interpretability, and predictability rather than optimize for raw mathematical output.
+                      - list [ref=e717]:
+                        - listitem [ref=e718]: Normalized survey inputs into comparable scoring dimensions
+                        - listitem [ref=e719]: Weighted attributes to reflect domain priorities
+                        - listitem [ref=e720]: Maintained transparency in how compatibility was calculated
+                  - listitem [ref=e721]:
+                    - generic [ref=e723]:
+                      - heading "Business Logic Ownership" [level=3] [ref=e724]
+                      - paragraph [ref=e725]: Defining and implementing the core matching algorithm
+                    - generic [ref=e727]:
+                      - paragraph [ref=e728]: The matching algorithm represented the core value of the system. I owned the business logic from requirement interpretation through implementation, defining how edge cases, ties, and ambiguous inputs were resolved.
+                      - paragraph [ref=e729]: This reinforced that central business logic must be explicit, testable, and resilient — especially when it directly affects user outcomes.
+                  - listitem [ref=e730]:
+                    - generic [ref=e732]:
+                      - heading "Purpose-Driven Engineering" [level=3] [ref=e733]
+                      - paragraph [ref=e734]: Designing with ethical awareness and long-term responsibility in mind
+                    - generic [ref=e736]:
+                      - paragraph [ref=e737]: Because matching outcomes had real human implications, design decisions required care and ethical awareness. Data handling, scoring transparency, and long-term maintainability were treated as architectural requirements rather than optional enhancements.
+                      - blockquote [ref=e738]: When algorithms influence people directly, clarity and responsibility matter as much as correctness.
+      - generic [ref=e739]:
+        - heading "Conclusion" [level=2] [ref=e740] [cursor=pointer]:
+          - button "Conclusion" [expanded] [ref=e741]:
+            - heading "Conclusion" [level=2] [ref=e744]
+            - img [ref=e745]
+        - region "Conclusion" [ref=e748]:
+          - region [ref=e750]:
+            - region [ref=e752]:
+              - paragraph [ref=e753]: The projects completed at SMU established the foundation of how I approach software design today. They introduced real constraints — external APIs, team coordination, shifting requirements — and required solutions that extended beyond isolated code exercises.
+              - paragraph [ref=e754]: Working across integration challenges and collaborative workflows reinforced that effective software demands more than functional correctness. It requires clarity in structure, disciplined communication, and thoughtful handling of dependencies.
+              - list [ref=e755]:
+                - listitem [ref=e756]:
+                  - strong [ref=e757]: "Integration awareness:"
+                  - text: designing around third-party APIs and service boundaries.
+                - listitem [ref=e758]:
+                  - strong [ref=e759]: "Collaborative development:"
+                  - text: coordinating responsibilities and shared logic within a team.
+                - listitem [ref=e760]:
+                  - strong [ref=e761]: "Ownership mindset:"
+                  - text: recognizing that deployed software carries ongoing responsibility.
+              - blockquote [ref=e762]: These projects shaped the transition from writing code to designing systems.
+    - complementary [ref=e763]:
+      - navigation "Section navigation" [ref=e764]:
+        - listbox [ref=e765]:
+          - listitem [ref=e766]:
+            - generic [ref=e767]:
+              - button "SMU Bootcamp" [ref=e768] [cursor=pointer]
+              - button "Toggle SMU Bootcamp subsections" [ref=e769] [cursor=pointer]:
+                - button "Button icon" [ref=e770]
+          - listitem [ref=e772]:
+            - generic [ref=e773]:
+              - button "Gif Freak" [ref=e774] [cursor=pointer]
+              - button "Toggle Gif Freak subsections" [ref=e775] [cursor=pointer]:
+                - button "Button icon" [ref=e776]
+          - listitem [ref=e778]:
+            - generic [ref=e779]:
+              - button "Stock Memer" [ref=e780] [cursor=pointer]
+              - button "Toggle Stock Memer subsections" [ref=e781] [cursor=pointer]:
+                - button "Button icon" [ref=e782]
+          - listitem [ref=e784]:
+            - generic [ref=e785]:
+              - button "Scion Matches" [ref=e786] [cursor=pointer]
+              - button "Toggle Scion Matches subsections" [ref=e787] [cursor=pointer]:
+                - button "Button icon" [ref=e788]
+          - listitem [ref=e790]:
+            - button "Conclusion" [ref=e792] [cursor=pointer]
+  - contentinfo [ref=e793]:
+    - generic [ref=e794]:
+      - generic [ref=e796]: © 2026 Kyle Foster
+      - button "Copy phone number to clipboard" [ref=e797] [cursor=pointer]: Contact me at (469) 410-5286
+      - generic [ref=e798]:
+        - button "👨🏻‍💻 GitHub" [ref=e799] [cursor=pointer]:
+          - button "👨🏻‍💻 GitHub" [ref=e800]:
+            - button "Button icon" [ref=e801]
+        - button "🏢 LinkedIn" [ref=e803] [cursor=pointer]:
+          - button "🏢 LinkedIn" [ref=e804]:
+            - button "Button icon" [ref=e805]
+        - button "📬 Email Me" [ref=e807] [cursor=pointer]:
+          - button "📬 Email Me" [ref=e808]:
+            - button "Button icon" [ref=e809]
+```

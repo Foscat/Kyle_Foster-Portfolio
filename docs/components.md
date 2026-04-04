@@ -1,6 +1,10 @@
 ## Modules
 
 <dl>
+<dt><a href="#module_components/features/AccessibilityMenu">components/features/AccessibilityMenu</a></dt>
+<dd><p>Accessibility preferences modal for toggling motion, contrast,
+text size, and keyboard guidance with persisted client-side settings.</p>
+</dd>
 <dt><a href="#module_components/ResumePreview/PreviewResume">components/ResumePreview/PreviewResume</a></dt>
 <dd><p>Modal-based resume preview and download component.</p>
 </dd>
@@ -412,6 +416,11 @@ icon system.</p>
 </ul>
 </dd>
 </dl>
+
+<a name="module_components/features/AccessibilityMenu"></a>
+
+## components/features/AccessibilityMenu
+Accessibility preferences modal for toggling motion, contrast,text size, and keyboard guidance with persisted client-side settings.
 
 <a name="module_components/ResumePreview/PreviewResume"></a>
 
@@ -1502,12 +1511,27 @@ Unit tests for the ClickableImg component.Test coverage:- Thumbnail image ren
 <a name="module_components/ClickableImg"></a>
 
 ## components/ClickableImg
-Clickable image component that expands into a frostedmodal viewer while preserving aspect ratio and accessibility.
+Clickable image component that expands into a frosted
+modal viewer while preserving aspect ratio and accessibility.
 
 <a name="module_components/ClickableImg..ClickableImg"></a>
 
 ### components/ClickableImg~ClickableImg ⇒ <code>JSX.Element</code>
-A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.Key behaviors:- Renders a responsive image thumbnail using RSuite's Image component- Clicking the thumbnail opens a modal viewer with a larger version of the image- The modal can be closed by clicking the image again or pressing the ESC key- Both thumbnail and modal images are lazy-loaded for performance- The modal and image wrapper feature frosted glass styling consistent with the UI design system- The modal scales responsively using max-width and max-height constraints to fit within the viewportAccessibility:- Requires alt text for screen readers- Applies aria-label to both thumbnail and modal image
+A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.
+
+Key behaviors:
+- Renders a responsive image thumbnail using RSuite's Image component
+- Clicking the thumbnail opens a modal viewer with a larger version of the image
+- The modal can be closed with the close button or pressing the ESC key
+- The expanded image supports zoom controls and drag-to-pan interaction
+- On mobile, title/caption details are hidden while zoomed to maximize viewing space
+- Both thumbnail and modal images are lazy-loaded for performance
+- The modal and image wrapper feature frosted glass styling consistent with the UI design system
+- On mobile portrait, wide images show a rotate/zoom guidance hint
+
+Accessibility:
+- Requires alt text for screen readers
+- Applies aria-label to both thumbnail and modal image
 
 **Kind**: inner property of [<code>components/ClickableImg</code>](#module_components/ClickableImg)  
 **Returns**: <code>JSX.Element</code> - Clickable image with modal viewer.  
@@ -1525,7 +1549,16 @@ A responsive image thumbnail that expands into a modal viewer when clicked. The 
 | [props.caption] | <code>string</code> | Optional caption rendered with the image. |
 
 **Example**  
-```js<ClickableImgsrc="/images/project-screenshot.png"alt="Screenshot of the project in action"title="Project Screenshot"caption="This screenshot shows the main dashboard of the application."ariaLabel="Screenshot of the project in action, click to expand"/>```In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
+```js
+<ClickableImg
+src="/images/project-screenshot.png"
+alt="Screenshot of the project in action"
+title="Project Screenshot"
+caption="This screenshot shows the main dashboard of the application."
+ariaLabel="Screenshot of the project in action, click to expand"
+/>
+```
+In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
 <a name="module_tests/components/FrostedIcon"></a>
 
 ## tests/components/FrostedIcon

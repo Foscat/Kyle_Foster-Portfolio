@@ -1,17 +1,17 @@
-import { Tooltip, Whisper } from "rsuite";
-import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
-import { Size, Variant } from "types/ui.types";
-import { useClipboard } from "assets/hooks";
-import { Btn } from "components/ui";
-import "./styles.css";
-
 /**
  * @file index.jsx
  * @description Compact application footer providing quiet page closure,
  * secondary social actions, and copyright information.
  * @module components/Footer
  */
+
+import { Tooltip, Whisper } from "rsuite";
+import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
+import { Size, Variant } from "types/ui.types";
+import { useClipboard, useCoarsePointer } from "assets/hooks";
+import { Btn } from "components/ui";
+import "./styles.css";
 
 /**
  * Footer
@@ -48,6 +48,7 @@ const Footer = () => {
    */
   const currentYear = new Date().getFullYear();
   const clipboard = useClipboard();
+  const isCoarsePointer = useCoarsePointer();
 
   return (
     <footer className="site-footer" role="contentinfo">
@@ -64,7 +65,8 @@ const Footer = () => {
           speaker={
             <Tooltip>{clipboard.copied ? "Phone number copied!" : "Copy phone number"}</Tooltip>
           }
-          trigger="hover"
+          trigger={isCoarsePointer ? "none" : "hover"}
+          enterable={false}
         >
           <button
             type="button"
@@ -74,7 +76,7 @@ const Footer = () => {
               clipboard.copy("4694105286");
             }}
           >
-            (469) 410-5286
+            Contact me at (469) 410-5286
           </button>
         </Whisper>
 

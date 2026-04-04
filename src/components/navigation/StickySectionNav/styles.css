@@ -3,10 +3,6 @@
    ------------------------------------------------------------------ */
 
 .section-nav-trigger {
-  position: fixed;
-  top: 12px;
-  right: 20px;
-  z-index: 1000;
   display: inline-flex;
   justify-content: center;
   align-items: center;

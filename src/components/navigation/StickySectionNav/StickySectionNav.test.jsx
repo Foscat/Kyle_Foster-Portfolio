@@ -316,4 +316,431 @@ describe("StickySectionNav", () => {
     docs.remove();
     docComponents.remove();
   });
+
+  it("moves to the next section block when Tab is pressed", async () => {
+    const s1Block = document.createElement("div");
+    s1Block.id = "section-1-block";
+    document.body.appendChild(s1Block);
+
+    const s2Block = document.createElement("div");
+    s2Block.id = "section-2-block";
+    document.body.appendChild(s2Block);
+
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "Tab" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-2-block");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    s1Block.remove();
+    s2Block.remove();
+  });
+
+  it("moves to the previous section block when Alt+Enter is pressed", async () => {
+    const s1Block = document.createElement("div");
+    s1Block.id = "section-1-block";
+    document.body.appendChild(s1Block);
+
+    const s2Block = document.createElement("div");
+    s2Block.id = "section-2-block";
+    document.body.appendChild(s2Block);
+
+    scrollSpyState.activeLeafId = "section-2-block";
+    scrollSpyState.activeChain = ["section-2", "section-2-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "Enter", altKey: true });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-block");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    s1Block.remove();
+    s2Block.remove();
+  });
+
+  it("uses active chain parent block when active leaf is an accordion child", async () => {
+    const s1Block = document.createElement("div");
+    s1Block.id = "section-1-block";
+    document.body.appendChild(s1Block);
+
+    const s1BlockTwo = document.createElement("div");
+    s1BlockTwo.id = "section-1-block-two";
+    document.body.appendChild(s1BlockTwo);
+
+    const s2Block = document.createElement("div");
+    s2Block.id = "section-2-block";
+    document.body.appendChild(s2Block);
+
+    const sectionsWithSiblingBlocks = [
+      {
+        id: "section-1",
+        title: "Introduction",
+        blocks: [
+          { id: "section-1-block", title: "Overview" },
+          { id: "section-1-block-two", title: "Details" },
+        ],
+      },
+      {
+        id: "section-2",
+        title: "Next",
+        blocks: [{ id: "section-2-block", title: "Next Overview" }],
+      },
+    ];
+
+    scrollSpyState.activeLeafId = "section-1-accordion-item-1";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithSiblingBlocks} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "Tab" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-block-two");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    s1Block.remove();
+    s1BlockTwo.remove();
+    s2Block.remove();
+  });
+
+  it("moves to next accordion item on ArrowDown when active block is bulleted list", async () => {
+    const section = document.createElement("div");
+    section.id = "section-1";
+    document.body.appendChild(section);
+
+    const block = document.createElement("div");
+    block.id = "section-1-block";
+    document.body.appendChild(block);
+
+    const itemOne = document.createElement("div");
+    itemOne.id = "section-1-item-1";
+    document.body.appendChild(itemOne);
+
+    const itemTwo = document.createElement("div");
+    itemTwo.id = "section-1-item-2";
+    document.body.appendChild(itemTwo);
+
+    const sectionsWithAccordionBlock = [
+      {
+        id: "section-1",
+        title: "Intro",
+        blocks: [
+          {
+            id: "section-1-block",
+            type: BlockType.BULLETED_LIST,
+            title: "Accordion",
+            items: [
+              { id: "section-1-item-1", title: "Item 1" },
+              { id: "section-1-item-2", title: "Item 2" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    scrollSpyState.activeLeafId = "section-1-item-1";
+    scrollSpyState.activeChain = ["section-1", "section-1-block", "section-1-item-1"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "ArrowDown" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-item-2");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    section.remove();
+    block.remove();
+    itemOne.remove();
+    itemTwo.remove();
+  });
+
+  it("moves to previous accordion item on ArrowUp when possible", async () => {
+    const section = document.createElement("div");
+    section.id = "section-1";
+    document.body.appendChild(section);
+
+    const block = document.createElement("div");
+    block.id = "section-1-block";
+    document.body.appendChild(block);
+
+    const itemOne = document.createElement("div");
+    itemOne.id = "section-1-item-1";
+    document.body.appendChild(itemOne);
+
+    const itemTwo = document.createElement("div");
+    itemTwo.id = "section-1-item-2";
+    document.body.appendChild(itemTwo);
+
+    const sectionsWithAccordionBlock = [
+      {
+        id: "section-1",
+        title: "Intro",
+        blocks: [
+          {
+            id: "section-1-block",
+            type: BlockType.BULLETED_LIST,
+            title: "Accordion",
+            items: [
+              { id: "section-1-item-1", title: "Item 1" },
+              { id: "section-1-item-2", title: "Item 2" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    scrollSpyState.activeLeafId = "section-1-item-2";
+    scrollSpyState.activeChain = ["section-1", "section-1-block", "section-1-item-2"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "ArrowUp" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-item-1");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    section.remove();
+    block.remove();
+    itemOne.remove();
+    itemTwo.remove();
+  });
+
+  it("keeps middle-item progression when active leaf resolves to accordion block", async () => {
+    const section = document.createElement("div");
+    section.id = "section-1";
+    document.body.appendChild(section);
+
+    const block = document.createElement("div");
+    block.id = "section-1-block";
+    document.body.appendChild(block);
+
+    const itemOne = document.createElement("div");
+    itemOne.id = "section-1-item-1";
+    document.body.appendChild(itemOne);
+
+    const itemTwo = document.createElement("div");
+    itemTwo.id = "section-1-item-2";
+    document.body.appendChild(itemTwo);
+
+    const itemThree = document.createElement("div");
+    itemThree.id = "section-1-item-3";
+    document.body.appendChild(itemThree);
+
+    const sectionsWithAccordionBlock = [
+      {
+        id: "section-1",
+        title: "Intro",
+        blocks: [
+          {
+            id: "section-1-block",
+            type: BlockType.BULLETED_LIST,
+            title: "Accordion",
+            items: [
+              { id: "section-1-item-1", title: "Item 1" },
+              { id: "section-1-item-2", title: "Item 2" },
+              { id: "section-1-item-3", title: "Item 3" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block", "section-1-item-2"];
+    window.history.pushState(null, "", "/page#section-1-item-2");
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "ArrowDown" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-item-3");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    section.remove();
+    block.remove();
+    itemOne.remove();
+    itemTwo.remove();
+    itemThree.remove();
+  });
+
+  it("starts at first accordion item when entering block even if hash points to last item", async () => {
+    const section = document.createElement("div");
+    section.id = "section-1";
+    document.body.appendChild(section);
+
+    const block = document.createElement("div");
+    block.id = "section-1-block";
+    document.body.appendChild(block);
+
+    const itemOne = document.createElement("div");
+    itemOne.id = "section-1-item-1";
+    document.body.appendChild(itemOne);
+
+    const itemTwo = document.createElement("div");
+    itemTwo.id = "section-1-item-2";
+    document.body.appendChild(itemTwo);
+
+    const itemThree = document.createElement("div");
+    itemThree.id = "section-1-item-3";
+    document.body.appendChild(itemThree);
+
+    const sectionsWithAccordionBlock = [
+      {
+        id: "section-1",
+        title: "Intro",
+        blocks: [
+          {
+            id: "section-1-block",
+            type: BlockType.BULLETED_LIST,
+            title: "Accordion",
+            items: [
+              { id: "section-1-item-1", title: "Item 1" },
+              { id: "section-1-item-2", title: "Item 2" },
+              { id: "section-1-item-3", title: "Item 3" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    window.history.pushState(null, "", "/page#section-1-item-3");
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "ArrowDown" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-item-1");
+      expect(markProgrammaticScroll).toHaveBeenCalled();
+    });
+
+    section.remove();
+    block.remove();
+    itemOne.remove();
+    itemTwo.remove();
+    itemThree.remove();
+  });
+
+  it("prevents default ArrowDown scrolling when accordion block is active", async () => {
+    const section = document.createElement("div");
+    section.id = "section-1";
+    document.body.appendChild(section);
+
+    const block = document.createElement("div");
+    block.id = "section-1-block";
+    document.body.appendChild(block);
+
+    const itemOne = document.createElement("div");
+    itemOne.id = "section-1-item-1";
+    document.body.appendChild(itemOne);
+
+    const sectionsWithAccordionBlock = [
+      {
+        id: "section-1",
+        title: "Intro",
+        blocks: [
+          {
+            id: "section-1-block",
+            type: BlockType.BULLETED_LIST,
+            title: "Accordion",
+            items: [{ id: "section-1-item-1", title: "Item 1" }],
+          },
+        ],
+      },
+    ];
+
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
+
+    const event = new KeyboardEvent("keydown", {
+      key: "ArrowDown",
+      bubbles: true,
+      cancelable: true,
+    });
+
+    const prevented = !window.dispatchEvent(event);
+    expect(prevented).toBe(true);
+
+    section.remove();
+    block.remove();
+    itemOne.remove();
+  });
+
+  it("advances from currently open accordion row one item per ArrowDown", async () => {
+    const section = document.createElement("div");
+    section.id = "section-1";
+    document.body.appendChild(section);
+
+    const block = document.createElement("div");
+    block.id = "section-1-block";
+    block.className = "accordion-root";
+    document.body.appendChild(block);
+
+    const openRow = document.createElement("div");
+    openRow.id = "section-1-item-1";
+    openRow.className = "fa-list-item open";
+    block.appendChild(openRow);
+
+    const itemOne = document.createElement("div");
+    itemOne.id = "section-1-item-1";
+    document.body.appendChild(itemOne);
+
+    const itemTwo = document.createElement("div");
+    itemTwo.id = "section-1-item-2";
+    document.body.appendChild(itemTwo);
+
+    const sectionsWithAccordionBlock = [
+      {
+        id: "section-1",
+        title: "Intro",
+        blocks: [
+          {
+            id: "section-1-block",
+            type: BlockType.BULLETED_LIST,
+            title: "Accordion",
+            items: [
+              { id: "section-1-item-1", title: "Item 1" },
+              { id: "section-1-item-2", title: "Item 2" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
+
+    fireEvent.keyDown(window, { key: "ArrowDown" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-1-item-2");
+    });
+
+    section.remove();
+    block.remove();
+    itemOne.remove();
+    itemTwo.remove();
+  });
 });

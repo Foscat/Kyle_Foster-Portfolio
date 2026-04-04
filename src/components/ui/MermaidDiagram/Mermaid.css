@@ -30,9 +30,11 @@
 /* Ensure SVG scales correctly */
 .mermaid svg {
   width: 100%;
-  min-width: 300px;
+  max-width: 100%;
+  min-width: 0;
   height: auto;
-  min-height: 600px;
+  min-height: 0;
+  display: block;
   overflow: visible;
 }
 
@@ -43,21 +45,29 @@
   border-radius: var(--border-radius);
 }
 
-/* Avoid transforms on the SVG when svg-pan-zoom is active */
-.mermaid-container:hover {
-  transform: none;
-  transition: none;
-  box-shadow: var(--glass-shadow);
+/* Avoid transforms on the SVG when svg-pan-zoom is active. */
+@media (hover: hover) and (pointer: fine) {
+  .mermaid-container:hover {
+    transform: none;
+    transition: none;
+    box-shadow: var(--glass-shadow);
+  }
 }
 
 .mermaid-svg-host {
+  width: 100%;
   max-width: 100%;
-  max-height: 75dvh;
+  min-width: 0;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .mermaid-svg-host svg {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
   opacity: 1;
   transform: scale(1);
   transition:
@@ -664,4 +674,20 @@
 
 .mermaid [aria-hidden="true"] {
   pointer-events: none;
+}
+
+/* Mobile compositing guardrails to reduce shadow flicker during scroll/repaint. */
+@media (hover: none) and (pointer: coarse) {
+  .mermaid-container {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .mermaid,
+  .mermaid-svg-host {
+    isolation: isolate;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }

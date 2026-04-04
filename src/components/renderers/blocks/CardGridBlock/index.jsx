@@ -54,14 +54,14 @@ import { InfoSection } from "components/layout";
  */
 function CardGridBlock(props) {
   const block = props.block ?? props;
-  const { title = "", columns = 3, items = [] } = block;
+  const { id = "", title = "", columns = 3, items = [] } = block;
 
   if (!Array.isArray(items) || items.length === 0) {
     return null;
   }
 
   return (
-    <InfoSection title={title} className="card-grid-block blue-tile">
+    <InfoSection id={id} title={title} className="card-grid-block blue-tile scroll-anchor">
       <CardGrid columns={columns}>
         {items.map((item) => (
           <InsightCard

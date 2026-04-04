@@ -17,7 +17,7 @@
  * @module tests/components/AccordionList
  */
 
-import { screen, fireEvent } from "@testing-library/react";
+import { act, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import AccordionList from "./index";
@@ -152,5 +152,38 @@ describe("AccordionList", () => {
 
     const liveRegion = screen.getByText(/section 1 of 2/i);
     expect(liveRegion).toBeInTheDocument();
+  });
+
+  it("opens targeted accordion item from section-nav event", async () => {
+    renderAccordion({ id: "accordion-block" });
+
+    act(() => {
+      window.dispatchEvent(
+        new CustomEvent("section-nav:navigate", {
+          detail: { id: "section-2" },
+        })
+      );
+    });
+
+    expect(await screen.findByText(/Expanded section 2 of 2/i)).toBeInTheDocument();
+  });
+
+  it("opens first accordion item when section-nav targets the accordion block", async () => {
+    renderAccordion({ id: "accordion-block" });
+
+    // Move away from first item.
+    const secondHeader = screen.getByRole("button", { name: /Section Two/i });
+    secondHeader.focus();
+    await userEvent.keyboard(" ");
+
+    act(() => {
+      window.dispatchEvent(
+        new CustomEvent("section-nav:navigate", {
+          detail: { id: "accordion-block" },
+        })
+      );
+    });
+
+    expect(await screen.findByText(/Expanded section 1 of 2/i)).toBeInTheDocument();
   });
 });

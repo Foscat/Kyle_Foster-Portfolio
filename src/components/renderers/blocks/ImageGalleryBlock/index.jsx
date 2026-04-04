@@ -49,16 +49,11 @@ const ImageGalleryBlock = (block = {}) => {
 
   return (
     <Panel
+      id={id}
       collapsible
       defaultExpanded
       className="blue-tile block scroll-anchor"
-      header={
-        title ? (
-          <span id={id} className="block-header">
-            {title}
-          </span>
-        ) : undefined
-      }
+      header={title ? <span className="block-header">{title}</span> : undefined}
     >
       <FlexboxGrid justify="space-around" align="top">
         {items.map((img, i) => {

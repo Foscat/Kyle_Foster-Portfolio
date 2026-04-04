@@ -11,6 +11,8 @@ import { useTheme } from "assets/context/ThemeContext.jsx";
 
 let mermaidInstancePromise;
 let mermaidInitialized = false;
+const EXPORT_PADDING_PX = 24;
+const EXPORT_PIXEL_RATIO = 2;
 
 function getMermaidInstance() {
   if (!mermaidInstancePromise) {
@@ -18,6 +20,90 @@ function getMermaidInstance() {
   }
 
   return mermaidInstancePromise;
+}
+
+function parseNumericDimension(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value !== "string") return null;
+
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function getSvgIntrinsicSize(svg) {
+  if (!svg) {
+    return { width: 0, height: 0 };
+  }
+
+  const viewBox = svg.viewBox?.baseVal;
+  if (viewBox && viewBox.width > 0 && viewBox.height > 0) {
+    return { width: viewBox.width, height: viewBox.height };
+  }
+
+  const widthAttr = parseNumericDimension(svg.getAttribute("width"));
+  const heightAttr = parseNumericDimension(svg.getAttribute("height"));
+  if (widthAttr && heightAttr) {
+    return { width: widthAttr, height: heightAttr };
+  }
+
+  const bounds = svg.getBoundingClientRect();
+  return {
+    width: bounds.width || 0,
+    height: bounds.height || 0,
+  };
+}
+
+function normalizeRenderedSvg(host) {
+  if (!host) return;
+
+  const svg = host.querySelector("svg");
+  if (!svg) return;
+
+  svg.removeAttribute("height");
+  svg.style.width = "100%";
+  svg.style.maxWidth = "100%";
+  svg.style.height = "auto";
+  svg.style.maxHeight = "none";
+  svg.style.display = "block";
+  svg.style.overflow = "visible";
+}
+
+function buildExportNode(svg, theme) {
+  const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
+  const exportWidth = Math.max(1, Math.ceil(intrinsicWidth + EXPORT_PADDING_PX * 2));
+  const exportHeight = Math.max(1, Math.ceil(intrinsicHeight + EXPORT_PADDING_PX * 2));
+  const exportBackground = theme === Theme.LIGHT ? "#f4f6fb" : "#0f0f12";
+  const exportSvg = svg.cloneNode(true);
+  const viewBox = svg.getAttribute("viewBox");
+  const svgWidth = Math.max(1, Math.ceil(intrinsicWidth));
+  const svgHeight = Math.max(1, Math.ceil(intrinsicHeight));
+
+  exportSvg.setAttribute("width", String(svgWidth));
+  exportSvg.setAttribute("height", String(svgHeight));
+  if (!viewBox) {
+    exportSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+  }
+  exportSvg.style.width = `${svgWidth}px`;
+  exportSvg.style.height = `${svgHeight}px`;
+  exportSvg.style.maxWidth = "none";
+  exportSvg.style.maxHeight = "none";
+  exportSvg.style.display = "block";
+  exportSvg.style.overflow = "visible";
+
+  const exportNode = document.createElement("div");
+  exportNode.style.position = "fixed";
+  exportNode.style.left = "-10000px";
+  exportNode.style.top = "0";
+  exportNode.style.width = `${exportWidth}px`;
+  exportNode.style.height = `${exportHeight}px`;
+  exportNode.style.padding = `${EXPORT_PADDING_PX}px`;
+  exportNode.style.margin = "0";
+  exportNode.style.boxSizing = "border-box";
+  exportNode.style.backgroundColor = exportBackground;
+  exportNode.style.overflow = "visible";
+  exportNode.appendChild(exportSvg);
+
+  return { exportNode, exportWidth, exportHeight, exportBackground };
 }
 
 /**
@@ -183,6 +269,7 @@ function MermaidDiagram(props) {
 
         if (!existingSvg) {
           host.innerHTML = svg;
+          normalizeRenderedSvg(host);
           return;
         }
 
@@ -191,6 +278,7 @@ function MermaidDiagram(props) {
         window.setTimeout(() => {
           if (cancelled) return;
           host.innerHTML = svg;
+          normalizeRenderedSvg(host);
           requestAnimationFrame(() => host.classList.remove("fade-out"));
         }, 180);
       } catch (error) {
@@ -225,11 +313,26 @@ function MermaidDiagram(props) {
 
     const svg = hostRef.current.querySelector("svg");
     if (!svg) return;
+    let exportNode = null;
 
     try {
-      const dataUrl = await toPng(svg, {
+      await document.fonts?.ready;
+
+      const {
+        exportNode: nextExportNode,
+        exportWidth,
+        exportHeight,
+        exportBackground,
+      } = buildExportNode(svg, resolvedTheme);
+      exportNode = nextExportNode;
+      document.body.appendChild(exportNode);
+
+      const dataUrl = await toPng(exportNode, {
         cacheBust: true,
-        backgroundColor: "#0f0f12",
+        pixelRatio: EXPORT_PIXEL_RATIO,
+        width: exportWidth,
+        height: exportHeight,
+        backgroundColor: exportBackground,
       });
 
       const link = document.createElement("a");
@@ -238,6 +341,8 @@ function MermaidDiagram(props) {
       link.click();
     } catch (error) {
       console.error("Diagram export failed:", error);
+    } finally {
+      exportNode?.remove();
     }
   }
 

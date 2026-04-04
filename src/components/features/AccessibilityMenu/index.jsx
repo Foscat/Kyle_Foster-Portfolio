@@ -1,3 +1,10 @@
+/**
+ * @file index.jsx
+ * @fileoverview Accessibility preferences modal for toggling motion, contrast,
+ * text size, and keyboard guidance with persisted client-side settings.
+ * @module components/features/AccessibilityMenu
+ */
+
 import { useCallback, useEffect, useState } from "react";
 import { Modal } from "rsuite";
 import { faArrowsRotate, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
@@ -169,6 +176,19 @@ export default function AccessibilityMenu({ size = Size.SM, enableHotkey = false
     return () => window.removeEventListener("keydown", handleHotkey);
   }, [announce, enableHotkey, openMenu]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleEscapeClose = (event) => {
+      if (event.defaultPrevented || event.key !== "Escape") return;
+      if (!open || isApplying) return;
+      setOpen(false);
+    };
+
+    window.addEventListener("keydown", handleEscapeClose);
+    return () => window.removeEventListener("keydown", handleEscapeClose);
+  }, [isApplying, open]);
+
   const resolveSetting = useCallback((override, systemValue) => override ?? systemValue, []);
 
   const toggleReducedMotion = useCallback(
@@ -283,6 +303,7 @@ export default function AccessibilityMenu({ size = Size.SM, enableHotkey = false
         size={size}
         variant={Variant.PRIMARY}
         noBG
+        className="a11y-menu-trigger"
         ariaLabel="Open accessibility settings"
         tooltip={`Accessibility settings (${HOTKEY_LABEL})`}
         onClick={openMenu}
@@ -298,6 +319,39 @@ export default function AccessibilityMenu({ size = Size.SM, enableHotkey = false
             Adjust readability, motion, and contrast settings. Preferences are saved on this device.
           </p>
           <p className="a11y-modal__hotkey">Keyboard shortcut: {HOTKEY_LABEL}</p>
+          <section className="a11y-keyboard" aria-label="Keyboard navigation help">
+            <h4 className="a11y-row__title">Keyboard Navigation</h4>
+            <ul className="a11y-keyboard__list">
+              <li>
+                <kbd>Tab</kbd>: move to the next available display block. If you reach the end of a
+                section, focus moves to the first block of the next section.
+              </li>
+              <li>
+                <kbd>Shift+Tab</kbd>: move to the previous available display block. If you are at
+                the start of a section, focus moves to the first block of the previous section.
+              </li>
+              <li>
+                <kbd>Enter</kbd>/<kbd>Alt+Enter</kbd>: close current section and move to the next or
+                previous section's first block.
+              </li>
+              <li>
+                <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd>: move to next/previous block and collapse
+                the previous section.
+              </li>
+              <li>
+                <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd>: normal page scroll behavior. When the
+                active block is an accordion list, moves one accordion item at a time (opens
+                next/previous, closes the last open item).
+              </li>
+              <li>
+                <kbd>Ctrl</kbd>: open site navigation.
+              </li>
+              <li>
+                <kbd>Esc</kbd>: close any open drawer or modal. <kbd>{HOTKEY_LABEL}</kbd>: open
+                accessibility settings. Section navigation on mobile uses its on-screen button.
+              </li>
+            </ul>
+          </section>
 
           <div className="a11y-rows">
             <PreferenceRow

@@ -1,12 +1,3 @@
-import { useState } from "react";
-import { Button, IconButton, Tooltip, Whisper } from "rsuite";
-import "./styles.css";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import FrostedIcon from "components/ui/FrostedIcon";
-import { Variant, Size, TooltipPlacement, HoverAnimation } from "types/ui.types";
-import { formatClassNames } from "assets/utils";
-
 /**
  * @file index.jsx
  * @fileoverview Unified frosted-glass button component implementing the
@@ -14,6 +5,16 @@ import { formatClassNames } from "assets/utils";
  * and controlled prop passthrough to RSuite and FontAwesome.
  * @module components/Btn
  */
+
+import { useState } from "react";
+import { Button, IconButton, Tooltip, Whisper } from "rsuite";
+import "./styles.css";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import FrostedIcon from "components/ui/FrostedIcon";
+import { Variant, Size, TooltipPlacement, HoverAnimation } from "types/ui.types";
+import { useCoarsePointer } from "assets/hooks";
+import { formatClassNames } from "assets/utils";
 
 /**
  * @typedef {Object} RSuiteButtonProps
@@ -229,6 +230,7 @@ const Btn = ({
    * This allows async visual feedback without forcing external state.
    */
   const [asyncLoading, setAsyncLoading] = useState(loading);
+  const isCoarsePointer = useCoarsePointer();
 
   /** True when the button renders only an icon with no text label */
   const isIconOnly = icon && !text;
@@ -241,6 +243,8 @@ const Btn = ({
     ariaLabel ||
     (typeof tooltip === "string" ? tooltip : undefined) ||
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
+  const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
+  const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
@@ -265,6 +269,12 @@ const Btn = ({
       } finally {
         setAsyncLoading(false);
       }
+    }
+
+    if (isCoarsePointer && e?.currentTarget instanceof HTMLElement) {
+      window.requestAnimationFrame(() => {
+        e.currentTarget.blur();
+      });
     }
   };
 
@@ -331,16 +341,17 @@ const Btn = ({
         />
       }
     >
-      {text}
+      {text ? <span className="btn-label">{text}</span> : null}
     </Component>
   );
 
   return (
     <Whisper
       delay={250}
-      trigger={tooltip.length ? "hover" : "none"}
+      trigger={tooltipTrigger}
       followCursor={tooltipFollowCursor}
       placement={tooltipPlacement}
+      enterable={false}
       speaker={
         <Tooltip className="btn-tooltip">
           <p>{disabled ? "Button is disabled" : tooltip}</p>
