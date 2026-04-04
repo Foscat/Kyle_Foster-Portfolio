@@ -200,7 +200,6 @@ export default function MarkdownRenderer({
           {intro ? <p className="markdown-renderer__intro">{intro}</p> : null}
         </header>
       )}
-
       <div
         className={`markdown-renderer__layout ${
           showToc && headings.length ? "markdown-renderer__layout--toc" : ""
@@ -217,6 +216,7 @@ export default function MarkdownRenderer({
                     className={`markdown-renderer__toc-item markdown-renderer__toc-item--h${heading.level}`}
                   >
                     <a
+                      key={heading.id}
                       href={`#${heading.id}`}
                       className="markdown-renderer__toc-link interactive-surface"
                     >

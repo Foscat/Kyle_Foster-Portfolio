@@ -14,9 +14,9 @@ const TECH_LABELS = {
   TOOL: "tool",
 };
 const TECH_COLORS = {
-  [TECH_LABELS.FRONTEND]: "rgb(87,94,180)", // var(--primary-lighter)
-  [TECH_LABELS.BACKEND]: "rgb(248, 113, 113)", // var(--accent)
-  [TECH_LABELS.TOOL]: "rgb(20,120,50)", // var(--success-dark)
+  [TECH_LABELS.FRONTEND]: "rgba(var(--primary-lighter-rgb), 0.95)",
+  [TECH_LABELS.BACKEND]: "rgba(var(--accent-rgb), 0.95)",
+  [TECH_LABELS.TOOL]: "rgba(var(--success-dark-rgb), 0.95)",
 };
 
 /**

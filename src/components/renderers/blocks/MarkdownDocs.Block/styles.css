@@ -11,13 +11,13 @@
 .markdown-docs-block__title {
   margin: 0;
   font-size: clamp(1.45rem, 1.2rem + 0.7vw, 2rem);
-  color: var(--text-primary, #f8faff);
+  color: var(--text-primary);
 }
 
 .markdown-docs-block__intro {
   margin: 0;
   max-width: 64rem;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 
@@ -52,7 +52,6 @@
 .markdown-docs-block__jump-link:focus-visible {
   color: var(--text-primary);
   background-color: var(--primary-dark-bg);
-
   border: var(--glass-border);
   box-shadow: var(--glass-shadow);
 }

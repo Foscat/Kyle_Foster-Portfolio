@@ -1,4 +1,13 @@
-import { FLOWCHART_INIT, MOBILE_FLOWCHART_INIT } from "./architecture.config.js";
+import {
+  FLOWCHART_INIT,
+  FLOWCHART_INIT_ALT,
+  MOBILE_FLOWCHART_INIT,
+  MOBILE_FLOWCHART_INIT_ALT,
+} from "./architecture.config.js";
+
+function replaceThemeValue(init, key, value) {
+  return init.replace(new RegExp(`"${key}":"[^"]*"`, "g"), `"${key}":"${value}"`);
+}
 
 /**
  * Generates a Mermaid init block based on responsive and accessibility context.
@@ -20,25 +29,33 @@ export function getResponsiveFlowchartInit({
   reducedMotion,
   reducedTransparency,
   highContrast,
+  palette = "default",
 }) {
   const isMobile = breakpoint === "mobile";
+  const useAltPalette = palette === "alt";
 
-  let init = isMobile ? MOBILE_FLOWCHART_INIT : FLOWCHART_INIT;
+  let init = isMobile
+    ? useAltPalette
+      ? MOBILE_FLOWCHART_INIT_ALT
+      : MOBILE_FLOWCHART_INIT
+    : useAltPalette
+      ? FLOWCHART_INIT_ALT
+      : FLOWCHART_INIT;
 
   // High contrast
   if (highContrast) {
-    init = init.replace(`"primaryBorderWidth":"2px"`, `"primaryBorderWidth":"3px"`);
-    init = init.replace(`"clusterBorderWidth":"2px"`, `"clusterBorderWidth":"3px"`);
-    init = init.replace(`"primaryColor":"#C9A227"`, `"primaryColor":"#FFFF00"`);
-    init = init.replace(`"primaryTextColor":"#0F0F12"`, `"primaryTextColor":"#FFFFFF"`);
-    init = init.replace(`"clusterBkg":"#1C1C1E"`, `"clusterBkg":"#000000"`);
-    init = init.replace(`"textColor":"#F5F7FF"`, `"textColor":"#FFFFFF"`);
-    init = init.replace(`"lineColor":"#E6C767"`, `"lineColor":"#C9A227"`);
+    init = replaceThemeValue(init, "primaryBorderWidth", "3px");
+    init = replaceThemeValue(init, "clusterBorderWidth", "3px");
+    init = replaceThemeValue(init, "primaryColor", "#FFFF00");
+    init = replaceThemeValue(init, "primaryTextColor", "#FFFFFF");
+    init = replaceThemeValue(init, "clusterBkg", "#000000");
+    init = replaceThemeValue(init, "textColor", "#FFFFFF");
+    init = replaceThemeValue(init, "lineColor", "#FFFF00");
   }
 
   // Reduced transparency
   if (reducedTransparency) {
-    init = init.replace(`"clusterBkg":"#1C1C1E"`, `"clusterBkg":"#000000"`);
+    init = replaceThemeValue(init, "clusterBkg", "#000000");
   }
 
   // Reduced motion

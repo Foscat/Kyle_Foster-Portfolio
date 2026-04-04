@@ -1277,6 +1277,7 @@ Fully accessible, keyboard-navigable accordion and sectionnavigation component 
         * [~scrollTo()](#module_components/AccordionList..AccordionList..scrollTo)
         * [~togglePanel()](#module_components/AccordionList..AccordionList..togglePanel)
         * [~moveFocus()](#module_components/AccordionList..AccordionList..moveFocus)
+        * [~moveAndOpen()](#module_components/AccordionList..AccordionList..moveAndOpen)
         * [~handleKeyDown()](#module_components/AccordionList..AccordionList..handleKeyDown)
     * [~AccordionItem](#module_components/AccordionList..AccordionItem) : <code>Object</code>
 
@@ -1307,6 +1308,7 @@ Fully accessible, keyboard-navigable accordion and sectionnavigation component 
     * [~scrollTo()](#module_components/AccordionList..AccordionList..scrollTo)
     * [~togglePanel()](#module_components/AccordionList..AccordionList..togglePanel)
     * [~moveFocus()](#module_components/AccordionList..AccordionList..moveFocus)
+    * [~moveAndOpen()](#module_components/AccordionList..AccordionList..moveAndOpen)
     * [~handleKeyDown()](#module_components/AccordionList..AccordionList..handleKeyDown)
 
 <a name="module_components/AccordionList..AccordionList..focusHeader"></a>
@@ -1331,6 +1333,12 @@ Toggle accordion panel open/closed
 
 #### AccordionList~moveFocus()
 Move keyboard focus up/down
+
+**Kind**: inner method of [<code>AccordionList</code>](#module_components/AccordionList..AccordionList)  
+<a name="module_components/AccordionList..AccordionList..moveAndOpen"></a>
+
+#### AccordionList~moveAndOpen()
+Move to adjacent accordion item and open exactly that item.This keeps arrow navigation deterministic and prevents skippingmiddle items during rapid key repeat.
 
 **Kind**: inner method of [<code>AccordionList</code>](#module_components/AccordionList..AccordionList)  
 <a name="module_components/AccordionList..AccordionList..handleKeyDown"></a>
@@ -1511,27 +1519,12 @@ Unit tests for the ClickableImg component.Test coverage:- Thumbnail image ren
 <a name="module_components/ClickableImg"></a>
 
 ## components/ClickableImg
-Clickable image component that expands into a frosted
-modal viewer while preserving aspect ratio and accessibility.
+Clickable image component that expands into a frostedmodal viewer while preserving aspect ratio and accessibility.
 
 <a name="module_components/ClickableImg..ClickableImg"></a>
 
 ### components/ClickableImg~ClickableImg ⇒ <code>JSX.Element</code>
-A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.
-
-Key behaviors:
-- Renders a responsive image thumbnail using RSuite's Image component
-- Clicking the thumbnail opens a modal viewer with a larger version of the image
-- The modal can be closed with the close button or pressing the ESC key
-- The expanded image supports zoom controls and drag-to-pan interaction
-- On mobile, title/caption details are hidden while zoomed to maximize viewing space
-- Both thumbnail and modal images are lazy-loaded for performance
-- The modal and image wrapper feature frosted glass styling consistent with the UI design system
-- On mobile portrait, wide images show a rotate/zoom guidance hint
-
-Accessibility:
-- Requires alt text for screen readers
-- Applies aria-label to both thumbnail and modal image
+A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.Key behaviors:- Renders a responsive image thumbnail using RSuite's Image component- Clicking the thumbnail opens a modal viewer with a larger version of the image- The modal can be closed with the close button or pressing the ESC key- The expanded image supports zoom controls and drag-to-pan interaction- On mobile, title/caption details are hidden while zoomed to maximize viewing space- Both thumbnail and modal images are lazy-loaded for performance- The modal and image wrapper feature frosted glass styling consistent with the UI design system- On mobile portrait, wide images show a rotate/zoom guidance hintAccessibility:- Requires alt text for screen readers- Applies aria-label to both thumbnail and modal image
 
 **Kind**: inner property of [<code>components/ClickableImg</code>](#module_components/ClickableImg)  
 **Returns**: <code>JSX.Element</code> - Clickable image with modal viewer.  
@@ -1549,16 +1542,7 @@ Accessibility:
 | [props.caption] | <code>string</code> | Optional caption rendered with the image. |
 
 **Example**  
-```js
-<ClickableImg
-src="/images/project-screenshot.png"
-alt="Screenshot of the project in action"
-title="Project Screenshot"
-caption="This screenshot shows the main dashboard of the application."
-ariaLabel="Screenshot of the project in action, click to expand"
-/>
-```
-In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
+```js<ClickableImgsrc="/images/project-screenshot.png"alt="Screenshot of the project in action"title="Project Screenshot"caption="This screenshot shows the main dashboard of the application."ariaLabel="Screenshot of the project in action, click to expand"/>```In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
 <a name="module_tests/components/FrostedIcon"></a>
 
 ## tests/components/FrostedIcon

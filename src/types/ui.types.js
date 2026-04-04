@@ -63,6 +63,16 @@ export const Theme = Object.freeze({
   AUTO: "auto",
 });
 
+/**
+ * Palette variants
+ * @readonly
+ * @enum {string}
+ */
+export const Palette = Object.freeze({
+  PRIMARY: "primary",
+  ALT: "alt",
+});
+
 // Backward-compatible re-export for legacy imports that still resolve
 // route constants from ui.types.
 export { PageRoute };

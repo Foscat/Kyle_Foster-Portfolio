@@ -6,7 +6,7 @@
  */
 
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { ButtonGroup, ButtonToolbar } from "rsuite";
+import { ButtonGroup } from "rsuite";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Theme, Variant } from "types/ui.types";
 import Btn from "components/ui/Btn";
@@ -49,37 +49,39 @@ const ThemeToggle = ({ size = Size.MD }) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <ButtonGroup className="theme-toggle" aria-label="Theme selector">
-      {/* Light theme selector */}
-      <Btn
-        ariaLabel="Light theme"
-        tooltip={theme === Theme.LIGHT ? "Light theme active" : "Switch to light theme"}
-        icon={faSun}
-        size={size}
-        className="theme-toggle__btn theme-toggle__btn--light"
-        noBG
-        variant={theme === Theme.LIGHT ? Variant.SUBTLE : Variant.SECONDARY}
-        onClick={() => {
-          if (theme === Theme.LIGHT) return;
-          else setTheme(Theme.LIGHT);
-        }}
-      />
+    <div className="theme-toggle-wrap" aria-label="Theme selector">
+      <ButtonGroup className="theme-toggle" aria-label="Theme selector">
+        {/* Light theme selector */}
+        <Btn
+          ariaLabel="Light theme"
+          tooltip={theme === Theme.LIGHT ? "Light theme active" : "Switch to light theme"}
+          icon={faSun}
+          size={size}
+          className="theme-toggle__btn theme-toggle__btn--light"
+          noBG
+          variant={theme === Theme.LIGHT ? Variant.SUBTLE : Variant.SECONDARY}
+          onClick={() => {
+            if (theme === Theme.LIGHT) return;
+            else setTheme(Theme.LIGHT);
+          }}
+        />
 
-      {/* Dark theme selector */}
-      <Btn
-        ariaLabel="Dark theme"
-        tooltip={theme === Theme.DARK ? "Dark theme active" : "Switch to dark theme"}
-        icon={faMoon}
-        size={size}
-        className="theme-toggle__btn theme-toggle__btn--dark"
-        noBG
-        variant={theme === Theme.DARK ? Variant.ACCENT : Variant.PRIMARY}
-        onClick={() => {
-          if (theme === Theme.DARK) return;
-          else setTheme(Theme.DARK);
-        }}
-      />
-    </ButtonGroup>
+        {/* Dark theme selector */}
+        <Btn
+          ariaLabel="Dark theme"
+          tooltip={theme === Theme.DARK ? "Dark theme active" : "Switch to dark theme"}
+          icon={faMoon}
+          size={size}
+          className="theme-toggle__btn theme-toggle__btn--dark"
+          noBG
+          variant={theme === Theme.DARK ? Variant.ACCENT : Variant.PRIMARY}
+          onClick={() => {
+            if (theme === Theme.DARK) return;
+            else setTheme(Theme.DARK);
+          }}
+        />
+      </ButtonGroup>
+    </div>
   );
 };
 

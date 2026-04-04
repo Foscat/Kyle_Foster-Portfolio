@@ -33,6 +33,8 @@ import {
   diagramConfig,
 } from "../../../../components/features/CustomDiagram/core/index.js";
 import diagrams from "./diagrams.js";
+import resumeLight from "../../resume/Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
+import resumeDark from "../../resume/Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
 
 const homeSections = [
   {
@@ -1162,7 +1164,9 @@ const homeSections = [
           {
             id: "cta-download-resume",
             title: "Download Resume",
-            url: "./Kyle_Foster_React_Resume.pdf",
+            url: resumeDark,
+            urlLight: resumeLight,
+            urlDark: resumeDark,
             icon: faFileArrowDown,
             download: true,
             tooltip: "Download a PDF version of my resume",

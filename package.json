@@ -52,7 +52,7 @@
     "richtext:fix": "node scripts/richtext-lint.cjs --fix",
     "richtext:codemod": "jscodeshift -t scripts/codemods/fix-richtext.cjs src",
     "start": "cross-env PORT=3000 vite",
-    "test": "vitest run > scripts/test-output.txt && tail -n 10 scripts/test-output.txt",
+    "test": "vitest run",
     "test-diagrams": "playwright test",
     "test:mobile-clickable-img": "playwright test playwright/components/clickable-img.mobile.spec.ts",
     "test:interactive-surface": "npx playwright test --config=src/click-animate/playwright.config.mjs",

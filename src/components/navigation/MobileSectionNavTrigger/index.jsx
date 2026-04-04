@@ -138,7 +138,7 @@ const MobileSectionNavTrigger = ({
         onClose={() => setOpen(false)}
         className="mobile-nav-drawer mobile-section-nav-drawer"
       >
-        <Drawer.Header>
+        <Drawer.Header closeButton>
           <Drawer.Title>{title} Page</Drawer.Title>
         </Drawer.Header>
 
@@ -157,9 +157,10 @@ const MobileSectionNavTrigger = ({
                   className={`mobile-section-group ${sectionActive ? "is-active" : ""}`}
                 >
                   {/* SECTION ROW */}
-                  <div className="mobile-section-row">
+                  <div key={section.id} className="mobile-section-row">
                     {/* Title → Navigate */}
                     <Btn
+                      key={section.id}
                       type="button"
                       text={sectionNavLabel}
                       noBG
@@ -180,6 +181,7 @@ const MobileSectionNavTrigger = ({
                     {/* Caret → Toggle */}
                     {hasBlocks && (
                       <Btn
+                        key={section.id}
                         type="button"
                         className="mobile-section-caret"
                         noBG
@@ -198,7 +200,7 @@ const MobileSectionNavTrigger = ({
                   </div>
                   {/* Subsections */}
                   {hasBlocks && expanded && (
-                    <div className="mobile-subsection-list">
+                    <div key={section.id} className="mobile-subsection-list">
                       {navigableBlocks.map((block, blockIndex) => {
                         const blockActive = activeLeafId === block.id;
                         const blockLabel = block.title;

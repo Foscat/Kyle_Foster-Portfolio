@@ -3,8 +3,8 @@
    ============================================================ */
 .projectCard {
   padding: 2rem;
-  background: rgba(var(--deep-black), 0.22);
-  border: 1px solid rgba(var(--deep-black), 0.33);
+  background: rgba(var(--deep-black-rgb), 0.22);
+  border: 1px solid rgba(var(--deep-black-rgb), 0.33);
   border-radius: var(--radius-lg);
   -webkit-backdrop-filter: var(--backdrop-blur);
   backdrop-filter: var(--backdrop-blur);
@@ -58,8 +58,8 @@
 
 .projectCard-imageBox {
   padding: 1rem;
-  background: rgba(var(--white), 0.15);
-  border: 1px solid rgba(var(--white), 0.32);
+  background: rgba(var(--white-rgb), 0.15);
+  border: 1px solid rgba(var(--white-rgb), 0.32);
   border-radius: var(--border-radius);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);

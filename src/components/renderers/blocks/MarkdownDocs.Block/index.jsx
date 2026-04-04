@@ -18,7 +18,6 @@ export default function MarkdownDocsBlock({ block }) {
           {intro ? <p className="markdown-docs-block__intro">{intro}</p> : null}
         </header>
       )}
-
       {showDocJumpList && docs.length > 1 ? (
         <nav className="markdown-docs-block__jump-list" aria-label="Documents">
           {docs.map((doc) => (
@@ -27,19 +26,21 @@ export default function MarkdownDocsBlock({ block }) {
               href={`#doc-${doc.slug}`}
               className="markdown-docs-block__jump-link interactive-surface"
             >
-              <span>{doc.title}</span>
+              <span key={doc.id}>{doc.title}</span>
               {doc.category ? (
-                <small className="markdown-docs-block__jump-meta">{doc.category}</small>
+                <small key={doc.id} className="markdown-docs-block__jump-meta">
+                  {doc.category}
+                </small>
               ) : null}
             </a>
           ))}
         </nav>
       ) : null}
-
       <div className="markdown-docs-block__stack">
         {docs.map((doc) => (
           <Panel key={doc.slug} bordered className="markdown-docs-block__panel">
             <MarkdownRenderer
+              key={doc.id}
               articleId={`doc-${doc.slug}`}
               title={doc.title}
               intro={doc.summary}

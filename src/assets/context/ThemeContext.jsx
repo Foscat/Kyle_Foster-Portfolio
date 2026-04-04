@@ -8,6 +8,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 const THEME_STORAGE_KEY = "portfolio-theme";
+const PALETTE_STORAGE_KEY = "portfolio-palette";
 
 function getInitialTheme() {
   if (typeof window === "undefined") {
@@ -26,6 +27,19 @@ function getInitialTheme() {
   return "dark";
 }
 
+function getInitialPalette() {
+  if (typeof window === "undefined") {
+    return "primary";
+  }
+
+  const savedPalette = window.localStorage.getItem(PALETTE_STORAGE_KEY);
+  if (savedPalette === "primary" || savedPalette === "alt") {
+    return savedPalette;
+  }
+
+  return "primary";
+}
+
 /**
  * Supported application themes.
  *
@@ -39,6 +53,9 @@ function getInitialTheme() {
  * @property {Theme} theme - Currently active theme.
  * @property {(theme: Theme) => void} setTheme - Explicitly set the theme.
  * @property {() => void} toggleTheme - Toggle between light and dark themes.
+ * @property {"primary"|"alt"} palette - Currently active color palette.
+ * @property {(palette: "primary"|"alt") => void} setPalette - Explicitly set the palette.
+ * @property {() => void} togglePalette - Toggle between primary and alt palettes.
  */
 
 const ThemeContext = createContext(null);
@@ -53,6 +70,7 @@ const ThemeContext = createContext(null);
  */
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(getInitialTheme);
+  const [palette, setPalette] = useState(getInitialPalette);
 
   /**
    * Toggles the current theme.
@@ -62,14 +80,22 @@ export function ThemeProvider({ children }) {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }, []);
 
+  const togglePalette = useCallback(() => {
+    setPalette((prev) => (prev === "alt" ? "primary" : "alt"));
+  }, []);
+
   useEffect(() => {
-    // Apply theme as a data attribute for CSS selectors
+    // Apply theme and palette as data attributes for CSS selectors
     document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.palette = palette;
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-  }, [theme]);
+    window.localStorage.setItem(PALETTE_STORAGE_KEY, palette);
+  }, [palette, theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, setTheme, toggleTheme, palette, setPalette, togglePalette }}
+    >
       {children}
     </ThemeContext.Provider>
   );

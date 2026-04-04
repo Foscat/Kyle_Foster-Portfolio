@@ -8,7 +8,7 @@
 [22m[39m[SectionRegistry] Returning 1 registered section(s). [ { id: [32m'intro'[39m, title: [32m'Introduction'[39m } ]
 [SectionRegistry] Returning 1 registered section(s). [ { id: [32m'intro'[39m, title: [32m'Introduction'[39m } ]
 
- [32m✓[39m src/components/navigation/helpers/__tests__/SectionRegistryProvider.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[32m 81[2mms[22m[39m
+ [32m✓[39m src/components/navigation/helpers/__tests__/SectionRegistryProvider.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[32m 45[2mms[22m[39m
 [90mstdout[2m | src/assets/hooks/useClipboard/useClipboard.test.js[2m > [22m[2museClipboard[2m > [22m[2msurfaces an error when the clipboard API is unavailable
 [22m[39m{
   err: Error: Clipboard API not supported
@@ -24,52 +24,56 @@
       at new Promise (<anonymous>)
 }
 
- [32m✓[39m src/assets/hooks/useClipboard/useClipboard.test.js [2m([22m[2m3 tests[22m[2m)[22m[32m 33[2mms[22m[39m
- [32m✓[39m src/assets/context/ErrorBoundary/ErrorBoundary.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 84[2mms[22m[39m
- [32m✓[39m src/pages/Health/Health.test.jsx [2m([22m[2m1 test[22m[2m)[22m[32m 58[2mms[22m[39m
- [32m✓[39m src/assets/context/responsive/ResponsiveProvider.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 144[2mms[22m[39m
- [32m✓[39m src/components/navigation/Head/Head.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[32m 253[2mms[22m[39m
- [32m✓[39m src/components/renderers/blocks/CardGridBlock/CardGridBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 282[2mms[22m[39m
- [32m✓[39m src/components/renderers/RichText/renderNode.test.jsx [2m([22m[2m7 tests[22m[2m)[22m[32m 291[2mms[22m[39m
- [32m✓[39m src/components/layout/PageHeader/PageHeader.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 362[2mms[22m[39m
- [32m✓[39m src/components/renderers/blocks/RichTextBlock/RichTextBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 331[2mms[22m[39m
- [32m✓[39m src/components/ui/ClickableImg/ClickableImg.test.jsx [2m([22m[2m8 tests[22m[2m)[22m[33m 673[2mms[22m[39m
- [32m✓[39m src/components/renderers/blocks/ImageGalleryBlock/ImageGalleryBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 103[2mms[22m[39m
- [32m✓[39m src/assets/hooks/useScrollSpy/useScrollSpy.test.js [2m([22m[2m4 tests[22m[2m)[22m[32m 119[2mms[22m[39m
- [32m✓[39m src/components/renderers/SectionRenderer/SectionRenderer.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[32m 97[2mms[22m[39m
- [32m✓[39m src/components/renderers/blocks/LinksBlock/LinksBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 210[2mms[22m[39m
- [32m✓[39m src/components/layout/InfoSection/InfoSection.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 202[2mms[22m[39m
- [32m✓[39m src/components/ui/FrostedIcon/FrostedIcon.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[33m 302[2mms[22m[39m
+ [32m✓[39m src/assets/hooks/useClipboard/useClipboard.test.js [2m([22m[2m3 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m src/assets/context/ErrorBoundary/ErrorBoundary.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 98[2mms[22m[39m
+ [32m✓[39m src/pages/Health/Health.test.jsx [2m([22m[2m1 test[22m[2m)[22m[32m 62[2mms[22m[39m
+ [32m✓[39m src/assets/context/responsive/ResponsiveProvider.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[32m 170[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/CardGridBlock/CardGridBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 293[2mms[22m[39m
+ [32m✓[39m src/components/renderers/RichText/renderNode.test.jsx [2m([22m[2m7 tests[22m[2m)[22m[33m 347[2mms[22m[39m
+ [32m✓[39m src/components/navigation/Head/Head.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[32m 264[2mms[22m[39m
+ [32m✓[39m src/components/layout/PageHeader/PageHeader.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 403[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/RichTextBlock/RichTextBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 445[2mms[22m[39m
+     [33m[2m✓[22m[39m renders a named region with readable paragraph content [33m 394[2mms[22m[39m
+ [32m✓[39m src/components/ui/ClickableImg/ClickableImg.test.jsx [2m([22m[2m8 tests[22m[2m)[22m[33m 798[2mms[22m[39m
+ [32m✓[39m src/assets/hooks/useScrollSpy/useScrollSpy.test.js [2m([22m[2m4 tests[22m[2m)[22m[32m 126[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/ImageGalleryBlock/ImageGalleryBlock.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 127[2mms[22m[39m
+ [32m✓[39m src/components/renderers/SectionRenderer/SectionRenderer.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[32m 133[2mms[22m[39m
+ [32m✓[39m src/components/layout/InfoSection/InfoSection.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[32m 250[2mms[22m[39m
+ [32m✓[39m src/components/renderers/blocks/LinksBlock/LinksBlock.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[33m 332[2mms[22m[39m
+ [32m✓[39m src/components/ui/FrostedIcon/FrostedIcon.test.jsx [2m([22m[2m4 tests[22m[2m)[22m[33m 351[2mms[22m[39m
  [2m[90m↓[39m[22m src/components/__tests__/diagrams.spec.test.js [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
- [32m✓[39m src/components/navigation/Footer/Footer.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 304[2mms[22m[39m
+ [32m✓[39m src/components/navigation/Footer/Footer.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 370[2mms[22m[39m
  [2m[90m↓[39m[22m src/components/__tests__/SectionRenderer.test.jsx [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
- [32m✓[39m src/components/features/ResumePreview/PreviewResume.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 316[2mms[22m[39m
- [32m✓[39m src/components/ui/MermaidDiagram/MermaidDiagram.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 381[2mms[22m[39m
- [32m✓[39m src/components/ui/Btn/Btn.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[33m 391[2mms[22m[39m
- [32m✓[39m src/components/features/ThemeToggle/ThemeToggle.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 495[2mms[22m[39m
- [32m✓[39m src/components/navigation/StickySectionNav/StickySectionNav.test.jsx [2m([22m[2m18 tests[22m[2m)[22m[33m 582[2mms[22m[39m
- [32m✓[39m src/components/ui/AccordionList/AccordionList.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 624[2mms[22m[39m
- [32m✓[39m src/components/features/AccessibilityMenu/AccessibilityMenu.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 909[2mms[22m[39m
-     [33m[2m✓[22m[39m toggles reduced motion and high contrast settings from the modal [33m 642[2mms[22m[39m
- [32m✓[39m src/pages/Hackathon/Hackathon.test.js [2m([22m[2m3 tests[22m[2m)[22m[33m 442[2mms[22m[39m
- [32m✓[39m src/pages/SideProjects/SideProjects.test.js [2m([22m[2m3 tests[22m[2m)[22m[33m 502[2mms[22m[39m
-     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 318[2mms[22m[39m
- [32m✓[39m src/pages/SMU/SMU.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 476[2mms[22m[39m
-     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 302[2mms[22m[39m
- [32m✓[39m src/pages/Home/Home.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 514[2mms[22m[39m
-     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 339[2mms[22m[39m
- [32m✓[39m src/components/__tests__/blockTypeExhaustive.test.js [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
- [32m✓[39m src/components/navigation/StickyNav/StickyNav.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[33m 1287[2mms[22m[39m
-     [33m[2m✓[22m[39m closes the mobile navigation after a destination is chosen [33m 452[2mms[22m[39m
-     [33m[2m✓[22m[39m closes the site navigation drawer when Escape is pressed [33m 407[2mms[22m[39m
- [32m✓[39m src/pages/__tests__/CodeStream.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 704[2mms[22m[39m
-     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 528[2mms[22m[39m
- [32m✓[39m src/pages/__tests__/Contact.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 2137[2mms[22m[39m
-     [33m[2m✓[22m[39m sends a contact request when the form is submitted [33m 1171[2mms[22m[39m
-     [33m[2m✓[22m[39m allows a retry after a failed request [33m 964[2mms[22m[39m
+ [32m✓[39m src/components/features/ResumePreview/PreviewResume.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 393[2mms[22m[39m
+ [32m✓[39m src/components/ui/Btn/Btn.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[33m 496[2mms[22m[39m
+ [32m✓[39m src/components/features/ThemeToggle/ThemeToggle.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 552[2mms[22m[39m
+     [33m[2m✓[22m[39m renders light and dark theme toggle buttons [33m 348[2mms[22m[39m
+ [32m✓[39m src/components/ui/MermaidDiagram/MermaidDiagram.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 355[2mms[22m[39m
+ [32m✓[39m src/components/navigation/StickySectionNav/StickySectionNav.test.jsx [2m([22m[2m18 tests[22m[2m)[22m[33m 709[2mms[22m[39m
+ [32m✓[39m src/components/ui/AccordionList/AccordionList.test.jsx [2m([22m[2m9 tests[22m[2m)[22m[33m 751[2mms[22m[39m
+ [32m✓[39m src/components/features/AccessibilityMenu/AccessibilityMenu.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 1051[2mms[22m[39m
+     [33m[2m✓[22m[39m toggles reduced motion and high contrast settings from the modal [33m 733[2mms[22m[39m
+ [32m✓[39m src/components/navigation/StickyNav/StickyNav.test.jsx [2m([22m[2m5 tests[22m[2m)[22m[33m 1435[2mms[22m[39m
+     [33m[2m✓[22m[39m marks the active route with aria-current [33m 342[2mms[22m[39m
+     [33m[2m✓[22m[39m closes the mobile navigation after a destination is chosen [33m 501[2mms[22m[39m
+     [33m[2m✓[22m[39m closes the site navigation drawer when Escape is pressed [33m 408[2mms[22m[39m
+ [32m✓[39m src/pages/SideProjects/SideProjects.test.js [2m([22m[2m3 tests[22m[2m)[22m[33m 632[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 389[2mms[22m[39m
+ [32m✓[39m src/pages/Hackathon/Hackathon.test.js [2m([22m[2m3 tests[22m[2m)[22m[33m 571[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 313[2mms[22m[39m
+ [32m✓[39m src/pages/SMU/SMU.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 597[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 386[2mms[22m[39m
+ [32m✓[39m src/pages/Home/Home.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 650[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 419[2mms[22m[39m
+ [32m✓[39m src/components/__tests__/blockTypeExhaustive.test.js [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/pages/__tests__/CodeStream.test.jsx [2m([22m[2m3 tests[22m[2m)[22m[33m 855[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the page heading and section navigation entries [33m 690[2mms[22m[39m
+ [32m✓[39m src/pages/__tests__/Contact.test.jsx [2m([22m[2m2 tests[22m[2m)[22m[33m 2469[2mms[22m[39m
+     [33m[2m✓[22m[39m sends a contact request when the form is submitted [33m 1397[2mms[22m[39m
+     [33m[2m✓[22m[39m allows a retry after a failed request [33m 1071[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m33 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (35)[39m
-[2m      Tests [22m [1m[32m139 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (141)[39m
-[2m   Start at [22m 23:59:59
-[2m   Duration [22m 8.08s[2m (transform 11.25s, setup 5.03s, import 111.55s, tests 13.69s, environment 35.94s)[22m
+[2m      Tests [22m [1m[32m141 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (143)[39m
+[2m   Start at [22m 07:47:01
+[2m   Duration [22m 9.46s[2m (transform 10.38s, setup 6.79s, import 125.77s, tests 16.17s, environment 39.57s)[22m
 

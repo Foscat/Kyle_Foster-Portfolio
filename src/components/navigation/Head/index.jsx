@@ -65,6 +65,12 @@ export default function Head() {
    * Metadata for the currently active page.
    */
   const currentPageMeta = getMetaByPath();
+  const siteOrigin =
+    (typeof import.meta.env.VITE_SITE_URL === "string" &&
+      import.meta.env.VITE_SITE_URL.trim().replace(/\/$/, "")) ||
+    window.location.origin;
+  const canonicalUrl = `${siteOrigin}${window.location.pathname}`;
+  const socialImageUrl = `${siteOrigin}/portfolioIcon.svg`;
 
   return (
     <Helmet>
@@ -85,9 +91,9 @@ export default function Head() {
       {/* Author information */}
       <meta name="author" content="Kyle Foster" />
       {/* Favicon */}
-      <link rel="icon" type="image/svg+xml" href="portfolioIcon.svg" />
+      <link rel="icon" type="image/svg+xml" href="/portfolioIcon.svg" />
       {/* Optional PNG fallback */}
-      <link rel="icon" type="image/jpg" href="portfolioIcon.jpg" />
+      <link rel="icon" type="image/jpg" href="/portfolioIcon.jpg" />
       {/* Theme color for browsers (mobile + desktop UI accent) */}
       <meta name="theme-color" content="#1f2793" />
 
@@ -100,8 +106,8 @@ export default function Head() {
       <meta property="og:description" content={currentPageMeta.description} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Kyle Foster Portfolio" />
-      <meta property="og:image" content="./public/portfolioIcon.svg" />
-      <meta property="og:url" content="./public/portfolio_2025" />
+      <meta property="og:image" content={socialImageUrl} />
+      <meta property="og:url" content={canonicalUrl} />
 
       {/* ===========================================================
         ⚙️ PERFORMANCE & SEO EXTRAS
@@ -110,7 +116,7 @@ export default function Head() {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
       {/* Canonical URL */}
-      <link rel="canonical" href="https://foscat.github.io/" />
+      <link rel="canonical" href={canonicalUrl} />
       {/* Robots directive */}
       <meta name="robots" content="index, follow" />
     </Helmet>

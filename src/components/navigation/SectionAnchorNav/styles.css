@@ -59,7 +59,7 @@
   z-index: 9999;
   display: flex;
   justify-content: flex-end;
-  background: rgb(0 0 0 / 55%);
+  background: rgba(var(--deep-black-rgb), 0.55);
   inset: 0;
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);

@@ -1,7 +1,7 @@
 # JSDoc2MD Compatibility Audit
 
-- Files scanned: 191
-- Files with issues: 150
+- Files scanned: 192
+- Files with issues: 151
 
 ## playwright/click-animate-icon-variants.spec.ts
 
@@ -296,6 +296,10 @@
 
 - Missing top-of-file JSDoc block.
 - Contains descriptive JSDoc block(s) without tags; add at least one explicit tag.
+
+## src/assets/data/resume/customizer.js
+
+- Missing top-of-file JSDoc block.
 
 ## src/assets/hooks/useClipboard/useClipboard.test.js
 

@@ -3,7 +3,8 @@ import { FlexboxGrid, Form, Input, Message, Panel } from "rsuite";
 import { StickyNav, Footer } from "components/navigation";
 import resumeData from "assets/data/content/resumeData.js";
 import contactForm from "assets/data/content/contactForm.js";
-import { resume as resumePdf } from "assets/data";
+import { resumeDark, resumeLight } from "assets/data";
+import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
 import { Size, Variant } from "types/ui.types";
@@ -156,6 +157,7 @@ export async function sendMessage(data) {
  * @returns {JSX.Element} Rendered contact page.
  */
 export default function Contact() {
+  const { theme } = useTheme();
   const [showToast, setShowToast] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -165,6 +167,9 @@ export default function Contact() {
     message: "",
   });
   const formUiContent = useMemo(() => buildContactFormContent(contactForm), []);
+  const resumePdf = theme === "light" ? resumeLight : resumeDark;
+  const resumeDownloadName =
+    theme === "light" ? "Kyle-Foster-Resume-LightMode.pdf" : "Kyle-Foster-Resume-DarkMode.pdf";
 
   /**
    * Shared field updater to keep form state changes predictable.
@@ -248,7 +253,7 @@ export default function Contact() {
                     subtitle="A cleaner, document-first preview with improved spacing and a real paper stage."
                     resume={resumeData}
                     pdfHref={resumePdf}
-                    downloadName="Kyle-Foster-Resume.pdf"
+                    downloadName={resumeDownloadName}
                   />
                 </div>
               </header>

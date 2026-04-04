@@ -8,6 +8,7 @@ import { Btn } from "components/ui";
 import "./Mermaid.css";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { useTheme } from "assets/context/ThemeContext.jsx";
+import { diagramConfig } from "components/features/CustomDiagram/core";
 
 let mermaidInstancePromise;
 let mermaidInitialized = false;
@@ -72,7 +73,11 @@ function buildExportNode(svg, theme) {
   const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
   const exportWidth = Math.max(1, Math.ceil(intrinsicWidth + EXPORT_PADDING_PX * 2));
   const exportHeight = Math.max(1, Math.ceil(intrinsicHeight + EXPORT_PADDING_PX * 2));
-  const exportBackground = theme === Theme.LIGHT ? "#f4f6fb" : "#0f0f12";
+  const rootStyles =
+    typeof window !== "undefined" ? window.getComputedStyle(document.documentElement) : null;
+  const exportBackground =
+    rootStyles?.getPropertyValue(theme === Theme.LIGHT ? "--bg-bright" : "--bg-primary")?.trim() ||
+    (theme === Theme.LIGHT ? "#f4f6fb" : "#0f0f12");
   const exportSvg = svg.cloneNode(true);
   const viewBox = svg.getAttribute("viewBox");
   const svgWidth = Math.max(1, Math.ceil(intrinsicWidth));
@@ -104,6 +109,28 @@ function buildExportNode(svg, theme) {
   exportNode.appendChild(exportSvg);
 
   return { exportNode, exportWidth, exportHeight, exportBackground };
+}
+
+function applyPaletteToDiagramSource(source, palette) {
+  if (!source || palette !== "primary") return source;
+
+  const mappings = [
+    [diagramConfig.MOBILE_FLOWCHART_INIT, diagramConfig.MOBILE_FLOWCHART_INIT_ALT],
+    [diagramConfig.FLOWCHART_INIT, diagramConfig.FLOWCHART_INIT_ALT],
+    [diagramConfig.MOBILE_STATE_INIT, diagramConfig.MOBILE_STATE_INIT_ALT],
+    [diagramConfig.STATE_INIT, diagramConfig.STATE_INIT_ALT],
+    [diagramConfig.SEQUENCE_INIT, diagramConfig.SEQUENCE_INIT_ALT],
+    [diagramConfig.ARCH_FLOWCHART_PALETTE, diagramConfig.ARCH_FLOWCHART_PALETTE_ALT],
+  ];
+
+  let nextSource = source;
+  mappings.forEach(([current, alt]) => {
+    if (typeof current === "string" && typeof alt === "string" && nextSource.includes(current)) {
+      nextSource = nextSource.replace(current, alt);
+    }
+  });
+
+  return nextSource;
 }
 
 /**
@@ -200,7 +227,7 @@ function MermaidDiagram(props) {
   const hostRef = useRef(null);
   const [forceAlt, setForceAlt] = useState(false);
   const { isMobile } = useResponsive();
-  const { theme: appTheme } = useTheme();
+  const { theme: appTheme, palette } = useTheme();
   const { id, title, description, diagram, mobileDiagram, desktopDiagram, theme, className } =
     useMemo(() => normalizeProps(props), [props]);
   const hasBoth = Boolean(mobileDiagram?.diagram && desktopDiagram?.diagram);
@@ -212,7 +239,10 @@ function MermaidDiagram(props) {
     return sourceId.toLowerCase().replace(/[^a-z0-9_-]+/g, "-");
   }, [id, title]);
 
-  const finalDiagram = activeDiagram?.diagram || diagram;
+  const finalDiagram = useMemo(
+    () => applyPaletteToDiagramSource(activeDiagram?.diagram || diagram, palette),
+    [activeDiagram?.diagram, diagram, palette]
+  );
   const finalDescription = activeDiagram?.description || description;
   const resolvedTheme = theme === Theme.AUTO ? appTheme : theme;
 
