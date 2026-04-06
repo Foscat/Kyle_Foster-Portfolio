@@ -77,7 +77,7 @@ const codestreamSections = [
     icon: faTowerObservation,
     title: "Overview",
     subtitle:
-      "The platform that started as an urgent internal fix and evolved into the company's most critical product asset.",
+      "A platform that began as an urgent internal fix and grew into the company's most critical product asset.",
 
     isScroller: true,
     blocks: [
@@ -95,7 +95,7 @@ const codestreamSections = [
               { type: "strong", text: "CodeStream Studios LLC" },
               {
                 type: "text",
-                text: ", I served as the sole frontend engineer responsible for taking a React-based application from concept to production. I owned the frontend architecture and translated rough ideas into durable, user-facing systems.",
+                text: ", I served as the sole frontend engineer responsible for taking a React-based platform from concept to production. I owned the frontend architecture and translated rough ideas into durable, user-facing systems.",
               },
             ],
           },
@@ -229,7 +229,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "What started as a COVID-era workaround matured into an ecosystem capable of supporting multiple schools, programs, and organizations with differing needs and constraints.",
+                text: "What began as a workaround during the COVID era matured into an ecosystem capable of supporting multiple schools, programs, and organizations with differing needs and constraints.",
               },
             ],
           },
@@ -246,7 +246,7 @@ const codestreamSections = [
         type: BlockType.CARD_GRID,
         title: "Core Pillars",
         subtitle:
-          "The platform was built around a few core pillars that are required to support the full teaching lifecycle.",
+          "The platform was built around a set of core pillars required to support the full teaching lifecycle.",
         icon: faTrowelBricks,
         // Reordered to match real user flow:
         // classroom → curriculum → project → grading → admin → licensing
@@ -424,7 +424,7 @@ const codestreamSections = [
     icon: faCode,
     title: "3 Panel Editor System",
     subtitle:
-      "A browser-based coding workspace that feels like a lightweight IDE, designed for students and teachers instead of engineers.",
+      "A browser-based coding workspace designed for students and teachers rather than professional developers.",
     isScroller: true,
     blocks: [
       {
@@ -734,7 +734,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Implemented a true multi-tenant architecture that isolates organizational data while sharing a unified application infrastructure.",
+                    text: "Implemented a multi-tenant architecture that isolates organizational data while sharing a unified application infrastructure.",
                   },
                 ],
               },

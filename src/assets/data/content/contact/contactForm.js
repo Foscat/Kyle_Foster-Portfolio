@@ -9,7 +9,7 @@ import FIELD_TYPES from "types/field.types.js";
 
 export const contactForm = {
   id: "contact-form",
-  title: "Contact Me",
+  title: "Get in Touch",
   submitLabel: "Send Message",
   resetLabel: "Reset",
   fields: [
@@ -40,7 +40,7 @@ export const contactForm = {
       id: "cf_ri",
       name: "reason",
       type: FIELD_TYPES.SELECT,
-      label: "Reason",
+      label: "Reason for Reaching Out",
       placeholder: "Choose a reason",
       defaultValue: null,
       options: [

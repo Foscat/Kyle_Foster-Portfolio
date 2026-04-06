@@ -37,7 +37,7 @@ const docsSections = [
       { id: "doc-scripts", title: "Scripts" },
       { id: "doc-playwright", title: "Playwright" },
     ],
-    subtitle: "Build scripts and browser test runner docs.",
+    subtitle: "Documentation for build scripts and browser testing tooling.",
     icon: faBookOpenReader,
     isScroller: true,
     blocks: [
@@ -68,7 +68,7 @@ const docsSections = [
         type: BlockType.MARKDOWN_DOCS,
         title: "Quality Docs",
         intro:
-          "Behavior-driven testing references and coverage expectations for ongoing maintenance.",
+          "Behavior-driven testing guidance and coverage expectations for ongoing maintenance.",
         docSlugs: ["tests"],
         showToc: false,
         showDocJumpList: false,
@@ -86,7 +86,7 @@ const docsSections = [
       { id: "doc-scripts-tooling-overview", title: "Scripts Tooling Overview" },
       { id: "doc-testing-guidelines", title: "Testing Guidelines" },
     ],
-    subtitle: "Contributor-focused authoring and workflow guides from dev-guides/.",
+    subtitle: "Contributor-focused authoring and workflow guides from the dev-guides directory.",
     icon: faBookOpenReader,
     isScroller: true,
     blocks: [

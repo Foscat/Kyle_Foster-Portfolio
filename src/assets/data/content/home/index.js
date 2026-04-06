@@ -54,10 +54,10 @@ const homeSections = [
             type: "p",
             children: [
               { type: "text", text: "I'm a " },
-              { type: "strong", text: "full-stack (MERN) engineer" },
+              { type: "strong", text: "React-focused frontend engineer" },
               {
                 type: "text",
-                text: " I design user-facing experiences grounded in clear domain models and scalable architecture, building interfaces that evolve cleanly as products grow in complexity, data, and organizational scope.",
+                text: " I design user-facing systems grounded in clear domain models and scalable architecture, building interfaces that continue to make sense as products grow in complexity, data, and organizational scope.",
               },
             ],
           },
@@ -66,12 +66,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I bring tested experience across production systems and rapid prototyping. I built a custom education platform used in real classrooms, and I have repeatedly delivered hackathon prototypes under tight constraints using my own MERN boilerplates. Across side projects, my work consistently centers around ",
+                text: "I bring experience across both production systems and rapid prototyping. I built a custom education platform used in real classrooms, and I have also delivered hackathon prototypes under tight constraints using my own MERN foundations. Across side projects, my work stays centered on ",
               },
               { type: "em", text: "solving real-world problems" },
               {
                 type: "text",
-                text: " with robust, practical solutions. I prioritize code that is maintainable and scalable so the systems I build can evolve without becoming brittle over time.",
+                text: " with practical, durable solutions. I prioritize maintainable, scalable code so the systems I build can evolve without becoming brittle over time.",
               },
             ],
           },
@@ -101,7 +101,7 @@ const homeSections = [
       {
         id: "professional-codestream",
         title: "CodeStream Studios LLC",
-        subtitle: "Lead Frontend Engineer 2019-2025",
+        subtitle: "Lead Frontend Engineer · 2019–2025",
         type: BlockType.RICH_TEXT,
         content: [
           {
@@ -271,7 +271,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Zero-install 3-panel IDE for Web (HTML, CSS, JS) and Python projects, designed to provide a seamless browser-based coding experience with no setup friction for students and teachers.",
+                    text: "Zero-install three-panel IDE for Web (HTML, CSS, JS) and Python projects, designed to provide a seamless browser-based coding experience with no setup friction for students and teachers.",
                   },
                 ],
               },
@@ -389,6 +389,7 @@ const homeSections = [
             id: "h-kf-mvp-solution",
             title: "Voice-Driven MVP Architecture",
             subtitle: "Focused on real-world repair workflows and operator needs",
+            icon: faHeadset,
             url: `${PageRoute.HACKATHON}/#reinforce`,
             local: true,
             content: [
@@ -603,7 +604,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Use side projects to experiment with full-stack architectures while preserving structural discipline.",
+                    text: "Use side projects to explore full-stack architectures without sacrificing structural discipline.",
                   },
                 ],
               },
@@ -613,7 +614,7 @@ const homeSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Rapid prototyping via custom MERN template" },
+                      { type: "text", text: "Rapid prototyping with a custom MERN template" },
                     ],
                   },
                   {

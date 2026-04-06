@@ -43,7 +43,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects serve as controlled environments for full-system engineering.",
+                    text: "Side projects serve as controlled proving grounds for full-system engineering.",
                   },
                 ],
               },
@@ -93,7 +93,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Across hardware automation, security tooling, and full-stack applications, these projects demonstrate adaptability across domains while maintaining a consistent engineering approach.",
+                text: "Across hardware automation, security tooling, and full-stack applications, these projects show adaptability across domains while maintaining a consistent engineering approach.",
               },
             ],
           },

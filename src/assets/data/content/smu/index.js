@@ -45,7 +45,7 @@ const smuSections = [
               { type: "strong", text: "Southern Methodist University" },
               {
                 type: "text",
-                text: " marked the foundation of my transition into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.",
+                text: " marked the beginning of my transition into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.",
               },
             ],
           },
