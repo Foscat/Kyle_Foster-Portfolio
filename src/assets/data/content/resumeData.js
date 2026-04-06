@@ -1,12 +1,12 @@
 const resumeData = {
   name: "Kyle Foster",
-  title: "Frontend Developer",
+  title: "Senior React / Frontend Engineer",
   location: "Wills Point, TX",
   email: "fosterkyle6456@gmail.com",
   phone: "(469) 410-5286",
   website: "kyle-foster.com",
   summary:
-    "Frontend developer focused on building scalable React interfaces, translating complex workflows into clear user experiences, and delivering polished UI systems that remain maintainable as products grow.",
+    "React-focused frontend engineer building scalable interfaces, translating complex workflows into clear user experiences, and delivering polished UI systems that remain maintainable as products grow.",
 
   experience: [
     {
@@ -15,7 +15,7 @@ const resumeData = {
       location: "Remote",
       dates: "2019 – 2025",
       summary:
-        "Built and maintained the company’s full React-based learning platform as the primary frontend engineer.",
+        "Built and maintained the company’s React-based learning platform as the primary frontend engineer.",
       bullets: [
         "Designed and implemented a browser-native coding platform with lesson rendering, a three-panel editor, classroom workflows, and grading/reporting tools.",
         "Built scalable, reusable UI patterns for content rendering, navigation, responsive layout, and documentation-focused presentation.",
@@ -30,7 +30,7 @@ const resumeData = {
       subtitle: "Voice-powered technician assistant",
       dates: "2019",
       summary:
-        "Created a hands-free repair workflow prototype for technicians using voice interaction and structured repair-step resolution.",
+        "Created a hands-free repair workflow prototype for technicians using voice interaction and structured step-by-step repair guidance.",
       bullets: [
         "Co-built the voice and NLP flow for step retrieval and playback.",
         "Extended the concept into a mobile-ready architecture after the event.",

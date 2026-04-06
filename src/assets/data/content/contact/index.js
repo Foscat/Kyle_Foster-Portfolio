@@ -16,7 +16,7 @@ const contactSections = [
             children: [
               {
                 type: "text",
-                text: "Reach out through any of the channels below:",
+                text: "You can reach me through any of the channels below:",
               },
             ],
           },

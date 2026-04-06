@@ -32,7 +32,7 @@ const hackathonSections = [
   {
     id: "overview",
     title: "Overview",
-    subtitle: "How a team of junior developers unexpectedly won Daimler's 2019 Hackathon.",
+    subtitle: "How a team of junior developers won Daimler's 2019 Hackathon.",
     icon: faTruckFront,
     isScroller: true,
     blocks: [
@@ -61,7 +61,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Shortly after completing my second bootcamp, I joined a small team tasked with reimagining technician workflow processes for a large enterprise environment.",
+                text: "Shortly after completing my second bootcamp, I joined a small team focused on improving technician workflows for a large enterprise environment.",
               },
             ],
           },
@@ -155,7 +155,7 @@ const hackathonSections = [
       {
         id: "overview-image",
         type: BlockType.IMAGE_GALLERY,
-        title: "Me and the team hacking",
+        title: "Building with the Team",
         icon: faCommentNodes,
         items: [imageObjs.focused],
       },
@@ -164,7 +164,7 @@ const hackathonSections = [
   {
     id: "reinforce",
     slug: "reinforce",
-    title: "Hackathon App (Reinforce)",
+    title: "Reinforce App",
     navLabel: "Reinforce App",
     subtitle: "A hands-free, voice-powered repair assistant.",
     icon: faTruckFast,
@@ -549,7 +549,7 @@ const hackathonSections = [
     id: "tech_assist",
     slug: "tech-assist",
     title: "Post-Hackathon Work (Tech Assist)",
-    subtitle: "Transforming the hackathon prototype into a production-ready mobile app.",
+    subtitle: "Turning the hackathon prototype into a production-ready mobile app.",
     icon: faMobileScreenButton,
     isScroller: true,
     blocks: [
@@ -577,7 +577,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "I became the sole developer responsible for transforming the proof-of-concept into a production-grade mobile application.",
+                text: "I became the sole developer responsible for turning the proof of concept into a production-grade mobile application.",
               },
             ],
           },

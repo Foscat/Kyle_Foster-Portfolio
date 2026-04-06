@@ -37,7 +37,7 @@ const DOC_META = {
   scripts: {
     title: "Scripts",
     category: "Tooling",
-    summary: "Project scripts and build/developer workflow.",
+    summary: "Project scripts and the build and developer workflow.",
     order: 4,
   },
   tests: {
