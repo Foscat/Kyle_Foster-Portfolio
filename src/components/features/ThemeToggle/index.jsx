@@ -44,8 +44,8 @@ import "./styles.css";
  */
 const ThemeToggle = ({ size = Size.MD }) => {
   /**
-   * Current theme state and setter provided by ThemeContext.
-   */
+ * @description Current theme state and setter provided by ThemeContext. /
+ */
   const { theme, setTheme } = useTheme();
 
   return (

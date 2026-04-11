@@ -24,12 +24,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import useClipboard from "./";
 
 /**
- * Test plan:
- * - copies valid text and resets copied state after the configured delay
- * - returns false and does not call the clipboard API for empty input
- * - surfaces an error when the clipboard API is unavailable
- *
- * Note: the hook's internal timer is mocked to keep tests deterministic and fast.
+ * @description Test plan: - copies valid text and resets copied state after the configured delay - returns false and does not call the clipboard API for empty input - surfaces an error when the clipboard API is unavailable Note: the hook's internal timer is mocked to keep tests deterministic and fast. /
  */
 describe("useClipboard", () => {
   const originalClipboard = navigator.clipboard;

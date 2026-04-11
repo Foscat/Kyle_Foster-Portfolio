@@ -1,13 +1,13 @@
+/**
+ * @file playwright\diagrams.spec.ts
+ * @description playwright\diagrams.spec module.
+ * @module playwright\diagrams.spec
+ */
+
 import { test, expect } from "@playwright/test";
 
 /**
- * Mermaid diagram smoke test
- * ------------------------------------------------------------
- * Ensures the Mermaid diagram page loads and the primary diagram container is present.
- *
- * Notes:
- * - We use an absolute URL build function so these tests remain runnable even if the
- *   Playwright config is not picked up (e.g., when running from a nested directory).
+ * @description Mermaid diagram smoke test ------------------------------------------------------------ Ensures the Mermaid diagram page loads and the primary diagram container is present. Notes: - We use an absolute URL build function so these tests remain runnable even if the Playwright config is not picked up (e.g., when running from a nested directory). /
  */
 
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";

@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\portfolioDocs.js
+ * @description src\assets\data\content\portfolioDocs module.
+ * @module src\assets\data\content\portfolioDocs
+ */
+
 const rawGeneratedDocs = import.meta.glob("../../../../docs/**/*.{md,markdown}", {
   eager: true,
   query: "?raw",

@@ -1,3 +1,9 @@
+/**
+ * @file playwright\interactive-surface.cross-browser.spec.ts
+ * @description playwright\interactive-surface.cross-browser.spec module.
+ * @module playwright\interactive-surface.cross-browser.spec
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -5,7 +11,7 @@ import { expect, test } from "@playwright/test";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const cssPath = path.resolve(__dirname, "../src/click-animate/interactive-surface.css");
+const cssPath = path.resolve(__dirname, "../node_modules/interactive-surface-css/interactive-surface.css");
 const interactiveSurfaceCss = fs.readFileSync(cssPath, "utf8");
 
 function buildFixtureHtml() {

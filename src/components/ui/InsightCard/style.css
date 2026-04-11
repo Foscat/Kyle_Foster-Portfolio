@@ -74,9 +74,9 @@
   flex-shrink: 0;
   font-size: 1.1rem;
   color: var(--text-accent-light);
-  background: rgba(var(--white-rgb), 0.08);
-  border: 1px solid rgba(var(--white-rgb), 0.2);
-  border-radius: 50%;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 
 .insight-card__title-group {

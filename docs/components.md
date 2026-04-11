@@ -1,9 +1,19 @@
 ## Modules
 
 <dl>
+<dt><a href="#src\components\features\AccessibilityMenu\AccessibilityMenu.module_test">src\components\features\AccessibilityMenu\AccessibilityMenu.test</a></dt>
+<dd><p>src\components\features\AccessibilityMenu\AccessibilityMenu.test module.</p>
+</dd>
 <dt><a href="#module_components/features/AccessibilityMenu">components/features/AccessibilityMenu</a></dt>
 <dd><p>Accessibility preferences modal for toggling motion, contrast,
 text size, and keyboard guidance with persisted client-side settings.</p>
+</dd>
+<dt><a href="#module_components/PaletteToggle">components/PaletteToggle</a></dt>
+<dd><p>In-app color palette selector for switching between supported
+palette themes.</p>
+</dd>
+<dt><a href="#src\components\features\PaletteToggle\PaletteToggle.module_test">src\components\features\PaletteToggle\PaletteToggle.test</a></dt>
+<dd><p>src\components\features\PaletteToggle\PaletteToggle.test module.</p>
 </dd>
 <dt><a href="#module_components/ResumePreview/PreviewResume">components/ResumePreview/PreviewResume</a></dt>
 <dd><p>Modal-based resume preview and download component.</p>
@@ -27,9 +37,15 @@ text size, and keyboard guidance with persisted client-side settings.</p>
 <li>Asserts the presence or absence of the modal and its content based on user actions</li>
 </ul>
 </dd>
+<dt><a href="#module_src\components\features\ResumePreview\ResumePreviewTrigger">src\components\features\ResumePreview\ResumePreviewTrigger</a></dt>
+<dd><p>src\components\features\ResumePreview\ResumePreviewTrigger module.</p>
+</dd>
 <dt><a href="#module_components/ThemeToggle">components/ThemeToggle</a></dt>
 <dd><p>Compact theme selection control for switching between
 light and dark application themes.</p>
+</dd>
+<dt><a href="#src\components\features\ThemeToggle\ThemeToggle.module_test">src\components\features\ThemeToggle\ThemeToggle.test</a></dt>
+<dd><p>src\components\features\ThemeToggle\ThemeToggle.test module.</p>
 </dd>
 <dt><a href="#module_tests/components/ThemeToggle">tests/components/ThemeToggle</a></dt>
 <dd><p>Unit tests for the ThemeToggle component.</p>
@@ -46,9 +62,15 @@ light and dark application themes.</p>
 <li>Treats theme state as a global side effect via <code>data-theme</code></li>
 </ul>
 </dd>
+<dt><a href="#module_src\components\layout\InfoSection\index">src\components\layout\InfoSection\index</a></dt>
+<dd><p>src\components\layout\InfoSection\index module.</p>
+</dd>
 <dt><a href="#module_components/layout/InfoSection">components/layout/InfoSection</a></dt>
 <dd><p>Reusable frosted-glass section wrapper used to standardize
 layout, spacing, and visual hierarchy across the portfolio.</p>
+</dd>
+<dt><a href="#src\components\layout\InfoSection\InfoSection.module_test">src\components\layout\InfoSection\InfoSection.test</a></dt>
+<dd><p>src\components\layout\InfoSection\InfoSection.test module.</p>
 </dd>
 <dt><a href="#module_tests/components/InfoSection">tests/components/InfoSection</a></dt>
 <dd><p>Unit tests for the InfoSection layout component.</p>
@@ -65,6 +87,9 @@ layout, spacing, and visual hierarchy across the portfolio.</p>
 <li>Mocks FrostedIcon to avoid FontAwesome rendering concerns</li>
 <li>Focuses on layout and composition, not styling details</li>
 </ul>
+</dd>
+<dt><a href="#module_src\components\layout\PageHeader\index">src\components\layout\PageHeader\index</a></dt>
+<dd><p>src\components\layout\PageHeader\index module.</p>
 </dd>
 <dt><a href="#module_components/PageHeader">components/PageHeader</a></dt>
 <dd><p>Standardized page-level header component used to introduce
@@ -147,6 +172,9 @@ layouts, active-route handling, and accessibility semantics.</p>
 <dd><p>Sticky, accessible intra-page section navigator with
 hierarchical scroll tracking and collapsible subsection groups.</p>
 </dd>
+<dt><a href="#src\components\navigation\StickySectionNav\StickySectionNav.module_test">src\components\navigation\StickySectionNav\StickySectionNav.test</a></dt>
+<dd><p>src\components\navigation\StickySectionNav\StickySectionNav.test module.</p>
+</dd>
 <dt><a href="#module_tests/components/StickySectionNav">tests/components/StickySectionNav</a></dt>
 <dd><p>Unit tests for the StickySectionNav component.</p>
 <p>Test coverage:</p>
@@ -174,8 +202,14 @@ Tests focus on:</p>
 <dt><a href="#module_components/renderers/blocks/CardGridBlock">components/renderers/blocks/CardGridBlock</a></dt>
 <dd><p>Tests for the CardGridBlock component, ensuring it renders insight cards correctly when items are provided and returns nothing when there are no items.</p>
 </dd>
+<dt><a href="#module_src\components\renderers\blocks\CardGridBlock\index">src\components\renderers\blocks\CardGridBlock\index</a></dt>
+<dd><p>src\components\renderers\blocks\CardGridBlock\index module.</p>
+</dd>
 <dt><a href="#module_components/renderers/blocks/CardGridBlock">components/renderers/blocks/CardGridBlock</a></dt>
 <dd><p>A block component for displaying a grid of InsightCards. It takes a block object containing the title, number of columns, and an array of items to be displayed as cards. Each item should have properties such as title, icon, subtitle, variant (accent color), and content.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\blocks\FormBlock\fieldRegestry">src\components\renderers\blocks\FormBlock\fieldRegestry</a></dt>
+<dd><p>src\components\renderers\blocks\FormBlock\fieldRegestry module.</p>
 </dd>
 <dt><a href="#module_components/renderers/blocks/FormBlock/fieldRegistry">components/renderers/blocks/FormBlock/fieldRegistry</a></dt>
 <dd><p>Centralized registry and utilities for form field definitions in FormBlock.
@@ -186,9 +220,15 @@ The normalization function allows for legacy field definitions to be used withou
 <dt><a href="#module_components/blocks/FormBlock">components/blocks/FormBlock</a></dt>
 <dd><p>Main FormBlock component that renders a dynamic form based on a provided schema. It uses RSuite&#39;s Form components under the hood and supports various field types, validation, and conditional rendering. The component is designed to be flexible and extensible, allowing for custom field types and complex form logic.</p>
 </dd>
+<dt><a href="#module_src\components\renderers\blocks\HeroBlock\index">src\components\renderers\blocks\HeroBlock\index</a></dt>
+<dd><p>src\components\renderers\blocks\HeroBlock\index module.</p>
+</dd>
 <dt><a href="#module_components/PageHeader">components/PageHeader</a></dt>
 <dd><p>Standardized page-level header component used to introduce
 pages and major sections with consistent hierarchy and styling.</p>
+</dd>
+<dt><a href="#src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.module_test">src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test</a></dt>
+<dd><p>src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test module.</p>
 </dd>
 <dt><a href="#module_tests/components/blocks/ImageGalleryBlock">tests/components/blocks/ImageGalleryBlock</a></dt>
 <dd><p>Unit tests for the ImageGalleryBlock component.</p>
@@ -204,14 +244,23 @@ This block is intentionally simple and defensive. Tests verify that:</p>
 <li>Valid image data renders accessible <code>&lt;img&gt;</code> elements</li>
 </ul>
 </dd>
+<dt><a href="#module_src\components\renderers\blocks\ImageGalleryBlock\index">src\components\renderers\blocks\ImageGalleryBlock\index</a></dt>
+<dd><p>src\components\renderers\blocks\ImageGalleryBlock\index module.</p>
+</dd>
 <dt><a href="#module_src/components/renderers/blocks/ImageGalleryBlock">src/components/renderers/blocks/ImageGalleryBlock</a></dt>
 <dd><p>Renders a responsive image gallery inside a collapsible,
 frosted-style panel.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\blocks\LinksBlock\index">src\components\renderers\blocks\LinksBlock\index</a></dt>
+<dd><p>src\components\renderers\blocks\LinksBlock\index module.</p>
 </dd>
 <dt><a href="#module_components/renderers/blocks/LinksBlock">components/renderers/blocks/LinksBlock</a></dt>
 <dd><p>Renders a list of link buttons inside a collapsible frosted panel.This component is designed to be used as a block renderer within the section
 content system. It takes a list of link definitions and renders them as styled buttons
 with appropriate attributes for external links, downloads, and accessibility.</p>
+</dd>
+<dt><a href="#src\components\renderers\blocks\LinksBlock\LinksBlock.module_test">src\components\renderers\blocks\LinksBlock\LinksBlock.test</a></dt>
+<dd><p>src\components\renderers\blocks\LinksBlock\LinksBlock.test module.</p>
 </dd>
 <dt><a href="#module_tests/components/blocks/LinksBlock">tests/components/blocks/LinksBlock</a></dt>
 <dd><p>Unit tests for the LinksBlock component.</p>
@@ -228,9 +277,18 @@ These tests ensure it:</p>
 <li>Renders accessible anchor elements when valid data is supplied</li>
 </ul>
 </dd>
+<dt><a href="#src\components\renderers\blocks\MarkdownDocs.module_Block\index">src\components\renderers\blocks\MarkdownDocs.Block\index</a></dt>
+<dd><p>src\components\renderers\blocks\MarkdownDocs.Block\index module.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\blocks\RichTextBlock\index">src\components\renderers\blocks\RichTextBlock\index</a></dt>
+<dd><p>src\components\renderers\blocks\RichTextBlock\index module.</p>
+</dd>
 <dt><a href="#module_components/blocks/RichTextBlock">components/blocks/RichTextBlock</a></dt>
 <dd><p>Renders a collapsible frosted panel containing one or more
 paragraphs of rich text content.</p>
+</dd>
+<dt><a href="#src\components\renderers\blocks\RichTextBlock\RichTextBlock.module_test">src\components\renderers\blocks\RichTextBlock\RichTextBlock.test</a></dt>
+<dd><p>src\components\renderers\blocks\RichTextBlock\RichTextBlock.test module.</p>
 </dd>
 <dt><a href="#module_tests/components/blocks/RichTextBlock">tests/components/blocks/RichTextBlock</a></dt>
 <dd><p>Unit tests for the RichTextBlock component.</p>
@@ -243,12 +301,26 @@ paragraphs of rich text content.</p>
 RichTextBlock is expected to be tolerant of missing data while still
 correctly rendering valid markdown input.</p>
 </dd>
+<dt><a href="#module_src\components\renderers\index">src\components\renderers\index</a></dt>
+<dd><p>src\components\renderers\index module.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\MarkdownRenderer\index">src\components\renderers\MarkdownRenderer\index</a></dt>
+<dd><p>src\components\renderers\MarkdownRenderer\index module.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\RichText\index">src\components\renderers\RichText\index</a></dt>
+<dd><p>src\components\renderers\RichText\index module.</p>
+</dd>
 <dt><a href="#module_components/RichText">components/RichText</a></dt>
-<dd><p>Renders rich text content which may include plain strings, arrays,
-or structured rich text nodes.</p>
+<dd><p>Renders rich text content which may include plain strings, arrays,</p>
+</dd>
+<dt><a href="#module_src\components\renderers\RichText\renderNode">src\components\renderers\RichText\renderNode</a></dt>
+<dd><p>src\components\renderers\RichText\renderNode module.</p>
 </dd>
 <dt><a href="#module_components/renderers/RichText/renderNode">components/renderers/RichText/renderNode</a></dt>
 <dd><p>Tests for the renderNode function, ensuring it correctly renders various node types such as text, links, lists, code blocks, and inline icons, and handles unknown or null nodes gracefully without throwing errors.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\SectionRenderer\index">src\components\renderers\SectionRenderer\index</a></dt>
+<dd><p>src\components\renderers\SectionRenderer\index module.</p>
 </dd>
 <dt><a href="#module_components/SectionRenderer">components/SectionRenderer</a></dt>
 <dd><p>Central render orchestrator for feature sections composed of
@@ -292,9 +364,15 @@ defensive behavior rather than DOM structure.</p>
 <li>Avoids testing implementation details; focuses on observable behavior</li>
 </ul>
 </dd>
+<dt><a href="#module_src\components\ui\AccordionList\index">src\components\ui\AccordionList\index</a></dt>
+<dd><p>src\components\ui\AccordionList\index module.</p>
+</dd>
 <dt><a href="#module_components/AccordionList">components/AccordionList</a></dt>
 <dd><p>Fully accessible, keyboard-navigable accordion and section
 navigation component with frosted-glass styling.</p>
+</dd>
+<dt><a href="#src\components\ui\Btn\Btn.module_test">src\components\ui\Btn\Btn.test</a></dt>
+<dd><p>src\components\ui\Btn\Btn.test module.</p>
 </dd>
 <dt><a href="#tests/components/ui/BtnNote_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_">tests/components/ui/BtnNote: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.</a></dt>
 <dd><p>Unit tests for the Btn component.
@@ -334,6 +412,9 @@ and controlled prop passthrough to RSuite and FontAwesome.</p>
 <dd><p>Clickable image component that expands into a frosted
 modal viewer while preserving aspect ratio and accessibility.</p>
 </dd>
+<dt><a href="#src\components\ui\FrostedIcon\FrostedIcon.module_test">src\components\ui\FrostedIcon\FrostedIcon.test</a></dt>
+<dd><p>src\components\ui\FrostedIcon\FrostedIcon.test module.</p>
+</dd>
 <dt><a href="#module_tests/components/FrostedIcon">tests/components/FrostedIcon</a></dt>
 <dd><p>Unit tests for the FrostedIcon component.</p>
 <p>Testing focus:</p>
@@ -359,11 +440,23 @@ Midnight Gold frosted UI system.</p>
 <dd><p>Centralized export module for shared UI components. This file serves as a single point of import for all commonly used UI elements across the codebase, promoting modularity and ease of maintenance.</p>
 <p>Note: When adding new shared UI components, simply import them here and include them in the export statement.</p>
 </dd>
+<dt><a href="#module_src\components\ui\InsightCard\index">src\components\ui\InsightCard\index</a></dt>
+<dd><p>src\components\ui\InsightCard\index module.</p>
+</dd>
 <dt><a href="#module_components/ui/InsightCard">components/ui/InsightCard</a></dt>
 <dd><p>InsightCard and CardGrid components for displaying key insights in a visually engaging card format.</p>
 </dd>
+<dt><a href="#module_src\components\ui\MermaidDiagram\index">src\components\ui\MermaidDiagram\index</a></dt>
+<dd><p>src\components\ui\MermaidDiagram\index module.</p>
+</dd>
 <dt><a href="#module_components/MermaidDiagram">components/MermaidDiagram</a></dt>
 <dd><p>Fully featured Mermaid diagram renderer with dark/light theme support, responsive SVG layout, accessible container, optional description, and PNG export capability. The component normalizes props to support both legacy and new diagram configurations, allowing for flexible integration while maintaining a consistent internal state structure for rendering.</p>
+</dd>
+<dt><a href="#src\components\ui\MermaidDiagram\paletteTransform.module_test">src\components\ui\MermaidDiagram\paletteTransform.test</a></dt>
+<dd><p>src\components\ui\MermaidDiagram\paletteTransform.test module.</p>
+</dd>
+<dt><a href="#module_src\components\ui\ProjectCard\index">src\components\ui\ProjectCard\index</a></dt>
+<dd><p>src\components\ui\ProjectCard\index module.</p>
 </dd>
 <dt><a href="#module_components/ProjectCard">components/ProjectCard</a></dt>
 <dd><p>Reusable frosted-glass project display card used to present
@@ -380,9 +473,6 @@ portfolio projects with images, repository links, and live URLs.</p>
 <dt><a href="#ResumeDocument">ResumeDocument</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>Component responsible for rendering a structured resume document based on provided data.</p>
 </dd>
-<dt><a href="#LazyDisplay">LazyDisplay</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>A simple component to display a loading message and an optional icon while a lazy-loaded component is being fetched.</p>
-</dd>
 </dl>
 
 ## Functions
@@ -394,33 +484,45 @@ portfolio projects with images, repository links, and live URLs.</p>
 <dt><a href="#PreviewResumeModal">PreviewResumeModal(props)</a> ⇒ <code>JSX.Element</code></dt>
 <dd><p>Modal component for previewing the resume with print and download options.</p>
 </dd>
-<dt><a href="#ResumePreviewTrigger">ResumePreviewTrigger(props)</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>Component that triggers the resume preview modal.</p>
-</dd>
-<dt><a href="#InlineIcon">InlineIcon(props)</a> ⇒ <code>JSX.Element</code></dt>
-<dd><h2 id="inlineicon">InlineIcon</h2>
-<p>Renders a lightweight, inline icon placeholder.</p>
-<p>This component is intentionally decoupled from any specific icon library.
-Styling and actual icon rendering should be handled via CSS or a higher-level
-icon system.</p>
-</dd>
-<dt><a href="#renderNode">renderNode(node, key)</a> ⇒ <code>JSX.Element</code> | <code>string</code> | <code>null</code></dt>
-<dd><h2 id="rendernode">renderNode</h2>
-<p>Recursively renders a <code>RichTextNode</code> into a React element.</p>
-<p>Design notes:</p>
-<ul>
-<li>Uses a single switch statement for explicit, readable control flow</li>
-<li>Recursion allows arbitrarily deep nesting (lists, paragraphs, blockquotes)</li>
-<li>Inline nodes return strings or inline elements</li>
-<li>Block nodes return semantic container elements</li>
-</ul>
-</dd>
 </dl>
+
+<a name="src\components\features\AccessibilityMenu\AccessibilityMenu.module_test"></a>
+
+## src\components\features\AccessibilityMenu\AccessibilityMenu.test
+src\components\features\AccessibilityMenu\AccessibilityMenu.test module.
 
 <a name="module_components/features/AccessibilityMenu"></a>
 
 ## components/features/AccessibilityMenu
 Accessibility preferences modal for toggling motion, contrast,text size, and keyboard guidance with persisted client-side settings.
+
+<a name="module_components/PaletteToggle"></a>
+
+## components/PaletteToggle
+In-app color palette selector for switching between supportedpalette themes.
+
+<a name="module_components/PaletteToggle..PaletteToggle"></a>
+
+### components/PaletteToggle~PaletteToggle(props) ⇒ <code>JSX.Element</code>
+PaletteToggle------------------------------------------------------------------Compact select control for switching app-level color palettes.
+
+**Kind**: inner method of [<code>components/PaletteToggle</code>](#module_components/PaletteToggle)  
+**Access**: public  
+**Component**:   
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | Component props. |
+| [props.size] | <code>Size</code> | <code>Size.MD</code> | Visual size of the select control. |
+| [props.showLabel] | <code>boolean</code> | <code>true</code> | Whether to render a visible label. |
+| [props.className] | <code>string</code> |  | Optional root className. |
+| [props.labelText] | <code>string</code> | <code>&quot;\&quot;Palette\&quot;&quot;</code> | Visible label text. |
+| [props.ariaLabel] | <code>string</code> | <code>&quot;\&quot;Color palette selector\&quot;&quot;</code> | Accessible label for select. |
+
+<a name="src\components\features\PaletteToggle\PaletteToggle.module_test"></a>
+
+## src\components\features\PaletteToggle\PaletteToggle.test
+src\components\features\PaletteToggle\PaletteToggle.test module.
 
 <a name="module_components/ResumePreview/PreviewResume"></a>
 
@@ -446,6 +548,30 @@ Main export for the resume preview feature.
 ## tests/components/ResumePreview
 Unit tests for the ResumePreview component.Test coverage:- Modal opens when the trigger button is clicked- Modal renders the resume content when opened- Modal closes when the close button is clickedTesting strategy:- Mocks external dependencies (Btn and rsuite Modal components) to isolate testing to ResumePreview's behavior- Uses user-facing queries to verify the presence of interactive elements and content- Simulates user interactions (clicks) to test modal open/close behavior- Asserts the presence or absence of the modal and its content based on user actions
 
+<a name="module_src\components\features\ResumePreview\ResumePreviewTrigger"></a>
+
+## src\components\features\ResumePreview\ResumePreviewTrigger
+src\components\features\ResumePreview\ResumePreviewTrigger module.
+
+<a name="module_src\components\features\ResumePreview\ResumePreviewTrigger..ResumePreviewTrigger"></a>
+
+### src\components\features\ResumePreview\ResumePreviewTrigger~ResumePreviewTrigger(props) ⇒ <code>JSX.Element</code>
+Component that triggers the resume preview modal.
+
+**Kind**: inner method of [<code>src\components\features\ResumePreview\ResumePreviewTrigger</code>](#module_src\components\features\ResumePreview\ResumePreviewTrigger)  
+**Returns**: <code>JSX.Element</code> - The rendered trigger component.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | The properties object. |
+| props.buttonText | <code>string</code> | The text for the trigger button. |
+| props.title | <code>string</code> | The title of the resume preview. |
+| props.subtitle | <code>string</code> | The subtitle of the resume preview. |
+| props.resume | <code>Object</code> | The resume data object. |
+| props.pdfHref | <code>string</code> | The URL of the PDF version of the resume. |
+| props.downloadName | <code>string</code> | The name for the downloaded PDF file. |
+| props.buttonClassName | <code>string</code> | Additional class names for the trigger button. |
+
 <a name="module_components/ThemeToggle"></a>
 
 ## components/ThemeToggle
@@ -466,10 +592,20 @@ ThemeToggle------------------------------------------------------------------C
 | props | <code>Object</code> |  | Component props. |
 | [props.size] | <code>Size</code> | <code>Size.SM</code> | Size applied to the toggle buttons. |
 
+<a name="src\components\features\ThemeToggle\ThemeToggle.module_test"></a>
+
+## src\components\features\ThemeToggle\ThemeToggle.test
+src\components\features\ThemeToggle\ThemeToggle.test module.
+
 <a name="module_tests/components/ThemeToggle"></a>
 
 ## tests/components/ThemeToggle
 Unit tests for the ThemeToggle component.Testing focus:- Rendering of both light and dark theme toggle buttons- Theme state transitions when toggles are activated- Presence of accessible button labelsTesting philosophy:- Verifies observable behavior only- Avoids asserting internal DOM structure or RSuite implementation details- Treats theme state as a global side effect via `data-theme`
+
+<a name="module_src\components\layout\InfoSection\index"></a>
+
+## src\components\layout\InfoSection\index
+src\components\layout\InfoSection\index module.
 
 <a name="module_components/layout/InfoSection"></a>
 
@@ -497,10 +633,20 @@ A responsive, collapsible frosted-glass section wrapper used throughoutthe appl
 | [props.id] | <code>string</code> | Optional DOM id used for section scrolling and deep linking. |
 | props.children | <code>React.ReactNode</code> | Content rendered inside the section body. |
 
+<a name="src\components\layout\InfoSection\InfoSection.module_test"></a>
+
+## src\components\layout\InfoSection\InfoSection.test
+src\components\layout\InfoSection\InfoSection.test module.
+
 <a name="module_tests/components/InfoSection"></a>
 
 ## tests/components/InfoSection
 Unit tests for the InfoSection layout component.Testing focus:- Correct semantic wrapper element (`section`)- Proper application of root classes and IDs- Conditional rendering of title, subtitle, and icon- Transparent rendering of child contentTesting strategy:- Mocks RSuite Panel to reduce surface area and DOM complexity- Mocks FrostedIcon to avoid FontAwesome rendering concerns- Focuses on layout and composition, not styling details
+
+<a name="module_src\components\layout\PageHeader\index"></a>
+
+## src\components\layout\PageHeader\index
+src\components\layout\PageHeader\index module.
 
 <a name="module_components/PageHeader"></a>
 
@@ -615,7 +761,7 @@ Footer-------------------------------------------------------------------------
 <a name="module_components/Footer..Footer..currentYear"></a>
 
 #### Footer~currentYear
-Current year used for copyright display.Computed at render time to avoid manual updates.
+Current year used for copyright display. Computed at render time to avoid manual updates. /
 
 **Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
 <a name="module_components/navigation/Head"></a>
@@ -813,6 +959,11 @@ Sticky, accessible intra-page section navigator withhierarchical scroll trackin
 
 **Example**  
 ```js<StickySectionNavsections={[    { id: "intro", title: "Introduction", blocks: [] },    { id: "features", title: "Features", blocks: [      { id: "feat1", title: "Feature 1" },      { id: "feat2", title: "Feature 2" },    ]  },]}pageUrl="/portfolio"mode="desktop"isOpen={true}/>```
+<a name="src\components\navigation\StickySectionNav\StickySectionNav.module_test"></a>
+
+## src\components\navigation\StickySectionNav\StickySectionNav.test
+src\components\navigation\StickySectionNav\StickySectionNav.test module.
+
 <a name="module_tests/components/StickySectionNav"></a>
 
 ## tests/components/StickySectionNav
@@ -826,13 +977,13 @@ Unit tests for the StickySectionNav component.Test coverage:- Rendering of se
 <a name="module_tests/components/StickySectionNav..s1"></a>
 
 ### tests/components/StickySectionNav~s1
-Ensure target section elements exist in the DOM soscroll and offset calculations can resolve correctly.
+Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
 
 **Kind**: inner property of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
 <a name="module_tests/components/StickySectionNav..markProgrammaticScroll"></a>
 
 ### tests/components/StickySectionNav~markProgrammaticScroll
-Mock scroll-spy hook to control active section stateand observe programmatic scroll suppression behavior.
+Mock scroll-spy hook to control active section state and observe programmatic scroll suppression behavior. /
 
 **Kind**: inner constant of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
 <a name="module_components/renderers/blocks/CardGridBlock"></a>
@@ -866,6 +1017,11 @@ A block component for displaying a grid of InsightCards. It takes a block object
 
 **Example**  
 ```jsconst blockData = {  title: "Key Insights", columns: 3, items: [   {    id: "1",    title: "Insight One",    icon: "lightbulb",    subtitle: "An important finding",    variant: "blue",    content: "This insight reveals that..."  },  {   id: "2",   title: "Insight Two",   icon: "chart-bar",   subtitle: "Another key point",   variant: "green",   content: "This insight highlights that..."   }, ],};<CardGridBlock block={blockData} />```
+<a name="module_src\components\renderers\blocks\CardGridBlock\index"></a>
+
+## src\components\renderers\blocks\CardGridBlock\index
+src\components\renderers\blocks\CardGridBlock\index module.
+
 <a name="module_components/renderers/blocks/CardGridBlock"></a>
 
 ## components/renderers/blocks/CardGridBlock
@@ -897,6 +1053,11 @@ A block component for displaying a grid of InsightCards. It takes a block object
 
 **Example**  
 ```jsconst blockData = {  title: "Key Insights", columns: 3, items: [   {    id: "1",    title: "Insight One",    icon: "lightbulb",    subtitle: "An important finding",    variant: "blue",    content: "This insight reveals that..."  },  {   id: "2",   title: "Insight Two",   icon: "chart-bar",   subtitle: "Another key point",   variant: "green",   content: "This insight highlights that..."   }, ],};<CardGridBlock block={blockData} />```
+<a name="module_src\components\renderers\blocks\FormBlock\fieldRegestry"></a>
+
+## src\components\renderers\blocks\FormBlock\fieldRegestry
+src\components\renderers\blocks\FormBlock\fieldRegestry module.
+
 <a name="module_components/renderers/blocks/FormBlock/fieldRegistry"></a>
 
 ## components/renderers/blocks/FormBlock/fieldRegistry
@@ -1024,6 +1185,11 @@ Renders a dynamic form based on a provided schema. The schema defines the fields
 
 **Example**  
 ```jsconst contactFormSchema = {id: "contact-form",title: "Send Me a Message",fields: [  {    name: "fullName",    type: "text",    label: "Full Name",    placeholder: "Enter your name",    required: true,    defaultValue: "",    helpText: "Use your preferred name."  },  {    name: "email",    type: "text",    label: "Email",    placeholder: "",    required: true,    defaultValue: "",    rule: /^[^\s@]+@[^\s@]+\.[^\s@]+$/  },  {    name: "reason",    type: "select",    label: "Reason",    placeholder: "Choose one",    defaultValue: null,    options: [      {        label: "Freelance Project",         value: "freelance" },      {        label: "Job Opportunity",         value: "job" },      {         label: "General Question",        value: "general" }    ]  },  {    name: "message",    type: "textarea",    label: "Message",    placeholder: "Tell me about your project",    defaultValue: "",    componentProps: {      rows: 6    }  },  {    name: "contactMethods",    type: "checkboxGroup",    label: "Preferred Contact",    defaultValue: [],    options: [      { label: "Email", value: "email" },      { label: "Phone", value: "phone" },      { label: "Text", value: "text" }    ]  }],onSubmit: (formValue) => sendMessage(formValue),}<FormBlock schema={contactFormSchema} />```
+<a name="module_src\components\renderers\blocks\HeroBlock\index"></a>
+
+## src\components\renderers\blocks\HeroBlock\index
+src\components\renderers\blocks\HeroBlock\index module.
+
 <a name="module_components/PageHeader"></a>
 
 ## components/PageHeader
@@ -1105,10 +1271,20 @@ TechItem-----------------------------------------------------------------------
 | type | <code>string</code> | CSS class used to style the technology label. |
 | [id] | <code>string</code> | Optional unique identifier. |
 
+<a name="src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.module_test"></a>
+
+## src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test
+src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test module.
+
 <a name="module_tests/components/blocks/ImageGalleryBlock"></a>
 
 ## tests/components/blocks/ImageGalleryBlock
 Unit tests for the ImageGalleryBlock component.Testing focus:- Defensive rendering behavior when image data is missing or invalid- Basic thumbnail rendering with correct accessibility attributesDesign intent:This block is intentionally simple and defensive. Tests verify that:- The component fails silently when no images are provided- Valid image data renders accessible `<img>` elements
+
+<a name="module_src\components\renderers\blocks\ImageGalleryBlock\index"></a>
+
+## src\components\renderers\blocks\ImageGalleryBlock\index
+src\components\renderers\blocks\ImageGalleryBlock\index module.
 
 <a name="module_src/components/renderers/blocks/ImageGalleryBlock"></a>
 
@@ -1133,6 +1309,11 @@ Displays a responsive image gallery as a collapsible frosted panel.Key behavio
 
 **Example**  
 ```js<ImageGalleryBlockblock={{ id: "gallery1",title: "Project Screenshots",items: [   { id: "img1", src: "/images/screenshot1.png", alt: "Screenshot 1" },   { id: "img2", src: "/images/screenshot2.png", alt: "Screenshot 2" }, ],}}
+<a name="module_src\components\renderers\blocks\LinksBlock\index"></a>
+
+## src\components\renderers\blocks\LinksBlock\index
+src\components\renderers\blocks\LinksBlock\index module.
+
 <a name="module_components/renderers/blocks/LinksBlock"></a>
 
 ## components/renderers/blocks/LinksBlock
@@ -1155,10 +1336,25 @@ Renders a list of link buttons using the shared UI type system.This component i
 
 **Example**  
 ```js<LinksBlock  items={[    { title: "GitHub", url: "https://github.com", icon: faGithub },    { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },  ]}/>```
+<a name="src\components\renderers\blocks\LinksBlock\LinksBlock.module_test"></a>
+
+## src\components\renderers\blocks\LinksBlock\LinksBlock.test
+src\components\renderers\blocks\LinksBlock\LinksBlock.test module.
+
 <a name="module_tests/components/blocks/LinksBlock"></a>
 
 ## tests/components/blocks/LinksBlock
 Unit tests for the LinksBlock component.Testing focus:- Defensive rendering behavior when link data is missing- Correct rendering of anchor elements with expected attributesDesign intent:LinksBlock is intentionally minimal and data-driven.These tests ensure it:- Fails silently when provided with invalid input- Renders accessible anchor elements when valid data is supplied
+
+<a name="src\components\renderers\blocks\MarkdownDocs.module_Block\index"></a>
+
+## src\components\renderers\blocks\MarkdownDocs.Block\index
+src\components\renderers\blocks\MarkdownDocs.Block\index module.
+
+<a name="module_src\components\renderers\blocks\RichTextBlock\index"></a>
+
+## src\components\renderers\blocks\RichTextBlock\index
+src\components\renderers\blocks\RichTextBlock\index module.
 
 <a name="module_components/blocks/RichTextBlock"></a>
 
@@ -1183,15 +1379,49 @@ Renders a collapsible panel containing one or more paragraphs of rich text. Inte
 | [props.title] | <code>string</code> | Optional heading displayed in the panel header. |
 | props.content | <code>Array.&lt;string&gt;</code> \| <code>RichTextNode</code> | Paragraph text content to render. |
 
+<a name="src\components\renderers\blocks\RichTextBlock\RichTextBlock.module_test"></a>
+
+## src\components\renderers\blocks\RichTextBlock\RichTextBlock.test
+src\components\renderers\blocks\RichTextBlock\RichTextBlock.test module.
+
 <a name="module_tests/components/blocks/RichTextBlock"></a>
 
 ## tests/components/blocks/RichTextBlock
 Unit tests for the RichTextBlock component.Testing focus:- Defensive rendering behavior when content is missing or invalid- Correct rendering of markdown content into semantic HTMLDesign intent:RichTextBlock is expected to be tolerant of missing data while stillcorrectly rendering valid markdown input.
 
+<a name="module_src\components\renderers\index"></a>
+
+## src\components\renderers\index
+src\components\renderers\index module.
+
+<a name="module_src\components\renderers\index..LazyDisplay"></a>
+
+### src\components\renderers\index~LazyDisplay ⇒ <code>JSX.Element</code>
+A simple component to display a loading message and an optional icon while a lazy-loaded component is being fetched.
+
+**Kind**: inner property of [<code>src\components\renderers\index</code>](#module_src\components\renderers\index)  
+**Returns**: <code>JSX.Element</code> - Rendered loading placeholder.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| loadingMessage | <code>string</code> | The message to display while loading. Defaults to "Loading...". |
+| icon | <code>string</code> | An optional FontAwesome icon class to display above the loading message. |
+| iconSpin | <code>boolean</code> | If true, the icon will have the "fa-spin" class applied for animation. |
+
+<a name="module_src\components\renderers\MarkdownRenderer\index"></a>
+
+## src\components\renderers\MarkdownRenderer\index
+src\components\renderers\MarkdownRenderer\index module.
+
+<a name="module_src\components\renderers\RichText\index"></a>
+
+## src\components\renderers\RichText\index
+src\components\renderers\RichText\index module.
+
 <a name="module_components/RichText"></a>
 
 ## components/RichText
-Renders rich text content which may include plain strings, arrays,or structured rich text nodes.
+Renders rich text content which may include plain strings, arrays,
 
 <a name="module_components/RichText..RichText"></a>
 
@@ -1216,10 +1446,50 @@ Renders rich text content which may include plain strings, arrays, or structured
 
 **Example**  
 ```js<RichText  text={[    "This is a paragraph of rich text.",    { type: "link", href: "https://example.com", text: "This is a link." },   "This is another paragraph." ]} className="custom-rich-text" role="article"ariaLabeledBy="richTextLabel"/>```In this example, the `RichText` component renders a mix of plain text and a structured link node, applying custom styling and accessibility attributes as specified in the props.
+<a name="module_src\components\renderers\RichText\renderNode"></a>
+
+## src\components\renderers\RichText\renderNode
+src\components\renderers\RichText\renderNode module.
+
+
+* [src\components\renderers\RichText\renderNode](#module_src\components\renderers\RichText\renderNode)
+    * [~InlineIcon(props)](#module_src\components\renderers\RichText\renderNode..InlineIcon) ⇒ <code>JSX.Element</code>
+    * [~renderNode(node, key)](#module_src\components\renderers\RichText\renderNode..renderNode) ⇒ <code>JSX.Element</code> \| <code>string</code> \| <code>null</code>
+
+<a name="module_src\components\renderers\RichText\renderNode..InlineIcon"></a>
+
+### src\components\renderers\RichText\renderNode~InlineIcon(props) ⇒ <code>JSX.Element</code>
+InlineIcon---------------------------------------------------------------------------Renders a lightweight, inline icon placeholder.This component is intentionally decoupled from any specific icon library.Styling and actual icon rendering should be handled via CSS or a higher-levelicon system.
+
+**Kind**: inner method of [<code>src\components\renderers\RichText\renderNode</code>](#module_src\components\renderers\RichText\renderNode)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>object</code> |  |
+| props.name | <code>string</code> | Icon identifier used to construct CSS class names. |
+
+<a name="module_src\components\renderers\RichText\renderNode..renderNode"></a>
+
+### src\components\renderers\RichText\renderNode~renderNode(node, key) ⇒ <code>JSX.Element</code> \| <code>string</code> \| <code>null</code>
+renderNode---------------------------------------------------------------------------Recursively renders a `RichTextNode` into a React element.Design notes:- Uses a single switch statement for explicit, readable control flow- Recursion allows arbitrarily deep nesting (lists, paragraphs, blockquotes)- Inline nodes return strings or inline elements- Block nodes return semantic container elements
+
+**Kind**: inner method of [<code>src\components\renderers\RichText\renderNode</code>](#module_src\components\renderers\RichText\renderNode)  
+**Returns**: <code>JSX.Element</code> \| <code>string</code> \| <code>null</code> - Rendered node output.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| node | <code>RichTextNode</code> | Rich text node to render. |
+| key | <code>number</code> \| <code>string</code> | React key used when rendering collections. |
+
 <a name="module_components/renderers/RichText/renderNode"></a>
 
 ## components/renderers/RichText/renderNode
 Tests for the renderNode function, ensuring it correctly renders various node types such as text, links, lists, code blocks, and inline icons, and handles unknown or null nodes gracefully without throwing errors.
+
+<a name="module_src\components\renderers\SectionRenderer\index"></a>
+
+## src\components\renderers\SectionRenderer\index
+src\components\renderers\SectionRenderer\index module.
 
 <a name="module_components/SectionRenderer"></a>
 
@@ -1252,7 +1522,7 @@ Central render orchestrator for a single feature section.This component acts as
 <a name="module_components/SectionRenderer..SectionRenderer..blocks"></a>
 
 #### SectionRenderer~blocks
-Registers the section for scroll tracking on mountand unregisters it on unmount.Enables:- Sticky section navigation- Active section highlighting- Programmatic scrolling
+Registers the section for scroll tracking on mount and unregisters it on unmount. Enables: - Sticky section navigation - Active section highlighting - Programmatic scrolling /
 
 **Kind**: inner constant of [<code>SectionRenderer</code>](#module_components/SectionRenderer..SectionRenderer)  
 <a name="module_tests/components/SectionRenderer"></a>
@@ -1264,6 +1534,11 @@ Unit tests for the SectionRenderer component.Test coverage:- Section registry
 
 ## tests/components/AccordionList
 Unit tests for the AccordionList component.Test coverage:- Basic rendering of panel and item titles- Accordion expand / collapse behavior- Keyboard interaction (Enter / Space)- Scroll-to-section behavior for `isScroller` items- Accessibility roles and screen-reader live region updatesTesting strategy:- Uses `renderWithProviders` to ensure context parity with the app- Uses `@testing-library/user-event` for realistic interaction simulation- Avoids testing implementation details; focuses on observable behavior
+
+<a name="module_src\components\ui\AccordionList\index"></a>
+
+## src\components\ui\AccordionList\index
+src\components\ui\AccordionList\index module.
 
 <a name="module_components/AccordionList"></a>
 
@@ -1338,7 +1613,7 @@ Move keyboard focus up/down
 <a name="module_components/AccordionList..AccordionList..moveAndOpen"></a>
 
 #### AccordionList~moveAndOpen()
-Move to adjacent accordion item and open exactly that item.This keeps arrow navigation deterministic and prevents skippingmiddle items during rapid key repeat.
+Move to adjacent accordion item and open exactly that item. This keeps arrow navigation deterministic and prevents skipping middle items during rapid key repeat. /
 
 **Kind**: inner method of [<code>AccordionList</code>](#module_components/AccordionList..AccordionList)  
 <a name="module_components/AccordionList..AccordionList..handleKeyDown"></a>
@@ -1364,6 +1639,11 @@ AccordionItem------------------------------------------------------------------
 | [local] | <code>boolean</code> | <code>false</code> | Whether the URL is a local route. |
 | [icon] | <code>\*</code> |  | Optional icon passed to FrostedIcon. |
 | [isScroller] | <code>boolean</code> | <code>false</code> | Enables scroll-to-section behavior when activated. |
+
+<a name="src\components\ui\Btn\Btn.module_test"></a>
+
+## src\components\ui\Btn\Btn.test
+src\components\ui\Btn\Btn.test module.
 
 <a name="tests/components/ui/BtnNote_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_"></a>
 
@@ -1435,7 +1715,7 @@ True when the button renders only an icon with no text label
 <a name="module_components/Btn..Btn..resolvedAriaLabel"></a>
 
 #### Btn~resolvedAriaLabel
-Resolve an accessible aria-label for the button.Falls back to tooltip text or a humanized icon name.
+Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name. /
 
 **Kind**: inner constant of [<code>Btn</code>](#module_components/Btn..Btn)  
 <a name="module_components/Btn..Btn..handleClick"></a>
@@ -1543,6 +1823,11 @@ A responsive image thumbnail that expands into a modal viewer when clicked. The 
 
 **Example**  
 ```js<ClickableImgsrc="/images/project-screenshot.png"alt="Screenshot of the project in action"title="Project Screenshot"caption="This screenshot shows the main dashboard of the application."ariaLabel="Screenshot of the project in action, click to expand"/>```In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
+<a name="src\components\ui\FrostedIcon\FrostedIcon.module_test"></a>
+
+## src\components\ui\FrostedIcon\FrostedIcon.test
+src\components\ui\FrostedIcon\FrostedIcon.test module.
+
 <a name="module_tests/components/FrostedIcon"></a>
 
 ## tests/components/FrostedIcon
@@ -1622,6 +1907,11 @@ Subset of props forwarded directly to the underlying `FontAwesomeIcon`component
 ## components/ui
 Centralized export module for shared UI components. This file serves as a single point of import for all commonly used UI elements across the codebase, promoting modularity and ease of maintenance.Note: When adding new shared UI components, simply import them here and include them in the export statement.
 
+<a name="module_src\components\ui\InsightCard\index"></a>
+
+## src\components\ui\InsightCard\index
+src\components\ui\InsightCard\index module.
+
 <a name="module_components/ui/InsightCard"></a>
 
 ## components/ui/InsightCard
@@ -1669,6 +1959,11 @@ A card component for displaying insights with a header and body. The header can 
 
 **Example**  
 ```js<InsightCard title="Key Insight" icon={faLightbulb} subtitle="This is a subtitle" variant={Variant.SECONDARY} content="This is the main content of the insight card."/>```Accessibility:- The card uses semantic HTML elements (e.g., `<h3>` for the title) to ensure proper structure and readability for screen readers.- The optional icon includes an `aria-label` for accessibility, describing the purpose of the icon when it is present.- The card's color variant is purely decorative and does not convey additional information, so it does not affect accessibility attributes.Design notes:- The `variant` prop allows for visual differentiation between cards, enabling the use of different accent colors to highlight specific insights.- The card layout is designed to be flexible, allowing for various types of content in the body while maintaining a consistent header structure.- The use of a divider between the header and body helps to visually separate the sections and improve readability.- The component is designed to be reusable and composable, allowing it to be used in various contexts where insights need to be displayed in a card format.
+<a name="module_src\components\ui\MermaidDiagram\index"></a>
+
+## src\components\ui\MermaidDiagram\index
+src\components\ui\MermaidDiagram\index module.
+
 <a name="module_components/MermaidDiagram"></a>
 
 ## components/MermaidDiagram
@@ -1713,6 +2008,16 @@ Handle diagram export by converting the rendered SVG to a PNG image using `html-
 
 **Kind**: inner method of [<code>components/MermaidDiagram</code>](#module_components/MermaidDiagram)  
 **Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the export process is complete, allowing for asynchronous handling of the export operation.  
+<a name="src\components\ui\MermaidDiagram\paletteTransform.module_test"></a>
+
+## src\components\ui\MermaidDiagram\paletteTransform.test
+src\components\ui\MermaidDiagram\paletteTransform.test module.
+
+<a name="module_src\components\ui\ProjectCard\index"></a>
+
+## src\components\ui\ProjectCard\index
+src\components\ui\ProjectCard\index module.
+
 <a name="module_components/ProjectCard"></a>
 
 ## components/ProjectCard
@@ -1784,20 +2089,6 @@ Component responsible for rendering a structured resume document based on provid
 | props | <code>Object</code> | The properties object. |
 | props.resume | <code>Object</code> | The resume data object. |
 
-<a name="LazyDisplay"></a>
-
-## LazyDisplay ⇒ <code>JSX.Element</code>
-A simple component to display a loading message and an optional icon while a lazy-loaded component is being fetched.
-
-**Kind**: global variable  
-**Returns**: <code>JSX.Element</code> - Rendered loading placeholder.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| loadingMessage | <code>string</code> | The message to display while loading. Defaults to "Loading...". |
-| icon | <code>string</code> | An optional FontAwesome icon class to display above the loading message. |
-| iconSpin | <code>boolean</code> | If true, the icon will have the "fa-spin" class applied for animation. |
-
 <a name="collectDocumentStyles"></a>
 
 ## collectDocumentStyles() ⇒ <code>string</code>
@@ -1823,48 +2114,4 @@ Modal component for previewing the resume with print and download options.
 | props.pdfHref | <code>string</code> | The URL of the PDF version of the resume. |
 | props.downloadName | <code>string</code> | The name for the downloaded PDF file. |
 | props.children | <code>React.ReactNode</code> | The content of the modal. |
-
-<a name="ResumePreviewTrigger"></a>
-
-## ResumePreviewTrigger(props) ⇒ <code>JSX.Element</code>
-Component that triggers the resume preview modal.
-
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> - The rendered trigger component.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>Object</code> | The properties object. |
-| props.buttonText | <code>string</code> | The text for the trigger button. |
-| props.title | <code>string</code> | The title of the resume preview. |
-| props.subtitle | <code>string</code> | The subtitle of the resume preview. |
-| props.resume | <code>Object</code> | The resume data object. |
-| props.pdfHref | <code>string</code> | The URL of the PDF version of the resume. |
-| props.downloadName | <code>string</code> | The name for the downloaded PDF file. |
-| props.buttonClassName | <code>string</code> | Additional class names for the trigger button. |
-
-<a name="InlineIcon"></a>
-
-## InlineIcon(props) ⇒ <code>JSX.Element</code>
-InlineIcon---------------------------------------------------------------------------Renders a lightweight, inline icon placeholder.This component is intentionally decoupled from any specific icon library.Styling and actual icon rendering should be handled via CSS or a higher-levelicon system.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>object</code> |  |
-| props.name | <code>string</code> | Icon identifier used to construct CSS class names. |
-
-<a name="renderNode"></a>
-
-## renderNode(node, key) ⇒ <code>JSX.Element</code> \| <code>string</code> \| <code>null</code>
-renderNode---------------------------------------------------------------------------Recursively renders a `RichTextNode` into a React element.Design notes:- Uses a single switch statement for explicit, readable control flow- Recursion allows arbitrarily deep nesting (lists, paragraphs, blockquotes)- Inline nodes return strings or inline elements- Block nodes return semantic container elements
-
-**Kind**: global function  
-**Returns**: <code>JSX.Element</code> \| <code>string</code> \| <code>null</code> - Rendered node output.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>RichTextNode</code> | Rich text node to render. |
-| key | <code>number</code> \| <code>string</code> | React key used when rendering collections. |
 

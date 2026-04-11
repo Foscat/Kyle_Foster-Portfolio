@@ -9,6 +9,11 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 
 const THEME_STORAGE_KEY = "portfolio-theme";
 const PALETTE_STORAGE_KEY = "portfolio-palette";
+const SUPPORTED_PALETTES = Object.freeze(["primary", "alt", "forest", "ocean", "sunset"]);
+const DEFAULT_PALETTE = "ocean";
+
+const isSupportedPalette = (value) =>
+  typeof value === "string" && SUPPORTED_PALETTES.includes(value);
 
 function getInitialTheme() {
   if (typeof window === "undefined") {
@@ -20,24 +25,20 @@ function getInitialTheme() {
     return savedTheme;
   }
 
-  if (window.matchMedia?.("(prefers-color-scheme: light)").matches) {
-    return "light";
-  }
-
   return "dark";
 }
 
 function getInitialPalette() {
   if (typeof window === "undefined") {
-    return "primary";
+    return DEFAULT_PALETTE;
   }
 
   const savedPalette = window.localStorage.getItem(PALETTE_STORAGE_KEY);
-  if (savedPalette === "primary" || savedPalette === "alt") {
+  if (isSupportedPalette(savedPalette)) {
     return savedPalette;
   }
 
-  return "primary";
+  return DEFAULT_PALETTE;
 }
 
 /**
@@ -47,15 +48,22 @@ function getInitialPalette() {
  */
 
 /**
+ * Supported application palettes.
+ *
+ * @typedef {"primary"|"alt"|"forest"|"ocean"|"sunset"} Palette
+ */
+
+/**
  * Context value exposed by the ThemeProvider.
  *
  * @typedef {Object} ThemeContextValue
  * @property {Theme} theme - Currently active theme.
  * @property {(theme: Theme) => void} setTheme - Explicitly set the theme.
  * @property {() => void} toggleTheme - Toggle between light and dark themes.
- * @property {"primary"|"alt"} palette - Currently active color palette.
- * @property {(palette: "primary"|"alt") => void} setPalette - Explicitly set the palette.
- * @property {() => void} togglePalette - Toggle between primary and alt palettes.
+ * @property {Palette} palette - Currently active color palette.
+ * @property {(palette: Palette) => void} setPalette - Explicitly set the palette.
+ * @property {() => void} togglePalette - Cycle through available palettes.
+ * @property {Palette[]} palettes - Supported palette identifiers.
  */
 
 const ThemeContext = createContext(null);
@@ -70,18 +78,37 @@ const ThemeContext = createContext(null);
  */
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(getInitialTheme);
-  const [palette, setPalette] = useState(getInitialPalette);
+  const [palette, setPaletteState] = useState(getInitialPalette);
 
   /**
-   * Toggles the current theme.
-   * Uses functional state update to avoid stale closures.
-   */
+ * @description Toggles the current theme. Uses functional state update to avoid stale closures. /
+ */
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }, []);
 
+  const setPalette = useCallback((nextPalette) => {
+    setPaletteState((prev) => {
+      if (typeof nextPalette === "function") {
+        try {
+          const resolvedPalette = nextPalette(prev);
+          return isSupportedPalette(resolvedPalette) ? resolvedPalette : prev;
+        } catch {
+          return prev;
+        }
+      }
+
+      return isSupportedPalette(nextPalette) ? nextPalette : prev;
+    });
+  }, []);
+
   const togglePalette = useCallback(() => {
-    setPalette((prev) => (prev === "alt" ? "primary" : "alt"));
+    setPaletteState((prev) => {
+      const currentIndex = SUPPORTED_PALETTES.indexOf(prev);
+      const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+      const nextIndex = (safeIndex + 1) % SUPPORTED_PALETTES.length;
+      return SUPPORTED_PALETTES[nextIndex];
+    });
   }, []);
 
   useEffect(() => {
@@ -94,7 +121,15 @@ export function ThemeProvider({ children }) {
 
   return (
     <ThemeContext.Provider
-      value={{ theme, setTheme, toggleTheme, palette, setPalette, togglePalette }}
+      value={{
+        theme,
+        setTheme,
+        toggleTheme,
+        palette,
+        setPalette,
+        togglePalette,
+        palettes: SUPPORTED_PALETTES,
+      }}
     >
       {children}
     </ThemeContext.Provider>

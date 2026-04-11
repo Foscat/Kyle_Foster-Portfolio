@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\smu\index.js
+ * @description src\assets\data\content\smu\index module.
+ * @module src\assets\data\content\smu\index
+ */
+
 import {
   faChartLine,
   faCode,
@@ -17,10 +23,7 @@ import diagrams from "./diagrams.js";
 import imgObjs from "assets/images/smu";
 
 /**
- * SMU – Page Section Data
- * ------------------------------------------------------------
- * Academic projects demonstrating early-stage growth,
- * teamwork, and problem-solving progression.
+ * @description SMU – Page Section Data ------------------------------------------------------------ Academic projects demonstrating early-stage growth, teamwork, and problem-solving progression. /
  */
 
 const smuSections = [

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\MarkdownRenderer\index.jsx
+ * @description src\components\renderers\MarkdownRenderer\index module.
+ * @module src\components\renderers\MarkdownRenderer\index
+ */
+
 import React, { Children, useEffect, useMemo, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\navigation\helpers\__tests__\SectionRegistryProvider.test.jsx
+ * @description src\components\navigation\helpers\__tests__\SectionRegistryProvider.test module.
+ * @module src\components\navigation\helpers\__tests__\SectionRegistryProvider.test
+ */
+
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 

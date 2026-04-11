@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\core\diagramRegistry.js
+ * @description src\components\features\CustomDiagram\core\diagramRegistry module.
+ * @module src\components\features\CustomDiagram\core\diagramRegistry
+ */
+
 import { buildArchitectureVariants } from "./index.js";
 
 /**

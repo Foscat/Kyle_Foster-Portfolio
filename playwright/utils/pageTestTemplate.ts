@@ -1,15 +1,14 @@
+/**
+ * @file playwright\utils\pageTestTemplate.ts
+ * @description playwright\utils\pageTestTemplate module.
+ * @module playwright\utils\pageTestTemplate
+ */
+
 import { test, expect, Page } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "./stabilizePage";
 
 /**
- * Base URL resolution
- * ------------------------------------------------------------
- * Playwright can resolve relative routes when `use.baseURL` is set in the config.
- * However, developers often run tests from nested folders (e.g. `playwright/pages`),
- * which can cause Playwright to miss the root config and treat relative routes as
- * invalid URLs.
- *
- * This helper makes navigation robust by always converting a route into an absolute URL.
+ * @description Base URL resolution ------------------------------------------------------------ Playwright can resolve relative routes when `use.baseURL` is set in the config. However, developers often run tests from nested folders (e.g. `playwright/pages`), which can cause Playwright to miss the root config and treat relative routes as invalid URLs. This helper makes navigation robust by always converting a route into an absolute URL. /
  */
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";
 
@@ -24,19 +23,18 @@ const toUrl = (path: string) =>
 export type PageTestConfig = {
   name: string;
   route: string;
-  /** CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav. */
+  /**
+ * @description CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav.
+ */
   stickyNavSelector?: string;
-  /** Optional forced theme for deterministic rendering. Defaults to dark. */
+  /**
+ * @description Optional forced theme for deterministic rendering. Defaults to dark.
+ */
   theme?: "light" | "dark";
 };
 
 /**
- * registerPageTests
- * ------------------------------------------------------------
- * Standard smoke tests for page components:
- * - Core layout regions exist
- * - Sticky section navigation exists (where applicable)
- * - Viewport visual snapshot (stabilized)
+ * @description registerPageTests ------------------------------------------------------------ Standard smoke tests for page components: - Core layout regions exist - Sticky section navigation exists (where applicable) - Viewport visual snapshot (stabilized) /
  */
 export function createPageTestSuite(config: PageTestConfig) {
   const theme = config.theme ?? "dark";

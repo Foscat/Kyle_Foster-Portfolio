@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test.jsx
+ * @description src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test module.
+ * @module src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test
+ */
+
 import React from "react";
 import { describe, expect, it } from "vitest";
 import { screen } from "@testing-library/react";
@@ -27,9 +33,8 @@ import ImageGalleryBlock from ".";
 
 describe("ImageGalleryBlock", () => {
   /**
-   * Verifies the component renders nothing when `images` is null.
-   * This guards against malformed CMS or data-driven input.
-   */
+ * @description Verifies the component renders nothing when `images` is null. This guards against malformed CMS or data-driven input. /
+ */
   it("renders nothing if images is missing", () => {
     renderWithProviders(
       <div data-testid="root">
@@ -41,8 +46,8 @@ describe("ImageGalleryBlock", () => {
   });
 
   /**
-   * Verifies that a valid images array renders accessible image elements.
-   */
+ * @description Verifies that a valid images array renders accessible image elements. /
+ */
   it("renders an image list", async () => {
     renderWithProviders(
       <ImageGalleryBlock

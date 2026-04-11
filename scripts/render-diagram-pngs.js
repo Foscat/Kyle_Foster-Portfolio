@@ -1,4 +1,5 @@
 /**
+ * @module scripts\render-diagram-pngs
  * @file render-diagram-pngs.js
  * @description
  * Headless renderer that converts Mermaid diagram sources into PNG assets.
@@ -31,18 +32,12 @@ import diagrams from "../src/assets/data/content/diagrams.js";
 /* -------------------------------------------------------------------------- */
 
 /**
- * Output directory for rendered PNG assets.
- *
- * This directory is expected to be committed or published
- * alongside generated documentation.
+ * @description Output directory for rendered PNG assets. This directory is expected to be committed or published alongside generated documentation. /
  */
 const OUTPUT_DIR = "docs/diagrams";
 
 /**
- * Fixed viewport ensures:
- * - Consistent diagram scaling
- * - Predictable text wrapping
- * - Stable screenshot output across environments
+ * @description Fixed viewport ensures: - Consistent diagram scaling - Predictable text wrapping - Stable screenshot output across environments /
  */
 const VIEWPORT = { width: 1600, height: 1200 };
 
@@ -72,16 +67,8 @@ async function render() {
   const page = await browser.newPage({ viewport: VIEWPORT });
 
   /**
-   * Inject a minimal HTML shell containing Mermaid.
-   *
-   * We use a real browser environment because:
-   * - Mermaid relies on DOM APIs
-   * - SVG rendering differs across JS-only environments
-   * - Screenshot accuracy matters for documentation
-   *
-   * CDN usage is intentional here to mirror production
-   * Mermaid behavior as closely as possible.
-   */
+ * @description Inject a minimal HTML shell containing Mermaid. We use a real browser environment because: - Mermaid relies on DOM APIs - SVG rendering differs across JS-only environments - Screenshot accuracy matters for documentation CDN usage is intentional here to mirror production Mermaid behavior as closely as possible. /
+ */
   await page.setContent(`
     <html>
       <head>
@@ -110,16 +97,8 @@ async function render() {
   `);
 
   /**
-   * Render each diagram independently.
-   *
-   * Each iteration:
-   * - Replaces the diagram container contents
-   * - Triggers Mermaid rendering
-   * - Captures a screenshot
-   *
-   * Diagrams without a `diagram` field are skipped
-   * defensively to support mixed block collections.
-   */
+ * @description Render each diagram independently. Each iteration: - Replaces the diagram container contents - Triggers Mermaid rendering - Captures a screenshot Diagrams without a `diagram` field are skipped defensively to support mixed block collections. /
+ */
   for (const block of diagrams) {
     const { id, diagram } = block;
     if (!diagram) continue;
@@ -127,13 +106,8 @@ async function render() {
     // console.log(`🖼️  Rendering ${id}.png`);
 
     /**
-     * Inject diagram source into the DOM and trigger Mermaid rendering.
-     *
-     * `mermaid.contentLoaded()` is required to force Mermaid
-     * to process dynamically-inserted diagrams.
-     *
-     * This mirrors how Mermaid behaves on real page load.
-     */
+ * @description Inject diagram source into the DOM and trigger Mermaid rendering. `mermaid.contentLoaded()` is required to force Mermaid to process dynamically-inserted diagrams. This mirrors how Mermaid behaves on real page load. /
+ */
     await page.evaluate((diagramSource) => {
       const el = document.getElementById("diagram");
       el.innerHTML = diagramSource;
@@ -144,14 +118,8 @@ async function render() {
     if (!diagramEl) continue;
 
     /**
-     * Capture the rendered diagram as a PNG.
-     *
-     * - Background is omitted for transparency
-     * - Output filename is derived from diagram ID
-     *
-     * Transparent PNGs allow diagrams to be embedded
-     * cleanly in both light and dark documentation themes.
-     */
+ * @description Capture the rendered diagram as a PNG. - Background is omitted for transparency - Output filename is derived from diagram ID Transparent PNGs allow diagrams to be embedded cleanly in both light and dark documentation themes. /
+ */
 
     await diagramEl.screenshot({
       path: path.join(OUTPUT_DIR, `${id}.png`),
@@ -163,15 +131,7 @@ async function render() {
 }
 
 /**
- * Fail fast on rendering errors.
- *
- * Rendering failures indicate:
- * - Invalid Mermaid source
- * - Playwright/Chromium issues
- * - Environment misconfiguration
- *
- * This script is intended to fail CI rather than
- * silently produce missing or broken assets.
+ * @description Fail fast on rendering errors. Rendering failures indicate: - Invalid Mermaid source - Playwright/Chromium issues - Environment misconfiguration This script is intended to fail CI rather than silently produce missing or broken assets. /
  */
 render().catch((err) => {
   console.error("❌ Diagram PNG generation failed");

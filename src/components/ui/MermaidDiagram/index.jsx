@@ -1,14 +1,20 @@
+/**
+ * @file src\components\ui\MermaidDiagram\index.jsx
+ * @description src\components\ui\MermaidDiagram\index module.
+ * @module src\components\ui\MermaidDiagram\index
+ */
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
-import { Panel } from "rsuite";
-import { faEye, faFileDownload } from "@fortawesome/free-solid-svg-icons";
+import { Modal, Panel } from "rsuite";
+import { faExpand, faEye, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import { Size, Theme, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
 import { Btn } from "components/ui";
 import "./Mermaid.css";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { useTheme } from "assets/context/ThemeContext.jsx";
-import { diagramConfig } from "components/features/CustomDiagram/core";
+import { applyPaletteToDiagramSource } from "./paletteTransform";
 
 let mermaidInstancePromise;
 let mermaidInitialized = false;
@@ -111,28 +117,6 @@ function buildExportNode(svg, theme) {
   return { exportNode, exportWidth, exportHeight, exportBackground };
 }
 
-function applyPaletteToDiagramSource(source, palette) {
-  if (!source || palette !== "primary") return source;
-
-  const mappings = [
-    [diagramConfig.MOBILE_FLOWCHART_INIT, diagramConfig.MOBILE_FLOWCHART_INIT_ALT],
-    [diagramConfig.FLOWCHART_INIT, diagramConfig.FLOWCHART_INIT_ALT],
-    [diagramConfig.MOBILE_STATE_INIT, diagramConfig.MOBILE_STATE_INIT_ALT],
-    [diagramConfig.STATE_INIT, diagramConfig.STATE_INIT_ALT],
-    [diagramConfig.SEQUENCE_INIT, diagramConfig.SEQUENCE_INIT_ALT],
-    [diagramConfig.ARCH_FLOWCHART_PALETTE, diagramConfig.ARCH_FLOWCHART_PALETTE_ALT],
-  ];
-
-  let nextSource = source;
-  mappings.forEach(([current, alt]) => {
-    if (typeof current === "string" && typeof alt === "string" && nextSource.includes(current)) {
-      nextSource = nextSource.replace(current, alt);
-    }
-  });
-
-  return nextSource;
-}
-
 /**
  * @file index.jsx
  * @fileoverview Fully featured Mermaid diagram renderer with dark/light theme support, responsive SVG layout, accessible container, optional description, and PNG export capability. The component normalizes props to support both legacy and new diagram configurations, allowing for flexible integration while maintaining a consistent internal state structure for rendering.
@@ -225,7 +209,9 @@ function normalizeProps(props) {
 function MermaidDiagram(props) {
   // Refs and state for managing the diagram host element and toggling between mobile and desktop diagrams when both are available. The `forceAlt` state is used to allow users to manually switch between the mobile and desktop versions of the diagram, while the `isMobile` value from the responsive context determines which version is shown by default based on the current viewport size. The `hostRef` is used to directly manipulate the DOM element where Mermaid renders the SVG, enabling dynamic updates and export functionality.
   const hostRef = useRef(null);
+  const fullscreenHostRef = useRef(null);
   const [forceAlt, setForceAlt] = useState(false);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
   const { isMobile } = useResponsive();
   const { theme: appTheme, palette } = useTheme();
   const { id, title, description, diagram, mobileDiagram, desktopDiagram, theme, className } =
@@ -326,6 +312,36 @@ function MermaidDiagram(props) {
     };
   }, [finalDiagram, renderId]);
 
+  useEffect(() => {
+    let cancelled = false;
+    const host = fullscreenHostRef.current;
+
+    if (!isFullscreenOpen || !host || !finalDiagram) return undefined;
+
+    async function renderFullscreenDiagram() {
+      try {
+        const mermaid = await getMermaidInstance();
+        const { svg } = await mermaid.render(`mermaid-${renderId}-fullscreen`, finalDiagram);
+
+        if (cancelled) return;
+
+        host.innerHTML = svg;
+        normalizeRenderedSvg(host);
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Mermaid fullscreen render failed:", error);
+          host.innerHTML = `<pre class="mermaid-error">${String(error.message || error)}</pre>`;
+        }
+      }
+    }
+
+    renderFullscreenDiagram();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isFullscreenOpen, finalDiagram, renderId]);
+
   /**
    * @function handleExport
    * @async
@@ -402,30 +418,64 @@ function MermaidDiagram(props) {
           aria-label={title || "Mermaid diagram"}
         />
       </div>
-      <div className="flex-row flex-se mt-2">
+      <div className="mermaid-actions mt-2" aria-label="Diagram actions">
         <Btn
-          size={Size.SM}
+          size={Size.XS}
           icon={faFileDownload}
           onClick={handleExport}
           tooltip="Download diagram as PNG"
           aria-label="Export diagram as PNG"
           variant={Variant.ACCENT}
-          text="Download diagram"
-          className="mb-2 pl-4 pr-4"
+          text="Download PNG"
+          className="mermaid-action-btn"
+        />
+        <Btn
+          size={Size.XS}
+          icon={faExpand}
+          onClick={() => setIsFullscreenOpen(true)}
+          tooltip="View diagram full screen"
+          ariaLabel="View diagram full screen"
+          variant={Variant.ACCENT}
+          text="Full screen"
+          className="mermaid-action-btn"
         />
         {hasBoth && !isMobile ? (
           <Btn
-            size={Size.SM}
+            size={Size.XS}
             icon={faEye}
             onClick={() => setForceAlt((prev) => !prev)}
             tooltip="View alternate diagram version"
             ariaLabel={`View ${forceAlt ? "desktop" : "mobile"} version`}
             variant={Variant.ACCENT}
-            text={forceAlt ? "View desktop version" : "View mobile version"}
-            className="mb-2 pl-4 pr-4"
+            text={forceAlt ? "Desktop view" : "Mobile view"}
+            className="mermaid-action-btn"
           />
         ) : null}
       </div>
+      <Modal
+        open={isFullscreenOpen}
+        onClose={() => setIsFullscreenOpen(false)}
+        overflow={false}
+        backdrop="static"
+        keyboard={true}
+        className="mermaid-fullscreen-modal"
+        size="full"
+      >
+        <Modal.Header className="mermaid-fullscreen-modal__header" />
+        <Modal.Body className="mermaid-fullscreen-modal__body">
+          <div className="mermaid-fullscreen-stage">
+            <div className="mermaid mermaid-fullscreen-canvas">
+              <div
+                ref={fullscreenHostRef}
+                className={`mermaid-svg-host mermaid-svg-host--fullscreen ${resolvedTheme}`}
+                tabIndex={0}
+                role="img"
+                aria-label="Mermaid diagram fullscreen view"
+              />
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
       {finalDescription && (
         <RichText className="mermaid-description" text={finalDescription} index={0} />
       )}

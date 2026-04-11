@@ -1,4 +1,5 @@
 /**
+ * @module src\types\field.types
  * @file fieldSchema.js
  * @description Defines the schema and related types for form fields used in FormBlock.
  * This file is focused on the data structure and types for field configuration, independent of the registry logic.

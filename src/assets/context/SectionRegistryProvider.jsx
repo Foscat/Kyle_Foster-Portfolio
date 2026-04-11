@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\context\SectionRegistryProvider.jsx
+ * @description src\assets\context\SectionRegistryProvider module.
+ * @module src\assets\context\SectionRegistryProvider
+ */
+
 import React, { createContext, useContext, useRef } from "react";
 
 /**

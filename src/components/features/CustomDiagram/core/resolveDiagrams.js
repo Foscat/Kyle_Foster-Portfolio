@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\core\resolveDiagrams.js
+ * @description src\components\features\CustomDiagram\core\resolveDiagrams module.
+ * @module src\components\features\CustomDiagram\core\resolveDiagrams
+ */
+
 import { buildArchitectureVariants } from "./index.js";
 
 /**

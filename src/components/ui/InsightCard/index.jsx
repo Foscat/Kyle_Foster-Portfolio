@@ -1,3 +1,9 @@
+/**
+ * @file src\components\ui\InsightCard\index.jsx
+ * @description src\components\ui\InsightCard\index module.
+ * @module src\components\ui\InsightCard\index
+ */
+
 import clsx from "clsx";
 import { Children } from "react";
 import { Size, Variant } from "types/ui.types";

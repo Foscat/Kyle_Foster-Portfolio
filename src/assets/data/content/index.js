@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\index.js
+ * @description src\assets\data\content\index module.
+ * @module src\assets\data\content\index
+ */
+
 import codestreamSections from "./codestream";
 import contactSections from "./contact";
 import hackathonSections from "./hackathon";

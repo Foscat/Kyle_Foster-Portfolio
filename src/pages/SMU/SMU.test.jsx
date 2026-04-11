@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\SMU\SMU.test.jsx
+ * @description src\pages\SMU\SMU.test module.
+ * @module src\pages\SMU\SMU.test
+ */
+
 import SMU from "pages/SMU";
 import smuSections from "assets/data/content/smu";
 import { PageRoute } from "types/navigation.types";

@@ -1,4 +1,5 @@
 /**
+ * @module scripts\codemods\fix-unused-map-index
  * @file fix-unused-map-index.js
  * @description
  * Codemod that renames unused `.map()` index parameters to `_index`.

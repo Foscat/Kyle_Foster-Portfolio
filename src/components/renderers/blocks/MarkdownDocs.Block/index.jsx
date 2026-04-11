@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\MarkdownDocs.Block\index.jsx
+ * @description src\components\renderers\blocks\MarkdownDocs.Block\index module.
+ * @module src\components\renderers\blocks\MarkdownDocs.Block\index
+ */
+
 import { Panel } from "rsuite";
 import MarkdownRenderer from "../../MarkdownRenderer";
 import { getPortfolioDocs } from "../../../../assets/data/content/portfolioDocs";

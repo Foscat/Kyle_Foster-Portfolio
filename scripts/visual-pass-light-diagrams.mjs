@@ -1,3 +1,9 @@
+/**
+ * @file scripts\visual-pass-light-diagrams.mjs
+ * @description scripts\visual-pass-light-diagrams module.
+ * @module scripts\visual-pass-light-diagrams
+ */
+
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { chromium } from "@playwright/test";

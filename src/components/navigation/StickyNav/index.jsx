@@ -6,6 +6,7 @@
  */
 
 import { useEffect, useState } from "react";
+import React from "react";
 import { Nav, Drawer } from "rsuite";
 import {
   faHome,
@@ -20,7 +21,7 @@ import {
 import { Size, Variant } from "types/ui.types";
 import { Btn, FrostedIcon } from "components/ui";
 import "./styles.css";
-import { AccessibilityMenu, ThemeToggle } from "components/features";
+import { AccessibilityMenu, PaletteToggle, ThemeToggle } from "components/features";
 import { PageRoute } from "types/navigation.types";
 
 /**
@@ -268,6 +269,9 @@ const StickyNav = ({ activePage }) => {
               );
             })}
             <ThemeToggle size={Size.MD} />
+            <div className="sticky-nav-mobile-palette">
+              <PaletteToggle size={Size.SM} />
+            </div>
             <div className="sticky-nav-mobile-a11y">
               <AccessibilityMenu size={Size.LG} />
             </div>

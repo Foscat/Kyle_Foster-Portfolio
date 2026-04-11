@@ -1,11 +1,14 @@
+/**
+ * @file src\components\__tests__\blockTypeExhaustive.test.js
+ * @description src\components\__tests__\blockTypeExhaustive.test module.
+ * @module src\components\__tests__\blockTypeExhaustive.test
+ */
+
 import { describe, it, expect } from "vitest";
 import { BlockType } from "types/ui.types";
 
 /**
- * Runtime exhaustiveness guard for supported block types.
- *
- * If a new block type is added, this test forces the renderer and test suite
- * to be updated explicitly.
+ * @description Runtime exhaustiveness guard for supported block types. If a new block type is added, this test forces the renderer and test suite to be updated explicitly. /
  */
 
 describe("BlockType exhaustiveness", () => {
@@ -17,6 +20,7 @@ describe("BlockType exhaustiveness", () => {
       BlockType.BULLETED_LIST,
       BlockType.CARD_GRID,
       BlockType.DIAGRAM,
+      BlockType.FORM,
       BlockType.HERO,
       BlockType.MARKDOWN_DOCS,
     ]);

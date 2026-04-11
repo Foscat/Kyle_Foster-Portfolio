@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\codestream\index.js
+ * @description src\assets\data\content\codestream\index module.
+ * @module src\assets\data\content\codestream\index
+ */
+
 import {
   faArrowsToCircle,
   faBinoculars,
@@ -56,16 +62,7 @@ import imgObj from "assets/images/codestream";
 import diagrams from "./diagrams.js";
 
 /**
- * CodeStream Case Study Data
- * ------------------------------------------------------------
- * This file powers the CodeStream portfolio page using a
- * data-driven approach. It is designed to work with:
- *
- * - Sticky Section Nav
- * - AccordionList
- * - InfoSection / ClickableImg / diagramDiagram components
- *
- * All UI layout should be derived from this data structure.
+ * @description CodeStream Case Study Data ------------------------------------------------------------ This file powers the CodeStream portfolio page using a data-driven approach. It is designed to work with: - Sticky Section Nav - AccordionList - InfoSection / ClickableImg / diagramDiagram components All UI layout should be derived from this data structure. /
  */
 
 const codestreamSections = [
@@ -81,7 +78,9 @@ const codestreamSections = [
 
     isScroller: true,
     blocks: [
-      /** Intro narrative */
+      /**
+ * @description Intro narrative
+ */
       {
         id: "what-I-did",
         title: "My Role at CodeStream Studios LLC",

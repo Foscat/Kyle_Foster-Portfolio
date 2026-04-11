@@ -50,7 +50,8 @@ function getContainedSize(containerWidth, containerHeight, imageWidth, imageHeig
  * - On mobile, title/caption details are hidden while zoomed to maximize viewing space
  * - Both thumbnail and modal images are lazy-loaded for performance
  * - The modal and image wrapper feature frosted glass styling consistent with the UI design system
- * - On mobile portrait, wide images show a rotate/zoom guidance hint
+ * - On mobile portrait, wide images request landscape orientation when browser support allows it
+ * - On unsupported browsers, wide images show a rotate/zoom guidance hint
  *
  * Accessibility:
  * - Requires alt text for screen readers
@@ -98,8 +99,10 @@ const ClickableImg = ({
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
+  const [orientationLockUnavailable, setOrientationLockUnavailable] = useState(false);
   const stageRef = useRef(null);
   const dragStateRef = useRef(null);
+  const orientationLockRef = useRef(false);
   const { isMobile, isPortrait } = useResponsive();
 
   const isZoomed = zoom > MIN_ZOOM + 0.01;
@@ -176,6 +179,59 @@ const ClickableImg = ({
     observer.observe(stage);
     return () => observer.disconnect();
   }, [open]);
+
+  useEffect(() => {
+    if (!open || !isMobile || !isWideImage) {
+      setOrientationLockUnavailable(false);
+      return undefined;
+    }
+    if (typeof window === "undefined") return undefined;
+
+    const orientationApi = window.screen?.orientation;
+    if (!orientationApi?.lock) {
+      setOrientationLockUnavailable(true);
+      return undefined;
+    }
+
+    const isCurrentlyPortrait = window.matchMedia?.("(orientation: portrait)")?.matches ?? true;
+    if (!isCurrentlyPortrait) {
+      setOrientationLockUnavailable(false);
+      return undefined;
+    }
+
+    let isActive = true;
+    setOrientationLockUnavailable(false);
+
+    const lockLandscape = async () => {
+      try {
+        await orientationApi.lock("landscape");
+        if (isActive) {
+          orientationLockRef.current = true;
+          setOrientationLockUnavailable(false);
+        }
+      } catch {
+        if (isActive) {
+          orientationLockRef.current = false;
+          setOrientationLockUnavailable(true);
+        }
+      }
+    };
+
+    lockLandscape();
+
+    return () => {
+      isActive = false;
+      if (!orientationLockRef.current) return;
+
+      try {
+        orientationApi.unlock?.();
+      } catch {
+        // Ignore unlock failures in unsupported browsers.
+      }
+
+      orientationLockRef.current = false;
+    };
+  }, [open, isMobile, isWideImage]);
 
   const handleModalImageLoad = useCallback((event) => {
     const target = event.currentTarget;
@@ -368,9 +424,9 @@ const ClickableImg = ({
             </div>
           </div>
 
-          {isMobile && isPortrait && isWideImage && !isZoomed ? (
+          {isMobile && isPortrait && isWideImage && !isZoomed && orientationLockUnavailable ? (
             <p className="modal-rotate-hint">
-              Wide image detected. Rotate to landscape for best view, or zoom and pan.
+              Auto-rotate is unavailable. Rotate to landscape for best view, or zoom and pan.
             </p>
           ) : null}
 

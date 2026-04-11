@@ -71,6 +71,9 @@ export const Theme = Object.freeze({
 export const Palette = Object.freeze({
   PRIMARY: "primary",
   ALT: "alt",
+  FOREST: "forest",
+  OCEAN: "ocean",
+  SUNSET: "sunset",
 });
 
 // Backward-compatible re-export for legacy imports that still resolve
@@ -92,32 +95,56 @@ export { PageRoute };
  * @enum {string}
  */
 export const TooltipPlacement = Object.freeze({
-  /** Top-center placement (default) */
+  /**
+ * @description Top-center placement (default)
+ */
   TOP: "top",
-  /** Top-left placement */
+  /**
+ * @description Top-left placement
+ */
   TOP_START: "topStart",
-  /** Top-right placement */
+  /**
+ * @description Top-right placement
+ */
   TOP_END: "topEnd",
 
-  /** Bottom-center placement */
+  /**
+ * @description Bottom-center placement
+ */
   BOTTOM: "bottom",
-  /** Bottom-left placement */
+  /**
+ * @description Bottom-left placement
+ */
   BOTTOM_START: "bottomStart",
-  /** Bottom-right placement */
+  /**
+ * @description Bottom-right placement
+ */
   BOTTOM_END: "bottomEnd",
 
-  /** Left-center placement */
+  /**
+ * @description Left-center placement
+ */
   LEFT: "left",
-  /** Left-top placement */
+  /**
+ * @description Left-top placement
+ */
   LEFT_START: "leftStart",
-  /** Left-bottom placement */
+  /**
+ * @description Left-bottom placement
+ */
   LEFT_END: "leftEnd",
 
-  /** Right-center placement */
+  /**
+ * @description Right-center placement
+ */
   RIGHT: "right",
-  /** Right-top placement */
+  /**
+ * @description Right-top placement
+ */
   RIGHT_START: "rightStart",
-  /** Right-bottom placement */
+  /**
+ * @description Right-bottom placement
+ */
   RIGHT_END: "rightEnd",
 });
 
@@ -133,31 +160,23 @@ export const TooltipPlacement = Object.freeze({
  */
 export const HoverAnimation = Object.freeze({
   /**
-   * No hover animation.
-   * Use for static elements or where motion would be distracting.
-   */
+ * @description No hover animation. Use for static elements or where motion would be distracting. /
+ */
   NONE: "none",
 
   /**
-   * Subtle vertical lift.
-   * Maps to a small translateY + shadow.
-   *
-   * Safe for glass UIs.
-   */
+ * @description Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs. /
+ */
   LIFT: "lift",
 
   /**
-   * Background color change only.
-   * No transform, no shadow.
-   *
-   * Use for text links or low-emphasis actions.
-   */
+ * @description Background color change only. No transform, no shadow. Use for text links or low-emphasis actions. /
+ */
   HIGHLIGHT: "highlight",
 
   /**
-   * Shadow emphasis without movement.
-   * Use when layout stability is critical.
-   */
+ * @description Shadow emphasis without movement. Use when layout stability is critical. /
+ */
   EMPHASIZE: "emphasize",
 });
 
@@ -203,6 +222,8 @@ export const BlockType = Object.freeze({
   IMAGE_GALLERY: "imageGallery",
   /* Mermaid diagram with responsive desktop/mobile variant definitions */
   DIAGRAM: "diagram",
+  /* Configurable form block with schema-driven fields */
+  FORM: "form",
   /* Grid of insight cards with configurable layout and styling */
   CARD_GRID: "cardGrid",
   /* Expandable bullet list items in accordion layout */

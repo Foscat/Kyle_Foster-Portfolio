@@ -1,15 +1,13 @@
+/**
+ * @file playwright\contact-flow.spec.ts
+ * @description playwright\contact-flow.spec module.
+ * @module playwright\contact-flow.spec
+ */
+
 import { test, expect } from "@playwright/test";
 
 /**
- * Contact flow E2E test.
- *
- * Validates:
- * - user can complete the form
- * - frontend sends the correct request payload
- * - success feedback becomes visible
- *
- * The API is mocked so the test is deterministic and does not depend
- * on the live Render mail microservice.
+ * @description Contact flow E2E test. Validates: - user can complete the form - frontend sends the correct request payload - success feedback becomes visible The API is mocked so the test is deterministic and does not depend on the live Render mail microservice. /
  */
 test("contact form sends correct payload and shows success state", async ({ page }) => {
   await page.route("**/api/contact", async (route) => {

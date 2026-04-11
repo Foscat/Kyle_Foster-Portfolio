@@ -22,6 +22,13 @@
   border-radius: var(--radius-md);
 }
 
+.mermaid-deferred-status-text {
+  margin: 0 0 1rem;
+  color: rgba(var(--white-rgb), 0.78);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
 .mermaid-deferred-canvas-skeleton {
   display: grid;
   gap: 0.75rem;

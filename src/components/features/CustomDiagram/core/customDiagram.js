@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\core\customDiagram.js
+ * @description src\components\features\CustomDiagram\core\customDiagram module.
+ * @module src\components\features\CustomDiagram\core\customDiagram
+ */
+
 import formatMermaid from "../../../../../scripts/format-mermaid.js";
 import {
   ARCH_LAYERS,

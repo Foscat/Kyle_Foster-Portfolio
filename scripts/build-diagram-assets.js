@@ -1,3 +1,9 @@
+/**
+ * @file scripts\build-diagram-assets.js
+ * @description scripts\build-diagram-assets module.
+ * @module scripts\build-diagram-assets
+ */
+
 import fs from "fs";
 import path from "path";
 import diagrams from "../src/assets/data/content/diagrams.js";

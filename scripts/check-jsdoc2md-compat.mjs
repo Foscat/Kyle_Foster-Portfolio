@@ -1,3 +1,9 @@
+/**
+ * @file scripts/check-jsdoc2md-compat.mjs
+ * @description scripts/check-jsdoc2md-compat module.
+ * @module scripts/check-jsdoc2md-compat
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 import { glob } from "glob";
@@ -30,15 +36,16 @@ const collectFiles = async () => {
 };
 
 const firstDocBlock = (source) => {
-  const match = source.match(/^\s*\/\*\*[\s\S]*?\*\//);
+  const match = source.match(/^(?:#![^\n]*\n)?\s*\/\*\*[\s\S]*?\*\//);
   return match ? match[0] : "";
 };
 
-const jsdocBlocks = (source) => source.match(/\/\*\*[\s\S]*?\*\//g) || [];
+const jsdocBlocks = (source) => source.match(/^\s*\/\*\*[\s\S]*?\*\//gm) || [];
 
 const hasTag = (block, tagName) => new RegExp(`@${tagName}\\b`).test(block);
 
-const hasUnsupportedImportType = (source) => /\{\s*import\([^)]*\)\.[^}]+\}/.test(source);
+const hasUnsupportedImportType = (source) =>
+  /\{\s*import\([^)]*\)\.[A-Za-z0-9_$]+\s*\}/.test(source);
 
 const auditFile = (filePath) => {
   const relPath = path.relative(ROOT, filePath).replaceAll("\\", "/");

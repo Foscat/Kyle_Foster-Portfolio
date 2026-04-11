@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\images\hackathon\index.js
+ * @description src\assets\images\hackathon\index module.
+ * @module src\assets\images\hackathon\index
+ */
+
 import check from "./bigCheck.jpg";
 import chat from "./chatBotting.jpg";
 import focus from "./focus.jpg";

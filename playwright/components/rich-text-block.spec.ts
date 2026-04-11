@@ -1,3 +1,9 @@
+/**
+ * @file playwright\components\rich-text-block.spec.ts
+ * @description playwright\components\rich-text-block.spec module.
+ * @module playwright\components\rich-text-block.spec
+ */
+
 import { test, expect } from "@playwright/test";
 
 const THEMES = ["dark", "light"] as const;

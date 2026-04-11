@@ -1,3 +1,9 @@
+/**
+ * @file playwright\components\resume-preview.spec.ts
+ * @description playwright\components\resume-preview.spec module.
+ * @module playwright\components\resume-preview.spec
+ */
+
 import { test, expect } from "@playwright/test";
 import { stabilizePage } from "../utils/stabilizePage";
 

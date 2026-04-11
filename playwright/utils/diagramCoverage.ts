@@ -1,3 +1,9 @@
+/**
+ * @file playwright\utils\diagramCoverage.ts
+ * @description playwright\utils\diagramCoverage module.
+ * @module playwright\utils\diagramCoverage
+ */
+
 import { Page } from "@playwright/test";
 
 export type DiagramCoverageResult = {

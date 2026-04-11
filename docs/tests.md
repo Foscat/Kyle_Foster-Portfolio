@@ -1,6 +1,21 @@
 ## Modules
 
 <dl>
+<dt><a href="#module_src\tests\helpers\clickAndExpectPrevented">src\tests\helpers\clickAndExpectPrevented</a></dt>
+<dd><p>src\tests\helpers\clickAndExpectPrevented module.</p>
+</dd>
+<dt><a href="#module_src\tests\helpers\createPageTests">src\tests\helpers\createPageTests</a></dt>
+<dd><p>src\tests\helpers\createPageTests module.</p>
+</dd>
+<dt><a href="#module_src\tests\helpers\expectAriaCurrent">src\tests\helpers\expectAriaCurrent</a></dt>
+<dd><p>src\tests\helpers\expectAriaCurrent module.</p>
+</dd>
+<dt><a href="#module_src\tests\renderWithProviders">src\tests\renderWithProviders</a></dt>
+<dd><p>src\tests\renderWithProviders module.</p>
+</dd>
+<dt><a href="#module_src\tests\setupTests">src\tests\setupTests</a></dt>
+<dd><p>src\tests\setupTests module.</p>
+</dd>
 <dt><a href="#module_tests/setupTests">tests/setupTests</a></dt>
 <dd><p>This file provides stable implementations of browser APIs that are commonly used across the codebase, such as requestAnimationFrame, matchMedia, ResizeObserver, IntersectionObserver, scroll APIs, and clipboard functionality. By defining these shims in a central location, we ensure that all tests have access to consistent and deterministic behavior for these APIs, which is crucial for testing components that rely on responsive design, scrolling behavior, and clipboard interactions. This setup helps to prevent errors related to missing APIs in the jsdom environment and allows tests to focus on component behavior rather than low-level API availability.</p>
 <p>Testing rules applied:</p>
@@ -15,35 +30,50 @@ The goal of this setup file is to provide a consistent and reliable testing envi
 </dd>
 </dl>
 
-## Functions
+<a name="module_src\tests\helpers\clickAndExpectPrevented"></a>
 
-<dl>
-<dt><a href="#createPageTests">createPageTests()</a></dt>
-<dd><p>Creates a test suite for a data-driven page component, focused on verifying composition and user-facing content rather than implementation details. The tests ensure that the page correctly integrates with shared components like scroll restoration, page header, section navigation, primary navigation, and footer, and that it renders the expected content based on the provided section data and active route. This allows us to confirm that the page is correctly composed and provides the expected user experience in terms of content rendering and navigation integration without coupling to the internal workings of those components. The createPageTests function can be used across different page test suites to ensure consistent testing of these common behaviors across all pages in the application.</p>
-<p>Test cases:</p>
-<ul>
-<li>Restores scroll position on mount</li>
-<li>Renders the page heading and section navigation entries</li>
-<li>Passes the active page route into primary navigation behavior</li>
-<li>Section titles are delegated into both content and section navigation</li>
-<li>Renders the footer component</li>
-</ul>
-<p>The tests focus on verifying that the page correctly composes with shared components and renders user-facing content based on the provided data, ensuring that the expected behavior and content are present without relying on implementation details of the individual components. This allows us to confirm that the page is correctly structured and provides the expected user experience in terms of content rendering and navigation integration.</p>
-</dd>
-<dt><a href="#renderWithProviders">renderWithProviders(ui, [options])</a> ⇒ <code>RenderResult</code></dt>
-<dd><p>Render helper that mirrors the real app provider stack closely enough for
-behavior-driven component tests.</p>
-<p>Why this exists:</p>
-<ul>
-<li>Many components depend on router context.</li>
-<li>Theme-aware components require ThemeProvider + RSuite CustomProvider.</li>
-<li>Responsive logic depends on ResponsiveProvider being present.</li>
-<li>Helmet-managed document metadata requires HelmetProvider.</li>
-</ul>
-<p>Tests should prefer this helper over raw <code>render()</code> whenever the component
-under test consumes application context.</p>
-</dd>
-</dl>
+## src\tests\helpers\clickAndExpectPrevented
+src\tests\helpers\clickAndExpectPrevented module.
+
+<a name="module_src\tests\helpers\createPageTests"></a>
+
+## src\tests\helpers\createPageTests
+src\tests\helpers\createPageTests module.
+
+<a name="module_src\tests\helpers\createPageTests.createPageTests"></a>
+
+### src\tests\helpers\createPageTests.createPageTests()
+Creates a test suite for a data-driven page component, focused on verifying composition and user-facing content rather than implementation details. The tests ensure that the page correctly integrates with shared components like scroll restoration, page header, section navigation, primary navigation, and footer, and that it renders the expected content based on the provided section data and active route. This allows us to confirm that the page is correctly composed and provides the expected user experience in terms of content rendering and navigation integration without coupling to the internal workings of those components. The createPageTests function can be used across different page test suites to ensure consistent testing of these common behaviors across all pages in the application. Test cases: - Restores scroll position on mount - Renders the page heading and section navigation entries - Passes the active page route into primary navigation behavior - Section titles are delegated into both content and section navigation - Renders the footer component The tests focus on verifying that the page correctly composes with shared components and renders user-facing content based on the provided data, ensuring that the expected behavior and content are present without relying on implementation details of the individual components. This allows us to confirm that the page is correctly structured and provides the expected user experience in terms of content rendering and navigation integration. /
+
+**Kind**: static method of [<code>src\tests\helpers\createPageTests</code>](#module_src\tests\helpers\createPageTests)  
+<a name="module_src\tests\helpers\expectAriaCurrent"></a>
+
+## src\tests\helpers\expectAriaCurrent
+src\tests\helpers\expectAriaCurrent module.
+
+<a name="module_src\tests\renderWithProviders"></a>
+
+## src\tests\renderWithProviders
+src\tests\renderWithProviders module.
+
+<a name="module_src\tests\renderWithProviders.renderWithProviders"></a>
+
+### src\tests\renderWithProviders.renderWithProviders(ui, [options]) ⇒ <code>RenderResult</code>
+Render helper that mirrors the real app provider stack closely enough forbehavior-driven component tests.Why this exists:- Many components depend on router context.- Theme-aware components require ThemeProvider + RSuite CustomProvider.- Responsive logic depends on ResponsiveProvider being present.- Helmet-managed document metadata requires HelmetProvider.Tests should prefer this helper over raw `render()` whenever the componentunder test consumes application context.
+
+**Kind**: static method of [<code>src\tests\renderWithProviders</code>](#module_src\tests\renderWithProviders)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| ui | <code>React.ReactElement</code> |  | Component under test. |
+| [options] | <code>object</code> |  |  |
+| [options.initialEntries] | <code>Array.&lt;string&gt;</code> | <code>[&quot;/&quot;]</code> | Initial router entries. |
+| [options.rsuiteTheme] | <code>&quot;light&quot;</code> \| <code>&quot;dark&quot;</code> | <code>&quot;dark&quot;</code> | RSuite theme. |
+
+<a name="module_src\tests\setupTests"></a>
+
+## src\tests\setupTests
+src\tests\setupTests module.
 
 <a name="module_tests/setupTests"></a>
 
@@ -55,26 +85,6 @@ This file provides stable implementations of browser APIs that are commonly used
 <a name="module_tests/setupTests..__setMatches"></a>
 
 ### tests/setupTests~\_\_setMatches()
-Test-only helper used by explicit matchMedia overrides when needed.Kept here so unsupported environments still expose a stable shape.
+Test-only helper used by explicit matchMedia overrides when needed. Kept here so unsupported environments still expose a stable shape. /
 
 **Kind**: inner method of [<code>tests/setupTests</code>](#module_tests/setupTests)  
-<a name="createPageTests"></a>
-
-## createPageTests()
-Creates a test suite for a data-driven page component, focused on verifying composition and user-facing content rather than implementation details. The tests ensure that the page correctly integrates with shared components like scroll restoration, page header, section navigation, primary navigation, and footer, and that it renders the expected content based on the provided section data and active route. This allows us to confirm that the page is correctly composed and provides the expected user experience in terms of content rendering and navigation integration without coupling to the internal workings of those components. The createPageTests function can be used across different page test suites to ensure consistent testing of these common behaviors across all pages in the application.Test cases:- Restores scroll position on mount- Renders the page heading and section navigation entries- Passes the active page route into primary navigation behavior- Section titles are delegated into both content and section navigation- Renders the footer componentThe tests focus on verifying that the page correctly composes with shared components and renders user-facing content based on the provided data, ensuring that the expected behavior and content are present without relying on implementation details of the individual components. This allows us to confirm that the page is correctly structured and provides the expected user experience in terms of content rendering and navigation integration.
-
-**Kind**: global function  
-<a name="renderWithProviders"></a>
-
-## renderWithProviders(ui, [options]) ⇒ <code>RenderResult</code>
-Render helper that mirrors the real app provider stack closely enough forbehavior-driven component tests.Why this exists:- Many components depend on router context.- Theme-aware components require ThemeProvider + RSuite CustomProvider.- Responsive logic depends on ResponsiveProvider being present.- Helmet-managed document metadata requires HelmetProvider.Tests should prefer this helper over raw `render()` whenever the componentunder test consumes application context.
-
-**Kind**: global function  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| ui | <code>React.ReactElement</code> |  | Component under test. |
-| [options] | <code>object</code> |  |  |
-| [options.initialEntries] | <code>Array.&lt;string&gt;</code> | <code>[&quot;/&quot;]</code> | Initial router entries. |
-| [options.rsuiteTheme] | <code>&quot;light&quot;</code> \| <code>&quot;dark&quot;</code> | <code>&quot;dark&quot;</code> | RSuite theme. |
-

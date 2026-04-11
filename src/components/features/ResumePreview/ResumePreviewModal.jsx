@@ -1,4 +1,5 @@
 /**
+ * @module src\components\features\ResumePreview\ResumePreviewModal
  * @file ResumePreviewModal.jsx
  * @description Modal component for previewing the resume with print and download options.
  */

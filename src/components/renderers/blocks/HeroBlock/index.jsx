@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\HeroBlock\index.jsx
+ * @description src\components\renderers\blocks\HeroBlock\index module.
+ * @module src\components\renderers\blocks\HeroBlock\index
+ */
+
 import { FlexboxGrid, Panel } from "rsuite";
 import "./styles.css";
 

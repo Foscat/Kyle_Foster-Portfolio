@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\home\index.js
+ * @description src\assets\data\content\home\index module.
+ * @module src\assets\data\content\home\index
+ */
+
 import {
   faArrowDownUpLock,
   faArrowsToEye,

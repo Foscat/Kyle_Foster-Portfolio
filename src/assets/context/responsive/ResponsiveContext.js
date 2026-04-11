@@ -1,4 +1,5 @@
 /**
+ * @module src\assets\context\responsive\ResponsiveContext
  * @file ResponsiveContext.js
  * @description Provides a React context for responsive design, allowing components to access viewport size and device type information.
  */

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\layout\InfoSection\index.jsx
+ * @description src\components\layout\InfoSection\index module.
+ * @module src\components\layout\InfoSection\index
+ */
+
 import React from "react";
 import { Panel } from "rsuite";
 import FrostedIcon from "components/ui/FrostedIcon";

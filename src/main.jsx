@@ -1,4 +1,5 @@
 /**
+ * @module src\main
  * @file main.jsx
  * @fileoverview Entry point for the React application. This file is responsible for bootstrapping the app, setting up global providers (such as Theme and Responsive contexts), and rendering the root component into the DOM. It also includes error handling via an ErrorBoundary and sets up HelmetProvider for managing document head changes.
  *
@@ -19,6 +20,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "assets/context/ThemeContext.jsx";
 import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider.jsx";
 import App from "./App.jsx";
+import reportWebVitals from "./reportWebVitals.js";
 // Reset
 import "./index.css";
 // RSuite default styles
@@ -46,3 +48,49 @@ createRoot(container).render(
     </ErrorBoundary>
   </StrictMode>
 );
+
+const endpointFromEnv = import.meta.env.VITE_WEB_VITALS_ENDPOINT;
+const webVitalsEndpoint = typeof endpointFromEnv === "string" ? endpointFromEnv.trim() : "";
+const shouldLogVitals = import.meta.env.DEV;
+const shouldSendVitals = import.meta.env.PROD && webVitalsEndpoint.length > 0;
+const shouldInitVitals = shouldLogVitals || shouldSendVitals;
+
+if (shouldInitVitals) {
+  reportWebVitals((metric) => {
+    try {
+      if (!metric || typeof metric !== "object") return;
+
+      if (shouldLogVitals) {
+        console.debug("[web-vitals]", metric.name, metric.value, metric);
+      }
+
+      if (!shouldSendVitals) return;
+
+      const payload = JSON.stringify({
+        ...metric,
+        path: window.location.pathname,
+        timestamp: Date.now(),
+      });
+
+      if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+        const blob = new Blob([payload], { type: "application/json" });
+        navigator.sendBeacon(webVitalsEndpoint, blob);
+        return;
+      }
+
+      if (typeof fetch === "function") {
+        fetch(webVitalsEndpoint, {
+          method: "POST",
+          body: payload,
+          headers: { "Content-Type": "application/json" },
+          keepalive: true,
+        }).catch(() => {
+          // Ignore reporting errors to avoid affecting app UX.
+        });
+      }
+    } catch {
+      // Never allow vitals reporting to break app execution.
+    }
+  });
+}
+

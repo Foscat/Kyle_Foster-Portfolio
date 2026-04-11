@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/**
+ * @file scripts/richtext-lint.cjs
+ * @description scripts/richtext-lint module.
+ * @module scripts/richtext-lint
+ */
+
 const fs = require("fs");
 const glob = require("glob");
 const parser = require("@babel/parser");
@@ -15,14 +21,12 @@ const { fixRichText } = require("./codemods/fix-richtext.cjs");
 const shouldFix = process.argv.includes("--fix");
 
 const files = glob.sync("src/assets/data/content/**/*.js");
-
 let errorCount = 0;
 let warnCount = 0;
 
 files.forEach((file) => {
   console.log(`Checking ${file}...`);
   const source = fs.readFileSync(file, "utf8");
-
   const ast = parser.parse(source, {
     sourceType: "module",
     plugins: ["jsx"],
@@ -33,20 +37,15 @@ files.forEach((file) => {
   traverse(ast, {
     ObjectExpression(pathNode) {
       const props = pathNode.node.properties;
-
       const typeProp = props.find((p) => (p.key?.name || p.key?.value) === "type");
-
       if (!typeProp) return;
 
       if (typeProp.value.type === "StringLiteral" && typeProp.value.value === "richText") {
         const contentProp = props.find((p) => (p.key?.name || p.key?.value) === "content");
-
         if (!contentProp || contentProp.value.type !== "ArrayExpression") return;
 
         const contentNode = contentProp.value;
-
         const content = evaluateNode(contentNode);
-
         const issues = validateRichText(content);
 
         issues.forEach((issue) => {

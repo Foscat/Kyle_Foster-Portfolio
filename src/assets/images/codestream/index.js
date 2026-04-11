@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\images\codestream\index.js
+ * @description src\assets\images\codestream\index module.
+ * @module src\assets\images\codestream\index
+ */
+
 import ss12 from "./Screenshot (1312).png";
 import ss13 from "./Screenshot (1313).png";
 import ss14 from "./Screenshot (1314).png";

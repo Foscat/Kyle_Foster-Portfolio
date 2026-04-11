@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\Hackathon\Hackathon.test.js
+ * @description src\pages\Hackathon\Hackathon.test module.
+ * @module src\pages\Hackathon\Hackathon.test
+ */
+
 import Hackathon from "pages/Hackathon";
 import hackathonSections from "assets/data/content/hackathon";
 import { PageRoute } from "types/navigation.types";

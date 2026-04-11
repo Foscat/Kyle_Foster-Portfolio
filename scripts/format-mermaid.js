@@ -39,25 +39,16 @@ export default function formatMermaid(source) {
   if (typeof source !== "string") return source;
 
   /**
-   * Step 1: Normalize line endings and indentation characters
-   *
-   * - Converts Windows CRLF to LF for consistency
-   * - Replaces tabs with two spaces (Mermaid is indentation-sensitive)
-   */
+ * @description Step 1: Normalize line endings and indentation characters - Converts Windows CRLF to LF for consistency - Replaces tabs with two spaces (Mermaid is indentation-sensitive) /
+ */
   let text = source.replace(/\r\n/g, "\n").replace(/\t/g, "  ");
   // Normalize init directive only when it is exactly the Mermaid directive form.
   text = text.replace(/^%\s*%?\{init:/, "%%{init:");
   text = text.replace(/\}%%\s*$/, "}%%");
 
   /**
-   * Step 2: Extract Mermaid init block (if present)
-   *
-   * Mermaid requires the init block (%%{init: ... }%%)
-   * to appear at the very top of the diagram.
-   *
-   * We temporarily remove it so the body can be formatted
-   * independently, then reattach it later.
-   */
+ * @description Step 2: Extract Mermaid init block (if present) Mermaid requires the init block (%%{init: ... }%%) to appear at the very top of the diagram. We temporarily remove it so the body can be formatted independently, then reattach it later. /
+ */
   let init = "";
   const initMatch = text.match(/^%%\{init:[\s\S]*?\}%%/);
   if (initMatch) {
@@ -98,9 +89,8 @@ export default function formatMermaid(source) {
     }
 
     /**
-     * Mermaid closes blocks explicitly with `end`.
-     * Indentation must decrease BEFORE writing the line.
-     */
+ * @description Mermaid closes blocks explicitly with `end`. Indentation must decrease BEFORE writing the line. /
+ */
     if (trimmed === "end") {
       indent = Math.max(0, indent - 1);
     }
@@ -109,34 +99,21 @@ export default function formatMermaid(source) {
     out.push("  ".repeat(indent) + trimmed);
 
     /**
-     * Mermaid opens a new indentation scope after `subgraph`.
-     * Increase indentation AFTER writing the line.
-     */
+ * @description Mermaid opens a new indentation scope after `subgraph`. Increase indentation AFTER writing the line. /
+ */
     if (trimmed.startsWith("subgraph")) {
       indent++;
     }
   }
 
   /**
-   * Step 5: Reassemble the formatted body
-   *
-   * - Trim trailing whitespace
-   * - Preserve internal blank lines
-   */
+ * @description Step 5: Reassemble the formatted body - Trim trailing whitespace - Preserve internal blank lines /
+ */
   let body = out.join("\n").trimEnd();
 
   /**
-   * Step 6: Ensure readability rule —
-   * insert a blank line after the diagram declaration
-   *
-   * Example:
-   *   flowchart TD
-   *
-   *   A --> B
-   *
-   * This improves readability and prevents Mermaid
-   * parsing edge cases.
-   */
+ * @description Step 6: Ensure readability rule — insert a blank line after the diagram declaration Example: flowchart TD A --> B This improves readability and prevents Mermaid parsing edge cases. /
+ */
   const bodyLines = body.split("\n");
   if (bodyLines.length > 1 && bodyLines[1].trim() !== "") {
     bodyLines.splice(1, 0, "");
@@ -144,12 +121,8 @@ export default function formatMermaid(source) {
   }
 
   /**
-   * Step 7: Reattach the init block (if present)
-   *
-   * CRITICAL:
-   * - Must be followed by a newline
-   * - Must remain the first content in the diagram
-   */
+ * @description Step 7: Reattach the init block (if present) CRITICAL: - Must be followed by a newline - Must remain the first content in the diagram /
+ */
   if (init) {
     return `${init}\n${body}\n`;
   }

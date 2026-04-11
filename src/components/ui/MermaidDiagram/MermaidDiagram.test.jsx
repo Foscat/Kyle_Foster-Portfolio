@@ -1,4 +1,7 @@
 /**
+ * @module src\components\ui\MermaidDiagram\MermaidDiagram.test
+ * @description src\components\ui\MermaidDiagram\MermaidDiagram.test module.
+ * @file src\components\ui\MermaidDiagram\MermaidDiagram.test.jsx
  * MermaidDiagram.test.jsx
  * ------------------------------------------------------------------
  * Minimal unit tests for MermaidDiagram.
@@ -10,7 +13,7 @@
  * Rendering correctness is covered by Playwright. "/playwright/**.spec.js"
  */
 
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import { toPng } from "html-to-image";
@@ -73,7 +76,7 @@ describe("MermaidDiagram (unit)", () => {
       expect(diagramHost.innerHTML).toContain("<svg");
     });
 
-    await userEvent.click(screen.getByText(/download diagram/i));
+    await userEvent.click(screen.getByText(/download png/i));
 
     await waitFor(() => {
       expect(toPng).toHaveBeenCalledTimes(1);
@@ -89,5 +92,27 @@ describe("MermaidDiagram (unit)", () => {
       width: 368,
       height: 228,
     });
+  });
+
+  it("opens a fullscreen viewer without rendering metadata text inside the modal", async () => {
+    renderWithProviders(
+      <MermaidDiagram
+        diagram="flowchart LR\nA --> B"
+        title="Fullscreen Title"
+        description="Fullscreen description text"
+      />
+    );
+
+    await userEvent.click(screen.getByText(/full screen/i));
+
+    const dialog = await screen.findByRole("dialog");
+    await waitFor(() => {
+      expect(
+        within(dialog).getByRole("img", { name: /mermaid diagram fullscreen view/i })
+      ).toBeInTheDocument();
+    });
+
+    expect(within(dialog).queryByText(/fullscreen title/i)).not.toBeInTheDocument();
+    expect(within(dialog).queryByText(/fullscreen description text/i)).not.toBeInTheDocument();
   });
 });

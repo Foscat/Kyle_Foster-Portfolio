@@ -1,199 +1,101 @@
-# Kyle Foster — Portfolio Application
+# Kyle Foster Portfolio Application
 
-This repository contains the source code, tooling, and documentation for a modern React-based portfolio application. The project is intentionally engineered to demonstrate **clean architecture**, **predictable UI composition**, **strong testing discipline**, and **professional-grade tooling**.
+This repository contains the source code, tooling, and generated documentation for a React-based portfolio system focused on clean architecture, predictable composition, accessibility, and testing discipline.
 
-The application is not just a UI showcase—it is a fully documented system with clear separation between runtime code, navigation orchestration, content rendering, testing contracts, and build tooling.
+## Latest Updates
 
----
+- Mermaid diagrams now support a refined full-screen viewer that is truly edge-to-edge (no boxed "traditional modal" framing) with corrected theme/color rendering in full-screen mode.
+- Diagram action controls were redesigned into a more compact, cleaner action row.
+- `ClickableImg` now attempts mobile landscape lock for wide images and shows a clear fallback hint when auto-rotate is unavailable.
+- Unit test coverage was expanded for:
+  - Diagram full-screen interaction behavior.
+  - Mobile orientation lock success and failure fallback for images.
 
-## 🚀 Project Goals
+## Project Goals
 
-- Demonstrate production-quality React architecture
-- Enforce consistency through tooling and documentation
-- Showcase maintainable UI composition patterns
-- Provide clear onboarding context for reviewers and contributors
+- Demonstrate production-quality React architecture.
+- Keep UI behavior data-driven and composable.
+- Maintain strong code quality through linting and automated tests.
+- Keep onboarding clear through generated docs and subsystem guides.
 
----
+## High-Level Architecture
 
-## 🧭 High-Level Architecture
+The app is built around declarative pages, data-driven sections, and composable block renderers coordinated by a shared navigation and section-registry layer.
 
-The system is built around **declarative pages**, **data-driven sections**, and **composable content blocks**, coordinated through a shared navigation and registry layer.
+Start with:
 
-### Architecture Overview
+- [Architecture Overview](architecture_overview.md)
+- [Architecture Diagram](public/portfolio_flow.png)
 
-Start here to understand how the entire system fits together:
+## Documentation Index
 
-📄 **Architecture Overview**
+- [Components](docs/components.md)
+- [Navigation](docs/navigation.md)
+- [Scripts and Tooling](docs/scripts.md)
+- [Testing](docs/tests.md)
+- [Types and UI Contracts](docs/types.md)
+- [Playwright API Docs](docs/playwright.md)
+- [Full API Reference](docs/api.md)
+- [JSDoc Audit Output](docs/jsdoc-audit.md)
 
-![Architecture Diagram](public/portfolio_flow.png)
+## Core Scripts
 
-→ [`architecture_overview.md`](architecture_overview.md)
-
-This document explains:
-
-- Page → Section → Block composition
-- Navigation and scroll coordination
-- Section registration lifecycle
-- Why responsibilities are intentionally separated
-
----
-
-## 🧩 Documentation Index
-
-All major subsystems are documented independently to keep the documentation focused and readable.
-
-### Components
-
-📄 [`docs/components.md`](docs/components.md)
-
-Covers:
-
-- Reusable UI components
-- Props, accessibility contracts, and behavior
-- Frosted UI patterns and variants
-
----
-
-### Navigation
-
-📄 [`docs/navigation.md`](docs/navigation.md)
-
-Covers:
-
-- `StickyNav` and `StickySectionNav`
-- Section registration and scroll tracking
-- Navigation state coordination
-
----
-
-### Scripts & Tooling
-
-📄 [`scripts/README.md`](scripts/README.md)
-
-Covers:
-
-- Diagram generation pipeline
-- Formatting, linting, and rendering scripts
-- Codemods and safety guidelines
-- CI vs manual tooling distinctions
-
----
-
-### Tests
-
-📄 [`docs/tests.md`](docs/tests.md)
-
-Covers:
-
-- Component testing philosophy
-- Page-level contract testing
-- Shared test helpers and factories
-- What tests guarantee—and what they intentionally do not
-
----
-
-### Types & UI Contracts
-
-📄 [`docs/types.md`](docs/types.md)
-
-Covers:
-
-- Shared UI enums and types
-- Variant and size contracts
-- Block and section data shapes
-
----
-
-## 🖼️ Generated Diagrams
-
-This project includes **automatically rendered Mermaid diagrams** used throughout the documentation.
-
-Diagrams are:
-
-- Authored in Mermaid syntax
-- Validated and linted
-- Rendered to transparent PNGs using Playwright
-
-### Diagram Assets
-
-📁 [`docs/diagrams/`](docs/diagrams/)
-
-Example diagrams include:
-
-- Page → Section → Block rendering flow
-- Navigation and registry relationships
-- UI composition patterns
-
-These images are generated via documented scripts and should not be edited manually.
-
----
-
-## 🛠️ Documentation Generation
-
-Documentation is generated using **JSDoc** and **jsdoc-to-markdown**.
-
-Available commands:
+Development:
 
 ```sh
+npm run dev
+npm run build
+npm run preview
+```
+
+Quality and tests:
+
+```sh
+npm run lint
+npm run test
+npm run quality:check
+```
+
+Diagrams:
+
+```sh
+npm run diagrams:check
+npm run diagrams:assets
+npm run diagrams:test
+```
+
+Docs:
+
+```sh
+npm run docs:build
 npm run docs:components
 npm run docs:navigation
-npm run docs:tests
 npm run docs:types
+npm run docs:test-helpers
+npm run docs:scripts
+npm run docs:playwright
 npm run docs:api
 npm run docs:jsdoc:audit
 ```
 
-Each command outputs a focused Markdown file under `docs/`.
+## Testing Philosophy
 
-For repository-wide output and quality checks:
+- Test behavior over implementation details.
+- Treat navigation and rendering contracts as invariants.
+- Use unit tests for logic and component interactions.
+- Use Playwright for end-to-end and visual confidence where appropriate.
 
-- `docs:api` generates a full API reference from `jsdoc.config.json`.
-- `docs:jsdoc:audit` writes `docs/jsdoc-audit.md` with compatibility and baseline quality findings.
-- `docs:jsdoc:audit:strict` fails CI when audit issues are present.
+## Technology Stack
 
-Strict JSDoc rules are enforced to prevent documentation drift and generation failures.
+- React 18
+- Vite
+- RSuite
+- Font Awesome
+- Mermaid
+- Vitest + Testing Library
+- Playwright
+- ESLint + Stylelint + Prettier
 
----
+## Notes
 
-## 🧪 Testing Philosophy
-
-Testing is treated as a **first-class architectural concern**.
-
-- Components are tested for behavior, not structure
-- Pages are tested declaratively via shared contracts
-- Navigation and utilities are tested at invariant boundaries
-
-Tests are designed to answer:
-
-> _“What must always be true?”_
-
-—not _“How is this implemented?”_
-
----
-
-## 🧱 Technology Stack
-
-- **React** — UI framework
-- **RSuite** — component primitives
-- **FontAwesome** — iconography
-- **Mermaid** — diagram authoring
-- **Playwright** — diagram rendering
-- **Vitest / Testing Library** — testing
-
----
-
-## 📌 Final Notes
-
-This repository is intentionally opinionated.
-
-It prioritizes:
-
-- Predictability over flexibility
-- Documentation over tribal knowledge
-- Tooling discipline over convenience
-
-Every abstraction, script, and convention exists for a reason—and that reasoning is documented.
-
----
-
-If you are reviewing this project, the **Architecture Overview** is the best place to begin.
+This codebase is intentionally opinionated. It favors maintainability, explicit contracts, and consistent tooling over ad-hoc shortcuts.

@@ -1,4 +1,11 @@
+/**
+ * @file src\components\renderers\index.jsx
+ * @description src\components\renderers\index module.
+ * @module src\components\renderers\index
+ */
+
 import { lazy, Suspense } from "react";
+import React from "react";
 
 /**
  * @name LazyDisplay

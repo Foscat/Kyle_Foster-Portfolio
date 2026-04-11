@@ -18,7 +18,7 @@
  * @module tests/components/ClickableImg
  */
 
-import { screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import ClickableImg from "./index";
@@ -136,6 +136,112 @@ describe("ClickableImg", () => {
     await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
     await userEvent.click(screen.getByRole("button", { name: /zoom in image/i }));
     expect(screen.getByRole("button", { name: /reset image zoom/i })).toHaveTextContent("125%");
+  });
+
+  it("requests landscape mode for wide images on mobile and unlocks on close", async () => {
+    const previousInnerWidth = window.innerWidth;
+    const previousMatchMedia = window.matchMedia;
+    const previousOrientation = window.screen.orientation;
+
+    const lock = vi.fn(() => Promise.resolve());
+    const unlock = vi.fn();
+
+    window.innerWidth = 375;
+    window.matchMedia = vi.fn((query) => ({
+      matches: query === "(orientation: portrait)",
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(() => true),
+    }));
+    Object.defineProperty(window.screen, "orientation", {
+      configurable: true,
+      value: { lock, unlock },
+    });
+
+    try {
+      renderClickableImg();
+
+      await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+
+      const modalImage = screen.getAllByRole("img", {
+        name: /clickable image, click to expand/i,
+      })[1];
+      Object.defineProperty(modalImage, "naturalWidth", { configurable: true, value: 1920 });
+      Object.defineProperty(modalImage, "naturalHeight", { configurable: true, value: 1080 });
+      fireEvent.load(modalImage);
+
+      await waitFor(() => {
+        expect(lock).toHaveBeenCalledWith("landscape");
+      });
+
+      await userEvent.keyboard("{Escape}");
+
+      await waitFor(() => {
+        expect(unlock).toHaveBeenCalledTimes(1);
+      });
+    } finally {
+      window.innerWidth = previousInnerWidth;
+      window.matchMedia = previousMatchMedia;
+      Object.defineProperty(window.screen, "orientation", {
+        configurable: true,
+        value: previousOrientation,
+      });
+    }
+  });
+
+  it("shows a fallback hint when auto-rotate cannot be enabled", async () => {
+    const previousInnerWidth = window.innerWidth;
+    const previousMatchMedia = window.matchMedia;
+    const previousOrientation = window.screen.orientation;
+
+    const lock = vi.fn(() => Promise.reject(new Error("orientation denied")));
+    const unlock = vi.fn();
+
+    window.innerWidth = 375;
+    window.matchMedia = vi.fn((query) => ({
+      matches: query === "(orientation: portrait)",
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(() => true),
+    }));
+    Object.defineProperty(window.screen, "orientation", {
+      configurable: true,
+      value: { lock, unlock },
+    });
+
+    try {
+      renderClickableImg();
+
+      await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+
+      const modalImage = screen.getAllByRole("img", {
+        name: /clickable image, click to expand/i,
+      })[1];
+      Object.defineProperty(modalImage, "naturalWidth", { configurable: true, value: 1920 });
+      Object.defineProperty(modalImage, "naturalHeight", { configurable: true, value: 1080 });
+      fireEvent.load(modalImage);
+
+      await waitFor(() => {
+        expect(screen.getByText(/auto-rotate is unavailable/i)).toBeInTheDocument();
+      });
+
+      expect(unlock).not.toHaveBeenCalled();
+    } finally {
+      window.innerWidth = previousInnerWidth;
+      window.matchMedia = previousMatchMedia;
+      Object.defineProperty(window.screen, "orientation", {
+        configurable: true,
+        value: previousOrientation,
+      });
+    }
   });
 
   /* ------------------------------------------------------------

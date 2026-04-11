@@ -12,6 +12,7 @@ import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
 import ThemeToggle from "../ThemeToggle";
+import PaletteToggle from "../PaletteToggle";
 import "./styles.css";
 
 const asOnOff = (value) => (value ? "On" : "Off");
@@ -405,6 +406,11 @@ export default function AccessibilityMenu({ size = Size.SM, enableHotkey = false
           <div className="a11y-theme">
             <h4 className="a11y-row__title">Theme</h4>
             <ThemeToggle size={Size.SM} />
+          </div>
+
+          <div className="a11y-theme a11y-palette">
+            <h4 className="a11y-row__title">Palette</h4>
+            <PaletteToggle size={Size.SM} showLabel={false} ariaLabel="Color palette" />
           </div>
         </Modal.Body>
 

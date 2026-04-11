@@ -1,11 +1,12 @@
 /**
+ * @module scripts\codemods\fix-jsdoc-import-types
  * @file fix-jsdoc-import-types.js
  * @description
  * Codemod that rewrites unsupported JSDoc `import()` type references
  * into plain type identifiers.
  *
  * Converts:
- *   {import("path").TypeName}
+ *   {TypeName}
  * Into:
  *   {TypeName}
  *

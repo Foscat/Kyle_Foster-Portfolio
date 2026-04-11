@@ -7,13 +7,27 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Dependencies
+node_modules/
 .npm-cache/
-dist
-dist-ssr
-playwright-report/
-playwright/test-results/
+
+# Build output
+dist/
+dist-ssr/
 *.local
+
+# Test and report artifacts (local-only)
+coverage/
+playwright-report/
+test-results/
+tmp/
+playwright/test-results/
+playwright/**/test-results/
+
+# Local browser-specific snapshot artifacts
+playwright/**/*.spec.ts-snapshots/*-chromium-win32.png
+playwright/**/*.spec.ts-snapshots/*-firefox-win32.png
+playwright/**/*.spec.ts-snapshots/*-webkit-win32.png
 
 # Editor directories and files
 .vscode/*

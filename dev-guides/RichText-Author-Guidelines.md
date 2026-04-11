@@ -2,7 +2,7 @@
 
 This guide defines **how to author rich, structured content** for the `RichTextBlock` component. It is intended for use in section data files and documentation-driven UI, not for free-form CMS editing.
 
-The goal is to:
+The goals are to:
 
 - Improve readability and scannability
 - Encode semantic intent (not just formatting)
@@ -207,7 +207,7 @@ Common patterns:
 
 ---
 
-### `inlineIcon` Emogi emphasis
+### `inlineIcon` Emoji Emphasis
 
 **Use for:** Semantic callouts
 

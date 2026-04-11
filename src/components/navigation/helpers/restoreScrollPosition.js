@@ -1,3 +1,9 @@
+/**
+ * @file src\components\navigation\helpers\restoreScrollPosition.js
+ * @description src\components\navigation\helpers\restoreScrollPosition module.
+ * @module src\components\navigation\helpers\restoreScrollPosition
+ */
+
 import { loadLastSection } from "./sectionPersistence";
 
 /**

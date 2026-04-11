@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\core\architectureFactory.js
+ * @description src\components\features\CustomDiagram\core\architectureFactory module.
+ * @module src\components\features\CustomDiagram\core\architectureFactory
+ */
+
 import { architectureDiagram, getResponsiveFlowchartInit } from "./index.js";
 
 /**

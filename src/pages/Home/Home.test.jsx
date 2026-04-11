@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\Home\Home.test.jsx
+ * @description src\pages\Home\Home.test module.
+ * @module src\pages\Home\Home.test
+ */
+
 import Home from "pages/Home";
 import homeSections from "assets/data/content/home";
 import { PageRoute } from "types/navigation.types";

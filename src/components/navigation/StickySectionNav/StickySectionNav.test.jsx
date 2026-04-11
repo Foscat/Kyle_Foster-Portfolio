@@ -1,3 +1,9 @@
+/**
+ * @file src\components\navigation\StickySectionNav\StickySectionNav.test.jsx
+ * @description src\components\navigation\StickySectionNav\StickySectionNav.test module.
+ * @module src\components\navigation\StickySectionNav\StickySectionNav.test
+ */
+
 import React from "react";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
@@ -36,8 +42,7 @@ import { BlockType } from "types/ui.types";
  * ------------------------------------------------------------------ */
 
 /**
- * Mock scroll-spy hook to control active section state
- * and observe programmatic scroll suppression behavior.
+ * @description Mock scroll-spy hook to control active section state and observe programmatic scroll suppression behavior. /
  */
 const markProgrammaticScroll = vi.fn(() => Promise.resolve(true));
 const scrollSpyState = {
@@ -134,9 +139,8 @@ describe("StickySectionNav", () => {
     });
 
     /**
-     * Ensure target section elements exist in the DOM so
-     * scroll and offset calculations can resolve correctly.
-     */
+ * @description Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
+ */
     s1 = document.createElement("div");
     s1.id = "section-1";
     document.body.appendChild(s1);
@@ -192,19 +196,18 @@ describe("StickySectionNav", () => {
     fireEvent.click(details);
 
     /**
-     * Ensures the scroll-spy hook is informed that the upcoming
-     * scroll is programmatic (not user-driven).
-     */
+ * @description Ensures the scroll-spy hook is informed that the upcoming scroll is programmatic (not user-driven). /
+ */
     expect(markProgrammaticScroll).toHaveBeenCalledTimes(1);
 
     /**
-     * Verifies that the URL hash is updated without a full navigation.
-     */
+ * @description Verifies that the URL hash is updated without a full navigation. /
+ */
     expect(window.location.hash).toBe("#section-2");
 
     /**
-     * Confirms that smooth scrolling was triggered.
-     */
+ * @description Confirms that smooth scrolling was triggered. /
+ */
     await waitFor(() => {
       expect(window.scrollTo).toHaveBeenCalled();
     });

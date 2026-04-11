@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\hackathon\index.js
+ * @description src\assets\data\content\hackathon\index module.
+ * @module src\assets\data\content\hackathon\index
+ */
+
 import {
   faCircleExclamation,
   faCommentNodes,
@@ -16,16 +22,7 @@ import diagrams from "./diagrams.js";
 import imageObjs from "assets/images/hackathon";
 
 /**
- * Hackathon experience
- * ------------------------------------------------------------
- * This file powers the Hackathon portfolio page using a
- * data-driven approach. It is designed to work with:
- *
- * - Sticky Section Nav
- * - AccordionList
- * - InfoSection / ClickableImg / diagramDiagram components
- *
- * All UI layout should be derived from this data structure.
+ * @description Hackathon experience ------------------------------------------------------------ This file powers the Hackathon portfolio page using a data-driven approach. It is designed to work with: - Sticky Section Nav - AccordionList - InfoSection / ClickableImg / diagramDiagram components All UI layout should be derived from this data structure. /
  */
 
 const hackathonSections = [
@@ -866,7 +863,9 @@ const hackathonSections = [
           },
         ],
       },
-      /** Tech Assist Logo Image */
+      /**
+ * @description Tech Assist Logo Image
+ */
       {
         id: "tech-assist-logo",
         type: BlockType.IMAGE_GALLERY,

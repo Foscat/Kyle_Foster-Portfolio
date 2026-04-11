@@ -1,3 +1,9 @@
+/**
+ * @file playwright\diagram-snapshots.spec.ts
+ * @description playwright\diagram-snapshots.spec module.
+ * @module playwright\diagram-snapshots.spec
+ */
+
 import { test } from "@playwright/test";
 import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
 import { snapshotDiagram } from "./utils/snapshotDiagram";

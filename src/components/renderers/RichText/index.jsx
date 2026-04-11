@@ -1,10 +1,16 @@
+/**
+ * @file src\components\renderers\RichText\index.jsx
+ * @description src\components\renderers\RichText\index module.
+ * @module src\components\renderers\RichText\index
+ */
+
 import React from "react";
 import renderNode from "./renderNode";
+import "./style.css";
 
 /**
  * @file index.jsx
  * @fileoverview Renders rich text content which may include plain strings, arrays,
- * or structured rich text nodes.
  * @module components/RichText
  */
 

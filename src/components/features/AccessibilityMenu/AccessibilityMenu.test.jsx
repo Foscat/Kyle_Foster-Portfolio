@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\AccessibilityMenu\AccessibilityMenu.test.jsx
+ * @description src\components\features\AccessibilityMenu\AccessibilityMenu.test module.
+ * @module src\components\features\AccessibilityMenu\AccessibilityMenu.test
+ */
+
 import { describe, it, expect, vi } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

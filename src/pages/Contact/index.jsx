@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\Contact\index.jsx
+ * @description src\pages\Contact\index module.
+ * @module src\pages\Contact\index
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { FlexboxGrid, Form, Input, Message, Panel } from "rsuite";
 import { StickyNav, Footer } from "components/navigation";
@@ -183,8 +189,8 @@ export default function Contact() {
   };
 
   /**
-   * Precomputed boolean that prevents empty submissions and duplicate sends.
-   */
+ * @description Precomputed boolean that prevents empty submissions and duplicate sends. /
+ */
   const isSubmitDisabled = useMemo(() => {
     const payload = normalizeContactPayload(formData);
     return !payload.name || !payload.email || !payload.message || isSending;

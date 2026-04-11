@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\examples\greenhouse.arch.js
+ * @description src\components\features\CustomDiagram\examples\greenhouse.arch module.
+ * @module src\components\features\CustomDiagram\examples\greenhouse.arch
+ */
+
 import { registerDiagram } from "./index.js";
 
 registerDiagram("greenhouse-architecture", {
