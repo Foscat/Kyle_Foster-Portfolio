@@ -32,10 +32,7 @@
   --_is-lift-hover: var(--interactive-surface-lift-hover, var(--lift-hover, -4px));
   --_is-lift-active: var(--interactive-surface-lift-active, var(--lift-active, -2px));
 
-  --_is-shadow-base: var(
-    --interactive-surface-shadow-base,
-    var(--shadow-base, 0 0 0 rgba(0, 0, 0, 0))
-  );
+  --_is-shadow-base: var(--interactive-surface-shadow-base, var(--shadow-base, 0 0 0 rgba(0, 0, 0, 0)));
   --_is-shadow-hover: var(
     --interactive-surface-shadow-hover,
     var(--shadow-hover, 0 10px 28px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25))
@@ -68,10 +65,7 @@
   --_is-border-width: var(--interactive-surface-border-width, 1px);
   --_is-radius: var(--interactive-surface-radius, 0.75rem);
 
-  --_is-focus-ring-color: var(
-    --interactive-surface-focus-ring-color,
-    var(--focus-ring, rgb(11 99 246))
-  );
+  --_is-focus-ring-color: var(--interactive-surface-focus-ring-color, var(--focus-ring, rgb(11 99 246)));
   --_is-focus-ring-width: var(--interactive-surface-focus-ring-width, 2px);
   --_is-focus-ring-offset: var(--interactive-surface-focus-ring-offset, 2px);
   --_is-disabled-opacity: var(--interactive-surface-disabled-opacity, 0.72);
@@ -164,8 +158,7 @@
 .interactive-surface.size-lg {
   --interactive-surface-lift-hover: -8px;
   --interactive-surface-lift-active: -4px;
-  --interactive-surface-shadow-hover:
-    0 14px 36px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.3);
+  --interactive-surface-shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.3);
   --interactive-surface-shadow-active: 0 8px 22px rgba(0, 0, 0, 0.32);
 }
 
@@ -220,18 +213,14 @@
   }
 }
 
-:where([data-theme="dark"], .theme-dark, .dark-mode, .dark)
-  .interactive-surface.icon-only
-  .light-icon,
+:where([data-theme="dark"], .theme-dark, .dark-mode, .dark) .interactive-surface.icon-only .light-icon,
 :where([data-theme="dark"], .theme-dark, .dark-mode, .dark)
   .interactive-surface.icon-only
   [data-icon-role="light"] {
   color: var(--interactive-surface-light-icon-color-dark, rgb(255 255 255));
 }
 
-:where([data-theme="dark"], .theme-dark, .dark-mode, .dark)
-  .interactive-surface.icon-only
-  .dark-icon,
+:where([data-theme="dark"], .theme-dark, .dark-mode, .dark) .interactive-surface.icon-only .dark-icon,
 :where([data-theme="dark"], .theme-dark, .dark-mode, .dark)
   .interactive-surface.icon-only
   [data-icon-role="dark"] {

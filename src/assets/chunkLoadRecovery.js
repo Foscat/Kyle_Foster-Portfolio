@@ -6,6 +6,7 @@
  */
 
 const CHUNK_RELOAD_SESSION_KEY = "portfolio-chunk-reload-attempt";
+const CHUNK_RECOVERY_QUERY_PARAM = "chunk-recover";
 const DEFAULT_MAX_RELOADS = 1;
 
 const DYNAMIC_IMPORT_FAILURE_PATTERNS = [
@@ -63,6 +64,45 @@ const safeClearReloadCount = (storage) => {
   }
 };
 
+const buildRecoveryUrl = (href, now) => {
+  const url = new URL(href);
+  url.searchParams.set(CHUNK_RECOVERY_QUERY_PARAM, String(now()));
+  return url.toString();
+};
+
+const recoverNavigation = (win, now) => {
+  const href = win?.location?.href;
+
+  if (typeof href === "string" && typeof win?.location?.replace === "function") {
+    try {
+      win.location.replace(buildRecoveryUrl(href, now));
+      return;
+    } catch {
+      // Fall through to hard reload.
+    }
+  }
+
+  win?.location?.reload?.();
+};
+
+const clearRecoveryQueryParam = (win) => {
+  const href = win?.location?.href;
+  const replaceState = win?.history?.replaceState;
+
+  if (typeof href !== "string" || typeof replaceState !== "function") return;
+
+  try {
+    const url = new URL(href);
+    if (!url.searchParams.has(CHUNK_RECOVERY_QUERY_PARAM)) return;
+
+    url.searchParams.delete(CHUNK_RECOVERY_QUERY_PARAM);
+    const normalizedPath = `${url.pathname}${url.search}${url.hash}`;
+    replaceState.call(win.history, win.history.state, "", normalizedPath);
+  } catch {
+    // Ignore URL parsing failures.
+  }
+};
+
 /**
  * @function installChunkLoadRecovery
  * @description Installs global listeners for recoverable chunk-load failures.
@@ -71,15 +111,21 @@ const safeClearReloadCount = (storage) => {
  * @param {Object} [options]
  * @param {Window} [options.win=window] - Window-like object used for listener registration.
  * @param {number} [options.maxReloads=1] - Max automatic reload attempts per session.
+ * @param {() => number} [options.now=Date.now] - Timestamp source used for cache-busting URLs.
  * @returns {() => void} Cleanup function that removes installed listeners.
  */
-export function installChunkLoadRecovery({ win = window, maxReloads = DEFAULT_MAX_RELOADS } = {}) {
+export function installChunkLoadRecovery({
+  win = window,
+  maxReloads = DEFAULT_MAX_RELOADS,
+  now = Date.now,
+} = {}) {
   if (!win || typeof win.addEventListener !== "function") {
     return () => {};
   }
 
   const storage = win.sessionStorage;
   const limit = Number.isFinite(maxReloads) && maxReloads >= 0 ? maxReloads : DEFAULT_MAX_RELOADS;
+  const nowFn = typeof now === "function" ? now : Date.now;
 
   const maybeRecover = (payload) => {
     if (!isLikelyChunkLoadFailure(payload)) return;
@@ -88,7 +134,7 @@ export function installChunkLoadRecovery({ win = window, maxReloads = DEFAULT_MA
     if (attempts >= limit) return;
 
     safeWriteReloadCount(storage, attempts + 1);
-    win.location?.reload?.();
+    recoverNavigation(win, nowFn);
   };
 
   const handleError = (event) => {
@@ -108,6 +154,7 @@ export function installChunkLoadRecovery({ win = window, maxReloads = DEFAULT_MA
 
   const handleLoad = () => {
     safeClearReloadCount(storage);
+    clearRecoveryQueryParam(win);
   };
 
   win.addEventListener("error", handleError, true);
