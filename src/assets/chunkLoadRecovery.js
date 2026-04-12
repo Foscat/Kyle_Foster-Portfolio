@@ -72,11 +72,10 @@ const buildRecoveryUrl = (href, now) => {
 
 const recoverNavigation = (win, now) => {
   const href = win?.location?.href;
-  const replace = win?.location?.replace;
 
-  if (typeof href === "string" && typeof replace === "function") {
+  if (typeof href === "string" && typeof win?.location?.replace === "function") {
     try {
-      replace(buildRecoveryUrl(href, now));
+      win.location.replace(buildRecoveryUrl(href, now));
       return;
     } catch {
       // Fall through to hard reload.
