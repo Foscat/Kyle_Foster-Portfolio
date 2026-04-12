@@ -19,6 +19,122 @@
   <body>
     <!-- Root where react app is rendered from -->
     <div id="root"></div>
+    <script>
+      (() => {
+        const SESSION_KEY = "portfolio-chunk-reload-attempt";
+        const QUERY_PARAM = "chunk-recover";
+        const MAX_RELOADS = 1;
+        const MESSAGE_PATTERNS = [
+          /Failed to fetch dynamically imported module/i,
+          /Importing a module script failed/i,
+          /Loading chunk [\d]+ failed/i,
+        ];
+        const ASSET_PATTERN = /\/assets\/[^/]+\.(?:js|css)(?:\?.*)?$/i;
+
+        const safeReadAttempts = () => {
+          try {
+            const raw = window.sessionStorage.getItem(SESSION_KEY);
+            const parsed = Number.parseInt(raw ?? "0", 10);
+            return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+          } catch {
+            return 0;
+          }
+        };
+
+        const safeWriteAttempts = (value) => {
+          try {
+            window.sessionStorage.setItem(SESSION_KEY, String(value));
+          } catch {
+            // Ignore storage failures.
+          }
+        };
+
+        const clearAttempts = () => {
+          try {
+            window.sessionStorage.removeItem(SESSION_KEY);
+          } catch {
+            // Ignore storage failures.
+          }
+        };
+
+        const isIgnoredSource = (value) => /^chrome-extension:\/\//i.test(String(value || ""));
+
+        const clearRecoveryQuery = () => {
+          try {
+            const url = new URL(window.location.href);
+            if (!url.searchParams.has(QUERY_PARAM)) return;
+            url.searchParams.delete(QUERY_PARAM);
+            window.history.replaceState(
+              window.history.state,
+              "",
+              `${url.pathname}${url.search}${url.hash}`
+            );
+          } catch {
+            // Ignore URL parsing/history failures.
+          }
+        };
+
+        const recover = () => {
+          const attempts = safeReadAttempts();
+          if (attempts >= MAX_RELOADS) return;
+
+          safeWriteAttempts(attempts + 1);
+
+          try {
+            const url = new URL(window.location.href);
+            url.searchParams.set(QUERY_PARAM, String(Date.now()));
+            window.location.replace(url.toString());
+            return;
+          } catch {
+            // Fall through to a plain reload.
+          }
+
+          window.location.reload();
+        };
+
+        const maybeRecover = ({ message = "", filename = "", targetSrc = "", targetHref = "" }) => {
+          const safeMessage = String(message || "");
+          const sources = [filename, targetSrc, targetHref].map((value) => String(value || ""));
+
+          if ([safeMessage, ...sources].some(isIgnoredSource)) return;
+
+          const hasChunkMessage = MESSAGE_PATTERNS.some((pattern) => pattern.test(safeMessage));
+          const hasChunkSource = sources.some((source) => ASSET_PATTERN.test(source));
+
+          if (!hasChunkMessage && !hasChunkSource) return;
+          recover();
+        };
+
+        window.addEventListener(
+          "error",
+          (event) => {
+            const target = event?.target;
+            maybeRecover({
+              message: event?.message,
+              filename: event?.filename,
+              targetSrc: target && "src" in target ? target.src : "",
+              targetHref: target && "href" in target ? target.href : "",
+            });
+          },
+          true
+        );
+
+        window.addEventListener("unhandledrejection", (event) => {
+          const reason = event?.reason;
+          const message = reason instanceof Error ? reason.message : String(reason ?? "");
+          maybeRecover({ message });
+        });
+
+        window.addEventListener(
+          "load",
+          () => {
+            clearAttempts();
+            clearRecoveryQuery();
+          },
+          { once: true }
+        );
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

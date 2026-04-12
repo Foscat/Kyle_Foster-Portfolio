@@ -10,11 +10,19 @@ import { installChunkLoadRecovery, isLikelyChunkLoadFailure } from "./chunkLoadR
 function createMockWindow() {
   const listeners = new Map();
   const storage = new Map();
+  const location = {
+    href: "https://beta.example.com/?foo=bar",
+    reload: vi.fn(),
+    replace: vi.fn(),
+  };
+  const history = {
+    state: null,
+    replaceState: vi.fn(),
+  };
 
   return {
-    location: {
-      reload: vi.fn(),
-    },
+    location,
+    history,
     sessionStorage: {
       getItem(key) {
         return storage.has(key) ? storage.get(key) : null;
@@ -72,20 +80,35 @@ describe("chunkLoadRecovery", () => {
 
   it("reloads only once per session on repeated recoverable failures", () => {
     const mockWindow = createMockWindow();
+    installChunkLoadRecovery({ win: mockWindow, maxReloads: 1, now: () => 12345 });
+
+    mockWindow.emit("error", {
+      message: "",
+      filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
+      target: { src: "https://beta.example.com/assets/ui-BOIkBqnZ.js" },
+    });
+
+    mockWindow.emit("error", {
+      message: "",
+      filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
+      target: { src: "https://beta.example.com/assets/ui-BOIkBqnZ.js" },
+    });
+
+    expect(mockWindow.location.replace).toHaveBeenCalledTimes(1);
+    expect(mockWindow.location.replace).toHaveBeenCalledWith(
+      "https://beta.example.com/?foo=bar&chunk-recover=12345"
+    );
+    expect(mockWindow.location.reload).not.toHaveBeenCalled();
+  });
+
+  it("clears recovery query params from the address bar after a successful load", () => {
+    const mockWindow = createMockWindow();
+    mockWindow.location.href = "https://beta.example.com/path?chunk-recover=12345#section-1";
+
     installChunkLoadRecovery({ win: mockWindow, maxReloads: 1 });
+    mockWindow.emit("load", {});
 
-    mockWindow.emit("error", {
-      message: "",
-      filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
-      target: { src: "https://beta.example.com/assets/ui-BOIkBqnZ.js" },
-    });
-
-    mockWindow.emit("error", {
-      message: "",
-      filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
-      target: { src: "https://beta.example.com/assets/ui-BOIkBqnZ.js" },
-    });
-
-    expect(mockWindow.location.reload).toHaveBeenCalledTimes(1);
+    expect(mockWindow.history.replaceState).toHaveBeenCalledTimes(1);
+    expect(mockWindow.history.replaceState).toHaveBeenCalledWith(null, "", "/path#section-1");
   });
 });
