@@ -9,23 +9,43 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 
 const THEME_STORAGE_KEY = "portfolio-theme";
 const PALETTE_STORAGE_KEY = "portfolio-palette";
+const SUPPORTED_THEMES = Object.freeze(["light", "dark"]);
+const DEFAULT_THEME = "dark";
 const SUPPORTED_PALETTES = Object.freeze(["primary", "alt", "forest", "ocean", "sunset"]);
 const DEFAULT_PALETTE = "ocean";
 
+const isSupportedTheme = (value) =>
+  typeof value === "string" && SUPPORTED_THEMES.includes(value);
 const isSupportedPalette = (value) =>
   typeof value === "string" && SUPPORTED_PALETTES.includes(value);
 
+const safeReadStorage = (key) => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const safeWriteStorage = (key, value) => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Ignore storage failures so theme changes cannot crash the app.
+  }
+};
+
 function getInitialTheme() {
   if (typeof window === "undefined") {
-    return "dark";
+    return DEFAULT_THEME;
   }
 
-  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-  if (savedTheme === "light" || savedTheme === "dark") {
+  const savedTheme = safeReadStorage(THEME_STORAGE_KEY);
+  if (isSupportedTheme(savedTheme)) {
     return savedTheme;
   }
 
-  return "dark";
+  return DEFAULT_THEME;
 }
 
 function getInitialPalette() {
@@ -33,7 +53,7 @@ function getInitialPalette() {
     return DEFAULT_PALETTE;
   }
 
-  const savedPalette = window.localStorage.getItem(PALETTE_STORAGE_KEY);
+  const savedPalette = safeReadStorage(PALETTE_STORAGE_KEY);
   if (isSupportedPalette(savedPalette)) {
     return savedPalette;
   }
@@ -77,12 +97,32 @@ const ThemeContext = createContext(null);
  * @returns {JSX.Element} Theme context provider.
  */
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [theme, setThemeState] = useState(getInitialTheme);
   const [palette, setPaletteState] = useState(getInitialPalette);
 
   /**
- * @description Toggles the current theme. Uses functional state update to avoid stale closures. /
+   * Explicitly set theme while guarding against invalid values.
+   *
+   * @param {Theme | ((prevTheme: Theme) => Theme)} nextTheme
  */
+  const setTheme = useCallback((nextTheme) => {
+    setThemeState((prev) => {
+      if (typeof nextTheme === "function") {
+        try {
+          const resolvedTheme = nextTheme(prev);
+          return isSupportedTheme(resolvedTheme) ? resolvedTheme : prev;
+        } catch {
+          return prev;
+        }
+      }
+
+      return isSupportedTheme(nextTheme) ? nextTheme : prev;
+    });
+  }, []);
+
+  /**
+   * @description Toggles the current theme using a functional state update.
+   */
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }, []);
@@ -112,11 +152,15 @@ export function ThemeProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
+
     // Apply theme and palette as data attributes for CSS selectors
     document.documentElement.dataset.theme = theme;
     document.documentElement.dataset.palette = palette;
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-    window.localStorage.setItem(PALETTE_STORAGE_KEY, palette);
+    if (typeof window !== "undefined") {
+      safeWriteStorage(THEME_STORAGE_KEY, theme);
+      safeWriteStorage(PALETTE_STORAGE_KEY, palette);
+    }
   }, [palette, theme]);
 
   return (

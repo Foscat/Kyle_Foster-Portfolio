@@ -91,8 +91,7 @@ const ClickableImg = ({
   // console.log("Clickable image", { id, index, src, alt, title, caption });
 
   /**
-   * Local modal open/close state.
-   * Controlled internally to keep usage simple for consumers.
+   * @description Local modal open/close state controlled internally to keep usage simple.
    */
   const [open, setOpen] = useState(false);
   const [zoom, setZoom] = useState(MIN_ZOOM);
