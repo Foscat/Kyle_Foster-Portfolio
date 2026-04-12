@@ -245,6 +245,8 @@ const Btn = ({
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
   const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
+  const isLocalHref = typeof href === "string" && /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(href.trim());
+  const shouldUseRouterLink = Boolean(href) && (hrefLocal || isLocalHref);
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
@@ -359,7 +361,7 @@ const Btn = ({
       }
     >
       {href ? (
-        hrefLocal ? (
+        shouldUseRouterLink ? (
           <Link
             role="button"
             to={href}

@@ -14,8 +14,11 @@
  */
 
 import { Nav, Sidenav } from "rsuite";
+import { Link } from "react-router-dom";
 import { PageRoute } from "types/navigation.types";
 import "./styles.css";
+
+const isLocalRoute = (url = "") => /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(String(url).trim());
 
 /**
  * @typedef {FeatureSection} FeatureSection
@@ -52,10 +55,15 @@ const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.
         <Sidenav.Body>
           <Nav>
             {sections.map((sect, i) => {
+              const href = sect.isScroller ? `${page}#${sect.id}` : sect.url;
+              const useRouterLink = isLocalRoute(href);
+
               return (
                 <Nav.Item
                   key={"section-" + i}
-                  href={sect.isScroller ? `${page}#${sect.id}` : sect.url}
+                  as={useRouterLink ? Link : undefined}
+                  to={useRouterLink ? href : undefined}
+                  href={useRouterLink ? undefined : href}
                   className="san-nav-item interactive-surface"
                 >
                   {sect.title}
