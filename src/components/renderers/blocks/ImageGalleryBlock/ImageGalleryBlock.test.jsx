@@ -33,8 +33,8 @@ import ImageGalleryBlock from ".";
 
 describe("ImageGalleryBlock", () => {
   /**
- * @description Verifies the component renders nothing when `images` is null. This guards against malformed CMS or data-driven input. /
- */
+   * @description Verifies the component renders nothing when `images` is null. This guards against malformed CMS or data-driven input. /
+   */
   it("renders nothing if images is missing", () => {
     renderWithProviders(
       <div data-testid="root">
@@ -46,8 +46,8 @@ describe("ImageGalleryBlock", () => {
   });
 
   /**
- * @description Verifies that a valid images array renders accessible image elements. /
- */
+   * @description Verifies that a valid images array renders accessible image elements. /
+   */
   it("renders an image list", async () => {
     renderWithProviders(
       <ImageGalleryBlock

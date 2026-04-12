@@ -19,12 +19,15 @@ import ErrorBoundary from "assets/context/ErrorBoundary";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "assets/context/ThemeContext.jsx";
 import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider.jsx";
+import { installChunkLoadRecovery } from "assets/chunkLoadRecovery.js";
 import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 // Reset
 import "./index.css";
 // RSuite default styles
 import "rsuite/dist/rsuite.min.css";
+
+installChunkLoadRecovery();
 
 const container = document.getElementById("root");
 
@@ -93,4 +96,3 @@ if (shouldInitVitals) {
     }
   });
 }
-

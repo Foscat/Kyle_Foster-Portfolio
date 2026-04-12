@@ -753,15 +753,15 @@
   height: 100dvh;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(
+  background:
+    linear-gradient(
       180deg,
       rgba(var(--primary-darkest-rgb), 0.95),
       rgba(var(--primary-dark-rgb), 0.82)
     ),
     radial-gradient(circle at 14% 16%, rgba(var(--accent-rgb), 0.2), transparent 34%),
     radial-gradient(circle at 85% 12%, rgba(var(--primary-rgb), 0.14), transparent 28%),
-    rgba(var(--primary-darkest-rgb), 1)
-    !important;
+    rgba(var(--primary-darkest-rgb), 1) !important;
 }
 
 .mermaid-fullscreen-stage,
@@ -792,15 +792,11 @@
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal__body {
-  background: linear-gradient(
-      180deg,
-      rgba(var(--white-rgb), 0.98),
-      rgba(var(--primary-lighter-rgb), 0.86)
-    ),
+  background:
+    linear-gradient(180deg, rgba(var(--white-rgb), 0.98), rgba(var(--primary-lighter-rgb), 0.86)),
     radial-gradient(circle at 14% 14%, rgba(var(--accent-rgb), 0.14), transparent 30%),
     radial-gradient(circle at 84% 12%, rgba(var(--primary-rgb), 0.1), transparent 26%),
-    rgba(var(--white-rgb), 1)
-    !important;
+    rgba(var(--white-rgb), 1) !important;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {

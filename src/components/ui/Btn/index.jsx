@@ -226,25 +226,27 @@ const Btn = ({
   widthAuto = false,
 }) => {
   /**
- * @description Local async loading state used when onClick returns a Promise. This allows async visual feedback without forcing external state.
- */
+   * @description Local async loading state used when onClick returns a Promise. This allows async visual feedback without forcing external state.
+   */
   const [asyncLoading, setAsyncLoading] = useState(loading);
   const isCoarsePointer = useCoarsePointer();
 
   /**
- * @description True when the button renders only an icon with no text label
- */
+   * @description True when the button renders only an icon with no text label
+   */
   const isIconOnly = icon && !text;
 
   /**
- * @description Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
- */
+   * @description Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
+   */
   const resolvedAriaLabel =
     ariaLabel ||
     (typeof tooltip === "string" ? tooltip : undefined) ||
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
   const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
+  const isLocalHref = typeof href === "string" && /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(href.trim());
+  const shouldUseRouterLink = Boolean(href) && (hrefLocal || isLocalHref);
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
@@ -359,7 +361,7 @@ const Btn = ({
       }
     >
       {href ? (
-        hrefLocal ? (
+        shouldUseRouterLink ? (
           <Link
             role="button"
             to={href}

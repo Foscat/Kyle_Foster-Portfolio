@@ -32,16 +32,16 @@ import RichTextBlock from ".";
 
 describe("RichTextBlock", () => {
   /**
- * @description Verifies that the component renders nothing when no content is provided. This confirms that the component is handling null or undefined content gracefully without throwing errors or rendering empty elements. /
- */
+   * @description Verifies that the component renders nothing when no content is provided. This confirms that the component is handling null or undefined content gracefully without throwing errors or rendering empty elements. /
+   */
   it("renders nothing when no content is provided", () => {
     renderWithProviders(<RichTextBlock content={null} />);
     expect(screen.queryByRole("region")).not.toBeInTheDocument();
   });
 
   /**
- * @description Verifies the component renders a named region with readable paragraph content when valid markdown input is provided. This confirms that the markdown parsing and rendering logic is functioning as intended. /
- */
+   * @description Verifies the component renders a named region with readable paragraph content when valid markdown input is provided. This confirms that the markdown parsing and rendering logic is functioning as intended. /
+   */
   it("renders a named region with readable paragraph content", async () => {
     renderWithProviders(
       <RichTextBlock

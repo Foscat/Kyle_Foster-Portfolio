@@ -57,8 +57,8 @@ describe("ErrorBoundary", () => {
 
   beforeEach(() => {
     /**
- * @description Silence expected React error boundary logs during tests. React intentionally logs errors when an error boundary is triggered. /
- */
+     * @description Silence expected React error boundary logs during tests. React intentionally logs errors when an error boundary is triggered. /
+     */
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
   });

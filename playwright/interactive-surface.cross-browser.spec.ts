@@ -11,7 +11,10 @@ import { expect, test } from "@playwright/test";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const cssPath = path.resolve(__dirname, "../node_modules/interactive-surface-css/interactive-surface.css");
+const cssPath = path.resolve(
+  __dirname,
+  "../node_modules/interactive-surface-css/interactive-surface.css"
+);
 const interactiveSurfaceCss = fs.readFileSync(cssPath, "utf8");
 
 function buildFixtureHtml() {

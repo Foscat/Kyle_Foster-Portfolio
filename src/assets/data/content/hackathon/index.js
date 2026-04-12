@@ -864,8 +864,8 @@ const hackathonSections = [
         ],
       },
       /**
- * @description Tech Assist Logo Image
- */
+       * @description Tech Assist Logo Image
+       */
       {
         id: "tech-assist-logo",
         type: BlockType.IMAGE_GALLERY,

@@ -8,6 +8,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import { Nav, Drawer } from "rsuite";
+import { Link } from "react-router-dom";
 import {
   faHome,
   faBriefcase,
@@ -178,7 +179,8 @@ const StickyNav = ({ activePage }) => {
               <Nav.Item
                 key={`${route}-${id}`}
                 eventKey={route}
-                href={route}
+                as={Link}
+                to={route}
                 active={isActive}
                 aria-current={isActive ? "page" : undefined}
                 onClick={(e) => handleNavClick(e, isActive)}
@@ -255,7 +257,8 @@ const StickyNav = ({ activePage }) => {
                 <Nav.Item
                   key={`${route}-${id}`}
                   eventKey={route}
-                  href={route}
+                  as={Link}
+                  to={route}
                   active={isActive}
                   className="interactive-surface"
                   aria-current={isActive ? "page" : undefined}

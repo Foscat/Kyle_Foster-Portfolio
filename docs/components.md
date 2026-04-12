@@ -1715,7 +1715,7 @@ True when the button renders only an icon with no text label
 <a name="module_components/Btn..Btn..resolvedAriaLabel"></a>
 
 #### Btn~resolvedAriaLabel
-Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name. /
+Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
 
 **Kind**: inner constant of [<code>Btn</code>](#module_components/Btn..Btn)  
 <a name="module_components/Btn..Btn..handleClick"></a>
@@ -1804,7 +1804,7 @@ Clickable image component that expands into a frostedmodal viewer while preserv
 <a name="module_components/ClickableImg..ClickableImg"></a>
 
 ### components/ClickableImg~ClickableImg ⇒ <code>JSX.Element</code>
-A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.Key behaviors:- Renders a responsive image thumbnail using RSuite's Image component- Clicking the thumbnail opens a modal viewer with a larger version of the image- The modal can be closed with the close button or pressing the ESC key- The expanded image supports zoom controls and drag-to-pan interaction- On mobile, title/caption details are hidden while zoomed to maximize viewing space- Both thumbnail and modal images are lazy-loaded for performance- The modal and image wrapper feature frosted glass styling consistent with the UI design system- On mobile portrait, wide images show a rotate/zoom guidance hintAccessibility:- Requires alt text for screen readers- Applies aria-label to both thumbnail and modal image
+A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.Key behaviors:- Renders a responsive image thumbnail using RSuite's Image component- Clicking the thumbnail opens a modal viewer with a larger version of the image- The modal can be closed with the close button or pressing the ESC key- The expanded image supports zoom controls and drag-to-pan interaction- On mobile, title/caption details are hidden while zoomed to maximize viewing space- Both thumbnail and modal images are lazy-loaded for performance- The modal and image wrapper feature frosted glass styling consistent with the UI design system- On mobile portrait, wide images request landscape orientation when browser support allows it- On unsupported browsers, wide images show a rotate/zoom guidance hintAccessibility:- Requires alt text for screen readers- Applies aria-label to both thumbnail and modal image
 
 **Kind**: inner property of [<code>components/ClickableImg</code>](#module_components/ClickableImg)  
 **Returns**: <code>JSX.Element</code> - Clickable image with modal viewer.  

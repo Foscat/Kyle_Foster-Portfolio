@@ -77,8 +77,8 @@ if (!window.matchMedia) {
         return true;
       },
       /**
- * @description Test-only helper used by explicit matchMedia overrides when needed. Kept here so unsupported environments still expose a stable shape. /
- */
+       * @description Test-only helper used by explicit matchMedia overrides when needed. Kept here so unsupported environments still expose a stable shape. /
+       */
       __setMatches(nextValue) {
         matches = !!nextValue;
       },

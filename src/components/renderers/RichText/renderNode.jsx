@@ -5,9 +5,6 @@
  */
 
 import Prism from "prismjs";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-css";
-import "prismjs/components/prism-markup";
 import "prismjs/themes/prism-tomorrow.css";
 
 /**
@@ -192,8 +189,13 @@ const renderNode = (node, key) => {
        Syntax-highlighted code block
        ------------------------------------------------------------------ */
     case "pre": {
-      // Highlight source code using Prism for the specified language
-      const language = node.language || "shell";
+      // Highlight source code with a safe grammar fallback to avoid runtime crashes.
+      const requestedLanguage =
+        typeof node.language === "string" && node.language.trim().length > 0
+          ? node.language.trim().toLowerCase()
+          : "markup";
+      const fallbackLanguage = "markup";
+      const language = Prism.languages[requestedLanguage] ? requestedLanguage : fallbackLanguage;
       const html = Prism.highlight(node.text || "", Prism.languages[language], language);
 
       return (

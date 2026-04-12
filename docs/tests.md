@@ -10,8 +10,8 @@
 <dt><a href="#module_src\tests\helpers\expectAriaCurrent">src\tests\helpers\expectAriaCurrent</a></dt>
 <dd><p>src\tests\helpers\expectAriaCurrent module.</p>
 </dd>
-<dt><a href="#module_src\tests\renderWithProviders">src\tests\renderWithProviders</a></dt>
-<dd><p>src\tests\renderWithProviders module.</p>
+<dt><a href="#module_src/tests/renderWithProviders">src/tests/renderWithProviders</a></dt>
+<dd><p>src/tests/renderWithProviders module.</p>
 </dd>
 <dt><a href="#module_src\tests\setupTests">src\tests\setupTests</a></dt>
 <dd><p>src\tests\setupTests module.</p>
@@ -51,17 +51,17 @@ Creates a test suite for a data-driven page component, focused on verifying comp
 ## src\tests\helpers\expectAriaCurrent
 src\tests\helpers\expectAriaCurrent module.
 
-<a name="module_src\tests\renderWithProviders"></a>
+<a name="module_src/tests/renderWithProviders"></a>
 
-## src\tests\renderWithProviders
-src\tests\renderWithProviders module.
+## src/tests/renderWithProviders
+src/tests/renderWithProviders module.
 
-<a name="module_src\tests\renderWithProviders.renderWithProviders"></a>
+<a name="module_src/tests/renderWithProviders.renderWithProviders"></a>
 
-### src\tests\renderWithProviders.renderWithProviders(ui, [options]) ⇒ <code>RenderResult</code>
+### src/tests/renderWithProviders.renderWithProviders(ui, [options]) ⇒ <code>RenderResult</code>
 Render helper that mirrors the real app provider stack closely enough forbehavior-driven component tests.Why this exists:- Many components depend on router context.- Theme-aware components require ThemeProvider + RSuite CustomProvider.- Responsive logic depends on ResponsiveProvider being present.- Helmet-managed document metadata requires HelmetProvider.Tests should prefer this helper over raw `render()` whenever the componentunder test consumes application context.
 
-**Kind**: static method of [<code>src\tests\renderWithProviders</code>](#module_src\tests\renderWithProviders)  
+**Kind**: static method of [<code>src/tests/renderWithProviders</code>](#module_src/tests/renderWithProviders)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
