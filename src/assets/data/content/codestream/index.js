@@ -79,8 +79,8 @@ const codestreamSections = [
     isScroller: true,
     blocks: [
       /**
- * @description Intro narrative
- */
+       * @description Intro narrative
+       */
       {
         id: "what-I-did",
         title: "My Role at CodeStream Studios LLC",

@@ -96,8 +96,8 @@ function lintDiagram(diagram) {
 
   for (const source of sources) {
     /**
- * @description RULE: Mermaid init block must appear first (ignoring leading whitespace). /
- */
+     * @description RULE: Mermaid init block must appear first (ignoring leading whitespace). /
+     */
     if (!source.trimStart().startsWith("%%{init:")) {
       throw new Error(
         `[${diagram.id}] Mermaid init block must be the first characters in the diagram`
@@ -105,8 +105,8 @@ function lintDiagram(diagram) {
     }
 
     /**
- * @description RULE: Tabs are forbidden. /
- */
+     * @description RULE: Tabs are forbidden. /
+     */
     if (/\t/.test(source)) {
       throw new Error(`[${diagram.id}] Tabs detected — Mermaid requires spaces only`);
     }
@@ -123,8 +123,8 @@ function lintDiagram(diagram) {
     const declaration = lines[0]?.trim().split(" ")[0];
 
     /**
- * @description RULE: Diagram type validation (hybrid strict). /
- */
+     * @description RULE: Diagram type validation (hybrid strict). /
+     */
     const isCore = CORE_TYPES.has(declaration);
     const isExtended = EXTENDED_TYPES.has(declaration);
 
@@ -133,15 +133,15 @@ function lintDiagram(diagram) {
     }
 
     /**
- * @description RULE: Blank line required after declaration. /
- */
+     * @description RULE: Blank line required after declaration. /
+     */
     if (lines.length > 1 && lines[1].trim() !== "") {
       throw new Error(`[${diagram.id}] Missing blank line after Mermaid declaration`);
     }
 
     /**
- * @description EXTRA STRICT RULES FOR MINDMAP /
- */
+     * @description EXTRA STRICT RULES FOR MINDMAP /
+     */
     if (declaration === "mindmap") {
       const rootLine = lines.find((l, i) => i > 0 && l.trim() !== "");
 

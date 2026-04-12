@@ -44,8 +44,8 @@ import "./styles.css";
  */
 const Footer = () => {
   /**
- * @description Current year used for copyright display. Computed at render time to avoid manual updates. /
- */
+   * @description Current year used for copyright display. Computed at render time to avoid manual updates. /
+   */
   const currentYear = new Date().getFullYear();
   const clipboard = useClipboard();
   const isCoarsePointer = useCoarsePointer();

@@ -46,8 +46,8 @@ describe("LinksBlock", () => {
   });
 
   /**
- * @description Verifies the component renders nothing when `links` is null. Guards against malformed CMS or configuration input. /
- */
+   * @description Verifies the component renders nothing when `links` is null. Guards against malformed CMS or configuration input. /
+   */
   it("renders nothing if links are missing", () => {
     renderWithProviders(
       <div data-testid="root">
@@ -59,8 +59,8 @@ describe("LinksBlock", () => {
   });
 
   /**
- * @description Verifies that valid link data produces accessible anchor elements with the expected href attributes. /
- */
+   * @description Verifies that valid link data produces accessible anchor elements with the expected href attributes. /
+   */
   it("renders a list of links", () => {
     renderWithProviders(
       <LinksBlock

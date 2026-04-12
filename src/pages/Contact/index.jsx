@@ -189,8 +189,8 @@ export default function Contact() {
   };
 
   /**
- * @description Precomputed boolean that prevents empty submissions and duplicate sends. /
- */
+   * @description Precomputed boolean that prevents empty submissions and duplicate sends. /
+   */
   const isSubmitDisabled = useMemo(() => {
     const payload = normalizeContactPayload(formData);
     return !payload.name || !payload.email || !payload.message || isSending;

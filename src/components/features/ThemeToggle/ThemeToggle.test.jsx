@@ -33,8 +33,8 @@ import { Theme } from "types/ui.types";
 
 describe("ThemeToggle", () => {
   /**
- * @description Verifies that both theme toggle buttons are rendered and accessible by role and label. /
- */
+   * @description Verifies that both theme toggle buttons are rendered and accessible by role and label. /
+   */
   test("renders light and dark theme toggle buttons", async () => {
     renderWithProviders(<ThemeToggle />);
 
@@ -43,8 +43,8 @@ describe("ThemeToggle", () => {
   });
 
   /**
- * @description Verifies that clicking the dark theme toggle updates the global document theme state. /
- */
+   * @description Verifies that clicking the dark theme toggle updates the global document theme state. /
+   */
   test("switches to dark theme when dark button is clicked", async () => {
     const user = userEvent.setup();
 
@@ -58,8 +58,8 @@ describe("ThemeToggle", () => {
   });
 
   /**
- * @description Verifies that clicking the light theme toggle updates the global document theme state. /
- */
+   * @description Verifies that clicking the light theme toggle updates the global document theme state. /
+   */
   test("switches to light theme when light button is clicked", async () => {
     const user = userEvent.setup();
 

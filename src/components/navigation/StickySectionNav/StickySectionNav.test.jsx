@@ -139,8 +139,8 @@ describe("StickySectionNav", () => {
     });
 
     /**
- * @description Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
- */
+     * @description Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
+     */
     s1 = document.createElement("div");
     s1.id = "section-1";
     document.body.appendChild(s1);
@@ -196,18 +196,18 @@ describe("StickySectionNav", () => {
     fireEvent.click(details);
 
     /**
- * @description Ensures the scroll-spy hook is informed that the upcoming scroll is programmatic (not user-driven). /
- */
+     * @description Ensures the scroll-spy hook is informed that the upcoming scroll is programmatic (not user-driven). /
+     */
     expect(markProgrammaticScroll).toHaveBeenCalledTimes(1);
 
     /**
- * @description Verifies that the URL hash is updated without a full navigation. /
- */
+     * @description Verifies that the URL hash is updated without a full navigation. /
+     */
     expect(window.location.hash).toBe("#section-2");
 
     /**
- * @description Confirms that smooth scrolling was triggered. /
- */
+     * @description Confirms that smooth scrolling was triggered. /
+     */
     await waitFor(() => {
       expect(window.scrollTo).toHaveBeenCalled();
     });

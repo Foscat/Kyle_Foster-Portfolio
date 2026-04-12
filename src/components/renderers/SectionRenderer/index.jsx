@@ -477,8 +477,8 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
   };
 
   /**
- * @description Registers the section for scroll tracking on mount and unregisters it on unmount. Enables: - Sticky section navigation - Active section highlighting - Programmatic scrolling /
- */
+   * @description Registers the section for scroll tracking on mount and unregisters it on unmount. Enables: - Sticky section navigation - Active section highlighting - Programmatic scrolling /
+   */
   const blocks = normalizeSectionBlocks(sectionBlocks);
   const totalDiagramCount = blocks.reduce(
     (count, block) => (getBlockType(block) === BlockType.DIAGRAM ? count + 1 : count),
@@ -591,8 +591,8 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
                 return <MarkdownDocsBlock key={blockKey} block={block} />;
 
               /**
- * @description Defensive fallback: If malformed or unknown block data reaches this point, render a visible warning instead of silently failing. /
- */
+               * @description Defensive fallback: If malformed or unknown block data reaches this point, render a visible warning instead of silently failing. /
+               */
               default:
                 return fallbackBlock;
             }
