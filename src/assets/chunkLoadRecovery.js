@@ -125,6 +125,7 @@ export function installChunkLoadRecovery({
 
   const storage = win.sessionStorage;
   const limit = Number.isFinite(maxReloads) && maxReloads >= 0 ? maxReloads : DEFAULT_MAX_RELOADS;
+  const nowFn = typeof now === "function" ? now : Date.now;
 
   const maybeRecover = (payload) => {
     if (!isLikelyChunkLoadFailure(payload)) return;
@@ -133,7 +134,7 @@ export function installChunkLoadRecovery({
     if (attempts >= limit) return;
 
     safeWriteReloadCount(storage, attempts + 1);
-    recoverNavigation(win, now);
+    recoverNavigation(win, nowFn);
   };
 
   const handleError = (event) => {
