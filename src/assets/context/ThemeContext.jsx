@@ -14,8 +14,7 @@ const DEFAULT_THEME = "dark";
 const SUPPORTED_PALETTES = Object.freeze(["primary", "alt", "forest", "ocean", "sunset"]);
 const DEFAULT_PALETTE = "ocean";
 
-const isSupportedTheme = (value) =>
-  typeof value === "string" && SUPPORTED_THEMES.includes(value);
+const isSupportedTheme = (value) => typeof value === "string" && SUPPORTED_THEMES.includes(value);
 const isSupportedPalette = (value) =>
   typeof value === "string" && SUPPORTED_PALETTES.includes(value);
 
@@ -104,7 +103,7 @@ export function ThemeProvider({ children }) {
    * Explicitly set theme while guarding against invalid values.
    *
    * @param {Theme | ((prevTheme: Theme) => Theme)} nextTheme
- */
+   */
   const setTheme = useCallback((nextTheme) => {
     setThemeState((prev) => {
       if (typeof nextTheme === "function") {

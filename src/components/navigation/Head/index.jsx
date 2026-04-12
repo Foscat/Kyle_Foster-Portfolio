@@ -62,8 +62,8 @@ export default function Head() {
   };
 
   /**
- * @description Metadata for the currently active page. /
- */
+   * @description Metadata for the currently active page. /
+   */
   const currentPageMeta = getMetaByPath();
   const siteOrigin =
     (typeof import.meta.env.VITE_SITE_URL === "string" &&

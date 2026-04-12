@@ -24,12 +24,12 @@ export type PageTestConfig = {
   name: string;
   route: string;
   /**
- * @description CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav.
- */
+   * @description CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav.
+   */
   stickyNavSelector?: string;
   /**
- * @description Optional forced theme for deterministic rendering. Defaults to dark.
- */
+   * @description Optional forced theme for deterministic rendering. Defaults to dark.
+   */
   theme?: "light" | "dark";
 };
 

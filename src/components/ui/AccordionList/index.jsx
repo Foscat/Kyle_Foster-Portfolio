@@ -125,8 +125,8 @@ const AccordionList = ({
   const totalItems = items.length;
 
   /**
- * @description Helper: focus a header by index
- */
+   * @description Helper: focus a header by index
+   */
   const focusHeader = (index) => {
     const node = headerRefs.current[index];
     if (node && typeof node.focus === "function") {
@@ -135,8 +135,8 @@ const AccordionList = ({
   };
 
   /**
- * @description Smooth scroll to section ID in the page
- */
+   * @description Smooth scroll to section ID in the page
+   */
   const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -146,8 +146,8 @@ const AccordionList = ({
   };
 
   /**
- * @description Auto-highlight based on viewport position for isScroller items
- */
+   * @description Auto-highlight based on viewport position for isScroller items
+   */
   useEffect(() => {
     if (typeof window === "undefined") return; // SSR / non-browser
     if (!("IntersectionObserver" in window)) {
@@ -186,8 +186,8 @@ const AccordionList = ({
   }, [items, setOpenIndex, setFocusedIndex]);
 
   /**
- * @description Auto-scroll active item into view whenever openIndex changes
- */
+   * @description Auto-scroll active item into view whenever openIndex changes
+   */
   useEffect(() => {
     if (!listRef.current || openIndex === null) return;
 
@@ -201,8 +201,8 @@ const AccordionList = ({
   }, [openIndex]);
 
   /**
- * @description Also center scroll when focus changes via keyboard
- */
+   * @description Also center scroll when focus changes via keyboard
+   */
   useEffect(() => {
     if (!listRef.current || focusedIndex === null) return;
 
@@ -246,8 +246,8 @@ const AccordionList = ({
   }, [id, items, totalItems]);
 
   /**
- * @description Toggle accordion panel open/closed
- */
+   * @description Toggle accordion panel open/closed
+   */
   const togglePanel = (index) => {
     manualToggle.current = true;
     setOpenIndex((prev) => {
@@ -264,8 +264,8 @@ const AccordionList = ({
   };
 
   /**
- * @description Move keyboard focus up/down
- */
+   * @description Move keyboard focus up/down
+   */
   const moveFocus = (direction) => {
     setFocusedIndex((prev) => {
       let next = prev + direction;
@@ -277,8 +277,8 @@ const AccordionList = ({
   };
 
   /**
- * @description Move to adjacent accordion item and open exactly that item. This keeps arrow navigation deterministic and prevents skipping middle items during rapid key repeat. /
- */
+   * @description Move to adjacent accordion item and open exactly that item. This keeps arrow navigation deterministic and prevents skipping middle items during rapid key repeat. /
+   */
   const moveAndOpen = (direction) => {
     manualToggle.current = true;
     setFocusedIndex((prev) => {
@@ -305,8 +305,8 @@ const AccordionList = ({
   };
 
   /**
- * @description Keyboard handler for each header
- */
+   * @description Keyboard handler for each header
+   */
   const handleKeyDown = (e, index, item, isOpen) => {
     switch (e.key) {
       case "ArrowDown":

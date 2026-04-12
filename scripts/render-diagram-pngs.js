@@ -67,8 +67,8 @@ async function render() {
   const page = await browser.newPage({ viewport: VIEWPORT });
 
   /**
- * @description Inject a minimal HTML shell containing Mermaid. We use a real browser environment because: - Mermaid relies on DOM APIs - SVG rendering differs across JS-only environments - Screenshot accuracy matters for documentation CDN usage is intentional here to mirror production Mermaid behavior as closely as possible. /
- */
+   * @description Inject a minimal HTML shell containing Mermaid. We use a real browser environment because: - Mermaid relies on DOM APIs - SVG rendering differs across JS-only environments - Screenshot accuracy matters for documentation CDN usage is intentional here to mirror production Mermaid behavior as closely as possible. /
+   */
   await page.setContent(`
     <html>
       <head>
@@ -97,8 +97,8 @@ async function render() {
   `);
 
   /**
- * @description Render each diagram independently. Each iteration: - Replaces the diagram container contents - Triggers Mermaid rendering - Captures a screenshot Diagrams without a `diagram` field are skipped defensively to support mixed block collections. /
- */
+   * @description Render each diagram independently. Each iteration: - Replaces the diagram container contents - Triggers Mermaid rendering - Captures a screenshot Diagrams without a `diagram` field are skipped defensively to support mixed block collections. /
+   */
   for (const block of diagrams) {
     const { id, diagram } = block;
     if (!diagram) continue;
@@ -106,8 +106,8 @@ async function render() {
     // console.log(`🖼️  Rendering ${id}.png`);
 
     /**
- * @description Inject diagram source into the DOM and trigger Mermaid rendering. `mermaid.contentLoaded()` is required to force Mermaid to process dynamically-inserted diagrams. This mirrors how Mermaid behaves on real page load. /
- */
+     * @description Inject diagram source into the DOM and trigger Mermaid rendering. `mermaid.contentLoaded()` is required to force Mermaid to process dynamically-inserted diagrams. This mirrors how Mermaid behaves on real page load. /
+     */
     await page.evaluate((diagramSource) => {
       const el = document.getElementById("diagram");
       el.innerHTML = diagramSource;
@@ -118,8 +118,8 @@ async function render() {
     if (!diagramEl) continue;
 
     /**
- * @description Capture the rendered diagram as a PNG. - Background is omitted for transparency - Output filename is derived from diagram ID Transparent PNGs allow diagrams to be embedded cleanly in both light and dark documentation themes. /
- */
+     * @description Capture the rendered diagram as a PNG. - Background is omitted for transparency - Output filename is derived from diagram ID Transparent PNGs allow diagrams to be embedded cleanly in both light and dark documentation themes. /
+     */
 
     await diagramEl.screenshot({
       path: path.join(OUTPUT_DIR, `${id}.png`),

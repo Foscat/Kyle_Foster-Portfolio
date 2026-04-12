@@ -96,55 +96,55 @@ export { PageRoute };
  */
 export const TooltipPlacement = Object.freeze({
   /**
- * @description Top-center placement (default)
- */
+   * @description Top-center placement (default)
+   */
   TOP: "top",
   /**
- * @description Top-left placement
- */
+   * @description Top-left placement
+   */
   TOP_START: "topStart",
   /**
- * @description Top-right placement
- */
+   * @description Top-right placement
+   */
   TOP_END: "topEnd",
 
   /**
- * @description Bottom-center placement
- */
+   * @description Bottom-center placement
+   */
   BOTTOM: "bottom",
   /**
- * @description Bottom-left placement
- */
+   * @description Bottom-left placement
+   */
   BOTTOM_START: "bottomStart",
   /**
- * @description Bottom-right placement
- */
+   * @description Bottom-right placement
+   */
   BOTTOM_END: "bottomEnd",
 
   /**
- * @description Left-center placement
- */
+   * @description Left-center placement
+   */
   LEFT: "left",
   /**
- * @description Left-top placement
- */
+   * @description Left-top placement
+   */
   LEFT_START: "leftStart",
   /**
- * @description Left-bottom placement
- */
+   * @description Left-bottom placement
+   */
   LEFT_END: "leftEnd",
 
   /**
- * @description Right-center placement
- */
+   * @description Right-center placement
+   */
   RIGHT: "right",
   /**
- * @description Right-top placement
- */
+   * @description Right-top placement
+   */
   RIGHT_START: "rightStart",
   /**
- * @description Right-bottom placement
- */
+   * @description Right-bottom placement
+   */
   RIGHT_END: "rightEnd",
 });
 
@@ -160,23 +160,23 @@ export const TooltipPlacement = Object.freeze({
  */
 export const HoverAnimation = Object.freeze({
   /**
- * @description No hover animation. Use for static elements or where motion would be distracting.
- */
+   * @description No hover animation. Use for static elements or where motion would be distracting.
+   */
   NONE: "none",
 
   /**
- * @description Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs.
- */
+   * @description Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs.
+   */
   LIFT: "lift",
 
   /**
- * @description Background color change only. No transform, no shadow. Use for text links or low-emphasis actions.
- */
+   * @description Background color change only. No transform, no shadow. Use for text links or low-emphasis actions.
+   */
   HIGHLIGHT: "highlight",
 
   /**
- * @description Shadow emphasis without movement. Use when layout stability is critical.
- */
+   * @description Shadow emphasis without movement. Use when layout stability is critical.
+   */
   EMPHASIZE: "emphasize",
 });
 
