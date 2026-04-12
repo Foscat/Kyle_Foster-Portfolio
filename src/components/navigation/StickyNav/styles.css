@@ -431,6 +431,11 @@ html[data-theme="light"]
   margin-top: 0.7rem;
 }
 
+.mobile-nav-drawer .sticky-nav-mobile-palette {
+  margin-left: 0.35rem;
+  margin-top: 0.55rem;
+}
+
 .mobile-nav-drawer .sticky-nav-mobile-a11y {
   margin-left: 0.35rem;
 }
@@ -501,11 +506,11 @@ html[data-theme="light"]
   }
 
   .a11y-toggle-btn {
-    right: 10px;
+    right: calc(10px + var(--sticky-nav-mobile-trigger-size) + 12px);
   }
 
   .sect-nav-toggle-btn {
-    right: calc(10px + var(--sticky-nav-mobile-trigger-size) + 12px);
+    right: 10px;
   }
 
   .nav-toggle-btn .btn.icon-only,
@@ -515,7 +520,7 @@ html[data-theme="light"]
     width: var(--sticky-nav-mobile-trigger-size);
     min-width: var(--sticky-nav-mobile-trigger-size);
     height: var(--sticky-nav-mobile-trigger-size);
-    padding: 6px;
+    padding: 8px;
     margin: 4px;
     box-sizing: border-box;
     border: 1px solid transparent !important;
@@ -528,7 +533,7 @@ html[data-theme="light"]
 
   .nav-toggle-btn .btn.icon-only,
   .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
-    padding: 6px;
+    padding: 8px;
     margin: 4px;
     box-sizing: border-box;
     border: 1px solid transparent !important;

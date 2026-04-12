@@ -1,4 +1,5 @@
 /**
+ * @module scripts\validate-richtext
  * @file validate-richtext.cjs
  * @description
  * Validation script for rich text content blocks.

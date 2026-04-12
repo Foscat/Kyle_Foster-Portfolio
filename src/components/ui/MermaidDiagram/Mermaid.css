@@ -173,16 +173,8 @@
   stroke: var(--primary-light);
 }
 
-/* Semantic edge label accents */
-.mermaid .edgeLabel:has(span:contains("Valid")),
-.mermaid .edgeLabel:has(text:contains("Valid")) {
-  border-color: var(--success-rgb);
-}
-
-.mermaid .edgeLabel:has(span:contains("Expired")),
-.mermaid .edgeLabel:has(text:contains("Expired")) {
-  border-color: var(--error-rgb);
-}
+/* Semantic edge label accents are applied in-diagram via Mermaid classes.
+   Avoid unsupported selector syntax (e.g. :contains) to keep CSS minification warning-free. */
 
 /* ------------------------------------------------------------
    Edges / Arrows
@@ -666,6 +658,190 @@
   color: var(--white);
   background: var(--primary);
   transform: var(--scale-up);
+}
+
+/* ------------------------------------------------------------
+   Diagram Actions
+   ------------------------------------------------------------ */
+
+.mermaid-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.mermaid-action-btn {
+  padding: 0;
+  margin: 0;
+}
+
+.mermaid-action-btn.rs-btn.btn.interactive-surface,
+.mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+  min-height: 2rem;
+  padding: 0.3rem 0.62rem 0.3rem 0.5rem;
+  gap: 0.34rem;
+  border-radius: 999px;
+  font-size: var(--font-xxs);
+  box-shadow: 0 8px 20px rgba(var(--deep-black-rgb), 0.22);
+}
+
+/* ------------------------------------------------------------
+   Fullscreen Diagram Viewer
+   ------------------------------------------------------------ */
+
+.mermaid-fullscreen-modal.rs-modal-full,
+.mermaid-fullscreen-modal.rs-modal-full .rs-modal-wrapper,
+.mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog,
+.mermaid-fullscreen-modal.rs-modal-full .rs-modal-content,
+.mermaid-fullscreen-modal.rs-modal-full .rs-modal-body {
+  overflow: hidden !important;
+}
+
+.mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+.mermaid-fullscreen-modal.rs-modal-full .rs-modal-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mermaid-fullscreen-modal__header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  min-height: 0;
+  padding: 0.72rem;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
+  width: 2.35rem;
+  height: 2.35rem;
+  margin: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--white-rgb), 0.24);
+  background: rgba(var(--deep-black-rgb), 0.45);
+  color: var(--text-primary);
+  backdrop-filter: var(--slight-blur);
+  pointer-events: auto;
+}
+
+.mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close:hover,
+.mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.62);
+  background: rgba(var(--accent-rgb), 0.22);
+  color: var(--text-accent);
+}
+
+.mermaid-fullscreen-modal__body {
+  width: 100vw;
+  height: 100dvh;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(
+      180deg,
+      rgba(var(--primary-darkest-rgb), 0.95),
+      rgba(var(--primary-dark-rgb), 0.82)
+    ),
+    radial-gradient(circle at 14% 16%, rgba(var(--accent-rgb), 0.2), transparent 34%),
+    radial-gradient(circle at 85% 12%, rgba(var(--primary-rgb), 0.14), transparent 28%),
+    rgba(var(--primary-darkest-rgb), 1)
+    !important;
+}
+
+.mermaid-fullscreen-stage,
+.mermaid-fullscreen-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.mermaid-fullscreen-stage {
+  overflow: auto;
+}
+
+.mermaid-fullscreen-stage .mermaid {
+  min-height: 100%;
+  padding: clamp(0.9rem, 1.8vw, 1.7rem);
+  border-radius: 0;
+  background: transparent;
+}
+
+.mermaid-svg-host--fullscreen {
+  min-height: calc(100dvh - clamp(1.8rem, 3.6vw, 3.4rem));
+  align-items: center;
+}
+
+.mermaid-fullscreen-stage .mermaid-svg-host--fullscreen svg {
+  width: min(100%, 1900px);
+  margin: 0 auto;
+}
+
+html[data-theme="light"] .mermaid-fullscreen-modal__body {
+  background: linear-gradient(
+      180deg,
+      rgba(var(--white-rgb), 0.98),
+      rgba(var(--primary-lighter-rgb), 0.86)
+    ),
+    radial-gradient(circle at 14% 14%, rgba(var(--accent-rgb), 0.14), transparent 30%),
+    radial-gradient(circle at 84% 12%, rgba(var(--primary-rgb), 0.1), transparent 26%),
+    rgba(var(--white-rgb), 1)
+    !important;
+}
+
+html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
+  border-color: rgba(var(--primary-dark-rgb), 0.3);
+  background: rgba(var(--white-rgb), 0.86);
+  color: rgba(var(--primary-darkest-rgb), 0.95);
+}
+
+@media (max-width: 900px) {
+  .mermaid-actions {
+    justify-content: flex-start;
+  }
+
+  .mermaid-action-btn.rs-btn.btn.interactive-surface,
+  .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+    padding: 0.3rem 0.52rem 0.3rem 0.44rem;
+  }
+
+  .mermaid-fullscreen-modal__header {
+    padding: 0.55rem;
+  }
+
+  .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+
+  .mermaid-fullscreen-stage .mermaid {
+    padding: 0.65rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .mermaid-actions {
+    gap: 0.35rem;
+  }
+
+  .mermaid-action-btn.rs-btn.btn.interactive-surface,
+  .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+    font-size: 0.7rem;
+  }
 }
 
 /* ------------------------------------------------------------

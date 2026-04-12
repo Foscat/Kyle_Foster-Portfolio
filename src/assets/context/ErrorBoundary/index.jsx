@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\context\ErrorBoundary\index.jsx
+ * @description src\assets\context\ErrorBoundary\index module.
+ * @module src\assets\context\ErrorBoundary\index
+ */
+
 import React from "react";
 import { Divider } from "rsuite";
 

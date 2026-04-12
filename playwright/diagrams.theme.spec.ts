@@ -1,3 +1,9 @@
+/**
+ * @file playwright\diagrams.theme.spec.ts
+ * @description playwright\diagrams.theme.spec module.
+ * @module playwright\diagrams.theme.spec
+ */
+
 import { test } from "@playwright/test";
 import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
 import { waitForMermaidRender } from "./utils/waitForMermaid";

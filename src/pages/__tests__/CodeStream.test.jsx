@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\__tests__\CodeStream.test.jsx
+ * @description src\pages\__tests__\CodeStream.test module.
+ * @module src\pages\__tests__\CodeStream.test
+ */
+
 import CodeStream from "../CodeStream";
 import codeStreamSections from "assets/data/content/codestream";
 import { PageRoute } from "types/navigation.types";

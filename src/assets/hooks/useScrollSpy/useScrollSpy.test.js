@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\hooks\useScrollSpy\useScrollSpy.test.js
+ * @description src\assets\hooks\useScrollSpy\useScrollSpy.test module.
+ * @module src\assets\hooks\useScrollSpy\useScrollSpy.test
+ */
+
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 

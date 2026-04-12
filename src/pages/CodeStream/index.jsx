@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\CodeStream\index.jsx
+ * @description src\pages\CodeStream\index module.
+ * @module src\pages\CodeStream\index
+ */
+
 import { useEffect } from "react";
 import Data from "assets/data/pageMetas";
 import { PageHeader } from "components/layout";

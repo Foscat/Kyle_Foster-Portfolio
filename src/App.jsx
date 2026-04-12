@@ -10,8 +10,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Head } from "components/navigation";
 import Home from "pages/Home";
 import "./App.css";
-// Custom CSS library for click animations
-import "./click-animate/interactive-surface.css";
+// Interactive surface CSS package.
+import "interactive-surface-css";
 
 const CodeStream = lazy(() => import("pages/CodeStream"));
 const SideProjects = lazy(() => import("pages/SideProjects"));

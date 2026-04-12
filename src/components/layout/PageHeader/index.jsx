@@ -1,4 +1,11 @@
+/**
+ * @file src\components\layout\PageHeader\index.jsx
+ * @description src\components\layout\PageHeader\index module.
+ * @module src\components\layout\PageHeader\index
+ */
+
 import { FlexboxGrid, Panel } from "rsuite";
+import React from "react";
 import "./styles.css";
 
 /**

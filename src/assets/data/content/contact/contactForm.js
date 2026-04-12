@@ -1,4 +1,5 @@
 /**
+ * @module src\assets\data\content\contact\contactForm
  * @file contactForm.js
  * @description JSDoc schema contract for CMS-driven FormBlock configuration.
  * This file exports a sample form schema that can be used to render a contact form using the FormBlock component. The schema includes various field types, validation rules, and conditional rendering logic to demonstrate the flexibility of the FormBlock system.

@@ -407,6 +407,87 @@ html[data-palette="alt"] {
   --ui_ux-rgb: 155, 89, 182;
 }
 
+html[data-palette="forest"] {
+  --primary-darkest: rgb(12, 36, 32);
+  --primary-darkest-rgb: 12, 36, 32;
+  --primary-dark: rgb(19, 64, 56);
+  --primary-dark-rgb: 19, 64, 56;
+  --primary: rgb(27, 89, 78);
+  --primary-rgb: 27, 89, 78;
+  --primary-light: rgb(53, 125, 111);
+  --primary-light-rgb: 53, 125, 111;
+  --primary-lighter: rgb(88, 152, 140);
+  --primary-lighter-rgb: 88, 152, 140;
+  --blue-500: rgb(45, 181, 167);
+  --blue-500-rgb: 45, 181, 167;
+  --blue-700: rgb(29, 115, 106);
+  --blue-700-rgb: 29, 115, 106;
+  --accent-dark: rgb(134, 96, 26);
+  --accent-dark-rgb: 134, 96, 26;
+  --accent: rgb(178, 136, 49);
+  --accent-rgb: 178, 136, 49;
+  --accent-light: rgb(221, 189, 122);
+  --accent-light-rgb: 221, 189, 122;
+  --gold-400: rgb(193, 154, 72);
+  --gold-400-rgb: 193, 154, 72;
+  --gold-500: rgb(158, 118, 43);
+  --gold-500-rgb: 158, 118, 43;
+}
+
+html[data-palette="ocean"] {
+  --primary-darkest: rgb(8, 26, 52);
+  --primary-darkest-rgb: 8, 26, 52;
+  --primary-dark: rgb(12, 44, 84);
+  --primary-dark-rgb: 12, 44, 84;
+  --primary: rgb(20, 68, 126);
+  --primary-rgb: 20, 68, 126;
+  --primary-light: rgb(40, 103, 170);
+  --primary-light-rgb: 40, 103, 170;
+  --primary-lighter: rgb(88, 146, 204);
+  --primary-lighter-rgb: 88, 146, 204;
+  --blue-500: rgb(56, 164, 255);
+  --blue-500-rgb: 56, 164, 255;
+  --blue-700: rgb(24, 87, 153);
+  --blue-700-rgb: 24, 87, 153;
+  --accent-dark: rgb(146, 86, 34);
+  --accent-dark-rgb: 146, 86, 34;
+  --accent: rgb(208, 133, 62);
+  --accent-rgb: 208, 133, 62;
+  --accent-light: rgb(234, 178, 120);
+  --accent-light-rgb: 234, 178, 120;
+  --gold-400: rgb(216, 145, 76);
+  --gold-400-rgb: 216, 145, 76;
+  --gold-500: rgb(178, 108, 43);
+  --gold-500-rgb: 178, 108, 43;
+}
+
+html[data-palette="sunset"] {
+  --primary-darkest: rgb(52, 20, 24);
+  --primary-darkest-rgb: 52, 20, 24;
+  --primary-dark: rgb(88, 31, 40);
+  --primary-dark-rgb: 88, 31, 40;
+  --primary: rgb(124, 45, 60);
+  --primary-rgb: 124, 45, 60;
+  --primary-light: rgb(168, 73, 92);
+  --primary-light-rgb: 168, 73, 92;
+  --primary-lighter: rgb(205, 114, 133);
+  --primary-lighter-rgb: 205, 114, 133;
+  --blue-500: rgb(238, 120, 67);
+  --blue-500-rgb: 238, 120, 67;
+  --blue-700: rgb(173, 69, 38);
+  --blue-700-rgb: 173, 69, 38;
+  --accent-dark: rgb(150, 94, 12);
+  --accent-dark-rgb: 150, 94, 12;
+  --accent: rgb(214, 146, 34);
+  --accent-rgb: 214, 146, 34;
+  --accent-light: rgb(241, 192, 107);
+  --accent-light-rgb: 241, 192, 107;
+  --gold-400: rgb(222, 158, 52);
+  --gold-400-rgb: 222, 158, 52;
+  --gold-500: rgb(184, 121, 24);
+  --gold-500-rgb: 184, 121, 24;
+}
+
 html[data-theme="light"] {
   color-scheme: light;
 
@@ -495,6 +576,63 @@ html[data-theme="light"][data-palette="alt"] {
   --accent-rgb: 184, 134, 11;
   --accent-light: rgb(232, 196, 104);
   --accent-light-rgb: 232, 196, 104;
+}
+
+html[data-theme="light"][data-palette="forest"] {
+  --primary-darkest: rgb(17, 57, 51);
+  --primary-darkest-rgb: 17, 57, 51;
+  --primary-dark: rgb(28, 92, 82);
+  --primary-dark-rgb: 28, 92, 82;
+  --primary: rgb(38, 124, 110);
+  --primary-rgb: 38, 124, 110;
+  --primary-light: rgb(102, 154, 142);
+  --primary-light-rgb: 102, 154, 142;
+  --primary-lighter: rgb(212, 232, 226);
+  --primary-lighter-rgb: 212, 232, 226;
+  --accent-dark: rgb(120, 88, 28);
+  --accent-dark-rgb: 120, 88, 28;
+  --accent: rgb(167, 124, 45);
+  --accent-rgb: 167, 124, 45;
+  --accent-light: rgb(230, 206, 150);
+  --accent-light-rgb: 230, 206, 150;
+}
+
+html[data-theme="light"][data-palette="ocean"] {
+  --primary-darkest: rgb(20, 52, 84);
+  --primary-darkest-rgb: 20, 52, 84;
+  --primary-dark: rgb(29, 78, 122);
+  --primary-dark-rgb: 29, 78, 122;
+  --primary: rgb(44, 110, 168);
+  --primary-rgb: 44, 110, 168;
+  --primary-light: rgb(109, 154, 196);
+  --primary-light-rgb: 109, 154, 196;
+  --primary-lighter: rgb(210, 226, 240);
+  --primary-lighter-rgb: 210, 226, 240;
+  --accent-dark: rgb(133, 79, 30);
+  --accent-dark-rgb: 133, 79, 30;
+  --accent: rgb(188, 124, 53);
+  --accent-rgb: 188, 124, 53;
+  --accent-light: rgb(233, 188, 138);
+  --accent-light-rgb: 233, 188, 138;
+}
+
+html[data-theme="light"][data-palette="sunset"] {
+  --primary-darkest: rgb(95, 37, 48);
+  --primary-darkest-rgb: 95, 37, 48;
+  --primary-dark: rgb(124, 50, 64);
+  --primary-dark-rgb: 124, 50, 64;
+  --primary: rgb(162, 71, 90);
+  --primary-rgb: 162, 71, 90;
+  --primary-light: rgb(196, 129, 145);
+  --primary-light-rgb: 196, 129, 145;
+  --primary-lighter: rgb(243, 220, 226);
+  --primary-lighter-rgb: 243, 220, 226;
+  --accent-dark: rgb(146, 90, 14);
+  --accent-dark-rgb: 146, 90, 14;
+  --accent: rgb(201, 134, 34);
+  --accent-rgb: 201, 134, 34;
+  --accent-light: rgb(237, 193, 122);
+  --accent-light-rgb: 237, 193, 122;
 }
 
 html[data-theme="auto"] {

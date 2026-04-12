@@ -1,3 +1,9 @@
+/**
+ * @file playwright\utils\waitForMermaid.ts
+ * @description playwright\utils\waitForMermaid module.
+ * @module playwright\utils\waitForMermaid
+ */
+
 import { Page, expect } from "@playwright/test";
 
 export async function waitForMermaidRender(page: Page, diagramId: string) {

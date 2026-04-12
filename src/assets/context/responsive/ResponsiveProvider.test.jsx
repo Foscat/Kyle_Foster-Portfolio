@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\context\responsive\ResponsiveProvider.test.jsx
+ * @description src\assets\context\responsive\ResponsiveProvider.test module.
+ * @module src\assets\context\responsive\ResponsiveProvider.test
+ */
+
 import { screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 

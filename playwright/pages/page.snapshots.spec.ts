@@ -1,13 +1,14 @@
+/**
+ * @file playwright\pages\page.snapshots.spec.ts
+ * @description playwright\pages\page.snapshots.spec module.
+ * @module playwright\pages\page.snapshots.spec
+ */
+
 import { test, expect } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "../utils/stabilizePage";
 
 /**
- * Page snapshot matrix
- * ------------------------------------------------------------
- * Generates baseline screenshots per:
- * - page route
- * - theme (dark and light)
- * - viewport (desktop/mobile)
+ * @description Page snapshot matrix ------------------------------------------------------------ Generates baseline screenshots per: - page route - theme (dark and light) - viewport (desktop/mobile) /
  */
 
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\LinksBlock\LinksBlock.test.jsx
+ * @description src\components\renderers\blocks\LinksBlock\LinksBlock.test module.
+ * @module src\components\renderers\blocks\LinksBlock\LinksBlock.test
+ */
+
 import React from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { screen } from "@testing-library/react";
@@ -40,9 +46,8 @@ describe("LinksBlock", () => {
   });
 
   /**
-   * Verifies the component renders nothing when `links` is null.
-   * Guards against malformed CMS or configuration input.
-   */
+ * @description Verifies the component renders nothing when `links` is null. Guards against malformed CMS or configuration input. /
+ */
   it("renders nothing if links are missing", () => {
     renderWithProviders(
       <div data-testid="root">
@@ -54,9 +59,8 @@ describe("LinksBlock", () => {
   });
 
   /**
-   * Verifies that valid link data produces accessible anchor elements
-   * with the expected href attributes.
-   */
+ * @description Verifies that valid link data produces accessible anchor elements with the expected href attributes. /
+ */
   it("renders a list of links", () => {
     renderWithProviders(
       <LinksBlock

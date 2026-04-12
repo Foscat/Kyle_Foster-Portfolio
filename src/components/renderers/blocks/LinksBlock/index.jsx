@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\LinksBlock\index.jsx
+ * @description src\components\renderers\blocks\LinksBlock\index module.
+ * @module src\components\renderers\blocks\LinksBlock\index
+ */
+
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { Panel } from "rsuite";
 import { Btn } from "components/ui";

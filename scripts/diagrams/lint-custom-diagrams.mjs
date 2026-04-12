@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+
+/**
+ * @file scripts/diagrams/lint-custom-diagrams.mjs
+ * @description scripts/diagrams/lint-custom-diagrams module.
+ * @module scripts/diagrams/lint-custom-diagrams
+ */
 import process from "node:process";
 import console from "node:console";
 

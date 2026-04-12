@@ -22,9 +22,8 @@ export const MidnightGoldTheme = {
   },
 
   /**
-   * Spacing tokens per breakpoint tier.
-   * These should match your layout rhythm (sections, gutters, card padding).
-   */
+ * @description Spacing tokens per breakpoint tier. These should match your layout rhythm (sections, gutters, card padding). /
+ */
   spacing: {
     mobile: {
       section: "1.25rem",
@@ -44,9 +43,8 @@ export const MidnightGoldTheme = {
   },
 
   /**
-   * CSS variable mapping for runtime sync.
-   * Keep it explicit so you can rename tokens without accidental exports.
-   */
+ * @description CSS variable mapping for runtime sync. Keep it explicit so you can rename tokens without accidental exports. /
+ */
   cssVars: {
     spacing: {
       section: "--spacing-section",

@@ -1,3 +1,9 @@
+/**
+ * @file playwright\utils\snapshotDiagram.ts
+ * @description playwright\utils\snapshotDiagram module.
+ * @module playwright\utils\snapshotDiagram
+ */
+
 import { expect, Page } from "@playwright/test";
 
 export async function snapshotDiagram(page: Page, diagramId: string) {

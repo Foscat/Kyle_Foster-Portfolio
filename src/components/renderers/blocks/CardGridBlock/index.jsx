@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\CardGridBlock\index.jsx
+ * @description src\components\renderers\blocks\CardGridBlock\index module.
+ * @module src\components\renderers\blocks\CardGridBlock\index
+ */
+
 import { CardGrid, InsightCard } from "components/ui";
 import { InfoSection } from "components/layout";
 

@@ -1,4 +1,5 @@
 /**
+ * @module src\assets\context\responsive\ResponsiveProvider
  * @file ResponsiveProvider.jsx
  * @description React context provider for responsive design.
  * This component uses the useBreakpoint hook to determine the current screen size and orientation,
@@ -6,6 +7,7 @@
  * */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
 import { ResponsiveContext } from "./ResponsiveContext";
 import { MidnightGoldTheme } from "../../../theme/midnightGold.theme.js";
 

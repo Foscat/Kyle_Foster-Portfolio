@@ -1,4 +1,5 @@
 /**
+ * @module scripts\format-diagrams
  * @file format-diagrams.js
  * @description
  * Repository-level formatter for embedded Mermaid diagrams.
@@ -34,8 +35,7 @@ const DIAGRAMS_FILE = path.resolve("src/assets/data/content/diagrams.js");
 let source = fs.readFileSync(DIAGRAMS_FILE, "utf8");
 
 /**
- * Regex finds:
- * diagram: `...`
+ * @description Regex finds: diagram: `...` /
  */
 const DIAGRAM_BLOCK_RE = /diagram:\s*`([\s\S]*?)`/g;
 

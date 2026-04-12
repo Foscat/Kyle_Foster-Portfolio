@@ -5,6 +5,7 @@
  */
 
 import { useEffect } from "react";
+import React from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import Data from "assets/data/pageMetas.js";
 import { PageHeader } from "components/layout";
@@ -12,6 +13,72 @@ import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigat
 import { SectionRenderer } from "components/renderers";
 
 const sidePro = Data.SideProjects;
+const DIAGRAM_DEFER_CONFIG = {
+  rootMargin: "480px 0px",
+  threshold: 0.01,
+  placeholderMinHeight: "240px",
+  fallbackDelayMs: 1200,
+  startAt: 1,
+  maxDeferred: 2,
+  filter: (_block, context) => context?.section?.deferDiagrams !== false,
+};
+
+const createDefaultDiagramDeferConfig = () => ({
+  ...DIAGRAM_DEFER_CONFIG,
+  filter: DIAGRAM_DEFER_CONFIG.filter,
+});
+
+const resolveDiagramDeferConfig = (section, sectionIndex, totalSections) => {
+  const defaultConfig = createDefaultDiagramDeferConfig();
+  const sectionDeferConfigRaw = section?.deferDiagrams;
+  let sectionDeferConfig = sectionDeferConfigRaw;
+  const resolverContext = {
+    section,
+    sectionIndex,
+    totalSections,
+    defaults: defaultConfig,
+  };
+
+  if (typeof sectionDeferConfigRaw === "function") {
+    try {
+      sectionDeferConfig = sectionDeferConfigRaw(
+        section,
+        sectionIndex,
+        totalSections,
+        resolverContext
+      );
+    } catch {
+      return defaultConfig;
+    }
+  }
+
+  if (sectionDeferConfig === false) {
+    return {
+      ...defaultConfig,
+      enabled: false,
+    };
+  }
+
+  if (sectionDeferConfig === true) {
+    return {
+      ...defaultConfig,
+      enabled: true,
+    };
+  }
+
+  if (sectionDeferConfig && typeof sectionDeferConfig === "object") {
+    return {
+      ...defaultConfig,
+      ...sectionDeferConfig,
+      filter:
+        typeof sectionDeferConfig.filter === "function"
+          ? sectionDeferConfig.filter
+          : defaultConfig.filter,
+    };
+  }
+
+  return defaultConfig;
+};
 
 /**
  * SideProjects Page
@@ -40,8 +107,18 @@ const SideProjects = () => {
         <StickyNav activePage={sidePro.url} />
         <div className="page-layout">
           <main className="page-content app-main" role="main">
-            {sidePro.sections.map((sect) => {
-              return <SectionRenderer section={sect} key={sect.id} />;
+            {sidePro.sections.map((sect, sectionIndex) => {
+              return (
+                <SectionRenderer
+                  section={sect}
+                  deferDiagrams={resolveDiagramDeferConfig(
+                    sect,
+                    sectionIndex,
+                    sidePro.sections.length
+                  )}
+                  key={sect.id}
+                />
+              );
             })}
           </main>
           <aside className="page-sidebar">

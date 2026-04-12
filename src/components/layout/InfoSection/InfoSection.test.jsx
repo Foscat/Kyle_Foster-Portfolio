@@ -1,3 +1,9 @@
+/**
+ * @file src\components\layout\InfoSection\InfoSection.test.jsx
+ * @description src\components\layout\InfoSection\InfoSection.test module.
+ * @module src\components\layout\InfoSection\InfoSection.test
+ */
+
 import React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { screen } from "@testing-library/react";
@@ -24,11 +30,7 @@ import InfoSection from "./index";
  */
 
 /**
- * Behavior tests for InfoSection.
- *
- * Boundaries:
- * - Verify semantic behavior and user-discoverable content.
- * - Do not test RSuite panel structure or CSS classes.
+ * @description Behavior tests for InfoSection. Boundaries: - Verify semantic behavior and user-discoverable content. - Do not test RSuite panel structure or CSS classes. /
  */
 
 // Mock RSuite's Panel to render as a simple section with the expected header and content, allowing us to verify the presence of the title, subtitle, and content without coupling to the implementation details of the RSuite Panel component.

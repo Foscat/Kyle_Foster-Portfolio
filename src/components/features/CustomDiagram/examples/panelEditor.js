@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\examples\panelEditor.js
+ * @description src\components\features\CustomDiagram\examples\panelEditor module.
+ * @module src\components\features\CustomDiagram\examples\panelEditor
+ */
+
 import { BlockType } from "types/ui.types";
 
 export default {

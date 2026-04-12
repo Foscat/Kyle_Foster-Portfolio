@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\SideProjects\SideProjects.test.js
+ * @description src\pages\SideProjects\SideProjects.test module.
+ * @module src\pages\SideProjects\SideProjects.test
+ */
+
 import { PageRoute } from "types/navigation.types";
 import { createPageTests } from "tests/helpers/createPageTests.jsx";
 import SideProjects from "pages/SideProjects";

@@ -6,6 +6,7 @@
  */
 
 import { Tooltip, Whisper } from "rsuite";
+import React from "react";
 import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";
@@ -43,9 +44,8 @@ import "./styles.css";
  */
 const Footer = () => {
   /**
-   * Current year used for copyright display.
-   * Computed at render time to avoid manual updates.
-   */
+ * @description Current year used for copyright display. Computed at render time to avoid manual updates. /
+ */
   const currentYear = new Date().getFullYear();
   const clipboard = useClipboard();
   const isCoarsePointer = useCoarsePointer();

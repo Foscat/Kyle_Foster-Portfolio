@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\images\sideProjects\index.js
+ * @description src\assets\images\sideProjects\index module.
+ * @module src\assets\images\sideProjects\index
+ */
+
 import d20Dash from "./d20_dashboard.png";
 import oppEdit from "./d20_oppEditor.png";
 import enigma from "./enigma.png";

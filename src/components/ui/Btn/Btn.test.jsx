@@ -1,3 +1,9 @@
+/**
+ * @file src\components\ui\Btn\Btn.test.jsx
+ * @description src\components\ui\Btn\Btn.test module.
+ * @module src\components\ui\Btn\Btn.test
+ */
+
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
@@ -24,10 +30,7 @@ import renderWithProviders from "tests/renderWithProviders";
  */
 
 /**
- * Mocks for external dependencies:
- * - rsuite's Button and IconButton are mocked to render as simple HTML buttons with the appropriate props.
- * - rsuite's Tooltip and Whisper are mocked to render their children directly, bypassing any tooltip behavior.
- * - FrostedIcon is mocked to render a span with an aria-hidden label for testing icon rendering and accessibility.
+ * @description Mocks for external dependencies: - rsuite's Button and IconButton are mocked to render as simple HTML buttons with the appropriate props. - rsuite's Tooltip and Whisper are mocked to render their children directly, bypassing any tooltip behavior. - FrostedIcon is mocked to render a span with an aria-hidden label for testing icon rendering and accessibility. /
  */
 
 // Mock the Button and IconButton components from the rsuite library to simplify testing and focus on the Btn component's behavior, allowing us to verify that the Btn component correctly handles button rendering and interactions without relying on the actual implementation of the rsuite components.

@@ -1,11 +1,13 @@
+/**
+ * @file scripts\css-token-validator.cjs
+ * @description scripts\css-token-validator module.
+ * @module scripts\css-token-validator
+ */
+
 const stylelint = require("stylelint");
 
-/** Returns true only when a token's value is a raw (non-var) color literal.
- * Tokens that compose via var() don't need their own -rgb companion because
- * the base palette token they reference already provides one.
- * Values like box-shadows, borders, and gradients that *contain* a color
- * expression are not "color tokens" — the value must start with a color
- * function or hex literal to qualify.
+/**
+ * @description Returns true only when a token's value is a raw (non-var) color literal. Tokens that compose via var() don't need their own -rgb companion because the base palette token they reference already provides one. Values like box-shadows, borders, and gradients that *contain* a color expression are not "color tokens" — the value must start with a color function or hex literal to qualify. /
  */
 function needsRgbCompanion(value) {
   const trimmed = value.trim();

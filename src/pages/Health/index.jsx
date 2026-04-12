@@ -1,3 +1,9 @@
+/**
+ * @file src\pages\Health\index.jsx
+ * @description src\pages\Health\index module.
+ * @module src\pages\Health\index
+ */
+
 import { Panel } from "rsuite";
 
 /**

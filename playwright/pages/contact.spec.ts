@@ -1,3 +1,9 @@
+/**
+ * @file playwright\pages\contact.spec.ts
+ * @description playwright\pages\contact.spec module.
+ * @module playwright\pages\contact.spec
+ */
+
 import { test, expect } from "@playwright/test";
 
 /**

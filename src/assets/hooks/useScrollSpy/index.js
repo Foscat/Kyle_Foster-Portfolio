@@ -171,9 +171,8 @@ export function useScrollSpyWithHistory(nodes = [], byId, offset = 0) {
   const scrollTimeout = useRef(null);
 
   /**
-   * Marks a programmatic scroll window.
-   * Navigation clicks should call this BEFORE scrolling.
-   */
+ * @description Marks a programmatic scroll window. Navigation clicks should call this BEFORE scrolling. /
+ */
   const markProgrammaticScroll = (id) => {
     programmaticScroll.click = true;
     // Immediately reflect active state on click

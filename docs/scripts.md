@@ -1,6 +1,9 @@
 ## Modules
 
 <dl>
+<dt><a href="#module_scripts\build-diagram-assets">scripts\build-diagram-assets</a></dt>
+<dd><p>scripts\build-diagram-assets module.</p>
+</dd>
 <dt><a href="#module_format-mermaid">format-mermaid</a></dt>
 <dd><p>Deterministic formatter for Mermaid diagram source strings.</p>
 <p>This module operates on raw Mermaid source text and enforces:</p>
@@ -28,38 +31,22 @@
 
 <dl>
 <dt><a href="#DIAGRAM_BLOCK_RE">DIAGRAM_BLOCK_RE</a></dt>
-<dd><p>Regex finds:
-diagram: <code>...</code></p>
+<dd><p>Regex finds: diagram: <code>...</code> /</p>
 </dd>
 <dt><a href="#CORE_TYPES">CORE_TYPES</a></dt>
-<dd><h2 id="valid_mermaid_types">VALID_MERMAID_TYPES</h2>
-<p>Hybrid strict mode:</p>
-<ul>
-<li>CORE_TYPES are always allowed</li>
-<li>EXTENDED_TYPES are allowed but validated more strictly</li>
-</ul>
+<dd><p>VALID_MERMAID_TYPES --------------------------------------------------------------------------- Hybrid strict mode: - CORE_TYPES are always allowed - EXTENDED_TYPES are allowed but validated more strictly /</p>
 </dd>
 <dt><a href="#OUTPUT_DIR">OUTPUT_DIR</a></dt>
-<dd><p>Output directory for rendered PNG assets.</p>
-<p>This directory is expected to be committed or published
-alongside generated documentation.</p>
+<dd><p>Output directory for rendered PNG assets. This directory is expected to be committed or published alongside generated documentation. /</p>
 </dd>
 <dt><a href="#VIEWPORT">VIEWPORT</a></dt>
-<dd><p>Fixed viewport ensures:</p>
-<ul>
-<li>Consistent diagram scaling</li>
-<li>Predictable text wrapping</li>
-<li>Stable screenshot output across environments</li>
-</ul>
+<dd><p>Fixed viewport ensures: - Consistent diagram scaling - Predictable text wrapping - Stable screenshot output across environments /</p>
 </dd>
 </dl>
 
 ## Functions
 
 <dl>
-<dt><a href="#run">run()</a></dt>
-<dd><p>Main execution function for building diagram assets.</p>
-</dd>
 <dt><a href="#addReactKeys">addReactKeys(file, api)</a> ⇒ <code>string</code></dt>
 <dd><p>Main codemod function that traverses the AST to find JSX elements
 returned from array <code>.map()</code> calls and adds missing <code>key</code> props.
@@ -87,28 +74,17 @@ The function uses <code>jscodeshift</code> to manipulate the AST and applies the
 <li>If the index parameter is not used, rename it to <code>_index</code>.</li>
 </ol>
 </dd>
-<dt><a href="#formatRichText">formatRichText(nodes)</a> ⇒ <code>Array</code></dt>
-<dd><p>Cleans and formats a rich text node tree by:</p>
-<ul>
-<li>Trimming whitespace from text nodes (end only)</li>
-<li>Removing empty text nodes</li>
-<li>Merging adjacent text nodes into single nodes</li>
-<li>Recursively applying the same logic to child nodes</li>
-</ul>
-<p>This function is designed to be idempotent and can be safely re-run on already formatted rich text structures.
-It does not modify the structure of non-text nodes, but it will clean their children if they exist.</p>
-</dd>
 <dt><a href="#stripInit">stripInit()</a></dt>
-<dd><p>Removes the Mermaid init block for structural validation only.</p>
+<dd><p>Removes the Mermaid init block for structural validation only. /</p>
 </dd>
 <dt><a href="#extractSources">extractSources()</a></dt>
-<dd><p>Extracts all Mermaid source strings from a diagram block.</p>
+<dd><p>Extracts all Mermaid source strings from a diagram block. /</p>
 </dd>
 <dt><a href="#lintDiagram">lintDiagram()</a></dt>
-<dd><p>Performs structural validation on a single Mermaid diagram block.</p>
+<dd><p>Performs structural validation on a single Mermaid diagram block. /</p>
 </dd>
 <dt><a href="#run">run()</a></dt>
-<dd><p>ENTRYPOINT BEHAVIOR</p>
+<dd><p>ENTRYPOINT BEHAVIOR /</p>
 </dd>
 <dt><a href="#normalizeMermaidSource">normalizeMermaidSource(source)</a> ⇒ <code>string</code></dt>
 <dd><p>Normalizes Mermaid diagram source for consistent linting.
@@ -151,6 +127,17 @@ normalizing line endings, and trimming leading whitespace.</p>
 </dd>
 </dl>
 
+<a name="module_scripts\build-diagram-assets"></a>
+
+## scripts\build-diagram-assets
+scripts\build-diagram-assets module.
+
+<a name="module_scripts\build-diagram-assets..run"></a>
+
+### scripts\build-diagram-assets~run()
+Main execution function for building diagram assets.
+
+**Kind**: inner method of [<code>scripts\build-diagram-assets</code>](#module_scripts\build-diagram-assets)  
 <a name="module_format-mermaid"></a>
 
 ## format-mermaid
@@ -171,33 +158,27 @@ Formats a Mermaid diagram source string into a deterministic,readable, and Merm
 <a name="DIAGRAM_BLOCK_RE"></a>
 
 ## DIAGRAM\_BLOCK\_RE
-Regex finds:diagram: `...`
+Regex finds: diagram: `...` /
 
 **Kind**: global constant  
 <a name="CORE_TYPES"></a>
 
 ## CORE\_TYPES
-VALID_MERMAID_TYPES---------------------------------------------------------------------------Hybrid strict mode:- CORE_TYPES are always allowed- EXTENDED_TYPES are allowed but validated more strictly
+VALID_MERMAID_TYPES --------------------------------------------------------------------------- Hybrid strict mode: - CORE_TYPES are always allowed - EXTENDED_TYPES are allowed but validated more strictly /
 
 **Kind**: global constant  
 <a name="OUTPUT_DIR"></a>
 
 ## OUTPUT\_DIR
-Output directory for rendered PNG assets.This directory is expected to be committed or publishedalongside generated documentation.
+Output directory for rendered PNG assets. This directory is expected to be committed or published alongside generated documentation. /
 
 **Kind**: global constant  
 <a name="VIEWPORT"></a>
 
 ## VIEWPORT
-Fixed viewport ensures:- Consistent diagram scaling- Predictable text wrapping- Stable screenshot output across environments
+Fixed viewport ensures: - Consistent diagram scaling - Predictable text wrapping - Stable screenshot output across environments /
 
 **Kind**: global constant  
-<a name="run"></a>
-
-## run()
-Main execution function for building diagram assets.
-
-**Kind**: global function  
 <a name="addReactKeys"></a>
 
 ## addReactKeys(file, api) ⇒ <code>string</code>
@@ -237,48 +218,34 @@ Main codemod function that traverses the AST to find `.map()` calls and renames 
 | file | <code>\*</code> | 
 | api | <code>\*</code> | 
 
-<a name="formatRichText"></a>
-
-## formatRichText(nodes) ⇒ <code>Array</code>
-Cleans and formats a rich text node tree by:- Trimming whitespace from text nodes (end only)- Removing empty text nodes- Merging adjacent text nodes into single nodes- Recursively applying the same logic to child nodesThis function is designed to be idempotent and can be safely re-run on already formatted rich text structures.It does not modify the structure of non-text nodes, but it will clean their children if they exist.
-
-**Kind**: global function  
-**Returns**: <code>Array</code> - A new array of cleaned and formatted rich text nodes.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| nodes | <code>Array</code> | An array of rich text nodes to be processed. |
-
-**Example**  
-```jsconst input = [  { type: "text", text: "  Hello " },  { type: "text", text: "World  " },  { type: "text", text: "   " },  { type: "element", children: [    { type: "text", text: "  Nested " },    { type: "text", text: "Text  " }  ]}];
 <a name="stripInit"></a>
 
 ## stripInit()
-Removes the Mermaid init block for structural validation only.
+Removes the Mermaid init block for structural validation only. /
 
 **Kind**: global function  
 <a name="extractSources"></a>
 
 ## extractSources()
-Extracts all Mermaid source strings from a diagram block.
+Extracts all Mermaid source strings from a diagram block. /
 
 **Kind**: global function  
 <a name="lintDiagram"></a>
 
 ## lintDiagram()
-Performs structural validation on a single Mermaid diagram block.
+Performs structural validation on a single Mermaid diagram block. /
 
 **Kind**: global function  
 <a name="lintDiagram..isCore"></a>
 
 ### lintDiagram~isCore
-RULE: Diagram type validation (hybrid strict).
+RULE: Diagram type validation (hybrid strict). /
 
 **Kind**: inner constant of [<code>lintDiagram</code>](#lintDiagram)  
 <a name="run"></a>
 
 ## run()
-ENTRYPOINT BEHAVIOR
+ENTRYPOINT BEHAVIOR /
 
 **Kind**: global function  
 <a name="normalizeMermaidSource"></a>

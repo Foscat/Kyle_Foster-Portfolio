@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\RichTextBlock\index.jsx
+ * @description src\components\renderers\blocks\RichTextBlock\index module.
+ * @module src\components\renderers\blocks\RichTextBlock\index
+ */
+
 import { Panel } from "rsuite";
 import { RichText } from "components/renderers";
 

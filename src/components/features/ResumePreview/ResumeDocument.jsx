@@ -1,4 +1,5 @@
 /**
+ * @module src\components\features\ResumePreview\ResumeDocument
  * @file ResumeDocument.jsx
  * @description Component responsible for rendering a structured resume document based on provided data. This component takes a `resume` object as a prop, which contains all relevant information such as personal details, professional summary, experience, projects, skills, and education. The component is designed to be flexible and can handle varying levels of detail in the resume data. It uses semantic HTML elements and CSS classes for styling, allowing for easy customization and integration into different layouts (e.g., a resume preview modal or a full resume page).
  *

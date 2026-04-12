@@ -1,5 +1,15 @@
+/**
+ * @file src\tests\setupTests.js
+ * @description src\tests\setupTests module.
+ * @module src\tests\setupTests
+ */
+
 import "@testing-library/jest-dom/vitest";
+import React from "react";
 import { vi } from "vitest";
+
+// Keep JSX tests compatible with files that still expect React in scope.
+globalThis.React = React;
 
 /**
  * @file setupTests.js
@@ -67,9 +77,8 @@ if (!window.matchMedia) {
         return true;
       },
       /**
-       * Test-only helper used by explicit matchMedia overrides when needed.
-       * Kept here so unsupported environments still expose a stable shape.
-       */
+ * @description Test-only helper used by explicit matchMedia overrides when needed. Kept here so unsupported environments still expose a stable shape. /
+ */
       __setMatches(nextValue) {
         matches = !!nextValue;
       },

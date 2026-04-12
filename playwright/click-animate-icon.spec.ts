@@ -1,3 +1,9 @@
+/**
+ * @file playwright\click-animate-icon.spec.ts
+ * @description playwright\click-animate-icon.spec module.
+ * @module playwright\click-animate-icon.spec
+ */
+
 import { test, expect } from "@playwright/test";
 
 const THEMES = ["dark", "light"] as const;

@@ -414,25 +414,25 @@ Right-bottom placement
 <a name="module_types/ui..NONE"></a>
 
 ### types/ui~NONE
-No hover animation.Use for static elements or where motion would be distracting.
+No hover animation. Use for static elements or where motion would be distracting. /
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..LIFT"></a>
 
 ### types/ui~LIFT
-Subtle vertical lift.Maps to a small translateY + shadow.Safe for glass UIs.
+Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs. /
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..HIGHLIGHT"></a>
 
 ### types/ui~HIGHLIGHT
-Background color change only.No transform, no shadow.Use for text links or low-emphasis actions.
+Background color change only. No transform, no shadow. Use for text links or low-emphasis actions. /
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..EMPHASIZE"></a>
 
 ### types/ui~EMPHASIZE
-Shadow emphasis without movement.Use when layout stability is critical.
+Shadow emphasis without movement. Use when layout stability is critical. /
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..TooltipPlacement"></a>

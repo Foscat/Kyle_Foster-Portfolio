@@ -21,7 +21,7 @@ The scripts in this directory follow a few strict principles:
 
 Mermaid diagrams move through a clearly defined pipeline. Each stage has a single responsibility.
 
-```
+```txt
 normalize → format → lint → render → build assets
 ```
 
@@ -155,7 +155,7 @@ Codemods should **never** run automatically in CI.
 
 ## Debugging & Diagnostics
 
-Some scripts support optional debug output via environment flags.
+Some scripts support optional debug output via environment variables.
 
 Example:
 
@@ -163,7 +163,7 @@ Example:
 DEBUG_DIAGRAMS=1 npm run diagrams:lint
 ```
 
-This keeps CI output clean while preserving local debuggability.
+This keeps CI output clean while preserving local debugging capabilities.
 
 ---
 
@@ -187,4 +187,4 @@ If you change a script:
 - Consider downstream impact
 - Treat the change as architectural, not incidental
 
-This discipline is what keeps the codebase predictable over time.
+This discipline keeps the codebase predictable over time.

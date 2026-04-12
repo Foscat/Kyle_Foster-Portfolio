@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\FormBlock\fieldRegestry.jsx
+ * @description src\components\renderers\blocks\FormBlock\fieldRegestry module.
+ * @module src\components\renderers\blocks\FormBlock\fieldRegestry
+ */
+
 import React from "react";
 import {
   Input,

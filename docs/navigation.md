@@ -15,6 +15,12 @@ secondary social actions, and copyright information.</p>
 <dd><p>Centralized document head manager responsible for injecting
 SEO, metadata, and social sharing tags based on the current route.</p>
 </dd>
+<dt><a href="#module_src\components\navigation\helpers\index">src\components\navigation\helpers\index</a></dt>
+<dd><p>src\components\navigation\helpers\index module.</p>
+</dd>
+<dt><a href="#module_src\components\navigation\helpers\restoreScrollPosition">src\components\navigation\helpers\restoreScrollPosition</a></dt>
+<dd><p>src\components\navigation\helpers\restoreScrollPosition module.</p>
+</dd>
 <dt><a href="#module_navigation/restoreScrollPosition">navigation/restoreScrollPosition</a></dt>
 <dd><p>Restores the user&#39;s scroll position when a page is loaded
 or reloaded by resolving a target section and scrolling it into view.</p>
@@ -69,6 +75,9 @@ layouts, active-route handling, and accessibility semantics.</p>
 <dd><p>Sticky, accessible intra-page section navigator with
 hierarchical scroll tracking and collapsible subsection groups.</p>
 </dd>
+<dt><a href="#src\components\navigation\StickySectionNav\StickySectionNav.module_test">src\components\navigation\StickySectionNav\StickySectionNav.test</a></dt>
+<dd><p>src\components\navigation\StickySectionNav\StickySectionNav.test module.</p>
+</dd>
 <dt><a href="#module_tests/components/StickySectionNav">tests/components/StickySectionNav</a></dt>
 <dd><p>Unit tests for the StickySectionNav component.</p>
 <p>Test coverage:</p>
@@ -122,7 +131,7 @@ Footer-------------------------------------------------------------------------
 <a name="module_components/Footer..Footer..currentYear"></a>
 
 #### Footer~currentYear
-Current year used for copyright display.Computed at render time to avoid manual updates.
+Current year used for copyright display. Computed at render time to avoid manual updates. /
 
 **Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
 <a name="module_components/navigation/Head"></a>
@@ -144,6 +153,16 @@ Head---------------------------------------------------------------------------
 **Returns**: <code>JSX.Element</code> - Injected document head metadata.  
 **Access**: public  
 **Component**:   
+<a name="module_src\components\navigation\helpers\index"></a>
+
+## src\components\navigation\helpers\index
+src\components\navigation\helpers\index module.
+
+<a name="module_src\components\navigation\helpers\restoreScrollPosition"></a>
+
+## src\components\navigation\helpers\restoreScrollPosition
+src\components\navigation\helpers\restoreScrollPosition module.
+
 <a name="module_navigation/restoreScrollPosition"></a>
 
 ## navigation/restoreScrollPosition
@@ -372,6 +391,11 @@ Sticky, accessible intra-page section navigator withhierarchical scroll trackin
 
 **Example**  
 ```js<StickySectionNavsections={[    { id: "intro", title: "Introduction", blocks: [] },    { id: "features", title: "Features", blocks: [      { id: "feat1", title: "Feature 1" },      { id: "feat2", title: "Feature 2" },    ]  },]}pageUrl="/portfolio"mode="desktop"isOpen={true}/>```
+<a name="src\components\navigation\StickySectionNav\StickySectionNav.module_test"></a>
+
+## src\components\navigation\StickySectionNav\StickySectionNav.test
+src\components\navigation\StickySectionNav\StickySectionNav.test module.
+
 <a name="module_tests/components/StickySectionNav"></a>
 
 ## tests/components/StickySectionNav
@@ -385,12 +409,12 @@ Unit tests for the StickySectionNav component.Test coverage:- Rendering of se
 <a name="module_tests/components/StickySectionNav..s1"></a>
 
 ### tests/components/StickySectionNav~s1
-Ensure target section elements exist in the DOM soscroll and offset calculations can resolve correctly.
+Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
 
 **Kind**: inner property of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
 <a name="module_tests/components/StickySectionNav..markProgrammaticScroll"></a>
 
 ### tests/components/StickySectionNav~markProgrammaticScroll
-Mock scroll-spy hook to control active section stateand observe programmatic scroll suppression behavior.
+Mock scroll-spy hook to control active section state and observe programmatic scroll suppression behavior. /
 
 **Kind**: inner constant of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  

@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\hackathon\diagrams.js
+ * @description src\assets\data\content\hackathon\diagrams module.
+ * @module src\assets\data\content\hackathon\diagrams
+ */
+
 import {
   diagramConfig,
   resolveDiagram,

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\ResumePreview\ResumePreviewTrigger.jsx
+ * @description src\components\features\ResumePreview\ResumePreviewTrigger module.
+ * @module src\components\features\ResumePreview\ResumePreviewTrigger
+ */
+
 import { useState } from "react";
 import ResumePreviewModal from "./ResumePreviewModal.jsx";
 import { Btn } from "components/ui/index.jsx";

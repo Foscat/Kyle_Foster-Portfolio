@@ -4,7 +4,7 @@
   "version": "1.1.1",
   "type": "module",
   "engines": {
-    "node": ">=18 <23",
+    "node": ">=20.19.0 <21 || >=22.12.0 <23",
     "npm": ">=10 <11"
   },
   "scripts": {
@@ -28,6 +28,7 @@
     "docs:scripts": "jsdoc2md \"scripts/**/*.{js,cjs,mjs}\" > docs/scripts.md",
     "docs:playwright": "jsdoc2md \"playwright/**/*.{js,ts}\" > docs/playwright.md",
     "docs:api": "jsdoc2md --configure jsdoc.config.json > docs/api.md",
+    "docs:jsdoc:fix": "node scripts/fix-jsdoc2md-compat.mjs",
     "docs:jsdoc:audit": "node scripts/check-jsdoc2md-compat.mjs --write",
     "docs:jsdoc:audit:strict": "node scripts/check-jsdoc2md-compat.mjs --write --strict",
     "docs:verify": "npm-run-all --sequential lint docs:build",
@@ -55,9 +56,6 @@
     "test": "vitest run",
     "test-diagrams": "playwright test",
     "test:mobile-clickable-img": "playwright test playwright/components/clickable-img.mobile.spec.ts",
-    "test:interactive-surface": "npx playwright test --config=src/click-animate/playwright.config.mjs",
-    "lint:interactive-surface": "npx stylelint --config src/click-animate/.stylelintrc.cjs \"src/click-animate/interactive-surface.css\"",
-    "pack:interactive-surface": "npm pack ./src/click-animate --dry-run --cache ./.npm-cache",
     "quality:check": "npm-run-all --sequential lint richtext:lint diagrams:lint test docs:build",
     "quality:fix": "npm-run-all --sequential codemod:keys codemod:map-index codemod:fix-jsdoc format lint:fix-safe"
   },
@@ -70,6 +68,7 @@
     "@rsuite/icons": "1.4.0",
     "@testing-library/jest-dom": "^6.9.1",
     "html-to-image": "1.11.13",
+    "interactive-surface-css": "~1.1.0",
     "mermaid": "^11.12.3",
     "prismjs": "~1.30.0",
     "react": "18.2.0",
@@ -82,7 +81,8 @@
     "remark-gfm": "~4.0.1",
     "rsuite": "5.83.3",
     "stylelint-config-recess-order": "~7.6.1",
-    "svg-pan-zoom": "3.6.2"
+    "svg-pan-zoom": "3.6.2",
+    "web-vitals": "~5.2.0"
   },
   "devDependencies": {
     "@babel/generator": "~7.29.1",
@@ -98,7 +98,7 @@
     "@testing-library/user-event": "14.5.2",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
-    "@vitejs/plugin-react": "4.7.0",
+    "@vitejs/plugin-react": "6.0.1",
     "@vitest/coverage-v8": "4.0.16",
     "cross-env": "7.0.3",
     "eslint": "^8.57.1",

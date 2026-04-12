@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\blocks\ImageGalleryBlock\index.jsx
+ * @description src\components\renderers\blocks\ImageGalleryBlock\index module.
+ * @module src\components\renderers\blocks\ImageGalleryBlock\index
+ */
+
 import { FlexboxGrid, Panel } from "rsuite";
 import { useBreakpoint } from "assets/hooks";
 import { ClickableImg } from "components/ui";

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\core\mermaidInit.js
+ * @description src\components\features\CustomDiagram\core\mermaidInit module.
+ * @module src\components\features\CustomDiagram\core\mermaidInit
+ */
+
 import {
   FLOWCHART_INIT,
   FLOWCHART_INIT_ALT,

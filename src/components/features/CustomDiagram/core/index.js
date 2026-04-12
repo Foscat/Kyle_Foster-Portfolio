@@ -1,3 +1,9 @@
+/**
+ * @file src\components\features\CustomDiagram\core\index.js
+ * @description src\components\features\CustomDiagram\core\index module.
+ * @module src\components\features\CustomDiagram\core\index
+ */
+
 import resolveDiagram from "./resolveDiagrams.js";
 import {
   registerDiagram,

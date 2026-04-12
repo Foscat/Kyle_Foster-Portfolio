@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\codestream\diagrams.js
+ * @description src\assets\data\content\codestream\diagrams module.
+ * @module src\assets\data\content\codestream\diagrams
+ */
+
 import {
   diagramConfig,
   resolveDiagram,

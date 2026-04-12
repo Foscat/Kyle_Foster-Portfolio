@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\resumeData.js
+ * @description src\assets\data\content\resumeData module.
+ * @module src\assets\data\content\resumeData
+ */
+
 const resumeData = {
   name: "Kyle Foster",
   title: "Senior React / Frontend Engineer",

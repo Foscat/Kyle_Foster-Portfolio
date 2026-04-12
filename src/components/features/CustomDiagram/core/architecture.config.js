@@ -1,4 +1,6 @@
 /**
+ * @module src\components\features\CustomDiagram\core\architecture.config
+ * @file src\components\features\CustomDiagram\core\architecture.config.js
  * @fileoverview
  * This file defines the configuration for custom diagrams in the portfolio, specifically for architectural diagrams. It provides a structured way to define layers, edge styles, and node shapes that can be used to create consistent and visually appealing diagrams using Mermaid.
  

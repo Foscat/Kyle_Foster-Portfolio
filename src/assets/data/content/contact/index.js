@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\contact\index.js
+ * @description src\assets\data\content\contact\index module.
+ * @module src\assets\data\content\contact\index
+ */
+
 import { BlockType } from "types/ui.types.js";
 import contactForm from "./contactForm";
 

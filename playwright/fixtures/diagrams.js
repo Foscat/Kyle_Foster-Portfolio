@@ -1,4 +1,7 @@
 /**
+ * @module playwright\fixtures\diagrams
+ * @description playwright\fixtures\diagrams module.
+ * @file playwright\fixtures\diagrams.js
  * @type {Array<{id: string, route: string}>}
  * Each entry maps a Mermaid diagram block ID to the page route where it renders.
  */
@@ -23,5 +26,7 @@ export const DIAGRAM_ENTRIES = [
   { id: "diagram-scion-algorithm-flow", route: "/smu" },
 ];
 
-/** Flat list of just the IDs, for utilities that only need strings. */
+/**
+ * @description Flat list of just the IDs, for utilities that only need strings.
+ */
 export const DIAGRAM_IDS = DIAGRAM_ENTRIES.map((e) => e.id);

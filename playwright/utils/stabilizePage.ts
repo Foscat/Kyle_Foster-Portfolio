@@ -1,12 +1,18 @@
+/**
+ * @file playwright\utils\stabilizePage.ts
+ * @description playwright\utils\stabilizePage module.
+ * @module playwright\utils\stabilizePage
+ */
+
 import { expect, type Page } from "@playwright/test";
 
 /**
- * Deterministic storage key used by ThemeContext.
+ * @description Deterministic storage key used by ThemeContext. /
  */
 const THEME_STORAGE_KEY = "portfolio-theme";
 
 /**
- * Prime browser storage before navigation so React providers read a deterministic theme.
+ * @description Prime browser storage before navigation so React providers read a deterministic theme. /
  */
 export async function preparePageForStableTests(
   page: Page,
@@ -46,9 +52,7 @@ export async function preparePageForStableTests(
 }
 
 /**
- * stabilizePage
- * ---------------------------------------------------------------------------
- * Normalizes page state after navigation for snapshot + layout tests.
+ * @description stabilizePage --------------------------------------------------------------------------- Normalizes page state after navigation for snapshot + layout tests. /
  */
 export async function stabilizePage(page: Page, opts: { theme?: "light" | "dark" } = {}) {
   const { theme = "dark" } = opts;

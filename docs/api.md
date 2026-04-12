@@ -856,17 +856,6 @@ The function uses <code>jscodeshift</code> to manipulate the AST and applies the
 <li>If the index parameter is not used, rename it to <code>_index</code>.</li>
 </ol>
 </dd>
-<dt><a href="#formatRichText">formatRichText(nodes)</a> ⇒ <code>Array</code></dt>
-<dd><p>Cleans and formats a rich text node tree by:</p>
-<ul>
-<li>Trimming whitespace from text nodes (end only)</li>
-<li>Removing empty text nodes</li>
-<li>Merging adjacent text nodes into single nodes</li>
-<li>Recursively applying the same logic to child nodes</li>
-</ul>
-<p>This function is designed to be idempotent and can be safely re-run on already formatted rich text structures.
-It does not modify the structure of non-text nodes, but it will clean their children if they exist.</p>
-</dd>
 <dt><a href="#needsRgbCompanion">needsRgbCompanion()</a></dt>
 <dd><p>Returns true only when a token&#39;s value is a raw (non-var) color literal.
 Tokens that compose via var() don&#39;t need their own -rgb companion because
@@ -3915,20 +3904,6 @@ Main codemod function that traverses the AST to find `.map()` calls and renames 
 | file | <code>\*</code> | 
 | api | <code>\*</code> | 
 
-<a name="formatRichText"></a>
-
-## formatRichText(nodes) ⇒ <code>Array</code>
-Cleans and formats a rich text node tree by:- Trimming whitespace from text nodes (end only)- Removing empty text nodes- Merging adjacent text nodes into single nodes- Recursively applying the same logic to child nodesThis function is designed to be idempotent and can be safely re-run on already formatted rich text structures.It does not modify the structure of non-text nodes, but it will clean their children if they exist.
-
-**Kind**: global function  
-**Returns**: <code>Array</code> - A new array of cleaned and formatted rich text nodes.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| nodes | <code>Array</code> | An array of rich text nodes to be processed. |
-
-**Example**  
-```jsconst input = [  { type: "text", text: "  Hello " },  { type: "text", text: "World  " },  { type: "text", text: "   " },  { type: "element", children: [    { type: "text", text: "  Nested " },    { type: "text", text: "Text  " }  ]}];
 <a name="needsRgbCompanion"></a>
 
 ## needsRgbCompanion()

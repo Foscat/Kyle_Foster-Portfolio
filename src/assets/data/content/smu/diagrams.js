@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\data\content\smu\diagrams.js
+ * @description src\assets\data\content\smu\diagrams module.
+ * @module src\assets\data\content\smu\diagrams
+ */
+
 import {
   diagramConfig,
   diagram,

@@ -1,4 +1,6 @@
 /**
+ * @module scripts\normalizeMermaid
+ * @file scripts\normalizeMermaid.js
  * @function normalizeMermaidSource
  * @description Normalizes a Mermaid diagram source string by removing init blocks,
  * normalizing line endings, and trimming leading whitespace.

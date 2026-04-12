@@ -1,3 +1,9 @@
+/**
+ * @file src\components\ui\ProjectCard\index.jsx
+ * @description src\components\ui\ProjectCard\index module.
+ * @module src\components\ui\ProjectCard\index
+ */
+
 import InfoSection from "components/layout/InfoSection";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { Btn, ClickableImg } from "..";

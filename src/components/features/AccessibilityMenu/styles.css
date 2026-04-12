@@ -215,6 +215,14 @@ html[data-theme="light"] .a11y-switch.is-on .a11y-switch__thumb {
   background: rgba(var(--white-rgb), 0.08);
 }
 
+.a11y-palette .palette-toggle {
+  justify-content: flex-end;
+}
+
+.a11y-palette .palette-toggle__select {
+  min-width: 168px;
+}
+
 .a11y-modal__footer {
   display: flex;
   justify-content: flex-end;
@@ -327,6 +335,15 @@ html[data-theme="light"] .a11y-switch.is-on .a11y-switch__track {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .a11y-palette .palette-toggle {
+    width: 100%;
+  }
+
+  .a11y-palette .palette-toggle__select {
+    width: 100%;
+    min-width: 0;
   }
 }
 

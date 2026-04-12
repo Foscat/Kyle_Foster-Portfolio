@@ -1,4 +1,5 @@
 /**
+ * @module scripts\codemods\add-react-keys
  * @file add-react-keys.js
  * @description
  * Codemod that adds missing React `key` props to JSX elements

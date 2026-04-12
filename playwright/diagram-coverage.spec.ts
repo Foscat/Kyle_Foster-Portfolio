@@ -1,3 +1,9 @@
+/**
+ * @file playwright\diagram-coverage.spec.ts
+ * @description playwright\diagram-coverage.spec module.
+ * @module playwright\diagram-coverage.spec
+ */
+
 import { test, expect } from "@playwright/test";
 import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
 import { collectDiagramCoverage } from "./utils/diagramCoverage";

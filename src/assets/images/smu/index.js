@@ -1,3 +1,9 @@
+/**
+ * @file src\assets\images\smu\index.js
+ * @description src\assets\images\smu\index module.
+ * @module src\assets\images\smu\index
+ */
+
 import gifFreak from "./gifFreak.png";
 import smuLogo from "./SMU_Logo75.png";
 import smuCampus from "./SMU_Zoom_Campus.jpg";

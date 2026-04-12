@@ -1,4 +1,6 @@
 /**
+ * @module scripts\codemods\fix-richtext
+ * @file scripts\codemods\fix-richtext.cjs
  * @function fixRichText
  * @description Cleans and normalizes rich text nodes by trimming whitespace, removing empty text nodes, and merging adjacent text nodes.
  * @param {Array} nodes - An array of rich text nodes to be processed.
@@ -45,7 +47,7 @@ function fixRichText(nodes) {
       for (const child of node.children) {
         const prev = merged[merged.length - 1];
         if (prev && prev.type === "text" && child.type === "text") {
-          prev.text += child.text;
+          prev.text = `${prev.text || ""}${child.text || ""}`;
         } else {
           merged.push(child);
         }

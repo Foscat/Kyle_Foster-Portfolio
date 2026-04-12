@@ -1,3 +1,9 @@
+/**
+ * @file playwright\components\clickable-img.mobile.spec.ts
+ * @description playwright\components\clickable-img.mobile.spec module.
+ * @module playwright\components\clickable-img.mobile.spec
+ */
+
 import { expect, test, type Page } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "../utils/stabilizePage";
 

@@ -1,3 +1,9 @@
+/**
+ * @file src\components\ui\FrostedIcon\FrostedIcon.test.jsx
+ * @description src\components\ui\FrostedIcon\FrostedIcon.test module.
+ * @module src\components\ui\FrostedIcon\FrostedIcon.test
+ */
+
 import { describe, expect, it } from "vitest";
 import { screen } from "@testing-library/react";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
@@ -31,18 +37,16 @@ import FrostedIcon from "./index";
 
 describe("FrostedIcon", () => {
   /**
-   * Verifies that the component renders with `role="img"` when
-   * not configured as clickable.
-   */
+ * @description Verifies that the component renders with `role="img"` when not configured as clickable. /
+ */
   it("renders an image role when not clickable", () => {
     renderWithProviders(<FrostedIcon icon={faHouse} ariaLabel="Home" clickable={false} />);
 
     expect(screen.getByRole("img", { name: "Home" })).toBeInTheDocument();
   });
   /**
-   * Verifies that the component renders with `role="button"` when
-   * the `clickable` prop is enabled.
-   */
+ * @description Verifies that the component renders with `role="button"` when the `clickable` prop is enabled. /
+ */
   it("renders a button role when clickable", () => {
     renderWithProviders(<FrostedIcon icon={faHouse} ariaLabel="Home" clickable />);
 
@@ -50,8 +54,8 @@ describe("FrostedIcon", () => {
   });
 
   /**
-   * Verifies that the correct size class is applied to the rendered element.
-   */
+ * @description Verifies that the correct size class is applied to the rendered element. /
+ */
   it("applies size class on the rendered element", () => {
     renderWithProviders(
       <FrostedIcon icon={faHouse} ariaLabel="Home" clickable={false} size="xl" />
@@ -60,9 +64,8 @@ describe("FrostedIcon", () => {
     expect(screen.getByRole("img", { name: "Home" })).toHaveClass("fi-size-xl");
   });
   /**
-   * Verifies that the loading state is exposed via `aria-busy`
-   * for accessibility tooling.
-   */
+ * @description Verifies that the loading state is exposed via `aria-busy` for accessibility tooling. /
+ */
   it("exposes aria-busy when loading", () => {
     renderWithProviders(<FrostedIcon icon={faHouse} ariaLabel="Home" loading />);
 

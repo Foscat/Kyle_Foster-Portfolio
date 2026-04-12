@@ -7,6 +7,7 @@
  */
 
 import { lazy, Suspense } from "react";
+import React from "react";
 import restoreScrollPosition from "./helpers/restoreScrollPosition";
 import { saveLastSection, loadLastSection } from "./helpers/sectionPersistence";
 

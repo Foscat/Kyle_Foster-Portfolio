@@ -1,3 +1,9 @@
+/**
+ * @file src\components\renderers\RichText\renderNode.jsx
+ * @description src\components\renderers\RichText\renderNode module.
+ * @module src\components\renderers\RichText\renderNode
+ */
+
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-css";

@@ -1,4 +1,5 @@
 /**
+ * @module scripts\lint-diagrams
  * @file lint-diagrams.js
  * @description
  * Structural linter for Mermaid diagram blocks.
@@ -32,25 +33,21 @@ import diagrams from "../src/assets/data/content/diagrams.js";
 const DIAGRAM_BLOCK_TYPE = "diagram";
 
 /**
- * VALID_MERMAID_TYPES
- * ---------------------------------------------------------------------------
- * Hybrid strict mode:
- * - CORE_TYPES are always allowed
- * - EXTENDED_TYPES are allowed but validated more strictly
+ * @description VALID_MERMAID_TYPES --------------------------------------------------------------------------- Hybrid strict mode: - CORE_TYPES are always allowed - EXTENDED_TYPES are allowed but validated more strictly /
  */
 const CORE_TYPES = new Set(["flowchart", "sequenceDiagram", "classDiagram", "erDiagram"]);
 
 const EXTENDED_TYPES = new Set(["stateDiagram", "stateDiagram-v2", "mindmap"]);
 
 /**
- * Removes the Mermaid init block for structural validation only.
+ * @description Removes the Mermaid init block for structural validation only. /
  */
 function stripInit(source) {
   return source.replace(/^%%\{init:[\s\S]*?\}%%\s*/m, "");
 }
 
 /**
- * Extracts all Mermaid source strings from a diagram block.
+ * @description Extracts all Mermaid source strings from a diagram block. /
  */
 function extractSources(diagram) {
   const sources = [];
@@ -86,7 +83,7 @@ function extractSources(diagram) {
 }
 
 /**
- * Performs structural validation on a single Mermaid diagram block.
+ * @description Performs structural validation on a single Mermaid diagram block. /
  */
 function lintDiagram(diagram) {
   if (diagram.type !== DIAGRAM_BLOCK_TYPE) {
@@ -99,8 +96,8 @@ function lintDiagram(diagram) {
 
   for (const source of sources) {
     /**
-     * RULE: Mermaid init block must appear first (ignoring leading whitespace).
-     */
+ * @description RULE: Mermaid init block must appear first (ignoring leading whitespace). /
+ */
     if (!source.trimStart().startsWith("%%{init:")) {
       throw new Error(
         `[${diagram.id}] Mermaid init block must be the first characters in the diagram`
@@ -108,8 +105,8 @@ function lintDiagram(diagram) {
     }
 
     /**
-     * RULE: Tabs are forbidden.
-     */
+ * @description RULE: Tabs are forbidden. /
+ */
     if (/\t/.test(source)) {
       throw new Error(`[${diagram.id}] Tabs detected — Mermaid requires spaces only`);
     }
@@ -126,8 +123,8 @@ function lintDiagram(diagram) {
     const declaration = lines[0]?.trim().split(" ")[0];
 
     /**
-     * RULE: Diagram type validation (hybrid strict).
-     */
+ * @description RULE: Diagram type validation (hybrid strict). /
+ */
     const isCore = CORE_TYPES.has(declaration);
     const isExtended = EXTENDED_TYPES.has(declaration);
 
@@ -136,15 +133,15 @@ function lintDiagram(diagram) {
     }
 
     /**
-     * RULE: Blank line required after declaration.
-     */
+ * @description RULE: Blank line required after declaration. /
+ */
     if (lines.length > 1 && lines[1].trim() !== "") {
       throw new Error(`[${diagram.id}] Missing blank line after Mermaid declaration`);
     }
 
     /**
-     * EXTRA STRICT RULES FOR MINDMAP
-     */
+ * @description EXTRA STRICT RULES FOR MINDMAP /
+ */
     if (declaration === "mindmap") {
       const rootLine = lines.find((l, i) => i > 0 && l.trim() !== "");
 
@@ -160,7 +157,7 @@ function lintDiagram(diagram) {
 }
 
 /**
- * ENTRYPOINT BEHAVIOR
+ * @description ENTRYPOINT BEHAVIOR /
  */
 function run() {
   const list = normalizeDiagrams(diagrams);
