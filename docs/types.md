@@ -163,6 +163,7 @@ Shared UI-related type definitions used across components,including buttons, ic
         * [~BulletItem](#module_types/ui..BulletItem) : <code>object</code>
         * [~InsightCard](#module_types/ui..InsightCard) : <code>object</code>
         * [~CardGridBlock](#module_types/ui..CardGridBlock) : <code>object</code>
+        * [~DiagramVariant](#module_types/ui..DiagramVariant) : <code>object</code>
         * [~DiagramBlock](#module_types/ui..DiagramBlock) : <code>object</code>
         * [~ImageGalleryBlock](#module_types/ui..ImageGalleryBlock) : <code>object</code>
         * [~BulletListBlock](#module_types/ui..BulletListBlock) : <code>object</code>
@@ -414,25 +415,25 @@ Right-bottom placement
 <a name="module_types/ui..NONE"></a>
 
 ### types/ui~NONE
-No hover animation. Use for static elements or where motion would be distracting. /
+No hover animation. Use for static elements or where motion would be distracting.
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..LIFT"></a>
 
 ### types/ui~LIFT
-Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs. /
+Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs.
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..HIGHLIGHT"></a>
 
 ### types/ui~HIGHLIGHT
-Background color change only. No transform, no shadow. Use for text links or low-emphasis actions. /
+Background color change only. No transform, no shadow. Use for text links or low-emphasis actions.
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..EMPHASIZE"></a>
 
 ### types/ui~EMPHASIZE
-Shadow emphasis without movement. Use when layout stability is critical. /
+Shadow emphasis without movement. Use when layout stability is critical.
 
 **Kind**: inner property of [<code>types/ui</code>](#module_types/ui)  
 <a name="module_types/ui..TooltipPlacement"></a>
@@ -629,18 +630,29 @@ CardGridBlock
 | [columns] | <code>number</code> | <code>3</code> | Number of grid columns. |
 | items | <code>Array.&lt;InsightCard&gt;</code> |  | Array of card items to display. |
 
+<a name="module_types/ui..DiagramVariant"></a>
+
+### types/ui~DiagramVariant : <code>object</code>
+Diagram Variant
+
+**Kind**: inner typedef of [<code>types/ui</code>](#module_types/ui)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| diagram | <code>string</code> | Mermaid.js definition. |
+| description | <code>RichTextNode</code> \| <code>string</code> | Diagram explanation. |
+
 <a name="module_types/ui..DiagramBlock"></a>
 
 ### types/ui~DiagramBlock : <code>object</code>
-Diagram Variant
+Diagram block
 
 **Kind**: inner typedef of [<code>types/ui</code>](#module_types/ui)  
 **Properties**
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| diagram | <code>string</code> |  | Mermaid.js definition. |
-| description | <code>RichTextNode</code> \| <code>string</code> |  | Diagram explanation. / /** Diagram block |
 | type | <code>&quot;diagram&quot;</code> |  | Block discriminator. |
 | title | <code>string</code> |  | Diagram title. |
 | desktop | <code>DiagramVariant</code> |  | Mermaid.js definition an description optomized for desktop. |
