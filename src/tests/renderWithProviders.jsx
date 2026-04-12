@@ -1,7 +1,7 @@
 /**
- * @file src\tests\renderWithProviders.jsx
- * @description src\tests\renderWithProviders module.
- * @module src\tests\renderWithProviders
+ * @file src/tests/renderWithProviders.jsx
+ * @description src/tests/renderWithProviders module.
+ * @module src/tests/renderWithProviders
  */
 
 import React from "react";

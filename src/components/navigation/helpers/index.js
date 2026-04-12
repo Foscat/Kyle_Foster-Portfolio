@@ -4,7 +4,7 @@
  * @module src\components\navigation\helpers\index
  */
 
-import { restoreScrollPosition } from "./restoreScrollPosition";
+import restoreScrollPosition from "./restoreScrollPosition";
 import { saveLastSection, loadLastSection } from "./sectionPersistence";
 
 export { restoreScrollPosition, saveLastSection, loadLastSection };

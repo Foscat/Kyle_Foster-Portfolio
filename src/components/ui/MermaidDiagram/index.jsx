@@ -300,7 +300,10 @@ function MermaidDiagram(props) {
       } catch (error) {
         if (!cancelled) {
           console.error("Mermaid render failed:", error);
-          host.innerHTML = `<pre class="mermaid-error">${String(error.message || error)}</pre>`;
+          const pre = document.createElement("pre");
+          pre.className = "mermaid-error";
+          pre.textContent = String(error.message || error);
+          host.appendChild(pre);
         }
       }
     }
@@ -330,7 +333,10 @@ function MermaidDiagram(props) {
       } catch (error) {
         if (!cancelled) {
           console.error("Mermaid fullscreen render failed:", error);
-          host.innerHTML = `<pre class="mermaid-error">${String(error.message || error)}</pre>`;
+          const pre = document.createElement("pre");
+          pre.className = "mermaid-error";
+          pre.textContent = String(error.message || error);
+          host.appendChild(pre);
         }
       }
     }
@@ -424,7 +430,7 @@ function MermaidDiagram(props) {
           icon={faFileDownload}
           onClick={handleExport}
           tooltip="Download diagram as PNG"
-          aria-label="Export diagram as PNG"
+          ariaLabel="Export diagram as PNG"
           variant={Variant.ACCENT}
           text="Download PNG"
           className="mermaid-action-btn"

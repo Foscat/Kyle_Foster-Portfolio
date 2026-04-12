@@ -160,22 +160,22 @@ export const TooltipPlacement = Object.freeze({
  */
 export const HoverAnimation = Object.freeze({
   /**
- * @description No hover animation. Use for static elements or where motion would be distracting. /
+ * @description No hover animation. Use for static elements or where motion would be distracting.
  */
   NONE: "none",
 
   /**
- * @description Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs. /
+ * @description Subtle vertical lift. Maps to a small translateY + shadow. Safe for glass UIs.
  */
   LIFT: "lift",
 
   /**
- * @description Background color change only. No transform, no shadow. Use for text links or low-emphasis actions. /
+ * @description Background color change only. No transform, no shadow. Use for text links or low-emphasis actions.
  */
   HIGHLIGHT: "highlight",
 
   /**
- * @description Shadow emphasis without movement. Use when layout stability is critical. /
+ * @description Shadow emphasis without movement. Use when layout stability is critical.
  */
   EMPHASIZE: "emphasize",
 });
@@ -452,7 +452,7 @@ export const RichTextNodeType = Object.freeze({
  * @typedef {object} DiagramVariant
  * @property {string} diagram - Mermaid.js definition.
  * @property {RichTextNode | string} description - Diagram explanation.
- * /
+ */
 
 /**
  * Diagram block

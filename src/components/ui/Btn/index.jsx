@@ -226,7 +226,7 @@ const Btn = ({
   widthAuto = false,
 }) => {
   /**
- * @description Local async loading state used when onClick returns a Promise. This allows async visual feedback without forcing external state. /
+ * @description Local async loading state used when onClick returns a Promise. This allows async visual feedback without forcing external state.
  */
   const [asyncLoading, setAsyncLoading] = useState(loading);
   const isCoarsePointer = useCoarsePointer();
@@ -237,7 +237,7 @@ const Btn = ({
   const isIconOnly = icon && !text;
 
   /**
- * @description Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name. /
+ * @description Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
  */
   const resolvedAriaLabel =
     ariaLabel ||
