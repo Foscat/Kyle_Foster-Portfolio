@@ -94,7 +94,11 @@ const diagrams = {
               { type: "strong", text: "Interactive transitions:" },
               {
                 type: "text",
+<<<<<<< Updated upstream
                 text: " hover, focus, active, and pressed states are modeled explicitly instead of improvised per component.",
+=======
+                text: " hover, focus, active, and pressed behavior are formalized instead of improvised.",
+>>>>>>> Stashed changes
               },
             ],
           },
@@ -199,7 +203,11 @@ const diagrams = {
               { type: "strong", text: "Fallback layers:" },
               {
                 type: "text",
+<<<<<<< Updated upstream
                 text: " legacy, semantic, and safe-default values support incremental adoption.",
+=======
+                text: " legacy and semantic values allow safer incremental adoption.",
+>>>>>>> Stashed changes
               },
             ],
           },
@@ -258,7 +266,11 @@ const diagrams = {
   Expired{Access Token Expired?}
   Refresh[Refresh Endpoint]
   Retry[Retry Original Request]
+<<<<<<< Updated upstream
   Success[Protected Response + Continue Session]
+=======
+  Success[Continue Session]
+>>>>>>> Stashed changes
   
   Login ==> Access ==> Cookie ==> Protected ==> Expired
   Expired ==>|Yes| Refresh ==> Retry ==> Success
@@ -275,7 +287,11 @@ const diagrams = {
           { type: "strong", children: [{ type: "text", text: "refresh-based session path" }] },
           {
             type: "text",
+<<<<<<< Updated upstream
             text: ", which is a core architectural concept in the template.",
+=======
+            text: ", which is the most important architectural concept in the template.",
+>>>>>>> Stashed changes
           },
         ],
       },
@@ -406,7 +422,11 @@ const diagrams = {
           {
             type: "li",
             children: [
+<<<<<<< Updated upstream
               { type: "strong", text: "Deployment model:" },
+=======
+              { type: "strong", text: "Operational value:" },
+>>>>>>> Stashed changes
               {
                 type: "text",
                 text: " a simpler hosting story makes the starter easier to launch and reuse.",
