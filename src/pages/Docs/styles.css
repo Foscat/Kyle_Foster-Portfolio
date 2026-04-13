@@ -8,6 +8,7 @@
 
 .docs-page .info-section.section-renderer .info-content {
   gap: 1.25rem;
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.08rem);
 }
 
 .docs-page .info-section.section-renderer .info-title {

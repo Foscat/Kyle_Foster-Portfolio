@@ -406,7 +406,7 @@ const diagrams = {
           {
             type: "li",
             children: [
-              { type: "strong", text: "Deployment model:" },
+              { type: "strong", text: "Operational value:" },
               {
                 type: "text",
                 text: " a simpler hosting story makes the starter easier to launch and reuse.",
