@@ -42,6 +42,10 @@ import diagrams from "./diagrams.js";
 import resumeLight from "../../resume/Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
 import resumeDark from "../../resume/Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
 
+const CardVariant = Object.freeze({
+  ACCENT: "accent",
+});
+
 const homeSections = [
   {
     id: "hero",
@@ -743,7 +747,7 @@ const homeSections = [
             subtitle:
               "A framework-agnostic interaction primitive for consistent states across buttons, cards, and icon controls",
             icon: faBrush,
-            variant: "accent",
+            variant: CardVariant.ACCENT,
             url: `${PageRoute.SIDE_PROJECTS}/#interactive-surface-css`,
             isScroller: false,
             content: [
