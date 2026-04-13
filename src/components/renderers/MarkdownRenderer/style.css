@@ -1,12 +1,15 @@
 .markdown-renderer {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
+  min-width: 0;
   color: var(--text-primary);
 }
 
 .markdown-renderer__header {
   display: grid;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .markdown-renderer__title {
@@ -25,6 +28,7 @@
 
 .markdown-renderer__layout {
   display: block;
+  min-width: 0;
 }
 
 .markdown-renderer__layout--toc {
@@ -36,6 +40,7 @@
 
 .markdown-renderer__prose {
   min-width: 0;
+  width: 100%;
   padding: 2.5rem;
   border-radius: 22px;
   background: var(--glass-bg);
@@ -101,6 +106,8 @@
   margin: 0 0 0.85rem;
   line-height: 1.2;
   scroll-margin-top: 6rem;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
 .markdown-renderer__h1 {
@@ -132,9 +139,14 @@
 
 .markdown-renderer__p,
 .markdown-renderer__li,
-.markdown-renderer__td {
+.markdown-renderer__th,
+.markdown-renderer__td,
+.markdown-renderer__dt,
+.markdown-renderer__dd,
+.markdown-renderer__blockquote {
   color: var(--text-secondary);
   line-height: 1.78;
+  overflow-wrap: anywhere;
 }
 
 .markdown-renderer__p {
@@ -163,13 +175,16 @@
 .markdown-renderer__dl {
   margin: 0.5rem 0 1.5rem;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
+  min-width: 0;
 }
 
 .markdown-renderer__dt {
   margin: 1rem 0 0.25rem;
   color: var(--text-primary);
   font-weight: 700;
+  min-width: 0;
 }
 
 .markdown-renderer__dd {
@@ -177,6 +192,7 @@
   padding-left: 0.9rem;
   border-left: 2px solid rgba(var(--accent-rgb), 0.4);
   color: var(--text-secondary);
+  min-width: 0;
 }
 
 .markdown-renderer__li + .markdown-renderer__li {
@@ -211,6 +227,7 @@
     text-shadow 120ms ease,
     text-decoration 120ms ease;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .markdown-renderer__link:hover,
@@ -229,6 +246,8 @@
   font-size: 0.92em;
   font-weight: 500;
   transition: all 120ms ease;
+  overflow-wrap: anywhere;
+  white-space: break-spaces;
 }
 
 .markdown-renderer__p:hover .markdown-renderer__inline-code {
@@ -264,7 +283,7 @@
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  min-width: 36rem;
+  table-layout: fixed;
 }
 
 .markdown-renderer__th,
@@ -289,6 +308,10 @@
   .markdown-renderer__toc {
     position: static;
     order: -1;
+  }
+
+  .markdown-renderer__prose {
+    padding: 1.5rem;
   }
 }
 
