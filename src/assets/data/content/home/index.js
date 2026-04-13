@@ -8,12 +8,12 @@ import {
   faArrowDownUpLock,
   faArrowsToEye,
   faBookOpenReader,
+  faBrush,
   faBuildingUser,
   faChartDiagram,
   faChartLine,
   faCode,
   faDesktop,
-  faDiceD20,
   faEnvelope,
   faFileArrowDown,
   faFlask,
@@ -21,6 +21,7 @@ import {
   faGraduationCap,
   faHeadset,
   faIdBadge,
+  faKey,
   faLaptopCode,
   faLayerGroup,
   faMicrophone,
@@ -28,7 +29,6 @@ import {
   faPaperPlane,
   faPeopleGroup,
   faPlug,
-  faSeedling,
   faTrophy,
   faUniversalAccess,
 } from "@fortawesome/free-solid-svg-icons";
@@ -733,15 +733,18 @@ const homeSections = [
         id: "sp-programs-of-note",
         type: BlockType.CARD_GRID,
         title: "Programs of Note",
-        subtitle: "Selected projects demonstrating architectural range and systems ownership",
+        subtitle:
+          "Highlighted projects emphasizing reusable UI systems, full-stack acceleration, and client-side security",
         icon: faBookOpenReader,
         items: [
           {
-            id: "sp-greenhouse-automation",
-            title: "Greenhouse Automation",
-            subtitle: "A Raspberry Pi-based system for autonomous greenhouse climate control",
-            icon: faSeedling,
-            url: `${PageRoute.SIDE_PROJECTS}/#greenhouse`,
+            id: "sp-interactive-surface-css",
+            title: "Interactive Surface CSS Library",
+            subtitle:
+              "A framework-agnostic interaction primitive for consistent states across buttons, cards, and icon controls",
+            icon: faBrush,
+            variant: "accent",
+            url: `${PageRoute.SIDE_PROJECTS}/#interactive-surface-css`,
             isScroller: false,
             content: [
               {
@@ -749,7 +752,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A hardware-integrated automation system built on a Raspberry Pi Zero, designed to regulate greenhouse climate conditions autonomously.",
+                    text: "A reusable CSS library that standardizes interactive behavior so hover, focus-visible, active, pressed, and disabled states remain cohesive across the UI.",
                   },
                 ],
               },
@@ -761,7 +764,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Python-based control logic with real-time sensor feedback",
+                        text: "Token-driven state model for consistent interaction behavior",
                       },
                     ],
                   },
@@ -770,7 +773,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Relay-driven actuation of fans, lighting, and humidity systems",
+                        text: "Accessibility-aware defaults including focus and reduced-motion support",
                       },
                     ],
                   },
@@ -779,7 +782,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Profile-driven environmental thresholds for staged plant growth",
+                        text: "Framework-agnostic packaging for reuse across projects",
                       },
                     ],
                   },
@@ -788,10 +791,65 @@ const homeSections = [
             ],
           },
           {
-            id: "sp-encryption-tool",
-            title: "Encryption Tool",
-            subtitle: "A client-side encryption engine inspired by classical cipher systems",
+            id: "sp-mern-template",
+            title: "MERN App Template with Auth",
+            subtitle:
+              "A production-minded full-stack starter for protected routes, token lifecycle handling, and faster shipping",
+            icon: faKey,
+            variant: "success",
+            url: `${PageRoute.SIDE_PROJECTS}/#mern-template`,
+            isScroller: false,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "A reusable MERN foundation that removes startup friction by shipping authentication, route protection, and deployment-ready structure from day one.",
+                  },
+                ],
+              },
+              {
+                type: "ul",
+                children: [
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Access and refresh token flow with HTTP-only cookies",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Protected frontend routing and authenticated app scaffolding",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Deployment model that supports API and built client from one service",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "sp-enigma",
+            title: "Caesar's Enigma",
+            subtitle:
+              "A deterministic client-side encryption engine inspired by classical cipher systems and built for browser privacy",
             icon: faArrowDownUpLock,
+            variant: "warning",
             url: `${PageRoute.SIDE_PROJECTS}/#enigma`,
             isScroller: false,
             content: [
@@ -800,7 +858,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A deterministic, client-side encryption engine inspired by classical Caesar substitution and multi-rotor cipher systems.",
+                    text: "A client-only encryption application that translates classical cipher ideas into a deterministic, reversible transformation workflow.",
                   },
                 ],
               },
@@ -810,13 +868,19 @@ const homeSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Multi-alphabet rotational transformation logic" },
+                      {
+                        type: "text",
+                        text: "Multi-alphabet rotational transformation logic",
+                      },
                     ],
                   },
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Embedded metadata for stateless decryption" },
+                      {
+                        type: "text",
+                        text: "Embedded metadata for deterministic stateless decryption",
+                      },
                     ],
                   },
                   {
@@ -825,56 +889,6 @@ const homeSections = [
                       {
                         type: "text",
                         text: "Browser-only execution for privacy and reduced attack surface",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-
-          {
-            id: "sp-d20-king",
-            title: "D20 King (Private)",
-            subtitle:
-              "A modular tabletop RPG campaign management platform focused on sharing content and building on top of community-created work",
-            icon: faDiceD20,
-            url: `${PageRoute.SIDE_PROJECTS}/#d20`,
-            isScroller: false,
-            content: [
-              {
-                type: "p",
-                children: [
-                  {
-                    type: "text",
-                    text: "A modular campaign management platform built around a structured narrative domain model.",
-                  },
-                ],
-              },
-              {
-                type: "ul",
-                children: [
-                  {
-                    type: "li",
-                    children: [
-                      {
-                        type: "text",
-                        text: "Hierarchical modeling (Storybook → Act → Room → Encounter)",
-                      },
-                    ],
-                  },
-                  {
-                    type: "li",
-                    children: [
-                      { type: "text", text: "Reusable and extensible campaign components" },
-                    ],
-                  },
-                  {
-                    type: "li",
-                    children: [
-                      {
-                        type: "text",
-                        text: "Designed for long-running, evolving creative systems",
                       },
                     ],
                   },

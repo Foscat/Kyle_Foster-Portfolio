@@ -1,101 +1,153 @@
-# Kyle Foster Portfolio Application
+# Kyle Foster Portfolio
 
-This repository contains the source code, tooling, and generated documentation for a React-based portfolio system focused on clean architecture, predictable composition, accessibility, and testing discipline.
+A production-oriented React portfolio application built with Vite.  
+The codebase is structured around data-driven page sections, reusable rendering blocks, strong testing, and generated technical documentation.
 
-## Latest Updates
+## Overview
 
-- Mermaid diagrams now support a refined full-screen viewer that is truly edge-to-edge (no boxed "traditional modal" framing) with corrected theme/color rendering in full-screen mode.
-- Diagram action controls were redesigned into a more compact, cleaner action row.
-- `ClickableImg` now attempts mobile landscape lock for wide images and shows a clear fallback hint when auto-rotate is unavailable.
-- Unit test coverage was expanded for:
-  - Diagram full-screen interaction behavior.
-  - Mobile orientation lock success and failure fallback for images.
+This repository contains:
 
-## Project Goals
+- A multi-page portfolio SPA with route-level code splitting.
+- Declarative page content modeled in `src/assets/data/content`.
+- Shared section/block rendering infrastructure for consistent composition.
+- Diagram tooling and snapshots for architecture/flow communication.
+- Automated linting, unit tests, Playwright coverage, and docs generation.
 
-- Demonstrate production-quality React architecture.
-- Keep UI behavior data-driven and composable.
-- Maintain strong code quality through linting and automated tests.
-- Keep onboarding clear through generated docs and subsystem guides.
+## Route Map
 
-## High-Level Architecture
+Current application routes:
 
-The app is built around declarative pages, data-driven sections, and composable block renderers coordinated by a shared navigation and section-registry layer.
+- `/` - Home
+- `/codestream` - Professional work case study
+- `/side-projects` - Side projects
+- `/hackathon` - Hackathon case study
+- `/smu` - Education history
+- `/contact` - Contact page
+- `/docs` - In-app technical docs page
+- `/health` - Health/status page
+- `*` - Not found
 
-Start with:
+## Architecture Summary
 
-- [Architecture Overview](architecture_overview.md)
-- [Architecture Diagram](public/portfolio_flow.png)
+High-level flow:
 
-## Documentation Index
+1. `src/App.jsx` defines route composition and lazy-loaded page boundaries.
+2. Page metadata is centralized in `src/assets/data/pageMetas.js`.
+3. Section payloads live in `src/assets/data/content/*`.
+4. `SectionRenderer` resolves block types (`RichText`, `CardGrid`, `Links`, `Diagram`, etc.) into UI components.
+5. Navigation state and active section behavior are coordinated through section registry/context providers.
 
-- [Components](docs/components.md)
-- [Navigation](docs/navigation.md)
-- [Scripts and Tooling](docs/scripts.md)
-- [Testing](docs/tests.md)
-- [Types and UI Contracts](docs/types.md)
-- [Playwright API Docs](docs/playwright.md)
-- [Full API Reference](docs/api.md)
-- [JSDoc Audit Output](docs/jsdoc-audit.md)
+Architecture artifact:
 
-## Core Scripts
+- `public/portfolio_flow.png`
 
-Development:
+## Repository Structure
 
-```sh
-npm run dev
-npm run build
-npm run preview
+```text
+src/
+  assets/
+    data/               # Page metadata + declarative content blocks
+    context/            # Theme, error boundary, section registry, responsive context
+    hooks/              # Shared React hooks
+  components/
+    layout/             # Structural wrappers (headers/sections)
+    navigation/         # Global nav + section nav systems
+    renderers/          # Section and block render orchestration
+    ui/                 # Reusable UI building blocks
+  pages/                # Route-level page modules
+playwright/             # E2E and visual tests
+scripts/                # Diagram, lint, and docs support scripts
+docs/                   # Generated project documentation outputs
+dev-guides/             # Authoring and process guides
 ```
 
-Quality and tests:
+## Runtime Requirements
+
+From `package.json`:
+
+- Node.js: `>=20.19.0 <21 || >=22.12.0 <23`
+- npm: `>=10 <11`
+
+## Setup
+
+```sh
+npm ci
+```
+
+## Local Development
+
+```sh
+npm run dev      # Vite dev server
+npm run start    # Vite on PORT=3000
+npm run build    # Production build -> dist/
+npm run preview  # Preview production build
+```
+
+## Quality and Testing
+
+### Core Quality Commands
 
 ```sh
 npm run lint
+npm run lint:all
+npm run richtext:lint
 npm run test
 npm run quality:check
+npm run ci:gate
 ```
 
-Diagrams:
+### Diagram Pipeline
 
 ```sh
+npm run diagrams:format
+npm run diagrams:lint
 npm run diagrams:check
 npm run diagrams:assets
 npm run diagrams:test
+npm run diagrams:run-all
 ```
 
-Docs:
+### Docs Pipeline
+
+`docs:build` regenerates the `docs/` directory.
 
 ```sh
 npm run docs:build
-npm run docs:components
-npm run docs:navigation
-npm run docs:types
-npm run docs:test-helpers
-npm run docs:scripts
-npm run docs:playwright
-npm run docs:api
-npm run docs:jsdoc:audit
+npm run docs:verify
+npm run docs:diff
 ```
 
-## Testing Philosophy
+### Helpful Fix/Automation Commands
 
-- Test behavior over implementation details.
-- Treat navigation and rendering contracts as invariants.
-- Use unit tests for logic and component interactions.
-- Use Playwright for end-to-end and visual confidence where appropriate.
+```sh
+npm run quality:fix
+npm run lint:cleanup
+npm run richtext:fix
+```
 
-## Technology Stack
+## Documentation Outputs
 
-- React 18
-- Vite
-- RSuite
-- Font Awesome
-- Mermaid
-- Vitest + Testing Library
-- Playwright
-- ESLint + Stylelint + Prettier
+Generated docs are written to `docs/`:
+
+- `docs/components.md`
+- `docs/navigation.md`
+- `docs/types.md`
+- `docs/tests.md`
+- `docs/scripts.md`
+- `docs/playwright.md`
+- `docs/api.md`
+- `docs/jsdoc-audit.md`
+
+## Deployment
+
+`render.yaml` is configured for static deployment on Render:
+
+- Build: `npm ci --include=dev --no-audit --no-fund && npm run build`
+- Publish directory: `dist`
+- Pull request previews: enabled
+- SPA rewrite: all routes -> `index.html`
 
 ## Notes
 
-This codebase is intentionally opinionated. It favors maintainability, explicit contracts, and consistent tooling over ad-hoc shortcuts.
+- `interactive-surface-css` is imported at app level for shared interaction primitives.
+- The docs and diagram workflows are first-class parts of the repository; expect `docs/` and related artifacts to change after regeneration commands.
