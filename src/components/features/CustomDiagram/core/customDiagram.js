@@ -4,7 +4,7 @@
  * @module src\components\features\CustomDiagram\core\customDiagram
  */
 
-import formatMermaid from "../../../../../scripts/diagrams/format-mermaid.js";
+import formatMermaid from "../../../../../scripts/format-mermaid.js";
 import {
   ARCH_LAYERS,
   ARCH_FLOWCHART_PALETTE,
