@@ -26,6 +26,8 @@ import { Size, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
 
+const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
+
 /**
  * @public
  * @component
@@ -120,15 +122,18 @@ const MobileSectionNavTrigger = ({
     <>
       {/* Trigger Button */}
       <div className="sect-nav-toggle-btn mobile-only">
+        <span className="mobile-icon-hint">Sections</span>
         <Btn
           icon={faCompass}
           size={Size.MD}
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              window.localStorage.setItem(MOBILE_ICON_HINTS_KEY, "1");
+            }
+            setOpen(true);
+          }}
           className="section-nav-trigger"
           ariaLabel="Open section navigation"
-          tooltip="Open section navigation"
-          tooltipPlacement="left"
-          tooltipFollowCursor={false}
           variant={Variant.ACCENT}
         />
       </div>
@@ -167,9 +172,6 @@ const MobileSectionNavTrigger = ({
                       size={Size.MD}
                       variant={Variant.SUBTLE}
                       className="mobile-section-title"
-                      tooltip="Go to section"
-                      tooltipFollowCursor={true}
-                      tooltipPlacement="right"
                       ariaCurrent={sectionActive ? "location" : undefined}
                       onClick={(e) => {
                         e.preventDefault();
@@ -212,9 +214,6 @@ const MobileSectionNavTrigger = ({
                             noBG
                             size={Size.SM}
                             variant={Variant.SUBTLE}
-                            tooltip="Go to sub-section"
-                            tooltipFollowCursor={true}
-                            tooltipPlacement="right"
                             type="button"
                             className={`mobile-subsection ${blockActive ? "is-active" : ""}`}
                             onClick={(e) => {

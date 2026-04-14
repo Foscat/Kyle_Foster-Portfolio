@@ -1,9 +1,6 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_src/tests/fixtures/loadInteractiveSurfaceCss">src/tests/fixtures/loadInteractiveSurfaceCss</a></dt>
-<dd><p>Loads Interactive Surface CSS from the installed npm package for HTML fixtures.</p>
-</dd>
 <dt><a href="#module_src\tests\helpers\clickAndExpectPrevented">src\tests\helpers\clickAndExpectPrevented</a></dt>
 <dd><p>src\tests\helpers\clickAndExpectPrevented module.</p>
 </dd>
@@ -32,11 +29,6 @@ The goal of this setup file is to provide a consistent and reliable testing envi
 </ul>
 </dd>
 </dl>
-
-<a name="module_src/tests/fixtures/loadInteractiveSurfaceCss"></a>
-
-## src/tests/fixtures/loadInteractiveSurfaceCss
-Loads Interactive Surface CSS from the installed npm package for HTML fixtures.
 
 <a name="module_src\tests\helpers\clickAndExpectPrevented"></a>
 

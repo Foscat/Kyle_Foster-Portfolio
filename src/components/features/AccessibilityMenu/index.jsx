@@ -100,7 +100,11 @@ function PreferenceRow({
   );
 }
 
-export default function AccessibilityMenu({ size = Size.SM, enableHotkey = false }) {
+export default function AccessibilityMenu({
+  size = Size.SM,
+  enableHotkey = false,
+  showTooltip = true,
+}) {
   const [open, setOpen] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [announcement, setAnnouncement] = useState("");
@@ -306,7 +310,7 @@ export default function AccessibilityMenu({ size = Size.SM, enableHotkey = false
         noBG
         className="a11y-menu-trigger"
         ariaLabel="Open accessibility settings"
-        tooltip={`Accessibility settings (${HOTKEY_LABEL})`}
+        tooltip={showTooltip ? `Accessibility settings (${HOTKEY_LABEL})` : undefined}
         onClick={openMenu}
       />
 

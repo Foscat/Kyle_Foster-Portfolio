@@ -60,6 +60,9 @@ b. If the callback has an index parameter (e.g., <code>index</code>), use the in
 <li>Skip any JSX elements that already have a <code>key</code> prop defined.</li>
 </ol>
 </dd>
+<dt><a href="#fixJsdocImportTypes">fixJsdocImportTypes(file, api)</a> ⇒ <code>string</code></dt>
+<dd><p>Codemod function that rewrites unsupported JSDoc <code>import()</code> type references into plain type identifiers.</p>
+</dd>
 <dt><a href="#fixUnusedMapIndex">fixUnusedMapIndex(file, api)</a> ⇒ <code>string</code></dt>
 <dd><p>Main codemod function that traverses the AST to find <code>.map()</code> calls and renames unused index parameters to <code>_index</code>.
 The function uses <code>jscodeshift</code> to manipulate the AST and applies the following logic:</p>
@@ -70,9 +73,6 @@ The function uses <code>jscodeshift</code> to manipulate the AST and applies the
 <li>Traverse the callback body to check if the index parameter is referenced.</li>
 <li>If the index parameter is not used, rename it to <code>_index</code>.</li>
 </ol>
-</dd>
-<dt><a href="#fixJsdocImportTypes">fixJsdocImportTypes(file, api)</a> ⇒ <code>string</code></dt>
-<dd><p>Codemod function that rewrites unsupported JSDoc <code>import()</code> type references into plain type identifiers.</p>
 </dd>
 <dt><a href="#stripInit">stripInit()</a></dt>
 <dd><p>Removes the Mermaid init block for structural validation only. /</p>
@@ -192,19 +192,6 @@ Main codemod function that traverses the AST to find JSX elementsreturned from 
 | file | <code>\*</code> | The file object provided by `jscodeshift`, containing the source code to be transformed. |
 | api | <code>\*</code> | The `jscodeshift` API object, used for AST manipulation. |
 
-<a name="fixUnusedMapIndex"></a>
-
-## fixUnusedMapIndex(file, api) ⇒ <code>string</code>
-Main codemod function that traverses the AST to find `.map()` calls and renames unused index parameters to `_index`.The function uses `jscodeshift` to manipulate the AST and applies the following logic:1. Identify `.map()` calls and their callback functions.2. Check if the callback has at least two parameters (item and index).3. Verify that the second parameter (index) is an Identifier.4. Traverse the callback body to check if the index parameter is referenced.5. If the index parameter is not used, rename it to `_index`.
-
-**Kind**: global function  
-**Returns**: <code>string</code> - Updated source code after codemod transformations.  
-
-| Param | Type |
-| --- | --- |
-| file | <code>\*</code> | 
-| api | <code>\*</code> | 
-
 <a name="fixJsdocImportTypes"></a>
 
 ## fixJsdocImportTypes(file, api) ⇒ <code>string</code>
@@ -217,6 +204,19 @@ Codemod function that rewrites unsupported JSDoc `import()` type references into
 | --- | --- | --- |
 | file | <code>\*</code> | The file object provided by `jscodeshift`, containing the source code to be transformed. |
 | api | <code>\*</code> | The `jscodeshift` API object, used for AST manipulation. |
+
+<a name="fixUnusedMapIndex"></a>
+
+## fixUnusedMapIndex(file, api) ⇒ <code>string</code>
+Main codemod function that traverses the AST to find `.map()` calls and renames unused index parameters to `_index`.The function uses `jscodeshift` to manipulate the AST and applies the following logic:1. Identify `.map()` calls and their callback functions.2. Check if the callback has at least two parameters (item and index).3. Verify that the second parameter (index) is an Identifier.4. Traverse the callback body to check if the index parameter is referenced.5. If the index parameter is not used, rename it to `_index`.
+
+**Kind**: global function  
+**Returns**: <code>string</code> - Updated source code after codemod transformations.  
+
+| Param | Type |
+| --- | --- |
+| file | <code>\*</code> | 
+| api | <code>\*</code> | 
 
 <a name="stripInit"></a>
 

@@ -1,6 +1,9 @@
 ## Modules
 
 <dl>
+<dt><a href="#src\components\features\AccessibilityMenu\AccessibilityMenu.module_test">src\components\features\AccessibilityMenu\AccessibilityMenu.test</a></dt>
+<dd><p>src\components\features\AccessibilityMenu\AccessibilityMenu.test module.</p>
+</dd>
 <dt><a href="#module_components/features/AccessibilityMenu">components/features/AccessibilityMenu</a></dt>
 <dd><p>Accessibility preferences modal for toggling motion, contrast,
 text size, and keyboard guidance with persisted client-side settings.</p>
@@ -9,8 +12,30 @@ text size, and keyboard guidance with persisted client-side settings.</p>
 <dd><p>In-app color palette selector for switching between supported
 palette themes.</p>
 </dd>
+<dt><a href="#src\components\features\PaletteToggle\PaletteToggle.module_test">src\components\features\PaletteToggle\PaletteToggle.test</a></dt>
+<dd><p>src\components\features\PaletteToggle\PaletteToggle.test module.</p>
+</dd>
+<dt><a href="#module_components/ResumePreview/PreviewResume">components/ResumePreview/PreviewResume</a></dt>
+<dd><p>Modal-based resume preview and download component.</p>
+</dd>
 <dt><a href="#module_components/ResumePreview">components/ResumePreview</a></dt>
 <dd><p>Main export for the resume preview feature.</p>
+</dd>
+<dt><a href="#module_tests/components/ResumePreview">tests/components/ResumePreview</a></dt>
+<dd><p>Unit tests for the ResumePreview component.</p>
+<p>Test coverage:</p>
+<ul>
+<li>Modal opens when the trigger button is clicked</li>
+<li>Modal renders the resume content when opened</li>
+<li>Modal closes when the close button is clicked</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Mocks external dependencies (Btn and rsuite Modal components) to isolate testing to ResumePreview&#39;s behavior</li>
+<li>Uses user-facing queries to verify the presence of interactive elements and content</li>
+<li>Simulates user interactions (clicks) to test modal open/close behavior</li>
+<li>Asserts the presence or absence of the modal and its content based on user actions</li>
+</ul>
 </dd>
 <dt><a href="#module_src\components\features\ResumePreview\ResumePreviewTrigger">src\components\features\ResumePreview\ResumePreviewTrigger</a></dt>
 <dd><p>src\components\features\ResumePreview\ResumePreviewTrigger module.</p>
@@ -19,12 +44,49 @@ palette themes.</p>
 <dd><p>Compact theme selection control for switching between
 light and dark application themes.</p>
 </dd>
+<dt><a href="#src\components\features\ThemeToggle\ThemeToggle.module_test">src\components\features\ThemeToggle\ThemeToggle.test</a></dt>
+<dd><p>src\components\features\ThemeToggle\ThemeToggle.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/ThemeToggle">tests/components/ThemeToggle</a></dt>
+<dd><p>Unit tests for the ThemeToggle component.</p>
+<p>Testing focus:</p>
+<ul>
+<li>Rendering of both light and dark theme toggle buttons</li>
+<li>Theme state transitions when toggles are activated</li>
+<li>Presence of accessible button labels</li>
+</ul>
+<p>Testing philosophy:</p>
+<ul>
+<li>Verifies observable behavior only</li>
+<li>Avoids asserting internal DOM structure or RSuite implementation details</li>
+<li>Treats theme state as a global side effect via <code>data-theme</code></li>
+</ul>
+</dd>
 <dt><a href="#module_src\components\layout\InfoSection\index">src\components\layout\InfoSection\index</a></dt>
 <dd><p>src\components\layout\InfoSection\index module.</p>
 </dd>
 <dt><a href="#module_components/layout/InfoSection">components/layout/InfoSection</a></dt>
 <dd><p>Reusable frosted-glass section wrapper used to standardize
 layout, spacing, and visual hierarchy across the portfolio.</p>
+</dd>
+<dt><a href="#src\components\layout\InfoSection\InfoSection.module_test">src\components\layout\InfoSection\InfoSection.test</a></dt>
+<dd><p>src\components\layout\InfoSection\InfoSection.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/InfoSection">tests/components/InfoSection</a></dt>
+<dd><p>Unit tests for the InfoSection layout component.</p>
+<p>Testing focus:</p>
+<ul>
+<li>Correct semantic wrapper element (<code>section</code>)</li>
+<li>Proper application of root classes and IDs</li>
+<li>Conditional rendering of title, subtitle, and icon</li>
+<li>Transparent rendering of child content</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Mocks RSuite Panel to reduce surface area and DOM complexity</li>
+<li>Mocks FrostedIcon to avoid FontAwesome rendering concerns</li>
+<li>Focuses on layout and composition, not styling details</li>
+</ul>
 </dd>
 <dt><a href="#module_src\components\layout\PageHeader\index">src\components\layout\PageHeader\index</a></dt>
 <dd><p>src\components\layout\PageHeader\index module.</p>
@@ -33,9 +95,32 @@ layout, spacing, and visual hierarchy across the portfolio.</p>
 <dd><p>Standardized page-level header component used to introduce
 pages and major sections with consistent hierarchy and styling.</p>
 </dd>
+<dt><a href="#module_tests/components/PageHeader">tests/components/PageHeader</a></dt>
+<dd><p>Unit tests for the PageHeader component.</p>
+<p>Test coverage:</p>
+<ul>
+<li>Required title rendering</li>
+<li>Optional jobTitle + timespan row composition</li>
+<li>Optional subtitle rendering</li>
+<li>Semantic role (<code>banner</code>) for accessibility</li>
+<li>Root className passthrough</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Mocks RSuite Panel and FlexboxGrid as minimal layout primitives</li>
+<li>Focuses on semantic output and composition logic</li>
+<li>Avoids coupling to RSuite layout implementation details</li>
+</ul>
+</dd>
+<dt><a href="#module_components/navigation/Footer">components/navigation/Footer</a></dt>
+<dd><p>Tests for the Footer component, ensuring it renders correctly and handles interactions as expected.</p>
+</dd>
 <dt><a href="#module_components/Footer">components/Footer</a></dt>
 <dd><p>Compact application footer providing quiet page closure,
 secondary social actions, and copyright information.</p>
+</dd>
+<dt><a href="#module_components/navigation/Head">components/navigation/Head</a></dt>
+<dd><p>Tests for the Head component, ensuring it sets the document title and meta tags correctly based on the current route.</p>
 </dd>
 <dt><a href="#module_components/Head">components/Head</a></dt>
 <dd><p>Centralized document head manager responsible for injecting
@@ -80,9 +165,42 @@ multiple subsections (CodeStream, Hackathon, etc.).</p>
 <dd><p>Primary site navigation with synchronized desktop and mobile
 layouts, active-route handling, and accessibility semantics.</p>
 </dd>
+<dt><a href="#module_components/navigation/StickyNav">components/navigation/StickyNav</a></dt>
+<dd><p>Tests for the StickyNav component, ensuring it renders correctly and handles interactions as expected.</p>
+</dd>
 <dt><a href="#module_components/StickySectionNav">components/StickySectionNav</a></dt>
 <dd><p>Sticky, accessible intra-page section navigator with
 hierarchical scroll tracking and collapsible subsection groups.</p>
+</dd>
+<dt><a href="#src\components\navigation\StickySectionNav\StickySectionNav.module_test">src\components\navigation\StickySectionNav\StickySectionNav.test</a></dt>
+<dd><p>src\components\navigation\StickySectionNav\StickySectionNav.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/StickySectionNav">tests/components/StickySectionNav</a></dt>
+<dd><p>Unit tests for the StickySectionNav component.</p>
+<p>Test coverage:</p>
+<ul>
+<li>Rendering of section navigation links</li>
+<li>Active section highlighting via <code>aria-current=&quot;location&quot;</code></li>
+<li>History hash updates on navigation</li>
+<li>Programmatic scroll coordination with scroll-spy logic</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Mocks <code>useScrollSpyWithHistory</code> to control active section state</li>
+<li>Mocks <code>window.scrollTo</code> to prevent actual scrolling</li>
+<li>Uses real DOM nodes to simulate anchor targets</li>
+</ul>
+<p>Architectural intent:
+StickySectionNav is an <strong>intra-page navigation controller</strong>.
+Tests focus on:</p>
+<ul>
+<li>Accessibility semantics</li>
+<li>Navigation side effects (history + scroll)</li>
+<li>Integration boundaries with the scroll-spy hook</li>
+</ul>
+</dd>
+<dt><a href="#module_components/renderers/blocks/CardGridBlock">components/renderers/blocks/CardGridBlock</a></dt>
+<dd><p>Tests for the CardGridBlock component, ensuring it renders insight cards correctly when items are provided and returns nothing when there are no items.</p>
 </dd>
 <dt><a href="#module_src\components\renderers\blocks\CardGridBlock\index">src\components\renderers\blocks\CardGridBlock\index</a></dt>
 <dd><p>src\components\renderers\blocks\CardGridBlock\index module.</p>
@@ -109,6 +227,23 @@ The normalization function allows for legacy field definitions to be used withou
 <dd><p>Standardized page-level header component used to introduce
 pages and major sections with consistent hierarchy and styling.</p>
 </dd>
+<dt><a href="#src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.module_test">src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test</a></dt>
+<dd><p>src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/blocks/ImageGalleryBlock">tests/components/blocks/ImageGalleryBlock</a></dt>
+<dd><p>Unit tests for the ImageGalleryBlock component.</p>
+<p>Testing focus:</p>
+<ul>
+<li>Defensive rendering behavior when image data is missing or invalid</li>
+<li>Basic thumbnail rendering with correct accessibility attributes</li>
+</ul>
+<p>Design intent:
+This block is intentionally simple and defensive. Tests verify that:</p>
+<ul>
+<li>The component fails silently when no images are provided</li>
+<li>Valid image data renders accessible <code>&lt;img&gt;</code> elements</li>
+</ul>
+</dd>
 <dt><a href="#module_src\components\renderers\blocks\ImageGalleryBlock\index">src\components\renderers\blocks\ImageGalleryBlock\index</a></dt>
 <dd><p>src\components\renderers\blocks\ImageGalleryBlock\index module.</p>
 </dd>
@@ -124,6 +259,24 @@ frosted-style panel.</p>
 content system. It takes a list of link definitions and renders them as styled buttons
 with appropriate attributes for external links, downloads, and accessibility.</p>
 </dd>
+<dt><a href="#src\components\renderers\blocks\LinksBlock\LinksBlock.module_test">src\components\renderers\blocks\LinksBlock\LinksBlock.test</a></dt>
+<dd><p>src\components\renderers\blocks\LinksBlock\LinksBlock.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/blocks/LinksBlock">tests/components/blocks/LinksBlock</a></dt>
+<dd><p>Unit tests for the LinksBlock component.</p>
+<p>Testing focus:</p>
+<ul>
+<li>Defensive rendering behavior when link data is missing</li>
+<li>Correct rendering of anchor elements with expected attributes</li>
+</ul>
+<p>Design intent:
+LinksBlock is intentionally minimal and data-driven.
+These tests ensure it:</p>
+<ul>
+<li>Fails silently when provided with invalid input</li>
+<li>Renders accessible anchor elements when valid data is supplied</li>
+</ul>
+</dd>
 <dt><a href="#src\components\renderers\blocks\MarkdownDocs.module_Block\index">src\components\renderers\blocks\MarkdownDocs.Block\index</a></dt>
 <dd><p>src\components\renderers\blocks\MarkdownDocs.Block\index module.</p>
 </dd>
@@ -133,6 +286,20 @@ with appropriate attributes for external links, downloads, and accessibility.</p
 <dt><a href="#module_components/blocks/RichTextBlock">components/blocks/RichTextBlock</a></dt>
 <dd><p>Renders a collapsible frosted panel containing one or more
 paragraphs of rich text content.</p>
+</dd>
+<dt><a href="#src\components\renderers\blocks\RichTextBlock\RichTextBlock.module_test">src\components\renderers\blocks\RichTextBlock\RichTextBlock.test</a></dt>
+<dd><p>src\components\renderers\blocks\RichTextBlock\RichTextBlock.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/blocks/RichTextBlock">tests/components/blocks/RichTextBlock</a></dt>
+<dd><p>Unit tests for the RichTextBlock component.</p>
+<p>Testing focus:</p>
+<ul>
+<li>Defensive rendering behavior when content is missing or invalid</li>
+<li>Correct rendering of markdown content into semantic HTML</li>
+</ul>
+<p>Design intent:
+RichTextBlock is expected to be tolerant of missing data while still
+correctly rendering valid markdown input.</p>
 </dd>
 <dt><a href="#module_src\components\renderers\index">src\components\renderers\index</a></dt>
 <dd><p>src\components\renderers\index module.</p>
@@ -149,12 +316,53 @@ paragraphs of rich text content.</p>
 <dt><a href="#module_src\components\renderers\RichText\renderNode">src\components\renderers\RichText\renderNode</a></dt>
 <dd><p>src\components\renderers\RichText\renderNode module.</p>
 </dd>
+<dt><a href="#module_components/renderers/RichText/renderNode">components/renderers/RichText/renderNode</a></dt>
+<dd><p>Tests for the renderNode function, ensuring it correctly renders various node types such as text, links, lists, code blocks, and inline icons, and handles unknown or null nodes gracefully without throwing errors.</p>
+</dd>
 <dt><a href="#module_src\components\renderers\SectionRenderer\index">src\components\renderers\SectionRenderer\index</a></dt>
 <dd><p>src\components\renderers\SectionRenderer\index module.</p>
 </dd>
 <dt><a href="#module_components/SectionRenderer">components/SectionRenderer</a></dt>
 <dd><p>Central render orchestrator for feature sections composed of
 declarative content blocks.</p>
+</dd>
+<dt><a href="#module_tests/components/SectionRenderer">tests/components/SectionRenderer</a></dt>
+<dd><p>Unit tests for the SectionRenderer component.</p>
+<p>Test coverage:</p>
+<ul>
+<li>Section registry registration on mount</li>
+<li>Section registry cleanup on unmount</li>
+<li>Delegation to InfoSection for layout</li>
+<li>Block-type dispatching to the correct child renderer</li>
+<li>Defensive fallback rendering for unknown block types</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Mocks all child renderers to isolate dispatch logic</li>
+<li>Mocks SectionRegistry to observe registration side effects</li>
+<li>Avoids testing block rendering internals (covered elsewhere)</li>
+</ul>
+<p>Architectural intent:
+SectionRenderer is treated as a <strong>render orchestrator</strong>, not a
+content renderer. Tests focus on delegation, ordering, and
+defensive behavior rather than DOM structure.</p>
+</dd>
+<dt><a href="#module_tests/components/AccordionList">tests/components/AccordionList</a></dt>
+<dd><p>Unit tests for the AccordionList component.</p>
+<p>Test coverage:</p>
+<ul>
+<li>Basic rendering of panel and item titles</li>
+<li>Accordion expand / collapse behavior</li>
+<li>Keyboard interaction (Enter / Space)</li>
+<li>Scroll-to-section behavior for <code>isScroller</code> items</li>
+<li>Accessibility roles and screen-reader live region updates</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Uses <code>renderWithProviders</code> to ensure context parity with the app</li>
+<li>Uses <code>@testing-library/user-event</code> for realistic interaction simulation</li>
+<li>Avoids testing implementation details; focuses on observable behavior</li>
+</ul>
 </dd>
 <dt><a href="#module_src\components\ui\AccordionList\index">src\components\ui\AccordionList\index</a></dt>
 <dd><p>src\components\ui\AccordionList\index module.</p>
@@ -163,14 +371,66 @@ declarative content blocks.</p>
 <dd><p>Fully accessible, keyboard-navigable accordion and section
 navigation component with frosted-glass styling.</p>
 </dd>
+<dt><a href="#src\components\ui\Btn\Btn.module_test">src\components\ui\Btn\Btn.test</a></dt>
+<dd><p>src\components\ui\Btn\Btn.test module.</p>
+</dd>
+<dt><a href="#tests/components/ui/BtnNote_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_">tests/components/ui/BtnNote: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.</a></dt>
+<dd><p>Unit tests for the Btn component.
+Testing focus:</p>
+<ul>
+<li>Click handling behavior (invocation, disabled state)</li>
+<li>Accessibility features (icon-only naming, button type)</li>
+<li>Async behavior (busy state during pending operations)</li>
+</ul>
+<p>Design intent:
+Btn is designed to be a versatile button component that can handle various use cases, including icon-only buttons and async operations. The tests ensure that it behaves correctly in these scenarios while maintaining accessibility standards.</p>
+</dd>
 <dt><a href="#module_components/Btn">components/Btn</a></dt>
 <dd><p>Unified frosted-glass button component implementing the
 Midnight Gold UI system with accessibility, animation, async handling,
 and controlled prop passthrough to RSuite and FontAwesome.</p>
 </dd>
+<dt><a href="#module_tests/components/ClickableImg">tests/components/ClickableImg</a></dt>
+<dd><p>Unit tests for the ClickableImg component.</p>
+<p>Test coverage:</p>
+<ul>
+<li>Thumbnail image rendering</li>
+<li>Optional caption rendering</li>
+<li>Modal open and close behavior</li>
+<li>Expanded image rendering</li>
+<li>Keyboard interaction (Escape key)</li>
+<li>Accessibility attributes and aria-label handling</li>
+</ul>
+<p>Testing strategy:</p>
+<ul>
+<li>Uses <code>@testing-library/user-event</code> to simulate real user interactions</li>
+<li>Verifies RSuite Modal behavior via <code>role=&quot;dialog&quot;</code></li>
+<li>Avoids snapshots in favor of semantic queries</li>
+</ul>
+</dd>
 <dt><a href="#module_components/ClickableImg">components/ClickableImg</a></dt>
 <dd><p>Clickable image component that expands into a frosted
 modal viewer while preserving aspect ratio and accessibility.</p>
+</dd>
+<dt><a href="#src\components\ui\FrostedIcon\FrostedIcon.module_test">src\components\ui\FrostedIcon\FrostedIcon.test</a></dt>
+<dd><p>src\components\ui\FrostedIcon\FrostedIcon.test module.</p>
+</dd>
+<dt><a href="#module_tests/components/FrostedIcon">tests/components/FrostedIcon</a></dt>
+<dd><p>Unit tests for the FrostedIcon component.</p>
+<p>Testing focus:</p>
+<ul>
+<li>Semantic role switching based on <code>clickable</code> prop</li>
+<li>Size-related CSS class application</li>
+<li>Loading state accessibility signaling</li>
+</ul>
+<p>Design intent:
+FrostedIcon is a low-level visual primitive that must:</p>
+<ul>
+<li>Render correct semantic roles (<code>img</code> vs <code>button</code>)</li>
+<li>Expose loading state via <code>aria-busy</code></li>
+<li>Apply predictable, size-based CSS classes</li>
+</ul>
+<p>These tests validate observable DOM behavior rather than internal logic.</p>
 </dd>
 <dt><a href="#module_components/FrostedIcon">components/FrostedIcon</a></dt>
 <dd><p>Styled FontAwesome icon component integrated with the
@@ -191,6 +451,9 @@ Midnight Gold frosted UI system.</p>
 </dd>
 <dt><a href="#module_components/MermaidDiagram">components/MermaidDiagram</a></dt>
 <dd><p>Fully featured Mermaid diagram renderer with dark/light theme support, responsive SVG layout, accessible container, optional description, and PNG export capability. The component normalizes props to support both legacy and new diagram configurations, allowing for flexible integration while maintaining a consistent internal state structure for rendering.</p>
+</dd>
+<dt><a href="#src\components\ui\MermaidDiagram\paletteTransform.module_test">src\components\ui\MermaidDiagram\paletteTransform.test</a></dt>
+<dd><p>src\components\ui\MermaidDiagram\paletteTransform.test module.</p>
 </dd>
 <dt><a href="#module_src\components\ui\ProjectCard\index">src\components\ui\ProjectCard\index</a></dt>
 <dd><p>src\components\ui\ProjectCard\index module.</p>
@@ -223,6 +486,11 @@ portfolio projects with images, repository links, and live URLs.</p>
 </dd>
 </dl>
 
+<a name="src\components\features\AccessibilityMenu\AccessibilityMenu.module_test"></a>
+
+## src\components\features\AccessibilityMenu\AccessibilityMenu.test
+src\components\features\AccessibilityMenu\AccessibilityMenu.test module.
+
 <a name="module_components/features/AccessibilityMenu"></a>
 
 ## components/features/AccessibilityMenu
@@ -251,10 +519,34 @@ PaletteToggle------------------------------------------------------------------
 | [props.labelText] | <code>string</code> | <code>&quot;\&quot;Palette\&quot;&quot;</code> | Visible label text. |
 | [props.ariaLabel] | <code>string</code> | <code>&quot;\&quot;Color palette selector\&quot;&quot;</code> | Accessible label for select. |
 
+<a name="src\components\features\PaletteToggle\PaletteToggle.module_test"></a>
+
+## src\components\features\PaletteToggle\PaletteToggle.test
+src\components\features\PaletteToggle\PaletteToggle.test module.
+
+<a name="module_components/ResumePreview/PreviewResume"></a>
+
+## components/ResumePreview/PreviewResume
+Modal-based resume preview and download component.
+
+<a name="module_components/ResumePreview/PreviewResume..PreviewResume"></a>
+
+### components/ResumePreview/PreviewResume~PreviewResume ⇒ <code>JSX.Element</code>
+A modal component that allows users to preview and download the resume PDF. It provides an embedded PDF viewer along with action buttons for opening the PDF in a new tab, printing, and closing the modal. The component is designed to work seamlessly in both development and production environments by leveraging Vite's asset management system.Core responsibilities:- Opens a modal containing an embedded PDF preview- Provides a direct download link for the resume- Uses Vite asset imports to ensure correct bundling across environmentsTechnical notes:- PDF is imported as a Vite-managed asset- Works consistently in local development and production builds- Uses RSuite's ButtonToolbar for action buttons- The embedded PDF viewer is implemented using an iframe for broad compatibility- The component is styled to fit within the overall design system and maintain readability of the PDF contentAccessibility:- RSuite Modal provides focus trapping and ESC-to-close behavior- Buttons include descriptive aria-labels and tooltips- Embedded iframe includes a fallback message
+
+**Kind**: inner property of [<code>components/ResumePreview/PreviewResume</code>](#module_components/ResumePreview/PreviewResume)  
+**Returns**: <code>JSX.Element</code> - Rendered resume preview modal and trigger button.  
+**Access**: public  
+**Component**:   
 <a name="module_components/ResumePreview"></a>
 
 ## components/ResumePreview
 Main export for the resume preview feature.
+
+<a name="module_tests/components/ResumePreview"></a>
+
+## tests/components/ResumePreview
+Unit tests for the ResumePreview component.Test coverage:- Modal opens when the trigger button is clicked- Modal renders the resume content when opened- Modal closes when the close button is clickedTesting strategy:- Mocks external dependencies (Btn and rsuite Modal components) to isolate testing to ResumePreview's behavior- Uses user-facing queries to verify the presence of interactive elements and content- Simulates user interactions (clicks) to test modal open/close behavior- Asserts the presence or absence of the modal and its content based on user actions
 
 <a name="module_src\components\features\ResumePreview\ResumePreviewTrigger"></a>
 
@@ -300,6 +592,16 @@ ThemeToggle------------------------------------------------------------------C
 | props | <code>Object</code> |  | Component props. |
 | [props.size] | <code>Size</code> | <code>Size.SM</code> | Size applied to the toggle buttons. |
 
+<a name="src\components\features\ThemeToggle\ThemeToggle.module_test"></a>
+
+## src\components\features\ThemeToggle\ThemeToggle.test
+src\components\features\ThemeToggle\ThemeToggle.test module.
+
+<a name="module_tests/components/ThemeToggle"></a>
+
+## tests/components/ThemeToggle
+Unit tests for the ThemeToggle component.Testing focus:- Rendering of both light and dark theme toggle buttons- Theme state transitions when toggles are activated- Presence of accessible button labelsTesting philosophy:- Verifies observable behavior only- Avoids asserting internal DOM structure or RSuite implementation details- Treats theme state as a global side effect via `data-theme`
+
 <a name="module_src\components\layout\InfoSection\index"></a>
 
 ## src\components\layout\InfoSection\index
@@ -330,6 +632,16 @@ A responsive, collapsible frosted-glass section wrapper used throughoutthe appl
 | [props.className] | <code>string</code> | Additional CSS class names applied to the wrapper. |
 | [props.id] | <code>string</code> | Optional DOM id used for section scrolling and deep linking. |
 | props.children | <code>React.ReactNode</code> | Content rendered inside the section body. |
+
+<a name="src\components\layout\InfoSection\InfoSection.module_test"></a>
+
+## src\components\layout\InfoSection\InfoSection.test
+src\components\layout\InfoSection\InfoSection.test module.
+
+<a name="module_tests/components/InfoSection"></a>
+
+## tests/components/InfoSection
+Unit tests for the InfoSection layout component.Testing focus:- Correct semantic wrapper element (`section`)- Proper application of root classes and IDs- Conditional rendering of title, subtitle, and icon- Transparent rendering of child contentTesting strategy:- Mocks RSuite Panel to reduce surface area and DOM complexity- Mocks FrostedIcon to avoid FontAwesome rendering concerns- Focuses on layout and composition, not styling details
 
 <a name="module_src\components\layout\PageHeader\index"></a>
 
@@ -417,6 +729,16 @@ TechItem-----------------------------------------------------------------------
 | type | <code>string</code> | CSS class used to style the technology label. |
 | [id] | <code>string</code> | Optional unique identifier. |
 
+<a name="module_tests/components/PageHeader"></a>
+
+## tests/components/PageHeader
+Unit tests for the PageHeader component.Test coverage:- Required title rendering- Optional jobTitle + timespan row composition- Optional subtitle rendering- Semantic role (`banner`) for accessibility- Root className passthroughTesting strategy:- Mocks RSuite Panel and FlexboxGrid as minimal layout primitives- Focuses on semantic output and composition logic- Avoids coupling to RSuite layout implementation details
+
+<a name="module_components/navigation/Footer"></a>
+
+## components/navigation/Footer
+Tests for the Footer component, ensuring it renders correctly and handles interactions as expected.
+
 <a name="module_components/Footer"></a>
 
 ## components/Footer
@@ -442,6 +764,11 @@ Footer-------------------------------------------------------------------------
 Current year used for copyright display. Computed at render time to avoid manual updates. /
 
 **Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
+<a name="module_components/navigation/Head"></a>
+
+## components/navigation/Head
+Tests for the Head component, ensuring it sets the document title and meta tags correctly based on the current route.
+
 <a name="module_components/Head"></a>
 
 ## components/Head
@@ -603,6 +930,11 @@ Describes a single navigation entry rendered in both desktop and mobilenavigati
 | label | <code>string</code> | Human-readable navigation label. |
 | icon | <code>\*</code> | FontAwesome icon associated with the route. |
 
+<a name="module_components/navigation/StickyNav"></a>
+
+## components/navigation/StickyNav
+Tests for the StickyNav component, ensuring it renders correctly and handles interactions as expected.
+
 <a name="module_components/StickySectionNav"></a>
 
 ## components/StickySectionNav
@@ -627,6 +959,64 @@ Sticky, accessible intra-page section navigator withhierarchical scroll trackin
 
 **Example**  
 ```js<StickySectionNavsections={[    { id: "intro", title: "Introduction", blocks: [] },    { id: "features", title: "Features", blocks: [      { id: "feat1", title: "Feature 1" },      { id: "feat2", title: "Feature 2" },    ]  },]}pageUrl="/portfolio"mode="desktop"isOpen={true}/>```
+<a name="src\components\navigation\StickySectionNav\StickySectionNav.module_test"></a>
+
+## src\components\navigation\StickySectionNav\StickySectionNav.test
+src\components\navigation\StickySectionNav\StickySectionNav.test module.
+
+<a name="module_tests/components/StickySectionNav"></a>
+
+## tests/components/StickySectionNav
+Unit tests for the StickySectionNav component.Test coverage:- Rendering of section navigation links- Active section highlighting via `aria-current="location"`- History hash updates on navigation- Programmatic scroll coordination with scroll-spy logicTesting strategy:- Mocks `useScrollSpyWithHistory` to control active section state- Mocks `window.scrollTo` to prevent actual scrolling- Uses real DOM nodes to simulate anchor targetsArchitectural intent:StickySectionNav is an **intra-page navigation controller**.Tests focus on:- Accessibility semantics- Navigation side effects (history + scroll)- Integration boundaries with the scroll-spy hook
+
+
+* [tests/components/StickySectionNav](#module_tests/components/StickySectionNav)
+    * [~s1](#module_tests/components/StickySectionNav..s1)
+    * [~markProgrammaticScroll](#module_tests/components/StickySectionNav..markProgrammaticScroll)
+
+<a name="module_tests/components/StickySectionNav..s1"></a>
+
+### tests/components/StickySectionNav~s1
+Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
+
+**Kind**: inner property of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
+<a name="module_tests/components/StickySectionNav..markProgrammaticScroll"></a>
+
+### tests/components/StickySectionNav~markProgrammaticScroll
+Mock scroll-spy hook to control active section state and observe programmatic scroll suppression behavior. /
+
+**Kind**: inner constant of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
+<a name="module_components/renderers/blocks/CardGridBlock"></a>
+
+## components/renderers/blocks/CardGridBlock
+Tests for the CardGridBlock component, ensuring it renders insight cards correctly when items are provided and returns nothing when there are no items.
+
+<a name="module_components/renderers/blocks/CardGridBlock..CardGridBlock"></a>
+
+### components/renderers/blocks/CardGridBlock~CardGridBlock ⇒ <code>JSX.Element</code>
+A block component for displaying a grid of InsightCards. It takes a block object containing the title, number of columns, and an array of items to be displayed as cards. Each item should have properties such as title, icon, subtitle, variant (accent color), and content.
+
+**Kind**: inner property of [<code>components/renderers/blocks/CardGridBlock</code>](#module_components/renderers/blocks/CardGridBlock)  
+**Returns**: <code>JSX.Element</code> - The rendered CardGridBlock component.  
+**Access**: public  
+**Component**:   
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| block | <code>object</code> | The block data containing title, columns, and items. |
+| block.title | <code>string</code> | The title of the card grid section. |
+| block.columns | <code>number</code> | The number of columns in the card grid. |
+| block.items | <code>Array</code> | An array of items to be displayed as cards. Each item should have the following properties: |
+| block.items[].id | <code>string</code> | A unique identifier for the card item. |
+| block.items[].title | <code>string</code> | The title text for the card. |
+| block.items[].icon | <code>string</code> | The name of the icon to be displayed on the card. |
+| block.items[].subtitle | <code>string</code> | The subtitle text for the card. |
+| block.items[].variant | <code>string</code> | The variant (accent color) for the card, e.g., "blue", "green", "red". |
+| block.items[].content | <code>string</code> | The content for the card, which can include rich text. |
+
+**Example**  
+```jsconst blockData = {  title: "Key Insights", columns: 3, items: [   {    id: "1",    title: "Insight One",    icon: "lightbulb",    subtitle: "An important finding",    variant: "blue",    content: "This insight reveals that..."  },  {   id: "2",   title: "Insight Two",   icon: "chart-bar",   subtitle: "Another key point",   variant: "green",   content: "This insight highlights that..."   }, ],};<CardGridBlock block={blockData} />```
 <a name="module_src\components\renderers\blocks\CardGridBlock\index"></a>
 
 ## src\components\renderers\blocks\CardGridBlock\index
@@ -881,6 +1271,16 @@ TechItem-----------------------------------------------------------------------
 | type | <code>string</code> | CSS class used to style the technology label. |
 | [id] | <code>string</code> | Optional unique identifier. |
 
+<a name="src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.module_test"></a>
+
+## src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test
+src\components\renderers\blocks\ImageGalleryBlock\ImageGalleryBlock.test module.
+
+<a name="module_tests/components/blocks/ImageGalleryBlock"></a>
+
+## tests/components/blocks/ImageGalleryBlock
+Unit tests for the ImageGalleryBlock component.Testing focus:- Defensive rendering behavior when image data is missing or invalid- Basic thumbnail rendering with correct accessibility attributesDesign intent:This block is intentionally simple and defensive. Tests verify that:- The component fails silently when no images are provided- Valid image data renders accessible `<img>` elements
+
 <a name="module_src\components\renderers\blocks\ImageGalleryBlock\index"></a>
 
 ## src\components\renderers\blocks\ImageGalleryBlock\index
@@ -936,6 +1336,16 @@ Renders a list of link buttons using the shared UI type system.This component i
 
 **Example**  
 ```js<LinksBlock  items={[    { title: "GitHub", url: "https://github.com", icon: faGithub },    { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },  ]}/>```
+<a name="src\components\renderers\blocks\LinksBlock\LinksBlock.module_test"></a>
+
+## src\components\renderers\blocks\LinksBlock\LinksBlock.test
+src\components\renderers\blocks\LinksBlock\LinksBlock.test module.
+
+<a name="module_tests/components/blocks/LinksBlock"></a>
+
+## tests/components/blocks/LinksBlock
+Unit tests for the LinksBlock component.Testing focus:- Defensive rendering behavior when link data is missing- Correct rendering of anchor elements with expected attributesDesign intent:LinksBlock is intentionally minimal and data-driven.These tests ensure it:- Fails silently when provided with invalid input- Renders accessible anchor elements when valid data is supplied
+
 <a name="src\components\renderers\blocks\MarkdownDocs.module_Block\index"></a>
 
 ## src\components\renderers\blocks\MarkdownDocs.Block\index
@@ -968,6 +1378,16 @@ Renders a collapsible panel containing one or more paragraphs of rich text. Inte
 | [props.id] | <code>string</code> | DOM id assigned to the panel container, used as a scroll anchor and for accessibility. |
 | [props.title] | <code>string</code> | Optional heading displayed in the panel header. |
 | props.content | <code>Array.&lt;string&gt;</code> \| <code>RichTextNode</code> | Paragraph text content to render. |
+
+<a name="src\components\renderers\blocks\RichTextBlock\RichTextBlock.module_test"></a>
+
+## src\components\renderers\blocks\RichTextBlock\RichTextBlock.test
+src\components\renderers\blocks\RichTextBlock\RichTextBlock.test module.
+
+<a name="module_tests/components/blocks/RichTextBlock"></a>
+
+## tests/components/blocks/RichTextBlock
+Unit tests for the RichTextBlock component.Testing focus:- Defensive rendering behavior when content is missing or invalid- Correct rendering of markdown content into semantic HTMLDesign intent:RichTextBlock is expected to be tolerant of missing data while stillcorrectly rendering valid markdown input.
 
 <a name="module_src\components\renderers\index"></a>
 
@@ -1061,6 +1481,11 @@ renderNode---------------------------------------------------------------------
 | node | <code>RichTextNode</code> | Rich text node to render. |
 | key | <code>number</code> \| <code>string</code> | React key used when rendering collections. |
 
+<a name="module_components/renderers/RichText/renderNode"></a>
+
+## components/renderers/RichText/renderNode
+Tests for the renderNode function, ensuring it correctly renders various node types such as text, links, lists, code blocks, and inline icons, and handles unknown or null nodes gracefully without throwing errors.
+
 <a name="module_src\components\renderers\SectionRenderer\index"></a>
 
 ## src\components\renderers\SectionRenderer\index
@@ -1100,6 +1525,16 @@ Central render orchestrator for a single feature section.This component acts as
 Registers the section for scroll tracking on mount and unregisters it on unmount. Enables: - Sticky section navigation - Active section highlighting - Programmatic scrolling /
 
 **Kind**: inner constant of [<code>SectionRenderer</code>](#module_components/SectionRenderer..SectionRenderer)  
+<a name="module_tests/components/SectionRenderer"></a>
+
+## tests/components/SectionRenderer
+Unit tests for the SectionRenderer component.Test coverage:- Section registry registration on mount- Section registry cleanup on unmount- Delegation to InfoSection for layout- Block-type dispatching to the correct child renderer- Defensive fallback rendering for unknown block typesTesting strategy:- Mocks all child renderers to isolate dispatch logic- Mocks SectionRegistry to observe registration side effects- Avoids testing block rendering internals (covered elsewhere)Architectural intent:SectionRenderer is treated as a **render orchestrator**, not acontent renderer. Tests focus on delegation, ordering, anddefensive behavior rather than DOM structure.
+
+<a name="module_tests/components/AccordionList"></a>
+
+## tests/components/AccordionList
+Unit tests for the AccordionList component.Test coverage:- Basic rendering of panel and item titles- Accordion expand / collapse behavior- Keyboard interaction (Enter / Space)- Scroll-to-section behavior for `isScroller` items- Accessibility roles and screen-reader live region updatesTesting strategy:- Uses `renderWithProviders` to ensure context parity with the app- Uses `@testing-library/user-event` for realistic interaction simulation- Avoids testing implementation details; focuses on observable behavior
+
 <a name="module_src\components\ui\AccordionList\index"></a>
 
 ## src\components\ui\AccordionList\index
@@ -1204,6 +1639,16 @@ AccordionItem------------------------------------------------------------------
 | [local] | <code>boolean</code> | <code>false</code> | Whether the URL is a local route. |
 | [icon] | <code>\*</code> |  | Optional icon passed to FrostedIcon. |
 | [isScroller] | <code>boolean</code> | <code>false</code> | Enables scroll-to-section behavior when activated. |
+
+<a name="src\components\ui\Btn\Btn.module_test"></a>
+
+## src\components\ui\Btn\Btn.test
+src\components\ui\Btn\Btn.test module.
+
+<a name="tests/components/ui/BtnNote_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_"></a>
+
+## tests/components/ui/BtnNote: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.
+Unit tests for the Btn component.Testing focus:- Click handling behavior (invocation, disabled state)- Accessibility features (icon-only naming, button type)- Async behavior (busy state during pending operations)Design intent:Btn is designed to be a versatile button component that can handle various use cases, including icon-only buttons and async operations. The tests ensure that it behaves correctly in these scenarios while maintaining accessibility standards.
 
 <a name="module_components/Btn"></a>
 
@@ -1346,6 +1791,11 @@ FontAwesome-related props forwarded to the internal `FrostedIcon`instance rende
 | [swapOpacity] | <code>boolean</code> | <code>false</code> | 
 | [widthAuto] | <code>boolean</code> | <code>false</code> | 
 
+<a name="module_tests/components/ClickableImg"></a>
+
+## tests/components/ClickableImg
+Unit tests for the ClickableImg component.Test coverage:- Thumbnail image rendering- Optional caption rendering- Modal open and close behavior- Expanded image rendering- Keyboard interaction (Escape key)- Accessibility attributes and aria-label handlingTesting strategy:- Uses `@testing-library/user-event` to simulate real user interactions- Verifies RSuite Modal behavior via `role="dialog"`- Avoids snapshots in favor of semantic queries
+
 <a name="module_components/ClickableImg"></a>
 
 ## components/ClickableImg
@@ -1373,6 +1823,16 @@ A responsive image thumbnail that expands into a modal viewer when clicked. The 
 
 **Example**  
 ```js<ClickableImgsrc="/images/project-screenshot.png"alt="Screenshot of the project in action"title="Project Screenshot"caption="This screenshot shows the main dashboard of the application."ariaLabel="Screenshot of the project in action, click to expand"/>```In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
+<a name="src\components\ui\FrostedIcon\FrostedIcon.module_test"></a>
+
+## src\components\ui\FrostedIcon\FrostedIcon.test
+src\components\ui\FrostedIcon\FrostedIcon.test module.
+
+<a name="module_tests/components/FrostedIcon"></a>
+
+## tests/components/FrostedIcon
+Unit tests for the FrostedIcon component.Testing focus:- Semantic role switching based on `clickable` prop- Size-related CSS class application- Loading state accessibility signalingDesign intent:FrostedIcon is a low-level visual primitive that must:- Render correct semantic roles (`img` vs `button`)- Expose loading state via `aria-busy`- Apply predictable, size-based CSS classesThese tests validate observable DOM behavior rather than internal logic.
+
 <a name="module_components/FrostedIcon"></a>
 
 ## components/FrostedIcon
@@ -1548,6 +2008,11 @@ Handle diagram export by converting the rendered SVG to a PNG image using `html-
 
 **Kind**: inner method of [<code>components/MermaidDiagram</code>](#module_components/MermaidDiagram)  
 **Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the export process is complete, allowing for asynchronous handling of the export operation.  
+<a name="src\components\ui\MermaidDiagram\paletteTransform.module_test"></a>
+
+## src\components\ui\MermaidDiagram\paletteTransform.test
+src\components\ui\MermaidDiagram\paletteTransform.test module.
+
 <a name="module_src\components\ui\ProjectCard\index"></a>
 
 ## src\components\ui\ProjectCard\index
