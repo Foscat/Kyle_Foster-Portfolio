@@ -230,6 +230,7 @@ html {
   scroll-behavior: smooth;
   height: 100%;
   font-size: calc(16px * var(--accessibility-text-scale));
+  scrollbar-gutter: stable;
 
   /* Prevent minor sub-pixel overflow from causing horizontal scroll on mobile. */
   overflow-x: clip;
@@ -923,7 +924,7 @@ section[id],
 
   /* critical: prevents uneven grid stretch */
   margin: 0;
-  padding: 0 15px;
+  padding: 0 var(--page-gutter);
   grid-template-columns: minmax(0, 1fr);
   gap: var(--page-gap);
 }
@@ -1153,9 +1154,15 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-/* Layout breakpoint: enable a persistent sidebar only when there's real lateral space.
-   900px is a pragmatic threshold that covers tablets in landscape and desktops. */
-@media (width >= 900px) {
+@media (width <= 1024px) {
+  .page-layout {
+    padding: 0 5px 0 calc(var(--sticky-nav-mobile-trigger-size) + var(--page-gutter, 0px));
+  }
+}
+
+/* Layout breakpoint: enable a persistent sidebar only when mobile floating nav
+   triggers are no longer present. */
+@media (width >= 1025px) {
   .page-layout {
     grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
   }

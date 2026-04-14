@@ -1,10 +1,10 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_scripts\build-diagram-assets">scripts\build-diagram-assets</a></dt>
-<dd><p>scripts\build-diagram-assets module.</p>
+<dt><a href="#module_scripts/diagrams/build-diagram-assets">scripts/diagrams/build-diagram-assets</a></dt>
+<dd><p>scripts/diagrams/build-diagram-assets module.</p>
 </dd>
-<dt><a href="#module_format-mermaid">format-mermaid</a></dt>
+<dt><a href="#module_scripts/diagrams/format-mermaid">scripts/diagrams/format-mermaid</a></dt>
 <dd><p>Deterministic formatter for Mermaid diagram source strings.</p>
 <p>This module operates on raw Mermaid source text and enforces:</p>
 <ul>
@@ -127,23 +127,23 @@ normalizing line endings, and trimming leading whitespace.</p>
 </dd>
 </dl>
 
-<a name="module_scripts\build-diagram-assets"></a>
+<a name="module_scripts/diagrams/build-diagram-assets"></a>
 
-## scripts\build-diagram-assets
-scripts\build-diagram-assets module.
+## scripts/diagrams/build-diagram-assets
+scripts/diagrams/build-diagram-assets module.
 
-<a name="module_scripts\build-diagram-assets..run"></a>
+<a name="module_scripts/diagrams/build-diagram-assets..run"></a>
 
-### scripts\build-diagram-assets~run()
+### scripts/diagrams/build-diagram-assets~run()
 Main execution function for building diagram assets.
 
-**Kind**: inner method of [<code>scripts\build-diagram-assets</code>](#module_scripts\build-diagram-assets)  
-<a name="module_format-mermaid"></a>
+**Kind**: inner method of [<code>scripts/diagrams/build-diagram-assets</code>](#module_scripts/diagrams/build-diagram-assets)  
+<a name="module_scripts/diagrams/format-mermaid"></a>
 
-## format-mermaid
+## scripts/diagrams/format-mermaid
 Deterministic formatter for Mermaid diagram source strings.This module operates on raw Mermaid source text and enforces:- Structural indentation- Whitespace normalization- Mermaid grammar safety (Mermaid v11 compatible)Characteristics:- Pure function (no side effects)- Idempotent (repeated runs produce the same output)- Project-agnostic (safe to reuse elsewhere)IMPORTANT:- This module does NOT read or write files- It does NOT validate diagram correctness- It only normalizes formatting
 
-<a name="exp_module_format-mermaid--module.exports"></a>
+<a name="exp_module_scripts/diagrams/format-mermaid--module.exports"></a>
 
 ### module.exports(source) ⇒ <code>string</code> ⏏
 Formats a Mermaid diagram source string into a deterministic,readable, and Mermaid-safe structure.This function is intentionally:- Pure (no side effects)- Idempotent (safe to run multiple times)- Structural-only (never changes semantic meaning)It does NOT validate diagrams — linting is handled separately.

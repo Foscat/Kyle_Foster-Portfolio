@@ -468,10 +468,10 @@ portfolio projects with images, repository links, and live URLs.</p>
 
 <dl>
 <dt><a href="#ResumeSection">ResumeSection</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>A section within the resume document, used to group related content under a common heading.</p>
+<dd><p>Groups related resume content under a shared heading.</p>
 </dd>
 <dt><a href="#ResumeDocument">ResumeDocument</a> ⇒ <code>JSX.Element</code></dt>
-<dd><p>Component responsible for rendering a structured resume document based on provided data.</p>
+<dd><p>Renders resume content as semantic, printable markup.</p>
 </dd>
 </dl>
 
@@ -2065,29 +2065,27 @@ A reusable card component for showcasing portfolio projects, featuring a frosted
 <a name="ResumeSection"></a>
 
 ## ResumeSection ⇒ <code>JSX.Element</code>
-A section within the resume document, used to group related content under a common heading.
+Groups related resume content under a shared heading.
 
 **Kind**: global variable  
-**Returns**: <code>JSX.Element</code> - The rendered section component.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| props | <code>Object</code> | The properties object. |
-| props.title | <code>string</code> | The title of the section. |
-| props.children | <code>React.ReactNode</code> | The content of the section. |
+| props | <code>Object</code> | Component props. |
+| props.title | <code>string</code> | Section title. |
+| props.children | <code>React.ReactNode</code> | Section content. |
 
 <a name="ResumeDocument"></a>
 
 ## ResumeDocument ⇒ <code>JSX.Element</code>
-Component responsible for rendering a structured resume document based on provided data.
+Renders resume content as semantic, printable markup.
 
 **Kind**: global variable  
-**Returns**: <code>JSX.Element</code> - The rendered resume document component.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| props | <code>Object</code> | The properties object. |
-| props.resume | <code>Object</code> | The resume data object. |
+| props | <code>Object</code> | Component props. |
+| props.resume | <code>Object</code> | Resume data object. |
 
 <a name="collectDocumentStyles"></a>
 

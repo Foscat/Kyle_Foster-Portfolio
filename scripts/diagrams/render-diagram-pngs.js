@@ -1,6 +1,6 @@
 /**
- * @module scripts\render-diagram-pngs
- * @file render-diagram-pngs.js
+ * @module scripts/diagrams/render-diagram-pngs
+ * @file scripts/diagrams/render-diagram-pngs.js
  * @description
  * Headless renderer that converts Mermaid diagram sources into PNG assets.
  *
@@ -25,7 +25,7 @@ import fs from "fs";
 import path from "path";
 import mermaid from "mermaid";
 import { chromium } from "playwright";
-import diagrams from "../src/assets/data/content/diagrams.js";
+import diagrams from "../../src/assets/data/content/diagrams.js";
 
 /* -------------------------------------------------------------------------- */
 /* Config                                                                     */

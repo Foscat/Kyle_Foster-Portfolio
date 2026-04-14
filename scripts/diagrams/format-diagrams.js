@@ -1,5 +1,5 @@
 /**
- * @module scripts\format-diagrams
+ * @module scripts/diagrams/format-diagrams
  * @file format-diagrams.js
  * @description
  * Repository-level formatter for embedded Mermaid diagrams.

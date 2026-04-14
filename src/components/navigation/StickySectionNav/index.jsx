@@ -66,7 +66,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
   const navRef = useRef(null);
   const { width, spacing } = useResponsive();
   const SCROLL_OFFSET = parseInt(spacing.section, 10) + 80;
-  const DESKTOP_SECTION_NAV_MIN_WIDTH = 900;
+  const DESKTOP_SECTION_NAV_MIN_WIDTH = 1024;
   const shouldRenderDesktopNav = width >= DESKTOP_SECTION_NAV_MIN_WIDTH;
 
   /* ---------------------------------------------------------------------- */

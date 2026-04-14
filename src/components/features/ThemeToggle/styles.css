@@ -75,17 +75,18 @@
   color: var(--accent-light);
 }
 
-html[data-theme="dark"]
-  .theme-toggle
-  .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent {
-  color: var(--accent-light) !important;
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light .frosted-icon.btn-icon {
+  color: rgba(var(--white-rgb), 0.98) !important;
+}
+
+.theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark .frosted-icon.btn-icon {
+  color: rgba(var(--primary-darkest-rgb), 0.98) !important;
 }
 
 html[data-theme="dark"]
   .theme-toggle
-  .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent
-  .frosted-icon.btn-icon {
-  color: inherit;
+  .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent {
+  color: rgba(var(--primary-darkest-rgb), 0.98) !important;
 }
 
 html[data-theme="light"] .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light {
@@ -94,6 +95,14 @@ html[data-theme="light"] .theme-toggle .rs-btn.btn.interactive-surface.theme-tog
 
 html[data-theme="light"] .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark {
   color: rgba(var(--accent-dark-rgb), 0.95);
+}
+
+html[data-theme="light"]
+  .theme-toggle
+  .rs-btn.btn.interactive-surface.theme-toggle__btn--light.subtle {
+  background: rgba(var(--primary-dark-rgb), 0.44) !important;
+  border-color: rgba(var(--primary-dark-rgb), 0.56) !important;
+  box-shadow: 0 6px 18px rgba(var(--primary-dark-rgb), 0.24) !important;
 }
 
 html[data-theme="light"]

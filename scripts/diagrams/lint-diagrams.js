@@ -1,6 +1,6 @@
 /**
- * @module scripts\lint-diagrams
- * @file lint-diagrams.js
+ * @module scripts/diagrams/lint-diagrams
+ * @file scripts/diagrams/lint-diagrams.js
  * @description
  * Structural linter for Mermaid diagram blocks.
  *
@@ -28,7 +28,7 @@
  */
 
 import { normalizeDiagrams } from "./normalize-diagrams.js";
-import diagrams from "../src/assets/data/content/diagrams.js";
+import diagrams from "../../src/assets/data/content/diagrams.js";
 
 const DIAGRAM_BLOCK_TYPE = "diagram";
 
