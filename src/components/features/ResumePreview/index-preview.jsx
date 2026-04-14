@@ -73,7 +73,7 @@ const PreviewResume = ({
               onClick={onDownloadPdf}
               ariaLabel={`Download ${downloadName}`}
               disabled={isDownloadPending}
-              loading={isDownloadPending ? true : undefined}
+              loading={isDownloadPending}
             />
           ) : null}
 
