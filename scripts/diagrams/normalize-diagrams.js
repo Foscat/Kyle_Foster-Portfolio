@@ -1,6 +1,6 @@
 /**
- * @module scripts\normalize-diagrams
- * @file normalize-diagrams.js
+ * @module scripts/diagrams/normalize-diagrams
+ * @file scripts/diagrams/normalize-diagrams.js
  * @description
  * Normalizes diagram collections into a predictable array structure.
  *

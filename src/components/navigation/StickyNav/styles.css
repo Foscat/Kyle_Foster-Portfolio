@@ -612,3 +612,11 @@ html[data-theme="light"]
     padding: 0;
   }
 }
+
+/* Narrow mobile devices */
+@media (width <= 650px) {
+  :root {
+    --sticky-nav-mobile-trigger-size: 38px;
+    --sticky-nav-mobile-trigger-gap: 5px;
+  }
+}

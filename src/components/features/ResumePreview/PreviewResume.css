@@ -56,7 +56,7 @@
     );
   border: 1px solid rgba(var(--white-rgb), 0.1);
   box-shadow: 0 24px 60px rgba(var(--deep-black-rgb), 0.34);
-  color: var(--text-primary, #f5f7ff);
+  color: var(--text-primary);
 }
 
 .resume-preview__toolbar {
@@ -85,14 +85,14 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-gold, #d4af37);
+  color: var(--text-accent);
 }
 
 .resume-preview__title {
   margin: 0;
   font-size: clamp(1.35rem, 1rem + 1vw, 1.9rem);
   line-height: 1.15;
-  color: #f7f8ff;
+  color: var(--text-primary);
 }
 
 .resume-preview__subtitle {
@@ -100,7 +100,7 @@
   max-width: 42rem;
   font-size: 0.96rem;
   line-height: 1.6;
-  color: rgba(245, 247, 255, 0.82);
+  color: var(--text-secondary);
 }
 
 .resume-preview__actions {
@@ -120,7 +120,7 @@
     rgba(var(--white-rgb), 0.04)
   );
   border: 1px solid rgba(var(--white-rgb), 0.12);
-  color: #edf1ff;
+  color: var(--text-primary);
   box-shadow: none;
   transition:
     background-color 160ms ease,
@@ -133,7 +133,7 @@
 .resume-preview__action.rs-btn:focus-visible {
   background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.34), rgba(var(--white-rgb), 0.08));
   border-color: rgba(var(--accent-rgb), 0.32);
-  color: #ffffff;
+  color: rgba(var(--white-rgb), 0.96);
   box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.08);
 }
 
@@ -156,7 +156,7 @@
 }
 
 .resume-preview__action--close.rs-btn {
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(var(--white-rgb), 0.14);
 }
 
 .resume-preview__viewport {
@@ -173,14 +173,36 @@
 }
 
 .resume-preview__paper {
+  --resume-paper-bg-start: rgba(var(--primary-darkest-rgb), 0.98);
+  --resume-paper-bg-end: rgba(var(--primary-dark-rgb), 0.94);
+  --resume-paper-text: rgba(var(--white-rgb), 0.9);
+  --resume-paper-text-strong: rgba(var(--white-rgb), 0.98);
+  --resume-paper-text-muted: rgba(var(--gray-200-rgb), 0.9);
+  --resume-paper-accent: rgba(var(--accent-light-rgb), 0.95);
+  --resume-paper-accent-strong: rgba(var(--accent-rgb), 0.98);
+  --resume-paper-rule: rgba(var(--accent-rgb), 0.3);
+  --resume-paper-shadow: 0 24px 52px rgba(var(--deep-black-rgb), 0.34);
+
   width: min(100%, 900px);
   min-height: 1140px;
   margin: 0 auto;
   padding: clamp(2rem, 3vw, 3rem);
   border-radius: 20px;
-  background: linear-gradient(180deg, #fffefb 0%, #fffdfa 100%);
-  color: #1f2937;
-  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.28);
+  background: linear-gradient(180deg, var(--resume-paper-bg-start), var(--resume-paper-bg-end));
+  color: var(--resume-paper-text);
+  box-shadow: var(--resume-paper-shadow);
+}
+
+html[data-theme="light"] .resume-preview__paper {
+  --resume-paper-bg-start: rgba(var(--white-rgb), 0.98);
+  --resume-paper-bg-end: rgba(var(--primary-lighter-rgb), 0.78);
+  --resume-paper-text: rgba(var(--primary-darkest-rgb), 0.9);
+  --resume-paper-text-strong: rgba(var(--primary-darkest-rgb), 0.98);
+  --resume-paper-text-muted: rgba(var(--primary-dark-rgb), 0.78);
+  --resume-paper-accent: rgba(var(--accent-dark-rgb), 0.92);
+  --resume-paper-accent-strong: rgba(var(--accent-dark-rgb), 0.98);
+  --resume-paper-rule: rgba(var(--accent-dark-rgb), 0.22);
+  --resume-paper-shadow: 0 24px 52px rgba(var(--primary-dark-rgb), 0.18);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -196,7 +218,7 @@
   display: grid;
   gap: 0.85rem;
   padding-bottom: 1.2rem;
-  border-bottom: 2px solid rgba(10, 16, 92, 0.12);
+  border-bottom: 2px solid var(--resume-paper-rule);
 }
 
 .resume-document__name {
@@ -204,14 +226,14 @@
   font-size: clamp(2rem, 1.6rem + 1vw, 2.7rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  color: #0f1b4d;
+  color: var(--resume-paper-text-strong);
 }
 
 .resume-document__role {
   margin: 0.3rem 0 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #7a5d10;
+  color: var(--resume-paper-accent);
 }
 
 .resume-document__meta {
@@ -219,7 +241,7 @@
   flex-wrap: wrap;
   gap: 0.55rem 1rem;
   font-size: 0.93rem;
-  color: #4b5563;
+  color: var(--resume-paper-text-muted);
 }
 
 .resume-document__meta-item {
@@ -227,9 +249,9 @@
 }
 
 .resume-document__meta-item:not(:last-child)::after {
-  content: "•";
+  content: "|";
   margin-left: 1rem;
-  color: rgba(15, 27, 77, 0.28);
+  color: var(--resume-paper-rule);
 }
 
 .resume-document__section {
@@ -239,7 +261,7 @@
 
 .resume-document__section-header {
   padding-bottom: 0.45rem;
-  border-bottom: 1px solid rgba(10, 16, 92, 0.1);
+  border-bottom: 1px solid var(--resume-paper-rule);
 }
 
 .resume-document__section-header h3 {
@@ -248,7 +270,7 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #0f1b4d;
+  color: var(--resume-paper-accent-strong);
 }
 
 .resume-document__section-body {
@@ -260,7 +282,7 @@
   margin: 0;
   font-size: 0.98rem;
   line-height: 1.75;
-  color: #374151;
+  color: var(--resume-paper-text);
 }
 
 .resume-document__stack {
@@ -284,13 +306,13 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--resume-paper-text-strong);
 }
 
 .resume-document__entry-subtitle {
   margin: 0.2rem 0 0;
   font-size: 0.94rem;
-  color: #4b5563;
+  color: var(--resume-paper-text-muted);
 }
 
 .resume-document__entry-dates {
@@ -298,14 +320,14 @@
   white-space: nowrap;
   font-size: 0.92rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--resume-paper-text-muted);
 }
 
 .resume-document__entry-summary {
   margin: 0;
   font-size: 0.96rem;
   line-height: 1.7;
-  color: #374151;
+  color: var(--resume-paper-text);
 }
 
 .resume-document__bullet-list {
@@ -316,7 +338,7 @@
 }
 
 .resume-document__bullet-list li {
-  color: #374151;
+  color: var(--resume-paper-text);
   line-height: 1.65;
 }
 
@@ -334,13 +356,13 @@
   margin: 0;
   font-size: 0.9rem;
   font-weight: 700;
-  color: #0f1b4d;
+  color: var(--resume-paper-text-strong);
 }
 
 .resume-document__skill-values {
   margin: 0;
   line-height: 1.7;
-  color: #4b5563;
+  color: var(--resume-paper-text-muted);
 }
 
 .resume-preview-trigger.rs-btn {

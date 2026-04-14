@@ -923,7 +923,7 @@ section[id],
 
   /* critical: prevents uneven grid stretch */
   margin: 0;
-  padding: 0 15px;
+  padding: 0 5px 0 calc(var(--sticky-nav-mobile-trigger-size) + var(--page-gutter, 0px));
   grid-template-columns: minmax(0, 1fr);
   gap: var(--page-gap);
 }

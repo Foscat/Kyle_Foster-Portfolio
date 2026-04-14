@@ -1,6 +1,6 @@
 /**
  * @file src\assets\data\content\resumeData.js
- * @description src\assets\data\content\resumeData module.
+ * @description Structured resume content used by the resume preview/export feature.
  * @module src\assets\data\content\resumeData
  */
 
@@ -19,9 +19,9 @@ const resumeData = {
       role: "Frontend Developer",
       company: "CodeStream Studios LLC",
       location: "Remote",
-      dates: "2019 – 2025",
+      dates: "2019 - 2025",
       summary:
-        "Built and maintained the company’s React-based learning platform as the primary frontend engineer.",
+        "Built and maintained the company's React-based learning platform as the primary frontend engineer.",
       bullets: [
         "Designed and implemented a browser-native coding platform with lesson rendering, a three-panel editor, classroom workflows, and grading/reporting tools.",
         "Built scalable, reusable UI patterns for content rendering, navigation, responsive layout, and documentation-focused presentation.",

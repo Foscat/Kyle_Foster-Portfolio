@@ -4,9 +4,10 @@
  * @description Modal component for previewing the resume with print and download options.
  */
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Modal } from "rsuite";
 import PreviewResume from "./index-preview.jsx";
+import { downloadResumePdf } from "./resumePdfExport.js";
 import "./PreviewResume.css";
 
 /**
@@ -43,6 +44,7 @@ const PreviewResumeModal = ({
   children,
 }) => {
   const printableRef = useRef(null);
+  const [isDownloadPending, setIsDownloadPending] = useState(false);
 
   const handleOpenPdf = useCallback(() => {
     if (!pdfHref) return;
@@ -50,6 +52,25 @@ const PreviewResumeModal = ({
   }, [pdfHref]);
 
   const handleDownloadPdf = useCallback(async () => {
+    const resumePaper = printableRef.current?.querySelector(".resume-preview__paper");
+
+    if (resumePaper instanceof HTMLElement) {
+      setIsDownloadPending(true);
+      try {
+        await downloadResumePdf(resumePaper, {
+          fileName: downloadName || "resume.pdf",
+        });
+        return;
+      } catch (error) {
+        if (!pdfHref) {
+          console.error("[ResumePreviewModal] Unable to generate PDF from preview.", error);
+          return;
+        }
+      } finally {
+        setIsDownloadPending(false);
+      }
+    }
+
     if (!pdfHref) return;
 
     const response = await fetch(pdfHref, { credentials: "same-origin" });
@@ -93,13 +114,13 @@ const PreviewResumeModal = ({
             html, body {
               margin: 0;
               padding: 0;
-              background: #ffffff;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
             }
 
             .resume-preview__shell {
               min-height: auto !important;
               padding: 0 !important;
-              background: #ffffff !important;
               border: 0 !important;
               box-shadow: none !important;
             }
@@ -113,7 +134,6 @@ const PreviewResumeModal = ({
 
             .resume-preview__viewport {
               padding: 0 !important;
-              background: #ffffff !important;
               min-height: auto !important;
               border: 0 !important;
             }
@@ -126,7 +146,6 @@ const PreviewResumeModal = ({
               border-radius: 0 !important;
               box-shadow: none !important;
               border: 0 !important;
-              background: #ffffff !important;
             }
 
             @page {
@@ -162,6 +181,7 @@ const PreviewResumeModal = ({
             onClose={onClose}
             onOpenPdf={handleOpenPdf}
             onDownloadPdf={handleDownloadPdf}
+            isDownloadPending={isDownloadPending}
             onPrint={handlePrint}
             pdfHref={pdfHref}
             downloadName={downloadName}

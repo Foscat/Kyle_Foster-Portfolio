@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { normalizeMermaidSource } from "../normalizeMermaid";
+import { normalizeMermaidSource } from "../normalizeMermaid.js";
 
 describe("normalizeMermaidSource", () => {
   it("removes init blocks and normalizes indentation", () => {

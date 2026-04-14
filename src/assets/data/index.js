@@ -13,10 +13,11 @@ import {
   smuSections,
 } from "./content";
 import pageMetas from "./pageMetas.js";
+import resumeAts from "./Kyle_Foster_React_Resume.pdf";
 import resumeLight from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
 import resumeDark from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
 
-const resume = resumeLight;
+const resume = resumeAts;
 
 export {
   codestreamSections,
@@ -26,6 +27,7 @@ export {
   sideProjectsSections,
   smuSections,
   pageMetas,
+  resumeAts,
   resume,
   resumeLight,
   resumeDark,

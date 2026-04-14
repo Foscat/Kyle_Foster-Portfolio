@@ -17,6 +17,17 @@ import "./styles.css";
 
 const asOnOff = (value) => (value ? "On" : "Off");
 const HOTKEY_LABEL = "Alt+A";
+const KEYBOARD_NAV_KEYS = new Set([
+  "Tab",
+  "Escape",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "Enter",
+  "Control",
+  "Alt",
+]);
 
 const isEditableTarget = (target) =>
   target instanceof HTMLElement &&
@@ -108,6 +119,8 @@ export default function AccessibilityMenu({
   const [open, setOpen] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [announcement, setAnnouncement] = useState("");
+  const [isTouchFirstDevice, setIsTouchFirstDevice] = useState(false);
+  const [hasKeyboardInteraction, setHasKeyboardInteraction] = useState(false);
   const {
     largeText,
     accessibilityOverrides,
@@ -164,6 +177,54 @@ export default function AccessibilityMenu({
   }, [isApplying]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const coarseQuery = window.matchMedia("(pointer: coarse)");
+    const hoverNoneQuery = window.matchMedia("(hover: none)");
+
+    const evaluateInputProfile = () => {
+      const hasTouchPoints = navigator.maxTouchPoints > 0;
+      const isCoarse = coarseQuery.matches;
+      const hasNoHover = hoverNoneQuery.matches;
+
+      setIsTouchFirstDevice(hasTouchPoints || (isCoarse && hasNoHover));
+    };
+
+    evaluateInputProfile();
+
+    const updateProfile = () => evaluateInputProfile();
+
+    coarseQuery.addEventListener?.("change", updateProfile);
+    hoverNoneQuery.addEventListener?.("change", updateProfile);
+
+    // Legacy Safari fallback
+    coarseQuery.addListener?.(updateProfile);
+    hoverNoneQuery.addListener?.(updateProfile);
+
+    return () => {
+      coarseQuery.removeEventListener?.("change", updateProfile);
+      hoverNoneQuery.removeEventListener?.("change", updateProfile);
+      coarseQuery.removeListener?.(updateProfile);
+      hoverNoneQuery.removeListener?.(updateProfile);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || hasKeyboardInteraction) return undefined;
+
+    const detectKeyboardUse = (event) => {
+      if (event.defaultPrevented) return;
+      if (isEditableTarget(event.target)) return;
+      if (!KEYBOARD_NAV_KEYS.has(event.key)) return;
+
+      setHasKeyboardInteraction(true);
+    };
+
+    window.addEventListener("keydown", detectKeyboardUse);
+    return () => window.removeEventListener("keydown", detectKeyboardUse);
+  }, [hasKeyboardInteraction]);
+
+  useEffect(() => {
     if (!enableHotkey || typeof window === "undefined") return undefined;
 
     const handleHotkey = (event) => {
@@ -173,6 +234,7 @@ export default function AccessibilityMenu({
       if (event.key.toLowerCase() !== "a") return;
 
       event.preventDefault();
+      setHasKeyboardInteraction(true);
       openMenu();
       announce(`Accessibility settings opened. Shortcut: ${HOTKEY_LABEL}.`);
     };
@@ -263,6 +325,8 @@ export default function AccessibilityMenu({
     draft.reducedTransparency !== accessibilityOverrides.reducedTransparency ||
     draft.highContrast !== accessibilityOverrides.highContrast;
 
+  const showKeyboardNavigationHelp = !isTouchFirstDevice || hasKeyboardInteraction;
+
   const applyDraft = useCallback(async () => {
     if (!hasPendingChanges) return;
 
@@ -323,40 +387,45 @@ export default function AccessibilityMenu({
           <p className="a11y-modal__intro">
             Adjust readability, motion, and contrast settings. Preferences are saved on this device.
           </p>
-          <p className="a11y-modal__hotkey">Keyboard shortcut: {HOTKEY_LABEL}</p>
-          <section className="a11y-keyboard" aria-label="Keyboard navigation help">
-            <h4 className="a11y-row__title">Keyboard Navigation</h4>
-            <ul className="a11y-keyboard__list">
-              <li>
-                <kbd>Tab</kbd>: move to the next available display block. If you reach the end of a
-                section, focus moves to the first block of the next section.
-              </li>
-              <li>
-                <kbd>Shift+Tab</kbd>: move to the previous available display block. If you are at
-                the start of a section, focus moves to the first block of the previous section.
-              </li>
-              <li>
-                <kbd>Enter</kbd>/<kbd>Alt+Enter</kbd>: close current section and move to the next or
-                previous section's first block.
-              </li>
-              <li>
-                <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd>: move to next/previous block and collapse
-                the previous section.
-              </li>
-              <li>
-                <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd>: normal page scroll behavior. When the
-                active block is an accordion list, moves one accordion item at a time (opens
-                next/previous, closes the last open item).
-              </li>
-              <li>
-                <kbd>Ctrl</kbd>: open site navigation.
-              </li>
-              <li>
-                <kbd>Esc</kbd>: close any open drawer or modal. <kbd>{HOTKEY_LABEL}</kbd>: open
-                accessibility settings. Section navigation on mobile uses its on-screen button.
-              </li>
-            </ul>
-          </section>
+          {showKeyboardNavigationHelp ? (
+            <>
+              <p className="a11y-modal__hotkey">Keyboard shortcut: {HOTKEY_LABEL}</p>
+              <section className="a11y-keyboard" aria-label="Keyboard navigation help">
+                <h4 className="a11y-row__title">Keyboard Navigation</h4>
+                <ul className="a11y-keyboard__list">
+                  <li>
+                    <kbd>Tab</kbd>: move to the next available display block. If you reach the end
+                    of a section, focus moves to the first block of the next section.
+                  </li>
+                  <li>
+                    <kbd>Shift+Tab</kbd>: move to the previous available display block. If you are
+                    at the start of a section, focus moves to the first block of the previous
+                    section.
+                  </li>
+                  <li>
+                    <kbd>Enter</kbd>/<kbd>Alt+Enter</kbd>: close current section and move to the
+                    next or previous section's first block.
+                  </li>
+                  <li>
+                    <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd>: move to next/previous block and
+                    collapse the previous section.
+                  </li>
+                  <li>
+                    <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd>: normal page scroll behavior. When the
+                    active block is an accordion list, moves one accordion item at a time (opens
+                    next/previous, closes the last open item).
+                  </li>
+                  <li>
+                    <kbd>Ctrl</kbd>: open site navigation.
+                  </li>
+                  <li>
+                    <kbd>Esc</kbd>: close any open drawer or modal. <kbd>{HOTKEY_LABEL}</kbd>: open
+                    accessibility settings. Section navigation on mobile uses its on-screen button.
+                  </li>
+                </ul>
+              </section>
+            </>
+          ) : null}
 
           <div className="a11y-rows">
             <PreferenceRow
