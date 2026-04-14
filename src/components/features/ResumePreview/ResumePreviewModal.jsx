@@ -10,8 +10,6 @@ import PreviewResume from "./index-preview.jsx";
 import { downloadResumePdf } from "./resumePdfExport.js";
 import "./PreviewResume.css";
 
-const PRINT_EXPORT_CLASS = "resume-preview__paper--print-export";
-
 /**
  * @function collectDocumentStyles
  * @description Collects all styles from the current document to ensure that the print preview has consistent styling. This function gathers both inline styles and linked stylesheets, concatenating their outer HTML into a single string that can be injected into the print preview document.
@@ -57,20 +55,15 @@ const PreviewResumeModal = ({
     const resumePaper = printableRef.current?.querySelector(".resume-preview__paper");
 
     if (resumePaper instanceof HTMLElement) {
-      const hadPrintExportClass = resumePaper.classList.contains(PRINT_EXPORT_CLASS);
       setIsDownloadPending(true);
       try {
-        // Match print output styles without mutating global app theme state.
-        if (!hadPrintExportClass) {
-          resumePaper.classList.add(PRINT_EXPORT_CLASS);
-        }
-
         await new Promise((resolve) => {
           window.requestAnimationFrame(() => resolve());
         });
 
         await downloadResumePdf(resumePaper, {
           fileName: downloadName || "resume.pdf",
+          marginPt: 0,
         });
         return;
       } catch (error) {
@@ -79,10 +72,6 @@ const PreviewResumeModal = ({
           return;
         }
       } finally {
-        if (!hadPrintExportClass) {
-          resumePaper.classList.remove(PRINT_EXPORT_CLASS);
-        }
-
         setIsDownloadPending(false);
       }
     }
@@ -184,6 +173,13 @@ const PreviewResumeModal = ({
               background: transparent !important;
               background-image: none !important;
               box-shadow: none !important;
+            }
+
+            .resume-document__section,
+            .resume-document__entry,
+            .resume-document__skill-group {
+              break-inside: avoid-page;
+              page-break-inside: avoid;
             }
 
             @page {

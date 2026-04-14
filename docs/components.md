@@ -8,6 +8,13 @@
 <dd><p>Accessibility preferences modal for toggling motion, contrast,
 text size, and keyboard guidance with persisted client-side settings.</p>
 </dd>
+<dt><a href="#src\components\features\ColorMenu\ColorMenu.module_test">src\components\features\ColorMenu\ColorMenu.test</a></dt>
+<dd><p>src\components\features\ColorMenu\ColorMenu.test module.</p>
+</dd>
+<dt><a href="#module_components/features/ColorMenu">components/features/ColorMenu</a></dt>
+<dd><p>Color preferences modal for theme mode, palette, and high
+contrast controls.</p>
+</dd>
 <dt><a href="#module_components/PaletteToggle">components/PaletteToggle</a></dt>
 <dd><p>In-app color palette selector for switching between supported
 palette themes.</p>
@@ -495,6 +502,16 @@ src\components\features\AccessibilityMenu\AccessibilityMenu.test module.
 
 ## components/features/AccessibilityMenu
 Accessibility preferences modal for toggling motion, contrast,text size, and keyboard guidance with persisted client-side settings.
+
+<a name="src\components\features\ColorMenu\ColorMenu.module_test"></a>
+
+## src\components\features\ColorMenu\ColorMenu.test
+src\components\features\ColorMenu\ColorMenu.test module.
+
+<a name="module_components/features/ColorMenu"></a>
+
+## components/features/ColorMenu
+Color preferences modal for theme mode, palette, and highcontrast controls.
 
 <a name="module_components/PaletteToggle"></a>
 
