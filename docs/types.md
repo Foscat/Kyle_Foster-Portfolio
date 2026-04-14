@@ -1,9 +1,6 @@
 ## Modules
 
 <dl>
-<dt><a href="#diagrams.module_types">diagrams.types</a></dt>
-<dd><p>Type definitions for diagram data structures in particular the custom diagrams.</p>
-</dd>
 <dt><a href="#module_types/navigation">types/navigation</a></dt>
 <dd><p>Shared navigation-related type definitions used across the
 section registry, scroll persistence, and navigation components.</p>
@@ -28,11 +25,6 @@ factory functions for initializing block structures, and the central block rende
 <dt><a href="#FormBlockSchema">FormBlockSchema</a> : <code>Object</code></dt>
 <dd></dd>
 </dl>
-
-<a name="diagrams.module_types"></a>
-
-## diagrams.types
-Type definitions for diagram data structures in particular the custom diagrams.
 
 <a name="module_types/navigation"></a>
 

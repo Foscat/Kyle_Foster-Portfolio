@@ -25,6 +25,8 @@ import "./styles.css";
 import { AccessibilityMenu, PaletteToggle, ThemeToggle } from "components/features";
 import { PageRoute } from "types/navigation.types";
 
+const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
+
 /**
  * @typedef {Object} NavItem
  * @description Describes a single navigation entry rendered in both desktop and mobile
@@ -138,6 +140,48 @@ const handleNavClick = (e, isActive) => {
  */
 const StickyNav = ({ activePage }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showMobileIconHints, setShowMobileIconHints] = useState(false);
+
+  const dismissMobileIconHints = () => {
+    if (typeof window === "undefined") return;
+    setShowMobileIconHints(false);
+    window.localStorage.setItem(MOBILE_ICON_HINTS_KEY, "1");
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const dismissed = window.localStorage.getItem(MOBILE_ICON_HINTS_KEY) === "1";
+    if (!dismissed) {
+      setShowMobileIconHints(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return undefined;
+
+    if (showMobileIconHints) {
+      document.documentElement.setAttribute("data-mobile-icon-hints", "true");
+      return () => {
+        document.documentElement.removeAttribute("data-mobile-icon-hints");
+      };
+    }
+
+    document.documentElement.removeAttribute("data-mobile-icon-hints");
+    return undefined;
+  }, [showMobileIconHints]);
+
+  useEffect(() => {
+    if (!showMobileIconHints || typeof window === "undefined") return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      dismissMobileIconHints();
+    }, 8000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [showMobileIconHints]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -217,20 +261,25 @@ const StickyNav = ({ activePage }) => {
          Burger button toggles Drawer-based navigation.
          ============================================================ */}
       <div className="nav-toggle-btn mobile-only nav-mobile-only">
+        <span className="mobile-icon-hint">Menu</span>
         <Btn
           icon={faMap}
           variant={Variant.ACCENT}
           size={Size.LG}
           ariaLabel="Open navigation menu"
-          tooltip="Open Navigation Menu"
-          tooltipPlacement="right"
-          tooltipFollowCursor={false}
-          onClick={() => setMobileOpen(true)}
+          onClick={() => {
+            dismissMobileIconHints();
+            setMobileOpen(true);
+          }}
         />
       </div>
 
-      <div className="a11y-toggle-btn mobile-only nav-mobile-only">
-        <AccessibilityMenu size={Size.LG} />
+      <div
+        className="a11y-toggle-btn mobile-only nav-mobile-only"
+        onClickCapture={dismissMobileIconHints}
+      >
+        <span className="mobile-icon-hint">A11y</span>
+        <AccessibilityMenu size={Size.LG} showTooltip={false} />
       </div>
 
       {/* ============================================================
@@ -276,7 +325,7 @@ const StickyNav = ({ activePage }) => {
               <PaletteToggle size={Size.SM} />
             </div>
             <div className="sticky-nav-mobile-a11y">
-              <AccessibilityMenu size={Size.LG} />
+              <AccessibilityMenu size={Size.LG} showTooltip={false} />
             </div>
           </Nav>
         </Drawer.Body>
