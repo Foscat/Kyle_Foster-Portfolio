@@ -1,18 +1,18 @@
 /**
- * @file scripts\build-diagram-assets.js
- * @description scripts\build-diagram-assets module.
- * @module scripts\build-diagram-assets
+ * @file scripts/diagrams/build-diagram-assets.js
+ * @description scripts/diagrams/build-diagram-assets module.
+ * @module scripts/diagrams/build-diagram-assets
  */
 
 import fs from "fs";
 import path from "path";
-import diagrams from "../src/assets/data/content/diagrams.js";
+import diagrams from "../../src/assets/data/content/diagrams.js";
 import { normalizeDiagrams } from "./normalize-diagrams.js";
 
 const OUTPUT = path.resolve("docs/diagrams.json");
 
 /**
- * @file build-diagram-assets.js
+ * @file scripts/diagrams/build-diagram-assets.js
  * @description
  * Post-processing script to generate a clean JSON file of diagrams for
  * runtime consumption.

@@ -9,7 +9,7 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup } from "rsuite";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Theme, Variant } from "types/ui.types";
-import Btn from "components/ui/Btn";
+import { Btn } from "components/ui";
 import "./styles.css";
 
 /**

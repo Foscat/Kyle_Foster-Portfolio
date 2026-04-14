@@ -40,6 +40,7 @@ const PreviewResume = ({
   onClose,
   onOpenPdf,
   onDownloadPdf,
+  isDownloadPending = false,
   onPrint,
   pdfHref,
   downloadName = "resume.pdf",
@@ -55,23 +56,25 @@ const PreviewResume = ({
         </div>
 
         <ButtonToolbar className="resume-preview__actions">
-          {pdfHref ? (
-            <>
-              <Btn
-                text="Open PDF"
-                variant={Variant.SUBTLE}
-                className="resume-preview__action resume-preview__action--open"
-                onClick={onOpenPdf}
-              />
+          {pdfHref && onOpenPdf ? (
+            <Btn
+              text="Open PDF"
+              variant={Variant.SUBTLE}
+              className="resume-preview__action resume-preview__action--open"
+              onClick={onOpenPdf}
+            />
+          ) : null}
 
-              <Btn
-                text="Download PDF"
-                variant={Variant.SUBTLE}
-                className="resume-preview__action resume-preview__action--download"
-                onClick={onDownloadPdf}
-                ariaLabel={`Download ${downloadName}`}
-              />
-            </>
+          {onDownloadPdf ? (
+            <Btn
+              text={isDownloadPending ? "Building PDF..." : "Download PDF"}
+              variant={Variant.SUBTLE}
+              className="resume-preview__action resume-preview__action--download"
+              onClick={onDownloadPdf}
+              ariaLabel={`Download ${downloadName}`}
+              disabled={isDownloadPending}
+              loading={isDownloadPending}
+            />
           ) : null}
 
           <Btn

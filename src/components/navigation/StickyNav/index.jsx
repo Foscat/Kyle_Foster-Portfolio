@@ -5,7 +5,7 @@
  * @module components/StickyNav
  */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import React from "react";
 import { Nav, Drawer } from "rsuite";
 import { Link } from "react-router-dom";
@@ -142,6 +142,15 @@ const StickyNav = ({ activePage }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showMobileIconHints, setShowMobileIconHints] = useState(false);
 
+  const closeMobileNav = useCallback(() => {
+    setMobileOpen(false);
+    if (typeof document === "undefined") return;
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  }, []);
+
   const dismissMobileIconHints = () => {
     if (typeof window === "undefined") return;
     setShowMobileIconHints(false);
@@ -192,7 +201,7 @@ const StickyNav = ({ activePage }) => {
 
       if (event.key === "Escape" && mobileOpen) {
         event.preventDefault();
-        setMobileOpen(false);
+        closeMobileNav();
         return;
       }
 
@@ -205,7 +214,7 @@ const StickyNav = ({ activePage }) => {
 
     window.addEventListener("keydown", handleGlobalNavKeys);
     return () => window.removeEventListener("keydown", handleGlobalNavKeys);
-  }, [mobileOpen]);
+  }, [closeMobileNav, mobileOpen]);
 
   return (
     <>
@@ -290,7 +299,7 @@ const StickyNav = ({ activePage }) => {
       <Drawer
         placement="left"
         open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
+        onClose={closeMobileNav}
         className="mobile-nav-drawer"
       >
         <Drawer.Header>
@@ -313,7 +322,7 @@ const StickyNav = ({ activePage }) => {
                   aria-current={isActive ? "page" : undefined}
                   onClick={(e) => {
                     handleNavClick(e, isActive);
-                    setMobileOpen(false);
+                    closeMobileNav();
                   }}
                 >
                   {label}

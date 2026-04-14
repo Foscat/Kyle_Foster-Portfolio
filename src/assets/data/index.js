@@ -1,6 +1,6 @@
 /**
  * @file index.js
- * @description Barrel export for shared data modules and static resume asset references.
+ * @description Barrel export for shared data modules and resume asset references.
  * @module assets/data/index
  */
 
@@ -16,8 +16,6 @@ import pageMetas from "./pageMetas.js";
 import resumeLight from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
 import resumeDark from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
 
-const resume = resumeLight;
-
 export {
   codestreamSections,
   contactSections,
@@ -26,7 +24,6 @@ export {
   sideProjectsSections,
   smuSections,
   pageMetas,
-  resume,
   resumeLight,
   resumeDark,
 };

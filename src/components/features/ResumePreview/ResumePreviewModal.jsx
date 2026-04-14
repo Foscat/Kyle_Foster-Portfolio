@@ -4,10 +4,13 @@
  * @description Modal component for previewing the resume with print and download options.
  */
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Modal } from "rsuite";
 import PreviewResume from "./index-preview.jsx";
+import { downloadResumePdf } from "./resumePdfExport.js";
 import "./PreviewResume.css";
+
+const PRINT_EXPORT_CLASS = "resume-preview__paper--print-export";
 
 /**
  * @function collectDocumentStyles
@@ -43,6 +46,7 @@ const PreviewResumeModal = ({
   children,
 }) => {
   const printableRef = useRef(null);
+  const [isDownloadPending, setIsDownloadPending] = useState(false);
 
   const handleOpenPdf = useCallback(() => {
     if (!pdfHref) return;
@@ -50,6 +54,39 @@ const PreviewResumeModal = ({
   }, [pdfHref]);
 
   const handleDownloadPdf = useCallback(async () => {
+    const resumePaper = printableRef.current?.querySelector(".resume-preview__paper");
+
+    if (resumePaper instanceof HTMLElement) {
+      const hadPrintExportClass = resumePaper.classList.contains(PRINT_EXPORT_CLASS);
+      setIsDownloadPending(true);
+      try {
+        // Match print output styles without mutating global app theme state.
+        if (!hadPrintExportClass) {
+          resumePaper.classList.add(PRINT_EXPORT_CLASS);
+        }
+
+        await new Promise((resolve) => {
+          window.requestAnimationFrame(() => resolve());
+        });
+
+        await downloadResumePdf(resumePaper, {
+          fileName: downloadName || "resume.pdf",
+        });
+        return;
+      } catch (error) {
+        if (!pdfHref) {
+          console.error("[ResumePreviewModal] Unable to generate PDF from preview.", error);
+          return;
+        }
+      } finally {
+        if (!hadPrintExportClass) {
+          resumePaper.classList.remove(PRINT_EXPORT_CLASS);
+        }
+
+        setIsDownloadPending(false);
+      }
+    }
+
     if (!pdfHref) return;
 
     const response = await fetch(pdfHref, { credentials: "same-origin" });
@@ -79,11 +116,13 @@ const PreviewResumeModal = ({
 
     const styles = collectDocumentStyles();
     const markup = printableRef.current.innerHTML;
+    const palette = document.documentElement.dataset.palette;
+    const safePalette = /^[a-z-]+$/i.test(palette || "") ? palette : "ocean";
 
     printWindow.document.open();
     printWindow.document.write(`
       <!doctype html>
-      <html lang="en">
+      <html lang="en" data-theme="light" data-palette="${safePalette}">
         <head>
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,13 +132,22 @@ const PreviewResumeModal = ({
             html, body {
               margin: 0;
               padding: 0;
-              background: #ffffff;
+              background: transparent !important;
+              -webkit-print-color-adjust: economy;
+              print-color-adjust: economy;
+            }
+
+            body::before,
+            body::after {
+              content: none !important;
+              display: none !important;
             }
 
             .resume-preview__shell {
               min-height: auto !important;
               padding: 0 !important;
-              background: #ffffff !important;
+              background: transparent !important;
+              background-image: none !important;
               border: 0 !important;
               box-shadow: none !important;
             }
@@ -113,8 +161,9 @@ const PreviewResumeModal = ({
 
             .resume-preview__viewport {
               padding: 0 !important;
-              background: #ffffff !important;
               min-height: auto !important;
+              background: transparent !important;
+              background-image: none !important;
               border: 0 !important;
             }
 
@@ -126,7 +175,15 @@ const PreviewResumeModal = ({
               border-radius: 0 !important;
               box-shadow: none !important;
               border: 0 !important;
-              background: #ffffff !important;
+              background: transparent !important;
+              background-image: none !important;
+            }
+
+            .resume-document,
+            .resume-document * {
+              background: transparent !important;
+              background-image: none !important;
+              box-shadow: none !important;
             }
 
             @page {
@@ -162,6 +219,7 @@ const PreviewResumeModal = ({
             onClose={onClose}
             onOpenPdf={handleOpenPdf}
             onDownloadPdf={handleDownloadPdf}
+            isDownloadPending={isDownloadPending}
             onPrint={handlePrint}
             pdfHref={pdfHref}
             downloadName={downloadName}

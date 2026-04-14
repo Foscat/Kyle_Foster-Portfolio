@@ -9,7 +9,6 @@ import { FlexboxGrid, Form, Input, Message, Panel } from "rsuite";
 import { StickyNav, Footer } from "components/navigation";
 import resumeData from "assets/data/content/resumeData.js";
 import contactForm from "assets/data/content/contactForm.js";
-import { resumeDark, resumeLight } from "assets/data";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
@@ -163,7 +162,7 @@ export async function sendMessage(data) {
  * @returns {JSX.Element} Rendered contact page.
  */
 export default function Contact() {
-  const { theme } = useTheme();
+  const { theme, palette } = useTheme();
   const [showToast, setShowToast] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -173,9 +172,7 @@ export default function Contact() {
     message: "",
   });
   const formUiContent = useMemo(() => buildContactFormContent(contactForm), []);
-  const resumePdf = theme === "light" ? resumeLight : resumeDark;
-  const resumeDownloadName =
-    theme === "light" ? "Kyle-Foster-Resume-LightMode.pdf" : "Kyle-Foster-Resume-DarkMode.pdf";
+  const previewResumeDownloadName = `Kyle-Foster-Resume-${theme}-${palette}.pdf`;
 
   /**
    * Shared field updater to keep form state changes predictable.
@@ -255,11 +252,10 @@ export default function Contact() {
                 <div className="contact-page__actions">
                   <ResumePreviewTrigger
                     buttonText="Preview Resume"
-                    title="Kyle Foster — Resume"
+                    title="Kyle Foster - Resume"
                     subtitle="A cleaner, document-first preview with improved spacing and a real paper stage."
                     resume={resumeData}
-                    pdfHref={resumePdf}
-                    downloadName={resumeDownloadName}
+                    downloadName={previewResumeDownloadName}
                   />
                 </div>
               </header>
