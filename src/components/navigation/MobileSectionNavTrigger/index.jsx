@@ -19,7 +19,7 @@
  * @module components/MobileSectionNavTrigger
  */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { faCaretDown, faCaretRight, faCompass } from "@fortawesome/free-solid-svg-icons";
 import { Drawer } from "rsuite";
 import { Size, Variant } from "types/ui.types";
@@ -77,6 +77,15 @@ const MobileSectionNavTrigger = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  const closeDrawer = useCallback(() => {
+    setOpen(false);
+    if (typeof document === "undefined") return;
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  }, []);
+
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
 
@@ -93,13 +102,13 @@ const MobileSectionNavTrigger = ({
 
       if (event.key === "Escape" && open) {
         event.preventDefault();
-        setOpen(false);
+        closeDrawer();
       }
     };
 
     window.addEventListener("keydown", handleGlobalSectionKeys);
     return () => window.removeEventListener("keydown", handleGlobalSectionKeys);
-  }, [open]);
+  }, [closeDrawer, open]);
 
   // Utility to filter out invalid blocks (e.g. missing id or title)
   const getNavigableBlocks = (section) => {
@@ -125,7 +134,7 @@ const MobileSectionNavTrigger = ({
         <span className="mobile-icon-hint">Sections</span>
         <Btn
           icon={faCompass}
-          size={Size.MD}
+          size={Size.LG}
           onClick={() => {
             if (typeof window !== "undefined") {
               window.localStorage.setItem(MOBILE_ICON_HINTS_KEY, "1");
@@ -140,7 +149,7 @@ const MobileSectionNavTrigger = ({
       <Drawer
         placement="right"
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={closeDrawer}
         className="mobile-nav-drawer mobile-section-nav-drawer"
       >
         <Drawer.Header closeButton>
@@ -176,7 +185,7 @@ const MobileSectionNavTrigger = ({
                       onClick={(e) => {
                         e.preventDefault();
                         navigate(e, section.id);
-                        setOpen(false);
+                        closeDrawer();
                       }}
                     />
 
@@ -219,7 +228,7 @@ const MobileSectionNavTrigger = ({
                             onClick={(e) => {
                               e.preventDefault();
                               navigate(e, block.id);
-                              setOpen(false);
+                              closeDrawer();
                             }}
                           />
                         );

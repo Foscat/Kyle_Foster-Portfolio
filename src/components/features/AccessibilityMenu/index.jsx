@@ -140,6 +140,14 @@ export default function AccessibilityMenu({
     highContrast: null,
   });
 
+  const blurActiveElement = useCallback(() => {
+    if (typeof document === "undefined") return;
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  }, []);
+
   const syncDraftFromCurrent = useCallback(() => {
     setDraft({
       largeText: largeText,
@@ -174,7 +182,8 @@ export default function AccessibilityMenu({
   const closeMenu = useCallback(() => {
     if (isApplying) return;
     setOpen(false);
-  }, [isApplying]);
+    blurActiveElement();
+  }, [blurActiveElement, isApplying]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -249,12 +258,12 @@ export default function AccessibilityMenu({
     const handleEscapeClose = (event) => {
       if (event.defaultPrevented || event.key !== "Escape") return;
       if (!open || isApplying) return;
-      setOpen(false);
+      closeMenu();
     };
 
     window.addEventListener("keydown", handleEscapeClose);
     return () => window.removeEventListener("keydown", handleEscapeClose);
-  }, [isApplying, open]);
+  }, [closeMenu, isApplying, open]);
 
   const resolveSetting = useCallback((override, systemValue) => override ?? systemValue, []);
 
@@ -347,8 +356,10 @@ export default function AccessibilityMenu({
 
     setIsApplying(false);
     setOpen(false);
+    blurActiveElement();
     announce("Accessibility changes applied.");
   }, [
+    blurActiveElement,
     announce,
     draft.highContrast,
     draft.largeText,
@@ -378,7 +389,13 @@ export default function AccessibilityMenu({
         onClick={openMenu}
       />
 
-      <Modal open={open} onClose={closeMenu} size="sm" className="a11y-modal modal-glass">
+      <Modal
+        open={open}
+        onClose={closeMenu}
+        overflow={false}
+        size="sm"
+        className="a11y-modal modal-glass"
+      >
         <Modal.Header>
           <Modal.Title>Accessibility Settings</Modal.Title>
         </Modal.Header>

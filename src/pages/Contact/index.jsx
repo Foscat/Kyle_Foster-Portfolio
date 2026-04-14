@@ -9,7 +9,6 @@ import { FlexboxGrid, Form, Input, Message, Panel } from "rsuite";
 import { StickyNav, Footer } from "components/navigation";
 import resumeData from "assets/data/content/resumeData.js";
 import contactForm from "assets/data/content/contactForm.js";
-import { resumeAts, resumeDark, resumeLight } from "assets/data";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
@@ -173,10 +172,6 @@ export default function Contact() {
     message: "",
   });
   const formUiContent = useMemo(() => buildContactFormContent(contactForm), []);
-  const resumeDownloadName = "Kyle-Foster-Resume-ATS.pdf";
-  const themedResumePdf = theme === "light" ? resumeLight : resumeDark;
-  const themedResumeDownloadName =
-    theme === "light" ? "Kyle-Foster-Resume-LightMode.pdf" : "Kyle-Foster-Resume-DarkMode.pdf";
   const previewResumeDownloadName = `Kyle-Foster-Resume-${theme}-${palette}.pdf`;
 
   /**
@@ -255,25 +250,6 @@ export default function Contact() {
                 </div>
 
                 <div className="contact-page__actions">
-                  <Btn
-                    text="Download Resume"
-                    href={resumeAts}
-                    download={resumeDownloadName}
-                    ariaLabel={`Download ${resumeDownloadName}`}
-                    variant={Variant.PRIMARY}
-                    className="resume-download-trigger"
-                  />
-
-                  <Btn
-                    text={`Download ${theme === "light" ? "Light" : "Dark"} Resume`}
-                    href={themedResumePdf}
-                    download={themedResumeDownloadName}
-                    ariaLabel={`Download ${themedResumeDownloadName}`}
-                    tooltip={`Download ${theme} mode resume PDF`}
-                    variant={Variant.SUBTLE}
-                    className="resume-download-trigger"
-                  />
-
                   <ResumePreviewTrigger
                     buttonText="Preview Resume"
                     title="Kyle Foster - Resume"
