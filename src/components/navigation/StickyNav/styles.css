@@ -88,8 +88,8 @@
   --sticky-nav-desktop-page-icon-hover-color: rgba(var(--white-rgb), 0.94);
   --sticky-nav-desktop-theme-icon-color: var(--sticky-nav-trigger-theme-icon-color);
   --sticky-nav-desktop-theme-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
-  --sticky-nav-desktop-a11y-icon-color: var(--sticky-nav-trigger-theme-icon-color);
-  --sticky-nav-desktop-a11y-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
+  --sticky-nav-desktop-a11y-icon-color: var(--sticky-nav-trigger-a11y-icon-color);
+  --sticky-nav-desktop-a11y-icon-hover-color: var(--sticky-nav-trigger-a11y-icon-hover-color);
 
   background-color: var(--glass-bg);
   display: flex;
