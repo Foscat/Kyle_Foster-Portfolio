@@ -25,7 +25,10 @@ describe("renderNode", () => {
   // Test that the renderNode function correctly renders link nodes with the appropriate href attribute, ensuring that links are rendered as anchor elements with the correct destination URL when provided in the node data. This verifies that the renderNode function handles link nodes properly and produces the expected output in the DOM for link elements.
   it("renders links with href", () => {
     renderSingle({ type: "a", href: "/docs", text: "Docs" });
-    expect(screen.getByRole("link", { name: "Docs" })).toHaveAttribute("href", "/docs");
+    const link = screen.getByRole("link", { name: "Docs" });
+
+    expect(link).toHaveAttribute("href", "/docs");
+    expect(link).toHaveClass("interactive-surface");
   });
 
   // Test that the renderNode function correctly renders unordered list nodes with the appropriate structure and content, ensuring that lists are rendered as unordered list elements with the correct list items when provided in the node data. This verifies that the renderNode function handles list nodes properly and produces the expected output in the DOM for list elements.

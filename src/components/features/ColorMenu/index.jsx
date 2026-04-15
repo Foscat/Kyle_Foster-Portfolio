@@ -21,6 +21,17 @@ function announceSettingChange(label, value) {
   return `${label} ${value ? "enabled" : "disabled"}. Select Apply changes to confirm.`;
 }
 
+/**
+ * @component
+ * @name ColorSwitch
+ * @description A custom switch component for toggling color preferences, with support for disabled state and ARIA labeling.
+ * @param {Object} props - The props for the ColorSwitch component.
+ * @param {string} props.labelledBy - The ID of the element that labels the switch.
+ * @param {boolean} props.checked - Whether the switch is currently checked.
+ * @param {function} props.onChange - Callback function to handle switch state changes.
+ * @param {boolean} [props.disabled=false] - Whether the switch is disabled.
+ * @returns {JSX.Element} The rendered ColorSwitch component.
+ */
 function ColorSwitch({ labelledBy, checked, onChange, disabled = false }) {
   return (
     <label
@@ -44,6 +55,22 @@ function ColorSwitch({ labelledBy, checked, onChange, disabled = false }) {
   );
 }
 
+/**
+ * @component
+ * @name ColorPreferenceRow
+ * @description A row component for displaying and managing color preferences, including high contrast mode.
+ * @param {Object} props - The props for the ColorPreferenceRow component.
+ * @param {string} props.id - The ID for the row, used for ARIA labeling.
+ * @param {string} props.title - The title of the color preference.
+ * @param {string} props.description - A description of the color preference.
+ * @param {boolean} props.enabled - Whether the color preference is currently enabled.
+ * @param {boolean} props.systemValue - The system's current value for the color preference.
+ * @param {boolean|null} props.overrideValue - The user's override value for the color preference, or null if using system value.
+ * @param {function} props.onToggle - Callback function to handle toggling the color preference.
+ * @param {function} props.onUseSystem - Callback function to handle using the system value for the color preference.
+ * @param {boolean} [props.disabled=false] - Whether the row is disabled.
+ * @returns {JSX.Element} The rendered ColorPreferenceRow component.
+ */
 function ColorPreferenceRow({
   id,
   title,
@@ -85,6 +112,15 @@ function ColorPreferenceRow({
   );
 }
 
+/**
+ * @component
+ * @name ColorMenu
+ * @description A component for managing color preferences, including high contrast mode.
+ * @param {Object} props - The props for the ColorMenu component.
+ * @param {string} [props.size=Size.SM] - The size of the color menu.
+ * @param {boolean} [props.showTooltip=true] - Whether to show tooltips.
+ * @returns {JSX.Element} The rendered ColorMenu component.
+ */
 export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
   const [open, setOpen] = useState(false);
   const [isApplying, setIsApplying] = useState(false);

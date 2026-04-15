@@ -45,11 +45,9 @@
   border-radius: var(--border-radius);
 }
 
-/* Avoid transforms on the SVG when svg-pan-zoom is active. */
+/* Preserve diagram hover visuals without overriding shared surface motion. */
 @media (hover: hover) and (pointer: fine) {
   .mermaid-container:hover {
-    transform: none;
-    transition: none;
     box-shadow: var(--glass-shadow);
   }
 }

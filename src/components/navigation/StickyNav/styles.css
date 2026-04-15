@@ -11,6 +11,15 @@
   z-index: 100;
 }
 
+:root {
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.98);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 1);
+  --sticky-nav-trigger-theme-icon-color: var(--text-secondary);
+  --sticky-nav-trigger-theme-icon-hover-color: var(--text-primary);
+  --sticky-nav-trigger-a11y-icon-color: var(--text-secondary);
+  --sticky-nav-trigger-a11y-icon-hover-color: var(--text-primary);
+}
+
 /* Brand text styling */
 .brand-text {
   font-size: var(--font-md);
@@ -42,7 +51,6 @@
 }
 
 .rs-nav:hover > .rs-nav-item.no-popup {
-  transform: none;
   box-shadow: none;
 }
 
@@ -67,7 +75,6 @@
 .sticky-nav-a11y-toggle.rs-nav-item:active {
   background-color: transparent;
   box-shadow: none;
-  transform: none;
 }
 
 /* Hide desktop menu on mobile */
@@ -76,6 +83,13 @@
   --sticky-nav-utility-icon-button-size: 48px;
   --sticky-nav-page-icon-glyph-size: calc(var(--icon-sm) + 1px);
   --sticky-nav-utility-icon-glyph-size: var(--icon-sm);
+  --sticky-nav-desktop-page-icon-color: rgba(var(--white-rgb), 0.74);
+  --sticky-nav-desktop-page-icon-active-color: var(--text-accent);
+  --sticky-nav-desktop-page-icon-hover-color: rgba(var(--white-rgb), 0.94);
+  --sticky-nav-desktop-theme-icon-color: var(--sticky-nav-trigger-theme-icon-color);
+  --sticky-nav-desktop-theme-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
+  --sticky-nav-desktop-a11y-icon-color: var(--sticky-nav-trigger-theme-icon-color);
+  --sticky-nav-desktop-a11y-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
 
   background-color: var(--glass-bg);
   display: flex;
@@ -136,6 +150,7 @@
   padding: 0;
   background-color: transparent;
   box-shadow: none;
+  overflow: visible;
   border-radius: var(--radius-sm);
 }
 
@@ -148,7 +163,6 @@
 .desktop-menu .fi-desk-nav-item.rs-nav-item:active {
   background-color: transparent;
   box-shadow: none;
-  transform: none;
 }
 
 .desktop-menu .fi-desk-nav-item .nav-icon {
@@ -182,13 +196,10 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  color: rgba(var(--white-rgb), 0.74);
+  color: var(--sticky-nav-desktop-page-icon-color);
   --interactive-surface-bg: transparent;
   --interactive-surface-border-color: transparent;
   --interactive-surface-shadow-base: none;
-  --interactive-surface-lift-base: 0;
-  --interactive-surface-lift-hover: -1px;
-  --interactive-surface-lift-active: 0;
   --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--deep-black-rgb), 0.24);
   --interactive-surface-shadow-active: 0 5px 12px rgba(var(--deep-black-rgb), 0.2);
 }
@@ -238,21 +249,84 @@
 
 .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
 .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
-  color: var(--text-accent);
+  color: var(--sticky-nav-desktop-page-icon-active-color);
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
+  color: var(--sticky-nav-desktop-a11y-icon-color);
+  border-radius: 50% !important;
+}
+
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
+  color: var(--sticky-nav-desktop-theme-icon-color);
+  border-radius: 50% !important;
+}
+
+.desktop-menu
+  .sticky-nav-color-toggle
+  .color-menu-trigger
+  .frosted-icon.btn-icon.fi-variant-secondary {
+  color: var(--sticky-nav-desktop-theme-icon-color);
+}
+
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+  color: var(--sticky-nav-desktop-a11y-icon-color);
+}
+
 .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
 .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
-  color: rgba(var(--accent-light-rgb), 0.94);
+  color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   border-radius: 50% !important;
 }
 
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
 .color-toggle-btn .color-menu-trigger.btn.icon-only,
 .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only {
-  color: rgba(var(--primary-light-rgb), 0.95);
+  color: var(--sticky-nav-mobile-stack-color-icon-color);
   border-radius: 50% !important;
+}
+
+.color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon.fi-variant-secondary,
+.sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon.fi-variant-secondary {
+  color: var(--sticky-nav-mobile-stack-color-icon-color);
+}
+
+.a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary,
+.sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+  color: var(--sticky-nav-mobile-stack-a11y-icon-color);
+}
+
+/* Dark mode: Btn/styles.css forces noBG icon-only .frosted-icon to inherit accent-light
+   with specificity (0,6,1). These rules use (0,7,1) to restore the correct trigger colors. */
+html[data-theme="dark"]
+  .desktop-menu
+  .sticky-nav-color-toggle
+  .color-menu-trigger.btn.icon-only
+  .frosted-icon.btn-icon {
+  color: var(--sticky-nav-desktop-theme-icon-color);
+}
+
+html[data-theme="dark"]
+  .desktop-menu
+  .sticky-nav-a11y-toggle
+  .a11y-menu-trigger.btn.icon-only
+  .frosted-icon.btn-icon {
+  color: var(--sticky-nav-desktop-a11y-icon-color);
+}
+
+html[data-theme="dark"] .color-toggle-btn .color-menu-trigger.btn.icon-only .frosted-icon.btn-icon,
+html[data-theme="dark"]
+  .sticky-nav-mobile-color
+  .color-menu-trigger.btn.icon-only
+  .frosted-icon.btn-icon {
+  color: var(--sticky-nav-mobile-stack-color-icon-color);
+}
+
+html[data-theme="dark"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only .frosted-icon.btn-icon,
+html[data-theme="dark"]
+  .sticky-nav-mobile-a11y
+  .a11y-menu-trigger.btn.icon-only
+  .frosted-icon.btn-icon {
+  color: var(--sticky-nav-mobile-stack-a11y-icon-color);
 }
 
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon,
@@ -273,53 +347,101 @@
   box-shadow: none !important;
 }
 
-html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon {
-  color: rgba(var(--primary-dark-rgb), 0.78);
+html[data-theme="light"] .desktop-menu {
+  --sticky-nav-desktop-page-icon-color: rgba(var(--primary-dark-rgb), 0.78);
+  --sticky-nav-desktop-page-icon-active-color: rgba(var(--accent-dark-rgb), 0.98);
+  --sticky-nav-desktop-page-icon-hover-color: rgba(var(--primary-darkest-rgb), 1);
 }
 
-html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
-html[data-theme="light"] .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
-  color: rgba(var(--accent-dark-rgb), 0.98);
+html[data-theme="dark"] {
+  --sticky-nav-trigger-theme-icon-color: var(--text-secondary);
+  --sticky-nav-trigger-theme-icon-hover-color: var(--text-primary);
+  --sticky-nav-trigger-a11y-icon-color: var(--text-secondary);
+  --sticky-nav-trigger-a11y-icon-hover-color: var(--text-primary);
 }
 
-html[data-theme="light"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
-  color: rgba(var(--accent-dark-rgb), 0.95);
+html[data-theme="light"] {
+  --sticky-nav-trigger-theme-icon-color: rgba(var(--primary-dark-rgb), 0.8);
+  --sticky-nav-trigger-theme-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.98);
+  --sticky-nav-trigger-a11y-icon-color: rgba(var(--gray-700-rgb), 0.9);
+  --sticky-nav-trigger-a11y-icon-hover-color: rgba(var(--black-rgb), 0.96);
 }
 
-html[data-theme="light"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
-  color: rgba(var(--primary-dark-rgb), 0.95);
-}
-
-html[data-theme="dark"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
-  color: rgba(var(--primary-light-rgb), 0.98);
-}
-
-html[data-theme="light"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
-html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
-  color: rgba(var(--primary-rgb), 0.92);
-}
-
-html[data-theme="light"] .color-toggle-btn .color-menu-trigger.btn.icon-only,
-html[data-theme="light"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only {
-  color: rgba(var(--primary-dark-rgb), 0.92);
-}
-
-html[data-theme="light"][data-palette="forest"] .desktop-menu .fi-desk-nav-item .nav-icon {
-  color: rgba(var(--primary-darkest-rgb), 0.92);
-}
-
-html[data-theme="light"][data-palette="forest"]
+html[data-theme="light"]
+  .desktop-menu
+  .sticky-nav-color-toggle
+  .color-menu-trigger.btn.icon-only:focus-visible,
+html[data-theme="light"]
+  .desktop-menu
+  .sticky-nav-color-toggle
+  .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading),
+html[data-theme="light"]
   .desktop-menu
   .sticky-nav-a11y-toggle
-  .a11y-menu-trigger.btn.icon-only,
-html[data-theme="light"][data-palette="forest"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
-html[data-theme="light"][data-palette="forest"]
-  .sticky-nav-mobile-a11y
-  .a11y-menu-trigger.btn.icon-only {
-  color: rgba(var(--accent-dark-rgb), 0.96);
-  background: rgba(var(--white-rgb), 0.14);
-  border-color: rgba(var(--white-rgb), 0.34) !important;
-  box-shadow: none;
+  .a11y-menu-trigger.btn.icon-only:focus-visible,
+html[data-theme="light"]
+  .desktop-menu
+  .sticky-nav-a11y-toggle
+  .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading) {
+  border-color: rgba(var(--primary-dark-rgb), 0.36) !important;
+  background: rgba(var(--primary-light-rgb), 0.2) !important;
+}
+
+/* ─── Dark mode trigger colors ──────────────────────────────────────────────
+   Each palette's token names resolve to palette-specific color values, so
+   shared token patterns still produce visually distinct results per palette.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="dark"][data-palette="alt"] {
+  /* Classic: utility triggers in silver-white */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-light-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+}
+
+html[data-theme="dark"][data-palette="primary"] {
+  /* Midnight: utility triggers in silver-white */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gray-100-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--white-rgb), 1);
+}
+
+html[data-theme="dark"][data-palette="ocean"] {
+  /* Ocean: utility triggers in silver-white */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-light-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+}
+
+html[data-theme="dark"][data-palette="forest"],
+html[data-theme="dark"][data-palette="sunset"] {
+  /* Forest + Sunset: utility triggers in gray-silver */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-light-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+}
+
+/* ─── Light mode trigger colors ─────────────────────────────────────────────
+   On pale/white backgrounds, icons need darker, fully-saturated tones.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+html[data-theme="light"][data-palette="alt"] {
+  /* Classic light: dark gold nav */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-dark-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+}
+
+html[data-theme="light"][data-palette="primary"] {
+  /* Midnight light: dark navy nav */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.9);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 1);
+}
+
+html[data-theme="light"][data-palette="forest"],
+html[data-theme="light"][data-palette="ocean"],
+html[data-theme="light"][data-palette="sunset"] {
+  /*
+   * Shared nav-icon pattern — each palette keeps distinct navigation tones
+   * while theme/a11y utility icon tones are standardized at the theme level.
+   */
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-dark-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--accent-dark-rgb), 1);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -331,33 +453,77 @@ html[data-theme="light"][data-palette="forest"]
   }
 
   .desktop-menu .fi-desk-nav-item .nav-icon:hover {
-    color: rgba(var(--white-rgb), 0.58);
-  }
-
-  .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:hover {
-    color: rgba(var(--accent-rgb), 0.88);
-  }
-
-  .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:hover {
-    color: rgba(var(--primary-light-rgb), 0.76);
+    background: rgba(var(--deep-black-rgb), 0.18) !important;
+    color: var(--sticky-nav-desktop-page-icon-hover-color);
   }
 
   html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon:hover {
-    color: rgba(var(--primary-darkest-rgb), 0.96);
-  }
-
-  html[data-theme="light"]
-    .desktop-menu
-    .sticky-nav-a11y-toggle
-    .a11y-menu-trigger.btn.icon-only:hover {
-    color: rgba(var(--accent-dark-rgb), 1);
+    background: rgba(var(--primary-dark-rgb), 0.12) !important;
   }
 
   html[data-theme="light"]
     .desktop-menu
     .sticky-nav-color-toggle
-    .color-menu-trigger.btn.icon-only:hover {
-    color: rgba(var(--primary-darkest-rgb), 0.98);
+    .color-menu-trigger.btn.icon-only:hover,
+  html[data-theme="light"]
+    .desktop-menu
+    .sticky-nav-a11y-toggle
+    .a11y-menu-trigger.btn.icon-only:hover {
+    border-color: rgba(var(--primary-dark-rgb), 0.32) !important;
+    background: rgba(var(--primary-light-rgb), 0.17) !important;
+  }
+
+  .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:hover {
+    color: var(--sticky-nav-desktop-a11y-icon-hover-color);
+  }
+
+  .desktop-menu
+    .sticky-nav-a11y-toggle
+    .a11y-menu-trigger.btn.icon-only:hover
+    .frosted-icon.btn-icon.fi-variant-primary {
+    color: var(--sticky-nav-desktop-a11y-icon-hover-color);
+  }
+
+  .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:hover {
+    color: var(--sticky-nav-desktop-theme-icon-hover-color);
+  }
+
+  .desktop-menu
+    .sticky-nav-color-toggle
+    .color-menu-trigger.btn.icon-only:hover
+    .frosted-icon.btn-icon.fi-variant-secondary {
+    color: var(--sticky-nav-desktop-theme-icon-hover-color);
+  }
+
+  html[data-theme="light"] .color-toggle-btn .color-menu-trigger.btn.icon-only:hover,
+  html[data-theme="light"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:hover,
+  html[data-theme="light"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:hover,
+  html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:hover {
+    border-color: rgba(var(--primary-dark-rgb), 0.32) !important;
+    background: rgba(var(--primary-light-rgb), 0.17) !important;
+    box-shadow: var(--shadow-soft) !important;
+  }
+
+  html[data-theme="light"]
+    .color-toggle-btn
+    .color-menu-trigger.btn.icon-only:hover
+    .frosted-icon.btn-icon.fi-variant-secondary,
+  html[data-theme="light"]
+    .sticky-nav-mobile-color
+    .color-menu-trigger.btn.icon-only:hover
+    .frosted-icon.btn-icon.fi-variant-secondary {
+    color: var(--sticky-nav-trigger-theme-icon-hover-color);
+  }
+
+  html[data-theme="light"]
+    .a11y-toggle-btn
+    .a11y-menu-trigger.btn.icon-only:hover
+    .frosted-icon.btn-icon.fi-variant-primary,
+  html[data-theme="light"]
+    .sticky-nav-mobile-a11y
+    .a11y-menu-trigger.btn.icon-only:hover
+    .frosted-icon.btn-icon.fi-variant-primary {
+    color: var(--sticky-nav-trigger-a11y-icon-hover-color);
   }
 }
 
@@ -475,10 +641,12 @@ html[data-theme="light"]
     --sticky-nav-mobile-trigger-size: 42px;
     --sticky-nav-mobile-trigger-gap: 10px;
     --sticky-nav-mobile-trigger-glyph-size: var(--icon-sm);
+    --sticky-nav-mobile-rail-top: calc(env(safe-area-inset-top, 0px) + 10px);
     --sticky-nav-mobile-trigger-left: calc(env(safe-area-inset-left, 0px) + 14px);
-    --sticky-nav-mobile-stack-nav-icon-color: rgba(var(--primary-dark-rgb), 0.96);
-    --sticky-nav-mobile-stack-color-icon-color: rgba(var(--primary-dark-rgb), 0.96);
-    --sticky-nav-mobile-stack-a11y-icon-color: rgba(var(--accent-rgb), 0.98);
+    --sticky-nav-mobile-trigger-gutter: 8px;
+    --sticky-nav-mobile-stack-nav-icon-color: var(--sticky-nav-trigger-navigation-icon-color);
+    --sticky-nav-mobile-stack-color-icon-color: var(--sticky-nav-trigger-theme-icon-color);
+    --sticky-nav-mobile-stack-a11y-icon-color: var(--sticky-nav-trigger-a11y-icon-color);
   }
 
   .desktop-menu {
@@ -504,6 +672,13 @@ html[data-theme="light"]
     position: fixed;
     z-index: 1000;
     display: block;
+  }
+
+  .nav-mobile-only,
+  .sect-nav-toggle-btn.mobile-only {
+    position: fixed;
+    left: var(--sticky-nav-mobile-trigger-left) !important;
+    z-index: 1000;
   }
 
   html[data-mobile-icon-hints="true"] .nav-mobile-only .mobile-icon-hint,
@@ -533,12 +708,6 @@ html[data-theme="light"]
     background: rgba(var(--white-rgb), 0.95);
   }
 
-  html[data-theme="dark"] {
-    --sticky-nav-mobile-stack-nav-icon-color: rgba(var(--primary-light-rgb), 0.98);
-    --sticky-nav-mobile-stack-color-icon-color: rgba(var(--primary-light-rgb), 0.98);
-    --sticky-nav-mobile-stack-a11y-icon-color: rgba(var(--accent-light-rgb), 0.98);
-  }
-
   .mobile-only .frosted-icon {
     background-color: transparent;
     box-shadow: none;
@@ -555,33 +724,61 @@ html[data-theme="light"]
   .color-toggle-btn,
   .a11y-toggle-btn,
   .sect-nav-toggle-btn {
-    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    top: var(--sticky-nav-mobile-rail-top);
     left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .nav-toggle-btn {
-    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    top: var(--sticky-nav-mobile-rail-top);
   }
 
   .a11y-toggle-btn {
     top: calc(
-      env(safe-area-inset-top, 0px) + 10px +
+      var(--sticky-nav-mobile-rail-top) +
         (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) * 3
     );
   }
 
   .color-toggle-btn {
     top: calc(
-      env(safe-area-inset-top, 0px) + 10px +
+      var(--sticky-nav-mobile-rail-top) +
         (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) * 2
     );
   }
 
   .sect-nav-toggle-btn {
     top: calc(
-      env(safe-area-inset-top, 0px) + 10px + var(--sticky-nav-mobile-trigger-size) +
+      var(--sticky-nav-mobile-rail-top) + var(--sticky-nav-mobile-trigger-size) +
         var(--sticky-nav-mobile-trigger-gap)
     );
+  }
+
+  .nav-toggle-btn .btn.icon-only,
+  .color-toggle-btn .color-menu-trigger.btn.icon-only,
+  .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
+    border-left: 1px solid rgba(var(--accent-rgb), 0.4) !important;
+  }
+
+  html[data-theme="light"] .color-toggle-btn .color-menu-trigger.btn.icon-only:focus-visible,
+  html[data-theme="light"]
+    .color-toggle-btn
+    .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading),
+  html[data-theme="light"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:focus-visible,
+  html[data-theme="light"]
+    .sticky-nav-mobile-color
+    .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading),
+  html[data-theme="light"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:focus-visible,
+  html[data-theme="light"]
+    .a11y-toggle-btn
+    .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading),
+  html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:focus-visible,
+  html[data-theme="light"]
+    .sticky-nav-mobile-a11y
+    .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading) {
+    border-color: rgba(var(--primary-dark-rgb), 0.36) !important;
+    background: rgba(var(--primary-light-rgb), 0.2) !important;
+    box-shadow: var(--shadow-soft) !important;
   }
 
   .nav-toggle-btn .btn.icon-only,
@@ -651,13 +848,57 @@ html[data-theme="light"]
     color: var(--sticky-nav-mobile-stack-color-icon-color);
   }
 
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+  html[data-theme="light"]
+    .color-toggle-btn
+    .color-menu-trigger.btn.icon-only:focus-visible
+    .frosted-icon.btn-icon.fi-variant-secondary,
+  html[data-theme="light"]
+    .color-toggle-btn
+    .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
+    .frosted-icon.btn-icon.fi-variant-secondary,
+  html[data-theme="light"]
+    .sticky-nav-mobile-color
+    .color-menu-trigger.btn.icon-only:focus-visible
+    .frosted-icon.btn-icon.fi-variant-secondary,
+  html[data-theme="light"]
+    .sticky-nav-mobile-color
+    .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
+    .frosted-icon.btn-icon.fi-variant-secondary {
+    color: var(--sticky-nav-trigger-theme-icon-hover-color);
+  }
+
+  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary,
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
     color: var(--sticky-nav-mobile-stack-a11y-icon-color);
+  }
+
+  html[data-theme="light"]
+    .a11y-toggle-btn
+    .a11y-menu-trigger.btn.icon-only:focus-visible
+    .frosted-icon.btn-icon.fi-variant-primary,
+  html[data-theme="light"]
+    .a11y-toggle-btn
+    .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
+    .frosted-icon.btn-icon.fi-variant-primary,
+  html[data-theme="light"]
+    .sticky-nav-mobile-a11y
+    .a11y-menu-trigger.btn.icon-only:focus-visible
+    .frosted-icon.btn-icon.fi-variant-primary,
+  html[data-theme="light"]
+    .sticky-nav-mobile-a11y
+    .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
+    .frosted-icon.btn-icon.fi-variant-primary {
+    color: var(--sticky-nav-trigger-a11y-icon-hover-color);
   }
 
   .sticky-nav-mobile-color,
   .sticky-nav-mobile-a11y {
     margin-top: 0.5rem;
+  }
+
+  /* Drawer utility controls should share the same role color for quick scanning. */
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+    color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   }
 
   .rs-drawer-backdrop .mobile-section-nav-drawer {

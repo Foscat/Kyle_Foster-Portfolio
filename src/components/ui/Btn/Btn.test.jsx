@@ -4,7 +4,7 @@
  * @module src\components\ui\Btn\Btn.test
  */
 
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
@@ -64,9 +64,12 @@ describe("Btn", () => {
 
     renderWithProviders(<Btn text="Send" onClick={onClick} />);
 
-    await user.click(screen.getByRole("button", { name: /send/i }));
+    const button = screen.getByRole("button", { name: /send/i });
+
+    await user.click(button);
 
     expect(onClick).toHaveBeenCalledTimes(1);
+    expect(button).toHaveClass("interactive-surface");
   });
 
   // Test that when the Btn component is rendered with the disabled prop set to true, the click handler is not invoked when the button is clicked, ensuring that the component correctly prevents user interaction and does not execute the onClick function when it is in a disabled state. This verifies that the disabled state of the button is functioning as intended and provides the expected behavior for users.
@@ -118,5 +121,24 @@ describe("Btn", () => {
     await waitFor(() => {
       expect(button).toHaveAttribute("aria-busy", "false");
     });
+  });
+
+  it("renders local href buttons as router links with interactive-surface on the outer clickable element", () => {
+    renderWithProviders(<Btn text="Docs" href="/docs" hrefLocal />);
+
+    const link = screen.getByRole("link", { name: /docs/i });
+
+    expect(link).toHaveClass("interactive-surface");
+    expect(within(link).queryByRole("button")).toBeNull();
+  });
+
+  it("renders external href buttons as anchors with interactive-surface on the outer clickable element", () => {
+    renderWithProviders(<Btn text="GitHub" href="https://github.com/Foscat" />);
+
+    const link = screen.getByRole("link", { name: /github/i });
+
+    expect(link).toHaveAttribute("href", "https://github.com/Foscat");
+    expect(link).toHaveClass("interactive-surface");
+    expect(within(link).queryByRole("button")).toBeNull();
   });
 });

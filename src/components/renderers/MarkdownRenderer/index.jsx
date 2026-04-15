@@ -62,6 +62,19 @@ function extractHeadings(markdown = "", maxDepth = 3) {
   return headings;
 }
 
+/**
+ *  @function MarkdownRenderer
+ *  @description A React component that renders Markdown content with syntax highlighting and an optional table of contents. It uses the react-markdown library to parse and render the Markdown, and Prism.js for syntax highlighting. The component also generates unique IDs for headings to enable linking from the table of contents.
+ * @param {Object} props - The props for the MarkdownRenderer component.
+ * @param {string} [props.title] - An optional title to display above the rendered content.
+ * @param {string} props.content - The Markdown content to render.
+ * @param {string} [props.intro] - An optional introductory text to display below the title and above the rendered content.
+ * @param {boolean} [props.showToc=true] - Whether to show the table of contents based on the headings in the content.
+ * @param {number} [props.maxTocDepth=3] - The maximum heading level to include in the table of contents (e.g., 3 means include h1, h2, and h3).
+ * @param {string} [props.className] - Additional CSS class names to apply to the root element.
+ * @param {string} [props.articleId] - An optional ID to apply to the root article element for linking purposes.
+ * @returns {JSX.Element} The rendered Markdown content.
+ */
 export default function MarkdownRenderer({
   title,
   content = "",
