@@ -11,8 +11,6 @@ import { faArrowsRotate, faUniversalAccess } from "@fortawesome/free-solid-svg-i
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
-import ThemeToggle from "../ThemeToggle";
-import PaletteToggle from "../PaletteToggle";
 import "./styles.css";
 
 const asOnOff = (value) => (value ? "On" : "Off");
@@ -38,6 +36,15 @@ const isEditableTarget = (target) =>
 
 const announceSettingChange = (label, value) => `${label} ${value ? "enabled" : "disabled"}.`;
 
+/**
+ * @component A11ySwitch
+ * @description A custom switch component for toggling accessibility preferences, built with an underlying checkbox input for accessibility.
+ * @prop {string} labelledBy - The id of the element that labels this switch, used for aria-labelledby.
+ * @prop {boolean} checked - Whether the switch is currently on (checked) or off (unchecked).
+ * @prop {function} onChange - Callback function that is called with the new checked state when the switch is toggled.
+ * @prop {boolean} disabled - Whether the switch is disabled and non-interactive.
+ * @returns {JSX.Element} The rendered switch component.
+ */
 function A11ySwitch({ labelledBy, checked, onChange, disabled = false }) {
   return (
     <label
@@ -61,6 +68,21 @@ function A11ySwitch({ labelledBy, checked, onChange, disabled = false }) {
   );
 }
 
+/**
+ * @component PreferenceRow
+ * @description A single row in the accessibility menu for toggling a specific preference.
+ * @prop {string} id - Unique identifier for the preference, used for accessibility labeling.
+ * @prop {string} title - The display name of the preference.
+ * @prop {string} description - A brief explanation of what the preference does.
+ * @prop {boolean} enabled - Whether the preference is currently enabled (based on draft state).
+ * @prop {boolean|null} systemValue - The current value of the preference according to system settings (if supported).
+ * @prop {boolean|null} overrideValue - The manually selected override value, or null when using the system preference.
+ * @prop {(checked: boolean) => void} onToggle - Called when the preference switch is toggled.
+ * @prop {(() => void)|undefined} onUseSystem - Called when the user chooses to revert to the system preference.
+ * @prop {boolean} [supportsSystem=true] - Whether this preference can follow a system-level setting.
+ * @prop {boolean} [disabled=false] - Whether the row controls are disabled.
+ * @returns {JSX.Element} The rendered preference row component.
+ */
 function PreferenceRow({
   id,
   title,
@@ -111,6 +133,14 @@ function PreferenceRow({
   );
 }
 
+/**
+ * @component AccessibilityMenu
+ * @description A menu component for managing accessibility preferences.
+ * @prop {string} size - The size of the menu.
+ * @prop {boolean} enableHotkey - Whether to enable the hotkey for opening the menu.
+ * @prop {boolean} showTooltip - Whether to show tooltips for the menu items.
+ * @returns {JSX.Element} The rendered accessibility menu component.
+ */
 export default function AccessibilityMenu({
   size = Size.SM,
   enableHotkey = false,
@@ -140,6 +170,9 @@ export default function AccessibilityMenu({
     highContrast: null,
   });
 
+  /*
+   * @description Utility to blur the currently active element, used when closing the menu to prevent focus from remaining on a now-invisible element. Checks for document and HTMLElement to ensure compatibility with SSR and non-browser environments.
+   */
   const blurActiveElement = useCallback(() => {
     if (typeof document === "undefined") return;
     const activeElement = document.activeElement;
@@ -148,6 +181,9 @@ export default function AccessibilityMenu({
     }
   }, []);
 
+  /*
+   * @description Sync the draft state with the current effective settings (considering both overrides and system preferences) when opening the menu, so that the toggles reflect the current state accurately.
+   */
   const syncDraftFromCurrent = useCallback(() => {
     setDraft({
       largeText: largeText,
@@ -165,6 +201,10 @@ export default function AccessibilityMenu({
   const announce = useCallback((message) => {
     setAnnouncement("");
 
+    /*
+     * @function updateLiveRegion
+     * @description Use requestAnimationFrame to ensure that the live region update occurs in a separate frame, allowing screen readers to detect the change and announce the new message. If requestAnimationFrame is not available (e.g., in older browsers), fall back to a setTimeout with a short delay. This technique helps ensure that announcements are reliably made for screen reader users when the message changes.
+     */
     const updateLiveRegion = () => setAnnouncement(message);
     if (typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") {
       window.requestAnimationFrame(updateLiveRegion);
@@ -191,6 +231,9 @@ export default function AccessibilityMenu({
     const coarseQuery = window.matchMedia("(pointer: coarse)");
     const hoverNoneQuery = window.matchMedia("(hover: none)");
 
+    /*
+     * @description Determine if the device is touch-first based on pointer and hover capabilities, and update the state accordingly. This helps in deciding whether to show keyboard navigation help, as touch-first devices may not benefit from it.
+     */
     const evaluateInputProfile = () => {
       const hasTouchPoints = navigator.maxTouchPoints > 0;
       const isCoarse = coarseQuery.matches;
@@ -221,6 +264,10 @@ export default function AccessibilityMenu({
   useEffect(() => {
     if (typeof window === "undefined" || hasKeyboardInteraction) return undefined;
 
+    /*
+     * @function detectKeyboardUse
+     * @description Listen for keydown events to detect if the user is interacting with the keyboard. This is used to determine whether to show keyboard navigation help in the menu. The listener ignores events that are prevented, originate from editable elements, or involve keys that are not typically used for navigation (as defined in KEYBOARD_NAV_KEYS).
+     */
     const detectKeyboardUse = (event) => {
       if (event.defaultPrevented) return;
       if (isEditableTarget(event.target)) return;
@@ -252,6 +299,9 @@ export default function AccessibilityMenu({
     return () => window.removeEventListener("keydown", handleHotkey);
   }, [announce, enableHotkey, openMenu]);
 
+  /*
+   * @description Listen for `Escape` key presses to close the menu when it's open, unless changes are currently being applied. This provides a convenient way for users to exit the menu using the keyboard.
+   */
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
 
@@ -267,6 +317,10 @@ export default function AccessibilityMenu({
 
   const resolveSetting = useCallback((override, systemValue) => override ?? systemValue, []);
 
+  /*
+   * @function togglePreference
+   * @description A generic function to toggle an accessibility preference in the draft state and announce the change. This function is used by the specific toggle handlers for each preference (motion, transparency, contrast, text size) to update the draft state and provide feedback to screen reader users about the change and the need to apply changes to confirm.
+   */
   const toggleReducedMotion = useCallback(
     (value) => {
       setDraft((prev) => ({ ...prev, reducedMotion: Boolean(value) }));
@@ -275,6 +329,10 @@ export default function AccessibilityMenu({
     [announce]
   );
 
+  /*
+   * @function toggleReducedTransparency
+   * @description Toggle the reduced transparency preference in the draft state and announce the change. This function updates the draft state for reduced transparency and provides feedback to screen reader users about the new state of the preference, along with a reminder to apply changes to confirm.
+   */
   const toggleReducedTransparency = useCallback(
     (value) => {
       setDraft((prev) => ({ ...prev, reducedTransparency: Boolean(value) }));
@@ -285,6 +343,10 @@ export default function AccessibilityMenu({
     [announce]
   );
 
+  /*
+   * @function toggleHighContrast
+   * @description Toggle the high contrast preference in the draft state and announce the change. This function updates the draft state for high contrast and provides feedback to screen reader users about the new state of the preference, along with a reminder to apply changes to confirm.
+   */
   const toggleHighContrast = useCallback(
     (value) => {
       setDraft((prev) => ({ ...prev, highContrast: Boolean(value) }));
@@ -293,6 +355,10 @@ export default function AccessibilityMenu({
     [announce]
   );
 
+  /*
+   * @function toggleLargeText
+   * @description Toggle the large text preference in the draft state and announce the change. This function updates the draft state for large text and provides feedback to screen reader users about the new state of the preference, along with a reminder to apply changes to confirm.
+   */
   const toggleLargeText = useCallback(
     (value) => {
       setDraft((prev) => ({ ...prev, largeText: Boolean(value) }));
@@ -301,11 +367,19 @@ export default function AccessibilityMenu({
     [announce]
   );
 
+  /*
+   * @function useSystemPreference
+   * @description A generic function to set a preference in the draft state to null, which indicates that the system preference should be used. This function is used by the specific handlers for each preference (motion, transparency, contrast) to update the draft state and provide feedback to screen reader users about switching to the system preference and what that preference currently is.
+   */
   const useSystemReducedMotion = useCallback(() => {
     setDraft((prev) => ({ ...prev, reducedMotion: null }));
     announce(`Reduce motion set to system preference (${asOnOff(systemReducedMotion)}).`);
   }, [announce, systemReducedMotion]);
 
+  /*
+   * @function useSystemReducedTransparency
+   * @description Set the reduced transparency preference in the draft state to null to indicate using the system preference, and announce the change. This function updates the draft state for reduced transparency to use the system setting and provides feedback to screen reader users about the switch and the current state of the system preference.
+   */
   const useSystemReducedTransparency = useCallback(() => {
     setDraft((prev) => ({ ...prev, reducedTransparency: null }));
     announce(
@@ -313,11 +387,19 @@ export default function AccessibilityMenu({
     );
   }, [announce, systemReducedTransparency]);
 
+  /*
+   * @function useSystemHighContrast
+   * @description Set the high contrast preference in the draft state to null to indicate using the system preference, and announce the change. This function updates the draft state for high contrast to use the system setting and provides feedback to screen reader users about the switch and the current state of the system preference.
+   */
   const useSystemHighContrast = useCallback(() => {
     setDraft((prev) => ({ ...prev, highContrast: null }));
     announce(`High contrast set to system preference (${asOnOff(systemHighContrast)}).`);
   }, [announce, systemHighContrast]);
 
+  /*
+   * @function resetDraftToDefaults
+   * @description Reset all preferences in the draft state to their default values (false for large text, null for overrides to use system settings) and announce the reset action. This function allows users to quickly revert all changes in the draft state back to defaults, and provides feedback to screen reader users that the draft has been reset and that they need to apply changes to confirm.
+   */
   const resetDraftToDefaults = useCallback(() => {
     setDraft({
       largeText: false,
@@ -336,6 +418,10 @@ export default function AccessibilityMenu({
 
   const showKeyboardNavigationHelp = !isTouchFirstDevice || hasKeyboardInteraction;
 
+  /*
+   * @function applyDraft
+   * @description Apply the changes from the draft state to the actual settings by calling the appropriate setter functions for each preference. This function sets an "applying" state to disable interactions while changes are being applied, updates each preference based on the draft state, and then waits for a paint to occur before re-enabling interactions and closing the menu. Finally, it announces that the changes have been applied for screen reader users.
+   */
   const applyDraft = useCallback(async () => {
     if (!hasPendingChanges) return;
 
@@ -491,16 +577,6 @@ export default function AccessibilityMenu({
               systemValue={systemHighContrast}
               disabled={isApplying}
             />
-          </div>
-
-          <div className="a11y-theme">
-            <h4 className="a11y-row__title">Theme</h4>
-            <ThemeToggle size={Size.SM} />
-          </div>
-
-          <div className="a11y-theme a11y-palette">
-            <h4 className="a11y-row__title">Palette</h4>
-            <PaletteToggle size={Size.SM} showLabel={false} ariaLabel="Color palette" />
           </div>
         </Modal.Body>
 

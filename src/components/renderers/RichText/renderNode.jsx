@@ -115,7 +115,7 @@ const renderNode = (node, key) => {
     // Hyperlink
     case "a":
       return (
-        <a key={key} href={node.href} className="block-link">
+        <a key={key} href={node.href} className="block-link interactive-surface">
           {node.text}
         </a>
       );

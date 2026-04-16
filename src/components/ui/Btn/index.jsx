@@ -247,6 +247,7 @@ const Btn = ({
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
   const isLocalHref = typeof href === "string" && /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(href.trim());
   const shouldUseRouterLink = Boolean(href) && (hrefLocal || isLocalHref);
+  const isLinkMode = Boolean(href);
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
@@ -260,7 +261,13 @@ const Btn = ({
    * @returns {void}
    */
   const handleClick = async (e) => {
-    if (!onClick || disabled || loading) return;
+    if (disabled || loading || asyncLoading) {
+      e?.preventDefault?.();
+      e?.stopPropagation?.();
+      return;
+    }
+
+    if (!onClick) return;
 
     const result = onClick(e);
 
@@ -282,6 +289,7 @@ const Btn = ({
 
   // Choose Button or IconButton depending on icon presence
   const Component = icon ? IconButton : Button;
+  const elementAs = isLinkMode ? (shouldUseRouterLink ? Link : "a") : as;
 
   const classes = formatClassNames(`btn btn-${size} btn-${active ? "active" : "inactive"}
     ${clickable ? "interactive-surface" : "not-clickable "}
@@ -291,15 +299,23 @@ const Btn = ({
 
   const button = (
     <Component
-      role="button"
+      role={isLinkMode ? "link" : "button"}
       onClick={handleClick}
-      type={type}
+      type={isLinkMode ? undefined : type}
       aria-label={resolvedAriaLabel}
       aria-busy={loading || asyncLoading}
       aria-disabled={disabled || loading || asyncLoading}
       className={classes}
       active={active}
-      as={as}
+      as={elementAs}
+      to={shouldUseRouterLink ? href : undefined}
+      viewTransition={shouldUseRouterLink ? true : undefined}
+      href={!shouldUseRouterLink ? href : undefined}
+      rel={
+        !shouldUseRouterLink ? (hrefLocal ? undefined : rel || "noopener noreferrer") : undefined
+      }
+      target={!shouldUseRouterLink ? (hrefLocal ? undefined : target || "_blank") : undefined}
+      download={!shouldUseRouterLink ? download || undefined : undefined}
       block={block}
       classPrefix={classPrefix}
       endIcon={endIcon}
@@ -317,7 +333,7 @@ const Btn = ({
           className={
             "btn-icon" +
             (isIconOnly ? " icon-only" : "") +
-            (clickable && isIconOnly ? " interactiveSurface" : " not-clickable")
+            (clickable && isIconOnly ? "" : " not-clickable")
           }
           ariaLabel="Button icon"
           border={border}
@@ -360,35 +376,7 @@ const Btn = ({
         </Tooltip>
       }
     >
-      {href ? (
-        shouldUseRouterLink ? (
-          <Link
-            role="button"
-            to={href}
-            aria-label={resolvedAriaLabel}
-            aria-busy={loading || asyncLoading}
-            aria-disabled={disabled || loading || asyncLoading}
-            viewTransition
-          >
-            {button}
-          </Link>
-        ) : (
-          <a
-            role="button"
-            href={href}
-            rel={hrefLocal ? undefined : rel || "noopener noreferrer"}
-            target={hrefLocal ? undefined : target || "_blank"}
-            download={download || null}
-            aria-label={resolvedAriaLabel}
-            aria-busy={loading || asyncLoading}
-            aria-disabled={disabled || loading || asyncLoading}
-          >
-            {button}
-          </a>
-        )
-      ) : (
-        button
-      )}
+      {button}
     </Whisper>
   );
 };

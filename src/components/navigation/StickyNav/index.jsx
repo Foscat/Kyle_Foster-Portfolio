@@ -20,9 +20,9 @@ import {
   faBook,
 } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";
-import { Btn, FrostedIcon } from "components/ui";
+import { Btn } from "components/ui";
 import "./styles.css";
-import { AccessibilityMenu, PaletteToggle, ThemeToggle } from "components/features";
+import { AccessibilityMenu, ColorMenu } from "components/features";
 import { PageRoute } from "types/navigation.types";
 
 const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
@@ -255,8 +255,8 @@ const StickyNav = ({ activePage }) => {
         </div>
 
         <div className="sticky-nav-tools-group">
-          <Nav.Item className="no-popup sticky-nav-theme-toggle">
-            <ThemeToggle />
+          <Nav.Item className="no-popup sticky-nav-color-toggle">
+            <ColorMenu size={Size.LG} />
           </Nav.Item>
           <Nav.Item className="no-popup sticky-nav-a11y-toggle">
             <AccessibilityMenu size={Size.LG} enableHotkey />
@@ -281,6 +281,14 @@ const StickyNav = ({ activePage }) => {
             setMobileOpen(true);
           }}
         />
+      </div>
+
+      <div
+        className="color-toggle-btn mobile-only nav-mobile-only"
+        onClickCapture={dismissMobileIconHints}
+      >
+        <span className="mobile-icon-hint">Color</span>
+        <ColorMenu size={Size.LG} showTooltip={false} />
       </div>
 
       <div
@@ -329,9 +337,8 @@ const StickyNav = ({ activePage }) => {
                 </Nav.Item>
               );
             })}
-            <ThemeToggle size={Size.MD} />
-            <div className="sticky-nav-mobile-palette">
-              <PaletteToggle size={Size.SM} />
+            <div className="sticky-nav-mobile-color">
+              <ColorMenu size={Size.LG} showTooltip={false} />
             </div>
             <div className="sticky-nav-mobile-a11y">
               <AccessibilityMenu size={Size.LG} showTooltip={false} />

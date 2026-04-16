@@ -11,5 +11,13 @@ const PreviewResume = lazy(() => import("./ResumePreview"));
 const ThemeToggle = lazy(() => import("./ThemeToggle"));
 const PaletteToggle = lazy(() => import("./PaletteToggle"));
 const AccessibilityMenu = lazy(() => import("./AccessibilityMenu"));
+const ColorMenu = lazy(() => import("./ColorMenu"));
 
-export { ResumePreviewModal, PreviewResume, ThemeToggle, PaletteToggle, AccessibilityMenu };
+export {
+  ResumePreviewModal,
+  PreviewResume,
+  ThemeToggle,
+  PaletteToggle,
+  AccessibilityMenu,
+  ColorMenu,
+};

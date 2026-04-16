@@ -10,10 +10,6 @@ import userEvent from "@testing-library/user-event";
 import renderWithProviders from "tests/renderWithProviders";
 import AccessibilityMenu from "./index";
 
-vi.mock("components/features/ThemeToggle", () => ({
-  default: () => <button aria-label="Theme toggle">Theme</button>,
-}));
-
 vi.mock("components/ui/Btn", () => ({
   default: ({ onClick, ariaLabel, text, disabled }) => (
     <button type="button" aria-label={ariaLabel} onClick={onClick} disabled={disabled}>

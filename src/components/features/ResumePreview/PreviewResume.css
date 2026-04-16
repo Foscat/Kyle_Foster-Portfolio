@@ -381,30 +381,6 @@ html[data-theme="light"] .resume-preview__paper {
   border-radius: 999px;
 }
 
-.resume-preview__paper.resume-preview__paper--print-export {
-  --resume-paper-text: rgba(var(--primary-darkest-rgb), 0.9);
-  --resume-paper-text-strong: rgba(var(--primary-darkest-rgb), 0.98);
-  --resume-paper-text-muted: rgba(var(--primary-dark-rgb), 0.78);
-  --resume-paper-accent: rgba(var(--accent-dark-rgb), 0.92);
-  --resume-paper-accent-strong: rgba(var(--accent-dark-rgb), 0.98);
-  --resume-paper-rule: rgba(var(--accent-dark-rgb), 0.22);
-  --resume-paper-bg-start: transparent;
-  --resume-paper-bg-end: transparent;
-  --resume-paper-shadow: none;
-
-  background: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-.resume-preview__paper--print-export .resume-document,
-.resume-preview__paper--print-export .resume-document * {
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
 /* -------------------------------------------------------------------------- */
 /* Responsive                                                                  */
 /* -------------------------------------------------------------------------- */
