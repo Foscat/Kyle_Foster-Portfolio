@@ -77,8 +77,8 @@ function A11ySwitch({ labelledBy, checked, onChange, disabled = false }) {
  * @prop {boolean} enabled - Whether the preference is currently enabled (based on draft state).
  * @prop {boolean|null} systemValue - The current value of the preference according to system settings (if supported).
  * @prop {boolean|null} overrideValue - The manually selected override value, or null when using the system preference.
- * @prop {(checked: boolean) => void} onToggle - Called when the preference switch is toggled.
- * @prop {(() => void)|undefined} onUseSystem - Called when the user chooses to revert to the system preference.
+ * @prop {function(boolean): void} onToggle - Called when the preference switch is toggled.
+ * @prop {function(): void} [onUseSystem] - Called when the user chooses to revert to the system preference.
  * @prop {boolean} [supportsSystem=true] - Whether this preference can follow a system-level setting.
  * @prop {boolean} [disabled=false] - Whether the row controls are disabled.
  * @returns {JSX.Element} The rendered preference row component.

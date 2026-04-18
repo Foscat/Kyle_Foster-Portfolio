@@ -8,7 +8,7 @@
 import { useCallback, useEffect, useState } from "react";
 import React from "react";
 import { Nav, Drawer } from "rsuite";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   faHome,
   faBriefcase,
@@ -103,10 +103,24 @@ const isEditableTarget = (target) =>
  * </Nav.Item>
  * ```
  */
-const handleNavClick = (e, isActive) => {
-  if (isActive) {
-    e.preventDefault();
-    e.stopPropagation();
+const isPrimaryNavigationEvent = (event) => {
+  const hasModifier = event.metaKey || event.altKey || event.ctrlKey || event.shiftKey;
+  const isPrimaryButton = typeof event.button !== "number" || event.button === 0;
+  return isPrimaryButton && !hasModifier;
+};
+
+const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = {}) => {
+  if (!isPrimaryNavigationEvent(event)) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (!isActive && typeof route === "string" && typeof navigate === "function") {
+    navigate(route);
+  }
+
+  if (typeof onAfterNavigate === "function") {
+    onAfterNavigate();
   }
 };
 
@@ -139,6 +153,7 @@ const handleNavClick = (e, isActive) => {
  * @returns {JSX.Element} Rendered sticky navigation.
  */
 const StickyNav = ({ activePage }) => {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showMobileIconHints, setShowMobileIconHints] = useState(false);
 
@@ -236,7 +251,13 @@ const StickyNav = ({ activePage }) => {
                 to={route}
                 active={isActive}
                 aria-current={isActive ? "page" : undefined}
-                onClick={(e) => handleNavClick(e, isActive)}
+                onClick={(event) =>
+                  handleNavClick(event, {
+                    isActive,
+                    route,
+                    navigate,
+                  })
+                }
                 className="fi-desk-nav-item"
               >
                 <Btn
@@ -328,10 +349,14 @@ const StickyNav = ({ activePage }) => {
                   active={isActive}
                   className="interactive-surface"
                   aria-current={isActive ? "page" : undefined}
-                  onClick={(e) => {
-                    handleNavClick(e, isActive);
-                    closeMobileNav();
-                  }}
+                  onClick={(event) =>
+                    handleNavClick(event, {
+                      isActive,
+                      route,
+                      navigate,
+                      onAfterNavigate: closeMobileNav,
+                    })
+                  }
                 >
                   {label}
                 </Nav.Item>

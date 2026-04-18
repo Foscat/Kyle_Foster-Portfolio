@@ -309,7 +309,6 @@ const Btn = ({
       active={active}
       as={elementAs}
       to={shouldUseRouterLink ? href : undefined}
-      viewTransition={shouldUseRouterLink ? true : undefined}
       href={!shouldUseRouterLink ? href : undefined}
       rel={
         !shouldUseRouterLink ? (hrefLocal ? undefined : rel || "noopener noreferrer") : undefined

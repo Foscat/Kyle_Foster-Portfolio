@@ -18,6 +18,8 @@ services:
         value: "https://kyle-foster.com"
       - key: PUPPETEER_SKIP_DOWNLOAD
         value: "true"
+      - key: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
+        value: "1"
     routes:
       - type: rewrite
         source: /*

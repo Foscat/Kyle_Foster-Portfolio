@@ -1,5 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
+const PLAYWRIGHT_RESULTS_ROOT = "./playwright/test-results";
+
 export default defineConfig({
   testDir: "./playwright",
   timeout: 30_000,
@@ -7,8 +9,12 @@ export default defineConfig({
   updateSnapshots: "missing",
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [["html", { open: "never" }], ["list"]],
-  outputDir: "./playwright/test-results/",
+  reporter: [
+    ["html", { open: "never", outputFolder: `${PLAYWRIGHT_RESULTS_ROOT}/report` }],
+    ["list"],
+  ],
+  outputDir: `${PLAYWRIGHT_RESULTS_ROOT}/artifacts`,
+  snapshotPathTemplate: `${PLAYWRIGHT_RESULTS_ROOT}/snapshots{/projectName}/{testFilePath}/{arg}{ext}`,
   expect: {
     // Global visual diff tolerances
     toHaveScreenshot: {

@@ -17,18 +17,10 @@ dist-ssr/
 *.local
 
 # Test and report artifacts (local-only)
-coverage/
-playwright-report/
-test-results/
+coverage/*
 tmp/
 playwright/test-results/
-playwright/**/test-results/
 public/interactive-surface.css
-
-# Local browser-specific snapshot artifacts
-playwright/**/*.spec.ts-snapshots/*-chromium-win32.png
-playwright/**/*.spec.ts-snapshots/*-firefox-win32.png
-playwright/**/*.spec.ts-snapshots/*-webkit-win32.png
 
 # Editor directories and files
 .vscode/*
