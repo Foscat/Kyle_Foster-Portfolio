@@ -134,6 +134,14 @@ function applyHexColorMap(source, colorMap) {
   });
 }
 
+/**
+ * Applies a named palette remapping to Mermaid source by replacing known hex
+ * color literals with palette-specific equivalents.
+ *
+ * @param {string} source - Mermaid definition source.
+ * @param {string} palette - Palette key (`primary`, `alt`, `forest`, `ocean`, `sunset`).
+ * @returns {string} Source with palette substitutions applied.
+ */
 export function applyPaletteToDiagramSource(source, palette) {
   if (!source) return source;
 

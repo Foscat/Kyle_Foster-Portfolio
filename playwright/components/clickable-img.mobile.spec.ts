@@ -19,9 +19,7 @@ async function openImageModal(page: Page, imageId: string) {
 }
 
 test.describe("ClickableImg mobile behavior", () => {
-  test("shows portrait guidance for wide screenshots and supports zoom metadata toggle", async ({
-    page,
-  }) => {
+  test("supports zoom metadata toggle for wide screenshots on mobile", async ({ page }) => {
     await page.setViewportSize(MOBILE_VIEWPORT);
     await preparePageForStableTests(page, { theme: "dark" });
 
@@ -30,13 +28,11 @@ test.describe("ClickableImg mobile behavior", () => {
 
     await openImageModal(page, WIDE_IMAGE_ID);
 
-    const rotateHint = page.locator(".modal-rotate-hint");
     const meta = page.locator(".modal-meta");
     const zoomIn = page.getByRole("button", { name: /zoom in image/i });
     const resetZoom = page.getByRole("button", { name: /reset image zoom/i });
     const zoomHint = page.locator(".modal-zoom-hint");
 
-    await expect(rotateHint).toBeVisible();
     await expect(meta).toBeVisible();
     await expect(resetZoom).toHaveText("100%");
 

@@ -22,11 +22,23 @@ export async function preparePageForStableTests(
 
   await page.addInitScript(
     ({ nextTheme, themeStorageKey }) => {
+      const stableA11yOverrides = {
+        reducedMotion: null,
+        reducedTransparency: null,
+        highContrast: null,
+        largeText: false,
+      };
+
       try {
+        window.localStorage.clear();
+        window.sessionStorage.clear();
         window.localStorage.setItem(themeStorageKey, nextTheme);
         // Keep compatibility with older tests/components that may read this key.
         window.localStorage.setItem("theme", nextTheme);
-        window.sessionStorage.clear();
+        window.localStorage.setItem(
+          "portfolio-a11y-overrides",
+          JSON.stringify(stableA11yOverrides)
+        );
       } catch {
         // Ignore storage issues in hardened browsers
       }

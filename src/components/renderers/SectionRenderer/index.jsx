@@ -167,53 +167,21 @@ function getBlockKeySegment(value, fallback) {
  */
 
 /**
- * @public
+ * Lazy-mount wrapper used to defer expensive block rendering (notably
+ * Mermaid diagrams) until the host enters the viewport.
+ *
+ * @private
  * @component
- * @name SectionRenderer
- *
- * @description Central render orchestrator for a single feature section.
- * This component acts as a **data-driven layout engine**, allowing
- * entire pages to be defined declaratively via structured data
- * instead of hardcoded JSX.
- *
- * @summary
- * Core responsibilities:
- * - Registers the section with the global SectionRegistry
- *   (used by sticky navigation and scroll-spy behavior)
- * - Renders the section container via `InfoSection`
- * - Dynamically resolves and renders content blocks based on `BlockType`
- *
- * Supported block types:
- * - Rich text content
- * - Image galleries
- * - Link lists
- * - Bulleted / accordion lists
- * - Mermaid diagrams (theme-aware)
- *
- * Defensive behavior:
- * - Gracefully handles malformed or unknown block definitions
- * - Renders a visible warning instead of silently failing
- *
  * @param {Object} props - Component props.
- *
- * @param {FeatureSection} props.section
- *   Fully-defined section descriptor containing metadata
- *   (`id`, `title`, `subtitle`, `icon`) and an ordered list of blocks.
- *
- * @returns {JSX.Element}
- *   Rendered, scroll-registered, frosted-glass section.
- *
- * @example
- * ```js
- * <SectionRenderer
- *   section={{
- *     id: "projects",
- *     title: "Projects",
- *     subtitle: "Selected work",
- *     blocks: [...]
- *   }}
- * />
- * ```
+ * @param {React.ReactNode} props.children - Content to mount when visible.
+ * @param {string} [props.rootMargin="320px 0px"] - Intersection observer root margin.
+ * @param {number|number[]} [props.threshold=0.01] - Intersection observer threshold.
+ * @param {string} [props.placeholderMinHeight="220px"] - Skeleton minimum height.
+ * @param {?number} [props.fallbackDelayMs=null] - Optional eager-mount timeout.
+ * @param {string} [props.statusLabel="Loading diagram"] - Accessible loading label.
+ * @param {string} [props.statusCaption="Loading diagram preview..."] - Visible placeholder text.
+ * @param {"off"|"polite"|"assertive"} [props.statusLive="polite"] - ARIA live mode.
+ * @returns {JSX.Element} Deferred content wrapper.
  */
 function DeferredMount({
   children,
@@ -328,6 +296,17 @@ function DeferredMount({
   );
 }
 
+/**
+ * Central render orchestrator for a feature section composed of declarative
+ * content blocks.
+ *
+ * @public
+ * @component
+ * @param {Object} props - Component props.
+ * @param {FeatureSection} [props.section={}] - Section metadata and block list.
+ * @param {boolean|Object} [props.deferDiagrams=false] - Diagram defer behavior toggle/config.
+ * @returns {JSX.Element} Rendered feature section.
+ */
 const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
   const sectionRegistry = useSectionRegistry() ?? {};
   const registerSection =
@@ -476,9 +455,7 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
     }
   };
 
-  /**
-   * @description Registers the section for scroll tracking on mount and unregisters it on unmount. Enables: - Sticky section navigation - Active section highlighting - Programmatic scrolling /
-   */
+  // Register this section for sticky navigation and scroll-spy behavior.
   const blocks = normalizeSectionBlocks(sectionBlocks);
   const totalDiagramCount = blocks.reduce(
     (count, block) => (getBlockType(block) === BlockType.DIAGRAM ? count + 1 : count),
@@ -577,7 +554,11 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
                     statusCaption={diagramDeferStatusCaption}
                     statusLive={diagramDeferStatusLive}
                   >
-                    <MermaidDiagram {...createDiagramBlock(block)} className="scroll-anchor" />
+                    <MermaidDiagram
+                      key={blockKey}
+                      {...createDiagramBlock(block)}
+                      className="scroll-anchor"
+                    />
                   </DeferredMount>
                 );
 
@@ -590,9 +571,7 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
               case BlockType.MARKDOWN_DOCS:
                 return <MarkdownDocsBlock key={blockKey} block={block} />;
 
-              /**
-               * @description Defensive fallback: If malformed or unknown block data reaches this point, render a visible warning instead of silently failing. /
-               */
+              // Defensive fallback for malformed or unsupported block payloads.
               default:
                 return fallbackBlock;
             }

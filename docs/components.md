@@ -503,6 +503,68 @@ src\components\features\AccessibilityMenu\AccessibilityMenu.test module.
 ## components/features/AccessibilityMenu
 Accessibility preferences modal for toggling motion, contrast,text size, and keyboard guidance with persisted client-side settings.
 
+
+* [components/features/AccessibilityMenu](#module_components/features/AccessibilityMenu)
+    * [module.exports()](#exp_module_components/features/AccessibilityMenu--module.exports) ⇒ <code>JSX.Element</code> ⏏
+        * [~A11ySwitch()](#module_components/features/AccessibilityMenu--module.exports..A11ySwitch) ⇒ <code>JSX.Element</code>
+        * [~PreferenceRow()](#module_components/features/AccessibilityMenu--module.exports..PreferenceRow) ⇒ <code>JSX.Element</code>
+
+<a name="exp_module_components/features/AccessibilityMenu--module.exports"></a>
+
+### module.exports() ⇒ <code>JSX.Element</code> ⏏
+A menu component for managing accessibility preferences.
+
+**Kind**: Exported function  
+**Returns**: <code>JSX.Element</code> - The rendered accessibility menu component.  
+**Component**: AccessibilityMenu  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| size | <code>string</code> | The size of the menu. |
+| enableHotkey | <code>boolean</code> | Whether to enable the hotkey for opening the menu. |
+| showTooltip | <code>boolean</code> | Whether to show tooltips for the menu items. |
+
+<a name="module_components/features/AccessibilityMenu--module.exports..A11ySwitch"></a>
+
+#### module.exports~A11ySwitch() ⇒ <code>JSX.Element</code>
+A custom switch component for toggling accessibility preferences, built with an underlying checkbox input for accessibility.
+
+**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/features/AccessibilityMenu--module.exports)  
+**Returns**: <code>JSX.Element</code> - The rendered switch component.  
+**Component**: A11ySwitch  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| labelledBy | <code>string</code> | The id of the element that labels this switch, used for aria-labelledby. |
+| checked | <code>boolean</code> | Whether the switch is currently on (checked) or off (unchecked). |
+| onChange | <code>function</code> | Callback function that is called with the new checked state when the switch is toggled. |
+| disabled | <code>boolean</code> | Whether the switch is disabled and non-interactive. |
+
+<a name="module_components/features/AccessibilityMenu--module.exports..PreferenceRow"></a>
+
+#### module.exports~PreferenceRow() ⇒ <code>JSX.Element</code>
+A single row in the accessibility menu for toggling a specific preference.
+
+**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/features/AccessibilityMenu--module.exports)  
+**Returns**: <code>JSX.Element</code> - The rendered preference row component.  
+**Component**: PreferenceRow  
+**Properties**
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | <code>string</code> |  | Unique identifier for the preference, used for accessibility labeling. |
+| title | <code>string</code> |  | The display name of the preference. |
+| description | <code>string</code> |  | A brief explanation of what the preference does. |
+| enabled | <code>boolean</code> |  | Whether the preference is currently enabled (based on draft state). |
+| systemValue | <code>boolean</code> \| <code>null</code> |  | The current value of the preference according to system settings (if supported). |
+| overrideValue | <code>boolean</code> \| <code>null</code> |  | The manually selected override value, or null when using the system preference. |
+| onToggle | <code>function</code> |  | Called when the preference switch is toggled. |
+| [onUseSystem] | <code>function</code> |  | Called when the user chooses to revert to the system preference. |
+| [supportsSystem] | <code>boolean</code> | <code>true</code> | Whether this preference can follow a system-level setting. |
+| [disabled] | <code>boolean</code> | <code>false</code> | Whether the row controls are disabled. |
+
 <a name="src\components\features\ColorMenu\ColorMenu.module_test"></a>
 
 ## src\components\features\ColorMenu\ColorMenu.test
@@ -512,6 +574,66 @@ src\components\features\ColorMenu\ColorMenu.test module.
 
 ## components/features/ColorMenu
 Color preferences modal for theme mode, palette, and highcontrast controls.
+
+
+* [components/features/ColorMenu](#module_components/features/ColorMenu)
+    * [~ColorSwitch](#module_components/features/ColorMenu..ColorSwitch) ⇒ <code>JSX.Element</code>
+    * [~ColorPreferenceRow](#module_components/features/ColorMenu..ColorPreferenceRow) ⇒ <code>JSX.Element</code>
+    * [~ColorMenu](#module_components/features/ColorMenu..ColorMenu) ⇒ <code>JSX.Element</code>
+
+<a name="module_components/features/ColorMenu..ColorSwitch"></a>
+
+### components/features/ColorMenu~ColorSwitch ⇒ <code>JSX.Element</code>
+A custom switch component for toggling color preferences, with support for disabled state and ARIA labeling.
+
+**Kind**: inner property of [<code>components/features/ColorMenu</code>](#module_components/features/ColorMenu)  
+**Returns**: <code>JSX.Element</code> - The rendered ColorSwitch component.  
+**Component**:   
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | The props for the ColorSwitch component. |
+| props.labelledBy | <code>string</code> |  | The ID of the element that labels the switch. |
+| props.checked | <code>boolean</code> |  | Whether the switch is currently checked. |
+| props.onChange | <code>function</code> |  | Callback function to handle switch state changes. |
+| [props.disabled] | <code>boolean</code> | <code>false</code> | Whether the switch is disabled. |
+
+<a name="module_components/features/ColorMenu..ColorPreferenceRow"></a>
+
+### components/features/ColorMenu~ColorPreferenceRow ⇒ <code>JSX.Element</code>
+A row component for displaying and managing color preferences, including high contrast mode.
+
+**Kind**: inner property of [<code>components/features/ColorMenu</code>](#module_components/features/ColorMenu)  
+**Returns**: <code>JSX.Element</code> - The rendered ColorPreferenceRow component.  
+**Component**:   
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | The props for the ColorPreferenceRow component. |
+| props.id | <code>string</code> |  | The ID for the row, used for ARIA labeling. |
+| props.title | <code>string</code> |  | The title of the color preference. |
+| props.description | <code>string</code> |  | A description of the color preference. |
+| props.enabled | <code>boolean</code> |  | Whether the color preference is currently enabled. |
+| props.systemValue | <code>boolean</code> |  | The system's current value for the color preference. |
+| props.overrideValue | <code>boolean</code> \| <code>null</code> |  | The user's override value for the color preference, or null if using system value. |
+| props.onToggle | <code>function</code> |  | Callback function to handle toggling the color preference. |
+| props.onUseSystem | <code>function</code> |  | Callback function to handle using the system value for the color preference. |
+| [props.disabled] | <code>boolean</code> | <code>false</code> | Whether the row is disabled. |
+
+<a name="module_components/features/ColorMenu..ColorMenu"></a>
+
+### components/features/ColorMenu~ColorMenu ⇒ <code>JSX.Element</code>
+A component for managing color preferences, including high contrast mode.
+
+**Kind**: inner property of [<code>components/features/ColorMenu</code>](#module_components/features/ColorMenu)  
+**Returns**: <code>JSX.Element</code> - The rendered ColorMenu component.  
+**Component**:   
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | The props for the ColorMenu component. |
+| [props.size] | <code>string</code> | <code>&quot;Size.SM&quot;</code> | The size of the color menu. |
+| [props.showTooltip] | <code>boolean</code> | <code>true</code> | Whether to show tooltips. |
 
 <a name="module_components/PaletteToggle"></a>
 
@@ -1368,6 +1490,19 @@ Unit tests for the LinksBlock component.Testing focus:- Defensive rendering b
 ## src\components\renderers\blocks\MarkdownDocs.Block\index
 src\components\renderers\blocks\MarkdownDocs.Block\index module.
 
+<a name="exp_src\components\renderers\blocks\MarkdownDocs.module_Block\index--module.exports"></a>
+
+### .module.exports(props) ⇒ <code>JSX.Element</code> \| <code>null</code> ⏏
+Renders a curated stack of documentation articles with optional jump linksand per-article tables of contents.
+
+**Kind**: static method of [<code>src\components\renderers\blocks\MarkdownDocs.Block\index</code>](#src\components\renderers\blocks\MarkdownDocs.module_Block\index)  
+**Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered docs block or `null` when no docs resolve.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| props | <code>Object</code> | Component props. |
+| props.block | <code>Object</code> | Markdown docs block configuration payload. |
+
 <a name="module_src\components\renderers\blocks\RichTextBlock\index"></a>
 
 ## src\components\renderers\blocks\RichTextBlock\index
@@ -1429,6 +1564,25 @@ A simple component to display a loading message and an optional icon while a laz
 
 ## src\components\renderers\MarkdownRenderer\index
 src\components\renderers\MarkdownRenderer\index module.
+
+<a name="module_src\components\renderers\MarkdownRenderer\index..MarkdownRenderer"></a>
+
+### src\components\renderers\MarkdownRenderer\index~MarkdownRenderer(props) ⇒ <code>JSX.Element</code>
+A React component that renders Markdown content with syntax highlighting and an optional table of contents. It uses the react-markdown library to parse and render the Markdown, and Prism.js for syntax highlighting. The component also generates unique IDs for headings to enable linking from the table of contents.
+
+**Kind**: inner method of [<code>src\components\renderers\MarkdownRenderer\index</code>](#module_src\components\renderers\MarkdownRenderer\index)  
+**Returns**: <code>JSX.Element</code> - The rendered Markdown content.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | The props for the MarkdownRenderer component. |
+| [props.title] | <code>string</code> |  | An optional title to display above the rendered content. |
+| props.content | <code>string</code> |  | The Markdown content to render. |
+| [props.intro] | <code>string</code> |  | An optional introductory text to display below the title and above the rendered content. |
+| [props.showToc] | <code>boolean</code> | <code>true</code> | Whether to show the table of contents based on the headings in the content. |
+| [props.maxTocDepth] | <code>number</code> | <code>3</code> | The maximum heading level to include in the table of contents (e.g., 3 means include h1, h2, and h3). |
+| [props.className] | <code>string</code> |  | Additional CSS class names to apply to the root element. |
+| [props.articleId] | <code>string</code> |  | An optional ID to apply to the root article element for linking purposes. |
 
 <a name="module_src\components\renderers\RichText\index"></a>
 
@@ -1513,35 +1667,22 @@ src\components\renderers\SectionRenderer\index module.
 ## components/SectionRenderer
 Central render orchestrator for feature sections composed ofdeclarative content blocks.
 
-
-* [components/SectionRenderer](#module_components/SectionRenderer)
-    * [~SectionRenderer](#module_components/SectionRenderer..SectionRenderer) ⇒ <code>JSX.Element</code>
-        * [~blocks](#module_components/SectionRenderer..SectionRenderer..blocks)
-
 <a name="module_components/SectionRenderer..SectionRenderer"></a>
 
-### components/SectionRenderer~SectionRenderer ⇒ <code>JSX.Element</code>
-Central render orchestrator for a single feature section.This component acts as a **data-driven layout engine**, allowingentire pages to be defined declaratively via structured datainstead of hardcoded JSX.
+### components/SectionRenderer~SectionRenderer(props) ⇒ <code>JSX.Element</code>
+Central render orchestrator for a feature section composed of declarativecontent blocks.
 
-**Kind**: inner property of [<code>components/SectionRenderer</code>](#module_components/SectionRenderer)  
-**Summary**: Core responsibilities:- Registers the section with the global SectionRegistry  (used by sticky navigation and scroll-spy behavior)- Renders the section container via `InfoSection`- Dynamically resolves and renders content blocks based on `BlockType`Supported block types:- Rich text content- Image galleries- Link lists- Bulleted / accordion lists- Mermaid diagrams (theme-aware)Defensive behavior:- Gracefully handles malformed or unknown block definitions- Renders a visible warning instead of silently failing  
-**Returns**: <code>JSX.Element</code> - Rendered, scroll-registered, frosted-glass section.  
+**Kind**: inner method of [<code>components/SectionRenderer</code>](#module_components/SectionRenderer)  
+**Returns**: <code>JSX.Element</code> - Rendered feature section.  
 **Access**: public  
 **Component**:   
 
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>Object</code> | Component props. |
-| props.section | <code>FeatureSection</code> | Fully-defined section descriptor containing metadata   (`id`, `title`, `subtitle`, `icon`) and an ordered list of blocks. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | Component props. |
+| [props.section] | <code>FeatureSection</code> | <code>{}</code> | Section metadata and block list. |
+| [props.deferDiagrams] | <code>boolean</code> \| <code>Object</code> | <code>false</code> | Diagram defer behavior toggle/config. |
 
-**Example**  
-```js<SectionRenderer  section={{    id: "projects",    title: "Projects",    subtitle: "Selected work",    blocks: [...]  }}/>```
-<a name="module_components/SectionRenderer..SectionRenderer..blocks"></a>
-
-#### SectionRenderer~blocks
-Registers the section for scroll tracking on mount and unregisters it on unmount. Enables: - Sticky section navigation - Active section highlighting - Programmatic scrolling /
-
-**Kind**: inner constant of [<code>SectionRenderer</code>](#module_components/SectionRenderer..SectionRenderer)  
 <a name="module_tests/components/SectionRenderer"></a>
 
 ## tests/components/SectionRenderer

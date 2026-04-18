@@ -12,12 +12,14 @@
 }
 
 :root {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.98);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 1);
-  --sticky-nav-trigger-theme-icon-color: var(--text-secondary);
-  --sticky-nav-trigger-theme-icon-hover-color: var(--text-primary);
-  --sticky-nav-trigger-a11y-icon-color: var(--text-secondary);
-  --sticky-nav-trigger-a11y-icon-hover-color: var(--text-primary);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+  --sticky-nav-trigger-utility-icon-color: var(--text-secondary);
+  --sticky-nav-trigger-utility-icon-hover-color: var(--text-primary);
+  --sticky-nav-trigger-theme-icon-color: var(--sticky-nav-trigger-utility-icon-color);
+  --sticky-nav-trigger-theme-icon-hover-color: var(--sticky-nav-trigger-utility-icon-hover-color);
+  --sticky-nav-trigger-a11y-icon-color: var(--sticky-nav-trigger-utility-icon-color);
+  --sticky-nav-trigger-a11y-icon-hover-color: var(--sticky-nav-trigger-utility-icon-hover-color);
 }
 
 /* Brand text styling */
@@ -83,9 +85,11 @@
   --sticky-nav-utility-icon-button-size: 48px;
   --sticky-nav-page-icon-glyph-size: calc(var(--icon-sm) + 1px);
   --sticky-nav-utility-icon-glyph-size: var(--icon-sm);
-  --sticky-nav-desktop-page-icon-color: rgba(var(--white-rgb), 0.74);
-  --sticky-nav-desktop-page-icon-active-color: var(--text-accent);
-  --sticky-nav-desktop-page-icon-hover-color: rgba(var(--white-rgb), 0.94);
+  --sticky-nav-desktop-page-icon-color: var(--sticky-nav-trigger-navigation-icon-color);
+  --sticky-nav-desktop-page-icon-active-color: var(
+    --sticky-nav-trigger-navigation-icon-hover-color
+  );
+  --sticky-nav-desktop-page-icon-hover-color: var(--sticky-nav-trigger-navigation-icon-hover-color);
   --sticky-nav-desktop-theme-icon-color: var(--sticky-nav-trigger-theme-icon-color);
   --sticky-nav-desktop-theme-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
   --sticky-nav-desktop-a11y-icon-color: var(--sticky-nav-trigger-a11y-icon-color);
@@ -297,12 +301,21 @@
 
 /* Dark mode: Btn/styles.css forces noBG icon-only .frosted-icon to inherit accent-light
    with specificity (0,6,1). These rules use (0,7,1) to restore the correct trigger colors. */
+html[data-theme="dark"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .color-toggle-btn .color-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
+  color: var(--sticky-nav-trigger-utility-icon-color) !important;
+}
+
 html[data-theme="dark"]
   .desktop-menu
   .sticky-nav-color-toggle
   .color-menu-trigger.btn.icon-only
   .frosted-icon.btn-icon {
-  color: var(--sticky-nav-desktop-theme-icon-color);
+  color: var(--sticky-nav-desktop-theme-icon-color) !important;
 }
 
 html[data-theme="dark"]
@@ -310,7 +323,7 @@ html[data-theme="dark"]
   .sticky-nav-a11y-toggle
   .a11y-menu-trigger.btn.icon-only
   .frosted-icon.btn-icon {
-  color: var(--sticky-nav-desktop-a11y-icon-color);
+  color: var(--sticky-nav-desktop-a11y-icon-color) !important;
 }
 
 html[data-theme="dark"] .color-toggle-btn .color-menu-trigger.btn.icon-only .frosted-icon.btn-icon,
@@ -318,7 +331,7 @@ html[data-theme="dark"]
   .sticky-nav-mobile-color
   .color-menu-trigger.btn.icon-only
   .frosted-icon.btn-icon {
-  color: var(--sticky-nav-mobile-stack-color-icon-color);
+  color: var(--sticky-nav-mobile-stack-color-icon-color) !important;
 }
 
 html[data-theme="dark"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only .frosted-icon.btn-icon,
@@ -326,7 +339,7 @@ html[data-theme="dark"]
   .sticky-nav-mobile-a11y
   .a11y-menu-trigger.btn.icon-only
   .frosted-icon.btn-icon {
-  color: var(--sticky-nav-mobile-stack-a11y-icon-color);
+  color: var(--sticky-nav-mobile-stack-a11y-icon-color) !important;
 }
 
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon,
@@ -347,24 +360,48 @@ html[data-theme="dark"]
   box-shadow: none !important;
 }
 
-html[data-theme="light"] .desktop-menu {
-  --sticky-nav-desktop-page-icon-color: rgba(var(--primary-dark-rgb), 0.78);
-  --sticky-nav-desktop-page-icon-active-color: rgba(var(--accent-dark-rgb), 0.98);
-  --sticky-nav-desktop-page-icon-hover-color: rgba(var(--primary-darkest-rgb), 1);
-}
-
 html[data-theme="dark"] {
-  --sticky-nav-trigger-theme-icon-color: var(--text-secondary);
-  --sticky-nav-trigger-theme-icon-hover-color: var(--text-primary);
-  --sticky-nav-trigger-a11y-icon-color: var(--text-secondary);
-  --sticky-nav-trigger-a11y-icon-hover-color: var(--text-primary);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.92);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-100-rgb), 0.98);
 }
 
 html[data-theme="light"] {
-  --sticky-nav-trigger-theme-icon-color: rgba(var(--primary-dark-rgb), 0.8);
-  --sticky-nav-trigger-theme-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.98);
-  --sticky-nav-trigger-a11y-icon-color: rgba(var(--gray-700-rgb), 0.9);
-  --sticky-nav-trigger-a11y-icon-hover-color: rgba(var(--black-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-700-rgb), 0.92);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
+}
+
+/* Ensure utility icon colors stay consistent across all supported palettes. */
+html[data-theme="dark"][data-palette="primary"],
+html[data-theme="dark"][data-palette="alt"],
+html[data-theme="dark"][data-palette="forest"],
+html[data-theme="dark"][data-palette="ocean"],
+html[data-theme="dark"][data-palette="sunset"] {
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.92);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-100-rgb), 0.98);
+}
+
+html[data-theme="light"][data-palette="primary"],
+html[data-theme="light"][data-palette="alt"],
+html[data-theme="light"][data-palette="forest"],
+html[data-theme="light"][data-palette="ocean"],
+html[data-theme="light"][data-palette="sunset"] {
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-700-rgb), 0.92);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
+}
+
+/*
+ * Forest + Sunset (light mode):
+ * Keep the same hue family seen on hover, but use a slightly lighter
+ * resting color so interactive-surface hover still reads as an elevation.
+ */
+html[data-theme="light"][data-palette="forest"],
+html[data-theme="light"][data-palette="sunset"] {
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-rgb), 0.9);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
 }
 
 html[data-theme="light"]
@@ -394,26 +431,26 @@ html[data-theme="light"]
 
 html[data-theme="dark"][data-palette="alt"] {
   /* Classic: utility triggers in silver-white */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-light-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
 }
 
 html[data-theme="dark"][data-palette="primary"] {
   /* Midnight: utility triggers in silver-white */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gray-100-rgb), 0.92);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--white-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
 }
 
 html[data-theme="dark"][data-palette="ocean"] {
   /* Ocean: utility triggers in silver-white */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-light-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
 }
 
 html[data-theme="dark"][data-palette="forest"],
 html[data-theme="dark"][data-palette="sunset"] {
   /* Forest + Sunset: utility triggers in gray-silver */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-light-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
 }
 
@@ -423,14 +460,14 @@ html[data-theme="dark"][data-palette="sunset"] {
 
 html[data-theme="light"][data-palette="alt"] {
   /* Classic light: dark gold nav */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-dark-rgb), 0.92);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
 }
 
 html[data-theme="light"][data-palette="primary"] {
   /* Midnight light: dark navy nav */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.9);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
 }
 
 html[data-theme="light"][data-palette="forest"],
@@ -440,8 +477,8 @@ html[data-theme="light"][data-palette="sunset"] {
    * Shared nav-icon pattern — each palette keeps distinct navigation tones
    * while theme/a11y utility icon tones are standardized at the theme level.
    */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--accent-dark-rgb), 0.92);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--accent-dark-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -645,8 +682,9 @@ html[data-theme="light"]
     --sticky-nav-mobile-trigger-left: calc(env(safe-area-inset-left, 0px) + 14px);
     --sticky-nav-mobile-trigger-gutter: 8px;
     --sticky-nav-mobile-stack-nav-icon-color: var(--sticky-nav-trigger-navigation-icon-color);
-    --sticky-nav-mobile-stack-color-icon-color: var(--sticky-nav-trigger-theme-icon-color);
-    --sticky-nav-mobile-stack-a11y-icon-color: var(--sticky-nav-trigger-a11y-icon-color);
+    --sticky-nav-mobile-stack-utility-icon-color: var(--sticky-nav-trigger-utility-icon-color);
+    --sticky-nav-mobile-stack-color-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
+    --sticky-nav-mobile-stack-a11y-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
   }
 
   .desktop-menu {
@@ -838,56 +876,61 @@ html[data-theme="light"]
     font-size: var(--sticky-nav-mobile-trigger-glyph-size);
   }
 
-  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon.fi-variant-accent,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon.fi-variant-accent {
+  .nav-toggle-btn .btn.icon-only,
+  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
     color: var(--sticky-nav-mobile-stack-nav-icon-color);
   }
 
-  .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon.fi-variant-secondary,
-  .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon.fi-variant-secondary {
+  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon,
+  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon {
+    color: var(--sticky-nav-mobile-stack-nav-icon-color);
+  }
+
+  .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-color-icon-color);
   }
 
   html[data-theme="light"]
     .color-toggle-btn
     .color-menu-trigger.btn.icon-only:focus-visible
-    .frosted-icon.btn-icon.fi-variant-secondary,
+    .frosted-icon.btn-icon,
   html[data-theme="light"]
     .color-toggle-btn
     .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
-    .frosted-icon.btn-icon.fi-variant-secondary,
+    .frosted-icon.btn-icon,
   html[data-theme="light"]
     .sticky-nav-mobile-color
     .color-menu-trigger.btn.icon-only:focus-visible
-    .frosted-icon.btn-icon.fi-variant-secondary,
+    .frosted-icon.btn-icon,
   html[data-theme="light"]
     .sticky-nav-mobile-color
     .color-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
-    .frosted-icon.btn-icon.fi-variant-secondary {
+    .frosted-icon.btn-icon {
     color: var(--sticky-nav-trigger-theme-icon-hover-color);
   }
 
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   }
 
   html[data-theme="light"]
     .a11y-toggle-btn
     .a11y-menu-trigger.btn.icon-only:focus-visible
-    .frosted-icon.btn-icon.fi-variant-primary,
+    .frosted-icon.btn-icon,
   html[data-theme="light"]
     .a11y-toggle-btn
     .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
-    .frosted-icon.btn-icon.fi-variant-primary,
+    .frosted-icon.btn-icon,
   html[data-theme="light"]
     .sticky-nav-mobile-a11y
     .a11y-menu-trigger.btn.icon-only:focus-visible
-    .frosted-icon.btn-icon.fi-variant-primary,
+    .frosted-icon.btn-icon,
   html[data-theme="light"]
     .sticky-nav-mobile-a11y
     .a11y-menu-trigger.btn.icon-only:active:not(:disabled, .loading)
-    .frosted-icon.btn-icon.fi-variant-primary {
+    .frosted-icon.btn-icon {
     color: var(--sticky-nav-trigger-a11y-icon-hover-color);
   }
 
@@ -897,7 +940,7 @@ html[data-theme="light"]
   }
 
   /* Drawer utility controls should share the same role color for quick scanning. */
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   }
 

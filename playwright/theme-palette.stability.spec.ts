@@ -25,18 +25,18 @@ test.describe("Theme and Palette Stability", () => {
     await page.goto(toUrl("/"));
     await stabilizePage(page, { theme: "dark" });
 
-    const accessibilityTrigger = page
-      .getByRole("button", { name: /open accessibility settings/i })
+    const colorSettingsTrigger = page.getByRole("button", { name: /open color settings/i }).first();
+    await expect(colorSettingsTrigger).toBeVisible();
+    await colorSettingsTrigger.click();
+
+    const colorSettingsModal = page.getByRole("dialog", { name: /color settings/i });
+    await expect(colorSettingsModal).toBeVisible();
+
+    const lightThemeButton = colorSettingsModal
+      .getByRole("button", { name: /light theme/i })
       .first();
-    await expect(accessibilityTrigger).toBeVisible();
-    await accessibilityTrigger.click();
-
-    const a11yModal = page.getByRole("dialog", { name: /accessibility settings/i });
-    await expect(a11yModal).toBeVisible();
-
-    const lightThemeButton = a11yModal.getByRole("button", { name: /light theme/i }).first();
-    const darkThemeButton = a11yModal.getByRole("button", { name: /dark theme/i }).first();
-    const paletteSelect = a11yModal.getByRole("combobox", { name: /color palette/i });
+    const darkThemeButton = colorSettingsModal.getByRole("button", { name: /dark theme/i }).first();
+    const paletteSelect = colorSettingsModal.getByRole("combobox", { name: /color palette/i });
 
     await expect(lightThemeButton).toBeVisible();
     await expect(darkThemeButton).toBeVisible();

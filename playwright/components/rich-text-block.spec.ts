@@ -11,7 +11,7 @@ const THEMES = ["dark", "light"] as const;
 for (const theme of THEMES) {
   test.describe(`RichTextBlock – ${theme} theme`, () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto("/tests/fixtures/rich-text-block.fixture.html");
+      await page.goto("/playwright/fixtures/rich-text-block.fixture.html");
 
       await page.evaluate((theme) => {
         document.documentElement.setAttribute("data-theme", theme);

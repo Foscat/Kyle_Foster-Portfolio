@@ -9,6 +9,14 @@ import MarkdownRenderer from "../../MarkdownRenderer";
 import { getPortfolioDocs } from "../../../../assets/data/content/portfolioDocs";
 import "./styles.css";
 
+/**
+ * Renders a curated stack of documentation articles with optional jump links
+ * and per-article tables of contents.
+ *
+ * @param {Object} props - Component props.
+ * @param {Object} props.block - Markdown docs block configuration payload.
+ * @returns {JSX.Element|null} Rendered docs block or `null` when no docs resolve.
+ */
 export default function MarkdownDocsBlock({ block }) {
   const { title, intro, docSlugs = [], showToc = true, showDocJumpList = true } = block;
 

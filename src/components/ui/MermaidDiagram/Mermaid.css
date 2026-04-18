@@ -735,6 +735,7 @@
   border: 1px solid rgba(var(--white-rgb), 0.24);
   background: rgba(var(--deep-black-rgb), 0.45);
   color: var(--text-primary);
+  -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
   pointer-events: auto;
 }
