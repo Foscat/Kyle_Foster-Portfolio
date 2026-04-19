@@ -203,6 +203,8 @@ html[data-theme="light"] .resume-preview__viewport {
   background: linear-gradient(180deg, var(--resume-paper-bg-start), var(--resume-paper-bg-end));
   color: var(--resume-paper-text);
   box-shadow: var(--resume-paper-shadow);
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 html[data-theme="light"] .resume-preview__paper {
@@ -224,6 +226,7 @@ html[data-theme="light"] .resume-preview__paper {
 .resume-document {
   display: grid;
   gap: 1.75rem;
+  font-size: 0.97rem;
 }
 
 .resume-document__header {
@@ -243,7 +246,7 @@ html[data-theme="light"] .resume-preview__paper {
 
 .resume-document__role {
   margin: 0.3rem 0 0;
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-weight: 600;
   color: var(--resume-paper-accent);
 }
@@ -278,9 +281,9 @@ html[data-theme="light"] .resume-preview__paper {
 
 .resume-document__section-header h3 {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 1.08rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.065em;
   text-transform: uppercase;
   color: var(--resume-paper-accent-strong);
 }
@@ -292,7 +295,7 @@ html[data-theme="light"] .resume-preview__paper {
 
 .resume-document__summary {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 0.97rem;
   line-height: 1.75;
   color: var(--resume-paper-text);
 }
@@ -316,28 +319,28 @@ html[data-theme="light"] .resume-preview__paper {
 
 .resume-document__entry-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.06rem;
   font-weight: 700;
   color: var(--resume-paper-text-strong);
 }
 
 .resume-document__entry-subtitle {
   margin: 0.2rem 0 0;
-  font-size: 0.94rem;
+  font-size: 1rem;
   color: var(--resume-paper-text-muted);
 }
 
 .resume-document__entry-dates {
   margin: 0;
   white-space: nowrap;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--resume-paper-text-muted);
 }
 
 .resume-document__entry-summary {
   margin: 0;
-  font-size: 0.96rem;
+  font-size: 0.97rem;
   line-height: 1.7;
   color: var(--resume-paper-text);
 }
@@ -347,6 +350,7 @@ html[data-theme="light"] .resume-preview__paper {
   padding-left: 1.15rem;
   display: grid;
   gap: 0.45rem;
+  font-size: 0.96rem;
 }
 
 .resume-document__bullet-list li {
@@ -366,13 +370,14 @@ html[data-theme="light"] .resume-preview__paper {
 
 .resume-document__skill-label {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.97rem;
   font-weight: 700;
   color: var(--resume-paper-text-strong);
 }
 
 .resume-document__skill-values {
   margin: 0;
+  font-size: 0.95rem;
   line-height: 1.7;
   color: var(--resume-paper-text-muted);
 }

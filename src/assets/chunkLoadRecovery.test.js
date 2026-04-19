@@ -61,10 +61,11 @@ describe("chunkLoadRecovery", () => {
     ).toBe(true);
   });
 
-  it("detects missing hashed asset scripts by URL", () => {
+  it("detects missing hashed asset scripts by target src", () => {
     expect(
       isLikelyChunkLoadFailure({
-        filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
+        targetSrc: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
+        isScriptLoadEvent: true,
       })
     ).toBe(true);
   });
@@ -73,6 +74,15 @@ describe("chunkLoadRecovery", () => {
     expect(
       isLikelyChunkLoadFailure({
         filename: "chrome-extension://cbnpimmlikdmfccbjhbjlmonkehnlofh/user_style.js",
+        message: "Cannot read properties of null (reading 'querySelector')",
+      })
+    ).toBe(false);
+  });
+
+  it("ignores regular runtime errors from bundled assets", () => {
+    expect(
+      isLikelyChunkLoadFailure({
+        filename: "https://beta.example.com/assets/index-BOIkBqnZ.js",
         message: "Cannot read properties of null (reading 'querySelector')",
       })
     ).toBe(false);
@@ -99,6 +109,25 @@ describe("chunkLoadRecovery", () => {
       "https://beta.example.com/?foo=bar&chunk-recover=12345"
     );
     expect(mockWindow.location.reload).not.toHaveBeenCalled();
+  });
+
+  it("does not reset reload attempts on subsequent successful loads", () => {
+    const mockWindow = createMockWindow();
+    installChunkLoadRecovery({ win: mockWindow, maxReloads: 1, now: () => 12345 });
+
+    mockWindow.emit("error", {
+      message: "",
+      filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
+      target: { src: "https://beta.example.com/assets/ui-BOIkBqnZ.js" },
+    });
+    mockWindow.emit("load", {});
+    mockWindow.emit("error", {
+      message: "",
+      filename: "https://beta.example.com/assets/ui-BOIkBqnZ.js",
+      target: { src: "https://beta.example.com/assets/ui-BOIkBqnZ.js" },
+    });
+
+    expect(mockWindow.location.replace).toHaveBeenCalledTimes(1);
   });
 
   it("clears recovery query params from the address bar after a successful load", () => {

@@ -565,10 +565,19 @@ html[data-theme="light"][data-palette="sunset"] {
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"],
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item:hover {
-  color: var(--accent-light);
   border-radius: var(--radius-lg);
   background-color: var(--bg-gradient);
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
+  color: var(--text-accent);
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item:hover {
+  color: var(--text-primary);
 }
 
 .mobile-only {
