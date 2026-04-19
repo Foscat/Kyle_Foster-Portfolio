@@ -24,18 +24,39 @@ const DYNAMIC_IMPORT_FAILURE_PATTERNS = [
  * @param {string} [payload.message] - Error message text.
  * @param {string} [payload.filename] - Error filename from `window.onerror`.
  * @param {string} [payload.targetSrc] - Script src from `ErrorEvent.target`.
+ * @param {boolean} [payload.isScriptLoadEvent=false] - True when the originating error event
+ * is a script load failure event rather than a runtime exception.
  * @returns {boolean} True when the payload indicates a likely deploy-time chunk mismatch.
  */
-export function isLikelyChunkLoadFailure({ message = "", filename = "", targetSrc = "" } = {}) {
-  const combinedMessage = String(message || "");
-  const sources = [String(filename || ""), String(targetSrc || "")];
+export function isLikelyChunkLoadFailure({
+  message = "",
+  filename = "",
+  targetSrc = "",
+  isScriptLoadEvent = false,
+} = {}) {
+  const combinedMessage = String(message || "").trim();
+  const normalizedFilename = String(filename || "");
+  const normalizedTargetSrc = String(targetSrc || "");
 
   if (DYNAMIC_IMPORT_FAILURE_PATTERNS.some((pattern) => pattern.test(combinedMessage))) {
     return true;
   }
 
   // Script element load failure for hashed Vite chunks.
-  return sources.some((source) => /\/assets\/[^/]+\.js(?:\?.*)?$/i.test(source));
+  const scriptSource = normalizedTargetSrc || (isScriptLoadEvent ? normalizedFilename : "");
+  if (/\/assets\/[^/]+\.js(?:\?.*)?$/i.test(scriptSource)) {
+    return true;
+  }
+
+  // Some browsers only surface "Script error." with a filename for load failures.
+  if (
+    /^script error\.?$/i.test(combinedMessage) &&
+    /\/assets\/[^/]+\.js(?:\?.*)?$/i.test(normalizedFilename)
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 const safeReadReloadCount = (storage) => {
@@ -51,14 +72,6 @@ const safeReadReloadCount = (storage) => {
 const safeWriteReloadCount = (storage, value) => {
   try {
     storage.setItem(CHUNK_RELOAD_SESSION_KEY, String(value));
-  } catch {
-    // Ignore storage errors in hardened browser modes.
-  }
-};
-
-const safeClearReloadCount = (storage) => {
-  try {
-    storage.removeItem(CHUNK_RELOAD_SESSION_KEY);
   } catch {
     // Ignore storage errors in hardened browser modes.
   }
@@ -139,10 +152,17 @@ export function installChunkLoadRecovery({
 
   const handleError = (event) => {
     const target = event?.target;
+    const hasScriptSrc =
+      target && typeof target === "object" && "src" in target && typeof target.src === "string";
+    const isScriptElement =
+      typeof HTMLScriptElement !== "undefined" && target instanceof HTMLScriptElement;
+    const isScriptLoadEvent = isScriptElement || (hasScriptSrc && !event?.message);
+
     maybeRecover({
       message: event?.message,
       filename: event?.filename,
-      targetSrc: target && "src" in target ? target.src : "",
+      targetSrc: hasScriptSrc ? target.src : "",
+      isScriptLoadEvent,
     });
   };
 
@@ -153,7 +173,6 @@ export function installChunkLoadRecovery({
   };
 
   const handleLoad = () => {
-    safeClearReloadCount(storage);
     clearRecoveryQueryParam(win);
   };
 
