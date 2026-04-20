@@ -690,10 +690,15 @@ html[data-theme="light"]
     --sticky-nav-mobile-rail-top: calc(env(safe-area-inset-top, 0px) + 10px);
     --sticky-nav-mobile-trigger-left: calc(env(safe-area-inset-left, 0px) + 14px);
     --sticky-nav-mobile-trigger-gutter: 8px;
+    --sticky-nav-mobile-section-slot: 0;
     --sticky-nav-mobile-stack-nav-icon-color: var(--sticky-nav-trigger-navigation-icon-color);
     --sticky-nav-mobile-stack-utility-icon-color: var(--sticky-nav-trigger-utility-icon-color);
     --sticky-nav-mobile-stack-color-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
     --sticky-nav-mobile-stack-a11y-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
+  }
+
+  html[data-has-mobile-section-nav="true"] {
+    --sticky-nav-mobile-section-slot: 1;
   }
 
   .desktop-menu {
@@ -782,14 +787,16 @@ html[data-theme="light"]
   .a11y-toggle-btn {
     top: calc(
       var(--sticky-nav-mobile-rail-top) +
-        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) * 3
+        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
+        (2 + var(--sticky-nav-mobile-section-slot))
     );
   }
 
   .color-toggle-btn {
     top: calc(
       var(--sticky-nav-mobile-rail-top) +
-        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) * 2
+        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
+        (1 + var(--sticky-nav-mobile-section-slot))
     );
   }
 

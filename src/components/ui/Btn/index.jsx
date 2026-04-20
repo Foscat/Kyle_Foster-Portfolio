@@ -311,10 +311,14 @@ const Btn = ({
       to={shouldUseRouterLink ? href : undefined}
       href={!shouldUseRouterLink ? href : undefined}
       rel={
-        !shouldUseRouterLink ? (hrefLocal ? undefined : rel || "noopener noreferrer") : undefined
+        isLinkMode && !shouldUseRouterLink
+          ? (hrefLocal ? undefined : rel || "noopener noreferrer")
+          : undefined
       }
-      target={!shouldUseRouterLink ? (hrefLocal ? undefined : target || "_blank") : undefined}
-      download={!shouldUseRouterLink ? download || undefined : undefined}
+      target={
+        isLinkMode && !shouldUseRouterLink ? (hrefLocal ? undefined : target || "_blank") : undefined
+      }
+      download={isLinkMode && !shouldUseRouterLink ? download || undefined : undefined}
       block={block}
       classPrefix={classPrefix}
       endIcon={endIcon}

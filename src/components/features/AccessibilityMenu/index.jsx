@@ -214,7 +214,9 @@ export default function AccessibilityMenu({
     setTimeout(updateLiveRegion, 0);
   }, []);
 
-  const openMenu = useCallback(() => {
+  const openMenu = useCallback((event) => {
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
     syncDraftFromCurrent();
     setOpen(true);
   }, [syncDraftFromCurrent]);
