@@ -16,8 +16,6 @@ services:
         value: "true"
       - key: VITE_SITE_URL
         value: "https://kyle-foster.com"
-      - key: VITE_CONTACT_API_URL
-        value: "https://email-microservice-grem.onrender.com/api/contact"
       - key: PUPPETEER_SKIP_DOWNLOAD
         value: "true"
       - key: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
