@@ -236,7 +236,7 @@ export default function Contact() {
       <div className="page-overlay" />
 
       <FlexboxGrid justify="center" className="contact-grid">
-        <FlexboxGrid.Item colspan={20}>
+        <FlexboxGrid.Item colspan={20} className="contact-grid-item">
           <Panel
             header={
               <header>

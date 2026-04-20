@@ -394,11 +394,18 @@ html[data-theme="light"][data-palette="sunset"] {
 }
 
 /*
- * Forest + Sunset (light mode):
- * Keep the same hue family seen on hover, but use a slightly lighter
- * resting color so interactive-surface hover still reads as an elevation.
+ * Forest (light mode):
+ * Keep utility controls in a neutral silver so they stay legible on the rail.
  */
-html[data-theme="light"][data-palette="forest"],
+html[data-theme="light"][data-palette="forest"] {
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.94);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-100-rgb), 0.99);
+}
+
+/*
+ * Sunset (light mode):
+ * Preserve warm utility hue while keeping hover affordance distinct.
+ */
 html[data-theme="light"][data-palette="sunset"] {
   --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-rgb), 0.9);
   --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
@@ -470,7 +477,6 @@ html[data-theme="light"][data-palette="primary"] {
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
 }
 
-html[data-theme="light"][data-palette="forest"],
 html[data-theme="light"][data-palette="ocean"],
 html[data-theme="light"][data-palette="sunset"] {
   /*
@@ -479,6 +485,11 @@ html[data-theme="light"][data-palette="sunset"] {
    */
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+}
+
+html[data-theme="light"][data-palette="forest"] {
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
 }
 
 @media (hover: hover) and (pointer: fine) {

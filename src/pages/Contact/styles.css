@@ -139,13 +139,24 @@
 
 @media (width <= 1024px) {
   .contact-grid {
-    padding: 0 5px 0 calc(var(--sticky-nav-mobile-trigger-size) + var(--page-gutter, 0px));
+    padding: 0 0 0
+      calc(var(--sticky-nav-mobile-trigger-left, 0px) + var(--sticky-nav-mobile-trigger-size) + 4px);
+  }
+
+  .contact-grid .contact-grid-item {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .contact-panel {
+    margin: 2rem 0 1rem;
   }
 }
 
 @media (width <= 768px) {
   .contact-panel {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .contact-list li {
