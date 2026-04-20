@@ -152,12 +152,15 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
     setTimeout(updateLiveRegion, 0);
   }, []);
 
-  const openMenu = useCallback((event) => {
-    event?.preventDefault?.();
-    event?.stopPropagation?.();
-    syncDraftFromCurrent();
-    setOpen(true);
-  }, [syncDraftFromCurrent]);
+  const openMenu = useCallback(
+    (event) => {
+      event?.preventDefault?.();
+      event?.stopPropagation?.();
+      syncDraftFromCurrent();
+      setOpen(true);
+    },
+    [syncDraftFromCurrent]
+  );
 
   const closeMenu = useCallback(() => {
     if (isApplying) return;

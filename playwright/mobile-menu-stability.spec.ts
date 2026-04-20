@@ -90,9 +90,7 @@ test.describe("Mobile Menu Stability", () => {
     await expect(page.getByRole("dialog", { name: /color settings/i })).toBeVisible();
     await page.keyboard.press("Escape");
 
-    const a11yTrigger = page
-      .getByRole("button", { name: /open accessibility settings/i })
-      .first();
+    const a11yTrigger = page.getByRole("button", { name: /open accessibility settings/i }).first();
     await expect(a11yTrigger).toBeVisible();
     await a11yTrigger.click();
     await expect(page.getByRole("dialog", { name: /accessibility settings/i })).toBeVisible();

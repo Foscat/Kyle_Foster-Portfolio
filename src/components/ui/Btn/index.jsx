@@ -312,11 +312,17 @@ const Btn = ({
       href={!shouldUseRouterLink ? href : undefined}
       rel={
         isLinkMode && !shouldUseRouterLink
-          ? (hrefLocal ? undefined : rel || "noopener noreferrer")
+          ? hrefLocal
+            ? undefined
+            : rel || "noopener noreferrer"
           : undefined
       }
       target={
-        isLinkMode && !shouldUseRouterLink ? (hrefLocal ? undefined : target || "_blank") : undefined
+        isLinkMode && !shouldUseRouterLink
+          ? hrefLocal
+            ? undefined
+            : target || "_blank"
+          : undefined
       }
       download={isLinkMode && !shouldUseRouterLink ? download || undefined : undefined}
       block={block}

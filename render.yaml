@@ -20,6 +20,10 @@ services:
         value: "true"
       - key: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
         value: "1"
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
     routes:
       - type: rewrite
         source: /*
