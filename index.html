@@ -19,6 +19,64 @@
   <body>
     <!-- Root where react app is rendered from -->
     <div id="root"></div>
+    <script>
+      (() => {
+        const CHUNK_RELOAD_SESSION_KEY = "portfolio-chunk-reload-attempt";
+        const CHUNK_RECOVERY_QUERY_PARAM = "chunk-recover";
+        const MAX_RELOADS = 1;
+
+        const safeReadReloadCount = () => {
+          try {
+            const raw = window.sessionStorage.getItem(CHUNK_RELOAD_SESSION_KEY);
+            const parsed = Number.parseInt(raw ?? "0", 10);
+            return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+          } catch {
+            return 0;
+          }
+        };
+
+        const safeWriteReloadCount = (value) => {
+          try {
+            window.sessionStorage.setItem(CHUNK_RELOAD_SESSION_KEY, String(value));
+          } catch {
+            // Ignore storage failures (private mode / hardened browsers).
+          }
+        };
+
+        const isAssetScriptUrl = (url) => /\/assets\/[^/]+\.js(?:\?.*)?$/i.test(String(url || ""));
+
+        const recoverFromMissingChunk = () => {
+          const attempts = safeReadReloadCount();
+          if (attempts >= MAX_RELOADS) return;
+          safeWriteReloadCount(attempts + 1);
+
+          try {
+            const url = new URL(window.location.href);
+            url.searchParams.set(CHUNK_RECOVERY_QUERY_PARAM, String(Date.now()));
+            window.location.replace(url.toString());
+            return;
+          } catch {
+            // Fall through to hard reload.
+          }
+
+          window.location.reload();
+        };
+
+        window.addEventListener(
+          "error",
+          (event) => {
+            const target = event?.target;
+            if (!target || target === window) return;
+
+            const scriptSrc = typeof target.src === "string" ? target.src : "";
+            if (!isAssetScriptUrl(scriptSrc)) return;
+
+            recoverFromMissingChunk();
+          },
+          true
+        );
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
