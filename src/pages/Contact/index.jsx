@@ -131,13 +131,35 @@ export function normalizeContactPayload(data) {
 export async function sendMessage(data) {
   const payload = normalizeContactPayload(data);
 
-  const response = await fetch(CONTACT_API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+  let response;
+  try {
+    response = await fetch(CONTACT_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    // Some deployments reject CORS preflight requests from custom domains.
+    // Fall back to a best-effort no-cors send so the message can still be delivered.
+    if (!(error instanceof TypeError)) {
+      throw error;
+    }
+
+    await fetch(CONTACT_API_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=UTF-8",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    return {
+      message: "Message sent. If you do not hear back, please email me directly.",
+    };
+  }
 
   const responsePayload = await response
     .json()
@@ -325,7 +347,6 @@ export default function Contact() {
                 block
                 disabled={isSubmitDisabled}
                 loading={isSending}
-                onClick={(e) => handleSubmit(e)}
               />
             </Form>
           </Panel>
