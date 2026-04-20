@@ -29,7 +29,21 @@ import { Btn } from "components/ui";
  *
  * @type {string}
  */
-export const CONTACT_API_URL = "https://email-microservice-grem.onrender.com/api/contact";
+const CONTACT_API_URL_FALLBACK = "https://email-microservice-grem.onrender.com/api/contact";
+
+/**
+ * Contact endpoint resolved from environment for deploy-specific CORS alignment.
+ * Accepts either a full `/api/contact` URL or a service base URL.
+ *
+ * @type {string}
+ */
+export const CONTACT_API_URL = (() => {
+  const raw = import.meta.env.VITE_CONTACT_API_URL;
+  if (typeof raw !== "string" || !raw.trim()) return CONTACT_API_URL_FALLBACK;
+
+  const trimmed = raw.trim().replace(/\/$/, "");
+  return /\/api\/contact$/i.test(trimmed) ? trimmed : `${trimmed}/api/contact`;
+})();
 
 const FALLBACK_CONTACT_FORM_CONTENT = Object.freeze({
   title: "Contact",
