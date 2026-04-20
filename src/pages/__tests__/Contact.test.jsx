@@ -148,4 +148,41 @@ describe("Contact page", () => {
       expect(global.fetch).toHaveBeenCalledTimes(2);
     });
   });
+
+  it("falls back to a no-cors request when preflight fails", async () => {
+    const user = userEvent.setup();
+
+    global.fetch
+      .mockRejectedValueOnce(new TypeError("Failed to fetch"))
+      .mockResolvedValueOnce({ type: "opaque" });
+
+    renderWithProviders(<Contact />, {
+      initialEntries: ["/contact"],
+    });
+
+    await user.type(
+      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      "CORS fallback"
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+
+    const [, fallbackOptions] = global.fetch.mock.calls[1];
+    expect(fallbackOptions.mode).toBe("no-cors");
+    expect(screen.getByRole("status")).toHaveTextContent(/message sent successfully/i);
+  });
 });
