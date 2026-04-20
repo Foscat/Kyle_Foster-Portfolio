@@ -38,6 +38,11 @@ Start with:
 - [Full API Reference](docs/api.md)
 - [JSDoc Audit Output](docs/jsdoc-audit.md)
 
+## Deployment Environment Variables
+
+- `VITE_SITE_URL`: public canonical site URL used by metadata and head tags.
+- `VITE_CONTACT_API_URL`: contact form API endpoint. Supports either a full `/api/contact` URL or a service base URL (the app appends `/api/contact` automatically when needed). If this value is unset or blank, the app falls back to the Render-hosted endpoint.
+
 ## Core Scripts
 
 Development:

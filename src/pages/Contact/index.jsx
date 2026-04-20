@@ -29,8 +29,48 @@ import { Btn } from "components/ui";
  *
  * @type {string}
  */
-export const CONTACT_API_URL = "https://email-microservice-grem.onrender.com/api/contact";
+const CONTACT_API_URL_FALLBACK = "https://email-microservice-grem.onrender.com/api/contact";
 
+/**
+ * Resolves a deploy-specific contact endpoint from an environment value.
+ * Accepts either a full `/api/contact` URL or a service base URL.
+ * Falls back to the default endpoint if the value is missing, invalid, or not HTTP(S).
+ *
+ * @param {unknown} raw - Environment-provided endpoint or base URL.
+ * @returns {string} Absolute contact endpoint URL.
+ */
+function resolveContactApiUrl(raw) {
+  if (typeof raw !== "string" || !raw.trim()) return CONTACT_API_URL_FALLBACK;
+
+  try {
+    const parsed = new URL(raw.trim());
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return CONTACT_API_URL_FALLBACK;
+    }
+
+    if (/\/api\/contact\/?$/i.test(parsed.pathname)) {
+      parsed.pathname = parsed.pathname.replace(/\/+$/, "");
+      return parsed.toString();
+    }
+
+    const normalizedPath = parsed.pathname.endsWith("/")
+      ? parsed.pathname
+      : `${parsed.pathname}/`;
+
+    parsed.pathname = `${normalizedPath}api/contact`;
+    return parsed.toString();
+  } catch {
+    return CONTACT_API_URL_FALLBACK;
+  }
+}
+
+/**
+ * Contact endpoint resolved from environment for deploy-specific CORS alignment.
+ * Accepts either a full `/api/contact` URL or a service base URL.
+ *
+ * @type {string}
+ */
+export const CONTACT_API_URL = resolveContactApiUrl(import.meta.env.VITE_CONTACT_API_URL);
 const FALLBACK_CONTACT_FORM_CONTENT = Object.freeze({
   title: "Contact",
   submitLabel: "Send Message",

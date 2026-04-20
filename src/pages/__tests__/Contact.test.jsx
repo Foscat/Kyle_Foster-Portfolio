@@ -8,7 +8,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Contact from "../Contact/index.jsx";
+import Contact, { CONTACT_API_URL } from "../Contact/index.jsx";
 import contactForm from "assets/data/content/contactForm.js";
 import renderWithProviders from "tests/renderWithProviders";
 
@@ -91,7 +91,7 @@ describe("Contact page", () => {
     const [url, options] = global.fetch.mock.calls[0];
 
     // Verify that the fetch function was called with the correct URL and options, including the method and body containing the form data. This confirms that the contact form is sending the correct request to the API endpoint when submitted.
-    expect(url).toBe("https://email-microservice-grem.onrender.com/api/contact");
+    expect(url).toBe(CONTACT_API_URL);
     expect(options.method).toBe("POST");
     expect(JSON.parse(options.body)).toEqual({
       name: "Kyle Foster",
