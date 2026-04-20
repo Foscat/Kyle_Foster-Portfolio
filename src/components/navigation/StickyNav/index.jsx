@@ -297,7 +297,9 @@ const StickyNav = ({ activePage }) => {
           variant={Variant.ACCENT}
           size={Size.LG}
           ariaLabel="Open navigation menu"
-          onClick={() => {
+          onClick={(event) => {
+            event?.preventDefault?.();
+            event?.stopPropagation?.();
             dismissMobileIconHints();
             setMobileOpen(true);
           }}

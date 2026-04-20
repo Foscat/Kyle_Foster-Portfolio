@@ -77,6 +77,14 @@ const MobileSectionNavTrigger = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return undefined;
+    document.documentElement.setAttribute("data-has-mobile-section-nav", "true");
+    return () => {
+      document.documentElement.removeAttribute("data-has-mobile-section-nav");
+    };
+  }, []);
+
   const closeDrawer = useCallback(() => {
     setOpen(false);
     if (typeof document === "undefined") return;
@@ -135,7 +143,9 @@ const MobileSectionNavTrigger = ({
         <Btn
           icon={faCompass}
           size={Size.LG}
-          onClick={() => {
+          onClick={(event) => {
+            event?.preventDefault?.();
+            event?.stopPropagation?.();
             if (typeof window !== "undefined") {
               window.localStorage.setItem(MOBILE_ICON_HINTS_KEY, "1");
             }
