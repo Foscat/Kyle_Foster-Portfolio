@@ -1,5 +1,5 @@
 /* ============================================================
-   FrostedIcon — Updated for Button Alignment
+   FrostedIcon
    ============================================================ */
 
 .frosted-icon {
@@ -19,9 +19,7 @@
   backdrop-filter: none;
 }
 
-/* ------------------------------------------------------------
-   Size Variants (square hitboxes)
------------------------------------------------------------- */
+/* Size variants */
 .fi-size-xs {
   width: var(--icon-xs);
   height: var(--icon-xs);
@@ -47,36 +45,10 @@
   height: var(--icon-xl);
 }
 
-/* 
-.fi-size-xs svg {
-  font-size: var(--icon-xs);
-}
-.fi-size-sm svg {
-  font-size: var(--icon-sm);
-}
-.fi-size-md svg {
-  font-size: var(--icon-md);
-}
-.fi-size-lg svg {
-  font-size: var(--icon-lg);
-}
-.fi-size-xl svg {
-  font-size: var(--icon-xl);
-} */
-
-/* ------------------------------------------------------------
-   Color Variants
------------------------------------------------------------- */
+/* Color variants */
 .frosted-icon.fi-variant-primary,
 .rs-nav-item .fi-variant-primary {
   color: var(--accent);
-}
-
-.rs-nav-item .fi-variant-primary:active,
-.rs-panel-btn:hover
-  .frosted-icon.fi-variant-primary
-  .frosted-icon.fi-variant-primary.infoSect-icon {
-  color: var(--accent-dark);
 }
 
 .frosted-icon.fi-variant-secondary,
@@ -84,32 +56,14 @@
   color: var(--text-primary);
 }
 
-.rs-nav-item .fi-variant-secondary:active,
-.rs-panel-btn:hover
-  .frosted-icon.fi-variant-secondary
-  .frosted-icon.fi-variant-secondary.infoSect-icon {
-  color: var(--gray-900);
-}
-
 .frosted-icon.fi-variant-accent,
 .rs-nav-item .fi-variant-accent {
   color: var(--primary-dark);
 }
 
-.rs-nav-item .fi-variant-accent:active,
-.rs-panel-btn:hover .frosted-icon.fi-variant-accent,
-.frosted-icon.fi-variant-accent.infoSect-icon {
-  color: var(--primary-darker);
-}
-
-.frosted-icon.fi-variant-subtle .rs-nav-item .fi-variant-subtle {
+.frosted-icon.fi-variant-subtle,
+.rs-nav-item .fi-variant-subtle {
   color: var(--gray-300);
-}
-
-.rs-nav-item .fi-variant-subtle:active,
-.rs-panel-btn:hover .frosted-icon.fi-variant-subtle,
-.frosted-icon.fi-variant-subtle.infoSect-icon {
-  color: var(--gray-500);
 }
 
 .frosted-icon.fi-variant-danger,
@@ -123,29 +77,8 @@
   backdrop-filter: none;
 }
 
-.fi-clickable.fi-variant-primary:active,
-.fi-clickable.fi-variant-primary:focus-visible {
-  color: var(--accent-dark);
-}
-
-.fi-clickable.fi-variant-secondary:active,
-.fi-clickable.fi-variant-secondary:focus-visible {
-  color: var(--gray-900);
-}
-
-.fi-clickable.fi-variant-accent:active,
-.fi-clickable.fi-variant-accent:focus-visible {
-  color: var(--primary-darkest);
-}
-
-.fi-clickable.fi-variant-subtle:active,
-.fi-clickable.fi-variant-subtle:focus-visible {
-  color: var(--gray-100);
-}
-
-.fi-clickable.fi-variant-danger:active,
-.fi-clickable.fi-variant-danger:focus-visible {
-  color: var(--error-dark);
+.fi-clickable {
+  cursor: pointer;
 }
 
 .frosted-icon.infoSect-icon,
@@ -153,84 +86,19 @@
   overflow: visible;
 }
 
-/* ------------------------------------------------------------
-   Theme Hooks
------------------------------------------------------------- */
+/* Theme hooks */
 .theme-light .frosted-icon {
   color: var(--primary);
 }
 
-.theme-dark .frosted-icon {
-  color: var(--accent);
-}
-
+.theme-dark .frosted-icon,
 .theme-auto .frosted-icon {
   color: var(--accent);
 }
 
 html[data-theme="dark"] .frosted-icon.fi-variant-accent,
-html[data-theme="dark"] .rs-nav-item .fi-variant-accent {
-  color: var(--accent-light);
-}
-
+html[data-theme="dark"] .rs-nav-item .fi-variant-accent,
 html[data-theme="dark"] .frosted-icon.fi-no-bg.fi-variant-accent,
 html[data-theme="dark"] .frosted-icon.btn-icon.fi-variant-accent {
   color: var(--accent-light);
-}
-
-html[data-theme="dark"] .fi-clickable.fi-variant-accent:active,
-html[data-theme="dark"] .fi-clickable.fi-variant-accent:focus-visible {
-  color: var(--accent);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .rs-nav-item .fi-variant-primary:hover,
-  .rs-panel-btn:hover
-    .frosted-icon.fi-variant-primary
-    .frosted-icon.fi-variant-primary.infoSect-icon {
-    color: var(--accent-dark);
-  }
-
-  .rs-nav-item .fi-variant-secondary:hover,
-  .rs-panel-btn:hover
-    .frosted-icon.fi-variant-secondary
-    .frosted-icon.fi-variant-secondary.infoSect-icon {
-    color: var(--gray-900);
-  }
-
-  .rs-nav-item .fi-variant-accent:hover,
-  .rs-panel-btn:hover .frosted-icon.fi-variant-accent,
-  .frosted-icon.fi-variant-accent.infoSect-icon {
-    color: var(--primary-darker);
-  }
-
-  .rs-nav-item .fi-variant-subtle:hover,
-  .rs-panel-btn:hover .frosted-icon.fi-variant-subtle,
-  .frosted-icon.fi-variant-subtle.infoSect-icon {
-    color: var(--gray-500);
-  }
-
-  .fi-clickable.fi-variant-primary:hover {
-    color: var(--accent-dark);
-  }
-
-  .fi-clickable.fi-variant-secondary:hover {
-    color: var(--gray-900);
-  }
-
-  .fi-clickable.fi-variant-accent:hover {
-    color: var(--primary-darkest);
-  }
-
-  .fi-clickable.fi-variant-subtle:hover {
-    color: var(--gray-100);
-  }
-
-  .fi-clickable.fi-variant-danger:hover {
-    color: var(--error-dark);
-  }
-
-  html[data-theme="dark"] .fi-clickable.fi-variant-accent:hover {
-    color: var(--accent);
-  }
 }

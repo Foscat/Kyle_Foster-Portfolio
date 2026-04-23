@@ -1,15 +1,9 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_components/navigation/Footer">components/navigation/Footer</a></dt>
-<dd><p>Tests for the Footer component, ensuring it renders correctly and handles interactions as expected.</p>
-</dd>
 <dt><a href="#module_components/Footer">components/Footer</a></dt>
 <dd><p>Compact application footer providing quiet page closure,
 secondary social actions, and copyright information.</p>
-</dd>
-<dt><a href="#module_components/navigation/Head">components/navigation/Head</a></dt>
-<dd><p>Tests for the Head component, ensuring it sets the document title and meta tags correctly based on the current route.</p>
 </dd>
 <dt><a href="#module_components/Head">components/Head</a></dt>
 <dd><p>Centralized document head manager responsible for injecting
@@ -68,46 +62,11 @@ multiple subsections (CodeStream, Hackathon, etc.).</p>
 <dd><p>Primary site navigation with synchronized desktop and mobile
 layouts, active-route handling, and accessibility semantics.</p>
 </dd>
-<dt><a href="#module_components/navigation/StickyNav">components/navigation/StickyNav</a></dt>
-<dd><p>Tests for the StickyNav component, ensuring it renders correctly and handles interactions as expected.</p>
-</dd>
 <dt><a href="#module_components/StickySectionNav">components/StickySectionNav</a></dt>
 <dd><p>Sticky, accessible intra-page section navigator with
 hierarchical scroll tracking and collapsible subsection groups.</p>
 </dd>
-<dt><a href="#src\components\navigation\StickySectionNav\StickySectionNav.module_test">src\components\navigation\StickySectionNav\StickySectionNav.test</a></dt>
-<dd><p>src\components\navigation\StickySectionNav\StickySectionNav.test module.</p>
-</dd>
-<dt><a href="#module_tests/components/StickySectionNav">tests/components/StickySectionNav</a></dt>
-<dd><p>Unit tests for the StickySectionNav component.</p>
-<p>Test coverage:</p>
-<ul>
-<li>Rendering of section navigation links</li>
-<li>Active section highlighting via <code>aria-current=&quot;location&quot;</code></li>
-<li>History hash updates on navigation</li>
-<li>Programmatic scroll coordination with scroll-spy logic</li>
-</ul>
-<p>Testing strategy:</p>
-<ul>
-<li>Mocks <code>useScrollSpyWithHistory</code> to control active section state</li>
-<li>Mocks <code>window.scrollTo</code> to prevent actual scrolling</li>
-<li>Uses real DOM nodes to simulate anchor targets</li>
-</ul>
-<p>Architectural intent:
-StickySectionNav is an <strong>intra-page navigation controller</strong>.
-Tests focus on:</p>
-<ul>
-<li>Accessibility semantics</li>
-<li>Navigation side effects (history + scroll)</li>
-<li>Integration boundaries with the scroll-spy hook</li>
-</ul>
-</dd>
 </dl>
-
-<a name="module_components/navigation/Footer"></a>
-
-## components/navigation/Footer
-Tests for the Footer component, ensuring it renders correctly and handles interactions as expected.
 
 <a name="module_components/Footer"></a>
 
@@ -134,11 +93,6 @@ Footer-------------------------------------------------------------------------
 Current year used for copyright display. Computed at render time to avoid manual updates. /
 
 **Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
-<a name="module_components/navigation/Head"></a>
-
-## components/navigation/Head
-Tests for the Head component, ensuring it sets the document title and meta tags correctly based on the current route.
-
 <a name="module_components/Head"></a>
 
 ## components/Head
@@ -362,11 +316,6 @@ Describes a single navigation entry rendered in both desktop and mobilenavigati
 | label | <code>string</code> | Human-readable navigation label. |
 | icon | <code>\*</code> | FontAwesome icon associated with the route. |
 
-<a name="module_components/navigation/StickyNav"></a>
-
-## components/navigation/StickyNav
-Tests for the StickyNav component, ensuring it renders correctly and handles interactions as expected.
-
 <a name="module_components/StickySectionNav"></a>
 
 ## components/StickySectionNav
@@ -391,30 +340,3 @@ Sticky, accessible intra-page section navigator withhierarchical scroll trackin
 
 **Example**  
 ```js<StickySectionNavsections={[    { id: "intro", title: "Introduction", blocks: [] },    { id: "features", title: "Features", blocks: [      { id: "feat1", title: "Feature 1" },      { id: "feat2", title: "Feature 2" },    ]  },]}pageUrl="/portfolio"mode="desktop"isOpen={true}/>```
-<a name="src\components\navigation\StickySectionNav\StickySectionNav.module_test"></a>
-
-## src\components\navigation\StickySectionNav\StickySectionNav.test
-src\components\navigation\StickySectionNav\StickySectionNav.test module.
-
-<a name="module_tests/components/StickySectionNav"></a>
-
-## tests/components/StickySectionNav
-Unit tests for the StickySectionNav component.Test coverage:- Rendering of section navigation links- Active section highlighting via `aria-current="location"`- History hash updates on navigation- Programmatic scroll coordination with scroll-spy logicTesting strategy:- Mocks `useScrollSpyWithHistory` to control active section state- Mocks `window.scrollTo` to prevent actual scrolling- Uses real DOM nodes to simulate anchor targetsArchitectural intent:StickySectionNav is an **intra-page navigation controller**.Tests focus on:- Accessibility semantics- Navigation side effects (history + scroll)- Integration boundaries with the scroll-spy hook
-
-
-* [tests/components/StickySectionNav](#module_tests/components/StickySectionNav)
-    * [~s1](#module_tests/components/StickySectionNav..s1)
-    * [~markProgrammaticScroll](#module_tests/components/StickySectionNav..markProgrammaticScroll)
-
-<a name="module_tests/components/StickySectionNav..s1"></a>
-
-### tests/components/StickySectionNav~s1
-Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
-
-**Kind**: inner property of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  
-<a name="module_tests/components/StickySectionNav..markProgrammaticScroll"></a>
-
-### tests/components/StickySectionNav~markProgrammaticScroll
-Mock scroll-spy hook to control active section state and observe programmatic scroll suppression behavior. /
-
-**Kind**: inner constant of [<code>tests/components/StickySectionNav</code>](#module_tests/components/StickySectionNav)  

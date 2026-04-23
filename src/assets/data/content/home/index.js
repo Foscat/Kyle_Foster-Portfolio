@@ -5,7 +5,6 @@
  */
 
 import {
-  faArrowDownUpLock,
   faArrowsToEye,
   faBookOpenReader,
   faBuildingUser,
@@ -13,7 +12,6 @@ import {
   faChartLine,
   faCode,
   faDesktop,
-  faDiceD20,
   faEnvelope,
   faFileArrowDown,
   faFlask,
@@ -23,24 +21,23 @@ import {
   faIdBadge,
   faLaptopCode,
   faLayerGroup,
+  faLock,
   faMicrophone,
   faMobileScreenButton,
   faPaperPlane,
   faPeopleGroup,
   faPlug,
-  faSeedling,
   faTrophy,
   faUniversalAccess,
+  faUserSecret,
 } from "@fortawesome/free-solid-svg-icons";
-import { faGitSquare } from "@fortawesome/free-brands-svg-icons";
+import { faCss3Alt, faGitSquare } from "@fortawesome/free-brands-svg-icons";
 import { BlockType, PageRoute } from "types/ui.types.js";
 import {
   diagram,
   diagramConfig,
 } from "../../../../components/features/CustomDiagram/core/index.js";
 import diagrams from "./diagrams.js";
-import resumeLight from "../../resume/Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
-import resumeDark from "../../resume/Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
 
 const homeSections = [
   {
@@ -610,7 +607,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Use side projects to explore full-stack architectures without sacrificing structural discipline.",
+                    text: "Use side projects to explore full-stack architectures without sacrificing structural discipline. I build with the intention of creating solutions that are not only functional but also maintainable and scalable, even in a rapid prototyping context.",
                   },
                 ],
               },
@@ -619,14 +616,15 @@ const homeSections = [
                 children: [
                   {
                     type: "li",
-                    children: [
-                      { type: "text", text: "Rapid prototyping with a custom MERN template" },
-                    ],
+                    children: [{ type: "text", text: "Rapid prototyping with my MERN template" }],
                   },
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Intentional system structure from the start" },
+                      {
+                        type: "text",
+                        text: "Intentional system structure from the start to finish",
+                      },
                     ],
                   },
                   {
@@ -655,7 +653,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Build hardware-integrated systems that operate outside controlled environments.",
+                    text: "Build hardware-integrated systems that operate outside controlled environments and solve real problems. These projects require designing for physical constraints, reliability, and user needs in ways that purely software projects do not.",
                   },
                 ],
               },
@@ -670,6 +668,15 @@ const homeSections = [
                   {
                     type: "li",
                     children: [{ type: "text", text: "Design shaped by physical constraints" }],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Solutions that work in the real world, not just in theory",
+                      },
+                    ],
                   },
                 ],
               },
@@ -716,6 +723,15 @@ const homeSections = [
                     type: "li",
                     children: [{ type: "text", text: "Maintenance and iterative refinement" }],
                   },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Experience owning projects through their full lifecycle",
+                      },
+                    ],
+                  },
                 ],
               },
               {
@@ -737,11 +753,12 @@ const homeSections = [
         icon: faBookOpenReader,
         items: [
           {
-            id: "sp-greenhouse-automation",
-            title: "Greenhouse Automation",
-            subtitle: "A Raspberry Pi-based system for autonomous greenhouse climate control",
-            icon: faSeedling,
-            url: `${PageRoute.SIDE_PROJECTS}/#greenhouse`,
+            id: "sp-interactive-surface",
+            title: "Interactive Surface CSS Library",
+            subtitle:
+              "Framework-agnostic CSS library for building interactive surfaces with depth and motion",
+            icon: faCss3Alt,
+            url: `${PageRoute.SIDE_PROJECTS}/#interactive-surface-css`,
             isScroller: false,
             content: [
               {
@@ -749,7 +766,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A hardware-integrated automation system built on a Raspberry Pi Zero, designed to regulate greenhouse climate conditions autonomously.",
+                    text: "An open-source CSS library for building interactive surfaces with depth and motion. It provides a set of utility classes that can be applied to any HTML element to create dynamic, responsive interfaces that react to user input and environmental factors. The library is designed to be framework-agnostic, allowing developers to easily integrate it into any web project regardless of the underlying technology stack.",
                   },
                 ],
               },
@@ -761,7 +778,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Python-based control logic with real-time sensor feedback",
+                        text: "Utility classes for dynamic depth and motion effects based on user interaction and environmental factors",
                       },
                     ],
                   },
@@ -770,7 +787,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Relay-driven actuation of fans, lighting, and humidity systems",
+                        text: "Out of the box support for hover, focus, active, and disabled states",
                       },
                     ],
                   },
@@ -779,7 +796,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Profile-driven environmental thresholds for staged plant growth",
+                        text: "Accessibility-conscious design with reduced motion and high contrast modes",
                       },
                     ],
                   },
@@ -788,10 +805,63 @@ const homeSections = [
             ],
           },
           {
-            id: "sp-encryption-tool",
-            title: "Encryption Tool",
-            subtitle: "A client-side encryption engine inspired by classical cipher systems",
-            icon: faArrowDownUpLock,
+            id: "sp-mern-template",
+            title: "MERN App Template + Auth",
+            subtitle:
+              "Custom MERN stack boilerplate with built-in authentication and deployment scripts for rapid prototyping",
+            icon: faLock,
+            url: `${PageRoute.SIDE_PROJECTS}/#mern-template`,
+            isScroller: false,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "A custom designed boilerplate MERN stack application with built-in authentication and deployment scripts to streamline full-stack development. This template provides a solid foundation for quickly launching new projects while maintaining a scalable architecture.",
+                  },
+                ],
+              },
+              {
+                type: "ul",
+                children: [
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Deployment ready to multiple different cloud-based platforms with platform specific guides included in the app.",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Built-in authentication routes, auto generated MongoDB and password encryption using JWT. ",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Built with professional-grade architecture and automatic documentation generation using JSDoc2md to ensure maintainability and scalability as projects evolve.",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "sp-enigma",
+            title: "Ceaser's Enigma",
+            subtitle:
+              "A secure messaging application inspired by the Enigma machine, utilizing a custom implementation of the Ceaser cipher for encryption and decryption.",
+            icon: faUserSecret,
             url: `${PageRoute.SIDE_PROJECTS}/#enigma`,
             isScroller: false,
             content: [
@@ -800,54 +870,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A deterministic, client-side encryption engine inspired by classical Caesar substitution and multi-rotor cipher systems.",
-                  },
-                ],
-              },
-              {
-                type: "ul",
-                children: [
-                  {
-                    type: "li",
-                    children: [
-                      { type: "text", text: "Multi-alphabet rotational transformation logic" },
-                    ],
-                  },
-                  {
-                    type: "li",
-                    children: [
-                      { type: "text", text: "Embedded metadata for stateless decryption" },
-                    ],
-                  },
-                  {
-                    type: "li",
-                    children: [
-                      {
-                        type: "text",
-                        text: "Browser-only execution for privacy and reduced attack surface",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-
-          {
-            id: "sp-d20-king",
-            title: "D20 King (Private)",
-            subtitle:
-              "A modular tabletop RPG campaign management platform focused on sharing content and building on top of community-created work",
-            icon: faDiceD20,
-            url: `${PageRoute.SIDE_PROJECTS}/#d20`,
-            isScroller: false,
-            content: [
-              {
-                type: "p",
-                children: [
-                  {
-                    type: "text",
-                    text: "A modular campaign management platform built around a structured narrative domain model.",
+                    text: "A simple secure messaging application inspired by the Enigma machine, utilizing a custom implementation of the Ceaser cipher for encryption and decryption. The app allows users to send encrypted messages that can only be decrypted by recipients with the correct key, demonstrating principles of cryptography in an accessible way.",
                   },
                 ],
               },
@@ -859,14 +882,8 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Hierarchical modeling (Storybook → Act → Room → Encounter)",
+                        text: "Custom implementation of the Ceaser cipher for message encryption and decryption using a randomly generated key for each message.",
                       },
-                    ],
-                  },
-                  {
-                    type: "li",
-                    children: [
-                      { type: "text", text: "Reusable and extensible campaign components" },
                     ],
                   },
                   {
@@ -874,7 +891,16 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Designed for long-running, evolving creative systems",
+                        text: "User-friendly interface for composing and reading encrypted messages. Built with accessibility in mind.",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Educational tool that demonstrates basic cryptographic principles in an easy to approach and interactive way.",
                       },
                     ],
                   },
@@ -1170,13 +1196,10 @@ const homeSections = [
           },
           {
             id: "cta-download-resume",
-            title: "Download Resume",
-            url: resumeDark,
-            urlLight: resumeLight,
-            urlDark: resumeDark,
+            title: "View Resume",
+            resumePreview: true,
             icon: faFileArrowDown,
-            download: true,
-            tooltip: "Download a PDF version of my resume",
+            tooltip: "Open resume preview and download a theme-aware PDF",
           },
         ],
       },

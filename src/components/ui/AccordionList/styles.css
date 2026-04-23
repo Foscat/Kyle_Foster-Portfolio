@@ -75,66 +75,11 @@
   color: var(--text-secondary);
 }
 
-/* Hover */
-.fa-list-item:hover {
-  border-color: var(--glass-border);
-  cursor: pointer;
-}
-
 /* Open state */
 .fa-list-item.open {
   background: var(--glass-bg);
   border-color: var(--glass-border);
   box-shadow: var(--shadow-soft);
-}
-
-/* Header row */
-.fa-left {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 0.75rem;
-  outline: none; /* rely on custom focus styles */
-}
-
-/* Focus ring for keyboard users */
-.fa-left:focus-visible {
-  box-shadow: var(--shadow-soft);
-  border-radius: var(--radius-sm);
-}
-
-/* Text label */
-.fa-text {
-  font-size: var(--font-md);
-  color: var(--text-primary);
-  flex-grow: 1;
-}
-
-/* Icons */
-.fa-icon {
-  flex-shrink: 0;
-}
-
-/* Expand icon for chevron */
-.fa-expand-icon {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-}
-
-.fa-list-item.open .fa-expand-icon {
-  transform: rotate(180deg);
-}
-
-/* When item represents a scroll link */
-.fa-link {
-  cursor: pointer;
-  color: var(--accent-light);
-}
-
-.fa-link:hover .fa-text {
-  color: var(--accent);
 }
 
 /* Content area of accordion */

@@ -24,6 +24,7 @@ import {
 import { BlockType } from "types/ui.types.js";
 import diagrams from "./diagrams.js";
 import imgObjs from "assets/images/sideProjects";
+import { faNpm } from "@fortawesome/free-brands-svg-icons";
 
 const sideProjectSections = [
   /* ============================================================
@@ -398,6 +399,38 @@ const sideProjectSections = [
                 ],
               },
             ],
+          },
+        ],
+      },
+      {
+        type: BlockType.LINKS,
+        id: "interactive-surface-links",
+        items: [
+          {
+            id: "interactive-surface-link-1",
+            title: "See the code",
+            url: "",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faCodeBranch,
+            ariaLabel: "Link to the Interactive Surface CSS code repository on GitHub",
+          },
+          {
+            id: "interactive-surface-link-2",
+            title: "View NPM package",
+            url: "https://www.npmjs.com/package/interactive-surface-css",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faNpm,
+            ariaLabel: "Link to the Interactive Surface CSS package on NPM",
+          },
+          {
+            id: "interactive-surface-link-3",
+            title: "Read the documentation",
+            url: "https://foscat.github.io/Interactive-Surface-CSS/",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faBookBookmark,
           },
         ],
       },

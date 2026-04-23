@@ -141,4 +141,17 @@ describe("Btn", () => {
     expect(link).toHaveClass("interactive-surface");
     expect(within(link).queryByRole("button")).toBeNull();
   });
+
+  it("renders local download href buttons as anchors with download behavior", () => {
+    renderWithProviders(
+      <Btn text="Download Resume" href="/resume.pdf" download icon={faDownload} />
+    );
+
+    const link = screen.getByRole("link", { name: /download resume/i });
+
+    expect(link).toHaveAttribute("href", "/resume.pdf");
+    expect(link).toHaveAttribute("download");
+    expect(link).not.toHaveAttribute("target", "_blank");
+    expect(link).not.toHaveAttribute("rel", "noopener noreferrer");
+  });
 });
