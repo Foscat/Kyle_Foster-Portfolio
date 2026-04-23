@@ -248,7 +248,7 @@ const Btn = ({
   const hrefValue = typeof href === "string" ? href.trim() : "";
   const hasHref = hrefValue.length > 0;
   const isLocalHref = /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(hrefValue);
-  const isExternalHref = /^https?:\/\//.test(hrefValue);
+  const isExternalHref = /^(https?:)?\/\//.test(hrefValue);
   const isDownloadLink = Boolean(download);
   const shouldUseRouterLink = hasHref && !isDownloadLink && (hrefLocal || isLocalHref);
   const isLinkMode = hasHref;
