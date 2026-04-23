@@ -245,9 +245,13 @@ const Btn = ({
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
   const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
-  const isLocalHref = typeof href === "string" && /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(href.trim());
-  const shouldUseRouterLink = Boolean(href) && (hrefLocal || isLocalHref);
-  const isLinkMode = Boolean(href);
+  const hrefValue = typeof href === "string" ? href.trim() : "";
+  const hasHref = hrefValue.length > 0;
+  const isLocalHref = /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(hrefValue);
+  const isExternalHref = /^(https?:)?\/\//.test(hrefValue);
+  const isDownloadLink = Boolean(download);
+  const shouldUseRouterLink = hasHref && !isDownloadLink && (hrefLocal || isLocalHref);
+  const isLinkMode = hasHref;
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
@@ -290,10 +294,19 @@ const Btn = ({
   // Choose Button or IconButton depending on icon presence
   const Component = icon ? IconButton : Button;
   const elementAs = isLinkMode ? (shouldUseRouterLink ? Link : "a") : as;
+  const resolvedVariant = variant || Variant.PRIMARY;
+  const surfaceVariantClass = `variant-${resolvedVariant}`;
+  const surfaceSizeClass =
+    size === Size.XS || size === Size.SM
+      ? "size-sm"
+      : size === Size.LG || size === Size.XL
+        ? "size-lg"
+        : "";
+  const surfaceStateClass = active ? "is-active" : "";
 
   const classes = formatClassNames(`btn btn-${size} btn-${active ? "active" : "inactive"}
-    ${clickable ? "interactive-surface" : "not-clickable "}
-    ${variant ? variant : Variant.PRIMARY}
+    ${clickable ? `interactive-surface ${surfaceVariantClass} ${surfaceSizeClass} ${surfaceStateClass}` : "not-clickable"}
+    ${resolvedVariant}
     ${noBG ? "btn-noBG" : ""} ${isIconOnly ? "icon-only" : ""} 
     ${loading || asyncLoading ? "loading" : ""} ${className}`);
 
@@ -312,16 +325,12 @@ const Btn = ({
       href={!shouldUseRouterLink ? href : undefined}
       rel={
         isLinkMode && !shouldUseRouterLink
-          ? hrefLocal
-            ? undefined
-            : rel || "noopener noreferrer"
+          ? rel || (isExternalHref ? "noopener noreferrer" : undefined)
           : undefined
       }
       target={
         isLinkMode && !shouldUseRouterLink
-          ? hrefLocal
-            ? undefined
-            : target || "_blank"
+          ? target || (isExternalHref ? "_blank" : undefined)
           : undefined
       }
       download={isLinkMode && !shouldUseRouterLink ? download || undefined : undefined}

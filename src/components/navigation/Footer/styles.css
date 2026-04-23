@@ -44,19 +44,30 @@
 }
 
 .site-footer_phone {
+  --interactive-surface-bg: transparent;
+  --interactive-surface-fg: var(--text-accent);
+  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.22);
+  --interactive-surface-border-width: 1px;
+  --interactive-surface-radius: var(--radius-sm);
+  --interactive-surface-shadow-base: none;
+  --interactive-surface-shadow-hover: none;
+  --interactive-surface-shadow-active: none;
+  --interactive-surface-lift-hover: 0px;
+  --interactive-surface-lift-active: 0px;
+  --interactive-surface-darken-hover: 1;
+  --interactive-surface-darken-active: 1;
+  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.5);
+  --interactive-surface-focus-ring-width: 2px;
+  --interactive-surface-focus-ring-offset: 2px;
+
   padding: 0.35rem 0.55rem;
   font-size: var(--font-xs);
-  color: var(--text-accent);
+  color: var(--interactive-surface-fg);
   background: transparent;
-  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-}
-
-.site-footer_phone:hover,
-.site-footer_phone:focus-visible {
-  color: var(--text-accent-light);
-  border-color: rgba(var(--accent-rgb), 0.5);
+  text-decoration: none;
 }
 
 /* ------------------------------------------------------------ 

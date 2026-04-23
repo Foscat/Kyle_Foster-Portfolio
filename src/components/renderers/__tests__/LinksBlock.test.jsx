@@ -19,6 +19,19 @@ vi.mock("components/ui", async () => {
   };
 });
 
+vi.mock("components/features/ResumePreview/ResumePreviewTrigger", () => ({
+  default: ({ buttonText, downloadName, buttonClassName }) => (
+    <button
+      type="button"
+      data-testid="resume-preview-trigger"
+      data-download-name={downloadName}
+      className={buttonClassName}
+    >
+      {buttonText}
+    </button>
+  ),
+}));
+
 /**
  * @file LinksBlock.test.jsx
  * @description Unit tests for the LinksBlock component.
@@ -43,6 +56,7 @@ vi.mock("components/ui", async () => {
 describe("LinksBlock", () => {
   beforeEach(() => {
     window.localStorage.removeItem("portfolio-theme");
+    window.localStorage.removeItem("portfolio-palette");
   });
 
   /**
@@ -125,5 +139,26 @@ describe("LinksBlock", () => {
       "href",
       "/resume-light.pdf"
     );
+  });
+
+  it("renders resume preview trigger links with theme and palette aware download names", () => {
+    window.localStorage.setItem("portfolio-theme", "light");
+    window.localStorage.setItem("portfolio-palette", "forest");
+
+    renderWithProviders(
+      <LinksBlock
+        items={[
+          {
+            title: "View Resume",
+            resumePreview: true,
+          },
+        ]}
+      />
+    );
+
+    const trigger = screen.getByTestId("resume-preview-trigger");
+    expect(trigger).toHaveTextContent("View Resume");
+    expect(trigger).toHaveAttribute("data-download-name", "Kyle-Foster-Resume-light-forest.pdf");
+    expect(trigger).toHaveClass("links-block-item");
   });
 });

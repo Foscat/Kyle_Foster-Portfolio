@@ -266,7 +266,7 @@ const StickyNav = ({ activePage }) => {
                   tooltip={label}
                   ariaLabel={label}
                   clickable
-                  className={`nav-icon interactive-surface ${isActive ? "is-active" : ""}`}
+                  className={`nav-icon ${isActive ? "is-active" : ""}`}
                   size={Size.SM}
                   noBG
                 />

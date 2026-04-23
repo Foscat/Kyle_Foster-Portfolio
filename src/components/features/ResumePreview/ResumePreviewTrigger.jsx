@@ -20,6 +20,11 @@ import { ResumeDocument } from "./ResumeDocument.jsx";
  * @param {string} props.pdfHref - The URL of the PDF version of the resume.
  * @param {string} props.downloadName - The name for the downloaded PDF file.
  * @param {string} props.buttonClassName - Additional class names for the trigger button.
+ * @param {*} [props.icon] - Optional icon shown inside the trigger button.
+ * @param {string} [props.tooltip] - Optional tooltip text for the trigger button.
+ * @param {string} [props.ariaLabel] - Accessible label for the trigger button.
+ * @param {string} [props.variant] - Optional visual variant passed through to Btn.
+ * @param {string} [props.size] - Optional size variant passed through to Btn.
  * @returns {JSX.Element} The rendered trigger component.
  */
 const ResumePreviewTrigger = ({
@@ -30,6 +35,11 @@ const ResumePreviewTrigger = ({
   pdfHref,
   downloadName = "resume.pdf",
   buttonClassName = "",
+  icon,
+  tooltip,
+  ariaLabel,
+  variant,
+  size,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -39,6 +49,11 @@ const ResumePreviewTrigger = ({
         text={buttonText}
         onClick={() => setOpen(true)}
         className={`resume-preview-trigger ${buttonClassName}`.trim()}
+        icon={icon}
+        tooltip={tooltip}
+        ariaLabel={ariaLabel}
+        variant={variant}
+        size={size}
       />
 
       <ResumePreviewModal

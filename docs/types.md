@@ -573,6 +573,7 @@ Link item definition
 | [variant] | <code>&quot;primary&quot;</code> \| <code>&quot;secondary&quot;</code> \| <code>&quot;accent&quot;</code> \| <code>&quot;subtle&quot;</code> \| <code>&quot;danger&quot;</code> | <code>&quot;primary&quot;</code> | Visual style. |
 | [local] | <code>boolean</code> | <code>false</code> | Internal navigation. |
 | [isScroller] | <code>boolean</code> | <code>false</code> | Scroll-to-anchor behavior. |
+| [resumePreview] | <code>boolean</code> | <code>false</code> | Renders a resume preview trigger instead of a direct link. |
 | [ariaLabel] | <code>string</code> |  | Screen-reader label. |
 | [download] | <code>boolean</code> | <code>false</code> | Download flag. |
 | [tooltip] | <code>string</code> |  | Hover tooltip text. |
