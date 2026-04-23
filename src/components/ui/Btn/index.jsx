@@ -246,11 +246,12 @@ const Btn = ({
   const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
   const hrefValue = typeof href === "string" ? href.trim() : "";
+  const hasHref = hrefValue.length > 0;
   const isLocalHref = /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(hrefValue);
   const isExternalHref = /^https?:\/\//.test(hrefValue);
   const isDownloadLink = Boolean(download);
-  const shouldUseRouterLink = Boolean(href) && !isDownloadLink && (hrefLocal || isLocalHref);
-  const isLinkMode = Boolean(href);
+  const shouldUseRouterLink = hasHref && !isDownloadLink && (hrefLocal || isLocalHref);
+  const isLinkMode = hasHref;
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
