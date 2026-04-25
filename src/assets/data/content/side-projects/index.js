@@ -39,7 +39,7 @@ const sideProjectSections = [
       {
         id: "overview-text",
         type: BlockType.RICH_TEXT,
-        title: "Exploring Real-World Solutions",
+        title: "Exploring Practical Constraints",
         icon: faTowerObservation,
         content: [
           {
@@ -50,7 +50,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects serve as controlled proving grounds for full-system engineering.",
+                    text: "Side projects are where I pressure-test ideas end to end before they ever reach client work.",
                   },
                 ],
               },
@@ -61,7 +61,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Each project begins with a real-world constraint and is developed with production-level discipline rather than tutorial-driven experimentation.",
+                text: "Each project starts from a concrete constraint, such as unstable greenhouse climate signals, auth session edge cases, or campaign data that outgrows spreadsheets.",
               },
             ],
           },
@@ -70,7 +70,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Because these systems are self-directed, they require end-to-end ownership:",
+                text: "Because these builds are self-directed, they require end-to-end ownership:",
               },
             ],
           },
@@ -79,7 +79,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "li",
-                children: [{ type: "text", text: "Architecture and technology selection." }],
+                children: [{ type: "text", text: "Technology choices and tradeoff mapping." }],
               },
               {
                 type: "li",
@@ -91,7 +91,7 @@ const sideProjectSections = [
               },
               {
                 type: "li",
-                children: [{ type: "text", text: "Long-term maintainability considerations." }],
+                children: [{ type: "text", text: "Post-launch cleanup and refactor planning." }],
               },
             ],
           },
@@ -109,7 +109,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Principle: understand constraints, design pragmatically, and iterate until the system is reliable under real conditions.",
+                text: "Principle: identify constraints, choose pragmatic tradeoffs, and iterate until behavior holds up outside ideal conditions.",
               },
             ],
           },

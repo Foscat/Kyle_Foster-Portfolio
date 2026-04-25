@@ -49,7 +49,7 @@ const homeSections = [
     icon: faCode,
     title: "Senior React / Frontend Engineer",
     subtitle:
-      "I build polished, data-driven product interfaces, frontend systems, and browser-based tooling with a strong focus on architecture, usability, and long-term maintainability.",
+      "I build React interfaces for content-heavy products, from browser-based learning tools to portfolio platforms, with a focus on usable flows and dependable behavior as complexity grows.",
     isScroller: true,
     blocks: [
       {
@@ -64,7 +64,7 @@ const homeSections = [
               { type: "strong", text: "Senior React / Frontend Engineer" },
               {
                 type: "text",
-                text: " I design user-facing systems grounded in clear domain models and scalable architecture, building interfaces that continue to make sense as products grow in complexity, data, and organizational scope.",
+                text: " I design user-facing products around explicit domain rules and practical interaction patterns, so workflows stay understandable as data volume, roles, and feature depth increase.",
               },
             ],
           },
@@ -73,12 +73,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I bring experience across both production systems and rapid prototyping. I built a custom education platform used in real classrooms, and I have also delivered hackathon prototypes under tight constraints using my own MERN foundations. Across side projects, my work stays centered on ",
+                text: "I bring experience across both production delivery and rapid prototyping. I built a custom education platform used in live classrooms, and I have also delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
               },
-              { type: "em", text: "solving real-world problems" },
+              { type: "em", text: "concrete constraints" },
               {
                 type: "text",
-                text: " with practical, durable solutions. I prioritize maintainable, scalable code so the systems I build can evolve without becoming brittle over time.",
+                text: " like hardware I/O, session continuity, and long-running content workflows, then carry those lessons into shipped product work.",
               },
             ],
           },
@@ -192,12 +192,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My professional work has centered on building and scaling a ",
+                text: "My professional work has centered on building a ",
               },
               { type: "strong", text: "production education platform" },
               {
                 type: "text",
-                text: " used by real students, teachers, and organizations. It supported both synchronous and asynchronous learning, from lesson delivery and assignment grading to classroom and organization-level operations in a scalable model.",
+                text: " used by real students, teachers, and organizations. It supported both synchronous and asynchronous learning, from lesson delivery and assignment grading to classroom operations and organization-level administration.",
               },
             ],
           },
@@ -208,7 +208,7 @@ const homeSections = [
               { type: "em", text: "sole frontend engineer" },
               {
                 type: "text",
-                text: ", owning the UI architecture end-to-end. I personally architected and built core systems, including a multi-panel browser-based IDE, role-based access control for organizations and classrooms, virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.",
+                text: ", owning the UI from requirements through release. I built core workflows including a multi-panel browser-based IDE, organization and classroom permissions, virtual classroom flows, grading tools, reporting, and administrative dashboards.",
               },
             ],
           },
@@ -645,7 +645,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My side projects are where I experiment, explore new tools, and solve ",
+                text: "My side projects are where I test unfamiliar tools, explore new workflows, and solve ",
               },
               { type: "strong", text: "practical problems" },
               { type: "text", text: " outside of client or organizational constraints." },
@@ -656,7 +656,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "These projects range from hardware-integrated automation systems to encryption tools and creative applications. Each one reflects my ability to take an idea from concept to execution while owning the full technical lifecycle.",
+                text: "These builds range from Raspberry Pi greenhouse automation to encryption experiments and campaign tooling. Each one moves from concept to deployment, with me owning design tradeoffs, implementation, and iteration.",
               },
             ],
           },
@@ -679,15 +679,15 @@ const homeSections = [
         items: [
           {
             id: "sp-agile-robust-programs",
-            title: "Agile & Robust Architectures",
-            subtitle: "Balancing rapid iteration with structural discipline in side projects",
+            title: "Fast Iteration, Clear Structure",
+            subtitle: "Balancing rapid prototyping with intentional foundations in side projects",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Use side projects to explore full-stack architectures without sacrificing structural discipline.",
+                    text: "Use side projects to prototype quickly while still defining clean boundaries for state, routing, and data flow.",
                   },
                 ],
               },
@@ -702,9 +702,7 @@ const homeSections = [
                   },
                   {
                     type: "li",
-                    children: [
-                      { type: "text", text: "Intentional system structure from the start" },
-                    ],
+                    children: [{ type: "text", text: "Intentional structure from the start" }],
                   },
                   {
                     type: "li",
@@ -782,7 +780,7 @@ const homeSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Requirements definition and architecture planning" },
+                      { type: "text", text: "Requirements definition and solution planning" },
                     ],
                   },
                   {
@@ -810,7 +808,7 @@ const homeSections = [
         id: "sp-programs-of-note",
         type: BlockType.CARD_GRID,
         title: "Programs of Note",
-        subtitle: "Selected projects demonstrating architectural range and systems ownership",
+        subtitle: "Selected projects demonstrating technical range and end-to-end ownership",
         icon: faBookOpenReader,
         items: [
           {

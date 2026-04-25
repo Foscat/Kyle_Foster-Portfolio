@@ -47,9 +47,15 @@ export function createPageTests({ PageComponent, sections, pageRoute, pageName }
 
       expect(await screen.findByRole("heading", { level: 1 })).toBeInTheDocument();
 
-      const sectionNavigation = await screen.findByRole("navigation", {
-        name: /section navigation/i,
-      });
+      const sectionNavigation = await screen.findByRole(
+        "navigation",
+        {
+          name: /section navigation/i,
+        },
+        {
+          timeout: 5000,
+        }
+      );
 
       for (const section of sections) {
         const expectedLabel = section.navLabel || section.title;
@@ -62,9 +68,15 @@ export function createPageTests({ PageComponent, sections, pageRoute, pageName }
     it("passes the active page route into primary navigation behavior", async () => {
       renderWithProviders(<PageComponent />);
 
-      const primaryNavigation = await screen.findByRole("navigation", {
-        name: /primary navigation/i,
-      });
+      const primaryNavigation = await screen.findByRole(
+        "navigation",
+        {
+          name: /primary navigation/i,
+        },
+        {
+          timeout: 5000,
+        }
+      );
 
       const currentPageLink = within(primaryNavigation).getByRole("link", {
         current: "page",

@@ -13,7 +13,7 @@ const pageSummaryMetas = {
     url: PageRoute.HOME,
     title: "Kyle Foster",
     description:
-      "Senior React / Frontend Engineer building polished, data-driven product interfaces, frontend systems, and browser-based tooling with a focus on architecture, usability, and maintainability.",
+      "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product workflows with a focus on clarity and usability.",
     timespan: "2018 - Current",
     jobTitle: "Senior React / Frontend Engineer",
   },
@@ -21,7 +21,7 @@ const pageSummaryMetas = {
     url: PageRoute.PROFESSIONAL,
     title: "CodeStream Online Studios",
     description:
-      "Explore my professional work as a Senior React / Frontend Engineer at CodeStream Online Studios, where I built browser-based education tooling for students, instructors, and organizations.",
+      "Explore my professional work at CodeStream Online Studios, where I built browser-based education tooling for students, instructors, and school administrators.",
     jobTitle: "Senior React / Frontend Engineer",
     timespan: "January 2020 - March 2025",
     liveUrl: "https://codestreamonlinestudio.com",
@@ -63,7 +63,7 @@ const pageSummaryMetas = {
     url: PageRoute.SIDE_PROJECTS,
     title: "Side Projects",
     description:
-      "Browse side projects spanning encryption, IoT automation, and custom tooling-practical experiments that reflect curiosity, systems thinking, and hands-on problem solving.",
+      "Browse side projects spanning encryption, IoT automation, and custom tooling-practical builds that show hands-on problem framing and execution.",
     timespan: "2018 - Current",
     jobTitle: "Senior React / Frontend Engineer",
     tech: [

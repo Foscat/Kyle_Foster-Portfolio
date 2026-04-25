@@ -94,7 +94,7 @@ const codestreamSections = [
               { type: "strong", text: "CodeStream Studios LLC" },
               {
                 type: "text",
-                text: ", I served as the sole frontend engineer responsible for taking a React-based platform from concept to production. I owned the frontend architecture and translated rough ideas into durable, user-facing systems.",
+                text: ", I was the sole frontend engineer responsible for taking a React-based platform from concept to production. I defined the UI structure, implemented core workflows, and turned rough ideas into stable features instructors could use daily.",
               },
             ],
           },
@@ -103,7 +103,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "Working within a lean team meant operating well beyond a narrow implementation role. I handled feature design, UI polish, bug fixing, documentation, and instructor feedback loops — often simultaneously.",
+                text: "Working within a lean team meant operating well beyond a narrow implementation role. I handled feature design, interaction details, bug fixing, documentation, and instructor feedback loops — often simultaneously.",
               },
             ],
           },
@@ -113,7 +113,7 @@ const codestreamSections = [
               { type: "inlineIcon", icon: "💻" },
               {
                 type: "text",
-                text: "This role required creating systems, not just components.",
+                text: "This role required owning workflows, not just components.",
               },
             ],
           },
@@ -214,7 +214,7 @@ const codestreamSections = [
           {
             id: "overview-solution",
             title: "Solution",
-            subtitle: "Unified role-aware platform architecture",
+            subtitle: "Unified role-aware platform design",
             icon: faArrowsToCircle,
             content: [
               {
@@ -231,7 +231,7 @@ const codestreamSections = [
           {
             id: "overview-what-i-owned",
             title: "What I Owned",
-            subtitle: "End-to-end frontend architecture and execution",
+            subtitle: "End-to-end frontend delivery and execution",
             icon: faHouseLaptop,
             content: [
               {
@@ -239,7 +239,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "As sole frontend engineer, I owned frontend architecture, feature delivery, UX behavior, bug resolution, and product-facing documentation in production.",
+                    text: "As sole frontend engineer, I owned component strategy, feature delivery, UX behavior, bug resolution, and product-facing documentation in production.",
                   },
                 ],
               },

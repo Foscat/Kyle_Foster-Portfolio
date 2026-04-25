@@ -335,7 +335,7 @@ const ClickableImg = ({
         aria-label={ariaLabel}
         loading="lazy"
         decoding="async"
-        fetchPriority="low"
+        fetchpriority="low"
         placeholder={<Placeholder.Graph active />}
         className={`clickable-thumb interactive-surface glass-outline ${className}`}
         onClick={() => setOpen(true)}
@@ -389,7 +389,7 @@ const ClickableImg = ({
                 title={title || alt}
                 loading="lazy"
                 decoding="async"
-                fetchPriority="low"
+                fetchpriority="low"
                 onLoad={handleModalImageLoad}
                 className={`glass-outline ${className} zoom-img`}
                 style={{
