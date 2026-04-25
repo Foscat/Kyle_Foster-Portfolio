@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file pageMetas.js
  * @description Backward-compatible page metadata registry with sections.
  * Prefer importing `pageSummaryMetas` for lightweight head/page chrome data.
