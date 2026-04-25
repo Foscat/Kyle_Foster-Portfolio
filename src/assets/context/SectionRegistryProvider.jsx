@@ -123,8 +123,6 @@ function SectionRegistryProvider({ children }) {
         "[SectionRegistry] No sections registered. " +
           "Did you forget to render <SectionRenderer /> components?"
       );
-    } else if (import.meta.env.DEV) {
-      console.debug(`[SectionRegistry] Returning ${values.length} registered section(s).`, values);
     }
     return values;
   };

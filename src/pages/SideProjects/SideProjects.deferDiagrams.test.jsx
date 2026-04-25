@@ -87,7 +87,7 @@ vi.mock("assets/context/SectionRegistryProvider", () => ({
   default: ({ children }) => children,
 }));
 
-vi.mock("assets/data/pageMetas.js", () => ({
+vi.mock("assets/data/pageSummaryMetas", () => ({
   default: {
     SideProjects: {
       title: "Side Projects",
@@ -96,9 +96,12 @@ vi.mock("assets/data/pageMetas.js", () => ({
       timespan: "2026",
       tech: "React",
       url: "/side-projects",
-      sections: mockSections,
     },
   },
+}));
+
+vi.mock("assets/data/content/side-projects", () => ({
+  default: mockSections,
 }));
 
 vi.mock("components/layout", () => ({

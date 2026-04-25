@@ -66,7 +66,7 @@ const NAV_ITEMS = [
     icon: faFolderOpen,
   },
   { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
-  { id: "ni-contact", route: PageRoute.CONNECT, label: "Contact Me", icon: faEnvelope },
+  { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact Me", icon: faEnvelope },
 ];
 
 const isEditableTarget = (target) =>

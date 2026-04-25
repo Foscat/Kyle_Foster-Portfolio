@@ -47,8 +47,9 @@ const homeSections = [
     id: "hero",
     slug: "hero",
     icon: faCode,
-    title: "Overview",
-    subtitle: "Frontend Engineering Built on Systems Thinking",
+    title: "Senior React / Frontend Engineer",
+    subtitle:
+      "I build polished, data-driven product interfaces, frontend systems, and browser-based tooling with a strong focus on architecture, usability, and long-term maintainability.",
     isScroller: true,
     blocks: [
       {
@@ -60,7 +61,7 @@ const homeSections = [
             type: "p",
             children: [
               { type: "text", text: "I'm a " },
-              { type: "strong", text: "React-focused frontend engineer" },
+              { type: "strong", text: "Senior React / Frontend Engineer" },
               {
                 type: "text",
                 text: " I design user-facing systems grounded in clear domain models and scalable architecture, building interfaces that continue to make sense as products grow in complexity, data, and organizational scope.",
@@ -93,6 +94,82 @@ const homeSections = [
           },
         ],
       },
+      {
+        id: "hero-proof-strip",
+        title: "Proof at a Glance",
+        type: BlockType.CARD_GRID,
+        columns: 2,
+        items: [
+          {
+            id: "hero-proof-sole-frontend-engineer",
+            title: "Sole Frontend Engineer",
+            subtitle: "Production education platform",
+            icon: faBuildingUser,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Owned frontend architecture and delivery for a platform used by real students and teachers.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hero-proof-browser-ide-workflows",
+            title: "Browser IDE + Grading Workflows",
+            subtitle: "Zero-install coding and evaluation tooling",
+            icon: faLaptopCode,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Built browser-based coding environments and integrated grading flows for classroom use.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hero-proof-daimler-hackathon",
+            title: "Daimler Trucking Hackathon Winner",
+            subtitle: "Austin, Texas",
+            icon: faTrophy,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Helped deliver the winning solution by prioritizing real operator constraints over flashy features.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hero-proof-reusable-systems-docs",
+            title: "Reusable Systems + Technical Docs",
+            subtitle: "Frontend standards that scale",
+            icon: faBookOpenReader,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Created reusable frontend patterns and documentation that improved consistency and long-term maintainability.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       diagrams.engineeringFlow,
     ],
   },
@@ -100,14 +177,14 @@ const homeSections = [
     id: "professional",
     slug: "professional-work",
     title: "Professional Work",
-    subtitle: "Lead Frontend Engineer for CodeStream Studios LLC",
+    subtitle: "Senior React / Frontend Engineer for CodeStream Studios LLC",
     icon: faBuildingUser,
     isScroller: true,
     blocks: [
       {
         id: "professional-codestream",
         title: "CodeStream Studios LLC",
-        subtitle: "Lead Frontend Engineer · 2019–2025",
+        subtitle: "Senior React / Frontend Engineer · 2019–2025",
         type: BlockType.RICH_TEXT,
         content: [
           {

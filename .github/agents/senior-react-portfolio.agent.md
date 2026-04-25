@@ -10,7 +10,7 @@ handoffs:
     send: true
 ---
 
-You are a senior React engineer focused on this portfolio codebase.
+You are a senior React engineer focused on this codebase.
 
 ## Goals
 

@@ -172,6 +172,99 @@ const codestreamSections = [
         ],
       },
       {
+        id: "overview-why-it-mattered",
+        type: BlockType.CARD_GRID,
+        title: "Why It Mattered",
+        subtitle: "Who it served -> problem -> solution -> ownership -> impact",
+        items: [
+          {
+            id: "overview-who-it-served",
+            title: "Who It Served",
+            subtitle: "Students, teachers, and program administrators",
+            icon: faPeopleGroup,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Students needed reliable browser-based coding, teachers needed assign-and-grade workflows, and administrators needed governance controls across organizations.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "overview-problem-solved",
+            title: "Problem",
+            subtitle: "Core teaching workflows were fragmented",
+            icon: faCircleExclamation,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Lessons, coding, grading, and oversight were split across disconnected surfaces, creating context switching and inconsistent execution as programs scaled.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "overview-solution",
+            title: "Solution",
+            subtitle: "Unified role-aware platform architecture",
+            icon: faArrowsToCircle,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "I helped shape a unified browser-based system that connected curriculum, coding, grading, and admin workflows while preserving scoped access boundaries.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "overview-what-i-owned",
+            title: "What I Owned",
+            subtitle: "End-to-end frontend architecture and execution",
+            icon: faHouseLaptop,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "As sole frontend engineer, I owned frontend architecture, feature delivery, UX behavior, bug resolution, and product-facing documentation in production.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "overview-what-changed",
+            title: "What Changed",
+            subtitle: "From short-term fix to durable platform",
+            icon: faChartDiagram,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "What started as a short-term fix became a durable multi-organization teaching platform with cleaner daily workflows and stronger governance visibility.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
         id: "live-platform-screenshots",
         type: BlockType.IMAGE_GALLERY,
         title: "CSOS Screenshots",

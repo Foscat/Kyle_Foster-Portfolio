@@ -68,7 +68,7 @@ describe("InfoSection", () => {
     );
 
     expect(screen.getByRole("heading", { name: /About/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /What I build/i })).toBeInTheDocument();
+    expect(screen.getByText(/What I build/i)).toBeInTheDocument();
     expect(screen.getByText(/Readable content/i)).toBeInTheDocument();
   });
 

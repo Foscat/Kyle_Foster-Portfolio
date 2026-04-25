@@ -502,13 +502,12 @@ export default function AccessibilityMenu({
                 <h4 className="a11y-row__title">Keyboard Navigation</h4>
                 <ul className="a11y-keyboard__list">
                   <li>
-                    <kbd>Tab</kbd>: move to the next available display block. If you reach the end
-                    of a section, focus moves to the first block of the next section.
+                    <kbd>Tab</kbd>: move to the next focusable control using standard keyboard
+                    navigation.
                   </li>
                   <li>
-                    <kbd>Shift+Tab</kbd>: move to the previous available display block. If you are
-                    at the start of a section, focus moves to the first block of the previous
-                    section.
+                    <kbd>Shift+Tab</kbd>: move to the previous focusable control. When focus is in
+                    section navigation, it can move to the previous available display block.
                   </li>
                   <li>
                     <kbd>Enter</kbd>/<kbd>Alt+Enter</kbd>: close current section and move to the

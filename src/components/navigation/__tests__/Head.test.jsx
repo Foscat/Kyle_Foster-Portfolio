@@ -10,8 +10,8 @@ import Head from "../Head";
 import renderWithProviders from "tests/renderWithProviders";
 import { waitFor } from "@testing-library/react";
 
-// Mock the pageMetas data to provide consistent metadata for testing, allowing us to verify that the Head component correctly sets the document title and meta tags based on the current route without relying on the actual data source.
-vi.mock("assets/data/pageMetas", () => ({
+// Mock lightweight page metadata so Head tests remain isolated from route content payloads.
+vi.mock("assets/data/pageSummaryMetas", () => ({
   default: {
     Home: { title: "Home Page", description: "Home description" },
     Hackathon: { title: "Hackathon Page", description: "Hackathon description" },
@@ -28,6 +28,18 @@ const renderHead = (path = "/") => {
   return renderWithProviders(<Head />);
 };
 
+const getMetaContent = (selector) => document.head.querySelector(selector)?.getAttribute("content");
+const getJsonLdGraphTypes = () => {
+  const scripts = document.head.querySelectorAll('script[type="application/ld+json"]');
+  const script = scripts[scripts.length - 1];
+  if (!script?.textContent) return [];
+
+  const parsed = JSON.parse(script.textContent);
+  return Array.isArray(parsed?.["@graph"])
+    ? parsed["@graph"].map((node) => node?.["@type"]).filter(Boolean)
+    : [];
+};
+
 // The test suite for the Head component, which includes tests to verify that the component sets the document title and meta tags correctly based on the current route, ensuring that the appropriate metadata is applied for each page of the application.
 describe("Head", () => {
   beforeEach(() => {
@@ -40,6 +52,8 @@ describe("Head", () => {
 
     await waitFor(() => {
       expect(document.title).toBe("Home Page");
+      expect(getMetaContent('meta[name="description"]')).toBe("Home description");
+      expect(getMetaContent('meta[property="og:description"]')).toBe("Home description");
     });
   });
   // Test to verify that when the Head component is rendered with the "/hackathon" route, it sets the document title and Open Graph title meta tag according to the metadata defined for the Hackathon page, ensuring that the component correctly applies the expected metadata for this specific route.
@@ -71,6 +85,27 @@ describe("Head", () => {
     renderHead("/contact");
     await waitFor(() => {
       expect(document.title).toBe("Contact Page");
+    });
+  });
+
+  it("includes Person and WebSite JSON-LD schemas", async () => {
+    renderHead("/");
+    await waitFor(() => {
+      const schemaTypes = getJsonLdGraphTypes();
+      expect(schemaTypes).toContain("Person");
+      expect(schemaTypes).toContain("WebSite");
+    });
+  });
+
+  it("includes ProfilePage only on the Home route", async () => {
+    renderHead("/");
+    await waitFor(() => {
+      expect(getJsonLdGraphTypes()).toContain("ProfilePage");
+    });
+
+    renderHead("/contact");
+    await waitFor(() => {
+      expect(getJsonLdGraphTypes()).not.toContain("ProfilePage");
     });
   });
 });

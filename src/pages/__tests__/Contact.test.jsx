@@ -8,6 +8,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+vi.mock("components/navigation", () => ({
+  StickyNav: () => null,
+  Footer: () => null,
+}));
+
 import Contact from "../Contact/index.jsx";
 import contactForm from "assets/data/content/contactForm.js";
 import renderWithProviders from "tests/renderWithProviders";
@@ -149,12 +154,10 @@ describe("Contact page", () => {
     });
   });
 
-  it("falls back to a no-cors request when preflight fails", async () => {
+  it("shows a contact-service network error when fetch fails", async () => {
     const user = userEvent.setup();
 
-    global.fetch
-      .mockRejectedValueOnce(new TypeError("Failed to fetch"))
-      .mockResolvedValueOnce({ type: "opaque" });
+    global.fetch.mockRejectedValueOnce(new TypeError("Failed to fetch"));
 
     renderWithProviders(<Contact />, {
       initialEntries: ["/contact"],
@@ -178,11 +181,9 @@ describe("Contact page", () => {
     );
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledTimes(2);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
     });
-
-    const [, fallbackOptions] = global.fetch.mock.calls[1];
-    expect(fallbackOptions.mode).toBe("no-cors");
-    expect(screen.getByRole("status")).toHaveTextContent(/message sent successfully/i);
+    expect(screen.getByRole("alert")).toHaveTextContent(/unable to reach the contact service/i);
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 });

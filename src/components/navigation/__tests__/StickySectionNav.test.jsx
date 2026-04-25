@@ -334,7 +334,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "Tab" });
+    const sectionNavButton = screen.getByRole("button", { name: "Introduction" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "Tab" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-2-block");
@@ -404,7 +406,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithSiblingBlocks} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "Tab" });
+    const sectionNavButton = screen.getByRole("button", { name: "Introduction" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "Tab" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-block-two");

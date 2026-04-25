@@ -7,12 +7,16 @@
 import { useEffect } from "react";
 import React from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
-import Data from "assets/data/pageMetas.js";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
+import sideProjectsSections from "assets/data/content/side-projects";
 import { PageHeader } from "components/layout";
 import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
-const sidePro = Data.SideProjects;
+const sidePro = {
+  ...pageSummaryMetas.SideProjects,
+  sections: sideProjectsSections,
+};
 const DIAGRAM_DEFER_CONFIG = {
   rootMargin: "480px 0px",
   threshold: 0.01,

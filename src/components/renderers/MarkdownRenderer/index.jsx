@@ -31,17 +31,22 @@ function flattenText(children) {
     .join("");
 }
 
-function extractHeadings(markdown = "", maxDepth = 3) {
+function extractHeadings(markdown = "", maxDepth = 3, headingLevelOffset = 0) {
   const lines = markdown.split("\n");
   const counts = new Map();
   const headings = [];
+  let previousLevel = 0;
 
   for (const line of lines) {
     const match = line.match(/^(#{1,6})\s+(.+)$/);
     if (!match) continue;
 
     const level = match[1].length;
-    if (level > maxDepth) continue;
+    const adjustedLevel = Math.min(6, Math.max(1, level + headingLevelOffset));
+    const normalizedLevel =
+      previousLevel > 0 && adjustedLevel > previousLevel + 1 ? previousLevel + 1 : adjustedLevel;
+    previousLevel = normalizedLevel;
+    if (normalizedLevel > maxDepth) continue;
 
     const rawText = match[2]
       .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
@@ -53,7 +58,7 @@ function extractHeadings(markdown = "", maxDepth = 3) {
     counts.set(base, seen + 1);
 
     headings.push({
-      level,
+      level: normalizedLevel,
       text: rawText,
       id: seen ? `${base}-${seen + 1}` : base,
     });
@@ -81,43 +86,84 @@ export default function MarkdownRenderer({
   intro,
   showToc = true,
   maxTocDepth = 3,
+  headingLevelOffset = 0,
   className = "",
   articleId,
 }) {
   const rootRef = useRef(null);
 
-  const headings = useMemo(() => extractHeadings(content, maxTocDepth), [content, maxTocDepth]);
+  const headings = useMemo(
+    () => extractHeadings(content, maxTocDepth, headingLevelOffset),
+    [content, maxTocDepth, headingLevelOffset]
+  );
 
   useEffect(() => {
     if (!rootRef.current) return;
+
+    const renderedHeadings = Array.from(rootRef.current.querySelectorAll("h1,h2,h3,h4,h5,h6"));
+    let previousLevel = 0;
+
+    for (const heading of renderedHeadings) {
+      const currentLevel = Number.parseInt(heading.tagName.slice(1), 10);
+      if (!Number.isFinite(currentLevel)) continue;
+
+      const normalizedLevel =
+        previousLevel > 0 && currentLevel > previousLevel + 1 ? previousLevel + 1 : currentLevel;
+      previousLevel = normalizedLevel;
+
+      if (normalizedLevel === currentLevel) continue;
+
+      const replacement = document.createElement(`h${normalizedLevel}`);
+
+      for (const attr of Array.from(heading.attributes)) {
+        replacement.setAttribute(attr.name, attr.value);
+      }
+
+      while (heading.firstChild) {
+        replacement.appendChild(heading.firstChild);
+      }
+
+      heading.replaceWith(replacement);
+    }
+
     Prism.highlightAllUnder(rootRef.current);
   }, [content]);
 
   const components = useMemo(() => {
     const counts = new Map();
+    let previousRenderedLevel = 0;
+    const resolveHeadingLevel = (level) =>
+      Math.min(6, Math.max(1, level + Number(headingLevelOffset || 0)));
 
-    const makeHeading = (Tag, level) =>
+    const makeHeading = (level) =>
       function HeadingComponent({ children }) {
         const text = flattenText(children);
         const base = slugify(text);
         const seen = counts.get(base) || 0;
         counts.set(base, seen + 1);
         const id = seen ? `${base}-${seen + 1}` : base;
+        const desiredLevel = resolveHeadingLevel(level);
+        const resolvedLevel =
+          previousRenderedLevel > 0 && desiredLevel > previousRenderedLevel + 1
+            ? previousRenderedLevel + 1
+            : desiredLevel;
+        previousRenderedLevel = resolvedLevel;
+        const headingTag = `h${resolvedLevel}`;
 
-        return (
-          <Tag id={id} className={`markdown-renderer__h${level}`}>
-            {children}
-          </Tag>
+        return React.createElement(
+          headingTag,
+          { id, className: `markdown-renderer__h${resolvedLevel}` },
+          children
         );
       };
 
     return {
-      h1: makeHeading("h1", 1),
-      h2: makeHeading("h2", 2),
-      h3: makeHeading("h3", 3),
-      h4: makeHeading("h4", 4),
-      h5: makeHeading("h5", 5),
-      h6: makeHeading("h6", 6),
+      h1: makeHeading(1),
+      h2: makeHeading(2),
+      h3: makeHeading(3),
+      h4: makeHeading(4),
+      h5: makeHeading(5),
+      h6: makeHeading(6),
 
       p({ children }) {
         return <p className="markdown-renderer__p">{children}</p>;
@@ -209,7 +255,7 @@ export default function MarkdownRenderer({
         );
       },
     };
-  }, []);
+  }, [headingLevelOffset]);
 
   return (
     <article id={articleId} ref={rootRef} className={`markdown-renderer ${className}`.trim()}>

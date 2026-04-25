@@ -71,4 +71,16 @@ describe("FrostedIcon", () => {
 
     expect(screen.getByRole("img", { name: "Home" })).toHaveAttribute("aria-busy", "true");
   });
+
+  it("keeps embedded button icons decorative and out of tab order", () => {
+    renderWithProviders(
+      <FrostedIcon icon={faHouse} ariaLabel="Button icon" clickable className="btn-icon" />
+    );
+
+    const embeddedIcon = screen.getByRole("img", { hidden: true });
+
+    expect(embeddedIcon).toHaveAttribute("aria-hidden", "true");
+    expect(embeddedIcon).not.toHaveAttribute("tabindex");
+    expect(screen.queryByRole("button", { name: /button icon/i })).not.toBeInTheDocument();
+  });
 });
