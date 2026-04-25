@@ -25,7 +25,7 @@ The app is built around declarative pages, data-driven sections, and composable 
 Start with:
 
 - [Architecture Overview](architecture_overview.md)
-- [Architecture Diagram](public/portfolio_flow.png)
+- [Architecture Diagram](docs/assets/portfolio-flow.png)
 
 ## Documentation Index
 

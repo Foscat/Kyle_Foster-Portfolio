@@ -6,12 +6,16 @@
 
 import { useEffect } from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
-import Data from "assets/data/pageMetas";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
+import smuSections from "assets/data/content/smu";
 import { PageHeader } from "components/layout";
 import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
-const smu = Data.Smu;
+const smu = {
+  ...pageSummaryMetas.Smu,
+  sections: smuSections,
+};
 
 /**
  * SMU Page

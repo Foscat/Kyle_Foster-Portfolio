@@ -12,11 +12,11 @@ const resumeData = {
   phone: "(469) 410-5286",
   website: "kyle-foster.com",
   summary:
-    "React-focused frontend engineer building scalable interfaces, translating complex workflows into clear user experiences, and delivering polished UI systems that remain maintainable as products grow.",
+    "Senior React / Frontend Engineer focused on turning complex product workflows into clear interfaces and shipping dependable UI for content-heavy, role-based applications.",
 
   experience: [
     {
-      role: "Frontend Developer",
+      role: "Senior React / Frontend Engineer",
       company: "CodeStream Studios LLC",
       location: "Remote",
       dates: "2019 - 2025",

@@ -6,13 +6,17 @@
  */
 
 import { useEffect } from "react";
-import Data from "assets/data/pageMetas";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
+import homeSections from "assets/data/content/home";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import { PageHeader } from "components/layout";
 import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
-const home = Data.Home;
+const home = {
+  ...pageSummaryMetas.Home,
+  sections: homeSections,
+};
 
 /**
  * Home Page
@@ -20,7 +24,7 @@ const home = Data.Home;
  * A data-driven landing page that gives recruiters and hiring managers a
  * high-level map of the portfolio and clear CTAs into deeper pages.
  *
- * Content is rendered from `assets/data/pageMetas.js` and `assets/data/homeSections.js` so it can be updated
+ * Content is rendered from lightweight page metadata plus `assets/data/content/home` sections
  * without touching layout code.
  *
  * @component

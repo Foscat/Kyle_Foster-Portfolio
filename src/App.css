@@ -1191,6 +1191,19 @@ footer {
   }
 }
 
+@media (width <= 768px) {
+  :root {
+    /* Reduce blur/shadow compositing cost on mobile GPUs. */
+    --slight-blur: blur(3px);
+    --glass-blur: blur(5px);
+    --backdrop-blur: blur(7px);
+    --shadow-soft: 0 4px 16px rgba(var(--deep-black-rgb), 0.16);
+    --glass-shadow: 0 8px 24px rgba(var(--deep-black-rgb), 0.16);
+    --tile-shadow: 0 8px 24px rgba(var(--primary-dark-rgb), 0.14);
+    --text-shadow: none;
+  }
+}
+
 @media (width <= 700px) {
   .frosted .glass-card,
   .frosted,
@@ -1219,5 +1232,5 @@ footer {
 }
 
 /* ============================================================
-   End of Portfolio Theme: Midnight Blue + Gold (Frosted Glass)
+   End of portfolio base styles (Frosted Glass, responsive layout, and theme variants)
    ============================================================ */

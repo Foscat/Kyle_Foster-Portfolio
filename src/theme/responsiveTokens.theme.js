@@ -1,20 +1,21 @@
 /**
- * @file midnightGold.theme.js
- * @fileoverview Theme configuration for the Midnight Gold design, defining breakpoints, spacing tokens, and CSS variable mappings for consistent styling across the application.
- * @module theme/MidnightGoldTheme
+ * @file responsiveTokens.theme.js
+ * @fileoverview Responsive token configuration defining breakpoints, spacing
+ * tokens, and CSS variable mappings for consistent layout behavior.
+ * @module theme/ResponsiveTokensTheme
  */
 
 /**
  * @public
- * @constant {Object} MidnightGoldTheme - Theme configuration object for the Midnight Gold design.
- * The `MidnightGoldTheme` object defines the following properties:
+ * @constant {Object} ResponsiveTokensTheme - Responsive token configuration object.
+ * The `ResponsiveTokensTheme` object defines the following properties:
  * - `id`: A unique identifier for the theme, used for reference and application.
  * - `breakpoints`: An object defining the pixel widths for different responsive tiers (mobile, tablet, desktop).
  * - `spacing`: An object containing spacing tokens for each breakpoint tier, including section spacing, gutter spacing, and card padding. These tokens should align with the layout rhythm of the application to ensure consistent spacing across components.
  * - `cssVars`: An object mapping the spacing tokens to CSS variable names, allowing for dynamic application of spacing values in stylesheets and inline styles. This mapping ensures that changes to the theme's spacing tokens are automatically reflected in the CSS variables used throughout the application, enabling easy theming and customization.
  */
-export const MidnightGoldTheme = {
-  id: "midnight-gold",
+export const ResponsiveTokensTheme = {
+  id: "responsive-tokens",
 
   breakpoints: {
     mobile: 768,

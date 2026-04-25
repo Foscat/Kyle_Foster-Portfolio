@@ -4,11 +4,11 @@
  * @module src\assets\images\hackathon\index
  */
 
-import check from "./bigCheck.jpg";
-import chat from "./chatBotting.jpg";
+import check from "./big-check.jpg";
+import chat from "./chat-botting.jpg";
 import focus from "./focus.jpg";
-import group from "./hackGroup.jpg";
-import taLogo from "./TechAssistLogo.jpg";
+import group from "./hack-group.jpg";
+import taLogo from "./tech-assist-logo.jpg";
 
 export { check, chat, focus, group, taLogo };
 

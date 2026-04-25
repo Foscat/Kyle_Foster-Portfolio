@@ -118,6 +118,99 @@ const hackathonSections = [
         ],
       },
       {
+        id: "overview-why-it-mattered",
+        type: BlockType.CARD_GRID,
+        title: "Why It Mattered",
+        subtitle: "Who it served -> problem -> solution -> ownership -> impact",
+        items: [
+          {
+            id: "hackathon-who-it-served",
+            title: "Who It Served",
+            subtitle: "Fleet technicians and repair teams",
+            icon: faTruckFast,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "The solution targeted technicians in active repair environments who needed step guidance without interrupting hands-on mechanical work.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hackathon-problem-solved",
+            title: "Problem",
+            subtitle: "Instruction delivery disrupted repair flow",
+            icon: faCircleExclamation,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Technicians had to bounce between tools and instruction surfaces, which slowed execution and made timing and feedback data less reliable.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hackathon-solution",
+            title: "Solution",
+            subtitle: "Voice-first, hands-free workflow design",
+            icon: faLightbulb,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "We built a voice-guided assistant that delivered spoken steps, captured progression data, and worked within existing shop constraints without new hardware.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hackathon-what-i-owned",
+            title: "What I Owned",
+            subtitle: "Core implementation and post-event continuation",
+            icon: faHeadset,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "I co-built core hackathon implementation, then became the sole developer post-event and rebuilt the product path in React Native for mobile delivery.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hackathon-what-changed",
+            title: "What Changed",
+            subtitle: "Winning prototype with durable lessons",
+            icon: faRoute,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "The team won the Daimler event, and the work proved the concept under pressure while accelerating my execution depth in architecture and product ownership.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
         id: "overview-links",
         type: BlockType.LINKS,
         items: [

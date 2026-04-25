@@ -4,7 +4,7 @@
  * @module src\components\renderers\SectionRenderer\index
  */
 
-import { useEffect, useId, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useId, useRef, useState } from "react";
 import { useSectionRegistry } from "assets/context/SectionRegistryProvider.jsx";
 import {
   BlockType,
@@ -26,9 +26,10 @@ import {
   LinksBlock,
   RichTextBlock,
 } from "components/renderers/blocks";
-import MarkdownDocsBlock from "components/renderers/blocks/MarkdownDocs.Block";
 import { AccordionList, MermaidDiagram } from "components/ui";
 import "./styles.css";
+
+const MarkdownDocsBlock = lazy(() => import("components/renderers/blocks/MarkdownDocs.Block"));
 
 const MAX_DEFER_FALLBACK_DELAY_MS = 15000;
 const MAX_SECTION_BLOCK_COUNT = 2000;
@@ -569,7 +570,18 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
                 return <HeroBlock key={blockKey} {...createHeroBlock(block)} />;
 
               case BlockType.MARKDOWN_DOCS:
-                return <MarkdownDocsBlock key={blockKey} block={block} />;
+                return (
+                  <Suspense
+                    key={blockKey}
+                    fallback={
+                      <p key={`${blockKey}-fallback`} className="mermaid-deferred-status-text">
+                        Loading documentation...
+                      </p>
+                    }
+                  >
+                    <MarkdownDocsBlock block={block} />
+                  </Suspense>
+                );
 
               // Defensive fallback for malformed or unsupported block payloads.
               default:

@@ -5,7 +5,7 @@ tools: [vscode/getProjectSetupInfo, vscode/installExtension, vscode/memory, vsco
 argument-hint: "Describe the doc/diagram task and target files (for example docs/*.md, README.md, or Mermaid snippets)."
 handoffs:
   - label: "React Implementation"
-    agent: "Senior React Portfolio"
+    agent: "Senior React Developer"
     prompt: "This request requires runtime/component code changes beyond docs or diagrams. Continue with React implementation and tests."
     send: true
 ---

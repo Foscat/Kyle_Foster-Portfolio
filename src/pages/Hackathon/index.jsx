@@ -5,13 +5,17 @@
  */
 
 import { useEffect } from "react";
-import Data from "assets/data/pageMetas";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
+import hackathonSections from "assets/data/content/hackathon";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import { PageHeader } from "components/layout";
 import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
-const hack = Data.Hackathon;
+const hack = {
+  ...pageSummaryMetas.Hackathon,
+  sections: hackathonSections,
+};
 
 /**
  * Hackathon Page

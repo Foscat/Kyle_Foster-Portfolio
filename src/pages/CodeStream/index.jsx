@@ -5,13 +5,17 @@
  */
 
 import { useEffect } from "react";
-import Data from "assets/data/pageMetas";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
+import codestreamSections from "assets/data/content/codestream";
 import { PageHeader } from "components/layout";
 import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 
-const csos = Data.Codestream;
+const csos = {
+  ...pageSummaryMetas.Codestream,
+  sections: codestreamSections,
+};
 
 /**
  * @file index.jsx

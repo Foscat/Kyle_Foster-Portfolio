@@ -60,6 +60,7 @@ export default function MarkdownDocsBlock({ block }) {
               intro={doc.summary}
               content={doc.content}
               showToc={showToc}
+              headingLevelOffset={1}
             />
           </Panel>
         ))}

@@ -54,7 +54,7 @@ createRoot(container).render(
 
 const endpointFromEnv = import.meta.env.VITE_WEB_VITALS_ENDPOINT;
 const webVitalsEndpoint = typeof endpointFromEnv === "string" ? endpointFromEnv.trim() : "";
-const shouldLogVitals = import.meta.env.DEV;
+const shouldLogVitals = import.meta.env.DEV && import.meta.env.VITE_LOG_WEB_VITALS === "true";
 const shouldSendVitals = import.meta.env.PROD && webVitalsEndpoint.length > 0;
 const shouldInitVitals = shouldLogVitals || shouldSendVitals;
 

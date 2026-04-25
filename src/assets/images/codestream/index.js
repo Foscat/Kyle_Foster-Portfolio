@@ -4,20 +4,20 @@
  * @module src\assets\images\codestream\index
  */
 
-import ss12 from "./Screenshot (1312).png";
-import ss13 from "./Screenshot (1313).png";
-import ss14 from "./Screenshot (1314).png";
-import ss15 from "./Screenshot (1315).png";
-import ss16 from "./Screenshot (1316).png";
-import ss17 from "./Screenshot (1317).png";
-import ss30 from "./Screenshot (1330).png";
-import ss31 from "./Screenshot (1331).png";
-import ss32 from "./Screenshot (1332).png";
-import ss33 from "./Screenshot (1333).png";
-import ss35 from "./Screenshot (1335).png";
-import ss36 from "./Screenshot (1336).png";
-import ss37 from "./Screenshot (1337).png";
-import ss38 from "./Screenshot (1338).png";
+import ss12 from "./csos-home.png";
+import ss13 from "./csos-profile.png";
+import ss14 from "./csos-classrooms-dashboard.png";
+import ss15 from "./csos-organization-library.png";
+import ss16 from "./csos-organization-roster.png";
+import ss17 from "./csos-my-content.png";
+import ss30 from "./csos-editor-web.png";
+import ss31 from "./csos-classroom-dashboard-teacher.png";
+import ss32 from "./csos-classroom-roster.png";
+import ss33 from "./csos-editor-python.png";
+import ss35 from "./csos-grader-web.png";
+import ss36 from "./csos-classroom-reports.png";
+import ss37 from "./csos-course-builder.png";
+import ss38 from "./csos-lesson-attacher.png";
 
 const imgObjs = {
   csos_home: {

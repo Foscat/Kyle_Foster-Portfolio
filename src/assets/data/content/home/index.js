@@ -47,8 +47,9 @@ const homeSections = [
     id: "hero",
     slug: "hero",
     icon: faCode,
-    title: "Overview",
-    subtitle: "Frontend Engineering Built on Systems Thinking",
+    title: "Senior React / Frontend Engineer",
+    subtitle:
+      "I build React interfaces for content-heavy products, from browser-based learning tools to portfolio platforms, with a focus on usable flows and dependable behavior as complexity grows.",
     isScroller: true,
     blocks: [
       {
@@ -60,10 +61,10 @@ const homeSections = [
             type: "p",
             children: [
               { type: "text", text: "I'm a " },
-              { type: "strong", text: "React-focused frontend engineer" },
+              { type: "strong", text: "Senior React / Frontend Engineer" },
               {
                 type: "text",
-                text: " I design user-facing systems grounded in clear domain models and scalable architecture, building interfaces that continue to make sense as products grow in complexity, data, and organizational scope.",
+                text: " I design user-facing products around explicit domain rules and practical interaction patterns, so workflows stay understandable as data volume, roles, and feature depth increase.",
               },
             ],
           },
@@ -72,12 +73,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I bring experience across both production systems and rapid prototyping. I built a custom education platform used in real classrooms, and I have also delivered hackathon prototypes under tight constraints using my own MERN foundations. Across side projects, my work stays centered on ",
+                text: "I bring experience across both production delivery and rapid prototyping. I built a custom education platform used in live classrooms, and I have also delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
               },
-              { type: "em", text: "solving real-world problems" },
+              { type: "em", text: "concrete constraints" },
               {
                 type: "text",
-                text: " with practical, durable solutions. I prioritize maintainable, scalable code so the systems I build can evolve without becoming brittle over time.",
+                text: " like hardware I/O, session continuity, and long-running content workflows, then carry those lessons into shipped product work.",
               },
             ],
           },
@@ -93,6 +94,82 @@ const homeSections = [
           },
         ],
       },
+      {
+        id: "hero-proof-strip",
+        title: "Proof at a Glance",
+        type: BlockType.CARD_GRID,
+        columns: 2,
+        items: [
+          {
+            id: "hero-proof-sole-frontend-engineer",
+            title: "Sole Frontend Engineer",
+            subtitle: "Production education platform",
+            icon: faBuildingUser,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Owned frontend architecture and delivery for a platform used by real students and teachers.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hero-proof-browser-ide-workflows",
+            title: "Browser IDE + Grading Workflows",
+            subtitle: "Zero-install coding and evaluation tooling",
+            icon: faLaptopCode,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Built browser-based coding environments and integrated grading flows for classroom use.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hero-proof-daimler-hackathon",
+            title: "Daimler Trucking Hackathon Winner",
+            subtitle: "Austin, Texas",
+            icon: faTrophy,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Helped deliver the winning solution by prioritizing real operator constraints over flashy features.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "hero-proof-reusable-systems-docs",
+            title: "Reusable Systems + Technical Docs",
+            subtitle: "Frontend standards that scale",
+            icon: faBookOpenReader,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Created reusable frontend patterns and documentation that improved consistency and long-term maintainability.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       diagrams.engineeringFlow,
     ],
   },
@@ -100,14 +177,14 @@ const homeSections = [
     id: "professional",
     slug: "professional-work",
     title: "Professional Work",
-    subtitle: "Lead Frontend Engineer for CodeStream Studios LLC",
+    subtitle: "Senior React / Frontend Engineer for CodeStream Studios LLC",
     icon: faBuildingUser,
     isScroller: true,
     blocks: [
       {
         id: "professional-codestream",
         title: "CodeStream Studios LLC",
-        subtitle: "Lead Frontend Engineer · 2019–2025",
+        subtitle: "Senior React / Frontend Engineer · 2019–2025",
         type: BlockType.RICH_TEXT,
         content: [
           {
@@ -115,12 +192,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My professional work has centered on building and scaling a ",
+                text: "My professional work has centered on building a ",
               },
               { type: "strong", text: "production education platform" },
               {
                 type: "text",
-                text: " used by real students, teachers, and organizations. It supported both synchronous and asynchronous learning, from lesson delivery and assignment grading to classroom and organization-level operations in a scalable model.",
+                text: " used by real students, teachers, and organizations. It supported both synchronous and asynchronous learning, from lesson delivery and assignment grading to classroom operations and organization-level administration.",
               },
             ],
           },
@@ -131,7 +208,7 @@ const homeSections = [
               { type: "em", text: "sole frontend engineer" },
               {
                 type: "text",
-                text: ", owning the UI architecture end-to-end. I personally architected and built core systems, including a multi-panel browser-based IDE, role-based access control for organizations and classrooms, virtual classroom workflows, grading tools, reporting systems, and administrative dashboards.",
+                text: ", owning the UI from requirements through release. I built core workflows including a multi-panel browser-based IDE, organization and classroom permissions, virtual classroom flows, grading tools, reporting, and administrative dashboards.",
               },
             ],
           },
@@ -568,7 +645,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My side projects are where I experiment, explore new tools, and solve ",
+                text: "My side projects are where I test unfamiliar tools, explore new workflows, and solve ",
               },
               { type: "strong", text: "practical problems" },
               { type: "text", text: " outside of client or organizational constraints." },
@@ -579,7 +656,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "These projects range from hardware-integrated automation systems to encryption tools and creative applications. Each one reflects my ability to take an idea from concept to execution while owning the full technical lifecycle.",
+                text: "These builds range from Raspberry Pi greenhouse automation to encryption experiments and campaign tooling. Each one moves from concept to deployment, with me owning design tradeoffs, implementation, and iteration.",
               },
             ],
           },
@@ -602,15 +679,15 @@ const homeSections = [
         items: [
           {
             id: "sp-agile-robust-programs",
-            title: "Agile & Robust Architectures",
-            subtitle: "Balancing rapid iteration with structural discipline in side projects",
+            title: "Fast Iteration, Clear Structure",
+            subtitle: "Balancing rapid prototyping with intentional foundations in side projects",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Use side projects to explore full-stack architectures without sacrificing structural discipline.",
+                    text: "Use side projects to prototype quickly while still defining clean boundaries for state, routing, and data flow.",
                   },
                 ],
               },
@@ -625,9 +702,7 @@ const homeSections = [
                   },
                   {
                     type: "li",
-                    children: [
-                      { type: "text", text: "Intentional system structure from the start" },
-                    ],
+                    children: [{ type: "text", text: "Intentional structure from the start" }],
                   },
                   {
                     type: "li",
@@ -705,7 +780,7 @@ const homeSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Requirements definition and architecture planning" },
+                      { type: "text", text: "Requirements definition and solution planning" },
                     ],
                   },
                   {
@@ -733,7 +808,7 @@ const homeSections = [
         id: "sp-programs-of-note",
         type: BlockType.CARD_GRID,
         title: "Programs of Note",
-        subtitle: "Selected projects demonstrating architectural range and systems ownership",
+        subtitle: "Selected projects demonstrating technical range and end-to-end ownership",
         icon: faBookOpenReader,
         items: [
           {

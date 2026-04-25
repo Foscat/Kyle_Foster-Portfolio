@@ -151,8 +151,8 @@ const FrostedIcon = ({
   const isCoarsePointer = useCoarsePointer();
   const hasInteractiveClass = className.includes("interactive-surface");
   const isEmbeddedInBtn = className.includes("btn-icon");
-  const interactiveClass =
-    clickable && !hasInteractiveClass && !isEmbeddedInBtn ? "interactive-surface" : "";
+  const isInteractive = clickable && !isEmbeddedInBtn;
+  const interactiveClass = isInteractive && !hasInteractiveClass ? "interactive-surface" : "";
   const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
 
@@ -167,7 +167,7 @@ const FrostedIcon = ({
     >
       <FontAwesomeIcon
         onClick={(e) => {
-          if (clickable) {
+          if (isInteractive) {
             onClick(e);
 
             if (isCoarsePointer && e?.currentTarget instanceof HTMLElement) {
@@ -177,16 +177,17 @@ const FrostedIcon = ({
             }
           }
         }}
-        role={clickable ? "button" : "img"}
-        aria-label={ariaLabel || undefined}
+        role={isInteractive ? "button" : "img"}
+        aria-label={isEmbeddedInBtn ? undefined : ariaLabel || undefined}
+        aria-hidden={isEmbeddedInBtn ? true : undefined}
         aria-busy={loading}
-        tabIndex={clickable ? 0 : undefined}
+        tabIndex={isInteractive ? 0 : undefined}
         className={`
             frosted-icon
             fi-size-${size}
             fi-variant-${variant}
             ${noBG ? "fi-no-bg" : ""}
-            ${clickable ? "fi-clickable" : ""}
+            ${isInteractive ? "fi-clickable" : ""}
             ${interactiveClass}
             ${className}
           `}

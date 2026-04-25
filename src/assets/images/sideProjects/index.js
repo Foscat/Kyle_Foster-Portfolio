@@ -4,14 +4,14 @@
  * @module src\assets\images\sideProjects\index
  */
 
-import d20Dash from "./d20_dashboard.png";
-import oppEdit from "./d20_oppEditor.png";
+import d20Dash from "./d20-dashboard.png";
+import oppEdit from "./d20-opp-editor.png";
 import enigma from "./enigma.png";
 import encryption from "./encrypting.png";
 import decryption from "./decrypting.png";
-import enigmaGuide from "./howToEncrypt.png";
-import greCon from "./greenhouseControls.jpg";
-import greHook from "./greenhouseHookedUp.jpg";
+import enigmaGuide from "./how-to-encrypt.png";
+import greCon from "./greenhouse-controls.jpg";
+import greHook from "./greenhouse-hooked-up.jpg";
 
 export { d20Dash, oppEdit, enigma, encryption, decryption, enigmaGuide, greCon, greHook };
 
