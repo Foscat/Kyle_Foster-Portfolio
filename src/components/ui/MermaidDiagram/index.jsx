@@ -5,7 +5,6 @@
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { toPng } from "html-to-image";
 import { Modal, Panel } from "rsuite";
 import { faExpand, faEye, faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import { Size, Theme, Variant } from "types/ui.types";
@@ -378,6 +377,7 @@ function MermaidDiagram(props) {
       } = buildExportNode(svg, resolvedTheme);
       exportNode = nextExportNode;
       document.body.appendChild(exportNode);
+      const { toPng } = await import("html-to-image");
 
       const dataUrl = await toPng(exportNode, {
         cacheBust: true,

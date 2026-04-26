@@ -9,10 +9,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import React from "react";
 import { ResponsiveContext } from "./ResponsiveContext";
-import { MidnightGoldTheme } from "../../../theme/midnightGold.theme.js";
+import { resolveResponsiveTokensTheme } from "../../../theme/responsiveTokens.themes.js";
 
 // Destructure breakpoints, spacing scale, and CSS variable mappings from the theme configuration. These values will be used for determining the current breakpoint and for syncing spacing tokens to CSS variables.
-const { breakpoints, spacing: SPACING_SCALE, cssVars } = MidnightGoldTheme;
+const ACTIVE_RESPONSIVE_TOKENS_THEME = resolveResponsiveTokensTheme(
+  import.meta.env?.VITE_RESPONSIVE_TOKENS_THEME
+);
+const { breakpoints, spacing: SPACING_SCALE, cssVars } = ACTIVE_RESPONSIVE_TOKENS_THEME;
 const A11Y_OVERRIDES_STORAGE_KEY = "portfolio-a11y-overrides";
 const DEFAULT_A11Y_OVERRIDES = Object.freeze({
   reducedMotion: null,
@@ -327,7 +330,7 @@ export function ResponsiveProvider({ children }) {
       Boolean(a11yOverrides.largeText);
 
     return {
-      themeId: MidnightGoldTheme.id,
+      themeId: ACTIVE_RESPONSIVE_TOKENS_THEME.id,
 
       width,
       breakpoint,

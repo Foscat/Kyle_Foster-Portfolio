@@ -22,7 +22,7 @@ const contactSections = [
             children: [
               {
                 type: "text",
-                text: "You can reach me through any of the channels below:",
+                text: "I'm a Senior React / Frontend Engineer. You can reach me through any of the channels below:",
               },
             ],
           },
@@ -31,24 +31,38 @@ const contactSections = [
             children: [
               {
                 type: "li",
-                children: [{ type: "text", text: "Email: fosterkyle6456@gmail.com" }],
+                children: [
+                  { type: "text", text: "Email: " },
+                  {
+                    type: "a",
+                    text: "fosterkyle6456@gmail.com",
+                    href: "mailto:fosterkyle6456@gmail.com",
+                  },
+                ],
               },
               {
                 type: "li",
-                children: [{ type: "text", text: "Phone: (469) 410-5286" }],
+                children: [
+                  { type: "text", text: "Phone: " },
+                  { type: "a", text: "(469) 410-5286", href: "tel:+14694105286" },
+                ],
               },
               {
                 type: "li",
                 children: [
                   { type: "text", text: "LinkedIn:" },
-                  { type: "a", text: "linkedin.com/in/kyle-foster-dev" },
+                  {
+                    type: "a",
+                    text: "linkedin.com/in/kylefoster-dev",
+                    href: "https://linkedin.com/in/kylefoster-dev",
+                  },
                 ],
               },
               {
                 type: "li",
                 children: [
                   { type: "text", text: "GitHub:" },
-                  { type: "a", text: "github.com/Foscat" },
+                  { type: "a", text: "github.com/Foscat", href: "https://github.com/Foscat" },
                 ],
               },
             ],

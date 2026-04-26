@@ -40,7 +40,7 @@ const sideProjectSections = [
       {
         id: "overview-text",
         type: BlockType.RICH_TEXT,
-        title: "Exploring Real-World Solutions",
+        title: "Exploring Practical Constraints",
         icon: faTowerObservation,
         content: [
           {
@@ -51,7 +51,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects serve as controlled proving grounds for full-system engineering.",
+                    text: "Side projects are where I pressure-test ideas end to end before they ever reach client work.",
                   },
                 ],
               },
@@ -62,7 +62,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Each project begins with a real-world constraint and is developed with production-level discipline rather than tutorial-driven experimentation.",
+                text: "Each project starts from a concrete constraint, such as unstable greenhouse climate signals, auth session edge cases, or campaign data that outgrows spreadsheets.",
               },
             ],
           },
@@ -71,7 +71,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Because these systems are self-directed, they require end-to-end ownership:",
+                text: "Because these builds are self-directed, they require end-to-end ownership:",
               },
             ],
           },
@@ -80,7 +80,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "li",
-                children: [{ type: "text", text: "Architecture and technology selection." }],
+                children: [{ type: "text", text: "Technology choices and tradeoff mapping." }],
               },
               {
                 type: "li",
@@ -92,7 +92,7 @@ const sideProjectSections = [
               },
               {
                 type: "li",
-                children: [{ type: "text", text: "Long-term maintainability considerations." }],
+                children: [{ type: "text", text: "Post-launch cleanup and refactor planning." }],
               },
             ],
           },
@@ -110,7 +110,100 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Principle: understand constraints, design pragmatically, and iterate until the system is reliable under real conditions.",
+                text: "Principle: identify constraints, choose pragmatic tradeoffs, and iterate until behavior holds up outside ideal conditions.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "overview-why-it-mattered",
+        type: BlockType.CARD_GRID,
+        title: "Why It Mattered",
+        subtitle: "Who it served -> problem -> solution -> ownership -> impact",
+        items: [
+          {
+            id: "side-projects-who-it-served",
+            title: "Who It Served",
+            subtitle: "Real users in practical domains",
+            icon: faSeedling,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "These builds served concrete use cases across automation, security tooling, and creator workflows where generic products were not a good fit.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "side-projects-problem-solved",
+            title: "Problem",
+            subtitle: "Practical constraints lacked clean off-the-shelf solutions",
+            icon: faExclamationTriangle,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Each project started from a specific operational constraint that required custom tradeoffs in UX, architecture, or hardware/software behavior.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "side-projects-solution",
+            title: "Solution",
+            subtitle: "Constraint-first system design and iteration",
+            icon: faLightbulb,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "I converted constraints into working architectures, then iterated from real use and failure points instead of stopping at prototype-level demos.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "side-projects-what-i-owned",
+            title: "What I Owned",
+            subtitle: "End-to-end product and engineering decisions",
+            icon: faLaptopCode,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "I owned architecture, implementation, iteration, and long-term maintenance, including frontend, backend, hardware integration, and deployment tradeoffs.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "side-projects-what-changed",
+            title: "What Changed",
+            subtitle: "Reusable patterns and stronger delivery range",
+            icon: faFlagCheckered,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "The result was deployable tooling plus reusable patterns that now reduce delivery risk and improve decision quality in production-oriented work.",
+                  },
+                ],
               },
             ],
           },

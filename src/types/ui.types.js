@@ -7,20 +7,7 @@
  * @module types/ui
  */
 
-import {
-  RichTextBlock,
-  ImageGalleryBlock,
-  LinksBlock,
-  CardGridBlock,
-  HeroBlock,
-} from "components/renderers";
-/* MarkdownDocsBlock renderer for displaying portfolio documentation within feature sections */
-import MarkdownDocsBlock from "components/renderers/blocks/MarkdownDocs.Block";
-/* MarkdownRenderer component for rendering raw markdown content with TOC, syntax highlighting, and responsive tables */
 import { PageRoute } from "./navigation.types";
-/* AccordionList component for rendering bulleted list blocks as expandable accordion sections */
-/* MermaidDiagram component for rendering mermaid diagram definitions */
-import { AccordionList, MermaidDiagram } from "../components/ui";
 
 /* ============================================================================
    ENUMS (RUNTIME VALUES)
@@ -315,22 +302,18 @@ export const blockSchemas = Object.freeze({
  * 6. Update `FeatureBlock` union typedef to include new type
  */
 export const BLOCK_RENDERERS = Object.freeze({
-  /* Hero section block with background image and call-to-action */
-  [BlockType.HERO]: HeroBlock,
-  /* Rich text block with custom markdown-like node structure */
-  [BlockType.RICH_TEXT]: RichTextBlock,
-  /* Responsive image gallery block */
-  [BlockType.IMAGE_GALLERY]: ImageGalleryBlock,
-  /* Mermaid diagram block with desktop/mobile variants */
-  [BlockType.DIAGRAM]: MermaidDiagram,
-  /* Card grid block with configurable columns */
-  [BlockType.CARD_GRID]: CardGridBlock,
-  /* Bulleted list block rendered as expandable accordion */
-  [BlockType.BULLETED_LIST]: AccordionList,
-  /* Link collection block with styled link items */
-  [BlockType.LINKS]: LinksBlock,
-  /* Markdown documentation block with TOC and panel layout */
-  [BlockType.MARKDOWN_DOCS]: MarkdownDocsBlock,
+  /*
+   * Runtime renderer wiring lives in SectionRenderer.
+   * This map is retained only as a lightweight compatibility export.
+   */
+  [BlockType.HERO]: null,
+  [BlockType.RICH_TEXT]: null,
+  [BlockType.IMAGE_GALLERY]: null,
+  [BlockType.DIAGRAM]: null,
+  [BlockType.CARD_GRID]: null,
+  [BlockType.BULLETED_LIST]: null,
+  [BlockType.LINKS]: null,
+  [BlockType.MARKDOWN_DOCS]: null,
 });
 
 /**

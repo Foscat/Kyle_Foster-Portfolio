@@ -80,7 +80,7 @@ const InfoSection = ({
             {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}
             {title && <h2 className="info-title">{title}</h2>}
           </div>
-          {subtitle && <h4 className="info-subtitle">{subtitle}</h4>}
+          {subtitle && <p className="info-subtitle">{subtitle}</p>}
         </div>
       }
       className={`info-section glass-card ${className}`}

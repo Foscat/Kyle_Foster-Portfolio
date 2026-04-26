@@ -5,7 +5,7 @@
  * @module components/Head
  */
 
-import PageMetas from "assets/data/pageMetas";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import { Helmet } from "react-helmet-async";
 import { PageRoute } from "types/navigation.types";
 
@@ -35,29 +35,28 @@ import { PageRoute } from "types/navigation.types";
  * @returns {JSX.Element} Injected document head metadata.
  */
 export default function Head() {
+  const currentPath = window.location.pathname;
   /**
    * Resolves page metadata based on the current URL path.
    *
    * @returns {Object} Page metadata object containing title and description.
    */
   const getMetaByPath = () => {
-    const currentPath = window.location.pathname;
-
     switch (currentPath) {
       case PageRoute.HACKATHON:
-        return PageMetas.Hackathon;
+        return pageSummaryMetas.Hackathon;
       case PageRoute.EDUCATION:
-        return PageMetas.Smu;
+        return pageSummaryMetas.Smu;
       case PageRoute.SIDE_PROJECTS:
-        return PageMetas.SideProjects;
+        return pageSummaryMetas.SideProjects;
       case PageRoute.PROFESSIONAL:
-        return PageMetas.Codestream;
+        return pageSummaryMetas.Codestream;
       case PageRoute.DOCS:
-        return PageMetas.Docs;
-      case PageRoute.CONNECT:
-        return PageMetas.Contact;
+        return pageSummaryMetas.Docs;
+      case PageRoute.CONTACT:
+        return pageSummaryMetas.Contact;
       default:
-        return PageMetas.Home;
+        return pageSummaryMetas.Home;
     }
   };
 
@@ -69,8 +68,54 @@ export default function Head() {
     (typeof import.meta.env.VITE_SITE_URL === "string" &&
       import.meta.env.VITE_SITE_URL.trim().replace(/\/$/, "")) ||
     window.location.origin;
-  const canonicalUrl = `${siteOrigin}${window.location.pathname}`;
-  const socialImageUrl = `${siteOrigin}/portfolioIcon.svg`;
+  const canonicalUrl = `${siteOrigin}${currentPath}`;
+  const socialImageUrl = `${siteOrigin}/portfolio-icon.jpg`;
+  const homeUrl = `${siteOrigin}${PageRoute.HOME}`;
+  const personId = `${siteOrigin}/#person`;
+  const websiteId = `${siteOrigin}/#website`;
+  const isHomePage = currentPath === PageRoute.HOME;
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: homeUrl,
+        name: "Kyle Foster Portfolio",
+        description: pageSummaryMetas.Home.description,
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: "Kyle Foster",
+        url: homeUrl,
+        image: `${siteOrigin}/portfolio-icon.jpg`,
+        jobTitle: "Senior React / Frontend Engineer",
+        description: pageSummaryMetas.Home.description,
+        email: "mailto:fosterkyle6456@gmail.com",
+        sameAs: ["https://www.linkedin.com/in/kylefoster-dev", "https://github.com/Foscat"],
+      },
+      ...(isHomePage
+        ? [
+            {
+              "@type": "ProfilePage",
+              "@id": `${canonicalUrl}#profile-page`,
+              url: canonicalUrl,
+              name: "Kyle Foster",
+              description: pageSummaryMetas.Home.description,
+              isPartOf: {
+                "@id": websiteId,
+              },
+              mainEntity: {
+                "@id": personId,
+              },
+            },
+          ]
+        : []),
+    ],
+  };
 
   return (
     <Helmet>
@@ -86,14 +131,14 @@ export default function Head() {
       {/* Keywords (SEO hint, though less relevant for modern search) */}
       <meta
         name="keywords"
-        content="Kyle Foster, Web Developer, React Developer, MERN Developer, JavaScript Engineer, Frontend Developer, Portfolio, UI Designer, UX Developer, Creative Technologist, Remote Developer"
+        content="Kyle Foster, Senior React / Frontend Engineer, React frontend architecture, UI systems engineering, JavaScript, Portfolio"
       />
       {/* Author information */}
       <meta name="author" content="Kyle Foster" />
       {/* Favicon */}
-      <link rel="icon" type="image/svg+xml" href="/portfolioIcon.svg" />
+      <link rel="icon" type="image/svg+xml" href="/portfolio-icon.svg" />
       {/* Optional PNG fallback */}
-      <link rel="icon" type="image/jpg" href="/portfolioIcon.jpg" />
+      <link rel="icon" type="image/jpg" href="/portfolio-icon.jpg" />
       {/* Theme color for browsers (mobile + desktop UI accent) */}
       <meta name="theme-color" content="#1f2793" />
 
@@ -107,7 +152,15 @@ export default function Head() {
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Kyle Foster Portfolio" />
       <meta property="og:image" content={socialImageUrl} />
+      <meta property="og:image:width" content="980" />
+      <meta property="og:image:height" content="980" />
+      <meta property="og:image:alt" content="Kyle Foster portfolio identity mark" />
       <meta property="og:url" content={canonicalUrl} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={currentPageMeta.title} />
+      <meta name="twitter:description" content={currentPageMeta.description} />
+      <meta name="twitter:image" content={socialImageUrl} />
+      <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
 
       {/* ===========================================================
         ⚙️ PERFORMANCE & SEO EXTRAS

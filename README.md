@@ -22,7 +22,7 @@ Production-oriented React portfolio codebase focused on maintainable architectur
 The application is organized around declarative page definitions, composable block renderers, and shared navigation/section-registry contracts.
 
 - [Architecture Overview](architecture_overview.md)
-- [Architecture Diagram](public/portfolio_flow.png)
+- [Architecture Diagram](docs/assets/portfolio-flow.png)
 
 ## Quick Start
 

@@ -334,6 +334,8 @@ const ClickableImg = ({
         title={title || alt}
         aria-label={ariaLabel}
         loading="lazy"
+        decoding="async"
+        fetchpriority="low"
         placeholder={<Placeholder.Graph active />}
         className={`clickable-thumb interactive-surface glass-outline ${className}`}
         onClick={() => setOpen(true)}
@@ -343,106 +345,110 @@ const ClickableImg = ({
       {caption && <p className="img-caption text-center">{caption}</p>}
 
       {/* Modal viewer */}
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        overflow={false}
-        backdrop="static"
-        keyboard={true}
-        className="frosted-modal"
-        size="full"
-      >
-        {/* Modal header */}
-        <Modal.Header className="frosted-modal-header flex-between">
-          {showMetadata && title ? <Modal.Title>{title}</Modal.Title> : <div />}
-        </Modal.Header>
+      {open ? (
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          overflow={false}
+          backdrop="static"
+          keyboard={true}
+          className="frosted-modal"
+          size="full"
+        >
+          {/* Modal header */}
+          <Modal.Header className="frosted-modal-header flex-between">
+            {showMetadata && title ? <Modal.Title>{title}</Modal.Title> : <div />}
+          </Modal.Header>
 
-        {/* Modal body */}
-        <Modal.Body className="frosted-modal-body text-center">
-          <div
-            ref={stageRef}
-            className={`modal-img-wrapper ${isZoomed ? "is-zoomed" : ""}`}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            onPointerLeave={handlePointerUp}
-            onDoubleClick={() => {
-              if (isZoomed) {
-                resetView();
-              } else {
-                applyZoom(2);
-              }
-            }}
-            onKeyDown={handleStageKeyDown}
-            tabIndex={0}
-            role="group"
-            aria-label={`${title || alt} zoom viewer`}
-          >
-            <img
-              src={src}
-              alt={alt}
-              aria-label={ariaLabel}
-              title={title || alt}
-              loading="lazy"
-              onLoad={handleModalImageLoad}
-              className={`glass-outline ${className} zoom-img`}
-              style={{
-                transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`,
+          {/* Modal body */}
+          <Modal.Body className="frosted-modal-body text-center">
+            <div
+              ref={stageRef}
+              className={`modal-img-wrapper ${isZoomed ? "is-zoomed" : ""}`}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+              onPointerLeave={handlePointerUp}
+              onDoubleClick={() => {
+                if (isZoomed) {
+                  resetView();
+                } else {
+                  applyZoom(2);
+                }
               }}
-            />
+              onKeyDown={handleStageKeyDown}
+              tabIndex={0}
+              role="group"
+              aria-label={`${title || alt} zoom viewer`}
+            >
+              <img
+                src={src}
+                alt={alt}
+                aria-label={ariaLabel}
+                title={title || alt}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+                onLoad={handleModalImageLoad}
+                className={`glass-outline ${className} zoom-img`}
+                style={{
+                  transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`,
+                }}
+              />
 
-            <div className="modal-zoom-controls" role="toolbar" aria-label="Image zoom controls">
-              <button
-                type="button"
-                className="modal-zoom-btn interactive-surface"
-                onClick={() => applyZoom(zoom - ZOOM_STEP)}
-                aria-label="Zoom out image"
-                disabled={zoom <= MIN_ZOOM}
-              >
-                -
-              </button>
-              <button
-                type="button"
-                className="modal-zoom-btn interactive-surface"
-                onClick={resetView}
-                aria-label="Reset image zoom"
-                disabled={!isZoomed && pan.x === 0 && pan.y === 0}
-              >
-                {Math.round(zoom * 100)}%
-              </button>
-              <button
-                type="button"
-                className="modal-zoom-btn interactive-surface"
-                onClick={() => applyZoom(zoom + ZOOM_STEP)}
-                aria-label="Zoom in image"
-                disabled={zoom >= MAX_ZOOM}
-              >
-                +
-              </button>
+              <div className="modal-zoom-controls" role="toolbar" aria-label="Image zoom controls">
+                <button
+                  type="button"
+                  className="modal-zoom-btn interactive-surface"
+                  onClick={() => applyZoom(zoom - ZOOM_STEP)}
+                  aria-label="Zoom out image"
+                  disabled={zoom <= MIN_ZOOM}
+                >
+                  -
+                </button>
+                <button
+                  type="button"
+                  className="modal-zoom-btn interactive-surface"
+                  onClick={resetView}
+                  aria-label="Reset image zoom"
+                  disabled={!isZoomed && pan.x === 0 && pan.y === 0}
+                >
+                  {Math.round(zoom * 100)}%
+                </button>
+                <button
+                  type="button"
+                  className="modal-zoom-btn interactive-surface"
+                  onClick={() => applyZoom(zoom + ZOOM_STEP)}
+                  aria-label="Zoom in image"
+                  disabled={zoom >= MAX_ZOOM}
+                >
+                  +
+                </button>
+              </div>
             </div>
-          </div>
 
-          {isMobile && isPortrait && isWideImage && !isZoomed && orientationLockUnavailable ? (
-            <p className="modal-rotate-hint">
-              Auto-rotate is unavailable. Rotate to landscape for best view, or zoom and pan.
-            </p>
-          ) : null}
+            {isMobile && isPortrait && isWideImage && !isZoomed && orientationLockUnavailable ? (
+              <p className="modal-rotate-hint">
+                Auto-rotate is unavailable. Rotate to landscape for best view, or zoom and pan.
+              </p>
+            ) : null}
 
-          {showMetadata && (title || caption) ? (
-            <div className="modal-meta" aria-label="Image details">
-              {title ? <h3 className="modal-meta-title">{title}</h3> : null}
-              {caption ? <p className="img-caption modal-caption">{caption}</p> : null}
-            </div>
-          ) : null}
+            {showMetadata && (title || caption) ? (
+              <div className="modal-meta" aria-label="Image details">
+                {title ? <h3 className="modal-meta-title">{title}</h3> : null}
+                {caption ? <p className="img-caption modal-caption">{caption}</p> : null}
+              </div>
+            ) : null}
 
-          {isMobile && isZoomed ? (
-            <p className="modal-zoom-hint">
-              Zoom mode active. Drag to pan. Reset zoom to show details.
-            </p>
-          ) : null}
-        </Modal.Body>
-      </Modal>
+            {isMobile && isZoomed ? (
+              <p className="modal-zoom-hint">
+                Zoom mode active. Drag to pan. Reset zoom to show details.
+              </p>
+            ) : null}
+          </Modal.Body>
+        </Modal>
+      ) : null}
     </div>
   );
 };

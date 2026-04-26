@@ -1,12 +1,16 @@
 import { useEffect } from "react";
-import Data from "assets/data/pageMetas";
+import pageSummaryMetas from "assets/data/pageSummaryMetas";
+import docsSections from "assets/data/content/docs";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import { PageHeader } from "components/layout";
 import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 import "./styles.css";
 
-const docs = Data.Docs;
+const docs = {
+  ...pageSummaryMetas.Docs,
+  sections: docsSections,
+};
 
 /**
  * Docs Page

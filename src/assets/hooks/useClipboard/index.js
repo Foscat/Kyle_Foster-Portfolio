@@ -88,7 +88,6 @@ const useClipboard = ({ resetDelay = 2000 } = {}) => {
 
         return true;
       } catch (err) {
-        console.debug({ err });
         setError(err);
         setCopied(false);
         return false;

@@ -370,9 +370,15 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
       if (event.defaultPrevented) return;
       if (isEditableTarget(event.target)) return;
 
+      const targetNode = event.target instanceof Node ? event.target : null;
+      const isWithinSectionNav = Boolean(
+        navRef.current && targetNode && navRef.current.contains(targetNode)
+      );
+
       const noCtrlCmd = !event.ctrlKey && !event.metaKey;
 
       if (event.key === "Tab" && noCtrlCmd && !event.altKey) {
+        if (!isWithinSectionNav) return;
         const didMove = moveBetweenBlocks({ direction: event.shiftKey ? -1 : 1 });
         if (didMove) {
           event.preventDefault();

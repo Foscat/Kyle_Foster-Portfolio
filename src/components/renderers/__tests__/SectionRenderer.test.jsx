@@ -404,9 +404,9 @@ describe("SectionRenderer", () => {
     expect(screen.getByTestId("hero-block")).toBeInTheDocument();
   });
 
-  it("renders a MarkdownDocsBlock for MARKDOWN_DOCS blocks", () => {
+  it("renders a MarkdownDocsBlock for MARKDOWN_DOCS blocks", async () => {
     renderWithProviders(<SectionRenderer section={SECTION_MARKDOWN_DOCS} />);
-    expect(screen.getByTestId("markdown-docs-block")).toBeInTheDocument();
+    expect(await screen.findByTestId("markdown-docs-block")).toBeInTheDocument();
   });
 
   it("silently skips null or undefined entries in the blocks array", () => {

@@ -8,6 +8,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+vi.mock("components/navigation", () => ({
+  StickyNav: () => null,
+  Footer: () => null,
+}));
+
 import Contact, { CONTACT_API_URL } from "../Contact/index.jsx";
 import contactForm from "assets/data/content/contactForm.js";
 import renderWithProviders from "tests/renderWithProviders";
@@ -147,5 +152,38 @@ describe("Contact page", () => {
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledTimes(2);
     });
+  });
+
+  it("shows a contact-service network error when fetch fails", async () => {
+    const user = userEvent.setup();
+
+    global.fetch.mockRejectedValueOnce(new TypeError("Failed to fetch"));
+
+    renderWithProviders(<Contact />, {
+      initialEntries: ["/contact"],
+    });
+
+    await user.type(
+      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      "CORS fallback"
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+    });
+    expect(screen.getByRole("alert")).toHaveTextContent(/unable to reach the contact service/i);
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 });

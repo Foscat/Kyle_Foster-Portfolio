@@ -171,23 +171,34 @@ export function normalizeContactPayload(data) {
 export async function sendMessage(data) {
   const payload = normalizeContactPayload(data);
 
-  const response = await fetch(CONTACT_API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const responsePayload = await response
-    .json()
-    .catch(() => ({ error: "Unable to parse server response." }));
-
-  if (!response.ok) {
-    throw new Error(responsePayload.error || "Failed to send message.");
+  let response;
+  try {
+    response = await fetch(CONTACT_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error(
+        "Unable to reach the contact service (network/CORS). Please email me directly at fosterkyle6456@gmail.com."
+      );
+    }
+    throw error;
   }
 
-  return responsePayload;
+  const responsePayload = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    const serverMessage = responsePayload?.error || responsePayload?.message;
+    const requestId = response.headers?.get("rndr-id");
+    const diagnostics = `HTTP ${response.status}${requestId ? ` | request ${requestId}` : ""}`;
+    throw new Error(serverMessage ? `${serverMessage} (${diagnostics})` : diagnostics);
+  }
+
+  return responsePayload || { message: "Message sent successfully." };
 }
 
 /**
@@ -253,8 +264,14 @@ export default function Contact() {
    * @param {React.FormEvent<HTMLFormElement>} event - Form submit event.
    * @returns {Promise<void>}
    */
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (formValueOrEvent, maybeEvent) => {
+    const submitEvent =
+      typeof maybeEvent?.preventDefault === "function"
+        ? maybeEvent
+        : typeof formValueOrEvent?.preventDefault === "function"
+          ? formValueOrEvent
+          : null;
+    submitEvent?.preventDefault?.();
 
     setErrorMessage("");
     setIsSending(true);
@@ -272,7 +289,7 @@ export default function Contact() {
 
   return (
     <div className="contact-page page-wrapper">
-      <StickyNav activePage={PageRoute.CONNECT} />
+      <StickyNav activePage={PageRoute.CONTACT} />
       <div className="page-overlay" />
 
       <FlexboxGrid justify="center" className="contact-grid">
@@ -283,9 +300,9 @@ export default function Contact() {
                 <div className="contact-page__copy">
                   <h1>{formUiContent.title}</h1>
                   <p>
-                    I build polished frontend systems, clear user flows, and maintainable React
-                    interfaces. Reach out for roles, freelance work, collaborations, or technical
-                    discussions.
+                    I&apos;m a Senior React / Frontend Engineer. I build polished frontend systems,
+                    clear user flows, and maintainable React interfaces. Reach out for roles,
+                    freelance work, collaborations, or technical discussions.
                   </p>
                 </div>
 
@@ -365,7 +382,6 @@ export default function Contact() {
                 block
                 disabled={isSubmitDisabled}
                 loading={isSending}
-                onClick={(e) => handleSubmit(e)}
               />
             </Form>
           </Panel>

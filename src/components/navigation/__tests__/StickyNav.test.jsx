@@ -118,7 +118,7 @@ describe("StickyNav", () => {
     await user.click(within(dialog).getByRole("link", { name: /contact me/i }));
 
     await waitFor(() => {
-      expect(screen.getByTestId("current-route-path")).toHaveTextContent(PageRoute.CONNECT);
+      expect(screen.getByTestId("current-route-path")).toHaveTextContent(PageRoute.CONTACT);
     });
   });
 

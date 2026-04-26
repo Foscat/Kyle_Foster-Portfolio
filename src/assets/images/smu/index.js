@@ -4,10 +4,10 @@
  * @module src\assets\images\smu\index
  */
 
-import gifFreak from "./gifFreak.png";
-import smuLogo from "./SMU_Logo75.png";
-import smuCampus from "./SMU_Zoom_Campus.jpg";
-import stockMeme from "./stock_memer.png";
+import gifFreak from "./gif-freak.png";
+import smuLogo from "./smu-logo-75.png";
+import smuCampus from "./smu-zoom-campus.jpg";
+import stockMeme from "./stock-memer.png";
 
 export { gifFreak, smuLogo, smuCampus, stockMeme };
 
