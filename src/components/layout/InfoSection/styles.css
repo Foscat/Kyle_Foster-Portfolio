@@ -21,12 +21,6 @@
   padding: 5px;
 }
 
-section.info-section .rs-panel-header .rs-panel-btn:hover .rs-icon.rs-panel-btn-icon {
-  font-size: var(--icon-sm);
-  color: var(--accent-dark);
-  border: var(--bubble-border);
-}
-
 section.info-section.section-renderer .rs-panel {
   margin: 5px 0;
 }

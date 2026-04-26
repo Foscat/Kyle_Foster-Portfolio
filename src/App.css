@@ -580,16 +580,16 @@ html[data-theme="light"][data-palette="alt"] {
 }
 
 html[data-theme="light"][data-palette="forest"] {
-  --primary-darkest: rgb(17, 57, 51);
-  --primary-darkest-rgb: 17, 57, 51;
-  --primary-dark: rgb(28, 92, 82);
-  --primary-dark-rgb: 28, 92, 82;
-  --primary: rgb(38, 124, 110);
-  --primary-rgb: 38, 124, 110;
-  --primary-light: rgb(102, 154, 142);
-  --primary-light-rgb: 102, 154, 142;
-  --primary-lighter: rgb(212, 232, 226);
-  --primary-lighter-rgb: 212, 232, 226;
+  --primary-darkest: rgb(33, 94, 84);
+  --primary-darkest-rgb: 33, 94, 84;
+  --primary-dark: rgb(52, 131, 118);
+  --primary-dark-rgb: 52, 131, 118;
+  --primary: rgb(73, 162, 148);
+  --primary-rgb: 73, 162, 148;
+  --primary-light: rgb(128, 191, 179);
+  --primary-light-rgb: 128, 191, 179;
+  --primary-lighter: rgb(223, 239, 234);
+  --primary-lighter-rgb: 223, 239, 234;
   --accent-dark: rgb(120, 88, 28);
   --accent-dark-rgb: 120, 88, 28;
   --accent: rgb(167, 124, 45);

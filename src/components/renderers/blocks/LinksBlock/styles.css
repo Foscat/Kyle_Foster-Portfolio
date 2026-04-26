@@ -1,23 +1,16 @@
 .links-block-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  justify-content: center;
+  margin-top: 0.65rem;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
-}
-
-.links-block-list a {
-  display: flex;
-  flex: 1 1 15rem;
-  max-width: 24rem;
-  text-decoration: none;
 }
 
 .links-block-list .links-block-item {
-  width: 100%;
-}
-
-.links-block-list a:hover {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 24rem;
   text-decoration: none;
 }
 
@@ -28,7 +21,7 @@
     align-items: stretch;
   }
 
-  .links-block-list a {
+  .links-block-list .links-block-item {
     flex: 1 1 auto;
     max-width: none;
     width: 100%;

@@ -390,6 +390,7 @@ export const RichTextNodeType = Object.freeze({
  * @property {"primary"|"secondary"|"accent"|"subtle"|"danger"} [variant="primary"] - Visual style.
  * @property {boolean} [local=false] - Internal navigation.
  * @property {boolean} [isScroller=false] - Scroll-to-anchor behavior.
+ * @property {boolean} [resumePreview=false] - Renders a resume preview trigger instead of a direct link.
  * @property {string} [ariaLabel] - Screen-reader label.
  * @property {boolean} [download=false] - Download flag.
  * @property {string} [tooltip] - Hover tooltip text.

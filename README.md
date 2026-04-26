@@ -1,60 +1,67 @@
 # Kyle Foster Portfolio Application
 
-This repository contains the source code, tooling, and generated documentation for a React-based portfolio system focused on clean architecture, predictable composition, accessibility, and testing discipline.
+Production-oriented React portfolio codebase focused on maintainable architecture, accessible interaction patterns, and repeatable quality checks.
 
-## Latest Updates
+## Release Highlights (April 2026)
 
-- Mermaid diagrams now support a refined full-screen viewer that is truly edge-to-edge (no boxed "traditional modal" framing) with corrected theme/color rendering in full-screen mode.
-- Diagram action controls were redesigned into a more compact, cleaner action row.
-- `ClickableImg` now attempts mobile landscape lock for wide images and shows a clear fallback hint when auto-rotate is unavailable.
-- Unit test coverage was expanded for:
-  - Diagram full-screen interaction behavior.
-  - Mobile orientation lock success and failure fallback for images.
+- Standardized interactive UI behavior around `interactive-surface-css` token contracts across navigation, buttons, renderer links, and utility controls.
+- Refactored `Btn` interaction and link semantics to cleanly separate router navigation, external links, and download behavior.
+- Added `resumePreview` support in `LinksBlock` through `ResumePreviewTrigger`, including theme/palette-aware file names (for example `Kyle-Foster-Resume-light-forest.pdf`).
+- Updated homepage and side-project content to feature Interactive Surface CSS, including direct links for source, package, and docs.
+- Regenerated documentation artifacts and expanded tests covering updated link/button interaction paths.
 
 ## Project Goals
 
-- Demonstrate production-quality React architecture.
-- Keep UI behavior data-driven and composable.
-- Maintain strong code quality through linting and automated tests.
-- Keep onboarding clear through generated docs and subsystem guides.
+- Demonstrate production-grade React architecture and composition.
+- Keep UI behavior declarative, reusable, and data-driven.
+- Enforce accessibility and interaction consistency through shared primitives.
+- Maintain predictable quality using linting, automated tests, and generated docs.
 
 ## High-Level Architecture
 
-The app is built around declarative pages, data-driven sections, and composable block renderers coordinated by a shared navigation and section-registry layer.
-
-Start with:
+The application is organized around declarative page definitions, composable block renderers, and shared navigation/section-registry contracts.
 
 - [Architecture Overview](architecture_overview.md)
 - [Architecture Diagram](docs/assets/portfolio-flow.png)
 
-## Documentation Index
+## Quick Start
 
-- [Components](docs/components.md)
-- [Navigation](docs/navigation.md)
-- [Scripts and Tooling](docs/scripts.md)
-- [Testing](docs/tests.md)
-- [Types and UI Contracts](docs/types.md)
-- [Playwright API Docs](docs/playwright.md)
-- [Full API Reference](docs/api.md)
-- [JSDoc Audit Output](docs/jsdoc-audit.md)
+Prerequisites:
 
-## Core Scripts
+- Node.js `>=20.19.0 <21` or `>=22.12.0 <23`
+- npm `>=10 <11`
 
-Development:
+Install and run:
 
 ```sh
+npm install
 npm run dev
+```
+
+Build and preview:
+
+```sh
 npm run build
 npm run preview
 ```
 
-Quality and tests:
+## Quality Workflow
+
+Primary checks:
 
 ```sh
 npm run lint
 npm run test
 npm run quality:check
 ```
+
+CI gate equivalent:
+
+```sh
+npm run ci:gate
+```
+
+## Core Script Groups
 
 Diagrams:
 
@@ -64,7 +71,7 @@ npm run diagrams:assets
 npm run diagrams:test
 ```
 
-Docs:
+Documentation:
 
 ```sh
 npm run docs:build
@@ -78,12 +85,23 @@ npm run docs:api
 npm run docs:jsdoc:audit
 ```
 
+## Documentation Index
+
+- [Components](docs/components.md)
+- [Navigation](docs/navigation.md)
+- [Scripts and Tooling](docs/scripts.md)
+- [Testing](docs/tests.md)
+- [Types and UI Contracts](docs/types.md)
+- [Playwright API Docs](docs/playwright.md)
+- [Full API Reference](docs/api.md)
+- [JSDoc Audit Output](docs/jsdoc-audit.md)
+
 ## Testing Philosophy
 
-- Test behavior over implementation details.
+- Prioritize user-observable behavior over implementation details.
 - Treat navigation and rendering contracts as invariants.
-- Use unit tests for logic and component interactions.
-- Use Playwright for end-to-end and visual confidence where appropriate.
+- Use unit tests for component logic and integrations.
+- Use Playwright for end-to-end and UI confidence checks.
 
 ## Technology Stack
 
@@ -92,10 +110,7 @@ npm run docs:jsdoc:audit
 - RSuite
 - Font Awesome
 - Mermaid
+- `interactive-surface-css`
 - Vitest + Testing Library
 - Playwright
 - ESLint + Stylelint + Prettier
-
-## Notes
-
-This codebase is intentionally opinionated. It favors maintainability, explicit contracts, and consistent tooling over ad-hoc shortcuts.

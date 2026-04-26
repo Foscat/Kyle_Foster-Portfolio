@@ -499,6 +499,11 @@ Component that triggers the resume preview modal.
 | props.pdfHref | <code>string</code> | The URL of the PDF version of the resume. |
 | props.downloadName | <code>string</code> | The name for the downloaded PDF file. |
 | props.buttonClassName | <code>string</code> | Additional class names for the trigger button. |
+| [props.icon] | <code>\*</code> | Optional icon shown inside the trigger button. |
+| [props.tooltip] | <code>string</code> | Optional tooltip text for the trigger button. |
+| [props.ariaLabel] | <code>string</code> | Accessible label for the trigger button. |
+| [props.variant] | <code>string</code> | Optional visual variant passed through to Btn. |
+| [props.size] | <code>string</code> | Optional size variant passed through to Btn. |
 
 <a name="module_components/ThemeToggle"></a>
 

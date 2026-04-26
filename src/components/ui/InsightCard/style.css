@@ -20,42 +20,6 @@
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
   outline: none;
-  transition:
-    transform var(--transition-speed) var(--easing-standard),
-    box-shadow var(--transition-speed) var(--easing-standard),
-    border-color var(--transition-speed) var(--easing-standard);
-}
-
-.insight-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 34px rgba(var(--deep-black-rgb), 0.28);
-  border-color: rgba(var(--white-rgb), 0.34);
-}
-
-.insight-card:focus-visible {
-  box-shadow:
-    0 0 0 2px rgba(var(--gold-400-rgb), 0.6),
-    0 14px 30px rgba(var(--deep-black-rgb), 0.3);
-}
-
-.insight-card:focus-visible::after {
-  position: absolute;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(var(--gold-400-rgb), 0.15) 50%,
-    transparent 100%
-  );
-  border-radius: inherit;
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  animation: goldShimmer 900ms ease forwards;
-}
-
-.insight-card:hover .insight-card__metric-value {
-  transform: translateY(-1px);
-  transition: transform 160ms ease;
 }
 
 .insight-card__header {
@@ -213,15 +177,5 @@
   .card-grid > * {
     flex-basis: 100%;
     max-width: 100%;
-  }
-}
-
-@keyframes goldShimmer {
-  from {
-    transform: translateX(-60%);
-  }
-
-  to {
-    transform: translateX(60%);
   }
 }

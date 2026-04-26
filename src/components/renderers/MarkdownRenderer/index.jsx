@@ -174,7 +174,7 @@ export default function MarkdownRenderer({
         return (
           <a
             href={href}
-            className="markdown-renderer__link"
+            className="markdown-renderer__link interactive-surface"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noreferrer" : undefined}
           >

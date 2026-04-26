@@ -7,6 +7,8 @@
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { Panel } from "rsuite";
 import { Btn } from "components/ui";
+import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
+import resumeData from "assets/data/content/resumeData.js";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Variant } from "types/ui.types";
 import "./styles.css";
@@ -49,7 +51,7 @@ import "./styles.css";
  * ```
  */
 const LinksBlock = ({ items = [] }) => {
-  const { theme } = useTheme();
+  const { theme, palette } = useTheme();
 
   // Guard against empty link lists
   // console.log("Rendering LinksBlock with items:", items);
@@ -59,6 +61,32 @@ const LinksBlock = ({ items = [] }) => {
     <Panel collapsible defaultExpanded className="block mt-2">
       <div className="links-block-list">
         {items.map((link, i) => {
+          if (link?.resumePreview) {
+            const safeTheme = typeof theme === "string" ? theme : "auto";
+            const safePalette = typeof palette === "string" ? palette : "ocean";
+            const downloadName = `Kyle-Foster-Resume-${safeTheme}-${safePalette}.pdf`;
+
+            return (
+              <ResumePreviewTrigger
+                key={link.id || i}
+                buttonText={link.title || "View Resume"}
+                title={link.previewTitle || "Kyle Foster - Resume"}
+                subtitle={
+                  link.previewSubtitle ||
+                  "A cleaner, document-first preview with improved spacing and a real paper stage."
+                }
+                resume={resumeData}
+                downloadName={downloadName}
+                buttonClassName="links-block-item"
+                icon={link.icon}
+                tooltip={link.tooltip}
+                ariaLabel={link.ariaLabel}
+                size={link.size || Size.MD}
+                variant={link.variant || Variant.SECONDARY}
+              />
+            );
+          }
+
           const resolvedUrl =
             theme === "light" ? link.urlLight || link.url : link.urlDark || link.url;
 
@@ -79,7 +107,7 @@ const LinksBlock = ({ items = [] }) => {
               download={isDownload ? link.download : undefined}
               text={link.title || "Open Link"}
               tooltip={link.tooltip}
-              aria-label={link.ariaLabel}
+              ariaLabel={link.ariaLabel}
             />
           );
         })}
