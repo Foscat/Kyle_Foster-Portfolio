@@ -20,7 +20,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { faCaretDown, faCaretRight, faCompass } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretRight, faListUl } from "@fortawesome/free-solid-svg-icons";
 import { Drawer } from "rsuite";
 import { Size, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
@@ -141,7 +141,7 @@ const MobileSectionNavTrigger = ({
       <div className="sect-nav-toggle-btn mobile-only">
         <span className="mobile-icon-hint">Sections</span>
         <Btn
-          icon={faCompass}
+          icon={faListUl}
           size={Size.LG}
           noBG
           onClick={(event) => {

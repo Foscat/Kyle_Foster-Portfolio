@@ -53,6 +53,14 @@ vi.mock("components/features", () => ({
   AccessibilityMenu: () => <button aria-label="Open accessibility settings">Accessibility</button>,
 }));
 
+vi.mock("components/features/ResumePreview/ResumePreviewTrigger", () => ({
+  default: ({ ariaLabel, buttonText }) => (
+    <button aria-label={ariaLabel || buttonText || "Open resume preview and download options"}>
+      Resume
+    </button>
+  ),
+}));
+
 // The test suite for the StickyNav component, which includes tests to verify that the active route is marked correctly, that the mobile navigation opens when the menu trigger is activated, and that the mobile navigation closes after a destination is chosen, ensuring that the component behaves as expected in various scenarios.
 describe("StickyNav", () => {
   const StickyNavRouteHarness = () => {
@@ -128,6 +136,14 @@ describe("StickyNav", () => {
     expect(screen.getAllByRole("button", { name: /open color settings/i }).length).toBeGreaterThan(
       1
     );
+  });
+
+  it("renders resume quick actions in navigation controls", async () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    expect(
+      screen.getAllByRole("button", { name: /open resume preview and download options/i }).length
+    ).toBeGreaterThan(0);
   });
 
   it("opens the site navigation drawer when Control is pressed", async () => {

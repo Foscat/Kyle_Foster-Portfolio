@@ -25,6 +25,7 @@ import { ResumeDocument } from "./ResumeDocument.jsx";
  * @param {string} [props.ariaLabel] - Accessible label for the trigger button.
  * @param {string} [props.variant] - Optional visual variant passed through to Btn.
  * @param {string} [props.size] - Optional size variant passed through to Btn.
+ * @param {boolean} [props.noBG] - Optional no-background treatment for icon-only triggers.
  * @returns {JSX.Element} The rendered trigger component.
  */
 const ResumePreviewTrigger = ({
@@ -40,6 +41,7 @@ const ResumePreviewTrigger = ({
   ariaLabel,
   variant,
   size,
+  noBG = false,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -54,6 +56,7 @@ const ResumePreviewTrigger = ({
         ariaLabel={ariaLabel}
         variant={variant}
         size={size}
+        noBG={noBG}
       />
 
       <ResumePreviewModal

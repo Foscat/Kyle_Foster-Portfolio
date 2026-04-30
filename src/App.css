@@ -94,6 +94,9 @@
   --icon-md: clamp(32px, 28px + 1vw, 40px);
   --icon-lg: clamp(48px, 40px + 1vw, 60px);
   --icon-xl: clamp(64px, 52px + 1vw, 75px);
+  --switch-width: 68px;
+  --switch-height: 38px;
+  --switch-pad: 3px;
 
   /* Font Variants */
   --font-Lexend: "Lexend Deca", sans-serif;
