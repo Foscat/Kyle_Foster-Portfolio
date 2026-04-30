@@ -1,4 +1,4 @@
-/* Thumbnail */
+﻿/* Thumbnail */
 .clickable-thumb {
   width: 100%;
   height: auto;
@@ -149,28 +149,10 @@
 }
 
 .modal-zoom-btn {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.1);
-  --interactive-surface-fg: var(--text-primary);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.2);
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: var(--radius-xs);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: none;
-  --interactive-surface-shadow-active: none;
-  --interactive-surface-lift-hover: 0px;
-  --interactive-surface-lift-active: 0px;
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.55);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
-
   min-width: 2.25rem;
   height: 2.25rem;
   border: none;
   border-radius: var(--radius-xs);
-  background: var(--interactive-surface-bg);
-  color: var(--interactive-surface-fg);
   font-size: var(--font-xs);
   font-family: var(--font-Golos);
   line-height: 1;
@@ -267,15 +249,6 @@ html[data-theme="light"] .modal-img-wrapper {
 html[data-theme="light"] .modal-zoom-controls {
   border-color: rgba(var(--primary-dark-rgb), 0.22);
   background: rgba(var(--white-rgb), 0.92);
-}
-
-html[data-theme="light"] .modal-zoom-btn {
-  --interactive-surface-bg: rgba(var(--primary-lighter-rgb), 0.3);
-  --interactive-surface-fg: rgba(var(--primary-darkest-rgb), 0.95);
-  --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.25);
-
-  background: var(--interactive-surface-bg);
-  color: var(--interactive-surface-fg);
 }
 
 html[data-theme="light"] .modal-rotate-hint,

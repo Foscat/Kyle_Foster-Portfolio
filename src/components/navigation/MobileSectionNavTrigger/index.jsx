@@ -143,6 +143,7 @@ const MobileSectionNavTrigger = ({
         <Btn
           icon={faCompass}
           size={Size.LG}
+          noBG
           onClick={(event) => {
             event?.preventDefault?.();
             event?.stopPropagation?.();

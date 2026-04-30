@@ -1,4 +1,4 @@
-/* Mobile-first grid */
+﻿/* Mobile-first grid */
 .image-gallery-block-grid {
   display: grid;
   grid-template-columns: 1fr;

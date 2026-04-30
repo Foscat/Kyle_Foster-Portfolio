@@ -149,6 +149,30 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
     return blocks[0]?.id || section?.id || null;
   };
 
+  const resolveOwningSectionId = (id) => {
+    const node = byId?.get?.(id);
+    if (!node) return id;
+
+    let cursor = node;
+    while (cursor?.parentId) {
+      const parent = byId.get(cursor.parentId);
+      if (!parent) break;
+      cursor = parent;
+    }
+
+    return cursor?.id || id;
+  };
+
+  const getTopAlignedScrollTarget = (el) => {
+    const rawTop = el.getBoundingClientRect().top + window.pageYOffset;
+    const maxScrollTop = Math.max(
+      0,
+      document.documentElement.scrollHeight - document.documentElement.clientHeight
+    );
+
+    return Math.max(0, Math.min(rawTop, maxScrollTop));
+  };
+
   const getCurrentPointer = () => {
     const validSections = sections.filter((section) => section && typeof section.id === "string");
 
@@ -240,7 +264,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
       ...(collapseCurrentSection && currentSection?.id ? { [currentSection.id]: false } : {}),
     }));
 
-    return handleNavigate(targetId);
+    return handleNavigate(targetId, { alignToSectionTop: true });
   };
 
   const moveToAdjacentSection = ({ direction = 1 }) => {
@@ -260,7 +284,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
       [targetSection.id]: true,
     }));
 
-    return handleNavigate(targetId);
+    return handleNavigate(targetId, { alignToSectionTop: true });
   };
 
   const moveWithinAccordionItems = (direction) => {
@@ -335,8 +359,11 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
   /* Navigation                                                              */
   /* ---------------------------------------------------------------------- */
 
-  const handleNavigate = (id) => {
-    const el = document.getElementById(id);
+  const handleNavigate = (id, { alignToSectionTop = false } = {}) => {
+    const anchorId = alignToSectionTop ? resolveOwningSectionId(id) : id;
+    const anchorElement = document.getElementById(anchorId);
+    const targetElement = document.getElementById(id);
+    const el = anchorElement || targetElement;
     if (!el) return false;
 
     // Update URL hash without page jump and mark programmatic scroll to prevent observer churn
@@ -352,7 +379,9 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
 
     // Use requestAnimationFrame to ensure the DOM has updated before calculating positions
     requestAnimationFrame(() => {
-      const y = el.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+      const y = alignToSectionTop
+        ? getTopAlignedScrollTarget(el)
+        : el.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
 
       window.scrollTo({
         top: y,

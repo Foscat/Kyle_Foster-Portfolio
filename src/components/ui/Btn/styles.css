@@ -1,28 +1,9 @@
-/* ============================================================
+﻿/* ============================================================
    Frosted Glass Button — Core Styles (Updated)
    ============================================================ */
 
 .rs-btn.btn.interactive-surface,
 .rs-panel-btn.interactive-surface {
-  --interactive-surface-bg: var(--frost-bg);
-  --interactive-surface-fg: var(--accent-dark);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.2);
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: var(--border-radius);
-  --interactive-surface-shadow-base: var(--shadow-soft);
-  --interactive-surface-shadow-hover: var(--shadow-soft);
-  --interactive-surface-shadow-active: var(--shadow-soft);
-  --interactive-surface-darken-hover: 0.96;
-  --interactive-surface-darken-active: 0.98;
-  --interactive-surface-motion-default: 140ms;
-  --interactive-surface-motion-press: 80ms;
-  --interactive-surface-ease-standard: var(--easing-standard, cubic-bezier(0.2, 0, 0.2, 1));
-  --interactive-surface-ease-press: cubic-bezier(0.4, 0, 0.6, 1);
-  --interactive-surface-focus-ring-color: var(--accent);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
-  --interactive-surface-disabled-opacity: 0.45;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,9 +16,9 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  color: var(--interactive-surface-fg);
-  background: var(--interactive-surface-bg);
-  border-radius: var(--interactive-surface-radius);
+  color: var(--accent-dark);
+  background: var(--frost-bg);
+  border-radius: var(--border-radius);
   gap: var(--mobile-gap);
   cursor: pointer;
   -moz-user-select: none;
@@ -131,60 +112,40 @@
    ============================================================ */
 
 .rs-btn.btn.interactive-surface.primary {
-  --interactive-surface-bg: var(--frost-bg);
-  --interactive-surface-fg: var(--accent);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.2);
-  --interactive-surface-shadow-hover: var(--shadow-accent);
-  --interactive-surface-shadow-active: var(--shadow-accent);
-  --interactive-surface-darken-hover: 0.95;
-  --interactive-surface-darken-active: 0.97;
+  color: var(--accent);
+  background: var(--frost-bg);
+  border-color: rgba(var(--white-rgb), 0.2);
 }
 
 .rs-btn.btn.interactive-surface.secondary {
-  --interactive-surface-bg: var(--primary-darker-bg);
-  --interactive-surface-fg: var(--text-primary);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.24);
-  --interactive-surface-shadow-base: var(--tile-shadow);
-  --interactive-surface-shadow-hover: var(--tile-shadow);
-  --interactive-surface-shadow-active: var(--tile-shadow);
-  --interactive-surface-darken-hover: 0.97;
-  --interactive-surface-darken-active: 0.99;
+  color: var(--text-primary);
+  background: var(--primary-darker-bg);
+  border-color: rgba(var(--white-rgb), 0.24);
 }
 
 .rs-btn.btn.interactive-surface.accent {
-  --interactive-surface-bg: var(--accent-bg);
-  --interactive-surface-fg: var(--primary-dark);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.45);
-  --interactive-surface-darken-hover: 0.92;
-  --interactive-surface-darken-active: 0.95;
+  color: var(--primary-dark);
+  background: var(--accent-bg);
+  border-color: rgba(var(--accent-rgb), 0.45);
 }
 
 .rs-btn.btn.interactive-surface.subtle {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.08);
-  --interactive-surface-fg: var(--text-primary);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.18);
-  --interactive-surface-darken-hover: 0.98;
-  --interactive-surface-darken-active: 1;
+  color: var(--text-primary);
+  background: rgba(var(--white-rgb), 0.08);
+  border-color: rgba(var(--white-rgb), 0.18);
 }
 
 .rs-btn.btn.interactive-surface.danger {
-  --interactive-surface-bg: rgba(var(--error-rgb), 0.25);
-  --interactive-surface-fg: var(--error);
-  --interactive-surface-border-color: rgba(var(--error-rgb), 0.45);
-  --interactive-surface-darken-hover: 0.94;
-  --interactive-surface-darken-active: 0.97;
+  color: var(--error);
+  background: rgba(var(--error-rgb), 0.25);
+  border-color: rgba(var(--error-rgb), 0.45);
 }
 
 .rs-btn.btn.interactive-surface.btn-noBG,
 .rs-btn.btn.interactive-surface.noBG {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 0px;
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: none;
-  --interactive-surface-shadow-active: none;
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
+  background: transparent;
+  border-color: transparent;
+  border-width: 0;
 
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
