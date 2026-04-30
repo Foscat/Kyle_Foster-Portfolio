@@ -1,4 +1,4 @@
-.a11y-modal .rs-modal-content {
+﻿.a11y-modal .rs-modal-content {
   border: 1px solid rgba(var(--accent-rgb), 0.32);
   background:
     linear-gradient(
@@ -129,26 +129,6 @@
 }
 
 .a11y-switch {
-  --switch-width: 46px;
-  --switch-height: 26px;
-  --switch-pad: 3px;
-  --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 0px;
-  --interactive-surface-radius: 999px;
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: none;
-  --interactive-surface-shadow-active: none;
-  --interactive-surface-lift-hover: 0px;
-  --interactive-surface-lift-active: 0px;
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
-  --interactive-surface-motion-default: 0ms;
-  --interactive-surface-motion-press: 0ms;
-  --interactive-surface-focus-ring-color: var(--accent);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
-
   display: inline-flex;
   position: relative;
   width: var(--switch-width);

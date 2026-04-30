@@ -296,6 +296,7 @@ const StickyNav = ({ activePage }) => {
           icon={faMap}
           variant={Variant.ACCENT}
           size={Size.LG}
+          noBG
           ariaLabel="Open navigation menu"
           onClick={(event) => {
             event?.preventDefault?.();

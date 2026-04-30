@@ -94,8 +94,8 @@
   transition-duration: var(--transition-speed);
 }
 
-.rs-nav-item-active,
-.rs-nav-item[aria-current="page"] {
+.desktop-menu .rs-nav-item-active,
+.desktop-menu .rs-nav-item[aria-current="page"] {
   font-weight: 600;
   color: var(--accent-light);
 }
@@ -177,34 +177,24 @@
   justify-content: center;
   align-items: center;
   color: var(--sticky-nav-desktop-page-icon-color);
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.04);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.28);
-  --interactive-surface-border-width: 1px;
+  /* --interactive-surface-bg: transparent;
+  --interactive-surface-border-color: transparent;
+  --interactive-surface-border-width: 0px;
   --interactive-surface-radius: var(--radius-sm);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--deep-black-rgb), 0.24);
-  --interactive-surface-shadow-active: 0 5px 12px rgba(var(--deep-black-rgb), 0.2);
-  --interactive-surface-darken-hover: 0.95;
-  --interactive-surface-darken-active: 0.98;
   --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
   --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  --interactive-surface-focus-ring-offset: 2px; */
 }
 
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
 .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.04);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.28);
-  --interactive-surface-border-width: 1px;
+  /* --interactive-surface-bg: transparent;
+  --interactive-surface-border-color: transparent;
+  --interactive-surface-border-width: 0px;
   --interactive-surface-radius: var(--radius-sm);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--deep-black-rgb), 0.24);
-  --interactive-surface-shadow-active: 0 5px 12px rgba(var(--deep-black-rgb), 0.2);
-  --interactive-surface-darken-hover: 0.96;
-  --interactive-surface-darken-active: 0.98;
   --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
   --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  --interactive-surface-focus-ring-offset: 2px; */
 }
 
 .desktop-menu .fi-desk-nav-item .nav-icon svg {
@@ -237,11 +227,8 @@
 
 .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
 .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.08);
+  --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--accent-rgb), 0.62);
-  --interactive-surface-shadow-base: var(--shadow-soft);
-  --interactive-surface-shadow-hover: var(--shadow-soft);
-  --interactive-surface-shadow-active: var(--shadow-soft);
 }
 
 .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
@@ -353,6 +340,57 @@ html[data-theme="dark"]
   box-shadow: none !important;
 }
 
+/* Force nav icon controls to stay background-free across button variants/states. */
+.desktop-menu .fi-desk-nav-item .nav-icon,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
+.nav-toggle-btn .btn.icon-only,
+.color-toggle-btn .color-menu-trigger.btn.icon-only,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.desktop-menu .fi-desk-nav-item .nav-icon:hover,
+.desktop-menu .fi-desk-nav-item .nav-icon:focus-visible,
+.desktop-menu .fi-desk-nav-item .nav-icon:active,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:hover,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:focus-visible,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:active,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:hover,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:focus-visible,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:active,
+.nav-toggle-btn .btn.icon-only:hover,
+.nav-toggle-btn .btn.icon-only:focus-visible,
+.nav-toggle-btn .btn.icon-only:active,
+.color-toggle-btn .color-menu-trigger.btn.icon-only:hover,
+.color-toggle-btn .color-menu-trigger.btn.icon-only:focus-visible,
+.color-toggle-btn .color-menu-trigger.btn.icon-only:active,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:hover,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:focus-visible,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:active,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:hover,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:focus-visible,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:active,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:hover,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:focus-visible,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:active,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:hover,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:focus-visible,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:active {
+  background: transparent !important;
+}
+
+.mobile-only .btn.icon-only .frosted-icon,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only .frosted-icon,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only .frosted-icon {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 html[data-theme="dark"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
   --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
@@ -361,10 +399,10 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="light"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-700-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 /* Ensure utility icon colors stay consistent across all supported palettes. */
@@ -407,18 +445,14 @@ html[data-theme="light"][data-palette="sunset"] {
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon,
 html[data-theme="light"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
 html[data-theme="light"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
-  --interactive-surface-bg: rgba(var(--primary-light-rgb), 0.17);
+  /* --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.32);
-  --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--primary-dark-rgb), 0.18);
-  --interactive-surface-shadow-active: 0 5px 12px rgba(var(--primary-dark-rgb), 0.14);
-  --interactive-surface-darken-hover: 0.97;
-  --interactive-surface-darken-active: 0.99;
-  --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
+  --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76); */
 }
 
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
-  --interactive-surface-bg: rgba(var(--primary-light-rgb), 0.2);
+  --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.76);
 }
 
@@ -457,58 +491,96 @@ html[data-theme="dark"][data-palette="sunset"] {
    ─────────────────────────────────────────────────────────────────────────── */
 
 html[data-theme="light"][data-palette="alt"] {
-  /* Classic light: dark gold nav */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="primary"] {
-  /* Midnight light: dark navy nav */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="ocean"],
 html[data-theme="light"][data-palette="sunset"] {
-  /*
-   * Shared nav-icon pattern — each palette keeps distinct navigation tones
-   * while theme/a11y utility icon tones are standardized at the theme level.
-   */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="forest"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-fg: var(--text-primary);
+  /* --interactive-surface-bg: transparent;
+  --interactive-surface-fg: var(--nav-drawer-item-fg);
   --interactive-surface-border-color: transparent;
   --interactive-surface-border-width: 1px;
   --interactive-surface-radius: var(--radius-lg);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: none;
-  --interactive-surface-shadow-active: none;
-  --interactive-surface-lift-hover: 0px;
-  --interactive-surface-lift-active: 0px;
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
   --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.5);
   --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  --interactive-surface-focus-ring-offset: 2px; */
 
   border: none;
   text-decoration: none;
 }
 
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface .rs-nav-item-content,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:focus-visible,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:active,
+.mobile-nav-drawer
+  .rs-nav.rs-nav-default
+  .rs-nav-item.interactive-surface
+  .rs-nav-item-content:hover,
+.mobile-nav-drawer
+  .rs-nav.rs-nav-default
+  .rs-nav-item.interactive-surface
+  .rs-nav-item-content:focus-visible,
+.mobile-nav-drawer
+  .rs-nav.rs-nav-default
+  .rs-nav-item.interactive-surface
+  .rs-nav-item-content:active {
+  color: var(--interactive-surface-fg) !important;
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface.rs-nav-item-focus {
+  background: var(--nav-drawer-item-hover-bg) !important;
+  color: var(--nav-drawer-item-hover-fg) !important;
+}
+
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
-  --interactive-surface-bg: var(--bg-gradient);
-  --interactive-surface-fg: var(--text-accent);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.32);
+  --interactive-surface-bg: var(--nav-drawer-active-surface-bg);
+  --interactive-surface-fg: var(--nav-drawer-active-surface-fg);
+  --interactive-surface-border-color: var(--nav-drawer-active-surface-border-color);
+  color: var(--interactive-surface-fg);
+  background: var(--interactive-surface-bg);
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active.rs-nav-item-focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"]:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"]:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"].rs-nav-item-focus {
+  background: var(--nav-drawer-active-hover-bg) !important;
+  color: var(--nav-drawer-active-hover-fg) !important;
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active .rs-nav-item-content,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] .rs-nav-item-content,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:focus-visible,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] > a {
+  color: inherit !important;
+  background: inherit !important;
 }
 
 .mobile-only {
@@ -699,15 +771,10 @@ html[data-theme="light"]
   .mobile-only .btn.icon-only,
   .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
   .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
-    --interactive-surface-bg: rgba(var(--primary-dark-rgb), 0.24);
-    --interactive-surface-border-color: rgba(var(--accent-rgb), 0.4);
-    --interactive-surface-border-width: 1px;
+    --interactive-surface-bg: transparent;
+    --interactive-surface-border-color: transparent;
+    --interactive-surface-border-width: 0px;
     --interactive-surface-radius: var(--radius-sm);
-    --interactive-surface-shadow-base: none;
-    --interactive-surface-shadow-hover: var(--shadow-soft);
-    --interactive-surface-shadow-active: var(--shadow-soft);
-    --interactive-surface-darken-hover: 0.95;
-    --interactive-surface-darken-active: 0.98;
     --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
     --interactive-surface-focus-ring-width: 2px;
     --interactive-surface-focus-ring-offset: 2px;
@@ -758,12 +825,6 @@ html[data-theme="light"]
   html[data-theme="light"] .mobile-only .btn.icon-only,
   html[data-theme="light"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
   html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
-    --interactive-surface-bg: rgba(var(--primary-light-rgb), 0.2);
-    --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.36);
-    --interactive-surface-shadow-hover: var(--shadow-soft);
-    --interactive-surface-shadow-active: var(--shadow-soft);
-    --interactive-surface-darken-hover: 0.97;
-    --interactive-surface-darken-active: 0.99;
     --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
   }
 
