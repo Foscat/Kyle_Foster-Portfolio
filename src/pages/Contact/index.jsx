@@ -53,9 +53,7 @@ function resolveContactApiUrl(raw) {
       return parsed.toString();
     }
 
-    const normalizedPath = parsed.pathname.endsWith("/")
-      ? parsed.pathname
-      : `${parsed.pathname}/`;
+    const normalizedPath = parsed.pathname.endsWith("/") ? parsed.pathname : `${parsed.pathname}/`;
 
     parsed.pathname = `${normalizedPath}api/contact`;
     return parsed.toString();

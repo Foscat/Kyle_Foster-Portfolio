@@ -1,4 +1,4 @@
-/* 
+﻿/* 
   @file App.css
   @fileoverview Global CSS styles and design tokens for the portfolio application, including typography, color schemes, layout utilities, and theme variants. This file establishes the foundational styles and variables that are consumed by individual components to ensure a cohesive visual identity and responsive design across the entire app.
   @module App.css
@@ -94,6 +94,9 @@
   --icon-md: clamp(32px, 28px + 1vw, 40px);
   --icon-lg: clamp(48px, 40px + 1vw, 60px);
   --icon-xl: clamp(64px, 52px + 1vw, 75px);
+  --switch-width: 68px;
+  --switch-height: 38px;
+  --switch-pad: 3px;
 
   /* Font Variants */
   --font-Lexend: "Lexend Deca", sans-serif;
@@ -141,6 +144,20 @@
   --bg-bright: var(--gray-100);
   --bg-error: rgba(var(--error-light-rgb), 0.15);
   --bg-warning: rgba(var(--warning-rgb), 0.15);
+  --nav-drawer-active-surface-bg: var(--bg-gradient);
+  --nav-drawer-active-surface-fg: var(--text-primary);
+  --nav-drawer-active-surface-border-color: rgba(var(--accent-rgb), 0.32);
+  --nav-drawer-item-fg: var(--text-primary);
+  --nav-drawer-item-hover-bg: transparent;
+  --nav-drawer-item-hover-fg: var(--nav-drawer-item-fg);
+  --nav-drawer-active-hover-bg: var(--nav-drawer-active-surface-bg);
+  --nav-drawer-active-hover-fg: var(--nav-drawer-active-surface-fg);
+  --section-drawer-active-group-bg: var(--bg-gradient);
+  --section-drawer-active-group-border-color: rgba(var(--accent-rgb), 0.34);
+  --section-drawer-item-fg: var(--text-primary);
+  --section-drawer-item-hover-fg: var(--section-drawer-item-fg);
+  --section-drawer-active-text-color: var(--text-primary);
+  --section-drawer-active-hover-fg: var(--section-drawer-active-text-color);
 
   /* Glass fill variants */
   --bg-elevated: rgba(var(--white-rgb), 0.06);
@@ -558,6 +575,11 @@ html[data-theme="light"] {
   --scrollbar-track: rgba(var(--primary-light-rgb), 0.3);
   --scrollbar-thumb: rgba(var(--primary-dark-rgb), 0.32);
   --scrollbar-thumb-hover: rgba(var(--accent-dark-rgb), 0.58);
+  --nav-drawer-active-surface-fg: rgba(var(--primary-darkest-rgb), 0.96);
+  --nav-drawer-active-surface-border-color: rgba(var(--primary-dark-rgb), 0.4);
+  --section-drawer-active-group-bg: rgba(var(--white-rgb), 0.9);
+  --section-drawer-active-group-border-color: rgba(var(--primary-dark-rgb), 0.32);
+  --section-drawer-active-text-color: rgba(var(--primary-darkest-rgb), 0.96);
 }
 
 html[data-theme="light"][data-palette="alt"] {
@@ -841,7 +863,7 @@ section[id],
 }
 
 /* ------------------------------------------------------------
-   RSuite Modal — Frosted Utilities (shared)
+   RSuite Modal â€” Frosted Utilities (shared)
    ------------------------------------------------------------ */
 
 /* Apply to <Modal className="modal-glass"> */
@@ -903,7 +925,7 @@ section[id],
 
 .page-container {
   /* Centered, mobile-safe page container.
-     - Uses a fluid gutter so content remains readable at 320–390px.
+     - Uses a fluid gutter so content remains readable at 320â€“390px.
      - Avoid `contain: content` here: containment can interfere with sticky
        descendants and creates surprising clipping/stacking behavior. */
   width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));

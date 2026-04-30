@@ -56,8 +56,14 @@
   align-items: center;
 }
 
+.sticky-nav-resume-toggle {
+  display: flex;
+  align-items: center;
+}
+
 .sticky-nav-color-toggle.rs-nav-item,
-.sticky-nav-a11y-toggle.rs-nav-item {
+.sticky-nav-a11y-toggle.rs-nav-item,
+.sticky-nav-resume-toggle.rs-nav-item {
   background-color: transparent;
   box-shadow: none;
 }
@@ -77,6 +83,8 @@
   --sticky-nav-desktop-theme-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
   --sticky-nav-desktop-a11y-icon-color: var(--sticky-nav-trigger-a11y-icon-color);
   --sticky-nav-desktop-a11y-icon-hover-color: var(--sticky-nav-trigger-a11y-icon-hover-color);
+  --sticky-nav-desktop-resume-icon-color: var(--sticky-nav-trigger-utility-icon-color);
+  --sticky-nav-desktop-resume-icon-hover-color: var(--sticky-nav-trigger-utility-icon-hover-color);
 
   background-color: var(--glass-bg);
   display: flex;
@@ -94,8 +102,8 @@
   transition-duration: var(--transition-speed);
 }
 
-.rs-nav-item-active,
-.rs-nav-item[aria-current="page"] {
+.desktop-menu .rs-nav-item-active,
+.desktop-menu .rs-nav-item[aria-current="page"] {
   font-weight: 600;
   color: var(--accent-light);
 }
@@ -129,7 +137,8 @@
 
 .desktop-menu .fi-desk-nav-item.rs-nav-item,
 .desktop-menu .sticky-nav-color-toggle.rs-nav-item,
-.desktop-menu .sticky-nav-a11y-toggle.rs-nav-item {
+.desktop-menu .sticky-nav-a11y-toggle.rs-nav-item,
+.desktop-menu .sticky-nav-resume-toggle.rs-nav-item {
   display: inline-flex;
   align-items: center;
   align-self: center;
@@ -157,7 +166,8 @@
 }
 
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only {
   width: var(--sticky-nav-utility-icon-button-size);
   min-width: var(--sticky-nav-utility-icon-button-size);
   height: var(--sticky-nav-utility-icon-button-size);
@@ -177,34 +187,25 @@
   justify-content: center;
   align-items: center;
   color: var(--sticky-nav-desktop-page-icon-color);
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.04);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.28);
-  --interactive-surface-border-width: 1px;
+  /* --interactive-surface-bg: transparent;
+  --interactive-surface-border-color: transparent;
+  --interactive-surface-border-width: 0px;
   --interactive-surface-radius: var(--radius-sm);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--deep-black-rgb), 0.24);
-  --interactive-surface-shadow-active: 0 5px 12px rgba(var(--deep-black-rgb), 0.2);
-  --interactive-surface-darken-hover: 0.95;
-  --interactive-surface-darken-active: 0.98;
   --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
   --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  --interactive-surface-focus-ring-offset: 2px; */
 }
 
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.04);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.28);
-  --interactive-surface-border-width: 1px;
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only {
+  /* --interactive-surface-bg: transparent;
+  --interactive-surface-border-color: transparent;
+  --interactive-surface-border-width: 0px;
   --interactive-surface-radius: var(--radius-sm);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--deep-black-rgb), 0.24);
-  --interactive-surface-shadow-active: 0 5px 12px rgba(var(--deep-black-rgb), 0.2);
-  --interactive-surface-darken-hover: 0.96;
-  --interactive-surface-darken-active: 0.98;
   --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
   --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  --interactive-surface-focus-ring-offset: 2px; */
 }
 
 .desktop-menu .fi-desk-nav-item .nav-icon svg {
@@ -214,7 +215,8 @@
 }
 
 .desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon.btn-icon svg,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon svg {
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon svg,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger .frosted-icon.btn-icon svg {
   width: 1em;
   height: 1em;
 }
@@ -228,7 +230,8 @@
 }
 
 .desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon.btn-icon,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon {
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger .frosted-icon.btn-icon {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -237,11 +240,8 @@
 
 .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
 .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.08);
+  --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--accent-rgb), 0.62);
-  --interactive-surface-shadow-base: var(--shadow-soft);
-  --interactive-surface-shadow-hover: var(--shadow-soft);
-  --interactive-surface-shadow-active: var(--shadow-soft);
 }
 
 .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
@@ -257,6 +257,10 @@
 .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
   color: var(--sticky-nav-desktop-theme-icon-color);
   border-radius: 50% !important;
+}
+
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only {
+  color: var(--sticky-nav-desktop-resume-icon-color);
 }
 
 .desktop-menu
@@ -276,6 +280,11 @@
   border-radius: 50% !important;
 }
 
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
+.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  color: var(--sticky-nav-mobile-stack-utility-icon-color);
+}
+
 .color-toggle-btn .color-menu-trigger.btn.icon-only,
 .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only {
   color: var(--sticky-nav-mobile-stack-color-icon-color);
@@ -292,14 +301,27 @@
   color: var(--sticky-nav-mobile-stack-a11y-icon-color);
 }
 
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon.fi-variant-secondary,
+.sticky-nav-mobile-resume
+  .sticky-nav-mobile-resume-trigger
+  .frosted-icon.btn-icon.fi-variant-secondary {
+  color: var(--sticky-nav-mobile-stack-utility-icon-color);
+}
+
 /* Dark mode: Btn/styles.css forces noBG icon-only .frosted-icon to inherit accent-light
    with specificity (0,6,1). These rules use (0,7,1) to restore the correct trigger colors. */
 html[data-theme="dark"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
 html[data-theme="dark"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
+html[data-theme="dark"]
+  .desktop-menu
+  .sticky-nav-resume-toggle
+  .sticky-nav-resume-trigger.btn.icon-only,
 html[data-theme="dark"] .color-toggle-btn .color-menu-trigger.btn.icon-only,
 html[data-theme="dark"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
 html[data-theme="dark"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-html[data-theme="dark"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
+html[data-theme="dark"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
+html[data-theme="dark"] .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
   color: var(--sticky-nav-trigger-utility-icon-color) !important;
 }
 
@@ -319,6 +341,14 @@ html[data-theme="dark"]
   color: var(--sticky-nav-desktop-a11y-icon-color) !important;
 }
 
+html[data-theme="dark"]
+  .desktop-menu
+  .sticky-nav-resume-toggle
+  .sticky-nav-resume-trigger.btn.icon-only
+  .frosted-icon.btn-icon {
+  color: var(--sticky-nav-desktop-resume-icon-color) !important;
+}
+
 html[data-theme="dark"] .color-toggle-btn .color-menu-trigger.btn.icon-only .frosted-icon.btn-icon,
 html[data-theme="dark"]
   .sticky-nav-mobile-color
@@ -335,6 +365,17 @@ html[data-theme="dark"]
   color: var(--sticky-nav-mobile-stack-a11y-icon-color) !important;
 }
 
+html[data-theme="dark"]
+  .resume-toggle-btn
+  .sticky-nav-mobile-resume-trigger.btn.icon-only
+  .frosted-icon.btn-icon,
+html[data-theme="dark"]
+  .sticky-nav-mobile-resume
+  .sticky-nav-mobile-resume-trigger.btn.icon-only
+  .frosted-icon.btn-icon {
+  color: var(--sticky-nav-mobile-stack-utility-icon-color) !important;
+}
+
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon,
 .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
 .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
@@ -348,7 +389,73 @@ html[data-theme="dark"]
 }
 
 .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon {
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger .frosted-icon {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Force nav icon controls to stay background-free across button variants/states. */
+.desktop-menu .fi-desk-nav-item .nav-icon,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only,
+.nav-toggle-btn .btn.icon-only,
+.color-toggle-btn .color-menu-trigger.btn.icon-only,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
+.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.desktop-menu .fi-desk-nav-item .nav-icon:hover,
+.desktop-menu .fi-desk-nav-item .nav-icon:focus-visible,
+.desktop-menu .fi-desk-nav-item .nav-icon:active,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:hover,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:focus-visible,
+.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:active,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:hover,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:focus-visible,
+.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:active,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only:hover,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only:focus-visible,
+.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only:active,
+.nav-toggle-btn .btn.icon-only:hover,
+.nav-toggle-btn .btn.icon-only:focus-visible,
+.nav-toggle-btn .btn.icon-only:active,
+.color-toggle-btn .color-menu-trigger.btn.icon-only:hover,
+.color-toggle-btn .color-menu-trigger.btn.icon-only:focus-visible,
+.color-toggle-btn .color-menu-trigger.btn.icon-only:active,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:hover,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:focus-visible,
+.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:active,
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only:hover,
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only:focus-visible,
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only:active,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:hover,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:focus-visible,
+.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:active,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:hover,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:focus-visible,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:active,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:hover,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:focus-visible,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:active,
+.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:hover,
+.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:focus-visible,
+.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:active {
+  background: transparent !important;
+}
+
+.mobile-only .btn.icon-only .frosted-icon,
+.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only .frosted-icon,
+.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only .frosted-icon,
+.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only .frosted-icon,
+.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only .frosted-icon {
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -361,10 +468,10 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="light"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-700-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 /* Ensure utility icon colors stay consistent across all supported palettes. */
@@ -407,18 +514,14 @@ html[data-theme="light"][data-palette="sunset"] {
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon,
 html[data-theme="light"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
 html[data-theme="light"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
-  --interactive-surface-bg: rgba(var(--primary-light-rgb), 0.17);
+  /* --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.32);
-  --interactive-surface-shadow-hover: 0 8px 18px rgba(var(--primary-dark-rgb), 0.18);
-  --interactive-surface-shadow-active: 0 5px 12px rgba(var(--primary-dark-rgb), 0.14);
-  --interactive-surface-darken-hover: 0.97;
-  --interactive-surface-darken-active: 0.99;
-  --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
+  --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76); */
 }
 
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
-  --interactive-surface-bg: rgba(var(--primary-light-rgb), 0.2);
+  --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.76);
 }
 
@@ -457,58 +560,96 @@ html[data-theme="dark"][data-palette="sunset"] {
    ─────────────────────────────────────────────────────────────────────────── */
 
 html[data-theme="light"][data-palette="alt"] {
-  /* Classic light: dark gold nav */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="primary"] {
-  /* Midnight light: dark navy nav */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="ocean"],
 html[data-theme="light"][data-palette="sunset"] {
-  /*
-   * Shared nav-icon pattern — each palette keeps distinct navigation tones
-   * while theme/a11y utility icon tones are standardized at the theme level.
-   */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-500-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-500-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="forest"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-fg: var(--text-primary);
+  /* --interactive-surface-bg: transparent;
+  --interactive-surface-fg: var(--nav-drawer-item-fg);
   --interactive-surface-border-color: transparent;
   --interactive-surface-border-width: 1px;
   --interactive-surface-radius: var(--radius-lg);
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: none;
-  --interactive-surface-shadow-active: none;
-  --interactive-surface-lift-hover: 0px;
-  --interactive-surface-lift-active: 0px;
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
   --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.5);
   --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  --interactive-surface-focus-ring-offset: 2px; */
 
   border: none;
   text-decoration: none;
 }
 
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface .rs-nav-item-content,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:focus-visible,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a:active,
+.mobile-nav-drawer
+  .rs-nav.rs-nav-default
+  .rs-nav-item.interactive-surface
+  .rs-nav-item-content:hover,
+.mobile-nav-drawer
+  .rs-nav.rs-nav-default
+  .rs-nav-item.interactive-surface
+  .rs-nav-item-content:focus-visible,
+.mobile-nav-drawer
+  .rs-nav.rs-nav-default
+  .rs-nav-item.interactive-surface
+  .rs-nav-item-content:active {
+  color: var(--interactive-surface-fg) !important;
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface.rs-nav-item-focus {
+  background: var(--nav-drawer-item-hover-bg) !important;
+  color: var(--nav-drawer-item-hover-fg) !important;
+}
+
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
-  --interactive-surface-bg: var(--bg-gradient);
-  --interactive-surface-fg: var(--text-accent);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.32);
+  --interactive-surface-bg: var(--nav-drawer-active-surface-bg);
+  --interactive-surface-fg: var(--nav-drawer-active-surface-fg);
+  --interactive-surface-border-color: var(--nav-drawer-active-surface-border-color);
+  color: var(--interactive-surface-fg);
+  background: var(--interactive-surface-bg);
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active.rs-nav-item-focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"]:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"]:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"].rs-nav-item-focus {
+  background: var(--nav-drawer-active-hover-bg) !important;
+  color: var(--nav-drawer-active-hover-fg) !important;
+}
+
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active .rs-nav-item-content,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] .rs-nav-item-content,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:hover,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:focus,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:focus-visible,
+.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] > a {
+  color: inherit !important;
+  background: inherit !important;
 }
 
 .mobile-only {
@@ -586,17 +727,17 @@ html[data-theme="light"]
   width: 100%;
 }
 
-.mobile-nav-drawer .sticky-nav-mobile-color {
-  margin-left: 0.35rem;
-  margin-top: 0.7rem;
+.mobile-nav-drawer .sticky-nav-mobile-utilities {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.7rem 0 0 0.35rem;
 }
 
-.mobile-nav-drawer .sticky-nav-mobile-a11y {
-  margin-left: 0.35rem;
-}
-
-.mobile-nav-drawer .sticky-nav-mobile-color {
-  margin-left: 0.35rem;
+.mobile-nav-drawer .sticky-nav-mobile-color,
+.mobile-nav-drawer .sticky-nav-mobile-a11y,
+.mobile-nav-drawer .sticky-nav-mobile-resume {
+  margin: 0;
 }
 
 /* Slide-down animation */
@@ -626,6 +767,31 @@ html[data-theme="light"]
     --sticky-nav-mobile-stack-utility-icon-color: var(--sticky-nav-trigger-utility-icon-color);
     --sticky-nav-mobile-stack-color-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
     --sticky-nav-mobile-stack-a11y-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
+    --sticky-nav-mobile-stack-resume-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
+    --sticky-nav-mobile-trigger-backplate-bg: rgba(var(--deep-black-rgb), 0.38);
+    --sticky-nav-mobile-trigger-backplate-border: rgba(var(--white-rgb), 0.22);
+    --sticky-nav-mobile-trigger-backplate-shadow:
+      0 6px 16px rgba(var(--deep-black-rgb), 0.26), inset 0 1px 0 rgba(var(--white-rgb), 0.08);
+  }
+
+  html[data-theme="light"] {
+    /* Keep floating mobile icons visibly darker than the rail surface on all light palettes. */
+    --sticky-nav-mobile-stack-nav-icon-color: rgba(var(--gray-900-rgb), 0.96);
+    --sticky-nav-mobile-stack-utility-icon-color: rgba(var(--gray-900-rgb), 0.92);
+    --sticky-nav-mobile-trigger-backplate-bg: rgba(var(--white-rgb), 0.66);
+    --sticky-nav-mobile-trigger-backplate-border: rgba(var(--primary-dark-rgb), 0.34);
+    --sticky-nav-mobile-trigger-backplate-shadow:
+      0 6px 16px rgba(var(--primary-dark-rgb), 0.2), inset 0 1px 0 rgba(var(--white-rgb), 0.9);
+  }
+
+  html[data-theme="dark"] {
+    /* Preserve strong contrast for dark-mode mobile rails across palettes. */
+    --sticky-nav-mobile-stack-nav-icon-color: rgba(var(--gray-100-rgb), 0.98);
+    --sticky-nav-mobile-stack-utility-icon-color: rgba(var(--gray-100-rgb), 0.94);
+    --sticky-nav-mobile-trigger-backplate-bg: rgba(var(--deep-black-rgb), 0.44);
+    --sticky-nav-mobile-trigger-backplate-border: rgba(var(--white-rgb), 0.24);
+    --sticky-nav-mobile-trigger-backplate-shadow:
+      0 6px 16px rgba(var(--deep-black-rgb), 0.34), inset 0 1px 0 rgba(var(--white-rgb), 0.08);
   }
 
   html[data-has-mobile-section-nav="true"] {
@@ -698,16 +864,12 @@ html[data-theme="light"]
 
   .mobile-only .btn.icon-only,
   .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
-    --interactive-surface-bg: rgba(var(--primary-dark-rgb), 0.24);
-    --interactive-surface-border-color: rgba(var(--accent-rgb), 0.4);
-    --interactive-surface-border-width: 1px;
+  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+    --interactive-surface-bg: transparent;
+    --interactive-surface-border-color: transparent;
+    --interactive-surface-border-width: 0px;
     --interactive-surface-radius: var(--radius-sm);
-    --interactive-surface-shadow-base: none;
-    --interactive-surface-shadow-hover: var(--shadow-soft);
-    --interactive-surface-shadow-active: var(--shadow-soft);
-    --interactive-surface-darken-hover: 0.95;
-    --interactive-surface-darken-active: 0.98;
     --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
     --interactive-surface-focus-ring-width: 2px;
     --interactive-surface-focus-ring-offset: 2px;
@@ -716,6 +878,7 @@ html[data-theme="light"]
   .nav-toggle-btn,
   .color-toggle-btn,
   .a11y-toggle-btn,
+  .resume-toggle-btn,
   .sect-nav-toggle-btn {
     top: var(--sticky-nav-mobile-rail-top);
     left: var(--sticky-nav-mobile-trigger-left);
@@ -723,14 +886,7 @@ html[data-theme="light"]
 
   .nav-toggle-btn {
     top: var(--sticky-nav-mobile-rail-top);
-  }
-
-  .a11y-toggle-btn {
-    top: calc(
-      var(--sticky-nav-mobile-rail-top) +
-        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
-        (2 + var(--sticky-nav-mobile-section-slot))
-    );
+    left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .color-toggle-btn {
@@ -739,6 +895,25 @@ html[data-theme="light"]
         (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
         (1 + var(--sticky-nav-mobile-section-slot))
     );
+    left: var(--sticky-nav-mobile-trigger-left);
+  }
+
+  .a11y-toggle-btn {
+    top: calc(
+      var(--sticky-nav-mobile-rail-top) +
+        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
+        (2 + var(--sticky-nav-mobile-section-slot))
+    );
+    left: var(--sticky-nav-mobile-trigger-left);
+  }
+
+  .resume-toggle-btn {
+    top: calc(
+      var(--sticky-nav-mobile-rail-top) +
+        (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
+        (3 + var(--sticky-nav-mobile-section-slot))
+    );
+    left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .sect-nav-toggle-btn {
@@ -746,33 +921,34 @@ html[data-theme="light"]
       var(--sticky-nav-mobile-rail-top) + var(--sticky-nav-mobile-trigger-size) +
         var(--sticky-nav-mobile-trigger-gap)
     );
+    left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .nav-toggle-btn .btn.icon-only,
   .color-toggle-btn .color-menu-trigger.btn.icon-only,
   .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+  .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
   .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
     border-left: 1px solid rgba(var(--accent-rgb), 0.4) !important;
   }
 
   html[data-theme="light"] .mobile-only .btn.icon-only,
   html[data-theme="light"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
-    --interactive-surface-bg: rgba(var(--primary-light-rgb), 0.2);
-    --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.36);
-    --interactive-surface-shadow-hover: var(--shadow-soft);
-    --interactive-surface-shadow-active: var(--shadow-soft);
-    --interactive-surface-darken-hover: 0.97;
-    --interactive-surface-darken-active: 0.99;
+  html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
+  html[data-theme="light"]
+    .sticky-nav-mobile-resume
+    .sticky-nav-mobile-resume-trigger.btn.icon-only {
     --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
   }
 
   .nav-toggle-btn .btn.icon-only,
   .color-toggle-btn .color-menu-trigger.btn.icon-only,
   .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+  .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
   .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only,
   .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
+  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
     width: var(--sticky-nav-mobile-trigger-size);
     min-width: var(--sticky-nav-mobile-trigger-size);
     height: var(--sticky-nav-mobile-trigger-size);
@@ -783,9 +959,18 @@ html[data-theme="light"]
     border-radius: var(--radius-sm);
   }
 
+  .color-toggle-btn .color-menu-trigger.btn.icon-only,
+  .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
+  .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
   .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only {
+  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+    background: var(--sticky-nav-mobile-trigger-backplate-bg) !important;
+    border: 1px solid var(--sticky-nav-mobile-trigger-backplate-border) !important;
+    box-shadow: var(--sticky-nav-mobile-trigger-backplate-shadow) !important;
     border-radius: 50% !important;
+    -webkit-backdrop-filter: blur(8px) saturate(115%);
+    backdrop-filter: blur(8px) saturate(115%);
   }
 
   .nav-toggle-btn .btn.icon-only,
@@ -799,10 +984,12 @@ html[data-theme="light"]
 
   .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon,
   .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
+  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon,
   .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon,
   .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon,
   .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -811,7 +998,8 @@ html[data-theme="light"]
   }
 
   .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
     border-radius: 50% !important;
   }
 
@@ -819,8 +1007,10 @@ html[data-theme="light"]
   .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon svg,
   .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon svg,
   .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon svg,
+  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon svg,
   .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon svg,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon svg {
+  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon svg,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon svg {
     font-size: var(--sticky-nav-mobile-trigger-glyph-size);
   }
 
@@ -844,14 +1034,19 @@ html[data-theme="light"]
     color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   }
 
-  .sticky-nav-mobile-color,
-  .sticky-nav-mobile-a11y {
-    margin-top: 0.5rem;
+  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
+    color: var(--sticky-nav-mobile-stack-resume-icon-color);
   }
 
   /* Drawer utility controls should share the same role color for quick scanning. */
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
-    color: var(--sticky-nav-mobile-stack-a11y-icon-color);
+  .sticky-nav-mobile-utilities .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-utilities .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
+  .sticky-nav-mobile-utilities
+    .sticky-nav-mobile-resume
+    .sticky-nav-mobile-resume-trigger
+    .frosted-icon.btn-icon {
+    color: var(--sticky-nav-mobile-stack-utility-icon-color);
   }
 
   .rs-drawer-backdrop .mobile-section-nav-drawer {

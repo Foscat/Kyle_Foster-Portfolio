@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    Mermaid Theme — Midnight Gold (Architecture Scale)
    ------------------------------------------------------------
    Goals:
@@ -647,18 +647,6 @@
 
 .mermaid-action-btn.rs-btn.btn.interactive-surface,
 .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
-  --interactive-surface-radius: 999px;
-  --interactive-surface-shadow-base: 0 8px 20px rgba(var(--deep-black-rgb), 0.22);
-  --interactive-surface-shadow-hover: 0 8px 20px rgba(var(--deep-black-rgb), 0.22);
-  --interactive-surface-shadow-active: 0 8px 20px rgba(var(--deep-black-rgb), 0.22);
-  --interactive-surface-lift-hover: 0px;
-  --interactive-surface-lift-active: 0px;
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.5);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
-
   min-height: 2rem;
   padding: 0.3rem 0.62rem 0.3rem 0.5rem;
   gap: 0.34rem;

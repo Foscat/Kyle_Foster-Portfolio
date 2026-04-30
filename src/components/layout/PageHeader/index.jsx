@@ -106,7 +106,7 @@ const PageHeader = ({
   };
 
   return (
-    <Panel className={`page-header blue-tile ${className}`} role="banner" expanded>
+    <Panel className={`page-header page-header--top blue-tile ${className}`} role="banner" expanded>
       <FlexboxGrid justify="center" align="middle" className="page-header-inner">
         <FlexboxGrid.Item colspan={24} className="text-center">
           <h1 className="page-header-title">{title}</h1>

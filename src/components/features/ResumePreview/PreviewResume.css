@@ -121,55 +121,53 @@ html[data-theme="light"] .resume-preview__subtitle {
   gap: 0.65rem;
 }
 
-.resume-preview__action.rs-btn.interactive-surface {
-  --interactive-surface-bg: linear-gradient(
+.resume-preview__action.rs-btn {
+  min-width: 7rem;
+  padding: 0.62rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(
     180deg,
     rgba(var(--primary-dark-rgb), 0.3),
     rgba(var(--white-rgb), 0.04)
   );
-  --interactive-surface-fg: var(--text-primary);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.12);
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: 999px;
-  --interactive-surface-shadow-base: none;
-  --interactive-surface-shadow-hover: 0 0 0 1px rgba(var(--accent-rgb), 0.08);
-  --interactive-surface-shadow-active: 0 0 0 1px rgba(var(--accent-rgb), 0.08);
-  --interactive-surface-lift-hover: 0px;
-  --interactive-surface-lift-active: 0px;
-  --interactive-surface-darken-hover: 0.95;
-  --interactive-surface-darken-active: 0.97;
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.58);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
-
-  min-width: 7rem;
-  padding: 0.62rem 1rem;
-  border-radius: 999px;
-  background: var(--interactive-surface-bg);
-  color: var(--interactive-surface-fg);
+  border: 1px solid rgba(var(--white-rgb), 0.12);
+  color: var(--text-primary);
   box-shadow: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
 }
 
-.resume-preview__action--download.rs-btn.interactive-surface {
-  --interactive-surface-bg: linear-gradient(
+.resume-preview__action.rs-btn:hover,
+.resume-preview__action.rs-btn:focus-visible {
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.34), rgba(var(--white-rgb), 0.08));
+  border-color: rgba(var(--accent-rgb), 0.32);
+  color: rgba(var(--white-rgb), 0.96);
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.08);
+}
+
+.resume-preview__action--download.rs-btn {
+  background: linear-gradient(
     180deg,
     rgba(var(--accent-rgb), 0.24),
     rgba(var(--primary-dark-rgb), 0.18)
   );
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.22);
+  border-color: rgba(var(--accent-rgb), 0.22);
 }
 
-.resume-preview__action--open.rs-btn.interactive-surface,
-.resume-preview__action--close.rs-btn.interactive-surface {
-  --interactive-surface-bg: linear-gradient(
+.resume-preview__action--open.rs-btn,
+.resume-preview__action--close.rs-btn {
+  background: linear-gradient(
     180deg,
     rgba(var(--primary-dark-rgb), 0.24),
     rgba(var(--white-rgb), 0.04)
   );
 }
 
-.resume-preview__action--close.rs-btn.interactive-surface {
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.14);
+.resume-preview__action--close.rs-btn {
+  border-color: rgba(var(--white-rgb), 0.14);
 }
 
 .resume-preview__viewport {

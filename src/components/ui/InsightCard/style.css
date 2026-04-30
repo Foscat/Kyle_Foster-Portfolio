@@ -1,4 +1,4 @@
-.insight-card {
+﻿.insight-card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -76,20 +76,48 @@
 }
 
 .insight-card__body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   font-size: var(--font-sm);
   line-height: 1.5;
+}
+
+.insight-card__content {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
 }
 
 .insight-card__body :where(p, ul, ol, blockquote, pre) {
   margin: 0;
 }
 
+.insight-card__content > :where(p, blockquote, pre) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.insight-card__content > :where(ul, ol) {
+  overflow: hidden;
+  max-height: calc(1.5em * 7);
+}
+
 .insight-card__footer {
-  margin: 0 auto;
-  padding-top: 0.25rem;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 0.35rem;
+  justify-content: center;
+}
+
+.insight-card__cta.rs-btn.btn.interactive-surface {
+  min-width: clamp(10rem, 58%, 12.5rem);
+  justify-content: center;
+  text-align: center;
 }
 
 .insight-card__metric {
@@ -172,6 +200,14 @@
 @media (width <= 640px) {
   .insight-card {
     padding: 1rem;
+  }
+
+  .insight-card__content > :where(p, blockquote, pre) {
+    -webkit-line-clamp: 6;
+  }
+
+  .insight-card__content > :where(ul, ol) {
+    max-height: calc(1.5em * 8);
   }
 
   .card-grid > * {

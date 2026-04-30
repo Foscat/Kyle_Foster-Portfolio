@@ -6,6 +6,7 @@
 
 import React from "react";
 import { Divider } from "rsuite";
+import { tryRecoverFromChunkLoadFailure } from "assets/chunkLoadRecovery";
 
 /**
  * @file index.jsx
@@ -68,7 +69,18 @@ class ErrorBoundary extends React.Component {
    * @param {React.ErrorInfo} info - Component stack information.
    */
   componentDidCatch(error, info) {
-    console.error("🔥 Unhandled application error:", error);
+    const didRecover = tryRecoverFromChunkLoadFailure({
+      payload: {
+        message: error?.message,
+        filename: error?.fileName || error?.filename || "",
+      },
+    });
+
+    if (didRecover) {
+      return;
+    }
+
+    console.error("Unhandled application error:", error);
     console.error("Component stack:", info.componentStack);
   }
 

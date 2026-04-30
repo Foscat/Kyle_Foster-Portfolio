@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    PageHeader
    ============================================================
    Purpose:
@@ -72,6 +72,13 @@
 /* Individual meta item */
 .page-header-meta-item {
   white-space: nowrap;
+}
+
+@media (width <= 1024px) {
+  .page-header.page-header--top {
+    margin-left: calc(var(--sticky-nav-mobile-trigger-size, 0px) + var(--page-gutter, 0px));
+    margin-right: 5px;
+  }
 }
 
 /* ------------------------------------------------------------

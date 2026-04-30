@@ -122,17 +122,36 @@ const AccordionList = ({
   const listRef = useRef(null);
   const headerRefs = useRef([]);
 
+  const syncHeaderRefs = () => {
+    if (!listRef.current) {
+      headerRefs.current = [];
+      return;
+    }
+
+    headerRefs.current = Array.from(
+      listRef.current.querySelectorAll(".fa-list-item .rs-panel-header .rs-panel-btn")
+    );
+  };
+
   const totalItems = items.length;
 
   /**
    * @description Helper: focus a header by index
    */
   const focusHeader = (index) => {
+    if (!headerRefs.current[index]) {
+      syncHeaderRefs();
+    }
+
     const node = headerRefs.current[index];
     if (node && typeof node.focus === "function") {
       node.focus();
     }
   };
+
+  useEffect(() => {
+    syncHeaderRefs();
+  }, [items, openIndex]);
 
   /**
    * @description Smooth scroll to section ID in the page
@@ -356,6 +375,35 @@ const AccordionList = ({
     }
   };
 
+  const resolvePanelIndexFromKeyboardEvent = (eventTarget) => {
+    if (!(eventTarget instanceof Element) || !listRef.current) return -1;
+
+    const headerButton = eventTarget.closest(".rs-panel-btn");
+    if (!headerButton || !listRef.current.contains(headerButton)) return -1;
+
+    const panelNode = headerButton.closest(".fa-list-item");
+    if (!panelNode) return -1;
+
+    const panelNodes = Array.from(listRef.current.querySelectorAll(".fa-list-item"));
+    return panelNodes.indexOf(panelNode);
+  };
+
+  const handlePanelGroupKeyDownCapture = (event) => {
+    const panelIndex = resolvePanelIndexFromKeyboardEvent(event.target);
+    if (panelIndex < 0) return;
+
+    const item = items[panelIndex];
+    if (!item) return;
+
+    handleKeyDown(event, panelIndex, item, openIndex === panelIndex);
+  };
+
+  const handlePanelGroupSelect = (eventKey) => {
+    const panelIndex = Number(eventKey);
+    if (Number.isNaN(panelIndex)) return;
+    togglePanel(panelIndex);
+  };
+
   return (
     <Panel
       collapsible
@@ -380,6 +428,9 @@ const AccordionList = ({
         role="tree"
         aria-label={title || "Section navigation"}
         accordion={accordion}
+        activeKey={openIndex === null ? null : String(openIndex)}
+        onSelect={handlePanelGroupSelect}
+        onKeyDownCapture={handlePanelGroupKeyDownCapture}
       >
         {items.map((item, i) => {
           const panelIndex = i;
@@ -389,12 +440,9 @@ const AccordionList = ({
           return (
             <Panel
               collapsible
-              defaultExpanded={i === 0}
               bordered={true}
               id={item.id || undefined}
               eventKey={String(panelIndex)}
-              onSelect={() => togglePanel(panelIndex)}
-              onKeyDown={(e) => handleKeyDown(e, panelIndex, item, openIndex === panelIndex)}
               key={`${id}-${item.id || panelIndex}`}
               className={`fa-list-item ${openIndex === panelIndex ? "open" : ""}`}
               header={

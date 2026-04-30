@@ -1,4 +1,4 @@
-.markdown-docs-block {
+﻿.markdown-docs-block {
   display: grid;
   gap: 1.25rem;
 }
@@ -32,26 +32,11 @@
 }
 
 .markdown-docs-block__jump-link {
-  --interactive-surface-bg: var(--primary-dark-bg);
-  --interactive-surface-fg: var(--text-primary);
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.24);
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: 18px;
-  --interactive-surface-shadow-base: var(--shadow-soft);
-  --interactive-surface-shadow-hover: var(--glass-shadow);
-  --interactive-surface-shadow-active: var(--glass-shadow);
-  --interactive-surface-darken-hover: 1;
-  --interactive-surface-darken-active: 1;
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.45);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
-
   display: grid;
   gap: 0.2rem;
   padding: 1rem 1.1rem;
   border-radius: 18px;
   text-decoration: none;
-  color: var(--interactive-surface-fg);
   border: none;
 }
 

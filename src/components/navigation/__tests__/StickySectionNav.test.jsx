@@ -52,22 +52,99 @@ const scrollSpyState = {
 
 vi.mock("assets/hooks/useScrollSpy", () => ({
   buildSectionTree: (sections) => ({
-    nodes: sections.map((section) => ({
-      id: section.id,
-      title: section.title,
-      children: [],
-      level: section.level ?? 1,
-    })),
-    byId: Object.fromEntries(
-      sections.map((section) => [
-        section.id,
-        {
-          id: section.id,
-          title: section.title,
-          children: [],
-          level: section.level ?? 1,
-        },
-      ])
+    nodes: sections.flatMap((section) => {
+      if (!section?.id) return [];
+
+      const sectionNode = {
+        id: section.id,
+        type: "section",
+        parentId: null,
+      };
+
+      const navNodes = Array.isArray(section.navItems)
+        ? section.navItems
+            .filter((item) => item?.id)
+            .map((item) => ({
+              id: item.id,
+              type: "block",
+              parentId: section.id,
+            }))
+        : [];
+
+      const blockNodes = Array.isArray(section.blocks)
+        ? section.blocks
+            .filter((block) => block?.id)
+            .flatMap((block) => {
+              const baseBlock = {
+                id: block.id,
+                type: "block",
+                parentId: section.id,
+              };
+
+              const childItems = Array.isArray(block.items)
+                ? block.items
+                    .filter((item) => item?.id)
+                    .map((item) => ({
+                      id: item.id,
+                      type: "block",
+                      parentId: block.id,
+                    }))
+                : [];
+
+              return [baseBlock, ...childItems];
+            })
+        : [];
+
+      return [sectionNode, ...(navNodes.length ? navNodes : blockNodes)];
+    }),
+    byId: new Map(
+      sections
+        .flatMap((section) => {
+          if (!section?.id) return [];
+
+          const sectionNode = {
+            id: section.id,
+            type: "section",
+            parentId: null,
+          };
+
+          const navNodes = Array.isArray(section.navItems)
+            ? section.navItems
+                .filter((item) => item?.id)
+                .map((item) => ({
+                  id: item.id,
+                  type: "block",
+                  parentId: section.id,
+                }))
+            : [];
+
+          const blockNodes = Array.isArray(section.blocks)
+            ? section.blocks
+                .filter((block) => block?.id)
+                .flatMap((block) => {
+                  const baseBlock = {
+                    id: block.id,
+                    type: "block",
+                    parentId: section.id,
+                  };
+
+                  const childItems = Array.isArray(block.items)
+                    ? block.items
+                        .filter((item) => item?.id)
+                        .map((item) => ({
+                          id: item.id,
+                          type: "block",
+                          parentId: block.id,
+                        }))
+                    : [];
+
+                  return [baseBlock, ...childItems];
+                })
+            : [];
+
+          return [sectionNode, ...(navNodes.length ? navNodes : blockNodes)];
+        })
+        .map((node) => [node.id, node])
     ),
   }),
   useScrollSpyWithHistory: () => ({
@@ -133,6 +210,11 @@ describe("StickySectionNav", () => {
     scrollSpyState.activeChain = ["section-1"];
     vi.spyOn(window, "scrollTo").mockImplementation(() => {});
     Object.defineProperty(window, "scrollY", {
+      value: 0,
+      writable: true,
+      configurable: true,
+    });
+    Object.defineProperty(window, "pageYOffset", {
       value: 0,
       writable: true,
       configurable: true,
@@ -343,6 +425,69 @@ describe("StickySectionNav", () => {
       expect(markProgrammaticScroll).toHaveBeenCalled();
     });
 
+    s1Block.remove();
+    s2Block.remove();
+  });
+
+  it("top-aligns the owning section when Tab advances into another section", async () => {
+    const s1Block = document.createElement("div");
+    s1Block.id = "section-1-block";
+    document.body.appendChild(s1Block);
+
+    const s2Block = document.createElement("div");
+    s2Block.id = "section-2-block";
+    document.body.appendChild(s2Block);
+
+    const makeRect = (top) => ({
+      top,
+      bottom: top + 120,
+      left: 0,
+      right: 120,
+      width: 120,
+      height: 120,
+      x: 0,
+      y: top,
+      toJSON: () => ({}),
+    });
+
+    Object.defineProperty(window, "pageYOffset", {
+      value: 100,
+      writable: true,
+      configurable: true,
+    });
+
+    const scrollHeightSpy = vi
+      .spyOn(document.documentElement, "scrollHeight", "get")
+      .mockReturnValue(3000);
+    const clientHeightSpy = vi
+      .spyOn(document.documentElement, "clientHeight", "get")
+      .mockReturnValue(900);
+
+    s2.getBoundingClientRect = vi.fn(() => makeRect(420));
+    s2Block.getBoundingClientRect = vi.fn(() => makeRect(760));
+
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
+
+    const sectionNavButton = screen.getByRole("button", { name: "Introduction" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "Tab" });
+
+    await waitFor(() => {
+      expect(window.location.hash).toBe("#section-2-block");
+      expect(window.scrollTo).toHaveBeenCalled();
+    });
+
+    const lastScrollCall = window.scrollTo.mock.calls.at(-1)?.[0];
+    expect(lastScrollCall).toMatchObject({
+      top: 520,
+      behavior: "smooth",
+    });
+
+    scrollHeightSpy.mockRestore();
+    clientHeightSpy.mockRestore();
     s1Block.remove();
     s2Block.remove();
   });
