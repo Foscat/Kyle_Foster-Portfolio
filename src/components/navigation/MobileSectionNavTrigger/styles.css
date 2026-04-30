@@ -100,6 +100,12 @@
   color: var(--section-drawer-item-fg);
 }
 
+.mobile-section-title.rs-btn.btn.interactive-surface,
+.mobile-subsection.rs-btn.btn.interactive-surface {
+  font-family: var(--font-Golos);
+  font-weight: 500;
+}
+
 .mobile-section-caret.btn.icon-only {
   width: 40px;
   min-width: 40px;
@@ -149,7 +155,7 @@
 .mobile-section-group.is-active .mobile-section-title,
 .mobile-subsection.is-active {
   color: var(--section-drawer-active-text-color);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .mobile-section-group.is-active .mobile-section-title:hover,

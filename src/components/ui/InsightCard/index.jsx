@@ -132,11 +132,13 @@ export function InsightCard({
       <div className="insight-card__divider" />
 
       <div className="insight-card__body">
-        <RichText content={content} />
+        <div className="insight-card__content">
+          <RichText content={content} />
+        </div>
         {url ? (
           <div className="insight-card__footer flex-row">
             <Btn
-              className="flex-c"
+              className="insight-card__cta flex-c"
               text={ctaText}
               href={url}
               hrefLocal={isLocalLink}

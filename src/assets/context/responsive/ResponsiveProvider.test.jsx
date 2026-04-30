@@ -4,7 +4,7 @@
  * @module src\assets\context\responsive\ResponsiveProvider.test
  */
 
-import { screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 import renderWithProviders from "tests/renderWithProviders";
@@ -111,6 +111,53 @@ describe("ResponsiveProvider", () => {
     await waitFor(() => {
       expect(document.documentElement.style.getPropertyValue("--spacing-section")).toBe("2rem");
       expect(document.documentElement.style.getPropertyValue("--spacing-gutter")).toBe("1.5rem");
+    });
+  });
+
+  it("handles legacy media query listeners when addEventListener is unavailable", async () => {
+    const legacyListenersByQuery = new Map();
+    const queryState = new Map([
+      ["(orientation: portrait)", false],
+      ["(prefers-reduced-motion: reduce)", false],
+      ["(prefers-reduced-transparency: reduce)", false],
+      ["(prefers-contrast: more)", false],
+      ["(forced-colors: active)", false],
+    ]);
+
+    window.matchMedia = vi.fn((query) => {
+      if (!legacyListenersByQuery.has(query)) {
+        legacyListenersByQuery.set(query, new Set());
+      }
+
+      return {
+        get matches() {
+          return queryState.get(query) ?? false;
+        },
+        media: query,
+        onchange: null,
+        addListener: (listener) => legacyListenersByQuery.get(query).add(listener),
+        removeListener: (listener) => legacyListenersByQuery.get(query).delete(listener),
+        dispatchEvent: () => true,
+      };
+    });
+
+    renderWithProviders(<ResponsiveProbe />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/reduced-motion/i)).toHaveTextContent("false");
+    });
+
+    const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+    queryState.set(reducedMotionQuery, true);
+
+    act(() => {
+      legacyListenersByQuery
+        .get(reducedMotionQuery)
+        ?.forEach((listener) => listener({ matches: true }));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/reduced-motion/i)).toHaveTextContent("true");
     });
   });
 });

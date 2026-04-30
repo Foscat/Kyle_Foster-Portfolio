@@ -165,6 +165,22 @@ export function ResponsiveProvider({ children }) {
 
   // Listen for window resize events and update state accordingly
   useEffect(() => {
+    const attachMediaQueryChangeListener = (mediaQueryList, handler) => {
+      if (!mediaQueryList || typeof handler !== "function") return () => {};
+
+      if (typeof mediaQueryList.addEventListener === "function") {
+        mediaQueryList.addEventListener("change", handler);
+        return () => mediaQueryList.removeEventListener("change", handler);
+      }
+
+      if (typeof mediaQueryList.addListener === "function") {
+        mediaQueryList.addListener(handler);
+        return () => mediaQueryList.removeListener(handler);
+      }
+
+      return () => {};
+    };
+
     /**
      * @function handleResize
      * @description Event handler for window resize events. This function uses requestAnimationFrame to optimize performance by batching state updates and avoiding excessive re-renders during rapid resize events. When the window is resized, it updates the width, breakpoint, and orientation state based on the new window dimensions.
@@ -217,27 +233,32 @@ export function ResponsiveProvider({ children }) {
 
     // Add event listener for window resize
     window.addEventListener("resize", handleResize);
-    mqReducedMotion.addEventListener("change", handleMotionChange);
-
-    // Since reduced transparency may not be supported, we check if the media query exists before adding a listener. If it doesn't exist, we won't be able to listen for changes, but we also won't throw an error.
-    if (mqReducedTransparency)
-      mqReducedTransparency?.addEventListener("change", handleTransparencyChange);
-
-    // Since high contrast mode can be indicated by either prefers-contrast: more or forced-colors: active, we need to listen to both and update state accordingly.
-    mqPrefersContrastMore.addEventListener("change", handleContrastChange);
-    mqForcedColors.addEventListener("change", handleContrastChange);
+    const detachReducedMotionListener = attachMediaQueryChangeListener(
+      mqReducedMotion,
+      handleMotionChange
+    );
+    const detachReducedTransparencyListener = attachMediaQueryChangeListener(
+      mqReducedTransparency,
+      handleTransparencyChange
+    );
+    const detachPrefersContrastListener = attachMediaQueryChangeListener(
+      mqPrefersContrastMore,
+      handleContrastChange
+    );
+    const detachForcedColorsListener = attachMediaQueryChangeListener(
+      mqForcedColors,
+      handleContrastChange
+    );
 
     // Initial check in case the user has a reduced motion preference set on page load
     return () => {
       window.removeEventListener("resize", handleResize);
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
 
-      mqReducedMotion.removeEventListener("change", handleMotionChange);
-      if (mqReducedTransparency)
-        mqReducedTransparency.removeEventListener("change", handleTransparencyChange);
-
-      mqPrefersContrastMore.removeEventListener("change", handleContrastChange);
-      mqForcedColors.removeEventListener("change", handleContrastChange);
+      detachReducedMotionListener();
+      detachReducedTransparencyListener();
+      detachPrefersContrastListener();
+      detachForcedColorsListener();
     };
   }, []);
 

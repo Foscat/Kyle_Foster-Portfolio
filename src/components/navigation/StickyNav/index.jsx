@@ -16,13 +16,17 @@ import {
   faTrophy,
   faFolderOpen,
   faEnvelope,
-  faMap,
   faBook,
+  faSignsPost,
+  faCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
 import { AccessibilityMenu, ColorMenu } from "components/features";
+import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
+import resumeData from "assets/data/content/resumeData.js";
+import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 
 const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
@@ -154,8 +158,15 @@ const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = 
  */
 const StickyNav = ({ activePage }) => {
   const navigate = useNavigate();
+  const { theme, palette } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showMobileIconHints, setShowMobileIconHints] = useState(false);
+  const safeTheme = typeof theme === "string" ? theme : "auto";
+  const safePalette = typeof palette === "string" ? palette : "ocean";
+  const resumeDownloadName = `Kyle-Foster-Resume-${safeTheme}-${safePalette}.pdf`;
+  const resumePreviewTitle = "Kyle Foster - Resume";
+  const resumePreviewSubtitle =
+    "A cleaner, document-first preview with improved spacing and a real paper stage.";
 
   const closeMobileNav = useCallback(() => {
     setMobileOpen(false);
@@ -276,6 +287,22 @@ const StickyNav = ({ activePage }) => {
         </div>
 
         <div className="sticky-nav-tools-group">
+          <Nav.Item className="no-popup sticky-nav-resume-toggle">
+            <ResumePreviewTrigger
+              buttonText=""
+              title={resumePreviewTitle}
+              subtitle={resumePreviewSubtitle}
+              resume={resumeData}
+              downloadName={resumeDownloadName}
+              buttonClassName="sticky-nav-resume-trigger"
+              icon={faCircleDown}
+              tooltip="Resume preview and download"
+              ariaLabel="Open resume preview and download options"
+              size={Size.LG}
+              variant={Variant.SECONDARY}
+              noBG
+            />
+          </Nav.Item>
           <Nav.Item className="no-popup sticky-nav-color-toggle">
             <ColorMenu size={Size.LG} />
           </Nav.Item>
@@ -293,7 +320,7 @@ const StickyNav = ({ activePage }) => {
       <div className="nav-toggle-btn mobile-only nav-mobile-only">
         <span className="mobile-icon-hint">Menu</span>
         <Btn
-          icon={faMap}
+          icon={faSignsPost}
           variant={Variant.ACCENT}
           size={Size.LG}
           noBG
@@ -321,6 +348,26 @@ const StickyNav = ({ activePage }) => {
       >
         <span className="mobile-icon-hint">A11y</span>
         <AccessibilityMenu size={Size.LG} showTooltip={false} />
+      </div>
+
+      <div
+        className="resume-toggle-btn mobile-only nav-mobile-only"
+        onClickCapture={dismissMobileIconHints}
+      >
+        <span className="mobile-icon-hint">Resume</span>
+        <ResumePreviewTrigger
+          buttonText=""
+          title={resumePreviewTitle}
+          subtitle={resumePreviewSubtitle}
+          resume={resumeData}
+          downloadName={resumeDownloadName}
+          buttonClassName="sticky-nav-mobile-resume-trigger"
+          icon={faCircleDown}
+          ariaLabel="Open resume preview and download options"
+          size={Size.LG}
+          variant={Variant.SECONDARY}
+          noBG
+        />
       </div>
 
       {/* ============================================================
@@ -365,11 +412,28 @@ const StickyNav = ({ activePage }) => {
                 </Nav.Item>
               );
             })}
-            <div className="sticky-nav-mobile-color">
-              <ColorMenu size={Size.LG} showTooltip={false} />
-            </div>
-            <div className="sticky-nav-mobile-a11y">
-              <AccessibilityMenu size={Size.LG} showTooltip={false} />
+            <div className="sticky-nav-mobile-utilities">
+              <div className="sticky-nav-mobile-color">
+                <ColorMenu size={Size.LG} showTooltip={false} />
+              </div>
+              <div className="sticky-nav-mobile-a11y">
+                <AccessibilityMenu size={Size.LG} showTooltip={false} />
+              </div>
+              <div className="sticky-nav-mobile-resume">
+                <ResumePreviewTrigger
+                  buttonText=""
+                  title={resumePreviewTitle}
+                  subtitle={resumePreviewSubtitle}
+                  resume={resumeData}
+                  downloadName={resumeDownloadName}
+                  buttonClassName="sticky-nav-mobile-resume-trigger"
+                  icon={faCircleDown}
+                  ariaLabel="Open resume preview and download options"
+                  size={Size.LG}
+                  variant={Variant.SECONDARY}
+                  noBG
+                />
+              </div>
             </div>
           </Nav>
         </Drawer.Body>

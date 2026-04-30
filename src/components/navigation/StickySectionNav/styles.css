@@ -44,6 +44,8 @@
   list-style: none;
   padding: 0;
   font-size: var(--font-md);
+  font-family: var(--font-Golos);
+  font-weight: 500;
 }
 
 .sub-section-nav-list {
@@ -56,7 +58,7 @@
 
 .section-nav-item.is-active,
 .sub-section-nav-list.is-active {
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent);
 }
 
@@ -85,7 +87,7 @@
   cursor: pointer;
   border-radius: var(--radius-sm);
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Active section */
@@ -93,7 +95,7 @@
   color: var(--accent-gold);
   border-color: rgba(var(--accent-rgb), 0.4);
   background: rgba(var(--white-rgb), 0.04);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* ------------------------------------------------------------------
@@ -155,6 +157,7 @@
 .sub-section-nav-block {
   padding: 0.25rem 0.75rem;
   font: inherit;
+  font-weight: 500;
   color: var(--text-secondary);
   background: none;
   border: none;
