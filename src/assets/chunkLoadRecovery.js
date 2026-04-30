@@ -13,6 +13,7 @@ const DYNAMIC_IMPORT_FAILURE_PATTERNS = [
   /Failed to fetch dynamically imported module/i,
   /Importing a module script failed/i,
   /Loading chunk [\d]+ failed/i,
+  /Unable to preload CSS for\s+\/assets\//i,
 ];
 
 /**
@@ -98,6 +99,42 @@ const recoverNavigation = (win, now) => {
   win?.location?.reload?.();
 };
 
+/**
+ * @function tryRecoverFromChunkLoadFailure
+ * @description Attempts one-time recovery for stale deploy asset failures.
+ * Returns `true` when a reload was triggered.
+ *
+ * @param {Object} [options]
+ * @param {Window} [options.win=window] - Window-like object used for navigation + storage.
+ * @param {Object} [options.payload={}] - Error-like payload consumed by `isLikelyChunkLoadFailure`.
+ * @param {number} [options.maxReloads=1] - Max automatic reload attempts per session.
+ * @param {() => number} [options.now=Date.now] - Timestamp source used for cache-busting URLs.
+ * @returns {boolean} True when recovery navigation was attempted.
+ */
+export function tryRecoverFromChunkLoadFailure({
+  win = window,
+  payload = {},
+  maxReloads = DEFAULT_MAX_RELOADS,
+  now = Date.now,
+} = {}) {
+  if (!win || !isLikelyChunkLoadFailure(payload)) {
+    return false;
+  }
+
+  const storage = win.sessionStorage;
+  const limit = Number.isFinite(maxReloads) && maxReloads >= 0 ? maxReloads : DEFAULT_MAX_RELOADS;
+  const nowFn = typeof now === "function" ? now : Date.now;
+  const attempts = safeReadReloadCount(storage);
+
+  if (attempts >= limit) {
+    return false;
+  }
+
+  safeWriteReloadCount(storage, attempts + 1);
+  recoverNavigation(win, nowFn);
+  return true;
+}
+
 const clearRecoveryQueryParam = (win) => {
   const href = win?.location?.href;
   const replaceState = win?.history?.replaceState;
@@ -136,18 +173,13 @@ export function installChunkLoadRecovery({
     return () => {};
   }
 
-  const storage = win.sessionStorage;
-  const limit = Number.isFinite(maxReloads) && maxReloads >= 0 ? maxReloads : DEFAULT_MAX_RELOADS;
-  const nowFn = typeof now === "function" ? now : Date.now;
-
   const maybeRecover = (payload) => {
-    if (!isLikelyChunkLoadFailure(payload)) return;
-
-    const attempts = safeReadReloadCount(storage);
-    if (attempts >= limit) return;
-
-    safeWriteReloadCount(storage, attempts + 1);
-    recoverNavigation(win, nowFn);
+    tryRecoverFromChunkLoadFailure({
+      win,
+      payload,
+      maxReloads,
+      now,
+    });
   };
 
   const handleError = (event) => {

@@ -5,7 +5,11 @@
  */
 
 import { describe, expect, it, vi } from "vitest";
-import { installChunkLoadRecovery, isLikelyChunkLoadFailure } from "./chunkLoadRecovery";
+import {
+  installChunkLoadRecovery,
+  isLikelyChunkLoadFailure,
+  tryRecoverFromChunkLoadFailure,
+} from "./chunkLoadRecovery";
 
 function createMockWindow() {
   const listeners = new Map();
@@ -61,6 +65,14 @@ describe("chunkLoadRecovery", () => {
     ).toBe(true);
   });
 
+  it("detects Vite CSS preload failures from lazy chunks", () => {
+    expect(
+      isLikelyChunkLoadFailure({
+        message: "Unable to preload CSS for /assets/StickySectionNav-CUA3Qlr2.css",
+      })
+    ).toBe(true);
+  });
+
   it("detects missing hashed asset scripts by target src", () => {
     expect(
       isLikelyChunkLoadFailure({
@@ -109,6 +121,35 @@ describe("chunkLoadRecovery", () => {
       "https://beta.example.com/?foo=bar&chunk-recover=12345"
     );
     expect(mockWindow.location.reload).not.toHaveBeenCalled();
+  });
+
+  it("triggers one-time recovery when called directly with a CSS preload failure", () => {
+    const mockWindow = createMockWindow();
+
+    const firstAttempt = tryRecoverFromChunkLoadFailure({
+      win: mockWindow,
+      payload: {
+        message: "Unable to preload CSS for /assets/StickySectionNav-CUA3Qlr2.css",
+      },
+      maxReloads: 1,
+      now: () => 67890,
+    });
+
+    const secondAttempt = tryRecoverFromChunkLoadFailure({
+      win: mockWindow,
+      payload: {
+        message: "Unable to preload CSS for /assets/StickySectionNav-CUA3Qlr2.css",
+      },
+      maxReloads: 1,
+      now: () => 67890,
+    });
+
+    expect(firstAttempt).toBe(true);
+    expect(secondAttempt).toBe(false);
+    expect(mockWindow.location.replace).toHaveBeenCalledTimes(1);
+    expect(mockWindow.location.replace).toHaveBeenCalledWith(
+      "https://beta.example.com/?foo=bar&chunk-recover=67890"
+    );
   });
 
   it("does not reset reload attempts on subsequent successful loads", () => {
