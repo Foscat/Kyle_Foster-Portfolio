@@ -15,6 +15,9 @@ import "./styles.css";
 
 const asOnOff = (value) => (value ? "On" : "Off");
 const HOTKEY_LABEL = "Alt+A";
+const TEXT_SCALE_MIN = 1;
+const TEXT_SCALE_MAX = 1.3;
+const TEXT_SCALE_STEP = 0.05;
 const KEYBOARD_NAV_KEYS = new Set([
   "Tab",
   "Escape",
@@ -35,6 +38,14 @@ const isEditableTarget = (target) =>
     target.tagName === "SELECT");
 
 const announceSettingChange = (label, value) => `${label} ${value ? "enabled" : "disabled"}.`;
+const clampTextScale = (value) => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return TEXT_SCALE_MIN;
+
+  const clamped = Math.min(TEXT_SCALE_MAX, Math.max(TEXT_SCALE_MIN, numeric));
+  return Math.round(clamped * 100) / 100;
+};
+const formatTextScale = (value) => `${Math.round(clampTextScale(value) * 100)}%`;
 
 /**
  * @component A11ySwitch
@@ -133,6 +144,49 @@ function PreferenceRow({
   );
 }
 
+function TextScaleRow({ id, title, description, value, onChange, disabled = false }) {
+  const descriptionId = `${id}-description`;
+  const valueId = `${id}-value`;
+  const normalizedScale = clampTextScale(value);
+
+  return (
+    <div className="a11y-row">
+      <div className="a11y-row__content">
+        <h4 id={id} className="a11y-row__title">
+          {title}
+        </h4>
+        <p id={descriptionId} className="a11y-row__description">
+          {description}
+        </p>
+      </div>
+
+      <div className="a11y-row__actions a11y-row__actions--scale">
+        <div className="a11y-scale">
+          <label className="a11y-sr-only" htmlFor={`${id}-input`}>
+            {title}
+          </label>
+          <input
+            id={`${id}-input`}
+            type="range"
+            className="a11y-scale__input"
+            min={TEXT_SCALE_MIN}
+            max={TEXT_SCALE_MAX}
+            step={TEXT_SCALE_STEP}
+            value={normalizedScale}
+            disabled={disabled}
+            onChange={(event) => onChange(event.target.value)}
+            aria-labelledby={id}
+            aria-describedby={`${descriptionId} ${valueId}`}
+          />
+          <output id={valueId} className="a11y-scale__value" htmlFor={`${id}-input`}>
+            {formatTextScale(normalizedScale)}
+          </output>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /**
  * @component AccessibilityMenu
  * @description A menu component for managing accessibility preferences.
@@ -152,7 +206,7 @@ export default function AccessibilityMenu({
   const [isTouchFirstDevice, setIsTouchFirstDevice] = useState(false);
   const [hasKeyboardInteraction, setHasKeyboardInteraction] = useState(false);
   const {
-    largeText,
+    textScale,
     accessibilityOverrides,
     systemReducedMotion,
     systemReducedTransparency,
@@ -160,11 +214,11 @@ export default function AccessibilityMenu({
     setReducedMotionOverride,
     setReducedTransparencyOverride,
     setHighContrastOverride,
-    setLargeTextEnabled,
+    setTextScale,
     hasAccessibilityOverrides,
   } = useResponsive();
   const [draft, setDraft] = useState({
-    largeText: false,
+    textScale: TEXT_SCALE_MIN,
     reducedMotion: null,
     reducedTransparency: null,
     highContrast: null,
@@ -186,13 +240,13 @@ export default function AccessibilityMenu({
    */
   const syncDraftFromCurrent = useCallback(() => {
     setDraft({
-      largeText: largeText,
+      textScale: textScale,
       reducedMotion: accessibilityOverrides.reducedMotion,
       reducedTransparency: accessibilityOverrides.reducedTransparency,
       highContrast: accessibilityOverrides.highContrast,
     });
   }, [
-    largeText,
+    textScale,
     accessibilityOverrides.reducedMotion,
     accessibilityOverrides.reducedTransparency,
     accessibilityOverrides.highContrast,
@@ -361,13 +415,14 @@ export default function AccessibilityMenu({
   );
 
   /*
-   * @function toggleLargeText
-   * @description Toggle the large text preference in the draft state and announce the change. This function updates the draft state for large text and provides feedback to screen reader users about the new state of the preference, along with a reminder to apply changes to confirm.
+   * @function updateTextScale
+   * @description Update the draft text scale preference and announce the new percentage value. The value is clamped to the supported range before being stored.
    */
-  const toggleLargeText = useCallback(
+  const updateTextScale = useCallback(
     (value) => {
-      setDraft((prev) => ({ ...prev, largeText: Boolean(value) }));
-      announce(`${announceSettingChange("Large text", value)} Select Apply changes to confirm.`);
+      const nextScale = clampTextScale(value);
+      setDraft((prev) => ({ ...prev, textScale: nextScale }));
+      announce(`Text size set to ${formatTextScale(nextScale)}. Select Apply changes to confirm.`);
     },
     [announce]
   );
@@ -403,11 +458,11 @@ export default function AccessibilityMenu({
 
   /*
    * @function resetDraftToDefaults
-   * @description Reset all preferences in the draft state to their default values (false for large text, null for overrides to use system settings) and announce the reset action. This function allows users to quickly revert all changes in the draft state back to defaults, and provides feedback to screen reader users that the draft has been reset and that they need to apply changes to confirm.
+   * @description Reset all preferences in the draft state to their default values (100% text size and system defaults for toggles) and announce the reset action. This function allows users to quickly revert all changes in the draft state back to defaults, and provides feedback to screen reader users that the draft has been reset and that they need to apply changes to confirm.
    */
   const resetDraftToDefaults = useCallback(() => {
     setDraft({
-      largeText: false,
+      textScale: TEXT_SCALE_MIN,
       reducedMotion: null,
       reducedTransparency: null,
       highContrast: null,
@@ -416,7 +471,7 @@ export default function AccessibilityMenu({
   }, [announce]);
 
   const hasPendingChanges =
-    draft.largeText !== largeText ||
+    Math.abs(draft.textScale - textScale) > 0.001 ||
     draft.reducedMotion !== accessibilityOverrides.reducedMotion ||
     draft.reducedTransparency !== accessibilityOverrides.reducedTransparency ||
     draft.highContrast !== accessibilityOverrides.highContrast;
@@ -434,7 +489,7 @@ export default function AccessibilityMenu({
     setReducedMotionOverride(draft.reducedMotion);
     setReducedTransparencyOverride(draft.reducedTransparency);
     setHighContrastOverride(draft.highContrast);
-    setLargeTextEnabled(draft.largeText);
+    setTextScale(draft.textScale);
 
     // Allow one paint for the new CSS variables/data-attrs before ending loading.
     await new Promise((resolve) => {
@@ -453,12 +508,12 @@ export default function AccessibilityMenu({
     blurActiveElement,
     announce,
     draft.highContrast,
-    draft.largeText,
+    draft.textScale,
     draft.reducedMotion,
     draft.reducedTransparency,
     hasPendingChanges,
     setHighContrastOverride,
-    setLargeTextEnabled,
+    setTextScale,
     setReducedMotionOverride,
     setReducedTransparencyOverride,
   ]);
@@ -535,14 +590,12 @@ export default function AccessibilityMenu({
           ) : null}
 
           <div className="a11y-rows">
-            <PreferenceRow
-              id="a11y-large-text"
-              title="Large text"
-              description="Increase text scale for improved readability."
-              enabled={draft.largeText}
-              onToggle={toggleLargeText}
-              overrideValue={draft.largeText}
-              supportsSystem={false}
+            <TextScaleRow
+              id="a11y-text-scale"
+              title="Text size"
+              description="Adjust text scale across the interface for readability."
+              value={draft.textScale}
+              onChange={updateTextScale}
               disabled={isApplying}
             />
 

@@ -7,7 +7,7 @@
 
 const CHUNK_RELOAD_SESSION_KEY = "portfolio-chunk-reload-attempt";
 const CHUNK_RECOVERY_QUERY_PARAM = "chunk-recover";
-const DEFAULT_MAX_RELOADS = 1;
+const DEFAULT_MAX_RELOADS = 2;
 
 const DYNAMIC_IMPORT_FAILURE_PATTERNS = [
   /Failed to fetch dynamically imported module/i,
@@ -25,19 +25,25 @@ const DYNAMIC_IMPORT_FAILURE_PATTERNS = [
  * @param {string} [payload.message] - Error message text.
  * @param {string} [payload.filename] - Error filename from `window.onerror`.
  * @param {string} [payload.targetSrc] - Script src from `ErrorEvent.target`.
+ * @param {string} [payload.targetHref] - Link href from `ErrorEvent.target`.
  * @param {boolean} [payload.isScriptLoadEvent=false] - True when the originating error event
  * is a script load failure event rather than a runtime exception.
+ * @param {boolean} [payload.isStyleLoadEvent=false] - True when the originating error event
+ * is a stylesheet load failure.
  * @returns {boolean} True when the payload indicates a likely deploy-time chunk mismatch.
  */
 export function isLikelyChunkLoadFailure({
   message = "",
   filename = "",
   targetSrc = "",
+  targetHref = "",
   isScriptLoadEvent = false,
+  isStyleLoadEvent = false,
 } = {}) {
   const combinedMessage = String(message || "").trim();
   const normalizedFilename = String(filename || "");
   const normalizedTargetSrc = String(targetSrc || "");
+  const normalizedTargetHref = String(targetHref || "");
 
   if (DYNAMIC_IMPORT_FAILURE_PATTERNS.some((pattern) => pattern.test(combinedMessage))) {
     return true;
@@ -46,6 +52,11 @@ export function isLikelyChunkLoadFailure({
   // Script element load failure for hashed Vite chunks.
   const scriptSource = normalizedTargetSrc || (isScriptLoadEvent ? normalizedFilename : "");
   if (/\/assets\/[^/]+\.js(?:\?.*)?$/i.test(scriptSource)) {
+    return true;
+  }
+
+  const styleSource = normalizedTargetHref || (isStyleLoadEvent ? normalizedFilename : "");
+  if (/\/assets\/[^/]+\.css(?:\?.*)?$/i.test(styleSource)) {
     return true;
   }
 
@@ -186,15 +197,22 @@ export function installChunkLoadRecovery({
     const target = event?.target;
     const hasScriptSrc =
       target && typeof target === "object" && "src" in target && typeof target.src === "string";
+    const hasLinkHref =
+      target && typeof target === "object" && "href" in target && typeof target.href === "string";
     const isScriptElement =
       typeof HTMLScriptElement !== "undefined" && target instanceof HTMLScriptElement;
+    const isLinkElement =
+      typeof HTMLLinkElement !== "undefined" && target instanceof HTMLLinkElement;
     const isScriptLoadEvent = isScriptElement || (hasScriptSrc && !event?.message);
+    const isStyleLoadEvent = isLinkElement || (hasLinkHref && !event?.message);
 
     maybeRecover({
       message: event?.message,
       filename: event?.filename,
       targetSrc: hasScriptSrc ? target.src : "",
+      targetHref: hasLinkHref ? target.href : "",
       isScriptLoadEvent,
+      isStyleLoadEvent,
     });
   };
 

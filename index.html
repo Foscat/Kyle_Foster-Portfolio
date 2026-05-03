@@ -23,7 +23,7 @@
       (() => {
         const CHUNK_RELOAD_SESSION_KEY = "portfolio-chunk-reload-attempt";
         const CHUNK_RECOVERY_QUERY_PARAM = "chunk-recover";
-        const MAX_RELOADS = 1;
+        const MAX_RELOADS = 2;
 
         const safeReadReloadCount = () => {
           try {
@@ -44,6 +44,7 @@
         };
 
         const isAssetScriptUrl = (url) => /\/assets\/[^/]+\.js(?:\?.*)?$/i.test(String(url || ""));
+        const isAssetStyleUrl = (url) => /\/assets\/[^/]+\.css(?:\?.*)?$/i.test(String(url || ""));
 
         const recoverFromMissingChunk = () => {
           const attempts = safeReadReloadCount();
@@ -69,12 +70,24 @@
             if (!target || target === window) return;
 
             const scriptSrc = typeof target.src === "string" ? target.src : "";
-            if (!isAssetScriptUrl(scriptSrc)) return;
+            const linkHref = typeof target.href === "string" ? target.href : "";
+            const isRecoverableAsset =
+              isAssetScriptUrl(scriptSrc) ||
+              isAssetStyleUrl(linkHref) ||
+              /Unable to preload CSS for\s+\/assets\//i.test(String(event?.message || ""));
+            if (!isRecoverableAsset) return;
 
             recoverFromMissingChunk();
           },
           true
         );
+
+        window.addEventListener("unhandledrejection", (event) => {
+          const reasonMessage =
+            event?.reason instanceof Error ? event.reason.message : String(event?.reason ?? "");
+          if (!/Unable to preload CSS for\s+\/assets\//i.test(reasonMessage)) return;
+          recoverFromMissingChunk();
+        });
       })();
     </script>
     <script type="module" src="/src/main.jsx"></script>

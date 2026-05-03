@@ -139,8 +139,18 @@ const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = 
  * - Uses the design-system `Btn` and `FrostedIcon` components
  *
  * Mobile layout:
- * - Burger-triggered RSuite `Drawer`
- * - Vertical, text-based navigation
+ * - Fixed left-rail of floating icon buttons (nav toggle, color, a11y, resume,
+ *   section-nav when available); button dimensions controlled by
+ *   `--sticky-nav-mobile-trigger-size`
+ * - Nav toggle, section-nav, a11y, and resume icons all use
+ *   `--sticky-nav-mobile-trigger-utility-glyph-size` with `scale(1.45)` so
+ *   every rail icon renders at consistent visual weight
+ * - Color toggle uses the base `--sticky-nav-mobile-trigger-glyph-size` token
+ * - Each floating rail button is wrapped in a `div.{role}-toggle-btn.mobile-only.nav-mobile-only`;
+ *   test IDs: `mobile-nav-trigger-wrapper`, `mobile-color-trigger-wrapper`,
+ *   `mobile-a11y-trigger-wrapper`, `mobile-resume-trigger-wrapper`
+ * - Burger-triggered RSuite `Drawer` for primary page navigation
+ * - Vertical, text-based navigation inside the Drawer
  * - Touch-friendly and hover-independent
  *
  * Shared behavior:
@@ -278,7 +288,7 @@ const StickyNav = ({ activePage }) => {
                   ariaLabel={label}
                   clickable
                   className={`nav-icon ${isActive ? "is-active" : ""}`}
-                  size={Size.SM}
+                  size={Size.LG}
                   noBG
                 />
               </Nav.Item>
@@ -317,7 +327,10 @@ const StickyNav = ({ activePage }) => {
          ------------------------------------------------------------
          Burger button toggles Drawer-based navigation.
          ============================================================ */}
-      <div className="nav-toggle-btn mobile-only nav-mobile-only">
+      <div
+        className="nav-toggle-btn mobile-only nav-mobile-only"
+        data-testid="mobile-nav-trigger-wrapper"
+      >
         <span className="mobile-icon-hint">Menu</span>
         <Btn
           icon={faSignsPost}
@@ -336,6 +349,7 @@ const StickyNav = ({ activePage }) => {
 
       <div
         className="color-toggle-btn mobile-only nav-mobile-only"
+        data-testid="mobile-color-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
         <span className="mobile-icon-hint">Color</span>
@@ -344,6 +358,7 @@ const StickyNav = ({ activePage }) => {
 
       <div
         className="a11y-toggle-btn mobile-only nav-mobile-only"
+        data-testid="mobile-a11y-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
         <span className="mobile-icon-hint">A11y</span>
@@ -352,6 +367,7 @@ const StickyNav = ({ activePage }) => {
 
       <div
         className="resume-toggle-btn mobile-only nav-mobile-only"
+        data-testid="mobile-resume-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
         <span className="mobile-icon-hint">Resume</span>

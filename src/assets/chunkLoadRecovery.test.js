@@ -82,6 +82,15 @@ describe("chunkLoadRecovery", () => {
     ).toBe(true);
   });
 
+  it("detects missing hashed asset styles by target href", () => {
+    expect(
+      isLikelyChunkLoadFailure({
+        targetHref: "https://beta.example.com/assets/StickyNav-BOIkBqnZ.css",
+        isStyleLoadEvent: true,
+      })
+    ).toBe(true);
+  });
+
   it("ignores extension-only errors", () => {
     expect(
       isLikelyChunkLoadFailure({

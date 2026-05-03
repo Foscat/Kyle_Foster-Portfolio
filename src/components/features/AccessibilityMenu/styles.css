@@ -128,6 +128,35 @@
   gap: 0.45rem;
 }
 
+.a11y-row__actions--scale {
+  align-items: stretch;
+  min-width: 172px;
+}
+
+.a11y-scale {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 172px;
+}
+
+.a11y-scale__input {
+  width: 100%;
+  margin: 0;
+  accent-color: rgba(var(--accent-rgb), 0.95);
+  cursor: pointer;
+}
+
+.a11y-scale__input:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.a11y-scale__value {
+  font-size: var(--font-xxs);
+  color: var(--text-secondary);
+  text-align: right;
+}
+
 .a11y-switch {
   display: inline-flex;
   position: relative;
@@ -149,11 +178,11 @@
 
 .a11y-switch__input {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   margin: 0;
   opacity: 0;
   cursor: pointer;
+  z-index: 2;
 }
 
 .a11y-switch__track {
@@ -167,6 +196,7 @@
   background: rgba(var(--primary-darkest-rgb), 0.65);
   overflow: hidden;
   clip-path: inset(0 round 999px);
+  pointer-events: none;
 }
 
 .a11y-switch__thumb {
@@ -307,6 +337,10 @@ html[data-theme="light"] .a11y-row__mode {
   color: rgba(var(--accent-dark-rgb), 0.98);
 }
 
+html[data-theme="light"] .a11y-scale__value {
+  color: rgba(var(--primary-dark-rgb), 0.88);
+}
+
 html[data-theme="light"] .a11y-keyboard__list li {
   color: rgba(var(--primary-dark-rgb), 0.92);
 }
@@ -347,6 +381,16 @@ html[data-theme="light"] .a11y-switch.is-on .a11y-switch__track {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .a11y-row__actions--scale {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .a11y-scale {
+    width: 100%;
+    min-width: 0;
   }
 
   .a11y-palette .palette-toggle {

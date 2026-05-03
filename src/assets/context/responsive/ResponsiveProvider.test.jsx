@@ -47,6 +47,7 @@ describe("ResponsiveProvider", () => {
   beforeEach(() => {
     listenersByQuery = new Map();
     window.innerWidth = 1440;
+    window.localStorage.clear();
 
     matchMediaMock = vi.fn((query) => {
       const entry = {
@@ -111,6 +112,22 @@ describe("ResponsiveProvider", () => {
     await waitFor(() => {
       expect(document.documentElement.style.getPropertyValue("--spacing-section")).toBe("2rem");
       expect(document.documentElement.style.getPropertyValue("--spacing-gutter")).toBe("1.5rem");
+    });
+  });
+
+  it("migrates legacy large text overrides to text scale", async () => {
+    window.localStorage.setItem(
+      "portfolio-a11y-overrides",
+      JSON.stringify({ largeText: true, reducedMotion: null, reducedTransparency: null })
+    );
+
+    renderWithProviders(<ResponsiveProbe />);
+
+    await waitFor(() => {
+      expect(document.documentElement.dataset.a11yLargeText).toBe("true");
+      expect(document.documentElement.style.getPropertyValue("--accessibility-text-scale")).toBe(
+        "1.16"
+      );
     });
   });
 
