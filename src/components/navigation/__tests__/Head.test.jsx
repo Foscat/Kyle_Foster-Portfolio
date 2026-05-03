@@ -28,8 +28,10 @@ const renderHead = (path = "/") => {
   return renderWithProviders(<Head />);
 };
 
+// eslint-disable-next-line testing-library/no-node-access -- <head> meta/JSON-LD has no ARIA role; direct DOM access is the only option
 const getMetaContent = (selector) => document.head.querySelector(selector)?.getAttribute("content");
 const getJsonLdGraphTypes = () => {
+  // eslint-disable-next-line testing-library/no-node-access -- querying <head> script tags for JSON-LD; no Testing Library equivalent
   const scripts = document.head.querySelectorAll('script[type="application/ld+json"]');
   const script = scripts[scripts.length - 1];
   if (!script?.textContent) return [];

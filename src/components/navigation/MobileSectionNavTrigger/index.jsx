@@ -37,12 +37,20 @@ const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
  *
  * @param {object} props
  * @param {string} props.title - Title displayed in the drawer header.
- * @param {Array} props.sections - List of sections with optional blocks for navigation.
+ * @param {Array} props.sections - List of sections. Each section may contain a `navItems`
+ *   array (takes priority) or a `blocks` array for subsection navigation.
  * @param {string} props.activeLeafId - ID of the currently active block (for highlighting).
  * @param {Array} props.activeChain - List of active section IDs in the current scroll path.
  * @param {function} props.isExpanded - Function to determine if a section's subsections are expanded.
  * @param {function} props.onToggleSection - Callback to toggle a section's expanded state.
  * @param {function} props.navigate - Callback to handle navigation when a section or block is clicked.
+ *
+ * @remarks
+ * Renders a fixed floating trigger button inside a `.sect-nav-toggle-btn.mobile-only` wrapper
+ * (`data-testid="mobile-sect-nav-trigger-wrapper"`); the StickyNav stylesheet sizes and positions
+ * this wrapper on the mobile rail.
+ * Sets `data-has-mobile-section-nav="true"` on `document.documentElement` while mounted so the
+ * CSS rail layout can reserve the extra slot position; the attribute is removed on unmount.
  * @returns {JSX.Element}
  *
  * @example
@@ -138,7 +146,10 @@ const MobileSectionNavTrigger = ({
   return (
     <>
       {/* Trigger Button */}
-      <div className="sect-nav-toggle-btn mobile-only">
+      <div
+        className="sect-nav-toggle-btn mobile-only"
+        data-testid="mobile-sect-nav-trigger-wrapper"
+      >
         <span className="mobile-icon-hint">Sections</span>
         <Btn
           icon={faListUl}

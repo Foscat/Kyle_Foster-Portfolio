@@ -284,6 +284,14 @@ html[data-a11y-reduced-motion="true"] * {
   scroll-behavior: auto !important;
 }
 
+html[data-a11y-reduced-transparency="true"] {
+  --slight-blur: none;
+  --glass-blur: none;
+  --backdrop-blur: none;
+  --a11y-reduced-transparency-surface-bg: rgba(var(--primary-darkest-rgb), 0.96);
+  --a11y-reduced-transparency-surface-border: rgba(var(--white-rgb), 0.32);
+}
+
 html[data-a11y-reduced-transparency="true"] * {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -296,11 +304,17 @@ html[data-a11y-reduced-transparency="true"] .frosted-icon,
 html[data-a11y-reduced-transparency="true"] .desktop-menu,
 html[data-a11y-reduced-transparency="true"] .rs-modal-content,
 html[data-a11y-reduced-transparency="true"] .rs-drawer-content,
-html[data-a11y-reduced-transparency="true"] .btn {
+html[data-a11y-reduced-transparency="true"] .btn,
+html[data-a11y-reduced-transparency="true"] .interactive-surface {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
-  background: rgba(var(--primary-darkest-rgb), 0.92) !important;
-  border-color: rgba(var(--white-rgb), 0.28) !important;
+  background: var(--a11y-reduced-transparency-surface-bg) !important;
+  border-color: var(--a11y-reduced-transparency-surface-border) !important;
+}
+
+html[data-theme="light"][data-a11y-reduced-transparency="true"] {
+  --a11y-reduced-transparency-surface-bg: rgba(var(--white-rgb), 0.97);
+  --a11y-reduced-transparency-surface-border: rgba(var(--black-rgb), 0.22);
 }
 
 html[data-theme="dark"][data-a11y-high-contrast="true"] {

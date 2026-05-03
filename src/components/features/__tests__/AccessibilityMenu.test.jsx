@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithProviders from "tests/renderWithProviders";
 import AccessibilityMenu from "../AccessibilityMenu";
@@ -42,7 +42,22 @@ describe("AccessibilityMenu", () => {
     });
   });
 
-  it("opens via Alt+A hotkey and announces updates", async () => {
+  it("applies reduced transparency from the modal", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<AccessibilityMenu enableHotkey />);
+
+    await user.click(screen.getByRole("button", { name: /open accessibility settings/i }));
+    await screen.findByRole("dialog", { name: /accessibility settings/i });
+
+    await user.click(screen.getByRole("switch", { name: /reduce transparency/i }));
+    await user.click(screen.getByRole("button", { name: /apply accessibility changes/i }));
+
+    await waitFor(() => {
+      expect(document.documentElement.dataset.a11yReducedTransparency).toBe("true");
+    });
+  });
+
+  it("opens via Alt+A hotkey and applies text scale updates", async () => {
     const user = userEvent.setup();
     renderWithProviders(<AccessibilityMenu enableHotkey />);
 
@@ -50,11 +65,15 @@ describe("AccessibilityMenu", () => {
 
     await screen.findByRole("dialog", { name: /accessibility settings/i });
 
-    await user.click(screen.getByRole("switch", { name: /large text/i }));
+    const textScaleSlider = screen.getByRole("slider", { name: /text size/i });
+    fireEvent.change(textScaleSlider, { target: { value: "1.2" } });
     await user.click(screen.getByRole("button", { name: /apply accessibility changes/i }));
 
     await waitFor(() => {
       expect(document.documentElement.dataset.a11yLargeText).toBe("true");
+      expect(document.documentElement.style.getPropertyValue("--accessibility-text-scale")).toBe(
+        "1.2"
+      );
     });
   });
 
