@@ -17,11 +17,15 @@ const ACTIVE_RESPONSIVE_TOKENS_THEME = resolveResponsiveTokensTheme(
 );
 const { breakpoints, spacing: SPACING_SCALE, cssVars } = ACTIVE_RESPONSIVE_TOKENS_THEME;
 const A11Y_OVERRIDES_STORAGE_KEY = "portfolio-a11y-overrides";
+const TEXT_SCALE_MIN = 1;
+const TEXT_SCALE_MAX = 1.3;
+const DEFAULT_TEXT_SCALE = 1;
+const LEGACY_LARGE_TEXT_SCALE = 1.16;
 const DEFAULT_A11Y_OVERRIDES = Object.freeze({
   reducedMotion: null,
   reducedTransparency: null,
   highContrast: null,
-  largeText: false,
+  textScale: DEFAULT_TEXT_SCALE,
 });
 
 const sanitizeOverrideBoolean = (value) => {
@@ -36,6 +40,14 @@ const sanitizeStoredBoolean = (value, fallback = false) => {
   return fallback;
 };
 
+const sanitizeTextScale = (value, fallback = DEFAULT_TEXT_SCALE) => {
+  const numeric = typeof value === "string" ? Number(value) : value;
+  if (!Number.isFinite(numeric)) return fallback;
+
+  const clamped = Math.min(TEXT_SCALE_MAX, Math.max(TEXT_SCALE_MIN, numeric));
+  return Math.round(clamped * 100) / 100;
+};
+
 function getStoredA11yOverrides() {
   if (typeof window === "undefined") return { ...DEFAULT_A11Y_OVERRIDES };
 
@@ -44,11 +56,14 @@ function getStoredA11yOverrides() {
     if (!raw) return { ...DEFAULT_A11Y_OVERRIDES };
 
     const parsed = JSON.parse(raw);
+    const legacyLargeTextEnabled = sanitizeStoredBoolean(parsed?.largeText, false);
+    const fallbackScale = legacyLargeTextEnabled ? LEGACY_LARGE_TEXT_SCALE : DEFAULT_TEXT_SCALE;
+
     return {
       reducedMotion: sanitizeOverrideBoolean(parsed?.reducedMotion),
       reducedTransparency: sanitizeOverrideBoolean(parsed?.reducedTransparency),
       highContrast: sanitizeOverrideBoolean(parsed?.highContrast),
-      largeText: sanitizeStoredBoolean(parsed?.largeText, false),
+      textScale: sanitizeTextScale(parsed?.textScale, fallbackScale),
     };
   } catch {
     return { ...DEFAULT_A11Y_OVERRIDES };
@@ -161,7 +176,8 @@ export function ResponsiveProvider({ children }) {
   const reducedMotion = a11yOverrides.reducedMotion ?? systemReducedMotion;
   const reducedTransparency = a11yOverrides.reducedTransparency ?? systemReducedTransparency;
   const highContrast = a11yOverrides.highContrast ?? systemHighContrast;
-  const largeText = Boolean(a11yOverrides.largeText);
+  const textScale = sanitizeTextScale(a11yOverrides.textScale, DEFAULT_TEXT_SCALE);
+  const largeText = textScale > DEFAULT_TEXT_SCALE;
 
   // Listen for window resize events and update state accordingly
   useEffect(() => {
@@ -277,9 +293,19 @@ export function ResponsiveProvider({ children }) {
     setA11yOverrides((prev) => ({ ...prev, highContrast: sanitizeOverrideBoolean(value) }));
   }, []);
 
-  const setLargeTextEnabled = useCallback((value) => {
-    setA11yOverrides((prev) => ({ ...prev, largeText: Boolean(value) }));
+  const setTextScale = useCallback((value) => {
+    setA11yOverrides((prev) => ({
+      ...prev,
+      textScale: sanitizeTextScale(value, DEFAULT_TEXT_SCALE),
+    }));
   }, []);
+
+  const setLargeTextEnabled = useCallback(
+    (value) => {
+      setTextScale(value ? LEGACY_LARGE_TEXT_SCALE : DEFAULT_TEXT_SCALE);
+    },
+    [setTextScale]
+  );
 
   const resetAccessibilityPreferences = useCallback(() => {
     setA11yOverrides({ ...DEFAULT_A11Y_OVERRIDES });
@@ -328,13 +354,13 @@ export function ResponsiveProvider({ children }) {
     root.style.setProperty("--prefers-reduced-motion", reducedMotion ? "1" : "0");
     root.style.setProperty("--prefers-reduced-transparency", reducedTransparency ? "1" : "0");
     root.style.setProperty("--prefers-high-contrast", highContrast ? "1" : "0");
-    root.style.setProperty("--accessibility-text-scale", largeText ? "1.08" : "1");
+    root.style.setProperty("--accessibility-text-scale", String(textScale));
 
     root.dataset.a11yReducedMotion = reducedMotion ? "true" : "false";
     root.dataset.a11yReducedTransparency = reducedTransparency ? "true" : "false";
     root.dataset.a11yHighContrast = highContrast ? "true" : "false";
     root.dataset.a11yLargeText = largeText ? "true" : "false";
-  }, [reducedMotion, reducedTransparency, highContrast, largeText]);
+  }, [reducedMotion, reducedTransparency, highContrast, textScale, largeText]);
 
   /**
    * @function contextValue
@@ -348,7 +374,7 @@ export function ResponsiveProvider({ children }) {
       a11yOverrides.reducedMotion !== null ||
       a11yOverrides.reducedTransparency !== null ||
       a11yOverrides.highContrast !== null ||
-      Boolean(a11yOverrides.largeText);
+      sanitizeTextScale(a11yOverrides.textScale, DEFAULT_TEXT_SCALE) !== DEFAULT_TEXT_SCALE;
 
     return {
       themeId: ACTIVE_RESPONSIVE_TOKENS_THEME.id,
@@ -364,6 +390,7 @@ export function ResponsiveProvider({ children }) {
       systemReducedTransparency,
       systemHighContrast,
       largeText,
+      textScale,
 
       isMobile: breakpoint === "mobile",
       isTablet: breakpoint === "tablet",
@@ -377,6 +404,7 @@ export function ResponsiveProvider({ children }) {
       setReducedMotionOverride,
       setReducedTransparencyOverride,
       setHighContrastOverride,
+      setTextScale,
       setLargeTextEnabled,
       resetAccessibilityPreferences,
     };
@@ -391,10 +419,12 @@ export function ResponsiveProvider({ children }) {
     systemReducedTransparency,
     systemHighContrast,
     largeText,
+    textScale,
     a11yOverrides,
     setReducedMotionOverride,
     setReducedTransparencyOverride,
     setHighContrastOverride,
+    setTextScale,
     setLargeTextEnabled,
     resetAccessibilityPreferences,
   ]);

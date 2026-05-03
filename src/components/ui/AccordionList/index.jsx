@@ -362,12 +362,11 @@ const AccordionList = ({
         break;
       case "Enter":
       case " ":
+      case "Space":
+      case "Spacebar":
         e.preventDefault();
-        if (item.isScroller && item.id) {
-          scrollTo(item.id);
-        }
-        if (accordion) {
-          togglePanel(index);
+        if (e.target instanceof HTMLElement) {
+          e.target.click();
         }
         break;
       default:
@@ -401,6 +400,12 @@ const AccordionList = ({
   const handlePanelGroupSelect = (eventKey) => {
     const panelIndex = Number(eventKey);
     if (Number.isNaN(panelIndex)) return;
+
+    const item = items[panelIndex];
+    if (item?.isScroller && item?.id) {
+      scrollTo(item.id);
+    }
+
     togglePanel(panelIndex);
   };
 

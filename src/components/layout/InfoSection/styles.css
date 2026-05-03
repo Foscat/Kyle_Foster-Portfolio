@@ -121,6 +121,16 @@ section.info-section.section-renderer .rs-panel {
   margin: 0 auto;
 }
 
+/* Sub-sections rendered inside section content should be left-aligned. */
+.info-content > .info-section .title-wrapper {
+  justify-content: flex-start;
+}
+
+.info-content > .info-section .info-title,
+.info-content > .info-section .info-subtitle {
+  text-align: left;
+}
+
 /* ------------------------------------------------------------
    Typography normalization
    ------------------------------------------------------------

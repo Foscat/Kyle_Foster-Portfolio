@@ -202,12 +202,13 @@ Mobile drawer-based section navigation with collapsible subsections.
 **Kind**: inner property of [<code>components/MobileSectionNavTrigger</code>](#module_components/MobileSectionNavTrigger)  
 **Access**: public  
 **Component**:   
+**Remarks**: Renders a fixed floating trigger button inside a `.sect-nav-toggle-btn.mobile-only` wrapper(`data-testid="mobile-sect-nav-trigger-wrapper"`); the StickyNav stylesheet sizes and positionsthis wrapper on the mobile rail.Sets `data-has-mobile-section-nav="true"` on `document.documentElement` while mounted so theCSS rail layout can reserve the extra slot position; the attribute is removed on unmount.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | props | <code>object</code> |  |
 | props.title | <code>string</code> | Title displayed in the drawer header. |
-| props.sections | <code>Array</code> | List of sections with optional blocks for navigation. |
+| props.sections | <code>Array</code> | List of sections. Each section may contain a `navItems`   array (takes priority) or a `blocks` array for subsection navigation. |
 | props.activeLeafId | <code>string</code> | ID of the currently active block (for highlighting). |
 | props.activeChain | <code>Array</code> | List of active section IDs in the current scroll path. |
 | props.isExpanded | <code>function</code> | Function to determine if a section's subsections are expanded. |
@@ -289,7 +290,7 @@ Centralized click handler for navigation items that prevents redundantnavigatio
 <a name="module_components/StickyNav..StickyNav"></a>
 
 ### components/StickyNav~StickyNav(props) ⇒ <code>JSX.Element</code>
-StickyNav------------------------------------------------------------------Primary site navigation component with dual layouts:Desktop layout:- Horizontal icon-based navigation- Icon-only buttons with hover tooltips- Uses the design-system `Btn` and `FrostedIcon` componentsMobile layout:- Burger-triggered RSuite `Drawer`- Vertical, text-based navigation- Touch-friendly and hover-independentShared behavior:- Active route highlighting- `aria-current="page"` for accessibility- Active route suppresses navigation without disabling styles
+StickyNav------------------------------------------------------------------Primary site navigation component with dual layouts:Desktop layout:- Horizontal icon-based navigation- Icon-only buttons with hover tooltips- Uses the design-system `Btn` and `FrostedIcon` componentsMobile layout:- Fixed left-rail of floating icon buttons (nav toggle, color, a11y, resume,  section-nav when available); button dimensions controlled by  `--sticky-nav-mobile-trigger-size`- Nav toggle, section-nav, a11y, and resume icons all use  `--sticky-nav-mobile-trigger-utility-glyph-size` with `scale(1.45)` so  every rail icon renders at consistent visual weight- Color toggle uses the base `--sticky-nav-mobile-trigger-glyph-size` token- Each floating rail button is wrapped in a `div.{role}-toggle-btn.mobile-only.nav-mobile-only`;  test IDs: `mobile-nav-trigger-wrapper`, `mobile-color-trigger-wrapper`,  `mobile-a11y-trigger-wrapper`, `mobile-resume-trigger-wrapper`- Burger-triggered RSuite `Drawer` for primary page navigation- Vertical, text-based navigation inside the Drawer- Touch-friendly and hover-independentShared behavior:- Active route highlighting- `aria-current="page"` for accessibility- Active route suppresses navigation without disabling styles
 
 **Kind**: inner method of [<code>components/StickyNav</code>](#module_components/StickyNav)  
 **Returns**: <code>JSX.Element</code> - Rendered sticky navigation.  

@@ -146,6 +146,48 @@ describe("StickyNav", () => {
     ).toBeGreaterThan(0);
   });
 
+  it("renders the mobile floating nav trigger in the nav-toggle-btn wrapper", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    const wrapper = screen.getByTestId("mobile-nav-trigger-wrapper");
+    expect(wrapper).toBeInTheDocument();
+    expect(
+      within(wrapper).getByRole("button", { name: /open navigation menu/i })
+    ).toBeInTheDocument();
+  });
+
+  it("renders the mobile floating a11y trigger in the a11y-toggle-btn wrapper", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    const wrapper = screen.getByTestId("mobile-a11y-trigger-wrapper");
+    expect(wrapper).toBeInTheDocument();
+    expect(
+      within(wrapper).getByRole("button", { name: /open accessibility settings/i })
+    ).toBeInTheDocument();
+  });
+
+  it("renders the mobile floating resume trigger in the resume-toggle-btn wrapper", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    const wrapper = screen.getByTestId("mobile-resume-trigger-wrapper");
+    expect(wrapper).toBeInTheDocument();
+    expect(
+      within(wrapper).getByRole("button", {
+        name: /open resume preview and download options/i,
+      })
+    ).toBeInTheDocument();
+  });
+
+  it("renders the mobile floating color trigger in the color-toggle-btn wrapper", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    const wrapper = screen.getByTestId("mobile-color-trigger-wrapper");
+    expect(wrapper).toBeInTheDocument();
+    expect(
+      within(wrapper).getByRole("button", { name: /open color settings/i })
+    ).toBeInTheDocument();
+  });
+
   it("opens the site navigation drawer when Control is pressed", async () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
