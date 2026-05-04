@@ -37,7 +37,7 @@ const smuSections = [
     blocks: [
       {
         id: "smu-overview-text",
-        title: "Overview",
+        title: "Bootcamp Foundations",
         type: BlockType.RICH_TEXT,
         icon: faTowerObservation,
         content: [

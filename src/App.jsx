@@ -7,8 +7,10 @@
 
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Head } from "components/navigation";
 import Home from "pages/Home";
+import { useThemeFavicon } from "hooks/useThemeFavicon";
 import "./App.css";
 // Interactive surface CSS package.
 import "interactive-surface-css";
@@ -22,7 +24,7 @@ const Docs = lazy(() => import("pages/Docs"));
 const Health = lazy(() => import("pages/Health"));
 const NotFound = lazy(() => import("pages/NotFound"));
 
-/**
+/*
  * @public
  * @component
  * @name App
@@ -41,6 +43,10 @@ const NotFound = lazy(() => import("pages/NotFound"));
  * ```
  */
 export default function App() {
+  const { theme, palette } = useTheme();
+
+  useThemeFavicon(theme, palette);
+
   return (
     <BrowserRouter
       future={{

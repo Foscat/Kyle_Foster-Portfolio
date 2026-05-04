@@ -1,6 +1,9 @@
 ## Modules
 
 <dl>
+<dt><a href="#module_src/tests/fixtures/loadInteractiveSurfaceCss">src/tests/fixtures/loadInteractiveSurfaceCss</a></dt>
+<dd><p>Loads interactive-surface styles for fixture-driven tests.</p>
+</dd>
 <dt><a href="#module_src\tests\helpers\clickAndExpectPrevented">src\tests\helpers\clickAndExpectPrevented</a></dt>
 <dd><p>src\tests\helpers\clickAndExpectPrevented module.</p>
 </dd>
@@ -29,6 +32,11 @@ The goal of this setup file is to provide a consistent and reliable testing envi
 </ul>
 </dd>
 </dl>
+
+<a name="module_src/tests/fixtures/loadInteractiveSurfaceCss"></a>
+
+## src/tests/fixtures/loadInteractiveSurfaceCss
+Loads interactive-surface styles for fixture-driven tests.
 
 <a name="module_src\tests\helpers\clickAndExpectPrevented"></a>
 

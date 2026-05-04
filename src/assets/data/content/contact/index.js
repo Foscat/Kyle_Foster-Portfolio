@@ -22,7 +22,7 @@ const contactSections = [
             children: [
               {
                 type: "text",
-                text: "I'm a Senior React / Frontend Engineer. You can reach me through any of the channels below:",
+                text: "I'm a Senior React / Frontend Engineer open to remote roles, product UI work, and consulting conversations. You can reach me through any of the channels below:",
               },
             ],
           },
