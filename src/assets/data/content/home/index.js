@@ -1251,7 +1251,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "Whether you're hiring, exploring a collaboration, or simply want to talk through ideas, feel free to reach out. I’m always open to meaningful conversations and new challenges.",
+                text: "I'm open to remote senior frontend / React roles, product UI work, and consulting conversations where clear workflows, maintainable systems, and thoughtful execution matter.",
               },
             ],
           },
@@ -1263,7 +1263,7 @@ const homeSections = [
         items: [
           {
             id: "cta-contact-me",
-            title: "Contact Me",
+            title: "Open Contact Page",
             url: PageRoute.CONTACT,
             icon: faEnvelope,
             tooltip: "View contact page",

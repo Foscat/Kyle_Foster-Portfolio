@@ -31,7 +31,7 @@ import { PageRoute } from "types/navigation.types";
 
 const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
 
-/**
+/*
  * @typedef {Object} NavItem
  * @description Describes a single navigation entry rendered in both desktop and mobile
  * navigation variants.
@@ -42,7 +42,7 @@ const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
  * @property {*} icon - FontAwesome icon associated with the route.
  */
 
-/**
+/*
  * @constant {NavItem[]} NAV_ITEMS
  * @description Centralized definition of all navigable routes used by both desktop and
  * mobile navigation variants.
@@ -69,8 +69,8 @@ const NAV_ITEMS = [
     label: "Personal Projects",
     icon: faFolderOpen,
   },
-  { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
   { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact Me", icon: faEnvelope },
+  { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
 ];
 
 const isEditableTarget = (target) =>
@@ -80,7 +80,7 @@ const isEditableTarget = (target) =>
     target.tagName === "TEXTAREA" ||
     target.tagName === "SELECT");
 
-/**
+/*
  * @function handleNavClick
  * @description Centralized click handler for navigation items that prevents redundant
  * navigation events when the user clicks on the currently active route.
@@ -128,7 +128,7 @@ const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = 
   }
 };
 
-/**
+/*
  * StickyNav
  * ------------------------------------------------------------------
  * Primary site navigation component with dual layouts:

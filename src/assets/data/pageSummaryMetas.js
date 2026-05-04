@@ -11,7 +11,7 @@ import { PageRoute } from "types/navigation.types";
 const pageSummaryMetas = {
   Home: {
     url: PageRoute.HOME,
-    title: "Kyle Foster",
+    title: "Kyle Foster | Senior React / Frontend Engineer",
     description:
       "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product workflows with a focus on clarity and usability.",
     timespan: "2018 - Current",
@@ -23,7 +23,7 @@ const pageSummaryMetas = {
     description:
       "Explore my professional work at CodeStream Online Studios, where I built browser-based education tooling for students, instructors, and school administrators.",
     jobTitle: "Senior React / Frontend Engineer",
-    timespan: "January 2020 - March 2025",
+    timespan: "2019 - 2025",
     liveUrl: "https://codestreamonlinestudio.com",
     repo: "Private",
     tech: [

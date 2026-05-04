@@ -32,7 +32,7 @@ const sideProjectSections = [
        ============================================================ */
   {
     id: "overview",
-    title: "Overview",
+    title: "Project Collection",
     icon: faTowerObservation,
     isScroller: true,
     deferDiagrams: false,

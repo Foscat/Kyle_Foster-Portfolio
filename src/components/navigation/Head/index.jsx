@@ -69,7 +69,7 @@ export default function Head() {
       import.meta.env.VITE_SITE_URL.trim().replace(/\/$/, "")) ||
     window.location.origin;
   const canonicalUrl = `${siteOrigin}${currentPath}`;
-  const socialImageUrl = `${siteOrigin}/portfolio-icon.jpg`;
+  const socialImageUrl = `${siteOrigin}/social-share-card.png`;
   const homeUrl = `${siteOrigin}${PageRoute.HOME}`;
   const personId = `${siteOrigin}/#person`;
   const websiteId = `${siteOrigin}/#website`;
@@ -136,7 +136,7 @@ export default function Head() {
       {/* Author information */}
       <meta name="author" content="Kyle Foster" />
       {/* Favicon */}
-      <link rel="icon" type="image/svg+xml" href="/portfolio-icon.svg" />
+      <link id="app-favicon" rel="icon" type="image/png" href="/favicons/favicon-dark-ocean.png" />
       {/* Optional PNG fallback */}
       <link rel="icon" type="image/jpg" href="/portfolio-icon.jpg" />
       {/* Theme color for browsers (mobile + desktop UI accent) */}
@@ -152,11 +152,11 @@ export default function Head() {
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Kyle Foster Portfolio" />
       <meta property="og:image" content={socialImageUrl} />
-      <meta property="og:image:width" content="980" />
-      <meta property="og:image:height" content="980" />
-      <meta property="og:image:alt" content="Kyle Foster portfolio identity mark" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="Kyle Foster portfolio social share card" />
       <meta property="og:url" content={canonicalUrl} />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={currentPageMeta.title} />
       <meta name="twitter:description" content={currentPageMeta.description} />
       <meta name="twitter:image" content={socialImageUrl} />

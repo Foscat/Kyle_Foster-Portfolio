@@ -72,7 +72,7 @@ const codestreamSections = [
   {
     id: "overview",
     icon: faTowerObservation,
-    title: "Overview",
+    title: "What I Built",
     subtitle:
       "A platform that began as an urgent internal fix and grew into the company's most critical product asset.",
 
@@ -300,7 +300,7 @@ const codestreamSections = [
     isScroller: true,
     blocks: [
       {
-        title: "Platform Overview",
+        title: "Platform at a Glance",
         icon: faTowerObservation,
         id: "kf-overview",
         type: BlockType.RICH_TEXT,
