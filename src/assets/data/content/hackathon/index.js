@@ -28,7 +28,7 @@ import imageObjs from "assets/images/hackathon";
 const hackathonSections = [
   {
     id: "overview",
-    title: "Overview",
+    title: "How We Won",
     subtitle: "How a team of junior developers won Daimler's 2019 Hackathon.",
     icon: faTruckFront,
     isScroller: true,

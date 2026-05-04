@@ -25,6 +25,8 @@ test-results/
 *.trace.zip
 *.snap.new
 public/interactive-surface.css
+lint-report.html
+jsdoc-audit.md
 
 # Editor directories and files
 .vscode/*

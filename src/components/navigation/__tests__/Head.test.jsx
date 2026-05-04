@@ -99,6 +99,15 @@ describe("Head", () => {
     });
   });
 
+  it("renders the base favicon link used by theme updates", async () => {
+    renderHead("/");
+    await waitFor(() => {
+      // eslint-disable-next-line testing-library/no-node-access -- <head> favicon link has no role-based query equivalent
+      const favicon = document.head.querySelector('link#app-favicon[rel="icon"]');
+      expect(favicon?.getAttribute("href")).toBe("/favicons/favicon-dark-ocean.png");
+    });
+  });
+
   it("includes ProfilePage only on the Home route", async () => {
     renderHead("/");
     await waitFor(() => {

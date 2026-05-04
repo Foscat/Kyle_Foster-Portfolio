@@ -11,7 +11,7 @@ export default {
     description:
       "At CodeStream Studios LLC, I served as the sole frontend developer responsible for building and evolving the React application that powered the platform. I translated product ideas into shipped features, established the frontend architecture, and supported the product beyond implementation through bug fixing, documentation, and testing support. Working within a lean team sharpened my ability to balance speed, ownership, and long-term maintainability.",
     jobTitle: "Frontend Engineer",
-    timespan: "January 2020 - March 2025",
+    timespan: "2019 - 2025",
     url: "https://codestreamonlinestudio.com",
     repo: "Private",
     tech: [

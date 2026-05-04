@@ -671,12 +671,16 @@ Current year used for copyright display. Computed at render time to avoid manual
 <a name="module_components/Head"></a>
 
 ## components/Head
-Centralized document head manager responsible for injectingSEO, metadata, and social sharing tags based on the current route.
+Centralized document head manager responsible for injecting
+SEO, metadata, and social sharing tags based on the current route.
 
 <a name="exp_module_components/Head--module.exports"></a>
 
 ### module.exports() ⇒ <code>JSX.Element</code> ⏏
-Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
+Head
+---------------------------------------------------------------------------
+Dynamically configures `<head>` metadata for each page in the application
+using `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
 
 **Kind**: Exported function  
 **Returns**: <code>JSX.Element</code> - Injected document head metadata.  
@@ -771,64 +775,8 @@ A sticky/floating navigation component that uses the fully accessibleAccordionL
 <a name="module_components/StickyNav"></a>
 
 ## components/StickyNav
-Primary site navigation with synchronized desktop and mobilelayouts, active-route handling, and accessibility semantics.
-
-
-* [components/StickyNav](#module_components/StickyNav)
-    * [~NAV_ITEMS](#module_components/StickyNav..NAV_ITEMS) : <code>Array.&lt;NavItem&gt;</code>
-    * [~handleNavClick(e, isActive)](#module_components/StickyNav..handleNavClick) ⇒ <code>void</code>
-    * [~StickyNav(props)](#module_components/StickyNav..StickyNav) ⇒ <code>JSX.Element</code>
-    * [~NavItem](#module_components/StickyNav..NavItem) : <code>Object</code>
-
-<a name="module_components/StickyNav..NAV_ITEMS"></a>
-
-### components/StickyNav~NAV\_ITEMS : <code>Array.&lt;NavItem&gt;</code>
-Centralized definition of all navigable routes used by both desktop andmobile navigation variants.Keeping this data-driven:- Prevents drift between layouts- Ensures consistent ordering and labeling- Makes future additions trivial
-
-**Kind**: inner constant of [<code>components/StickyNav</code>](#module_components/StickyNav)  
-<a name="module_components/StickyNav..handleNavClick"></a>
-
-### components/StickyNav~handleNavClick(e, isActive) ⇒ <code>void</code>
-Centralized click handler for navigation items that prevents redundantnavigation events when the user clicks on the currently active route.Prevents redundant navigation when clicking the active route.Preserves:- Visual active highlighting- `aria-current="page"` accessibility semantics- While avoiding unnecessary navigation events
-
-**Kind**: inner method of [<code>components/StickyNav</code>](#module_components/StickyNav)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| e | <code>MouseEvent</code> | Click event. |
-| isActive | <code>boolean</code> | Whether the target route is already active. |
-
-**Example**  
-```js<Nav.Item   href="/home"   active={activePage === "/home"}   aria-current={activePage === "/home" ? "page" : undefined}   onClick={(e) => handleNavClick(e, activePage === "/home")}>   Home</Nav.Item>```
-<a name="module_components/StickyNav..StickyNav"></a>
-
-### components/StickyNav~StickyNav(props) ⇒ <code>JSX.Element</code>
-StickyNav------------------------------------------------------------------Primary site navigation component with dual layouts:Desktop layout:- Horizontal icon-based navigation- Icon-only buttons with hover tooltips- Uses the design-system `Btn` and `FrostedIcon` componentsMobile layout:- Fixed left-rail of floating icon buttons (nav toggle, color, a11y, resume,  section-nav when available); button dimensions controlled by  `--sticky-nav-mobile-trigger-size`- Nav toggle, section-nav, a11y, and resume icons all use  `--sticky-nav-mobile-trigger-utility-glyph-size` with `scale(1.45)` so  every rail icon renders at consistent visual weight- Color toggle uses the base `--sticky-nav-mobile-trigger-glyph-size` token- Each floating rail button is wrapped in a `div.{role}-toggle-btn.mobile-only.nav-mobile-only`;  test IDs: `mobile-nav-trigger-wrapper`, `mobile-color-trigger-wrapper`,  `mobile-a11y-trigger-wrapper`, `mobile-resume-trigger-wrapper`- Burger-triggered RSuite `Drawer` for primary page navigation- Vertical, text-based navigation inside the Drawer- Touch-friendly and hover-independentShared behavior:- Active route highlighting- `aria-current="page"` for accessibility- Active route suppresses navigation without disabling styles
-
-**Kind**: inner method of [<code>components/StickyNav</code>](#module_components/StickyNav)  
-**Returns**: <code>JSX.Element</code> - Rendered sticky navigation.  
-**Access**: public  
-**Component**:   
-
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>Object</code> | Component props. |
-| props.activePage | <code>string</code> | Currently active route. |
-
-<a name="module_components/StickyNav..NavItem"></a>
-
-### components/StickyNav~NavItem : <code>Object</code>
-Describes a single navigation entry rendered in both desktop and mobilenavigation variants.
-
-**Kind**: inner typedef of [<code>components/StickyNav</code>](#module_components/StickyNav)  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| id | <code>string</code> | Unique identifier for the nav item. |
-| route | <code>string</code> | Route path used for navigation. |
-| label | <code>string</code> | Human-readable navigation label. |
-| icon | <code>\*</code> | FontAwesome icon associated with the route. |
+Primary site navigation with synchronized desktop and mobile
+layouts, active-route handling, and accessibility semantics.
 
 <a name="module_components/StickySectionNav"></a>
 
