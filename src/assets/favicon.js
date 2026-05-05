@@ -16,7 +16,28 @@ const FAVICON_VARIANT_BY_PALETTE = Object.freeze({
 });
 
 const FAVICON_ID = "app-favicon";
-const FAVICON_CACHE_BUST_VERSION = "20260504";
+
+function resolveFaviconCacheBustVersion() {
+  if (
+    typeof globalThis !== "undefined" &&
+    typeof globalThis.__APP_BUILD_ID__ === "string" &&
+    globalThis.__APP_BUILD_ID__.trim() !== ""
+  ) {
+    return globalThis.__APP_BUILD_ID__.trim();
+  }
+
+  if (typeof document !== "undefined" && typeof document.lastModified === "string") {
+    const lastModifiedTime = Date.parse(document.lastModified);
+
+    if (!Number.isNaN(lastModifiedTime)) {
+      return String(lastModifiedTime);
+    }
+  }
+
+  return "0";
+}
+
+const FAVICON_CACHE_BUST_VERSION = resolveFaviconCacheBustVersion();
 
 /**
  * Returns the user's current system color-scheme preference.
