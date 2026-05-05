@@ -78,7 +78,7 @@ describe("favicon utilities", () => {
 
     const legacy = document.createElement("link");
     legacy.rel = "icon";
-    legacy.type = "image/jpg";
+    legacy.type = "image/jpeg";
     legacy.href = "/portfolio-icon.jpg";
     document.head.appendChild(legacy);
 
