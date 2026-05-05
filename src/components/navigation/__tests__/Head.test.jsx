@@ -102,8 +102,8 @@ describe("Head", () => {
   it("does not inject icon links managed by the theme favicon hook", async () => {
     renderHead("/");
     await waitFor(() => {
-      // eslint-disable-next-line testing-library/no-node-access -- direct head query is required for rel="icon" validation
-      const favicons = document.head.querySelectorAll('link[rel="icon"]');
+      // eslint-disable-next-line testing-library/no-node-access -- direct head query is required for favicon rel token validation
+      const favicons = document.head.querySelectorAll('link[rel~="icon"]');
       expect(favicons).toHaveLength(0);
     });
   });
