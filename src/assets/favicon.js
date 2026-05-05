@@ -26,14 +26,6 @@ function resolveFaviconCacheBustVersion() {
     return globalThis.__APP_BUILD_ID__.trim();
   }
 
-  if (typeof document !== "undefined" && typeof document.lastModified === "string") {
-    const lastModifiedTime = Date.parse(document.lastModified);
-
-    if (!Number.isNaN(lastModifiedTime)) {
-      return String(lastModifiedTime);
-    }
-  }
-
   return "0";
 }
 
