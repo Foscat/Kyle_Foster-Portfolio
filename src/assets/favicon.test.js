@@ -82,6 +82,12 @@ describe("favicon utilities", () => {
     legacy.href = "/portfolio-icon.jpg";
     document.head.appendChild(legacy);
 
+    const shortcutLegacy = document.createElement("link");
+    shortcutLegacy.rel = "shortcut icon";
+    shortcutLegacy.type = "image/x-icon";
+    shortcutLegacy.href = "/favicon.ico";
+    document.head.appendChild(shortcutLegacy);
+
     updateFavicon("light");
 
     const iconLinks = [...document.head.querySelectorAll('link[rel~="icon"]')];
