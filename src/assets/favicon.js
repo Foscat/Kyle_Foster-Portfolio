@@ -163,6 +163,24 @@ export function updateFavicon(mode = "auto", palette = DEFAULT_PALETTE) {
 
   const href = withCacheBust(resolveFaviconPath(mode, palette));
   link.href = href;
+}
+
+/**
+ * Updates the managed favicon and removes any competing `rel="icon"` links.
+ *
+ * Use this when the app explicitly wants its managed favicon link to be the
+ * only active favicon candidate in the document.
+ *
+ * @param {"light"|"dark"|"auto"} mode - The app theme mode.
+ * @param {string} palette - The current app palette.
+ */
+export function updateFaviconAndPrune(mode = "auto", palette = DEFAULT_PALETTE) {
+  updateFavicon(mode, palette);
+
+  const link = getOrCreateFaviconLink();
+
+  if (!link) return;
+
   pruneCompetingFaviconLinks(link);
 }
 
