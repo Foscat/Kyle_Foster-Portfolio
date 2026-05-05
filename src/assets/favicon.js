@@ -17,6 +17,20 @@ const FAVICON_VARIANT_BY_PALETTE = Object.freeze({
 
 const FAVICON_ID = "app-favicon";
 
+function resolveFaviconCacheBustVersion() {
+  if (
+    typeof globalThis !== "undefined" &&
+    typeof globalThis.__APP_BUILD_ID__ === "string" &&
+    globalThis.__APP_BUILD_ID__.trim() !== ""
+  ) {
+    return globalThis.__APP_BUILD_ID__.trim();
+  }
+
+  return "0";
+}
+
+const FAVICON_CACHE_BUST_VERSION = resolveFaviconCacheBustVersion();
+
 /**
  * Returns the user's current system color-scheme preference.
  *
@@ -104,6 +118,39 @@ function getOrCreateFaviconLink() {
 }
 
 /**
+ * Removes competing favicon link tags so the app-controlled favicon
+ * remains the only active `rel="icon"` candidate.
+ *
+ * @param {HTMLLinkElement} canonicalLink - The canonical theme-managed link.
+ */
+function pruneCompetingFaviconLinks(canonicalLink) {
+  if (typeof document === "undefined" || !canonicalLink) return;
+
+  const iconLinks = document.head.querySelectorAll('link[rel~="icon"]');
+  iconLinks.forEach((node) => {
+    if (!(node instanceof HTMLLinkElement) || node === canonicalLink) {
+      return;
+    }
+
+    node.remove();
+  });
+}
+
+/**
+ * Appends a stable cache-busting version so deployed favicon updates
+ * are fetched even when browsers hold aggressive icon caches.
+ *
+ * @param {string} path - Base favicon path.
+ * @returns {string} Versioned favicon path.
+ */
+function withCacheBust(path) {
+  if (typeof path !== "string" || path.length === 0) return path;
+
+  const joiner = path.includes("?") ? "&" : "?";
+  return `${path}${joiner}v=${FAVICON_CACHE_BUST_VERSION}`;
+}
+
+/**
  * Updates the active favicon based on the supplied theme mode.
  *
  * @param {"light"|"dark"|"auto"} mode - The app theme mode.
@@ -114,7 +161,27 @@ export function updateFavicon(mode = "auto", palette = DEFAULT_PALETTE) {
 
   if (!link) return;
 
-  link.href = resolveFaviconPath(mode, palette);
+  const href = withCacheBust(resolveFaviconPath(mode, palette));
+  link.href = href;
+}
+
+/**
+ * Updates the managed favicon and removes any competing `rel="icon"` links.
+ *
+ * Use this when the app explicitly wants its managed favicon link to be the
+ * only active favicon candidate in the document.
+ *
+ * @param {"light"|"dark"|"auto"} mode - The app theme mode.
+ * @param {string} palette - The current app palette.
+ */
+export function updateFaviconAndPrune(mode = "auto", palette = DEFAULT_PALETTE) {
+  updateFavicon(mode, palette);
+
+  const link = getOrCreateFaviconLink();
+
+  if (!link) return;
+
+  pruneCompetingFaviconLinks(link);
 }
 
 /**

@@ -135,10 +135,6 @@ export default function Head() {
       />
       {/* Author information */}
       <meta name="author" content="Kyle Foster" />
-      {/* Favicon */}
-      <link id="app-favicon" rel="icon" type="image/png" href="/favicons/favicon-dark-ocean.png" />
-      {/* Optional PNG fallback */}
-      <link rel="icon" type="image/jpg" href="/portfolio-icon.jpg" />
       {/* Theme color for browsers (mobile + desktop UI accent) */}
       <meta name="theme-color" content="#1f2793" />
 
