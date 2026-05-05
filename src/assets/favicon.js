@@ -169,8 +169,9 @@ export function updateFavicon(mode = "auto", palette = DEFAULT_PALETTE) {
 
   if (!link) return;
 
+  const href = withCacheBust(resolveFaviconPath(mode, palette));
+  link.href = href;
   pruneCompetingFaviconLinks(link);
-  link.href = withCacheBust(resolveFaviconPath(mode, palette));
 }
 
 /**
