@@ -99,12 +99,12 @@ describe("Head", () => {
     });
   });
 
-  it("renders the base favicon link used by theme updates", async () => {
+  it("does not inject icon links managed by the theme favicon hook", async () => {
     renderHead("/");
     await waitFor(() => {
-      // eslint-disable-next-line testing-library/no-node-access -- <head> favicon link has no role-based query equivalent
-      const favicon = document.head.querySelector('link#app-favicon[rel="icon"]');
-      expect(favicon?.getAttribute("href")).toBe("/favicons/favicon-dark-ocean.png");
+      // eslint-disable-next-line testing-library/no-node-access -- direct head query is required for rel="icon" validation
+      const favicons = document.head.querySelectorAll('link[rel="icon"]');
+      expect(favicons).toHaveLength(0);
     });
   });
 

@@ -96,16 +96,12 @@ Current year used for copyright display. Computed at render time to avoid manual
 <a name="module_components/Head"></a>
 
 ## components/Head
-Centralized document head manager responsible for injecting
-SEO, metadata, and social sharing tags based on the current route.
+Centralized document head manager responsible for injectingSEO, metadata, and social sharing tags based on the current route.
 
 <a name="exp_module_components/Head--module.exports"></a>
 
 ### module.exports() ⇒ <code>JSX.Element</code> ⏏
-Head
----------------------------------------------------------------------------
-Dynamically configures `<head>` metadata for each page in the application
-using `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
+Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
 
 **Kind**: Exported function  
 **Returns**: <code>JSX.Element</code> - Injected document head metadata.  
@@ -262,8 +258,7 @@ A sticky/floating navigation component that uses the fully accessibleAccordionL
 <a name="module_components/StickyNav"></a>
 
 ## components/StickyNav
-Primary site navigation with synchronized desktop and mobile
-layouts, active-route handling, and accessibility semantics.
+Primary site navigation with synchronized desktop and mobilelayouts, active-route handling, and accessibility semantics.
 
 <a name="module_components/StickySectionNav"></a>
 
