@@ -1,6 +1,10 @@
 ---
 name: vitest-and-playwright-test-maker
-description: Create, update, and debug unit/integration tests with Vitest and end-to-end tests with Playwright for JavaScript/TypeScript web apps. Use when requests involve generating missing tests, improving flaky tests, adding coverage for regressions, or aligning test suites with new frontend features.
+description: >-
+  Create, update, and debug unit/integration tests with Vitest and end-to-end
+  tests with Playwright for JavaScript/TypeScript web apps. Use when requests
+  involve generating missing tests, improving flaky tests, adding coverage for
+  regressions, or aligning test suites with new frontend features.
 ---
 
 # Vitest and Playwright Test Maker
