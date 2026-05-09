@@ -190,13 +190,7 @@ navigation component with frosted-glass styling.</p>
 <dt><a href="#src\components\ui\Btn\Btn.module_test">src\components\ui\Btn\Btn.test</a></dt>
 <dd><p>src\components\ui\Btn\Btn.test module.</p>
 </dd>
-<dt><a href="#tests/components/ui/Btn
-
-Note_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.
-The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_">tests/components/ui/Btn
-
-Note: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.
-The FrostedIcon component is also mocked to provide a simple representation for testing purposes.</a></dt>
+<dt><a href="#tests/components/ui/BtnNote_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_">tests/components/ui/BtnNote: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.</a></dt>
 <dd><p>Unit tests for the Btn component.
 Testing focus:</p>
 <ul>
@@ -311,8 +305,7 @@ portfolio projects with images, repository links, and live URLs.</p>
 <a name="module_components/features/AccessibilityMenu"></a>
 
 ## components/features/AccessibilityMenu
-Accessibility preferences modal for toggling motion, contrast,
-text size, and keyboard guidance with persisted client-side settings.
+Accessibility preferences modal for toggling motion, contrast,text size, and keyboard guidance with persisted client-side settings.
 
 
 * [components/features/AccessibilityMenu](#module_components/features/AccessibilityMenu)
@@ -379,8 +372,7 @@ A single row in the accessibility menu for toggling a specific preference.
 <a name="module_components/features/ColorMenu"></a>
 
 ## components/features/ColorMenu
-Color preferences modal for theme mode, palette, and high
-contrast controls.
+Color preferences modal for theme mode, palette, and highcontrast controls.
 
 
 * [components/features/ColorMenu](#module_components/features/ColorMenu)
@@ -445,15 +437,12 @@ A component for managing color preferences, including high contrast mode.
 <a name="module_components/PaletteToggle"></a>
 
 ## components/PaletteToggle
-In-app color palette selector for switching between supported
-palette themes.
+In-app color palette selector for switching between supportedpalette themes.
 
 <a name="module_components/PaletteToggle..PaletteToggle"></a>
 
 ### components/PaletteToggle~PaletteToggle(props) ⇒ <code>JSX.Element</code>
-PaletteToggle
-------------------------------------------------------------------
-Compact select control for switching app-level color palettes.
+PaletteToggle------------------------------------------------------------------Compact select control for switching app-level color palettes.
 
 **Kind**: inner method of [<code>components/PaletteToggle</code>](#module_components/PaletteToggle)  
 **Access**: public  
@@ -476,24 +465,7 @@ Modal-based resume preview and download component.
 <a name="module_components/ResumePreview/PreviewResume..PreviewResume"></a>
 
 ### components/ResumePreview/PreviewResume~PreviewResume ⇒ <code>JSX.Element</code>
-A modal component that allows users to preview and download the resume PDF. It provides an embedded PDF viewer along with action buttons for opening the PDF in a new tab, printing, and closing the modal. The component is designed to work seamlessly in both development and production environments by leveraging Vite's asset management system.
-
-Core responsibilities:
-- Opens a modal containing an embedded PDF preview
-- Provides a direct download link for the resume
-- Uses Vite asset imports to ensure correct bundling across environments
-
-Technical notes:
-- PDF is imported as a Vite-managed asset
-- Works consistently in local development and production builds
-- Uses RSuite's ButtonToolbar for action buttons
-- The embedded PDF viewer is implemented using an iframe for broad compatibility
-- The component is styled to fit within the overall design system and maintain readability of the PDF content
-
-Accessibility:
-- RSuite Modal provides focus trapping and ESC-to-close behavior
-- Buttons include descriptive aria-labels and tooltips
-- Embedded iframe includes a fallback message
+A modal component that allows users to preview and download the resume PDF. It provides an embedded PDF viewer along with action buttons for opening the PDF in a new tab, printing, and closing the modal. The component is designed to work seamlessly in both development and production environments by leveraging Vite's asset management system.Core responsibilities:- Opens a modal containing an embedded PDF preview- Provides a direct download link for the resume- Uses Vite asset imports to ensure correct bundling across environmentsTechnical notes:- PDF is imported as a Vite-managed asset- Works consistently in local development and production builds- Uses RSuite's ButtonToolbar for action buttons- The embedded PDF viewer is implemented using an iframe for broad compatibility- The component is styled to fit within the overall design system and maintain readability of the PDF contentAccessibility:- RSuite Modal provides focus trapping and ESC-to-close behavior- Buttons include descriptive aria-labels and tooltips- Embedded iframe includes a fallback message
 
 **Kind**: inner property of [<code>components/ResumePreview/PreviewResume</code>](#module_components/ResumePreview/PreviewResume)  
 **Returns**: <code>JSX.Element</code> - Rendered resume preview modal and trigger button.  
@@ -537,31 +509,12 @@ Component that triggers the resume preview modal.
 <a name="module_components/ThemeToggle"></a>
 
 ## components/ThemeToggle
-Compact theme selection control for switching between
-light and dark application themes.
+Compact theme selection control for switching betweenlight and dark application themes.
 
 <a name="module_components/ThemeToggle..ThemeToggle"></a>
 
 ### components/ThemeToggle~ThemeToggle(props) ⇒ <code>JSX.Element</code>
-ThemeToggle
-------------------------------------------------------------------
-Compact, icon-only theme selector used to toggle between light and
-dark application themes.
-
-Design goals:
-- Minimal visual footprint
-- Clear active-state feedback
-- Keyboard and screen-reader accessible
-- Consistent with the frosted / glass UI system
-
-Behavior:
-- Highlights the currently active theme
-- Disables the active option to prevent redundant state updates
-- Delegates theme state management to ThemeContext
-
-Accessibility:
-- Toolbar includes an aria-label for screen readers
-- Each button includes descriptive aria-labels and tooltips
+ThemeToggle------------------------------------------------------------------Compact, icon-only theme selector used to toggle between light anddark application themes.Design goals:- Minimal visual footprint- Clear active-state feedback- Keyboard and screen-reader accessible- Consistent with the frosted / glass UI systemBehavior:- Highlights the currently active theme- Disables the active option to prevent redundant state updates- Delegates theme state management to ThemeContextAccessibility:- Toolbar includes an aria-label for screen readers- Each button includes descriptive aria-labels and tooltips
 
 **Kind**: inner method of [<code>components/ThemeToggle</code>](#module_components/ThemeToggle)  
 **Returns**: <code>JSX.Element</code> - Rendered theme toggle control.  
@@ -581,31 +534,18 @@ src\components\layout\InfoSection\index module.
 <a name="module_components/layout/InfoSection"></a>
 
 ## components/layout/InfoSection
-Reusable frosted-glass section wrapper used to standardize
-layout, spacing, and visual hierarchy across the portfolio.
+Reusable frosted-glass section wrapper used to standardizelayout, spacing, and visual hierarchy across the portfolio.
 
 <a name="module_components/layout/InfoSection..InfoSection"></a>
 
 ### components/layout/InfoSection~InfoSection(props) ⇒ <code>JSX.Element</code>
-A responsive, collapsible frosted-glass section wrapper used throughout
-the application to enforce consistent structure and visual language.
+A responsive, collapsible frosted-glass section wrapper used throughoutthe application to enforce consistent structure and visual language.
 
 **Kind**: inner method of [<code>components/layout/InfoSection</code>](#module_components/layout/InfoSection)  
-**Summary**: Core features:
-- Optional title and subtitle
-- Optional icon rendered alongside the title
-- Collapsible frosted panel container
-- Semantic `<section>` wrapper
-- Arbitrary child content
-
-Design notes:
-- Uses RSuite `Panel` for consistent layout behavior
-- Applies shared frosted and tile styles via CSS
-- Intended for use with section-based navigation and scroll targeting  
+**Summary**: Core features:- Optional title and subtitle- Optional icon rendered alongside the title- Collapsible frosted panel container- Semantic `<section>` wrapper- Arbitrary child contentDesign notes:- Uses RSuite `Panel` for consistent layout behavior- Applies shared frosted and tile styles via CSS- Intended for use with section-based navigation and scroll targeting  
 **Returns**: <code>JSX.Element</code> - Rendered frosted content section.  
 **Access**: public  
-**Component**: InfoSection
----------------------------------------------------------------------------  
+**Component**: InfoSection---------------------------------------------------------------------------  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -625,8 +565,7 @@ src\components\layout\PageHeader\index module.
 <a name="module_components/PageHeader"></a>
 
 ## components/PageHeader
-Standardized page-level header component used to introduce
-pages and major sections with consistent hierarchy and styling.
+Standardized page-level header component used to introducepages and major sections with consistent hierarchy and styling.
 
 
 * [components/PageHeader](#module_components/PageHeader)
@@ -641,21 +580,7 @@ pages and major sections with consistent hierarchy and styling.
 A reusable page header component designed to provide a consistent and visually appealing introduction to pages and major sections. It combines a prominent title with optional supporting information such as job titles, timespans, descriptive subtitles, and associated technologies.
 
 **Kind**: inner property of [<code>components/PageHeader</code>](#module_components/PageHeader)  
-**Summary**: The HeroBlock component serves as a standardized header section that can be used across different pages and sections of the portfolio. It is designed to be visually striking while maintaining readability and accessibility.
-
-Features:
-- Frosted RSuite Panel container
-- Primary title (required)
-- Optional job title and timespan row
-- Optional descriptive subtitle
-- Optional technology list
-- Subtle entrance animation via CSS
-- Fully responsive layout
-
-Accessibility:
-- Uses `role="banner"` to denote page-level landmark
-- Content is readable and navigable via assistive technologies
-- Color contrast is maintained for readability  
+**Summary**: The HeroBlock component serves as a standardized header section that can be used across different pages and sections of the portfolio. It is designed to be visually striking while maintaining readability and accessibility.Features:- Frosted RSuite Panel container- Primary title (required)- Optional job title and timespan row- Optional descriptive subtitle- Optional technology list- Subtle entrance animation via CSS- Fully responsive layoutAccessibility:- Uses `role="banner"` to denote page-level landmark- Content is readable and navigable via assistive technologies- Color contrast is maintained for readability  
 **Returns**: <code>JSX.Element</code> - Rendered page header.  
 **Access**: public  
 **Component**:   
@@ -671,39 +596,11 @@ Accessibility:
 | [props.className] | <code>string</code> | Optional additional CSS class names. |
 
 **Example**  
-```js
-<HeroBlock
-  title="My Portfolio"
-  jobTitle="Software Engineer"
-  timespan="2020 - Present"
-Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines theme color and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
-  tech={[
-      { label: "React", type: "react" },
-      { label: "JavaScript", type: "javascript" },
-      { label: "CSS", type: "css" }
-    ]}
-/>
-```
+```js<HeroBlock  title="My Portfolio"  jobTitle="Software Engineer"  timespan="2020 - Present"  subTitle="Welcome to my personal portfolio showcasing my projects and experience."  tech={[      { label: "React", type: "react" },      { label: "JavaScript", type: "javascript" },      { label: "CSS", type: "css" }    ]}/>```
 <a name="module_components/PageHeader..PageHeader"></a>
 
 ### components/PageHeader~PageHeader(props) ⇒ <code>JSX.Element</code>
-PageHeader
----------------------------------------------------------------------------
-Standardized page-level header component designed to introduce a page or
-major section with clear hierarchy and frosted-glass presentation.
-
-Features:
-- Frosted RSuite Panel container
-- Primary title (required)
-- Optional job title and timespan row
-- Optional descriptive subtitle
-- Optional technology list
-- Subtle entrance animation via CSS
-- Fully responsive layout
-
-Accessibility:
-- Uses `role="banner"` to denote page-level landmark
-- Content is readable and navigable via assistive technologies
+PageHeader---------------------------------------------------------------------------Standardized page-level header component designed to introduce a page ormajor section with clear hierarchy and frosted-glass presentation.Features:- Frosted RSuite Panel container- Primary title (required)- Optional job title and timespan row- Optional descriptive subtitle- Optional technology list- Subtle entrance animation via CSS- Fully responsive layoutAccessibility:- Uses `role="banner"` to denote page-level landmark- Content is readable and navigable via assistive technologies
 
 **Kind**: inner method of [<code>components/PageHeader</code>](#module_components/PageHeader)  
 **Returns**: <code>JSX.Element</code> - Rendered page header.  
@@ -723,11 +620,7 @@ Accessibility:
 <a name="module_components/PageHeader..PageHeader..renderTechUsedString"></a>
 
 #### PageHeader~renderTechUsedString([techArray]) ⇒ <code>JSX.Element</code> \| <code>string</code>
-Formats a list of technology items into a human-readable display.
-
-Behavior:
-- Returns an empty string when no valid technologies are provided
-- Renders each technology with its associated style class
+Formats a list of technology items into a human-readable display.Behavior:- Returns an empty string when no valid technologies are provided- Renders each technology with its associated style class
 
 **Kind**: inner method of [<code>PageHeader</code>](#module_components/PageHeader..PageHeader)  
 **Returns**: <code>JSX.Element</code> \| <code>string</code> - Rendered tech list or empty string.  
@@ -739,9 +632,7 @@ Behavior:
 <a name="module_components/PageHeader..TechItem"></a>
 
 ### components/PageHeader~TechItem : <code>Object</code>
-TechItem
----------------------------------------------------------------------------
-Describes a technology badge rendered in the "Tech Used" section.
+TechItem---------------------------------------------------------------------------Describes a technology badge rendered in the "Tech Used" section.
 
 **Kind**: inner typedef of [<code>components/PageHeader</code>](#module_components/PageHeader)  
 **Properties**
@@ -755,8 +646,7 @@ Describes a technology badge rendered in the "Tech Used" section.
 <a name="module_components/Footer"></a>
 
 ## components/Footer
-Compact application footer providing quiet page closure,
-secondary social actions, and copyright information.
+Compact application footer providing quiet page closure,secondary social actions, and copyright information.
 
 
 * [components/Footer](#module_components/Footer)
@@ -766,28 +656,7 @@ secondary social actions, and copyright information.
 <a name="module_components/Footer..Footer"></a>
 
 ### components/Footer~Footer() ⇒ <code>JSX.Element</code>
-Footer
----------------------------------------------------------------------------
-Minimal, mobile-first application footer.
-
-Responsibilities:
-- Provide visual closure at the end of each page
-- Offer secondary social/profile actions
-- Display copyright information
-
-Design philosophy:
-- Footer should be unobtrusive and visually calm
-- Avoid heavy glassmorphism and large vertical padding
-- Never compete with page content or navigation
-
-Layout behavior:
-- Mobile: stacked, centered, minimal height
-- Desktop: inline, horizontally distributed
-
-Accessibility:
-- All interactive controls use the custom `Btn` component
-- Icon-only buttons include `aria-label` attributes
-- No hover-only affordances required for usability
+Footer---------------------------------------------------------------------------Minimal, mobile-first application footer.Responsibilities:- Provide visual closure at the end of each page- Offer secondary social/profile actions- Display copyright informationDesign philosophy:- Footer should be unobtrusive and visually calm- Avoid heavy glassmorphism and large vertical padding- Never compete with page content or navigationLayout behavior:- Mobile: stacked, centered, minimal height- Desktop: inline, horizontally distributedAccessibility:- All interactive controls use the custom `Btn` component- Icon-only buttons include `aria-label` attributes- No hover-only affordances required for usability
 
 **Kind**: inner method of [<code>components/Footer</code>](#module_components/Footer)  
 **Returns**: <code>JSX.Element</code> - Rendered application footer.  
@@ -802,31 +671,12 @@ Current year used for copyright display. Computed at render time to avoid manual
 <a name="module_components/Head"></a>
 
 ## components/Head
-Centralized document head manager responsible for injecting
-SEO, metadata, and social sharing tags based on the current route.
+Centralized document head manager responsible for injectingSEO, metadata, and social sharing tags based on the current route.
 
 <a name="exp_module_components/Head--module.exports"></a>
 
 ### module.exports() ⇒ <code>JSX.Element</code> ⏏
-Head
----------------------------------------------------------------------------
-Dynamically configures `<head>` metadata for each page in the application
-using `react-helmet-async`.
-
-Responsibilities:
-- Selects page-specific metadata based on the current URL path
-- Injects SEO-relevant meta tags (title, description, keywords)
-- Configures Open Graph metadata for social sharing
-- Defines favicon, theme color, and canonical URL
-- Adds performance-related tags (preconnect)
-
-Behavior:
-- Determines the active page by inspecting `window.location.pathname`
-- Falls back to the Home metadata when no route match is found
-
-Usage notes:
-- Intended to be rendered once near the top of the app tree
-- Requires `HelmetProvider` to be present higher in the component hierarchy
+Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
 
 **Kind**: Exported function  
 **Returns**: <code>JSX.Element</code> - Injected document head metadata.  
@@ -835,16 +685,12 @@ Usage notes:
 <a name="module_components/navigation"></a>
 
 ## components/navigation
-Centralized export module for all navigation-related components and helpers. This file serves as a single point of import for all navigation elements across the codebase, promoting modularity and ease of maintenance.
-
-Note: When adding new navigation components or helpers, simply import them here and include them in the export statement.
+Centralized export module for all navigation-related components and helpers. This file serves as a single point of import for all navigation elements across the codebase, promoting modularity and ease of maintenance.Note: When adding new navigation components or helpers, simply import them here and include them in the export statement.
 
 <a name="module_components/navigation..withLazySuspense"></a>
 
 ### components/navigation~withLazySuspense(loader, displayName) ⇒ <code>React.ComponentType</code>
-Higher-order component that wraps a lazy-loaded component with React's Suspense for code-splitting and performance optimization.
-HOC to wrap a lazy-loaded component with Suspense.
-This allows us to keep the benefits of code-splitting while maintaining a clean and consistent import pattern across our navigation components.
+Higher-order component that wraps a lazy-loaded component with React's Suspense for code-splitting and performance optimization.HOC to wrap a lazy-loaded component with Suspense.This allows us to keep the benefits of code-splitting while maintaining a clean and consistent import pattern across our navigation components.
 
 **Kind**: inner method of [<code>components/navigation</code>](#module_components/navigation)  
 **Returns**: <code>React.ComponentType</code> - - Wrapped component with Suspense.  
@@ -855,27 +701,11 @@ This allows us to keep the benefits of code-splitting while maintaining a clean 
 | displayName | <code>string</code> | Display name for the wrapped component. |
 
 **Example**  
-```js
-const LazyComponent = withLazySuspense(() => import("./MyComponent"), "MyComponent");
-```
+```jsconst LazyComponent = withLazySuspense(() => import("./MyComponent"), "MyComponent");```
 <a name="module_components/MobileSectionNavTrigger"></a>
 
 ## components/MobileSectionNavTrigger
-Mobile drawer-based section navigation with collapsible subsections.
-
-Design:
-- Section title click → navigate to section
-- Caret/menu open → expand subsection list
-- Subsection click → navigate to block
-- Active state is derived from scroll-spy (passed from parent)
-
-This component does NOT manage scroll state.
-It only reflects and forwards user intent.
-The parent component (e.g. SectionRenderer) is responsible for:
-- Tracking scroll position
-- Determining active section/block IDs
-- Managing expanded state of sections
-- Handling actual navigation (e.g. scrollIntoView)
+Mobile drawer-based section navigation with collapsible subsections.Design:- Section title click → navigate to section- Caret/menu open → expand subsection list- Subsection click → navigate to block- Active state is derived from scroll-spy (passed from parent)This component does NOT manage scroll state.It only reflects and forwards user intent.The parent component (e.g. SectionRenderer) is responsible for:- Tracking scroll position- Determining active section/block IDs- Managing expanded state of sections- Handling actual navigation (e.g. scrollIntoView)
 
 <a name="module_components/MobileSectionNavTrigger..MobileSectionNavTrigger"></a>
 
@@ -885,11 +715,7 @@ Mobile drawer-based section navigation with collapsible subsections.
 **Kind**: inner property of [<code>components/MobileSectionNavTrigger</code>](#module_components/MobileSectionNavTrigger)  
 **Access**: public  
 **Component**:   
-**Remarks**: Renders a fixed floating trigger button inside a `.sect-nav-toggle-btn.mobile-only` wrapper
-(`data-testid="mobile-sect-nav-trigger-wrapper"`); the StickyNav stylesheet sizes and positions
-this wrapper on the mobile rail.
-Sets `data-has-mobile-section-nav="true"` on `document.documentElement` while mounted so the
-CSS rail layout can reserve the extra slot position; the attribute is removed on unmount.  
+**Remarks**: Renders a fixed floating trigger button inside a `.sect-nav-toggle-btn.mobile-only` wrapper(`data-testid="mobile-sect-nav-trigger-wrapper"`); the StickyNav stylesheet sizes and positionsthis wrapper on the mobile rail.Sets `data-has-mobile-section-nav="true"` on `document.documentElement` while mounted so theCSS rail layout can reserve the extra slot position; the attribute is removed on unmount.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -903,37 +729,11 @@ CSS rail layout can reserve the extra slot position; the attribute is removed on
 | props.navigate | <code>function</code> | Callback to handle navigation when a section or block is clicked. |
 
 **Example**  
-```js
-<MobileSectionNavTrigger
- title="Page Navigation"
-sections={[
-     { id: "intro", title: "Introduction", blocks: [] },
-     { id: "features", title: "Features", blocks: [
-         { id: "feat1", title: "Feature 1" },
-         { id: "feat2", title: "Feature 2" },
-       ]
-     },
-     { id: "contact", title: "Contact", blocks: [] },
-  ]}
-activeLeafId="feat1"
-activeChain={["features", "feat1"]}
-isExpanded={(id) => id === "features"}
-onToggleSection={(id) => console.log("Toggle section", id)}
-navigate={(e, id) => console.log("Navigate to", id)}
-/>
-```
+```js<MobileSectionNavTrigger title="Page Navigation"sections={[     { id: "intro", title: "Introduction", blocks: [] },     { id: "features", title: "Features", blocks: [         { id: "feat1", title: "Feature 1" },         { id: "feat2", title: "Feature 2" },       ]     },     { id: "contact", title: "Contact", blocks: [] },  ]}activeLeafId="feat1"activeChain={["features", "feat1"]}isExpanded={(id) => id === "features"}onToggleSection={(id) => console.log("Toggle section", id)}navigate={(e, id) => console.log("Navigate to", id)}/>```
 <a name="module_components/SectionAnchorNav"></a>
 
 ## components/SectionAnchorNav
-A sticky/floating navigation component that uses the fully accessible
-AccordionList as its core. Intended for long portfolio pages with
-multiple subsections (CodeStream, Hackathon, etc.).
-
-Features:
-- Sticky on desktop, collapsible drawer on mobile
-- Auto-syncs with scroll position via AccordionList’s IntersectionObserver
-- Smooth scrolling, keyboard navigation, screen-reader friendly
-- Midnight Gold frosted UI styling
+A sticky/floating navigation component that uses the fully accessibleAccordionList as its core. Intended for long portfolio pages withmultiple subsections (CodeStream, Hackathon, etc.).Features:- Sticky on desktop, collapsible drawer on mobile- Auto-syncs with scroll position via AccordionList’s IntersectionObserver- Smooth scrolling, keyboard navigation, screen-reader friendly- Midnight Gold frosted UI styling
 
 
 * [components/SectionAnchorNav](#module_components/SectionAnchorNav)
@@ -943,15 +743,7 @@ Features:
 <a name="module_components/SectionAnchorNav..SectionAnchorNav"></a>
 
 ### components/SectionAnchorNav~SectionAnchorNav
-A sticky/floating navigation component that uses the fully accessible
-AccordionList as its core. Intended for long portfolio pages with
-multiple subsections (CodeStream, Hackathon, etc.).
-
-Features:
-- Sticky on desktop, collapsible drawer on mobile
-- Auto-syncs with scroll position via AccordionList’s IntersectionObserver
-- Smooth scrolling, keyboard navigation, screen-reader friendly
-- Midnight Gold frosted UI styling
+A sticky/floating navigation component that uses the fully accessibleAccordionList as its core. Intended for long portfolio pages withmultiple subsections (CodeStream, Hackathon, etc.).Features:- Sticky on desktop, collapsible drawer on mobile- Auto-syncs with scroll position via AccordionList’s IntersectionObserver- Smooth scrolling, keyboard navigation, screen-reader friendly- Midnight Gold frosted UI styling
 
 **Kind**: inner property of [<code>components/SectionAnchorNav</code>](#module_components/SectionAnchorNav)  
 **Access**: public  
@@ -979,29 +771,17 @@ Features:
 <a name="module_components/StickyNav"></a>
 
 ## components/StickyNav
-Primary site navigation with synchronized desktop and mobile
-layouts, active-route handling, and accessibility semantics.
+Primary site navigation with synchronized desktop and mobilelayouts, active-route handling, and accessibility semantics.
 
 <a name="module_components/StickySectionNav"></a>
 
 ## components/StickySectionNav
-Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.
+Sticky, accessible intra-page section navigator withhierarchical scroll tracking and collapsible subsection groups.
 
 <a name="module_components/StickySectionNav..StickySectionNav"></a>
 
 ### components/StickySectionNav~StickySectionNav ⇒ <code>JSX.Element</code>
-Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.
-Designed for long-form portfolio pages with multiple sections and subsections
-(e.g. CodeStream, Hackathon, etc.).
-
-Features:
-- Sticky on desktop, collapsible drawer on mobile
-- Auto-syncs with scroll position via IntersectionObserver
-- Smooth scrolling, keyboard navigation, screen-reader friendly
-- Midnight Gold frosted UI styling
-- Data-driven from section/block metadata (no hardcoded IDs or structure)
+Sticky, accessible intra-page section navigator withhierarchical scroll tracking and collapsible subsection groups.Designed for long-form portfolio pages with multiple sections and subsections(e.g. CodeStream, Hackathon, etc.).Features:- Sticky on desktop, collapsible drawer on mobile- Auto-syncs with scroll position via IntersectionObserver- Smooth scrolling, keyboard navigation, screen-reader friendly- Midnight Gold frosted UI styling- Data-driven from section/block metadata (no hardcoded IDs or structure)
 
 **Kind**: inner property of [<code>components/StickySectionNav</code>](#module_components/StickySectionNav)  
 **Access**: public  
@@ -1016,21 +796,7 @@ Features:
 | props.isOpen | <code>boolean</code> | For mobile mode, whether the drawer is open. |
 
 **Example**  
-```js
-<StickySectionNav
-sections={[
-    { id: "intro", title: "Introduction", blocks: [] },
-    { id: "features", title: "Features", blocks: [
-      { id: "feat1", title: "Feature 1" },
-      { id: "feat2", title: "Feature 2" },
-    ]
-  },
-]}
-pageUrl="/portfolio"
-mode="desktop"
-isOpen={true}
-/>
-```
+```js<StickySectionNavsections={[    { id: "intro", title: "Introduction", blocks: [] },    { id: "features", title: "Features", blocks: [      { id: "feat1", title: "Feature 1" },      { id: "feat2", title: "Feature 2" },    ]  },]}pageUrl="/portfolio"mode="desktop"isOpen={true}/>```
 <a name="module_src\components\renderers\blocks\CardGridBlock\index"></a>
 
 ## src\components\renderers\blocks\CardGridBlock\index
@@ -1066,31 +832,7 @@ A block component for displaying a grid of InsightCards. It takes a block object
 | block.items[].content | <code>string</code> | The content for the card, which can include rich text. |
 
 **Example**  
-```js
-const blockData = {
-  title: "Key Insights",
- columns: 3,
- items: [
-   {
-    id: "1",
-    title: "Insight One",
-    icon: "lightbulb",
-    subtitle: "An important finding",
-    variant: "blue",
-    content: "This insight reveals that..."
-  },
-  {
-   id: "2",
-   title: "Insight Two",
-   icon: "chart-bar",
-   subtitle: "Another key point",
-   variant: "green",
-   content: "This insight highlights that..."
-   },
- ],
-};
-<CardGridBlock block={blockData} />
-```
+```jsconst blockData = {  title: "Key Insights", columns: 3, items: [   {    id: "1",    title: "Insight One",    icon: "lightbulb",    subtitle: "An important finding",    variant: "blue",    content: "This insight reveals that..."  },  {   id: "2",   title: "Insight Two",   icon: "chart-bar",   subtitle: "Another key point",   variant: "green",   content: "This insight highlights that..."   }, ],};<CardGridBlock block={blockData} />```
 <a name="module_src\components\renderers\blocks\FormBlock\fieldRegestry"></a>
 
 ## src\components\renderers\blocks\FormBlock\fieldRegestry
@@ -1099,10 +841,7 @@ src\components\renderers\blocks\FormBlock\fieldRegestry module.
 <a name="module_components/renderers/blocks/FormBlock/fieldRegistry"></a>
 
 ## components/renderers/blocks/FormBlock/fieldRegistry
-Centralized registry and utilities for form field definitions in FormBlock.
-This module defines standard accepters for various field types, normalization of field configs, and rendering logic to map field definitions to actual form controls.
-The registry supports both simple field types that map directly to a single accepter component, as well as more complex types that require custom rendering logic (e.g., select fields with options, input groups with addons).
-The normalization function allows for legacy field definitions to be used without breaking changes, while the initial values builder helps construct the default form state based on field configurations.
+Centralized registry and utilities for form field definitions in FormBlock.This module defines standard accepters for various field types, normalization of field configs, and rendering logic to map field definitions to actual form controls.The registry supports both simple field types that map directly to a single accepter component, as well as more complex types that require custom rendering logic (e.g., select fields with options, input groups with addons).The normalization function allows for legacy field definitions to be used without breaking changes, while the initial values builder helps construct the default form state based on field configurations.
 
 **See**: FIELD_TYPES for the list of supported field types.  
 **Author**: Foscat  
@@ -1118,17 +857,14 @@ The normalization function allows for legacy field definitions to be used withou
 <a name="module_components/renderers/blocks/FormBlock/fieldRegistry..SIMPLE_ACCEPTORS"></a>
 
 ### components/renderers/blocks/FormBlock/fieldRegistry~SIMPLE\_ACCEPTORS
-Mapping of simple field types to their default accepter components.
-This is used for fields that don't require special handling beyond rendering the appropriate input type.
+Mapping of simple field types to their default accepter components.This is used for fields that don't require special handling beyond rendering the appropriate input type.
 
 **Kind**: inner constant of [<code>components/renderers/blocks/FormBlock/fieldRegistry</code>](#module_components/renderers/blocks/FormBlock/fieldRegistry)  
 **Access**: public  
 <a name="module_components/renderers/blocks/FormBlock/fieldRegistry..TextareaAccepter"></a>
 
 ### components/renderers/blocks/FormBlock/fieldRegistry~TextareaAccepter(props) ⇒ <code>React.ReactNode</code>
-Custom accepter for textarea fields. This is necessary because the default Input accepter from rsuite does not support multiline input, and we want to ensure that textarea fields render correctly with the appropriate styles and behavior.
-
-The TextareaAccepter is a simple wrapper around the HTML <textarea> element, styled to fit within the form block. It accepts standard props like value and onChange, as well as additional props for rows and className to allow for customization.
+Custom accepter for textarea fields. This is necessary because the default Input accepter from rsuite does not support multiline input, and we want to ensure that textarea fields render correctly with the appropriate styles and behavior.The TextareaAccepter is a simple wrapper around the HTML <textarea> element, styled to fit within the form block. It accepts standard props like value and onChange, as well as additional props for rows and className to allow for customization.
 
 **Kind**: inner method of [<code>components/renderers/blocks/FormBlock/fieldRegistry</code>](#module_components/renderers/blocks/FormBlock/fieldRegistry)  
 **Summary**: This component is designed to be used as a custom accepter in the form field registry. It renders a textarea element with appropriate styling and behavior for multiline input. The value and onChange props are passed through to allow it to work seamlessly with Form.Control, while additional props like className and rows provide flexibility for different use cases.  
@@ -1145,9 +881,7 @@ The TextareaAccepter is a simple wrapper around the HTML <textarea> element, sty
 <a name="module_components/renderers/blocks/FormBlock/fieldRegistry..registerField"></a>
 
 ### components/renderers/blocks/FormBlock/fieldRegistry~registerField(props) ⇒ <code>React.ReactNode</code>
-Custom accepter for input groups with prefix/suffix addons. This is a common enough pattern that it warrants a built-in accepter to avoid boilerplate in field definitions.
-
-The `inputGroup` prop on a field can be used to pass `prefix` and `suffix` values, which will be rendered as addons around the input.
+Custom accepter for input groups with prefix/suffix addons. This is a common enough pattern that it warrants a built-in accepter to avoid boilerplate in field definitions.The `inputGroup` prop on a field can be used to pass `prefix` and `suffix` values, which will be rendered as addons around the input.
 
 **Kind**: inner method of [<code>components/renderers/blocks/FormBlock/fieldRegistry</code>](#module_components/renderers/blocks/FormBlock/fieldRegistry)  
 **Summary**: This component is designed to be used as a custom accepter in the form field registry. It renders an Input wrapped in an InputGroup, with optional prefix and suffix addons. The value and onChange props are passed through to the Input, allowing it to work seamlessly with Form.Control.  
@@ -1164,20 +898,12 @@ The `inputGroup` prop on a field can be used to pass `prefix` and `suffix` value
 
 **Example**  
 ```js
-{
-  name: "price",
- type: FIELD_TYPES.INPUT_GROUP_TEXT,
- inputGroup: {
-   prefix: "$",
-  suffix: "USD"
-}
-}
+{  name: "price", type: FIELD_TYPES.INPUT_GROUP_TEXT, inputGroup: {   prefix: "$",  suffix: "USD"}}
 ```
 <a name="module_components/renderers/blocks/FormBlock/fieldRegistry..normalizeField"></a>
 
 ### components/renderers/blocks/FormBlock/fieldRegistry~normalizeField(field) ⇒ <code>Object</code>
-Normalize legacy CMS field keys into the current schema.
-This lets older content continue working while the schema evolves.
+Normalize legacy CMS field keys into the current schema.This lets older content continue working while the schema evolves.
 
 **Kind**: inner method of [<code>components/renderers/blocks/FormBlock/fieldRegistry</code>](#module_components/renderers/blocks/FormBlock/fieldRegistry)  
 **Access**: public  
@@ -1238,74 +964,7 @@ Renders a dynamic form based on a provided schema. The schema defines the fields
 | [props.onSubmit] | <code>function</code> |  | Called with the final formValue on submit. |
 
 **Example**  
-```js
-const contactFormSchema = {
-id: "contact-form",
-title: "Send Me a Message",
-fields: [
-  {
-    name: "fullName",
-    type: "text",
-    label: "Full Name",
-    placeholder: "Enter your name",
-    required: true,
-    defaultValue: "",
-    helpText: "Use your preferred name."
-
-  },
-  {
-    name: "email",
-    type: "text",
-    label: "Email",
-    placeholder: "",
-    required: true,
-    defaultValue: "",
-    rule: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  },
-  {
-    name: "reason",
-    type: "select",
-    label: "Reason",
-    placeholder: "Choose one",
-    defaultValue: null,
-    options: [
-      {
-        label: "Freelance Project",
-         value: "freelance" },
-      {
-        label: "Job Opportunity",
-         value: "job" },
-      {
-         label: "General Question",
-        value: "general" }
-    ]
-  },
-  {
-    name: "message",
-    type: "textarea",
-    label: "Message",
-    placeholder: "Tell me about your project",
-    defaultValue: "",
-    componentProps: {
-      rows: 6
-    }
-  },
-  {
-    name: "contactMethods",
-    type: "checkboxGroup",
-    label: "Preferred Contact",
-    defaultValue: [],
-    options: [
-      { label: "Email", value: "email" },
-      { label: "Phone", value: "phone" },
-      { label: "Text", value: "text" }
-    ]
-  }
-],
-onSubmit: (formValue) => sendMessage(formValue),
-}
-<FormBlock schema={contactFormSchema} />
-```
+```jsconst contactFormSchema = {id: "contact-form",title: "Send Me a Message",fields: [  {    name: "fullName",    type: "text",    label: "Full Name",    placeholder: "Enter your name",    required: true,    defaultValue: "",    helpText: "Use your preferred name."  },  {    name: "email",    type: "text",    label: "Email",    placeholder: "",    required: true,    defaultValue: "",    rule: /^[^\s@]+@[^\s@]+\.[^\s@]+$/  },  {    name: "reason",    type: "select",    label: "Reason",    placeholder: "Choose one",    defaultValue: null,    options: [      {        label: "Freelance Project",         value: "freelance" },      {        label: "Job Opportunity",         value: "job" },      {         label: "General Question",        value: "general" }    ]  },  {    name: "message",    type: "textarea",    label: "Message",    placeholder: "Tell me about your project",    defaultValue: "",    componentProps: {      rows: 6    }  },  {    name: "contactMethods",    type: "checkboxGroup",    label: "Preferred Contact",    defaultValue: [],    options: [      { label: "Email", value: "email" },      { label: "Phone", value: "phone" },      { label: "Text", value: "text" }    ]  }],onSubmit: (formValue) => sendMessage(formValue),}<FormBlock schema={contactFormSchema} />```
 <a name="module_src\components\renderers\blocks\HeroBlock\index"></a>
 
 ## src\components\renderers\blocks\HeroBlock\index
@@ -1314,8 +973,7 @@ src\components\renderers\blocks\HeroBlock\index module.
 <a name="module_components/PageHeader"></a>
 
 ## components/PageHeader
-Standardized page-level header component used to introduce
-pages and major sections with consistent hierarchy and styling.
+Standardized page-level header component used to introducepages and major sections with consistent hierarchy and styling.
 
 
 * [components/PageHeader](#module_components/PageHeader)
@@ -1330,21 +988,7 @@ pages and major sections with consistent hierarchy and styling.
 A reusable page header component designed to provide a consistent and visually appealing introduction to pages and major sections. It combines a prominent title with optional supporting information such as job titles, timespans, descriptive subtitles, and associated technologies.
 
 **Kind**: inner property of [<code>components/PageHeader</code>](#module_components/PageHeader)  
-**Summary**: The HeroBlock component serves as a standardized header section that can be used across different pages and sections of the portfolio. It is designed to be visually striking while maintaining readability and accessibility.
-
-Features:
-- Frosted RSuite Panel container
-- Primary title (required)
-- Optional job title and timespan row
-- Optional descriptive subtitle
-- Optional technology list
-- Subtle entrance animation via CSS
-- Fully responsive layout
-
-Accessibility:
-- Uses `role="banner"` to denote page-level landmark
-- Content is readable and navigable via assistive technologies
-- Color contrast is maintained for readability  
+**Summary**: The HeroBlock component serves as a standardized header section that can be used across different pages and sections of the portfolio. It is designed to be visually striking while maintaining readability and accessibility.Features:- Frosted RSuite Panel container- Primary title (required)- Optional job title and timespan row- Optional descriptive subtitle- Optional technology list- Subtle entrance animation via CSS- Fully responsive layoutAccessibility:- Uses `role="banner"` to denote page-level landmark- Content is readable and navigable via assistive technologies- Color contrast is maintained for readability  
 **Returns**: <code>JSX.Element</code> - Rendered page header.  
 **Access**: public  
 **Component**:   
@@ -1360,39 +1004,11 @@ Accessibility:
 | [props.className] | <code>string</code> | Optional additional CSS class names. |
 
 **Example**  
-```js
-<HeroBlock
-  title="My Portfolio"
-  jobTitle="Software Engineer"
-  timespan="2020 - Present"
-  subTitle="Welcome to my personal portfolio showcasing my projects and experience."
-  tech={[
-      { label: "React", type: "react" },
-      { label: "JavaScript", type: "javascript" },
-      { label: "CSS", type: "css" }
-    ]}
-/>
-```
+```js<HeroBlock  title="My Portfolio"  jobTitle="Software Engineer"  timespan="2020 - Present"  subTitle="Welcome to my personal portfolio showcasing my projects and experience."  tech={[      { label: "React", type: "react" },      { label: "JavaScript", type: "javascript" },      { label: "CSS", type: "css" }    ]}/>```
 <a name="module_components/PageHeader..PageHeader"></a>
 
 ### components/PageHeader~PageHeader(props) ⇒ <code>JSX.Element</code>
-PageHeader
----------------------------------------------------------------------------
-Standardized page-level header component designed to introduce a page or
-major section with clear hierarchy and frosted-glass presentation.
-
-Features:
-- Frosted RSuite Panel container
-- Primary title (required)
-- Optional job title and timespan row
-- Optional descriptive subtitle
-- Optional technology list
-- Subtle entrance animation via CSS
-- Fully responsive layout
-
-Accessibility:
-- Uses `role="banner"` to denote page-level landmark
-- Content is readable and navigable via assistive technologies
+PageHeader---------------------------------------------------------------------------Standardized page-level header component designed to introduce a page ormajor section with clear hierarchy and frosted-glass presentation.Features:- Frosted RSuite Panel container- Primary title (required)- Optional job title and timespan row- Optional descriptive subtitle- Optional technology list- Subtle entrance animation via CSS- Fully responsive layoutAccessibility:- Uses `role="banner"` to denote page-level landmark- Content is readable and navigable via assistive technologies
 
 **Kind**: inner method of [<code>components/PageHeader</code>](#module_components/PageHeader)  
 **Returns**: <code>JSX.Element</code> - Rendered page header.  
@@ -1412,11 +1028,7 @@ Accessibility:
 <a name="module_components/PageHeader..PageHeader..renderTechUsedString"></a>
 
 #### PageHeader~renderTechUsedString([techArray]) ⇒ <code>JSX.Element</code> \| <code>string</code>
-Formats a list of technology items into a human-readable display.
-
-Behavior:
-- Returns an empty string when no valid technologies are provided
-- Renders each technology with its associated style class
+Formats a list of technology items into a human-readable display.Behavior:- Returns an empty string when no valid technologies are provided- Renders each technology with its associated style class
 
 **Kind**: inner method of [<code>PageHeader</code>](#module_components/PageHeader..PageHeader)  
 **Returns**: <code>JSX.Element</code> \| <code>string</code> - Rendered tech list or empty string.  
@@ -1428,9 +1040,7 @@ Behavior:
 <a name="module_components/PageHeader..TechItem"></a>
 
 ### components/PageHeader~TechItem : <code>Object</code>
-TechItem
----------------------------------------------------------------------------
-Describes a technology badge rendered in the "Tech Used" section.
+TechItem---------------------------------------------------------------------------Describes a technology badge rendered in the "Tech Used" section.
 
 **Kind**: inner typedef of [<code>components/PageHeader</code>](#module_components/PageHeader)  
 **Properties**
@@ -1449,22 +1059,12 @@ src\components\renderers\blocks\ImageGalleryBlock\index module.
 <a name="module_src/components/renderers/blocks/ImageGalleryBlock"></a>
 
 ## src/components/renderers/blocks/ImageGalleryBlock
-Renders a responsive image gallery inside a collapsible,
-frosted-style panel.
+Renders a responsive image gallery inside a collapsible,frosted-style panel.
 
 <a name="module_src/components/renderers/blocks/ImageGalleryBlock..ImageGalleryBlock"></a>
 
 ### src/components/renderers/blocks/ImageGalleryBlock~ImageGalleryBlock ⇒ <code>JSX.Element</code> \| <code>null</code>
-Displays a responsive image gallery as a collapsible frosted panel.
-
-Key behaviors:
-- Renders a grid of image thumbnails using RSuite FlexboxGrid
-- Each image opens a ClickableImg modal viewer when activated
-- Uses stable React keys, preferring `image.id` when available
-
-Rendering notes:
-- Returns `null` if no valid items are provided
-- Panel header is rendered only when a title is supplied
+Displays a responsive image gallery as a collapsible frosted panel.Key behaviors:- Renders a grid of image thumbnails using RSuite FlexboxGrid- Each image opens a ClickableImg modal viewer when activated- Uses stable React keys, preferring `image.id` when availableRendering notes:- Returns `null` if no valid items are provided- Panel header is rendered only when a title is supplied
 
 **Kind**: inner property of [<code>src/components/renderers/blocks/ImageGalleryBlock</code>](#module_src/components/renderers/blocks/ImageGalleryBlock)  
 **Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered image gallery or null if empty.  
@@ -1478,16 +1078,7 @@ Rendering notes:
 | block.items | <code>Array.&lt;FeatureImage&gt;</code> | Image definitions to render. |
 
 **Example**  
-```js
-<ImageGalleryBlock
-block={{
- id: "gallery1",
-title: "Project Screenshots",
-items: [
-   { id: "img1", src: "/images/screenshot1.png", alt: "Screenshot 1" },
-   { id: "img2", src: "/images/screenshot2.png", alt: "Screenshot 2" },
- ],
-}}
+```js<ImageGalleryBlockblock={{ id: "gallery1",title: "Project Screenshots",items: [   { id: "img1", src: "/images/screenshot1.png", alt: "Screenshot 1" },   { id: "img2", src: "/images/screenshot2.png", alt: "Screenshot 2" }, ],}}
 <a name="module_src\components\renderers\blocks\LinksBlock\index"></a>
 
 ## src\components\renderers\blocks\LinksBlock\index
@@ -1496,23 +1087,12 @@ src\components\renderers\blocks\LinksBlock\index module.
 <a name="module_components/renderers/blocks/LinksBlock"></a>
 
 ## components/renderers/blocks/LinksBlock
-Renders a list of link buttons inside a collapsible frosted panel.This component is designed to be used as a block renderer within the section
-content system. It takes a list of link definitions and renders them as styled buttons
-with appropriate attributes for external links, downloads, and accessibility.
+Renders a list of link buttons inside a collapsible frosted panel.This component is designed to be used as a block renderer within the sectioncontent system. It takes a list of link definitions and renders them as styled buttonswith appropriate attributes for external links, downloads, and accessibility.
 
 <a name="module_components/renderers/blocks/LinksBlock..LinksBlock"></a>
 
 ### components/renderers/blocks/LinksBlock~LinksBlock ⇒ <code>JSX.Element</code> \| <code>null</code>
-Renders a list of link buttons using the shared UI type system.
-This component is designed to be used as a block renderer within the section content system. It takes a list of link definitions and renders them as styled buttons with appropriate attributes for external links, downloads, and accessibility.
-This component relies on the global `LinkItem` typedef defined in
-`src/types/ui.types.js`. That typedef is treated as a shared contract
-and should not be redeclared locally.
-
-Rendering notes:
-- Returns `null` when no links are provided
-- Automatically detects external URLs to apply target and rel attributes
-- Delegates rendering and accessibility concerns to the shared `Btn` component
+Renders a list of link buttons using the shared UI type system.This component is designed to be used as a block renderer within the section content system. It takes a list of link definitions and renders them as styled buttons with appropriate attributes for external links, downloads, and accessibility.This component relies on the global `LinkItem` typedef defined in`src/types/ui.types.js`. That typedef is treated as a shared contractand should not be redeclared locally.Rendering notes:- Returns `null` when no links are provided- Automatically detects external URLs to apply target and rel attributes- Delegates rendering and accessibility concerns to the shared `Btn` component
 
 **Kind**: inner property of [<code>components/renderers/blocks/LinksBlock</code>](#module_components/renderers/blocks/LinksBlock)  
 **Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered link list or null if empty.  
@@ -1525,14 +1105,7 @@ Rendering notes:
 | props.items | <code>Array.&lt;LinkItem&gt;</code> | List of link definitions to render. |
 
 **Example**  
-```js
-<LinksBlock
-  items={[
-    { title: "GitHub", url: "https://github.com", icon: faGithub },
-    { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },
-  ]}
-/>
-```
+```js<LinksBlock  items={[    { title: "GitHub", url: "https://github.com", icon: faGithub },    { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },  ]}/>```
 <a name="src\components\renderers\blocks\MarkdownDocs.module_Block\index"></a>
 
 ## src\components\renderers\blocks\MarkdownDocs.Block\index
@@ -1541,8 +1114,7 @@ src\components\renderers\blocks\MarkdownDocs.Block\index module.
 <a name="exp_src\components\renderers\blocks\MarkdownDocs.module_Block\index--module.exports"></a>
 
 ### .module.exports(props) ⇒ <code>JSX.Element</code> \| <code>null</code> ⏏
-Renders a curated stack of documentation articles with optional jump links
-and per-article tables of contents.
+Renders a curated stack of documentation articles with optional jump linksand per-article tables of contents.
 
 **Kind**: static method of [<code>src\components\renderers\blocks\MarkdownDocs.Block\index</code>](#src\components\renderers\blocks\MarkdownDocs.module_Block\index)  
 **Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered docs block or `null` when no docs resolve.  
@@ -1560,22 +1132,12 @@ src\components\renderers\blocks\RichTextBlock\index module.
 <a name="module_components/blocks/RichTextBlock"></a>
 
 ## components/blocks/RichTextBlock
-Renders a collapsible frosted panel containing one or more
-paragraphs of rich text content.
+Renders a collapsible frosted panel containing one or moreparagraphs of rich text content.
 
 <a name="module_components/blocks/RichTextBlock..RichTextBlock"></a>
 
 ### components/blocks/RichTextBlock~RichTextBlock ⇒ <code>JSX.Element</code> \| <code>null</code>
-Renders a collapsible panel containing one or more paragraphs of rich text. Intended for use as a content block within feature or section layouts.
-
-Rendering notes:
-- Returns `null` if no valid paragraph content is provided
-- Each paragraph is rendered as a separate `<p>` element
-- Panel header is conditionally rendered when a title is supplied
-
-Accessibility:
-- Uses `role="region"` to denote a landmark section
-- Applies `aria-label` when a title is present
+Renders a collapsible panel containing one or more paragraphs of rich text. Intended for use as a content block within feature or section layouts.Rendering notes:- Returns `null` if no valid paragraph content is provided- Each paragraph is rendered as a separate `<p>` element- Panel header is conditionally rendered when a title is suppliedAccessibility:- Uses `role="region"` to denote a landmark section- Applies `aria-label` when a title is present
 
 **Kind**: inner property of [<code>components/blocks/RichTextBlock</code>](#module_components/blocks/RichTextBlock)  
 **Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered rich text panel or null if empty.  
@@ -1649,15 +1211,7 @@ Renders rich text content which may include plain strings, arrays,
 Renders rich text content which may include plain strings, arrays, or structured rich text nodes. This component is designed to handle a variety of content formats, allowing for flexible rendering of rich text in different contexts.
 
 **Kind**: inner property of [<code>components/RichText</code>](#module_components/RichText)  
-**Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered rich text content or null if input is empty/invalid
-
-Key behaviors:
-- Handles multiple content formats: strings, numbers, arrays, and objects
-- Trims string content and renders only if non-empty to avoid empty paragraphs
-- Recursively renders array content, allowing for complex rich text structures
-- Uses stable keys for array items, preferring node IDs when available
-- Applies ARIA roles and labels for accessibility when provided
-- Returns null for invalid or empty content to prevent rendering errors  
+**Returns**: <code>JSX.Element</code> \| <code>null</code> - Rendered rich text content or null if input is empty/invalidKey behaviors:- Handles multiple content formats: strings, numbers, arrays, and objects- Trims string content and renders only if non-empty to avoid empty paragraphs- Recursively renders array content, allowing for complex rich text structures- Uses stable keys for array items, preferring node IDs when available- Applies ARIA roles and labels for accessibility when provided- Returns null for invalid or empty content to prevent rendering errors  
 **Access**: public  
 **Component**:   
 
@@ -1673,19 +1227,7 @@ Key behaviors:
 | props.ariaLabeledBy | <code>string</code> | ID of the element that labels this content for accessibility |
 
 **Example**  
-```js
-<RichText
-  text={[
-    "This is a paragraph of rich text.",
-    { type: "link", href: "https://example.com", text: "This is a link." },
-   "This is another paragraph."
- ]}
- className="custom-rich-text"
- role="article"
-ariaLabeledBy="richTextLabel"
-/>
-```
-In this example, the `RichText` component renders a mix of plain text and a structured link node, applying custom styling and accessibility attributes as specified in the props.
+```js<RichText  text={[    "This is a paragraph of rich text.",    { type: "link", href: "https://example.com", text: "This is a link." },   "This is another paragraph." ]} className="custom-rich-text" role="article"ariaLabeledBy="richTextLabel"/>```In this example, the `RichText` component renders a mix of plain text and a structured link node, applying custom styling and accessibility attributes as specified in the props.
 <a name="module_src\components\renderers\RichText\renderNode"></a>
 
 ## src\components\renderers\RichText\renderNode
@@ -1699,13 +1241,7 @@ src\components\renderers\RichText\renderNode module.
 <a name="module_src\components\renderers\RichText\renderNode..InlineIcon"></a>
 
 ### src\components\renderers\RichText\renderNode~InlineIcon(props) ⇒ <code>JSX.Element</code>
-InlineIcon
----------------------------------------------------------------------------
-Renders a lightweight, inline icon placeholder.
-
-This component is intentionally decoupled from any specific icon library.
-Styling and actual icon rendering should be handled via CSS or a higher-level
-icon system.
+InlineIcon---------------------------------------------------------------------------Renders a lightweight, inline icon placeholder.This component is intentionally decoupled from any specific icon library.Styling and actual icon rendering should be handled via CSS or a higher-levelicon system.
 
 **Kind**: inner method of [<code>src\components\renderers\RichText\renderNode</code>](#module_src\components\renderers\RichText\renderNode)  
 
@@ -1717,15 +1253,7 @@ icon system.
 <a name="module_src\components\renderers\RichText\renderNode..renderNode"></a>
 
 ### src\components\renderers\RichText\renderNode~renderNode(node, key) ⇒ <code>JSX.Element</code> \| <code>string</code> \| <code>null</code>
-renderNode
----------------------------------------------------------------------------
-Recursively renders a `RichTextNode` into a React element.
-
-Design notes:
-- Uses a single switch statement for explicit, readable control flow
-- Recursion allows arbitrarily deep nesting (lists, paragraphs, blockquotes)
-- Inline nodes return strings or inline elements
-- Block nodes return semantic container elements
+renderNode---------------------------------------------------------------------------Recursively renders a `RichTextNode` into a React element.Design notes:- Uses a single switch statement for explicit, readable control flow- Recursion allows arbitrarily deep nesting (lists, paragraphs, blockquotes)- Inline nodes return strings or inline elements- Block nodes return semantic container elements
 
 **Kind**: inner method of [<code>src\components\renderers\RichText\renderNode</code>](#module_src\components\renderers\RichText\renderNode)  
 **Returns**: <code>JSX.Element</code> \| <code>string</code> \| <code>null</code> - Rendered node output.  
@@ -1743,14 +1271,12 @@ src\components\renderers\SectionRenderer\index module.
 <a name="module_components/SectionRenderer"></a>
 
 ## components/SectionRenderer
-Central render orchestrator for feature sections composed of
-declarative content blocks.
+Central render orchestrator for feature sections composed ofdeclarative content blocks.
 
 <a name="module_components/SectionRenderer..SectionRenderer"></a>
 
 ### components/SectionRenderer~SectionRenderer(props) ⇒ <code>JSX.Element</code>
-Central render orchestrator for a feature section composed of declarative
-content blocks.
+Central render orchestrator for a feature section composed of declarativecontent blocks.
 
 **Kind**: inner method of [<code>components/SectionRenderer</code>](#module_components/SectionRenderer)  
 **Returns**: <code>JSX.Element</code> - Rendered feature section.  
@@ -1766,19 +1292,7 @@ content blocks.
 <a name="module_tests/components/AccordionList"></a>
 
 ## tests/components/AccordionList
-Unit tests for the AccordionList component.
-
-Test coverage:
-- Basic rendering of panel and item titles
-- Accordion expand / collapse behavior
-- Keyboard interaction (Enter / Space)
-- Scroll-to-section behavior for `isScroller` items
-- Accessibility roles and screen-reader live region updates
-
-Testing strategy:
-- Uses `renderWithProviders` to ensure context parity with the app
-- Uses `@testing-library/user-event` for realistic interaction simulation
-- Avoids testing implementation details; focuses on observable behavior
+Unit tests for the AccordionList component.Test coverage:- Basic rendering of panel and item titles- Accordion expand / collapse behavior- Keyboard interaction (Enter / Space)- Scroll-to-section behavior for `isScroller` items- Accessibility roles and screen-reader live region updatesTesting strategy:- Uses `renderWithProviders` to ensure context parity with the app- Uses `@testing-library/user-event` for realistic interaction simulation- Avoids testing implementation details; focuses on observable behavior
 
 <a name="module_src\components\ui\AccordionList\index"></a>
 
@@ -1788,8 +1302,7 @@ src\components\ui\AccordionList\index module.
 <a name="module_components/AccordionList"></a>
 
 ## components/AccordionList
-Fully accessible, keyboard-navigable accordion and section
-navigation component with frosted-glass styling.
+Fully accessible, keyboard-navigable accordion and sectionnavigation component with frosted-glass styling.
 
 
 * [components/AccordionList](#module_components/AccordionList)
@@ -1806,38 +1319,7 @@ navigation component with frosted-glass styling.
 
 ### components/AccordionList~AccordionList(props) ⇒ <code>JSX.Element</code>
 **Kind**: inner method of [<code>components/AccordionList</code>](#module_components/AccordionList)  
-**Returns**: <code>JSX.Element</code> - A fully accessible accordion and section navigation component.
----------------------------------------------------------------------------
-EXAMPLE USAGE
------------------------------------------------------------------------
-<AccordionList
-  title="Sections"
-  variant="dark"
-  items={[
-    {
-      id: "editor",
-      isScroller: true,
-      icon: faCode,
-      title: "3-Panel Editor",
-      text: "Details about the editor system..."
-    },
-    {
-      id: "organizations",
-      isScroller: true,
-      icon: faPeopleGroup,
-      title: "Organizations",
-      text: "How orgs and licenses work..."
-    }
-  ]}
-/>
-
------------------------------------------------------------------------
-NOTES
------------------------------------------------------------------------
-• Designed to integrate with Sticky Section Nav for a unified navigation system
-• Automatically syncs open item with page scroll position
-• Accessible to screen readers and keyboard-only users
-• Uses RSuite's <Accordion> but replaces all header behavior with custom ARIA logic  
+**Returns**: <code>JSX.Element</code> - A fully accessible accordion and section navigation component.---------------------------------------------------------------------------EXAMPLE USAGE-----------------------------------------------------------------------<AccordionList  title="Sections"  variant="dark"  items={[    {      id: "editor",      isScroller: true,      icon: faCode,      title: "3-Panel Editor",      text: "Details about the editor system..."    },    {      id: "organizations",      isScroller: true,      icon: faPeopleGroup,      title: "Organizations",      text: "How orgs and licenses work..."    }  ]}/>-----------------------------------------------------------------------NOTES-----------------------------------------------------------------------• Designed to integrate with Sticky Section Nav for a unified navigation system• Automatically syncs open item with page scroll position• Accessible to screen readers and keyboard-only users• Uses RSuite's <Accordion> but replaces all header behavior with custom ARIA logic  
 **Access**: public  
 **Component**:   
 
@@ -1902,9 +1384,7 @@ Keyboard handler for each header
 <a name="module_components/AccordionList..AccordionItem"></a>
 
 ### components/AccordionList~AccordionItem : <code>Object</code>
-AccordionItem
----------------------------------------------------------------------------
-Describes a single entry rendered within the AccordionList.
+AccordionItem---------------------------------------------------------------------------Describes a single entry rendered within the AccordionList.
 
 **Kind**: inner typedef of [<code>components/AccordionList</code>](#module_components/AccordionList)  
 **Properties**
@@ -1924,30 +1404,15 @@ Describes a single entry rendered within the AccordionList.
 ## src\components\ui\Btn\Btn.test
 src\components\ui\Btn\Btn.test module.
 
-<a name="tests/components/ui/Btn
+<a name="tests/components/ui/BtnNote_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_"></a>
 
-Note_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.
-The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_"></a>
-
-## tests/components/ui/Btn
-
-Note: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.
-The FrostedIcon component is also mocked to provide a simple representation for testing purposes.
-Unit tests for the Btn component.
-Testing focus:
-- Click handling behavior (invocation, disabled state)
-- Accessibility features (icon-only naming, button type)
-- Async behavior (busy state during pending operations)
-
-Design intent:
-Btn is designed to be a versatile button component that can handle various use cases, including icon-only buttons and async operations. The tests ensure that it behaves correctly in these scenarios while maintaining accessibility standards.
+## tests/components/ui/BtnNote: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.The FrostedIcon component is also mocked to provide a simple representation for testing purposes.
+Unit tests for the Btn component.Testing focus:- Click handling behavior (invocation, disabled state)- Accessibility features (icon-only naming, button type)- Async behavior (busy state during pending operations)Design intent:Btn is designed to be a versatile button component that can handle various use cases, including icon-only buttons and async operations. The tests ensure that it behaves correctly in these scenarios while maintaining accessibility standards.
 
 <a name="module_components/Btn"></a>
 
 ## components/Btn
-Unified frosted-glass button component implementing the
-Midnight Gold UI system with accessibility, animation, async handling,
-and controlled prop passthrough to RSuite and FontAwesome.
+Unified frosted-glass button component implementing theMidnight Gold UI system with accessibility, animation, async handling,and controlled prop passthrough to RSuite and FontAwesome.
 
 
 * [components/Btn](#module_components/Btn)
@@ -1961,24 +1426,7 @@ and controlled prop passthrough to RSuite and FontAwesome.
 <a name="module_components/Btn..Btn"></a>
 
 ### components/Btn~Btn ⇒ <code>JSX.Element</code>
-A unified, accessible, animated button component that conforms to the
-Midnight Gold + Frosted UI system.
-
-Core responsibilities:
-- Normalizes RSuite `<Button>` and `<IconButton>` behavior
-- Automatically switches to IconButton when an icon is present
-- Enforces accessibility for icon-only buttons
-- Supports async click handlers with visual feedback
-- Provides tooltip support via RSuite Whisper
-- Can render as:
-  - Native button
-  - React Router link
-  - External anchor
-
-Accessibility:
-- Requires an accessible label for icon-only buttons
-- Applies `aria-busy` during loading/async states
-- Applies `aria-disabled` consistently
+A unified, accessible, animated button component that conforms to theMidnight Gold + Frosted UI system.Core responsibilities:- Normalizes RSuite `<Button>` and `<IconButton>` behavior- Automatically switches to IconButton when an icon is present- Enforces accessibility for icon-only buttons- Supports async click handlers with visual feedback- Provides tooltip support via RSuite Whisper- Can render as:  - Native button  - React Router link  - External anchorAccessibility:- Requires an accessible label for icon-only buttons- Applies `aria-busy` during loading/async states- Applies `aria-disabled` consistently
 
 **Kind**: inner property of [<code>components/Btn</code>](#module_components/Btn)  
 **Returns**: <code>JSX.Element</code> - Rendered button component.  
@@ -2010,18 +1458,7 @@ Accessibility:
 | [props.*] | <code>FontAwesomeButtonIconProps</code> |  | FontAwesome-related props forwarded to the internal `FrostedIcon`. |
 
 **Example**  
-```js
-<Btn
-variant="accent"
-size="lg"
-text="Click Me"
-icon="fa-solid fa-thumbs-up"
-onClick={() => alert("Button clicked!")}
-tooltip="This is a button"
-ariaLabel="Click Me"
-/>
-```
-In this example, the `Btn` component renders a large, accent-styled button with both text and an icon. It includes a tooltip that appears on hover and an accessible label for screen readers. When clicked, it triggers an alert dialog.
+```js<Btnvariant="accent"size="lg"text="Click Me"icon="fa-solid fa-thumbs-up"onClick={() => alert("Button clicked!")}tooltip="This is a button"ariaLabel="Click Me"/>```In this example, the `Btn` component renders a large, accent-styled button with both text and an icon. It includes a tooltip that appears on hover and an accessible label for screen readers. When clicked, it triggers an alert dialog.
 
 * [~Btn](#module_components/Btn..Btn) ⇒ <code>JSX.Element</code>
     * [~isIconOnly](#module_components/Btn..Btn..isIconOnly)
@@ -2043,8 +1480,7 @@ Resolve an accessible aria-label for the button. Falls back to tooltip text or a
 <a name="module_components/Btn..Btn..handleClick"></a>
 
 #### Btn~handleClick(e) ⇒ <code>void</code>
-Async-aware click handler.
-Automatically manages loading state when a Promise is returned.
+Async-aware click handler.Automatically manages loading state when a Promise is returned.
 
 **Kind**: inner method of [<code>Btn</code>](#module_components/Btn..Btn)  
 
@@ -2055,12 +1491,7 @@ Automatically manages loading state when a Promise is returned.
 <a name="module_components/Btn..RSuiteButtonProps"></a>
 
 ### components/Btn~RSuiteButtonProps : <code>Object</code>
-Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.
-These are documented explicitly to make passthrough behavior clear
-without re-exporting RSuite types.
-Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.
-These are documented explicitly to make passthrough behavior clear
-without re-exporting RSuite types.
+Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.These are documented explicitly to make passthrough behavior clearwithout re-exporting RSuite types.Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.These are documented explicitly to make passthrough behavior clearwithout re-exporting RSuite types.
 
 **Kind**: inner typedef of [<code>components/Btn</code>](#module_components/Btn)  
 **Properties**
@@ -2091,9 +1522,7 @@ without re-exporting RSuite types.
 <a name="module_components/Btn..FontAwesomeButtonIconProps"></a>
 
 ### components/Btn~FontAwesomeButtonIconProps : <code>Object</code>
-FontAwesome-related props forwarded to the internal `FrostedIcon`
-instance rendered inside the button. These allow for fine-grained control over
-the icon's appearance and behavior, including animation, flipping, masking, and more.
+FontAwesome-related props forwarded to the internal `FrostedIcon`instance rendered inside the button. These allow for fine-grained control overthe icon's appearance and behavior, including animation, flipping, masking, and more.
 
 **Kind**: inner typedef of [<code>components/Btn</code>](#module_components/Btn)  
 **Properties**
@@ -2124,46 +1553,17 @@ the icon's appearance and behavior, including animation, flipping, masking, and 
 <a name="module_tests/components/ClickableImg"></a>
 
 ## tests/components/ClickableImg
-Unit tests for the ClickableImg component.
-
-Test coverage:
-- Thumbnail image rendering
-- Optional caption rendering
-- Modal open and close behavior
-- Expanded image rendering
-- Keyboard interaction (Escape key)
-- Accessibility attributes and aria-label handling
-
-Testing strategy:
-- Uses `@testing-library/user-event` to simulate real user interactions
-- Verifies RSuite Modal behavior via `role="dialog"`
-- Avoids snapshots in favor of semantic queries
+Unit tests for the ClickableImg component.Test coverage:- Thumbnail image rendering- Optional caption rendering- Modal open and close behavior- Expanded image rendering- Keyboard interaction (Escape key)- Accessibility attributes and aria-label handlingTesting strategy:- Uses `@testing-library/user-event` to simulate real user interactions- Verifies RSuite Modal behavior via `role="dialog"`- Avoids snapshots in favor of semantic queries
 
 <a name="module_components/ClickableImg"></a>
 
 ## components/ClickableImg
-Clickable image component that expands into a frosted
-modal viewer while preserving aspect ratio and accessibility.
+Clickable image component that expands into a frostedmodal viewer while preserving aspect ratio and accessibility.
 
 <a name="module_components/ClickableImg..ClickableImg"></a>
 
 ### components/ClickableImg~ClickableImg ⇒ <code>JSX.Element</code>
-A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.
-
-Key behaviors:
-- Renders a responsive image thumbnail using RSuite's Image component
-- Clicking the thumbnail opens a modal viewer with a larger version of the image
-- The modal can be closed with the close button or pressing the ESC key
-- The expanded image supports zoom controls and drag-to-pan interaction
-- On mobile, title/caption details are hidden while zoomed to maximize viewing space
-- Both thumbnail and modal images are lazy-loaded for performance
-- The modal and image wrapper feature frosted glass styling consistent with the UI design system
-- On mobile portrait, wide images request landscape orientation when browser support allows it
-- On unsupported browsers, wide images show a rotate/zoom guidance hint
-
-Accessibility:
-- Requires alt text for screen readers
-- Applies aria-label to both thumbnail and modal image
+A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.Key behaviors:- Renders a responsive image thumbnail using RSuite's Image component- Clicking the thumbnail opens a modal viewer with a larger version of the image- The modal can be closed with the close button or pressing the ESC key- The expanded image supports zoom controls and drag-to-pan interaction- On mobile, title/caption details are hidden while zoomed to maximize viewing space- Both thumbnail and modal images are lazy-loaded for performance- The modal and image wrapper feature frosted glass styling consistent with the UI design system- On mobile portrait, wide images request landscape orientation when browser support allows it- On unsupported browsers, wide images show a rotate/zoom guidance hintAccessibility:- Requires alt text for screen readers- Applies aria-label to both thumbnail and modal image
 
 **Kind**: inner property of [<code>components/ClickableImg</code>](#module_components/ClickableImg)  
 **Returns**: <code>JSX.Element</code> - Clickable image with modal viewer.  
@@ -2181,16 +1581,7 @@ Accessibility:
 | [props.caption] | <code>string</code> | Optional caption rendered with the image. |
 
 **Example**  
-```js
-<ClickableImg
-src="/images/project-screenshot.png"
-alt="Screenshot of the project in action"
-title="Project Screenshot"
-caption="This screenshot shows the main dashboard of the application."
-ariaLabel="Screenshot of the project in action, click to expand"
-/>
-```
-In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
+```js<ClickableImgsrc="/images/project-screenshot.png"alt="Screenshot of the project in action"title="Project Screenshot"caption="This screenshot shows the main dashboard of the application."ariaLabel="Screenshot of the project in action, click to expand"/>```In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
 <a name="src\components\ui\FrostedIcon\FrostedIcon.module_test"></a>
 
 ## src\components\ui\FrostedIcon\FrostedIcon.test
@@ -2199,26 +1590,12 @@ src\components\ui\FrostedIcon\FrostedIcon.test module.
 <a name="module_tests/components/FrostedIcon"></a>
 
 ## tests/components/FrostedIcon
-Unit tests for the FrostedIcon component.
-
-Testing focus:
-- Semantic role switching based on `clickable` prop
-- Size-related CSS class application
-- Loading state accessibility signaling
-
-Design intent:
-FrostedIcon is a low-level visual primitive that must:
-- Render correct semantic roles (`img` vs `button`)
-- Expose loading state via `aria-busy`
-- Apply predictable, size-based CSS classes
-
-These tests validate observable DOM behavior rather than internal logic.
+Unit tests for the FrostedIcon component.Testing focus:- Semantic role switching based on `clickable` prop- Size-related CSS class application- Loading state accessibility signalingDesign intent:FrostedIcon is a low-level visual primitive that must:- Render correct semantic roles (`img` vs `button`)- Expose loading state via `aria-busy`- Apply predictable, size-based CSS classesThese tests validate observable DOM behavior rather than internal logic.
 
 <a name="module_components/FrostedIcon"></a>
 
 ## components/FrostedIcon
-Styled FontAwesome icon component integrated with the
-Midnight Gold frosted UI system.
+Styled FontAwesome icon component integrated with theMidnight Gold frosted UI system.
 
 
 * [components/FrostedIcon](#module_components/FrostedIcon)
@@ -2228,20 +1605,7 @@ Midnight Gold frosted UI system.
 <a name="module_components/FrostedIcon..FrostedIcon"></a>
 
 ### components/FrostedIcon~FrostedIcon ⇒ <code>JSX.Element</code>
-A styled wrapper around [FontAwesomeIcon](FontAwesomeIcon) that conforms to the
-Midnight Gold + Frosted UI system.
-
-Core responsibilities:
-- Applies frosted-glass theming and size variants
-- Manages loading and animation states
-- Provides optional click interaction
-- Exposes tooltip support via RSuite Whisper
-- Forwards supported FontAwesome props directly to the SVG renderer
-
-Accessibility:
-- Uses `role="button"` when clickable
-- Applies `aria-label` when provided
-- Uses `aria-busy` during loading states
+A styled wrapper around [FontAwesomeIcon](FontAwesomeIcon) that conforms to theMidnight Gold + Frosted UI system.Core responsibilities:- Applies frosted-glass theming and size variants- Manages loading and animation states- Provides optional click interaction- Exposes tooltip support via RSuite Whisper- Forwards supported FontAwesome props directly to the SVG rendererAccessibility:- Uses `role="button"` when clickable- Applies `aria-label` when provided- Uses `aria-busy` during loading states
 
 **Kind**: inner property of [<code>components/FrostedIcon</code>](#module_components/FrostedIcon)  
 **Returns**: <code>JSX.Element</code> - Rendered frosted icon.  
@@ -2265,21 +1629,11 @@ Accessibility:
 | [props.*] | <code>FontAwesomeIconProps</code> |  | Any supported FontAwesomeIcon props are forwarded directly to the   underlying SVG renderer. |
 
 **Example**  
-```js
-<FrostedIcon
-icon={faCoffee}
-size={Size.LG}
-variant={Variant.ACCENT}
-clickable
-onClick={() => alert("Icon clicked!")}
-/>
-```
+```js<FrostedIconicon={faCoffee}size={Size.LG}variant={Variant.ACCENT}clickableonClick={() => alert("Icon clicked!")}/>```
 <a name="module_components/FrostedIcon..FontAwesomeIconProps"></a>
 
 ### components/FrostedIcon~FontAwesomeIconProps : <code>Object</code>
-Subset of props forwarded directly to the underlying `FontAwesomeIcon`
-component. These align with the official `@fortawesome/react-fontawesome`
-API and are documented here for completeness.
+Subset of props forwarded directly to the underlying `FontAwesomeIcon`component. These align with the official `@fortawesome/react-fontawesome`API and are documented here for completeness.
 
 **Kind**: inner typedef of [<code>components/FrostedIcon</code>](#module_components/FrostedIcon)  
 **Properties**
@@ -2310,9 +1664,7 @@ API and are documented here for completeness.
 <a name="module_components/ui"></a>
 
 ## components/ui
-Centralized export module for shared UI components. This file serves as a single point of import for all commonly used UI elements across the codebase, promoting modularity and ease of maintenance.
-
-Note: When adding new shared UI components, simply import them here and include them in the export statement.
+Centralized export module for shared UI components. This file serves as a single point of import for all commonly used UI elements across the codebase, promoting modularity and ease of maintenance.Note: When adding new shared UI components, simply import them here and include them in the export statement.
 
 <a name="module_src\components\ui\InsightCard\index"></a>
 
@@ -2345,21 +1697,7 @@ A grid layout component for displaying multiple InsightCards. It uses CSS Grid t
 | children | <code>React.ReactNode</code> | The content to be displayed within the grid. Each child will be treated as a separate card. |
 
 **Example**  
-```js
-<CardGrid columns={2}>
- <InsightCard title="Insight 1" content="This is the first insight." />
- <InsightCard title="Insight 2" content="This is the second insight." />
-</CardGrid>
-```
-
-Accessibility:
-- The grid container uses `role="list"` to denote a list of items (cards).
-- Each child card should use `role="listitem"` to denote individual items within the list.
-- The grid layout is responsive and will adjust based on screen size, ensuring readability and usability across devices.
-
-Design notes:
-- The `columns` prop allows for flexible layout configurations, enabling different numbers of cards per row based on design needs.
-- The grid uses consistent spacing and alignment to create a cohesive visual presentation of the insights.
+```js<CardGrid columns={2}> <InsightCard title="Insight 1" content="This is the first insight." /> <InsightCard title="Insight 2" content="This is the second insight." /></CardGrid>```Accessibility:- The grid container uses `role="list"` to denote a list of items (cards).- Each child card should use `role="listitem"` to denote individual items within the list.- The grid layout is responsive and will adjust based on screen size, ensuring readability and usability across devices.Design notes:- The `columns` prop allows for flexible layout configurations, enabling different numbers of cards per row based on design needs.- The grid uses consistent spacing and alignment to create a cohesive visual presentation of the insights.
 <a name="module_components/ui/InsightCard..InsightCard"></a>
 
 ### components/ui/InsightCard~InsightCard ⇒ <code>JSX.Element</code>
@@ -2379,27 +1717,7 @@ A card component for displaying insights with a header and body. The header can 
 | content | <code>Array.&lt;RichTextNode&gt;</code> \| <code>string</code> | The content to be displayed within the card body. |
 
 **Example**  
-```js
-<InsightCard
- title="Key Insight"
- icon={faLightbulb}
- subtitle="This is a subtitle"
- variant={Variant.SECONDARY}
- content="This is the main content of the insight card."
-/>
-```
-
-Accessibility:
-- The card uses semantic HTML elements (e.g., `<h3>` for the title) to ensure proper structure and readability for screen readers.
-- The optional icon includes an `aria-label` for accessibility, describing the purpose of the icon when it is present.
-- The card's color variant is purely decorative and does not convey additional information, so it does not affect accessibility attributes.
-
-Design notes:
-- The `variant` prop allows for visual differentiation between cards, enabling the use of different accent colors to highlight specific insights.
-- The card layout is designed to be flexible, allowing for various types of content in the body while maintaining a consistent header structure.
-- The use of a divider between the header and body helps to visually separate the sections and improve readability.
-
-- The component is designed to be reusable and composable, allowing it to be used in various contexts where insights need to be displayed in a card format.
+```js<InsightCard title="Key Insight" icon={faLightbulb} subtitle="This is a subtitle" variant={Variant.SECONDARY} content="This is the main content of the insight card."/>```Accessibility:- The card uses semantic HTML elements (e.g., `<h3>` for the title) to ensure proper structure and readability for screen readers.- The optional icon includes an `aria-label` for accessibility, describing the purpose of the icon when it is present.- The card's color variant is purely decorative and does not convey additional information, so it does not affect accessibility attributes.Design notes:- The `variant` prop allows for visual differentiation between cards, enabling the use of different accent colors to highlight specific insights.- The card layout is designed to be flexible, allowing for various types of content in the body while maintaining a consistent header structure.- The use of a divider between the header and body helps to visually separate the sections and improve readability.- The component is designed to be reusable and composable, allowing it to be used in various contexts where insights need to be displayed in a card format.
 <a name="module_src\components\ui\MermaidDiagram\index"></a>
 
 ## src\components\ui\MermaidDiagram\index
@@ -2419,14 +1737,7 @@ Fully featured Mermaid diagram renderer with dark/light theme support, responsiv
 <a name="module_components/MermaidDiagram..MermaidDiagram"></a>
 
 ### components/MermaidDiagram~MermaidDiagram ⇒ <code>JSX.Element</code>
-Fully featured Mermaid diagram renderer with dark/light theme support, responsive SVG layout, accessible container, optional description, and PNG export capability. The component normalizes props to support both legacy and new diagram configurations, allowing for flexible integration while maintaining a consistent internal state structure for rendering.
-Core responsibilities:
-- Render Mermaid diagrams based on provided source strings, with support for separate mobile and desktop configurations.
-- Apply visual themes (dark/light) to the rendered diagrams for consistent styling.
-- Ensure the diagram container is accessible, using appropriate ARIA roles and labels.
-- Include an optional description rendered beneath the diagram for additional context.
-- Provide a button to export the rendered diagram as a PNG image, using `html-to-image` for conversion.
-- Normalize incoming props to support both legacy and new diagram configurations, ensuring backward compatibility while enabling new features.
+Fully featured Mermaid diagram renderer with dark/light theme support, responsive SVG layout, accessible container, optional description, and PNG export capability. The component normalizes props to support both legacy and new diagram configurations, allowing for flexible integration while maintaining a consistent internal state structure for rendering.Core responsibilities:- Render Mermaid diagrams based on provided source strings, with support for separate mobile and desktop configurations.- Apply visual themes (dark/light) to the rendered diagrams for consistent styling.- Ensure the diagram container is accessible, using appropriate ARIA roles and labels.- Include an optional description rendered beneath the diagram for additional context.- Provide a button to export the rendered diagram as a PNG image, using `html-to-image` for conversion.- Normalize incoming props to support both legacy and new diagram configurations, ensuring backward compatibility while enabling new features.
 
 **Kind**: inner property of [<code>components/MermaidDiagram</code>](#module_components/MermaidDiagram)  
 **Returns**: <code>JSX.Element</code> - Rendered Mermaid diagram panel.  
@@ -2448,25 +1759,11 @@ Core responsibilities:
 | [props.className] | <code>string</code> |  | Additional CSS class names applied to the panel container. |
 
 **Example**  
-```js
-<MermaidDiagram
-id="example-diagram"
-title="Example Mermaid Diagram"
-description="This is an example of a Mermaid diagram rendered within the MermaidDiagram component."
-diagram="graph TD; A-->B; A-->C; B-->D; C-->D;"
-theme="dark"
-/>
-// In this example, the `MermaidDiagram` component renders a simple flowchart defined by the Mermaid syntax in the `diagram` prop. The component applies the "dark" theme to the rendered SVG and includes a title and description for context. The diagram is rendered within a styled panel that is accessible and includes functionality for exporting the diagram as a PNG image.
-```
+```js<MermaidDiagramid="example-diagram"title="Example Mermaid Diagram"description="This is an example of a Mermaid diagram rendered within the MermaidDiagram component."diagram="graph TD; A-->B; A-->C; B-->D; C-->D;"theme="dark"/>// In this example, the `MermaidDiagram` component renders a simple flowchart defined by the Mermaid syntax in the `diagram` prop. The component applies the "dark" theme to the rendered SVG and includes a title and description for context. The diagram is rendered within a styled panel that is accessible and includes functionality for exporting the diagram as a PNG image.```
 <a name="module_components/MermaidDiagram..handleExport"></a>
 
 ### components/MermaidDiagram~handleExport() ⇒ <code>Promise.&lt;void&gt;</code>
-Handle diagram export by converting the rendered SVG to a PNG image using `html-to-image`, while ensuring that the host element and SVG are present before attempting the export. The function includes error handling to catch and log any issues during the export process, providing feedback in case of failure. The exported file is named based on the provided title or defaults to "diagram.png" if no title is available, ensuring a user-friendly download experience.
-The export process involves:
-- Selecting the SVG element from the host container to ensure that the correct content is exported.
-- Using `html-to-image`'s `toPng` function to convert the SVG to a PNG data URL, with options for cache busting and background color to ensure a clean export.
-- Creating a temporary anchor element to trigger the download of the PNG file, setting the `href` to the generated data URL and the `download` attribute to specify the filename.
-- Handling any errors that occur during the export process by logging them to the console, allowing for debugging and user feedback in case of issues.
+Handle diagram export by converting the rendered SVG to a PNG image using `html-to-image`, while ensuring that the host element and SVG are present before attempting the export. The function includes error handling to catch and log any issues during the export process, providing feedback in case of failure. The exported file is named based on the provided title or defaults to "diagram.png" if no title is available, ensuring a user-friendly download experience.The export process involves:- Selecting the SVG element from the host container to ensure that the correct content is exported.- Using `html-to-image`'s `toPng` function to convert the SVG to a PNG data URL, with options for cache busting and background color to ensure a clean export.- Creating a temporary anchor element to trigger the download of the PNG file, setting the `href` to the generated data URL and the `download` attribute to specify the filename.- Handling any errors that occur during the export process by logging them to the console, allowing for debugging and user feedback in case of issues.
 
 **Kind**: inner method of [<code>components/MermaidDiagram</code>](#module_components/MermaidDiagram)  
 **Returns**: <code>Promise.&lt;void&gt;</code> - A promise that resolves when the export process is complete, allowing for asynchronous handling of the export operation.  
@@ -2483,8 +1780,7 @@ src\components\ui\ProjectCard\index module.
 <a name="module_components/ProjectCard"></a>
 
 ## components/ProjectCard
-Reusable frosted-glass project display card used to present
-portfolio projects with images, repository links, and live URLs.
+Reusable frosted-glass project display card used to presentportfolio projects with images, repository links, and live URLs.
 
 
 * [components/ProjectCard](#module_components/ProjectCard)
@@ -2494,18 +1790,7 @@ portfolio projects with images, repository links, and live URLs.
 <a name="module_components/ProjectCard..ProjectCard"></a>
 
 ### components/ProjectCard~ProjectCard ⇒ <code>JSX.Element</code>
-A reusable card component for showcasing portfolio projects, featuring a frosted-glass design consistent with the UI theme. Each card can display a project title, description, a grid of images, and action buttons linking to the project's GitHub repository and live URL. The component is designed to be flexible and visually engaging, making it ideal for presenting projects in a portfolio context.
-Features:
-- Standardized layout via `InfoSection`
-- Optional responsive image gallery using `ClickableImg`
-- Optional GitHub repository link
-- Optional live project URL
-- Pure-CSS animation and layout styling
-
-Usage notes:
-- Images are rendered only when provided
-- Action buttons are conditionally rendered based on link availability
-- Designed to integrate cleanly with section-based navigation
+A reusable card component for showcasing portfolio projects, featuring a frosted-glass design consistent with the UI theme. Each card can display a project title, description, a grid of images, and action buttons linking to the project's GitHub repository and live URL. The component is designed to be flexible and visually engaging, making it ideal for presenting projects in a portfolio context.Features:- Standardized layout via `InfoSection`- Optional responsive image gallery using `ClickableImg`- Optional GitHub repository link- Optional live project URL- Pure-CSS animation and layout stylingUsage notes:- Images are rendered only when provided- Action buttons are conditionally rendered based on link availability- Designed to integrate cleanly with section-based navigation
 
 **Kind**: inner property of [<code>components/ProjectCard</code>](#module_components/ProjectCard)  
 **Returns**: <code>JSX.Element</code> - Rendered project card.  

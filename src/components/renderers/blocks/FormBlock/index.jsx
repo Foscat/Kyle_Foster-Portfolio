@@ -7,6 +7,7 @@
 import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Panel } from "rsuite";
+import "../../../../styles/rsuite-form.less";
 import FIELD_TYPES from "types/field.types.js";
 import { buildInitialValues, normalizeField, renderFieldControl } from "./fieldRegestry.jsx";
 import "./styles.css";

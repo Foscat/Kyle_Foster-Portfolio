@@ -24,8 +24,8 @@ import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 // Reset
 import "./index.css";
-// RSuite default styles
-import "rsuite/dist/rsuite.min.css";
+// RSuite shell styles
+import "./styles/rsuite-shell.less";
 
 installChunkLoadRecovery();
 

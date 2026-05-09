@@ -4,13 +4,24 @@
  * @module components/features/ResumePreview/resumePdfExport
  */
 
-import { toCanvas } from "html-to-image";
-import { jsPDF } from "jspdf";
-
 const DEFAULT_MARGIN_PT = 24;
 const DEFAULT_PIXEL_RATIO = 2;
 const TRANSPARENT_ALPHA_THRESHOLD = 2;
 const BREAK_SCORE_WINDOW_PX = 2;
+let pdfExportDependenciesPromise = null;
+
+async function loadPdfExportDependencies() {
+  if (!pdfExportDependenciesPromise) {
+    pdfExportDependenciesPromise = Promise.all([import("html-to-image"), import("jspdf")]).then(
+      ([htmlToImageModule, jspdfModule]) => ({
+        toCanvas: htmlToImageModule.toCanvas,
+        jsPDF: jspdfModule.jsPDF,
+      })
+    );
+  }
+
+  return pdfExportDependenciesPromise;
+}
 
 function getColorAlpha(colorValue) {
   if (typeof colorValue !== "string") {
@@ -408,6 +419,7 @@ export async function downloadResumePdf(
   const resolvedFileName = normalizePdfFileName(fileName);
   const computedStyles = window.getComputedStyle(element);
   const exportBackgroundColor = resolveExportBackgroundColor(computedStyles);
+  const { toCanvas, jsPDF } = await loadPdfExportDependencies();
   const canvas = await toCanvas(element, {
     cacheBust: true,
     width: nodeWidth,

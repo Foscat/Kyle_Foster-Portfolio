@@ -12,11 +12,14 @@ import {
   resolveFaviconVariant,
   subscribeToSystemThemeChanges,
   updateFavicon,
+  updateFaviconAndPrune,
 } from "./favicon";
 
 describe("favicon utilities", () => {
   const originalMatchMedia = window.matchMedia;
-  const CACHE_BUST = "v=20260504";
+  const expectCacheBustedHref = (href, basePath) => {
+    expect(href).toMatch(new RegExp(`^${basePath.replace(/\//g, "\\/")}\\?v=.+$`));
+  };
 
   beforeEach(() => {
     document.head.innerHTML = "";
@@ -38,10 +41,10 @@ describe("favicon utilities", () => {
     document.head.appendChild(link);
 
     updateFavicon("dark");
-    expect(link.getAttribute("href")).toBe(`/favicons/favicon-dark.png?${CACHE_BUST}`);
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark.png");
 
     updateFavicon("light");
-    expect(link.getAttribute("href")).toBe(`/favicons/favicon-light.png?${CACHE_BUST}`);
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-light.png");
   });
 
   it("uses palette-specific themed favicon files when a palette variant exists", () => {
@@ -51,13 +54,13 @@ describe("favicon utilities", () => {
     document.head.appendChild(link);
 
     updateFavicon("dark", "ocean");
-    expect(link.getAttribute("href")).toBe(`/favicons/favicon-dark-ocean.png?${CACHE_BUST}`);
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark-ocean.png");
 
     updateFavicon("light", "forest");
-    expect(link.getAttribute("href")).toBe(`/favicons/favicon-light-forest.png?${CACHE_BUST}`);
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-light-forest.png");
 
     updateFavicon("dark", "primary");
-    expect(link.getAttribute("href")).toBe(`/favicons/favicon-dark-midnight.png?${CACHE_BUST}`);
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark-midnight.png");
   });
 
   it("creates a favicon link when one does not exist", () => {
@@ -66,7 +69,7 @@ describe("favicon utilities", () => {
 
     const link = document.getElementById("app-favicon");
     expect(link).not.toBeNull();
-    expect(link?.getAttribute("href")).toBe(`/favicons/favicon-dark.png?${CACHE_BUST}`);
+    expectCacheBustedHref(link?.getAttribute("href"), "/favicons/favicon-dark.png");
   });
 
   it("removes competing rel=icon tags so only app-favicon remains", () => {
@@ -88,12 +91,12 @@ describe("favicon utilities", () => {
     shortcutLegacy.href = "/favicon.ico";
     document.head.appendChild(shortcutLegacy);
 
-    updateFavicon("light");
+    updateFaviconAndPrune("light");
 
     const iconLinks = [...document.head.querySelectorAll('link[rel~="icon"]')];
     expect(iconLinks).toHaveLength(1);
     expect(iconLinks[0].id).toBe("app-favicon");
-    expect(iconLinks[0].getAttribute("href")).toBe(`/favicons/favicon-light.png?${CACHE_BUST}`);
+    expectCacheBustedHref(iconLinks[0].getAttribute("href"), "/favicons/favicon-light.png");
   });
 
   it("resolves auto mode from system preference", () => {

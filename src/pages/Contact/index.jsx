@@ -15,6 +15,7 @@ import ResumePreviewTrigger from "components/features/ResumePreview/ResumePrevie
 import { Size, Variant } from "types/ui.types";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./styles.css";
+import "../../styles/rsuite-form.less";
 import { Btn } from "components/ui";
 
 /**

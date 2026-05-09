@@ -6,7 +6,7 @@
  * @module components/navigation
  */
 
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import React from "react";
 import restoreScrollPosition from "./helpers/restoreScrollPosition";
 import { saveLastSection, loadLastSection } from "./helpers/sectionPersistence";
@@ -39,8 +39,55 @@ const withLazySuspense = (loader, displayName) => {
   return WrappedComponent;
 };
 
+const DeferredViewportMount = ({
+  children,
+  rootMargin = "1200px 0px",
+  threshold = 0.01,
+  placeholderMinHeight = "96px",
+  fallbackDelayMs = 250,
+}) => {
+  const hostRef = useRef(null);
+  const [shouldMount, setShouldMount] = useState(
+    typeof window === "undefined" || typeof IntersectionObserver === "undefined"
+  );
+
+  useEffect(() => {
+    if (shouldMount) return undefined;
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldMount(true);
+      return undefined;
+    }
+
+    const host = hostRef.current;
+    if (!host) return undefined;
+    const fallbackTimer = window.setTimeout(() => setShouldMount(true), fallbackDelayMs);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting || entry.intersectionRatio > 0)) return;
+        setShouldMount(true);
+        observer.disconnect();
+      },
+      { root: null, rootMargin, threshold }
+    );
+
+    observer.observe(host);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
+  }, [fallbackDelayMs, rootMargin, shouldMount, threshold]);
+
+  return (
+    <div ref={hostRef} style={shouldMount ? undefined : { minHeight: placeholderMinHeight }}>
+      {shouldMount ? children : null}
+    </div>
+  );
+};
+
 // Lazy-loaded navigation components wrapped with Suspense for performance optimization.
-const Footer = withLazySuspense(() => import("./Footer"), "Footer");
+const LazyFooter = withLazySuspense(() => import("./Footer"), "Footer");
 const Head = withLazySuspense(() => import("./Head"), "Head");
 const MobileSectionNavTrigger = withLazySuspense(
   () => import("./MobileSectionNavTrigger"),
@@ -49,6 +96,12 @@ const MobileSectionNavTrigger = withLazySuspense(
 const SectionAnchorNav = withLazySuspense(() => import("./SectionAnchorNav"), "SectionAnchorNav");
 const StickyNav = withLazySuspense(() => import("./StickyNav"), "StickyNav");
 const StickySectionNav = withLazySuspense(() => import("./StickySectionNav"), "StickySectionNav");
+const Footer = (props) => (
+  <DeferredViewportMount>
+    <LazyFooter {...props} />
+  </DeferredViewportMount>
+);
+Footer.displayName = "Footer";
 
 // Exporting all navigation components and helpers from a single module for easy imports across the codebase.
 const helpers = {

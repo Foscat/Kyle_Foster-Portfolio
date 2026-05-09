@@ -5,7 +5,6 @@
  */
 
 import React from "react";
-import { Divider } from "rsuite";
 import { tryRecoverFromChunkLoadFailure } from "assets/chunkLoadRecovery";
 
 /**
@@ -98,7 +97,10 @@ class ErrorBoundary extends React.Component {
           <h3>
             A runtime error prevented the application from loading. Check the console for details.
           </h3>
-          <Divider />
+          <hr
+            aria-hidden="true"
+            style={{ margin: "1rem 0", border: 0, borderTop: "1px solid rgba(255, 255, 255, 0.24)" }}
+          />
           <pre>{String(this.state.error)}</pre>
         </div>
       );
