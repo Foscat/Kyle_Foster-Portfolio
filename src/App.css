@@ -1192,7 +1192,15 @@ footer {
 
 @media (width <= 1024px) {
   .page-layout {
-    padding: 0 5px 0 calc(var(--sticky-nav-mobile-trigger-size) + var(--page-gutter, 0px));
+    padding: 0 5px 0
+      max(
+        calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
+        calc(
+          var(--sticky-nav-mobile-trigger-left, 14px) +
+            var(--sticky-nav-mobile-trigger-size, 42px) +
+            (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
+        )
+      );
   }
 }
 
