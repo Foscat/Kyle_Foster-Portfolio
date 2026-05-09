@@ -1,28 +1,47 @@
 # Kyle Foster Portfolio Application
 
-Production-oriented React portfolio codebase focused on maintainable architecture, accessible interaction patterns, and repeatable quality checks.
+Production-focused React portfolio codebase centered on maintainable architecture, accessible interaction patterns, and repeatable quality workflows.
 
-## Release Highlights (April 2026)
+## Live Site
 
-- Standardized interactive UI behavior around `interactive-surface-css` token contracts across navigation, buttons, renderer links, and utility controls.
-- Refactored `Btn` interaction and link semantics to cleanly separate router navigation, external links, and download behavior.
-- Added `resumePreview` support in `LinksBlock` through `ResumePreviewTrigger`, including theme/palette-aware file names (for example `Kyle-Foster-Resume-light-forest.pdf`).
-- Updated homepage and side-project content to feature Interactive Surface CSS, including direct links for source, package, and docs.
-- Regenerated documentation artifacts and expanded tests covering updated link/button interaction paths.
+- https://kyle-foster.com
+- Docs route: https://kyle-foster.com/docs
+- Health route: https://kyle-foster.com/health
+
+## Release Highlights (May 2026)
+
+- Added deploy-safe chunk load recovery in `src/assets/chunkLoadRecovery.js` with tests in `src/assets/chunkLoadRecovery.test.js` to recover stale hashed asset failures without reload loops.
+- Updated favicon management in `src/assets/favicon.js` to support theme plus palette variants, cache-busted favicon URLs, and pruning of competing `rel="icon"` tags.
+- Expanded docs aggregation in `src/assets/data/content/portfolioDocs.js` so `/docs` can render both generated API docs and hand-authored developer guides.
+- Continued standardizing interactive behavior through `interactive-surface-css` and shared renderer/navigation contracts.
 
 ## Project Goals
 
 - Demonstrate production-grade React architecture and composition.
 - Keep UI behavior declarative, reusable, and data-driven.
 - Enforce accessibility and interaction consistency through shared primitives.
-- Maintain predictable quality using linting, automated tests, and generated docs.
+- Maintain predictable quality using linting, automated tests, diagram checks, and generated docs.
 
-## High-Level Architecture
+## Architecture
 
-The application is organized around declarative page definitions, composable block renderers, and shared navigation/section-registry contracts.
+The application is organized around declarative page definitions, composable section and block renderers, and shared navigation contracts.
 
-- [Architecture Overview](architecture_overview.md)
-- [Architecture Diagram](docs/assets/portfolio-flow.png)
+- Core systems docs: [Components](docs/components.md), [Navigation](docs/navigation.md), [Types](docs/types.md)
+- Tooling docs: [Scripts](docs/scripts.md), [Playwright](docs/playwright.md), [Tests](docs/tests.md)
+- Generated API docs: [Full API Reference](docs/api.md), [JSDoc Audit](docs/jsdoc-audit.md)
+- Developer guides: [Diagram Guidelines](dev-guides/Diagram-Guidelines.md), [RichText Author Guidelines](dev-guides/RichText-Author-Guidelines.md), [Scripts Tooling Overview](dev-guides/Scripts-Tooling-Overview.md), [Testing Guidelines](dev-guides/Testing-Guidelines.md)
+
+## Routes
+
+- `/` Home
+- `/codestream`
+- `/side-projects`
+- `/hackathon`
+- `/smu`
+- `/contact`
+- `/docs`
+- `/health`
+- `*` Not Found
 
 ## Quick Start
 
@@ -31,7 +50,7 @@ Prerequisites:
 - Node.js `>=20.19.0 <21` or `>=22.12.0 <23`
 - npm `>=10 <11`
 
-Install and run:
+Install dependencies and run locally:
 
 ```sh
 npm install
@@ -63,45 +82,42 @@ npm run ci:gate
 
 ## Core Script Groups
 
+Development:
+
+```sh
+npm run dev
+npm run start
+npm run build
+npm run preview
+```
+
+Linting and tests:
+
+```sh
+npm run lint
+npm run lint:all
+npm run test
+npm run test-functions
+npm run test-ui
+```
+
 Diagrams:
 
 ```sh
 npm run diagrams:check
 npm run diagrams:assets
 npm run diagrams:test
+npm run diagrams:run-all
 ```
 
 Documentation:
 
 ```sh
 npm run docs:build
-npm run docs:components
-npm run docs:navigation
-npm run docs:types
-npm run docs:test-helpers
-npm run docs:scripts
-npm run docs:playwright
+npm run docs:verify
 npm run docs:api
 npm run docs:jsdoc:audit
 ```
-
-## Documentation Index
-
-- [Components](docs/components.md)
-- [Navigation](docs/navigation.md)
-- [Scripts and Tooling](docs/scripts.md)
-- [Testing](docs/tests.md)
-- [Types and UI Contracts](docs/types.md)
-- [Playwright API Docs](docs/playwright.md)
-- [Full API Reference](docs/api.md)
-- [JSDoc Audit Output](docs/jsdoc-audit.md)
-
-## Testing Philosophy
-
-- Prioritize user-observable behavior over implementation details.
-- Treat navigation and rendering contracts as invariants.
-- Use unit tests for component logic and integrations.
-- Use Playwright for end-to-end and UI confidence checks.
 
 ## Technology Stack
 
