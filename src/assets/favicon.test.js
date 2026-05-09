@@ -18,7 +18,10 @@ import {
 describe("favicon utilities", () => {
   const originalMatchMedia = window.matchMedia;
   const expectCacheBustedHref = (href, basePath) => {
-    expect(href).toMatch(new RegExp(`^${basePath.replace(/\//g, "\\/")}\\?v=.+$`));
+    expect(href).toBeTruthy();
+    const url = new URL(href, window.location.origin);
+    expect(url.pathname).toBe(basePath);
+    expect(url.searchParams.get("v")).toBeTruthy();
   };
 
   beforeEach(() => {
