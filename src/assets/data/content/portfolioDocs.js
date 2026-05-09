@@ -4,21 +4,19 @@
  * @module src\assets\data\content\portfolioDocs
  */
 
-const rawGeneratedDocs = import.meta.glob("../../../../docs/**/*.{md,markdown}", {
-  eager: true,
+const generatedDocLoaders = import.meta.glob("../../../../docs/**/*.{md,markdown}", {
   query: "?raw",
   import: "default",
 });
 
-const rawDevGuides = import.meta.glob("../../../../dev-guides/**/*.{md,markdown}", {
-  eager: true,
+const devGuideLoaders = import.meta.glob("../../../../dev-guides/**/*.{md,markdown}", {
   query: "?raw",
   import: "default",
 });
 
-const rawDocs = {
-  ...rawGeneratedDocs,
-  ...rawDevGuides,
+const docLoaders = {
+  ...generatedDocLoaders,
+  ...devGuideLoaders,
 };
 
 const DOC_META = {
@@ -124,8 +122,8 @@ function getCategoryFromPath(path) {
   return titleize(parts[0]);
 }
 
-export const portfolioDocs = Object.entries(rawDocs)
-  .map(([path, content]) => {
+const portfolioDocEntries = Object.entries(docLoaders)
+  .map(([path, load]) => {
     const slug = getSlug(path);
     const fileName = getFileName(path);
     const meta = DOC_META[slug] || {};
@@ -138,7 +136,7 @@ export const portfolioDocs = Object.entries(rawDocs)
       category: meta.category || getCategoryFromPath(path),
       summary: meta.summary || "",
       order: meta.order || 999,
-      content,
+      load,
     };
   })
   .sort((a, b) => {
@@ -146,21 +144,76 @@ export const portfolioDocs = Object.entries(rawDocs)
     return a.title.localeCompare(b.title);
   });
 
-export function getPortfolioDocs(slugs = []) {
+function selectDocsBySlug(slugs = []) {
   if (!Array.isArray(slugs) || !slugs.length) {
-    return portfolioDocs;
+    return portfolioDocEntries;
   }
 
   const wanted = new Set(slugs.map((slug) => slug.toLowerCase()));
-  return portfolioDocs.filter((doc) => wanted.has(doc.slug));
+  return portfolioDocEntries.filter((doc) => wanted.has(doc.slug));
 }
 
-export function getPortfolioDoc(slug) {
-  return portfolioDocs.find((doc) => doc.slug === String(slug).toLowerCase());
+async function hydratePortfolioDoc(entry) {
+  const content = await entry.load();
+
+  return {
+    slug: entry.slug,
+    fileName: entry.fileName,
+    path: entry.path,
+    title: entry.title,
+    category: entry.category,
+    summary: entry.summary,
+    order: entry.order,
+    content,
+  };
 }
 
-export function getPortfolioDocsByCategory(category) {
-  return portfolioDocs.filter(
-    (doc) => doc.category.toLowerCase() === String(category).toLowerCase()
+/**
+ * Metadata-only portfolio docs list.
+ * Does not include `content`; use `getPortfolioDocs`, `getPortfolioDoc`,
+ * or `getPortfolioDocsByCategory` to load hydrated docs with `content`.
+ */
+export const portfolioDocsMeta = portfolioDocEntries.map(({ load, ...doc }) => doc);
+
+/**
+ * @deprecated Use `portfolioDocsMeta` instead. This export is metadata-only
+ * and does not include `content`.
+ */
+export const portfolioDocs = portfolioDocsMeta;
+
+/**
+ * Load hydrated portfolio docs, including their raw markdown `content`.
+ *
+ * @param {string[]} [slugs=[]] Optional slugs to filter by.
+ * @returns {Promise<Array<{slug: string, fileName: string, path: string, title: string, category: string, summary: string, order: number, content: string}>>}
+ */
+export async function getPortfolioDocs(slugs = []) {
+  const docs = selectDocsBySlug(slugs);
+  return Promise.all(docs.map(hydratePortfolioDoc));
+}
+
+/**
+ * Load a single hydrated portfolio doc, including raw markdown `content`.
+ *
+ * @param {string} slug
+ * @returns {Promise<{slug: string, fileName: string, path: string, title: string, category: string, summary: string, order: number, content: string} | null>}
+ */
+export async function getPortfolioDoc(slug) {
+  const docEntry = portfolioDocEntries.find((doc) => doc.slug === String(slug).toLowerCase());
+  if (!docEntry) return null;
+  return hydratePortfolioDoc(docEntry);
+}
+
+/**
+ * Load hydrated portfolio docs for a category, including raw markdown `content`.
+ *
+ * @param {string} category
+ * @returns {Promise<Array<{slug: string, fileName: string, path: string, title: string, category: string, summary: string, order: number, content: string}>>}
+ */
+export async function getPortfolioDocsByCategory(category) {
+  const normalizedCategory = String(category).toLowerCase();
+  const docs = portfolioDocEntries.filter(
+    (doc) => doc.category.toLowerCase() === normalizedCategory
   );
+  return Promise.all(docs.map(hydratePortfolioDoc));
 }

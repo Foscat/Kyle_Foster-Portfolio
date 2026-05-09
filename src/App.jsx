@@ -9,12 +9,12 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Head } from "components/navigation";
-import Home from "pages/Home";
 import { useThemeFavicon } from "hooks/useThemeFavicon";
 import "./App.css";
 // Interactive surface CSS package.
 import "interactive-surface-css";
 
+const Home = lazy(() => import("pages/Home"));
 const CodeStream = lazy(() => import("pages/CodeStream"));
 const SideProjects = lazy(() => import("pages/SideProjects"));
 const Hackathon = lazy(() => import("pages/Hackathon"));

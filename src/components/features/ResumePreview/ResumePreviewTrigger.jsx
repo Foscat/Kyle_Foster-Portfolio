@@ -4,10 +4,12 @@
  * @module src\components\features\ResumePreview\ResumePreviewTrigger
  */
 
-import { useState } from "react";
-import ResumePreviewModal from "./ResumePreviewModal.jsx";
+import { lazy, Suspense, useState } from "react";
 import { Btn } from "components/ui/index.jsx";
 import { ResumeDocument } from "./ResumeDocument.jsx";
+import "./PreviewResume.css";
+
+const ResumePreviewModal = lazy(() => import("./ResumePreviewModal.jsx"));
 
 /**
  * @function ResumePreviewTrigger
@@ -44,12 +46,18 @@ const ResumePreviewTrigger = ({
   noBG = false,
 }) => {
   const [open, setOpen] = useState(false);
+  const [shouldMountModal, setShouldMountModal] = useState(false);
+
+  const handleOpen = () => {
+    setShouldMountModal(true);
+    setOpen(true);
+  };
 
   return (
     <>
       <Btn
         text={buttonText}
-        onClick={() => setOpen(true)}
+        onClick={handleOpen}
         className={`resume-preview-trigger ${buttonClassName}`.trim()}
         icon={icon}
         tooltip={tooltip}
@@ -59,16 +67,20 @@ const ResumePreviewTrigger = ({
         noBG={noBG}
       />
 
-      <ResumePreviewModal
-        open={open}
-        onClose={() => setOpen(false)}
-        title={title}
-        subtitle={subtitle}
-        pdfHref={pdfHref}
-        downloadName={downloadName}
-      >
-        <ResumeDocument resume={resume} />
-      </ResumePreviewModal>
+      {shouldMountModal ? (
+        <Suspense fallback={null}>
+          <ResumePreviewModal
+            open={open}
+            onClose={() => setOpen(false)}
+            title={title}
+            subtitle={subtitle}
+            pdfHref={pdfHref}
+            downloadName={downloadName}
+          >
+            <ResumeDocument resume={resume} />
+          </ResumePreviewModal>
+        </Suspense>
+      ) : null}
     </>
   );
 };

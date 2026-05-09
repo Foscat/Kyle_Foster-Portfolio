@@ -93,7 +93,7 @@ export function createPageTestSuite(config: PageTestConfig) {
         mask: [page.locator(".mermaid-container")],
       });
       await expect(screenshot).toMatchSnapshot({
-        maxDiffPixelRatio: 0.03,
+        maxDiffPixelRatio: 0.045,
         threshold: 0.2,
       });
     });

@@ -4,6 +4,7 @@
  * @module src\components\renderers\blocks\MarkdownDocs.Block\index
  */
 
+import { useEffect, useMemo, useState } from "react";
 import { Panel } from "rsuite";
 import MarkdownRenderer from "../../MarkdownRenderer";
 import { getPortfolioDocs } from "../../../../assets/data/content/portfolioDocs";
@@ -19,10 +20,51 @@ import "./styles.css";
  */
 export default function MarkdownDocsBlock({ block }) {
   const { title, intro, docSlugs = [], showToc = true, showDocJumpList = true } = block;
+  const [docs, setDocs] = useState([]);
+  const [isLoadingDocs, setIsLoadingDocs] = useState(true);
+  const slugKey = useMemo(
+    () =>
+      Array.isArray(docSlugs)
+        ? docSlugs
+            .map((slug) => String(slug).toLowerCase())
+            .sort((a, b) => a.localeCompare(b))
+            .join("|")
+        : "",
+    [docSlugs]
+  );
 
-  const docs = getPortfolioDocs(docSlugs);
+  useEffect(() => {
+    let isCancelled = false;
 
-  if (!docs.length) return null;
+    const requestedDocSlugs = slugKey ? slugKey.split("|") : [];
+
+    const loadDocs = async () => {
+      setIsLoadingDocs(true);
+      try {
+        const loadedDocs = await getPortfolioDocs(requestedDocSlugs);
+        if (!isCancelled) {
+          setDocs(Array.isArray(loadedDocs) ? loadedDocs : []);
+        }
+      } catch (error) {
+        if (!isCancelled) {
+          setDocs([]);
+        }
+        console.error("[MarkdownDocsBlock] Failed to load documentation content.", error);
+      } finally {
+        if (!isCancelled) {
+          setIsLoadingDocs(false);
+        }
+      }
+    };
+
+    loadDocs();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [slugKey]);
+
+  if (!isLoadingDocs && !docs.length) return null;
 
   return (
     <section className="markdown-docs-block">
@@ -50,21 +92,25 @@ export default function MarkdownDocsBlock({ block }) {
           ))}
         </nav>
       ) : null}
-      <div className="markdown-docs-block__stack">
-        {docs.map((doc) => (
-          <Panel key={doc.slug} bordered className="markdown-docs-block__panel">
-            <MarkdownRenderer
-              key={doc.id}
-              articleId={`doc-${doc.slug}`}
-              title={doc.title}
-              intro={doc.summary}
-              content={doc.content}
-              showToc={showToc}
-              headingLevelOffset={1}
-            />
-          </Panel>
-        ))}
-      </div>
+      {isLoadingDocs ? (
+        <p className="mermaid-deferred-status-text">Loading documentation...</p>
+      ) : (
+        <div className="markdown-docs-block__stack">
+          {docs.map((doc) => (
+            <Panel key={doc.slug} bordered className="markdown-docs-block__panel">
+              <MarkdownRenderer
+                key={doc.id}
+                articleId={`doc-${doc.slug}`}
+                title={doc.title}
+                intro={doc.summary}
+                content={doc.content}
+                showToc={showToc}
+                headingLevelOffset={1}
+              />
+            </Panel>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

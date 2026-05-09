@@ -190,7 +190,7 @@ navigation component with frosted-glass styling.</p>
 <dt><a href="#src\components\ui\Btn\Btn.module_test">src\components\ui\Btn\Btn.test</a></dt>
 <dd><p>src\components\ui\Btn\Btn.test module.</p>
 </dd>
-<dt><a href="#tests/components/ui/Btn
+<dt><a href="#tests/components/ui/Btn">tests/components/ui/Btn</a></dt>
 
 Note_ The rsuite Button and IconButton components are mocked to simplify testing and focus on Btns behavior rather than the underlying library implementation.
 The FrostedIcon component is also mocked to provide a simple representation for testing purposes.module_">tests/components/ui/Btn
@@ -676,7 +676,7 @@ Accessibility:
   title="My Portfolio"
   jobTitle="Software Engineer"
   timespan="2020 - Present"
-Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines theme color and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
+  subTitle="Welcome to my personal portfolio showcasing my projects and experience."
   tech={[
       { label: "React", type: "react" },
       { label: "JavaScript", type: "javascript" },

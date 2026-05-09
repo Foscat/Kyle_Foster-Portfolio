@@ -6,6 +6,7 @@
 
 import React from "react";
 import {
+  Form,
   Input,
   InputNumber,
   Checkbox,
@@ -365,6 +366,5 @@ export function renderFieldControl(field) {
  * @returns {React.ReactNode}
  */
 function FormControlShim(props) {
-  const { Form } = require("rsuite");
   return <Form.Control {...props} />;
 }

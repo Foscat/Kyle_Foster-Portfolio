@@ -16,6 +16,7 @@
 import { Nav, Sidenav } from "rsuite";
 import { Link } from "react-router-dom";
 import { PageRoute } from "types/navigation.types";
+import "../../../styles/rsuite-section-anchor.less";
 import "./styles.css";
 
 const isLocalRoute = (url = "") => /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(String(url).trim());

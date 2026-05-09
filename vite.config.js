@@ -2,27 +2,37 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
+const normalizeModuleId = (id) => id.replaceAll("\\", "/");
+
 export default defineConfig({
   plugins: [react({ jsxRuntime: "automatic" })],
   build: {
-    chunkSizeWarningLimit: 3000,
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (!id.includes("node_modules")) {
+          const normalizedId = normalizeModuleId(id);
+
+          if (!normalizedId.includes("/node_modules/")) {
             return;
           }
 
-          // Keep RSuite internals together to avoid circular chunk-order warnings.
-          if (id.includes("node_modules/rsuite")) {
-            return "vendor-rsuite";
+          if (
+            normalizedId.includes("/node_modules/react/") ||
+            normalizedId.includes("/node_modules/react-dom/") ||
+            normalizedId.includes("/node_modules/scheduler/")
+          ) {
+            return "framework-react";
           }
 
-          if (id.includes("node_modules/mermaid")) {
-            return "vendor-mermaid";
+          // Let RSuite be auto-split by usage so route-level lazy chunks
+          // don't inherit a single oversized vendor bundle.
+          if (normalizedId.includes("/node_modules/rsuite/")) {
+            return;
           }
 
-          return "vendor";
+          // Allow Vite/Rolldown to auto-split remaining dependencies by usage.
+          return;
         },
       },
     },

@@ -9,59 +9,42 @@
  * @module components/blocks
  */
 
-import ImageGalleryBlock from "./ImageGalleryBlock";
-import LinksBlock from "./LinksBlock";
-import RichTextBlock from "./RichTextBlock";
-import CardGridBlock from "./CardGridBlock";
-import HeroBlock from "./HeroBlock";
-import FormBlock from "./FormBlock";
+import { createElement, lazy, Suspense } from "react";
 import "./blocks.css";
-/**
- * @name ImageGalleryBlock
- * Renders a gallery-style block for displaying one or more images.
- *
- * @type {React.ComponentType<any>}
- */
 
-/**
- * @name LinksBlock
- * Renders a block containing a list of external or internal links.
- *
- * @type {React.ComponentType<any>}
- */
+const withLazySuspense = (loader, fallbackText, displayName) => {
+  const LazyComponent = lazy(loader);
 
-/**
- * @name RichTextBlock
- * Renders formatted rich text content, typically sourced from markdown
- * or CMS-style configuration.
- *
- * @type {React.ComponentType<any>}
- */
+  const WrappedComponent = (props) =>
+    createElement(
+      Suspense,
+      {
+        fallback: createElement("p", { className: "mermaid-deferred-status-text" }, fallbackText),
+      },
+      createElement(LazyComponent, props)
+    );
 
-/**
- * @name CardGridBlock
- * Renders a grid of cards, each containing an image, title, description,
- * and optional link. Used for showcasing projects, team members, or other
- * collections of related items.
- *
- * @type {React.ComponentType<any>}
- */
+  WrappedComponent.displayName = displayName;
+  return WrappedComponent;
+};
 
-/**
- * @name HeroBlock
- * Renders a prominent header section typically used at the top of pages or
- * major sections. Displays a title, optional subtitle, and associated
- * technologies.
- *
- * @type {React.ComponentType<any>}
- */
-
-/**
- * @name FormBlock
- * Renders a configurable form based on a declarative schema. Supports various
- * field types, validation rules, and submission handling logic.
- *
- * @type {React.ComponentType<any>}
- */
+const ImageGalleryBlock = withLazySuspense(
+  () => import("./ImageGalleryBlock"),
+  "Loading image gallery...",
+  "ImageGalleryBlock"
+);
+const LinksBlock = withLazySuspense(() => import("./LinksBlock"), "Loading links...", "LinksBlock");
+const RichTextBlock = withLazySuspense(
+  () => import("./RichTextBlock"),
+  "Loading rich text...",
+  "RichTextBlock"
+);
+const CardGridBlock = withLazySuspense(
+  () => import("./CardGridBlock"),
+  "Loading cards...",
+  "CardGridBlock"
+);
+const HeroBlock = withLazySuspense(() => import("./HeroBlock"), "Loading hero...", "HeroBlock");
+const FormBlock = withLazySuspense(() => import("./FormBlock"), "Loading form...", "FormBlock");
 
 export { ImageGalleryBlock, LinksBlock, RichTextBlock, CardGridBlock, HeroBlock, FormBlock };

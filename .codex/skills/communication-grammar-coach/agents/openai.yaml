@@ -1,0 +1,4 @@
+interface:
+  display_name: "Communication Grammar Coach"
+  short_description: "Help with Communication Grammar Coach tasks"
+  description: "Use this agent to assist with tasks related to communication grammar coaching. This may include providing feedback on written communication, suggesting improvements, and helping to clarify language for better understanding."
