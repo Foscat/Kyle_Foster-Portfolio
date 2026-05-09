@@ -99,7 +99,11 @@ class ErrorBoundary extends React.Component {
           </h3>
           <hr
             aria-hidden="true"
-            style={{ margin: "1rem 0", border: 0, borderTop: "1px solid rgba(255, 255, 255, 0.24)" }}
+            style={{
+              margin: "1rem 0",
+              border: 0,
+              borderTop: "1px solid rgba(255, 255, 255, 0.24)",
+            }}
           />
           <pre>{String(this.state.error)}</pre>
         </div>

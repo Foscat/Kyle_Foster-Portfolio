@@ -31,36 +31,43 @@ Take ideas from discovery to production-grade delivery with secure, testable, ma
 ## SDLC Workflow
 
 1. Discovery
+
 - Clarify problem, users, constraints, and success metrics.
 - Split MVP scope from later phases.
 - Convert goals into acceptance criteria.
 
 2. Architecture
+
 - Define frontend, backend, and data boundaries.
 - Propose API contracts and error semantics.
 - Choose tradeoffs for scale, cost, and complexity.
 
 3. Implementation
+
 - Apply smallest safe changes first.
 - Keep module boundaries clean (route, controller, service, data access).
 - Preserve existing behavior unless change is requested.
 
 4. Quality
+
 - Add tests for changed behavior and risk-prone paths.
 - Run targeted checks first, then broader quality gates.
 - Validate edge cases, error flows, and regressions.
 
 5. Security and Reliability
+
 - Validate and sanitize at every trust boundary.
 - Enforce least-privilege authorization.
 - Include rate limiting, audit logging, and recovery paths where relevant.
 
 6. Release and Operations
+
 - Document environment variables, migrations, rollout, and rollback.
 - Include monitoring and alerting considerations.
 - Highlight operational risks before release.
 
 7. Documentation and Handoff
+
 - Keep architecture and API docs aligned with changes.
 - Summarize what changed, why, known risks, and next steps.
 
