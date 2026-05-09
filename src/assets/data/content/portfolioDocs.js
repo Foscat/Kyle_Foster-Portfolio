@@ -168,19 +168,48 @@ async function hydratePortfolioDoc(entry) {
   };
 }
 
-export const portfolioDocs = portfolioDocEntries.map(({ load, ...doc }) => doc);
+/**
+ * Metadata-only portfolio docs list.
+ * Does not include `content`; use `getPortfolioDocs`, `getPortfolioDoc`,
+ * or `getPortfolioDocsByCategory` to load hydrated docs with `content`.
+ */
+export const portfolioDocsMeta = portfolioDocEntries.map(({ load, ...doc }) => doc);
 
+/**
+ * @deprecated Use `portfolioDocsMeta` instead. This export is metadata-only
+ * and does not include `content`.
+ */
+export const portfolioDocs = portfolioDocsMeta;
+
+/**
+ * Load hydrated portfolio docs, including their raw markdown `content`.
+ *
+ * @param {string[]} [slugs=[]] Optional slugs to filter by.
+ * @returns {Promise<Array<{slug: string, fileName: string, path: string, title: string, category: string, summary: string, order: number, content: string}>>}
+ */
 export async function getPortfolioDocs(slugs = []) {
   const docs = selectDocsBySlug(slugs);
   return Promise.all(docs.map(hydratePortfolioDoc));
 }
 
+/**
+ * Load a single hydrated portfolio doc, including raw markdown `content`.
+ *
+ * @param {string} slug
+ * @returns {Promise<{slug: string, fileName: string, path: string, title: string, category: string, summary: string, order: number, content: string} | null>}
+ */
 export async function getPortfolioDoc(slug) {
   const docEntry = portfolioDocEntries.find((doc) => doc.slug === String(slug).toLowerCase());
   if (!docEntry) return null;
   return hydratePortfolioDoc(docEntry);
 }
 
+/**
+ * Load hydrated portfolio docs for a category, including raw markdown `content`.
+ *
+ * @param {string} category
+ * @returns {Promise<Array<{slug: string, fileName: string, path: string, title: string, category: string, summary: string, order: number, content: string}>>}
+ */
 export async function getPortfolioDocsByCategory(category) {
   const normalizedCategory = String(category).toLowerCase();
   const docs = portfolioDocEntries.filter(
