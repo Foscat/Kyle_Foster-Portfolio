@@ -11,18 +11,18 @@ import { PageRoute } from "types/navigation.types";
 const pageSummaryMetas = {
   Home: {
     url: PageRoute.HOME,
-    title: "Kyle Foster | Senior React / Frontend Engineer",
+    title: "Kyle Foster",
     description:
       "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product workflows with a focus on clarity and usability.",
     timespan: "2018 - Current",
-    jobTitle: "Senior React / Frontend Engineer",
+    jobTitle: "Senior MERN Stack Engineer",
   },
   Codestream: {
     url: PageRoute.PROFESSIONAL,
     title: "CodeStream Online Studios",
     description:
       "Explore my professional work at CodeStream Online Studios, where I built browser-based education tooling for students, instructors, and school administrators.",
-    jobTitle: "Senior React / Frontend Engineer",
+    jobTitle: "React Frontend Engineer / Instructor",
     timespan: "2019 - 2025",
     liveUrl: "https://codestreamonlinestudio.com",
     repo: "Private",
@@ -56,7 +56,7 @@ const pageSummaryMetas = {
       { label: "Reverse Engineering", type: "tool" },
       { label: "Team Project", type: "tool" },
     ],
-    jobTitle: "Senior React / Frontend Engineer",
+    jobTitle: "MERN Stack Engineer",
     timespan: "July 19-21, 2019",
   },
   SideProjects: {
@@ -65,7 +65,7 @@ const pageSummaryMetas = {
     description:
       "Browse side projects spanning encryption, IoT automation, and custom tooling-practical builds that show hands-on problem framing and execution.",
     timespan: "2018 - Current",
-    jobTitle: "Senior React / Frontend Engineer",
+    jobTitle: "Senior MERN Stack Engineer",
     tech: [
       { label: "HTML", type: "front" },
       { label: "JavaScript", type: "front" },
@@ -88,7 +88,7 @@ const pageSummaryMetas = {
     description:
       "Explore my journey through the SMU Coding Bootcamp, where I built the foundation for my development career through hands-on projects and rapid technical growth.",
     timespan: "August 2018 - February 2019",
-    jobTitle: "Senior React / Frontend Engineer",
+    jobTitle: "MERN Stack Student",
     tech: [
       { label: "HTML", type: "front" },
       { label: "CSS", type: "front" },
@@ -107,13 +107,13 @@ const pageSummaryMetas = {
   },
   Contact: {
     url: PageRoute.CONTACT,
-    title: "Contact Kyle Foster | Senior React / Frontend Engineer",
+    title: "Contact Kyle Foster | Senior MERN Stack Engineer",
     description:
-      "Get in touch with Kyle Foster, Senior React / Frontend Engineer, for roles, consulting, or technical collaboration.",
+      "Get in touch with Kyle Foster, Senior MERN Stack Engineer, for roles, consulting, or technical collaboration.",
   },
   Docs: {
     url: PageRoute.DOCS,
-    title: "Technical Docs | Kyle Foster Portfolio",
+    title: "Technical Docs | Portfolio",
     description:
       "Browse architecture, components, scripts, and testing documentation for this portfolio project.",
   },

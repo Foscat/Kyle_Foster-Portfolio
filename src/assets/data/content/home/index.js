@@ -44,7 +44,7 @@ const homeSections = [
     id: "hero",
     slug: "hero",
     icon: faCode,
-    title: "Senior React / Frontend Engineer",
+    // title: "Senior React / Frontend Engineer",
     subtitle:
       "I build React interfaces for content-heavy products, from browser-based learning tools to portfolio platforms, with a focus on usable flows and dependable behavior as complexity grows.",
     isScroller: true,

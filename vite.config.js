@@ -55,6 +55,9 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ["mermaid"],
-    include: ["dayjs", "@braintree/sanitize-url"],
+    // Resume export dependencies are lazy-loaded at runtime.
+    // Pre-bundling avoids first-use hiccups in dev and keeps include aligned
+    // to real dependencies in this repo.
+    include: ["html-to-image", "jspdf"],
   },
 });

@@ -24,7 +24,6 @@ playwright-report/
 test-results/
 *.trace.zip
 *.snap.new
-public/interactive-surface.css
 docs/lint-report.html
 docs/jsdoc-audit.md
 

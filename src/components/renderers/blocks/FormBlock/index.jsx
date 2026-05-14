@@ -232,7 +232,7 @@ const FormBlock = ({
 
             {renderFieldControl(field)}
 
-            {field.helpText ? <Form.Text muted>{field.helpText}</Form.Text> : null}
+            {field.helpText ? <Form.HelpText>{field.helpText}</Form.HelpText> : null}
           </Form.Group>
         ))}
 
