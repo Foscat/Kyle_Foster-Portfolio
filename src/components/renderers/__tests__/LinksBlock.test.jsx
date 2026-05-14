@@ -20,11 +20,12 @@ vi.mock("components/ui", async () => {
 });
 
 vi.mock("components/features/ResumePreview/ResumePreviewTrigger", () => ({
-  default: ({ buttonText, downloadName, buttonClassName }) => (
+  default: ({ buttonText, downloadName, buttonClassName, pdfHref }) => (
     <button
       type="button"
       data-testid="resume-preview-trigger"
       data-download-name={downloadName}
+      data-pdf-href={pdfHref}
       className={buttonClassName}
     >
       {buttonText}
@@ -159,6 +160,27 @@ describe("LinksBlock", () => {
     const trigger = screen.getByTestId("resume-preview-trigger");
     expect(trigger).toHaveTextContent("View Resume");
     expect(trigger).toHaveAttribute("data-download-name", "Kyle-Foster-Resume-light-forest.pdf");
+    expect(trigger).toHaveAttribute("data-pdf-href", expect.stringContaining("LightMode.pdf"));
     expect(trigger).toHaveClass("links-block-item");
+  });
+
+  it("uses the dark resume PDF asset for resume preview links when dark theme is active", () => {
+    window.localStorage.setItem("portfolio-theme", "dark");
+
+    renderWithProviders(
+      <LinksBlock
+        items={[
+          {
+            title: "View Resume",
+            resumePreview: true,
+          },
+        ]}
+      />
+    );
+
+    expect(screen.getByTestId("resume-preview-trigger")).toHaveAttribute(
+      "data-pdf-href",
+      expect.stringContaining("DarkMode.pdf")
+    );
   });
 });

@@ -121,12 +121,12 @@ npm run docs:jsdoc:audit
 
 ## Technology Stack
 
-- React 18
-- Vite
-- RSuite
-- Font Awesome
-- Mermaid
-- `interactive-surface-css`
-- Vitest + Testing Library
-- Playwright
-- ESLint + Stylelint + Prettier
+- [React 18](https://18.react.dev)
+- [Vite v8](https://vitejs.dev)
+- [RSuite v5](https://v5.rsuitejs.com)
+- [Font Awesome](https://fontawesome.com)
+- [Mermaid v11](https://mermaid-js.github.io/mermaid/#/)
+- [Interactive Surface CSS](https://github.com/kylefoster/interactive-surface-css)
+- [Vitest v4](https://vitest.dev) + [Testing Library](https://testing-library.com)
+- [Playwright](https://playwright.dev)
+- [ESLint](https://eslint.org/) + [Stylelint](https://stylelint.io/) + [Prettier](https://prettier.io/)

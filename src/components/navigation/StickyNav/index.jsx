@@ -26,6 +26,7 @@ import "./styles.css";
 import { AccessibilityMenu, ColorMenu } from "components/features";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
 import resumeData from "assets/data/content/resumeData.js";
+import { resolveResumePdfHref } from "assets/data/resume/pdfAssets.js";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 
@@ -173,6 +174,7 @@ const StickyNav = ({ activePage }) => {
   const [showMobileIconHints, setShowMobileIconHints] = useState(false);
   const safeTheme = typeof theme === "string" ? theme : "auto";
   const safePalette = typeof palette === "string" ? palette : "ocean";
+  const resumePdfHref = resolveResumePdfHref(theme);
   const resumeDownloadName = `Kyle-Foster-Resume-${safeTheme}-${safePalette}.pdf`;
   const resumePreviewTitle = "Kyle Foster - Resume";
   const resumePreviewSubtitle =
@@ -303,6 +305,7 @@ const StickyNav = ({ activePage }) => {
               title={resumePreviewTitle}
               subtitle={resumePreviewSubtitle}
               resume={resumeData}
+              pdfHref={resumePdfHref}
               downloadName={resumeDownloadName}
               buttonClassName="sticky-nav-resume-trigger"
               icon={faCircleDown}
@@ -376,6 +379,7 @@ const StickyNav = ({ activePage }) => {
           title={resumePreviewTitle}
           subtitle={resumePreviewSubtitle}
           resume={resumeData}
+          pdfHref={resumePdfHref}
           downloadName={resumeDownloadName}
           buttonClassName="sticky-nav-mobile-resume-trigger"
           icon={faCircleDown}
@@ -441,6 +445,7 @@ const StickyNav = ({ activePage }) => {
                   title={resumePreviewTitle}
                   subtitle={resumePreviewSubtitle}
                   resume={resumeData}
+                  pdfHref={resumePdfHref}
                   downloadName={resumeDownloadName}
                   buttonClassName="sticky-nav-mobile-resume-trigger"
                   icon={faCircleDown}

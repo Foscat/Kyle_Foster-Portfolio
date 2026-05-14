@@ -244,6 +244,7 @@ const Btn = ({
     (typeof tooltip === "string" ? tooltip : undefined) ||
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
   const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
+  const tooltipMessage = disabled ? "Button is disabled" : tooltip || "";
   const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
   const hrefValue = typeof href === "string" ? href.trim() : "";
   const hasHref = hrefValue.length > 0;
@@ -388,11 +389,7 @@ const Btn = ({
       followCursor={tooltipFollowCursor}
       placement={tooltipPlacement}
       enterable={false}
-      speaker={
-        <Tooltip className="btn-tooltip">
-          <p>{disabled ? "Button is disabled" : tooltip}</p>
-        </Tooltip>
-      }
+      speaker={<Tooltip className="btn-tooltip">{tooltipMessage}</Tooltip>}
     >
       {button}
     </Whisper>
