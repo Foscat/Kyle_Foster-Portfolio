@@ -33,10 +33,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faCss3Alt, faGitSquare } from "@fortawesome/free-brands-svg-icons";
 import { BlockType, PageRoute } from "types/ui.types.js";
-import {
-  diagram,
-  diagramConfig,
-} from "../../../../components/features/CustomDiagram/core/index.js";
 import diagrams from "./diagrams.js";
 
 const homeSections = [
@@ -44,14 +40,14 @@ const homeSections = [
     id: "hero",
     slug: "hero",
     icon: faCode,
-    title: "Senior React / Frontend Engineer",
+    title: "About Me",
     subtitle:
       "I build React interfaces for content-heavy products, from browser-based learning tools to portfolio platforms, with a focus on usable flows and dependable behavior as complexity grows.",
     isScroller: true,
     blocks: [
       {
         id: "hero-about-me",
-        title: "About Me",
+        title: "Overview",
         type: BlockType.RICH_TEXT,
         content: [
           {

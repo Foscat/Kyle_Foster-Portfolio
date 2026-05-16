@@ -563,8 +563,28 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
                   </DeferredMount>
                 );
 
-              case BlockType.FORM:
-                return <FormBlock key={blockKey} {...createFormBlock(block)} />;
+              case BlockType.FORM: {
+                const normalizedFormBlock = createFormBlock(block);
+                const schema =
+                  normalizedFormBlock.schema && typeof normalizedFormBlock.schema === "object"
+                    ? normalizedFormBlock.schema
+                    : normalizedFormBlock;
+
+                return (
+                  <FormBlock
+                    key={blockKey}
+                    className={normalizedFormBlock.className}
+                    schema={schema}
+                    model={normalizedFormBlock.model}
+                    fluid={normalizedFormBlock.fluid}
+                    layout={normalizedFormBlock.layout}
+                    disabled={normalizedFormBlock.disabled}
+                    readOnly={normalizedFormBlock.readOnly}
+                    onChange={normalizedFormBlock.onChange}
+                    onSubmit={normalizedFormBlock.onSubmit}
+                  />
+                );
+              }
 
               case BlockType.HERO:
                 return <HeroBlock key={blockKey} {...createHeroBlock(block)} />;

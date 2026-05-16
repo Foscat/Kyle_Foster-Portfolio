@@ -14,11 +14,12 @@ test("contact form sends correct payload and shows success state", async ({ page
     const payload = route.request().postDataJSON();
 
     // Verify the outbound request contract
-    expect(payload).toEqual({
-      name: "Kyle Foster",
-      email: "kyle@example.com",
-      message: "Playwright contact test",
-    });
+    expect(payload.name).toBe("Kyle Foster");
+    expect(payload.email).toBe("kyle@example.com");
+    expect(payload.message).toContain("Portfolio Contact Submission");
+    expect(payload.message).toContain("Full Name: Kyle Foster");
+    expect(payload.message).toContain("Email: kyle@example.com");
+    expect(payload.message).toContain("Project Details: Playwright contact test");
 
     await route.fulfill({
       status: 200,

@@ -1,0 +1,23 @@
+.feature-settings-row__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.feature-settings-system-btn.btn {
+  min-width: 88px;
+  justify-content: center;
+}
+
+.feature-settings-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.feature-settings-modal__footer .btn {
+  min-width: 120px;
+}

@@ -9,6 +9,7 @@ import { Panel } from "rsuite";
 import { Btn } from "components/ui";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
 import resumeData from "assets/data/content/resumeData.js";
+import { resolveResumePdfHref } from "assets/data/resume/pdfAssets.js";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Variant } from "types/ui.types";
 import "./styles.css";
@@ -52,6 +53,7 @@ import "./styles.css";
  */
 const LinksBlock = ({ items = [] }) => {
   const { theme, palette } = useTheme();
+  const resumePdfHref = resolveResumePdfHref(theme);
 
   // Guard against empty link lists
   // console.log("Rendering LinksBlock with items:", items);
@@ -76,6 +78,7 @@ const LinksBlock = ({ items = [] }) => {
                   "A cleaner, document-first preview with improved spacing and a real paper stage."
                 }
                 resume={resumeData}
+                pdfHref={resumePdfHref}
                 downloadName={downloadName}
                 buttonClassName="links-block-item"
                 icon={link.icon}

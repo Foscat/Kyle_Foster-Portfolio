@@ -19,7 +19,6 @@ import renderWithProviders from "tests/renderWithProviders";
 
 const toLabelMatcher = (label, fallback) =>
   new RegExp(String(label || fallback).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
-const fieldSelector = "input,textarea";
 
 /**
  * @fileoverview
@@ -74,15 +73,15 @@ describe("Contact page", () => {
 
     // Simulate user input for the contact form fields and submit the form. This involves typing a name, email, and message into the respective form fields and then clicking the submit button. After the submission, we wait for the fetch function to be called and verify that it was called with the correct URL and options, confirming that the form submission process is working as expected.
     await user.type(
-      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      await screen.findByRole("textbox", { name: toLabelMatcher(nameLabel, "full name") }),
       "Kyle Foster"
     );
     await user.type(
-      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      screen.getByRole("textbox", { name: toLabelMatcher(emailLabel, "email") }),
       "kyle@example.com"
     );
     await user.type(
-      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      screen.getByRole("textbox", { name: toLabelMatcher(messageLabel, "project details") }),
       "Testing contact form"
     );
     await user.click(
@@ -95,14 +94,19 @@ describe("Contact page", () => {
 
     const [url, options] = global.fetch.mock.calls[0];
 
-    // Verify that the fetch function was called with the correct URL and options, including the method and body containing the form data. This confirms that the contact form is sending the correct request to the API endpoint when submitted.
+    // Verify that the fetch function was called with the correct URL and options.
+    // The message payload now bundles all schema field values into one string.
+    const payload = JSON.parse(options.body);
+
     expect(url).toBe(CONTACT_API_URL);
     expect(options.method).toBe("POST");
-    expect(JSON.parse(options.body)).toEqual({
-      name: "Kyle Foster",
-      email: "kyle@example.com",
-      message: "Testing contact form",
-    });
+    expect(payload.name).toBe("Kyle Foster");
+    expect(payload.email).toBe("kyle@example.com");
+    expect(payload.message).toContain("Portfolio Contact Submission");
+    expect(payload.message).toContain("Full Name: Kyle Foster");
+    expect(payload.message).toContain("Email: kyle@example.com");
+    expect(payload.message).toContain("Project Details: Testing contact form");
+    expect(payload.message).toContain("Timeline: Flexible");
   });
 
   // Verifies that the contact form allows for a retry after a failed submission by simulating a failed API response and then a successful response on the second attempt. This test simulates user input and submission, checks for the presence of an error message after the first failed submission, and then simulates another submission to verify that the fetch function is called again, allowing for a retry of the contact form submission process. This ensures that users have the opportunity to correct any issues and resubmit the form if their initial attempt fails, improving the user experience and robustness of the contact form.
@@ -125,15 +129,15 @@ describe("Contact page", () => {
 
     // Simulate user input for the contact form fields and submit the form. This involves typing a name, email, and message into the respective form fields and then clicking the submit button. After the first submission, we wait for an error message to be displayed, simulating a failed submission. Then we simulate another submission to verify that the fetch function is called again, allowing for a retry of the contact form submission process. This ensures that users have the opportunity to correct any issues and resubmit the form if their initial attempt fails, improving the user experience and robustness of the contact form.
     await user.type(
-      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      await screen.findByRole("textbox", { name: toLabelMatcher(nameLabel, "full name") }),
       "Kyle Foster"
     );
     await user.type(
-      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      screen.getByRole("textbox", { name: toLabelMatcher(emailLabel, "email") }),
       "kyle@example.com"
     );
     await user.type(
-      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      screen.getByRole("textbox", { name: toLabelMatcher(messageLabel, "project details") }),
       "Retry test"
     );
 
@@ -154,6 +158,45 @@ describe("Contact page", () => {
     });
   });
 
+  it("shows a direct-email fallback when the contact API returns 500", async () => {
+    const user = userEvent.setup();
+
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      headers: new Headers({ "rndr-id": "test-req-500" }),
+      json: async () => ({ error: "Failed to send message." }),
+    });
+
+    renderWithProviders(<Contact />, {
+      initialEntries: ["/contact"],
+    });
+
+    await user.type(
+      await screen.findByRole("textbox", { name: toLabelMatcher(nameLabel, "full name") }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByRole("textbox", { name: toLabelMatcher(emailLabel, "email") }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByRole("textbox", { name: toLabelMatcher(messageLabel, "project details") }),
+      "Service down test"
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
+
+    await waitFor(() => {
+      const alert = screen.getByRole("alert");
+      expect(alert).toHaveTextContent(/contact service is temporarily unavailable/i);
+      expect(alert).toHaveTextContent(/fosterkyle6456@gmail\.com/i);
+      expect(alert).toHaveTextContent(/http 500/i);
+    });
+  });
+
   it("shows a contact-service network error when fetch fails", async () => {
     const user = userEvent.setup();
 
@@ -164,15 +207,15 @@ describe("Contact page", () => {
     });
 
     await user.type(
-      await screen.findByLabelText(toLabelMatcher(nameLabel, "name"), { selector: fieldSelector }),
+      await screen.findByRole("textbox", { name: toLabelMatcher(nameLabel, "full name") }),
       "Kyle Foster"
     );
     await user.type(
-      screen.getByLabelText(toLabelMatcher(emailLabel, "email"), { selector: fieldSelector }),
+      screen.getByRole("textbox", { name: toLabelMatcher(emailLabel, "email") }),
       "kyle@example.com"
     );
     await user.type(
-      screen.getByLabelText(toLabelMatcher(messageLabel, "message"), { selector: fieldSelector }),
+      screen.getByRole("textbox", { name: toLabelMatcher(messageLabel, "project details") }),
       "CORS fallback"
     );
 

@@ -6,7 +6,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Image, Modal, Placeholder } from "rsuite";
+import { Image, Modal } from "rsuite";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import "./styles.css";
 
@@ -336,7 +336,6 @@ const ClickableImg = ({
         loading="lazy"
         decoding="async"
         fetchpriority="low"
-        placeholder={<Placeholder.Graph active />}
         className={`clickable-thumb interactive-surface glass-outline ${className}`}
         onClick={() => setOpen(true)}
       />
