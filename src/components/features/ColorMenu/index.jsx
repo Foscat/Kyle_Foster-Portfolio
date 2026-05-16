@@ -13,6 +13,8 @@ import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
 import ThemeToggle from "../ThemeToggle";
 import PaletteToggle from "../PaletteToggle";
+import "../shared/modal-controls.css";
+import "../shared/switch.css";
 import "./styles.css";
 
 const asOnOff = (value) => (value ? "On" : "Off");
@@ -35,12 +37,12 @@ function announceSettingChange(label, value) {
 function ColorSwitch({ labelledBy, checked, onChange, disabled = false }) {
   return (
     <label
-      className={`color-switch interactive-surface ${checked ? "is-on" : ""} ${
+      className={`color-switch ui-switch interactive-surface ${checked ? "is-on" : ""} ${
         disabled ? "is-disabled" : ""
       }`}
     >
       <input
-        className="color-switch__input"
+        className="color-switch__input ui-switch__input"
         type="checkbox"
         role="switch"
         checked={checked}
@@ -48,8 +50,8 @@ function ColorSwitch({ labelledBy, checked, onChange, disabled = false }) {
         onChange={(event) => onChange(event.target.checked)}
         aria-labelledby={labelledBy}
       />
-      <span className="color-switch__track" aria-hidden="true">
-        <span className="color-switch__thumb" />
+      <span className="color-switch__track ui-switch__track" aria-hidden="true">
+        <span className="color-switch__thumb ui-switch__thumb" />
       </span>
     </label>
   );
@@ -95,7 +97,7 @@ function ColorPreferenceRow({
         <p className="color-row__system">System preference: {asOnOff(systemValue)}</p>
       </div>
 
-      <div className="color-row__actions">
+      <div className="color-row__actions feature-settings-row__actions">
         <ColorSwitch labelledBy={id} checked={enabled} onChange={onToggle} disabled={disabled} />
         <Btn
           text="Use system"
@@ -105,7 +107,7 @@ function ColorPreferenceRow({
           disabled={disabled || usesSystem}
           ariaLabel={`${title}: use system setting`}
           onClick={onUseSystem}
-          className="color-row__system-btn"
+          className="color-row__system-btn feature-settings-system-btn"
         />
       </div>
     </div>
@@ -279,7 +281,7 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
           />
         </Modal.Body>
 
-        <Modal.Footer className="color-modal__footer">
+        <Modal.Footer className="color-modal__footer feature-settings-modal__footer">
           <Btn
             text="Reset draft"
             icon={faArrowsRotate}

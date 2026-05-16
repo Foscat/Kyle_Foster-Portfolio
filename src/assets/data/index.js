@@ -7,6 +7,7 @@
 import {
   codestreamSections,
   contactSections,
+  contactAltSections,
   hackathonSections,
   homeSections,
   sideProjectsSections,
@@ -19,6 +20,7 @@ import resumeDark from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_
 export {
   codestreamSections,
   contactSections,
+  contactAltSections,
   hackathonSections,
   homeSections,
   sideProjectsSections,

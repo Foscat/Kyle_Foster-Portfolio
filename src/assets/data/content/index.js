@@ -6,6 +6,7 @@
 
 import codestreamSections from "./codestream";
 import contactSections from "./contact";
+import contactAltSections from "./contact/alt";
 import hackathonSections from "./hackathon";
 import homeSections from "./home";
 import sideProjectsSections from "./side-projects";
@@ -16,6 +17,7 @@ import diagrams from "./diagrams.js";
 export {
   codestreamSections,
   contactSections,
+  contactAltSections,
   hackathonSections,
   homeSections,
   sideProjectsSections,

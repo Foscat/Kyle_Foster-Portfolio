@@ -182,99 +182,68 @@ svg:not(:root) {
   border-radius: var(--radius-sm);
 }
 
-.desktop-menu .fi-desk-nav-item .nav-icon {
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon {
   margin: 1px;
-}
-
-.desktop-menu .fi-desk-nav-item .nav-icon {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   color: var(--sticky-nav-desktop-page-icon-color);
-  /* --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 0px;
-  --interactive-surface-radius: var(--radius-sm);
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px; */
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only {
-  /* --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 0px;
-  --interactive-surface-radius: var(--radius-sm);
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px; */
-}
-
-.desktop-menu .fi-desk-nav-item .nav-icon svg {
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon svg {
   font-size: var(--sticky-nav-page-icon-glyph-size);
   width: 1em;
   height: 1em;
 }
 
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon.btn-icon svg,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon svg,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger .frosted-icon.btn-icon svg {
+.desktop-menu .sticky-nav-desktop-trigger--utility .frosted-icon.btn-icon svg {
   width: 1em;
   height: 1em;
 }
 
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon.btn-icon svg {
+.desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon svg {
   font-size: var(--sticky-nav-utility-icon-glyph-size);
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon svg {
+.desktop-menu .sticky-nav-desktop-trigger--a11y .frosted-icon.btn-icon svg {
   font-size: calc(var(--sticky-nav-utility-icon-glyph-size) + 3px);
 }
 
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon.btn-icon,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger .frosted-icon.btn-icon {
+.desktop-menu .sticky-nav-desktop-trigger--utility .frosted-icon.btn-icon {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 4px;
 }
 
-.desktop-menu .fi-desk-nav-item .nav-icon.is-active,
-.desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
+.desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon {
   --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--accent-rgb), 0.62);
 }
 
-.desktop-menu .fi-desk-nav-item .nav-icon.is-active,
-.desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
+.desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon {
   color: var(--sticky-nav-desktop-page-icon-active-color);
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
+.desktop-menu .sticky-nav-desktop-trigger--a11y .btn.icon-only {
   color: var(--sticky-nav-desktop-a11y-icon-color);
-  border-radius: 50% !important;
 }
 
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only {
+.desktop-menu .sticky-nav-desktop-trigger--color .btn.icon-only {
   color: var(--sticky-nav-desktop-theme-icon-color);
-  border-radius: 50% !important;
 }
 
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only {
+.desktop-menu .sticky-nav-desktop-trigger--resume .btn.icon-only {
   color: var(--sticky-nav-desktop-resume-icon-color);
 }
 
-.desktop-menu
-  .sticky-nav-color-toggle
-  .color-menu-trigger
-  .frosted-icon.btn-icon.fi-variant-secondary {
+.desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon.fi-variant-secondary {
   color: var(--sticky-nav-desktop-theme-icon-color);
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon.fi-variant-primary {
+.desktop-menu .sticky-nav-desktop-trigger--a11y .frosted-icon.btn-icon.fi-variant-primary {
   color: var(--sticky-nav-desktop-a11y-icon-color);
 }
 
@@ -314,12 +283,7 @@ svg:not(:root) {
 
 /* Dark mode: Btn/styles.css forces noBG icon-only .frosted-icon to inherit accent-light
    with specificity (0,6,1). These rules use (0,7,1) to restore the correct trigger colors. */
-html[data-theme="dark"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
-html[data-theme="dark"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
-html[data-theme="dark"]
-  .desktop-menu
-  .sticky-nav-resume-toggle
-  .sticky-nav-resume-trigger.btn.icon-only,
+html[data-theme="dark"] .desktop-menu .sticky-nav-desktop-trigger--utility .btn.icon-only,
 html[data-theme="dark"] .color-toggle-btn .color-menu-trigger.btn.icon-only,
 html[data-theme="dark"] .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
 html[data-theme="dark"] .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
@@ -329,27 +293,15 @@ html[data-theme="dark"] .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trig
   color: var(--sticky-nav-trigger-utility-icon-color) !important;
 }
 
-html[data-theme="dark"]
-  .desktop-menu
-  .sticky-nav-color-toggle
-  .color-menu-trigger.btn.icon-only
-  .frosted-icon.btn-icon {
+html[data-theme="dark"] .desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon {
   color: var(--sticky-nav-desktop-theme-icon-color) !important;
 }
 
-html[data-theme="dark"]
-  .desktop-menu
-  .sticky-nav-a11y-toggle
-  .a11y-menu-trigger.btn.icon-only
-  .frosted-icon.btn-icon {
+html[data-theme="dark"] .desktop-menu .sticky-nav-desktop-trigger--a11y .frosted-icon.btn-icon {
   color: var(--sticky-nav-desktop-a11y-icon-color) !important;
 }
 
-html[data-theme="dark"]
-  .desktop-menu
-  .sticky-nav-resume-toggle
-  .sticky-nav-resume-trigger.btn.icon-only
-  .frosted-icon.btn-icon {
+html[data-theme="dark"] .desktop-menu .sticky-nav-desktop-trigger--resume .frosted-icon.btn-icon {
   color: var(--sticky-nav-desktop-resume-icon-color) !important;
 }
 
@@ -380,30 +332,25 @@ html[data-theme="dark"]
   color: var(--sticky-nav-mobile-stack-utility-icon-color) !important;
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon.btn-icon,
+.desktop-menu .sticky-nav-desktop-trigger--a11y .frosted-icon.btn-icon,
 .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
 .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
   border-radius: 50% !important;
 }
 
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon.btn-icon,
+.desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon,
 .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon,
 .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon {
   border-radius: 50% !important;
 }
 
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger .frosted-icon,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger .frosted-icon,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger .frosted-icon {
+.desktop-menu .sticky-nav-desktop-trigger--utility .frosted-icon {
   background: transparent !important;
   box-shadow: none !important;
 }
 
 /* Force nav icon controls to stay background-free across button variants/states. */
-.desktop-menu .fi-desk-nav-item .nav-icon,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only,
+.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only,
 .nav-toggle-btn .btn.icon-only,
 .color-toggle-btn .color-menu-trigger.btn.icon-only,
 .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
@@ -416,18 +363,9 @@ html[data-theme="dark"]
   border-color: transparent !important;
 }
 
-.desktop-menu .fi-desk-nav-item .nav-icon:hover,
-.desktop-menu .fi-desk-nav-item .nav-icon:focus-visible,
-.desktop-menu .fi-desk-nav-item .nav-icon:active,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:hover,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:focus-visible,
-.desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only:active,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:hover,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:focus-visible,
-.desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only:active,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only:hover,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only:focus-visible,
-.desktop-menu .sticky-nav-resume-toggle .sticky-nav-resume-trigger.btn.icon-only:active,
+.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:hover,
+.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:focus-visible,
+.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:active,
 .nav-toggle-btn .btn.icon-only:hover,
 .nav-toggle-btn .btn.icon-only:focus-visible,
 .nav-toggle-btn .btn.icon-only:active,
@@ -453,6 +391,10 @@ html[data-theme="dark"]
 .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:focus-visible,
 .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:active {
   background: transparent !important;
+}
+
+.desktop-menu .sticky-nav-desktop-trigger--round .btn.icon-only {
+  border-radius: 50% !important;
 }
 
 .mobile-only .btn.icon-only .frosted-icon,
@@ -518,13 +460,13 @@ html[data-theme="light"][data-palette="sunset"] {
 html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon,
 html[data-theme="light"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
 html[data-theme="light"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
-  /* --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.32);
-  --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76); */
 }
 
-html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon.is-active,
-html[data-theme="light"] .desktop-menu .fi-desk-nav-item[aria-current="page"] .nav-icon {
+html[data-theme="light"] .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
+html[data-theme="light"]
+  .desktop-menu
+  .sticky-nav-desktop-trigger--page[aria-current="page"]
+  .nav-icon {
   --interactive-surface-bg: transparent;
   --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.76);
 }
@@ -585,15 +527,6 @@ html[data-theme="light"][data-palette="forest"] {
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface {
-  /* --interactive-surface-bg: transparent;
-  --interactive-surface-fg: var(--nav-drawer-item-fg);
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: var(--radius-lg);
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.5);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px; */
-
   border: none;
   text-decoration: none;
 }
@@ -812,11 +745,6 @@ html[data-theme="light"]
     display: none;
   }
 
-  .mobile-only {
-    position: relative;
-    display: none;
-  }
-
   /* Mobile slide-out menu */
   .rs-drawer-backdrop .mobile-nav-drawer {
     width: 100%;
@@ -872,10 +800,7 @@ html[data-theme="light"]
     box-shadow: none;
   }
 
-  .mobile-only .btn.icon-only,
-  .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  .sticky-nav-mobile-trigger .btn.icon-only {
     --interactive-surface-bg: transparent;
     --interactive-surface-border-color: transparent;
     --interactive-surface-border-width: 0px;
@@ -885,16 +810,7 @@ html[data-theme="light"]
     --interactive-surface-focus-ring-offset: 2px;
   }
 
-  .nav-toggle-btn,
-  .color-toggle-btn,
-  .a11y-toggle-btn,
-  .resume-toggle-btn,
-  .sect-nav-toggle-btn {
-    top: var(--sticky-nav-mobile-rail-top);
-    left: var(--sticky-nav-mobile-trigger-left);
-  }
-
-  .nav-toggle-btn {
+  .sticky-nav-mobile-trigger--rail {
     top: var(--sticky-nav-mobile-rail-top);
     left: var(--sticky-nav-mobile-trigger-left);
   }
@@ -905,7 +821,6 @@ html[data-theme="light"]
         (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
         (1 + var(--sticky-nav-mobile-section-slot))
     );
-    left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .a11y-toggle-btn {
@@ -914,7 +829,6 @@ html[data-theme="light"]
         (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
         (2 + var(--sticky-nav-mobile-section-slot))
     );
-    left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .resume-toggle-btn {
@@ -923,7 +837,6 @@ html[data-theme="light"]
         (var(--sticky-nav-mobile-trigger-size) + var(--sticky-nav-mobile-trigger-gap)) *
         (3 + var(--sticky-nav-mobile-section-slot))
     );
-    left: var(--sticky-nav-mobile-trigger-left);
   }
 
   .sect-nav-toggle-btn {
@@ -931,34 +844,17 @@ html[data-theme="light"]
       var(--sticky-nav-mobile-rail-top) + var(--sticky-nav-mobile-trigger-size) +
         var(--sticky-nav-mobile-trigger-gap)
     );
-    left: var(--sticky-nav-mobile-trigger-left);
   }
 
-  .nav-toggle-btn .btn.icon-only,
-  .color-toggle-btn .color-menu-trigger.btn.icon-only,
-  .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
+  .sticky-nav-mobile-trigger--rail .btn.icon-only {
     border-left: 1px solid rgba(var(--accent-rgb), 0.4) !important;
   }
 
-  html[data-theme="light"] .mobile-only .btn.icon-only,
-  html[data-theme="light"] .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  html[data-theme="light"] .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
-  html[data-theme="light"]
-    .sticky-nav-mobile-resume
-    .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  html[data-theme="light"] .sticky-nav-mobile-trigger .btn.icon-only {
     --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
   }
 
-  .nav-toggle-btn .btn.icon-only,
-  .color-toggle-btn .color-menu-trigger.btn.icon-only,
-  .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only,
-  .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  .sticky-nav-mobile-trigger .btn.icon-only {
     width: var(--sticky-nav-mobile-trigger-size);
     min-width: var(--sticky-nav-mobile-trigger-size);
     height: var(--sticky-nav-mobile-trigger-size);
@@ -969,12 +865,7 @@ html[data-theme="light"]
     border-radius: var(--radius-sm);
   }
 
-  .color-toggle-btn .color-menu-trigger.btn.icon-only,
-  .a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
-  .sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  .sticky-nav-mobile-trigger--utility .btn.icon-only {
     background: var(--sticky-nav-mobile-trigger-backplate-bg) !important;
     border: 1px solid var(--sticky-nav-mobile-trigger-backplate-border) !important;
     box-shadow: var(--sticky-nav-mobile-trigger-backplate-shadow) !important;
@@ -983,23 +874,7 @@ html[data-theme="light"]
     backdrop-filter: blur(8px) saturate(115%);
   }
 
-  .nav-toggle-btn .btn.icon-only,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
-    padding: 8px;
-    margin: 4px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: var(--radius-sm);
-  }
-
-  .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon,
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon,
-  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon,
-  .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger .frosted-icon.btn-icon {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -1007,77 +882,58 @@ html[data-theme="light"]
     border-radius: var(--radius-xs);
   }
 
-  .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger--utility .frosted-icon.btn-icon {
     border-radius: 50% !important;
   }
 
-  .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon svg,
-  .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon svg {
-    font-size: var(--sticky-nav-mobile-trigger-glyph-size);
+  .sticky-nav-mobile-trigger--color {
+    --sticky-nav-mobile-current-glyph-size: var(--sticky-nav-mobile-trigger-glyph-size);
   }
 
-  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon svg,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon svg,
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon svg,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon svg,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon svg,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon svg {
-    font-size: var(--sticky-nav-mobile-trigger-utility-glyph-size);
+  .sticky-nav-mobile-trigger--nav,
+  .sticky-nav-mobile-trigger--a11y,
+  .sticky-nav-mobile-trigger--resume {
+    --sticky-nav-mobile-current-glyph-size: var(--sticky-nav-mobile-trigger-utility-glyph-size);
   }
 
-  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon,
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger .frosted-icon.btn-icon svg {
+    font-size: var(
+      --sticky-nav-mobile-current-glyph-size,
+      var(--sticky-nav-mobile-trigger-utility-glyph-size)
+    );
+  }
+
+  .sticky-nav-mobile-trigger--scaled .frosted-icon.btn-icon {
     padding: 0;
   }
 
-  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon svg,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon svg,
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon svg,
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon svg,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon svg,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon svg {
+  .sticky-nav-mobile-trigger--scaled .frosted-icon.btn-icon svg {
     transform: scale(1.45);
     transform-origin: center;
   }
 
-  .nav-toggle-btn .btn.icon-only,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only {
+  .sticky-nav-mobile-trigger--nav .btn.icon-only {
     color: var(--sticky-nav-mobile-stack-nav-icon-color);
   }
 
-  .nav-toggle-btn .btn.icon-only .frosted-icon.btn-icon,
-  .sect-nav-toggle-btn .section-nav-trigger.btn.icon-only .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger--nav .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-nav-icon-color);
   }
 
-  .color-toggle-btn .color-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger--color .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-color-icon-color);
   }
 
-  .a11y-toggle-btn .a11y-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger--a11y .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   }
 
-  .resume-toggle-btn .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger .frosted-icon.btn-icon {
+  .sticky-nav-mobile-trigger--resume .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-resume-icon-color);
   }
 
   /* Drawer utility controls should share the same role color for quick scanning. */
-  .sticky-nav-mobile-utilities .sticky-nav-mobile-color .color-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-utilities .sticky-nav-mobile-a11y .a11y-menu-trigger .frosted-icon.btn-icon,
-  .sticky-nav-mobile-utilities
-    .sticky-nav-mobile-resume
-    .sticky-nav-mobile-resume-trigger
-    .frosted-icon.btn-icon {
+  .sticky-nav-mobile-utilities .sticky-nav-mobile-trigger--utility .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-utility-icon-color);
   }
 

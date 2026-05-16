@@ -77,6 +77,10 @@ section.info-section.section-renderer .rs-panel {
 
 /* Content area */
 .info-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
   font-size: var(--font-xs);
   line-height: 1.6;
 }
@@ -118,17 +122,10 @@ section.info-section.section-renderer .rs-panel {
 }
 
 /* ------------------------------------------------------------
-   Inner content wrapper
-   ------------------------------------------------------------
-   This controls max width and reading comfort.
+  Inner content wrapper
+  ------------------------------------------------------------
+  This controls max width and reading comfort.
 */
-
-.info-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0 auto;
-}
 
 /* Sub-sections rendered inside section content should be left-aligned. */
 .info-content > .info-section .title-wrapper {
@@ -181,12 +178,6 @@ section.info-section.section-renderer .rs-panel {
     padding: 10px 2px;
   }
 
-  /* .rs-panel.info-section .rs-panel-header */
-
-  /* padding: 2px; */
-
-  /* } */
-
   .info-section.section-renderer .title-wrapper {
     flex-direction: column;
     gap: 0.5rem;
@@ -219,8 +210,6 @@ section.info-section.section-renderer .rs-panel {
   .info-section {
     border: 1px solid rgb(var(--white-rgb), 0.12);
     border-radius: var(--border-radius);
-
-    /* padding: 2.5rem 2rem; */
 
     /* Glass restored only where GPU cost is acceptable */
     -webkit-backdrop-filter: blur(12px);

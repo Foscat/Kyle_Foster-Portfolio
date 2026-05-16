@@ -798,6 +798,30 @@ a:hover {
   color: rgba(var(--accent-dark-rgb), 1);
 }
 
+/* Shared renderer link-surface reset: keep text links clickable without tile backgrounds. */
+.block-link.interactive-surface,
+.markdown-renderer__link.interactive-surface,
+.markdown-renderer__toc-link.interactive-surface {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.block-link.interactive-surface::before,
+.block-link.interactive-surface::after,
+.markdown-renderer__link.interactive-surface::before,
+.markdown-renderer__link.interactive-surface::after,
+.markdown-renderer__toc-link.interactive-surface::before,
+.markdown-renderer__toc-link.interactive-surface::after,
+.block-list-item::before,
+.block-list-item::after {
+  content: none !important;
+}
+
+.block-list-item {
+  background: transparent !important;
+}
+
 section[id],
 .scroll-anchor {
   scroll-margin-top: 120px;
@@ -943,8 +967,6 @@ section[id],
      - Avoid `contain: content` here: containment can interfere with sticky
        descendants and creates surprising clipping/stacking behavior. */
   width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
-
-  /* margin-inline: auto; */
 }
 
 .page-section {
