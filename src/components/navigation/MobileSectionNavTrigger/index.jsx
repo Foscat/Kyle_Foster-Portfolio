@@ -147,7 +147,7 @@ const MobileSectionNavTrigger = ({
     <>
       {/* Trigger Button */}
       <div
-        className="sect-nav-toggle-btn mobile-only"
+        className="sect-nav-toggle-btn mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--nav sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-sect-nav-trigger-wrapper"
       >
         <span className="mobile-icon-hint">Sections</span>

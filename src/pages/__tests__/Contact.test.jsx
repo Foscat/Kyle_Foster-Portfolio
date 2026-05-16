@@ -158,6 +158,45 @@ describe("Contact page", () => {
     });
   });
 
+  it("shows a direct-email fallback when the contact API returns 500", async () => {
+    const user = userEvent.setup();
+
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      headers: new Headers({ "rndr-id": "test-req-500" }),
+      json: async () => ({ error: "Failed to send message." }),
+    });
+
+    renderWithProviders(<Contact />, {
+      initialEntries: ["/contact"],
+    });
+
+    await user.type(
+      await screen.findByRole("textbox", { name: toLabelMatcher(nameLabel, "full name") }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByRole("textbox", { name: toLabelMatcher(emailLabel, "email") }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByRole("textbox", { name: toLabelMatcher(messageLabel, "project details") }),
+      "Service down test"
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
+
+    await waitFor(() => {
+      const alert = screen.getByRole("alert");
+      expect(alert).toHaveTextContent(/contact service is temporarily unavailable/i);
+      expect(alert).toHaveTextContent(/fosterkyle6456@gmail\.com/i);
+      expect(alert).toHaveTextContent(/http 500/i);
+    });
+  });
+
   it("shows a contact-service network error when fetch fails", async () => {
     const user = userEvent.setup();
 

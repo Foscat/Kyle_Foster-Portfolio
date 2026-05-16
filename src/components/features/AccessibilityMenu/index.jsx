@@ -11,6 +11,8 @@ import { faArrowsRotate, faUniversalAccess } from "@fortawesome/free-solid-svg-i
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
+import "../shared/modal-controls.css";
+import "../shared/switch.css";
 import "./styles.css";
 
 const asOnOff = (value) => (value ? "On" : "Off");
@@ -59,12 +61,12 @@ const formatTextScale = (value) => `${Math.round(clampTextScale(value) * 100)}%`
 function A11ySwitch({ labelledBy, checked, onChange, disabled = false }) {
   return (
     <label
-      className={`a11y-switch interactive-surface ${checked ? "is-on" : ""} ${
+      className={`a11y-switch ui-switch interactive-surface ${checked ? "is-on" : ""} ${
         disabled ? "is-disabled" : ""
       }`}
     >
       <input
-        className="a11y-switch__input"
+        className="a11y-switch__input ui-switch__input"
         type="checkbox"
         role="switch"
         checked={checked}
@@ -72,8 +74,8 @@ function A11ySwitch({ labelledBy, checked, onChange, disabled = false }) {
         onChange={(event) => onChange(event.target.checked)}
         aria-labelledby={labelledBy}
       />
-      <span className="a11y-switch__track" aria-hidden="true">
-        <span className="a11y-switch__thumb" />
+      <span className="a11y-switch__track ui-switch__track" aria-hidden="true">
+        <span className="a11y-switch__thumb ui-switch__thumb" />
       </span>
     </label>
   );
@@ -125,7 +127,7 @@ function PreferenceRow({
         ) : null}
       </div>
 
-      <div className="a11y-row__actions">
+      <div className="a11y-row__actions feature-settings-row__actions">
         <A11ySwitch labelledBy={id} checked={enabled} onChange={onToggle} disabled={disabled} />
         {supportsSystem && onUseSystem ? (
           <Btn
@@ -136,7 +138,7 @@ function PreferenceRow({
             disabled={disabled || usesSystem}
             ariaLabel={`${title}: use system setting`}
             onClick={onUseSystem}
-            className="a11y-row__system-btn"
+            className="a11y-row__system-btn feature-settings-system-btn"
           />
         ) : null}
       </div>
@@ -160,7 +162,7 @@ function TextScaleRow({ id, title, description, value, onChange, disabled = fals
         </p>
       </div>
 
-      <div className="a11y-row__actions a11y-row__actions--scale">
+      <div className="a11y-row__actions feature-settings-row__actions a11y-row__actions--scale">
         <div className="a11y-scale">
           <label className="a11y-sr-only" htmlFor={`${id}-input`}>
             {title}
@@ -637,7 +639,7 @@ export default function AccessibilityMenu({
           </div>
         </Modal.Body>
 
-        <Modal.Footer className="a11y-modal__footer">
+        <Modal.Footer className="a11y-modal__footer feature-settings-modal__footer">
           <Btn
             text="Reset draft"
             icon={faArrowsRotate}

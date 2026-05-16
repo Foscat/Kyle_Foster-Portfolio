@@ -1,0 +1,26 @@
+/* ContactAlt page-specific layout and visual fixes. */
+
+.contact-alt-page .contact-alt-layout {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.contact-alt-page .contact-alt-main {
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.contact-alt-page .info-section {
+  margin-inline: auto;
+}
+
+.contact-alt-page .info-title {
+  color: var(--text-accent);
+  text-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.35);
+}
+
+@media (width <= 1024px) {
+  .contact-alt-page .contact-alt-main {
+    max-width: 100%;
+  }
+}

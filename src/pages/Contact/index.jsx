@@ -26,6 +26,7 @@ import "../../styles/rsuite-form.less";
  * @type {string}
  */
 const CONTACT_API_URL_FALLBACK = "https://email-microservice-grem.onrender.com/api/contact";
+const CONTACT_DIRECT_EMAIL = "fosterkyle6456@gmail.com";
 const NOT_PROVIDED = "Not provided";
 
 /**
@@ -202,7 +203,7 @@ export async function sendMessage(values, schema = contactFormSchema) {
   } catch (error) {
     if (error instanceof TypeError) {
       throw new Error(
-        "Unable to reach the contact service (network/CORS). Please email me directly at fosterkyle6456@gmail.com."
+        `Unable to reach the contact service (network/CORS). Please email me directly at ${CONTACT_DIRECT_EMAIL}.`
       );
     }
     throw error;
@@ -214,6 +215,13 @@ export async function sendMessage(values, schema = contactFormSchema) {
     const serverMessage = responsePayload?.error || responsePayload?.message;
     const requestId = response.headers?.get("rndr-id");
     const diagnostics = `HTTP ${response.status}${requestId ? ` | request ${requestId}` : ""}`;
+
+    if (response.status >= 500) {
+      throw new Error(
+        `Contact service is temporarily unavailable. Please email me directly at ${CONTACT_DIRECT_EMAIL}. (${diagnostics})`
+      );
+    }
+
     throw new Error(serverMessage ? `${serverMessage} (${diagnostics})` : diagnostics);
   }
 

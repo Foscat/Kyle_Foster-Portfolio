@@ -281,7 +281,7 @@ const StickyNav = ({ activePage }) => {
                     navigate,
                   })
                 }
-                className="fi-desk-nav-item"
+                className="fi-desk-nav-item sticky-nav-desktop-trigger sticky-nav-desktop-trigger--page"
               >
                 <Btn
                   icon={icon}
@@ -299,7 +299,7 @@ const StickyNav = ({ activePage }) => {
         </div>
 
         <div className="sticky-nav-tools-group">
-          <Nav.Item className="no-popup sticky-nav-resume-toggle">
+          <Nav.Item className="no-popup sticky-nav-resume-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--resume">
             <ResumePreviewTrigger
               buttonText=""
               title={resumePreviewTitle}
@@ -316,10 +316,10 @@ const StickyNav = ({ activePage }) => {
               noBG
             />
           </Nav.Item>
-          <Nav.Item className="no-popup sticky-nav-color-toggle">
+          <Nav.Item className="no-popup sticky-nav-color-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--color sticky-nav-desktop-trigger--round">
             <ColorMenu size={Size.LG} />
           </Nav.Item>
-          <Nav.Item className="no-popup sticky-nav-a11y-toggle">
+          <Nav.Item className="no-popup sticky-nav-a11y-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--a11y sticky-nav-desktop-trigger--round">
             <AccessibilityMenu size={Size.LG} enableHotkey />
           </Nav.Item>
         </div>
@@ -331,7 +331,7 @@ const StickyNav = ({ activePage }) => {
          Burger button toggles Drawer-based navigation.
          ============================================================ */}
       <div
-        className="nav-toggle-btn mobile-only nav-mobile-only"
+        className="nav-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--nav sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-nav-trigger-wrapper"
       >
         <span className="mobile-icon-hint">Menu</span>
@@ -351,7 +351,7 @@ const StickyNav = ({ activePage }) => {
       </div>
 
       <div
-        className="color-toggle-btn mobile-only nav-mobile-only"
+        className="color-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--color"
         data-testid="mobile-color-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
@@ -360,7 +360,7 @@ const StickyNav = ({ activePage }) => {
       </div>
 
       <div
-        className="a11y-toggle-btn mobile-only nav-mobile-only"
+        className="a11y-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-a11y-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
@@ -369,7 +369,7 @@ const StickyNav = ({ activePage }) => {
       </div>
 
       <div
-        className="resume-toggle-btn mobile-only nav-mobile-only"
+        className="resume-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-resume-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
@@ -433,13 +433,13 @@ const StickyNav = ({ activePage }) => {
               );
             })}
             <div className="sticky-nav-mobile-utilities">
-              <div className="sticky-nav-mobile-color">
+              <div className="sticky-nav-mobile-color sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--color">
                 <ColorMenu size={Size.LG} showTooltip={false} />
               </div>
-              <div className="sticky-nav-mobile-a11y">
+              <div className="sticky-nav-mobile-a11y sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled">
                 <AccessibilityMenu size={Size.LG} showTooltip={false} />
               </div>
-              <div className="sticky-nav-mobile-resume">
+              <div className="sticky-nav-mobile-resume sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled">
                 <ResumePreviewTrigger
                   buttonText=""
                   title={resumePreviewTitle}
