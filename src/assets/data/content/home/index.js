@@ -46,7 +46,7 @@ const homeSections = [
     isScroller: true,
     blocks: [
       {
-        id: "hero-about-me",
+        id: "hero-overview",
         title: "Overview",
         type: BlockType.RICH_TEXT,
         content: [
