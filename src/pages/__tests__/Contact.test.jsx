@@ -197,6 +197,46 @@ describe("Contact page", () => {
     });
   });
 
+  it("shows the server message without the direct-email fallback when the contact API returns 400", async () => {
+    const user = userEvent.setup();
+
+    global.fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 400,
+      headers: new Headers({ "rndr-id": "test-req-400" }),
+      json: async () => ({ error: "Please provide a valid email address." }),
+    });
+
+    renderWithProviders(<Contact />, {
+      initialEntries: ["/contact"],
+    });
+
+    await user.type(
+      await screen.findByRole("textbox", { name: toLabelMatcher(nameLabel, "full name") }),
+      "Kyle Foster"
+    );
+    await user.type(
+      screen.getByRole("textbox", { name: toLabelMatcher(emailLabel, "email") }),
+      "kyle@example.com"
+    );
+    await user.type(
+      screen.getByRole("textbox", { name: toLabelMatcher(messageLabel, "project details") }),
+      "Validation error test"
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: toLabelMatcher(submitLabel, "send message") })
+    );
+
+    await waitFor(() => {
+      const alert = screen.getByRole("alert");
+      expect(alert).toHaveTextContent(/please provide a valid email address\./i);
+      expect(alert).not.toHaveTextContent(/contact service is temporarily unavailable/i);
+      expect(alert).not.toHaveTextContent(/fosterkyle6456@gmail\.com/i);
+      expect(alert).not.toHaveTextContent(/http 500/i);
+    });
+  });
+
   it("shows a contact-service network error when fetch fails", async () => {
     const user = userEvent.setup();
 
