@@ -350,46 +350,14 @@ html[data-theme="dark"]
 }
 
 /* Force nav icon controls to stay background-free across button variants/states. */
-.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only,
-.nav-toggle-btn .btn.icon-only,
-.color-toggle-btn .color-menu-trigger.btn.icon-only,
-.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only,
-.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only,
-.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only,
-.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only,
-.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only,
-.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only {
+.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only {
   background: transparent !important;
   border-color: transparent !important;
 }
 
 .desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:hover,
 .desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:focus-visible,
-.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:active,
-.nav-toggle-btn .btn.icon-only:hover,
-.nav-toggle-btn .btn.icon-only:focus-visible,
-.nav-toggle-btn .btn.icon-only:active,
-.color-toggle-btn .color-menu-trigger.btn.icon-only:hover,
-.color-toggle-btn .color-menu-trigger.btn.icon-only:focus-visible,
-.color-toggle-btn .color-menu-trigger.btn.icon-only:active,
-.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:hover,
-.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:focus-visible,
-.a11y-toggle-btn .a11y-menu-trigger.btn.icon-only:active,
-.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only:hover,
-.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only:focus-visible,
-.resume-toggle-btn .sticky-nav-mobile-resume-trigger.btn.icon-only:active,
-.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:hover,
-.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:focus-visible,
-.sect-nav-toggle-btn .section-nav-trigger.btn.icon-only:active,
-.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:hover,
-.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:focus-visible,
-.sticky-nav-mobile-color .color-menu-trigger.btn.icon-only:active,
-.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:hover,
-.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:focus-visible,
-.sticky-nav-mobile-a11y .a11y-menu-trigger.btn.icon-only:active,
-.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:hover,
-.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:focus-visible,
-.sticky-nav-mobile-resume .sticky-nav-mobile-resume-trigger.btn.icon-only:active {
+.desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:active {
   background: transparent !important;
 }
 
@@ -801,9 +769,6 @@ html[data-theme="light"]
   }
 
   .sticky-nav-mobile-trigger .btn.icon-only {
-    --interactive-surface-bg: transparent;
-    --interactive-surface-border-color: transparent;
-    --interactive-surface-border-width: 0px;
     --interactive-surface-radius: var(--radius-sm);
     --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
     --interactive-surface-focus-ring-width: 2px;
@@ -847,7 +812,12 @@ html[data-theme="light"]
   }
 
   .sticky-nav-mobile-trigger--rail .btn.icon-only {
-    border-left: 1px solid rgba(var(--accent-rgb), 0.4) !important;
+    background: var(--sticky-nav-mobile-trigger-backplate-bg) !important;
+    border: 1px solid var(--sticky-nav-mobile-trigger-backplate-border) !important;
+    box-shadow: var(--sticky-nav-mobile-trigger-backplate-shadow) !important;
+    border-radius: 50% !important;
+    -webkit-backdrop-filter: blur(8px) saturate(115%);
+    backdrop-filter: blur(8px) saturate(115%);
   }
 
   html[data-theme="light"] .sticky-nav-mobile-trigger .btn.icon-only {
@@ -866,12 +836,7 @@ html[data-theme="light"]
   }
 
   .sticky-nav-mobile-trigger--utility .btn.icon-only {
-    background: var(--sticky-nav-mobile-trigger-backplate-bg) !important;
-    border: 1px solid var(--sticky-nav-mobile-trigger-backplate-border) !important;
-    box-shadow: var(--sticky-nav-mobile-trigger-backplate-shadow) !important;
     border-radius: 50% !important;
-    -webkit-backdrop-filter: blur(8px) saturate(115%);
-    backdrop-filter: blur(8px) saturate(115%);
   }
 
   .sticky-nav-mobile-trigger .frosted-icon.btn-icon {

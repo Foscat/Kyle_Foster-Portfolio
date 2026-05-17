@@ -1,26 +1,82 @@
-/* ContactAlt page-specific layout and visual fixes. */
+/* ContactAlt page-specific layout controls. */
 
-.contact-alt-page .contact-alt-layout {
-  grid-template-columns: minmax(0, 1fr) !important;
-}
-
-.contact-alt-page .contact-alt-main {
+.contact-page .contact-content {
   width: 100%;
-  max-width: 920px;
-  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  padding: 0.6rem clamp(0.5rem, 1.8vw, 1.35rem) 1.5rem;
 }
 
-.contact-alt-page .info-section {
-  margin-inline: auto;
+.contact-page .contact-centered-stack {
+  --contact-icon-gutter: clamp(2.5rem, 3.6vw, 3.5rem);
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
 }
 
-.contact-alt-page .info-title {
-  color: var(--text-accent);
-  text-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.35);
+.contact-page .contact-centered-stack > .info-section.section-renderer {
+  margin: 0;
+}
+
+.contact-page .contact-centered-stack > .info-section.section-renderer .title-wrapper {
+  display: grid;
+  grid-template-columns: var(--contact-icon-gutter) minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+}
+
+.contact-page .contact-centered-stack > .info-section.section-renderer .frosted-icon.infoSect-icon {
+  grid-column: 1;
+  justify-self: center;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  padding: 0;
+}
+
+.contact-page .contact-centered-stack > .info-section.section-renderer .info-title {
+  grid-column: 2;
+  justify-self: center;
+  text-align: center;
+}
+
+.contact-page .contact-centered-stack > .info-section.section-renderer .info-content {
+  padding-left: var(--contact-icon-gutter);
+}
+
+.contact-page .contact-centered-stack > .resume-preview-trigger.contact-resume-trigger {
+  width: 100%;
+}
+
+@media (width >= 1025px) {
+  .contact-page .contact-centered-stack {
+    width: 52%;
+    max-width: 52%;
+  }
 }
 
 @media (width <= 1024px) {
-  .contact-alt-page .contact-alt-main {
-    max-width: 100%;
+  .contact-page .contact-centered-stack {
+    --contact-icon-gutter: clamp(1.25rem, 2.4vw, 2rem);
+    max-width: 920px;
+  }
+}
+
+@media (width <= 700px) {
+  .contact-page .contact-content {
+    padding-inline: 0.35rem;
+  }
+
+  .contact-page .contact-centered-stack {
+    --contact-icon-gutter: 0.5rem;
+  }
+
+  .contact-page .contact-centered-stack > .info-section.section-renderer .info-content {
+    padding-left: 0.25rem;
   }
 }

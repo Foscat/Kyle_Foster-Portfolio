@@ -1,13 +1,13 @@
 /**
- * @file src\assets\data\content\contact\index.js
- * @description src\assets\data\content\contact\index module.
- * @module src\assets\data\content\contact\index
+ * @file src\assets\data\content\contact\alt.js
+ * @description Alternative contact page content module.
+ * @module src\assets\data\content\contact\alt
  */
 
 import { BlockType } from "types/ui.types.js";
-import contactForm from "./contactForm";
+// import contactForm from "./contactForm"; // Removed until email form functionality is implemented properly and tested.
 
-const contactSections = [
+const contactAltSections = [
   {
     id: "contact-info",
     title: "Contact Information",
@@ -17,15 +17,6 @@ const contactSections = [
         id: "contact-info-text",
         type: BlockType.RICH_TEXT,
         content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "I'm a Senior React / Frontend Engineer open to remote roles, product UI work, and consulting conversations. You can reach me through any of the channels below:",
-              },
-            ],
-          },
           {
             type: "ul",
             children: [
@@ -43,8 +34,26 @@ const contactSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Phone: " },
+                  { type: "text", text: "Email: " },
+                  {
+                    type: "a",
+                    text: "foscat4o1k@outlook.com",
+                    href: "mailto:foscat4o1k@outlook.com",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Phone 1: " },
                   { type: "a", text: "(469) 410-5286", href: "tel:+14694105286" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Phone 2: " },
+                  { type: "a", text: "(972) 802-9297", href: "tel:+19728029297" },
                 ],
               },
               {
@@ -68,11 +77,11 @@ const contactSections = [
             ],
           },
         ],
+        // contactForm, // Removed until email form functionality is implemented properly and tested.
       },
     ],
   },
-  contactForm,
 ];
-Object.freeze(contactSections);
+Object.freeze(contactAltSections);
 
-export default contactSections;
+export default contactAltSections;
