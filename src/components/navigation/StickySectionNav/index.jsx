@@ -415,6 +415,8 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
         return;
       }
 
+      if (!isWithinSectionNav) return;
+
       if (event.key === "Enter" && noCtrlCmd && !event.shiftKey) {
         const didMove = moveToAdjacentSection({ direction: event.altKey ? -1 : 1 });
         if (didMove) {
@@ -497,7 +499,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
         `}
         aria-label="Section navigation"
       >
-        <ul className="section-nav-list" role="listbox">
+        <ul className="section-nav-list">
           {sections
             .filter((section) => section && typeof section.id === "string")
             .map((section, sectionIndex) => {

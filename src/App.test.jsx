@@ -5,12 +5,8 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { HelmetProvider } from "react-helmet-async";
-import { CustomProvider } from "rsuite";
-
-import { ThemeProvider } from "assets/context/ThemeContext";
-import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider";
+import { screen } from "@testing-library/react";
+import renderWithAppProviders from "tests/renderWithAppProviders";
 import App from "./App";
 
 vi.mock("hooks/useThemeFavicon", () => ({
@@ -33,18 +29,7 @@ vi.mock("pages/Docs", () => ({ default: () => <h1>Docs Mock</h1> }));
 vi.mock("pages/Health", () => ({ default: () => <h1>Health Mock</h1> }));
 vi.mock("pages/NotFound", () => ({ default: () => <h1>NotFound Mock</h1> }));
 
-const renderApp = () =>
-  render(
-    <HelmetProvider>
-      <ResponsiveProvider>
-        <ThemeProvider>
-          <CustomProvider theme="dark">
-            <App />
-          </CustomProvider>
-        </ThemeProvider>
-      </ResponsiveProvider>
-    </HelmetProvider>
-  );
+const renderApp = () => renderWithAppProviders(<App />);
 
 describe("App routes", () => {
   beforeEach(() => {

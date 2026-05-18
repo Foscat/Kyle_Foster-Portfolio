@@ -19,6 +19,8 @@ const docLoaders = {
   ...devGuideLoaders,
 };
 
+const RAW_HTML_TAG_PATTERN = /<\/?[A-Za-z][^>\n]*>/g;
+
 const DOC_META = {
   architecture_overview: {
     title: "Architecture Overview",
@@ -122,6 +124,44 @@ function getCategoryFromPath(path) {
   return titleize(parts[0]);
 }
 
+function escapeAngleBrackets(value = "") {
+  return value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function sanitizeRawHtmlOutsideCodeFences(markdown = "") {
+  const lines = String(markdown).split("\n");
+  let inFence = false;
+
+  return lines
+    .map((line) => {
+      if (/^\s*```/.test(line)) {
+        inFence = !inFence;
+        return line;
+      }
+
+      if (inFence) {
+        return line;
+      }
+
+      return line.replace(RAW_HTML_TAG_PATTERN, (match) => escapeAngleBrackets(match));
+    })
+    .join("\n");
+}
+
+function sanitizeDocContent(content, path) {
+  if (typeof content !== "string") {
+    return "";
+  }
+
+  // Generated JSDoc markdown can contain raw component-like tags in prose.
+  // Escape them so react-markdown does not interpret them as HTML nodes.
+  if (path.includes("/docs/")) {
+    return sanitizeRawHtmlOutsideCodeFences(content);
+  }
+
+  return content;
+}
+
 const portfolioDocEntries = Object.entries(docLoaders)
   .map(([path, load]) => {
     const slug = getSlug(path);
@@ -155,6 +195,7 @@ function selectDocsBySlug(slugs = []) {
 
 async function hydratePortfolioDoc(entry) {
   const content = await entry.load();
+  const sanitizedContent = sanitizeDocContent(content, entry.path);
 
   return {
     slug: entry.slug,
@@ -164,7 +205,7 @@ async function hydratePortfolioDoc(entry) {
     category: entry.category,
     summary: entry.summary,
     order: entry.order,
-    content,
+    content: sanitizedContent,
   };
 }
 

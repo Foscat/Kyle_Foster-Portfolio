@@ -56,6 +56,11 @@
     "test": "npm run test-functions && npm run test-ui",
     "test-functions": "vitest run",
     "test-ui": "playwright test",
+    "test-ui:a11y": "playwright test playwright/accessibility.routes.spec.ts",
+    "test-ui:dev-smoke": "playwright test playwright/dev-runtime.smoke.spec.ts",
+    "test-ui:route-budgets": "playwright test playwright/performance.route-budgets.spec.ts",
+    "quality:route-tests": "node scripts/quality/check-route-test-mapping.mjs",
+    "quality:bundle-budgets": "node scripts/quality/check-bundle-budgets.mjs",
     "quality:check": "npm-run-all --sequential lint richtext:lint diagrams:lint test docs:jsdoc:enforce docs:build",
     "quality:fix": "npm-run-all --sequential codemod:keys codemod:map-index codemod:fix-jsdoc format lint:fix-safe"
   },
@@ -68,7 +73,7 @@
     "@rsuite/icons": "1.4.0",
     "@testing-library/jest-dom": "^6.9.1",
     "html-to-image": "1.11.13",
-    "interactive-surface-css": "~1.1.0",
+    "interactive-surface-css": "1.1.5",
     "jspdf": "~4.2.1",
     "mermaid": "^11.15.0",
     "prismjs": "~1.30.0",
@@ -86,6 +91,7 @@
     "web-vitals": "~5.2.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "~4.11.3",
     "@babel/generator": "~7.29.1",
     "@babel/parser": "~7.29.0",
     "@babel/traverse": "~7.29.0",

@@ -243,8 +243,12 @@ const StickyNav = ({ activePage }) => {
         return;
       }
 
-      const noExtraModifiers = !event.altKey && !event.shiftKey && !event.metaKey;
-      if (event.key === "Control" && noExtraModifiers && !event.repeat) {
+      const normalizedKey =
+        typeof event.key === "string" ? event.key.trim().toLowerCase() : String(event.key);
+      const hasPrimaryModifier = event.ctrlKey || event.metaKey;
+      const isDrawerShortcut =
+        normalizedKey === "m" && hasPrimaryModifier && event.shiftKey && !event.altKey;
+      if (isDrawerShortcut && !event.repeat) {
         event.preventDefault();
         setMobileOpen(true);
       }
@@ -269,25 +273,19 @@ const StickyNav = ({ activePage }) => {
             return (
               <Nav.Item
                 key={`${route}-${id}`}
-                eventKey={route}
-                as={Link}
-                to={route}
-                active={isActive}
-                aria-current={isActive ? "page" : undefined}
-                onClick={(event) =>
-                  handleNavClick(event, {
-                    isActive,
-                    route,
-                    navigate,
-                  })
-                }
-                className="fi-desk-nav-item sticky-nav-desktop-trigger sticky-nav-desktop-trigger--page"
+                as="div"
+                className={`fi-desk-nav-item sticky-nav-desktop-trigger sticky-nav-desktop-trigger--page ${
+                  isActive ? "is-route-active" : ""
+                }`}
               >
                 <Btn
                   icon={icon}
                   variant={Variant.PRIMARY}
                   tooltip={label}
                   ariaLabel={label}
+                  ariaCurrent={isActive ? "page" : undefined}
+                  href={route}
+                  hrefLocal
                   clickable
                   className={`nav-icon ${isActive ? "is-active" : ""}`}
                   size={Size.LG}
@@ -299,7 +297,10 @@ const StickyNav = ({ activePage }) => {
         </div>
 
         <div className="sticky-nav-tools-group">
-          <Nav.Item className="no-popup sticky-nav-resume-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--resume">
+          <Nav.Item
+            as="div"
+            className="no-popup sticky-nav-resume-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--resume"
+          >
             <ResumePreviewTrigger
               buttonText=""
               title={resumePreviewTitle}
@@ -316,10 +317,16 @@ const StickyNav = ({ activePage }) => {
               noBG
             />
           </Nav.Item>
-          <Nav.Item className="no-popup sticky-nav-color-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--color sticky-nav-desktop-trigger--round">
+          <Nav.Item
+            as="div"
+            className="no-popup sticky-nav-color-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--color sticky-nav-desktop-trigger--round"
+          >
             <ColorMenu size={Size.LG} />
           </Nav.Item>
-          <Nav.Item className="no-popup sticky-nav-a11y-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--a11y sticky-nav-desktop-trigger--round">
+          <Nav.Item
+            as="div"
+            className="no-popup sticky-nav-a11y-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--a11y sticky-nav-desktop-trigger--round"
+          >
             <AccessibilityMenu size={Size.LG} enableHotkey />
           </Nav.Item>
         </div>
@@ -416,8 +423,7 @@ const StickyNav = ({ activePage }) => {
                   eventKey={route}
                   as={Link}
                   to={route}
-                  active={isActive}
-                  className="interactive-surface"
+                  className={`interactive-surface ${isActive ? "is-route-active" : ""}`}
                   aria-current={isActive ? "page" : undefined}
                   onClick={(event) =>
                     handleNavClick(event, {

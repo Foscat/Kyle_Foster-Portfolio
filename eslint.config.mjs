@@ -3,6 +3,7 @@ import globals from "globals";
 import testingLibrary from "eslint-plugin-testing-library";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import jsxA11y from "eslint-plugin-jsx-a11y";
 import unusedImports from "eslint-plugin-unused-imports";
 import jsdoc from "eslint-plugin-jsdoc";
 
@@ -77,6 +78,7 @@ export default [
     plugins: {
       react,
       "react-hooks": reactHooks,
+      "jsx-a11y": jsxA11y,
       "unused-imports": unusedImports,
     },
     rules: {
@@ -90,6 +92,13 @@ export default [
       // React correctness
       "react/jsx-key": "error",
       "react/react-in-jsx-scope": "off",
+
+      // Accessibility baseline (explicitly enforced in this repo)
+      "jsx-a11y/aria-props": "error",
+      "jsx-a11y/aria-proptypes": "error",
+      "jsx-a11y/aria-unsupported-elements": "error",
+      "jsx-a11y/role-has-required-aria-props": "error",
+      "jsx-a11y/role-supports-aria-props": "error",
     },
   },
   // ---------------------------------------------

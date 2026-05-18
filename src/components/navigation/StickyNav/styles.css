@@ -425,11 +425,6 @@ html[data-theme="light"][data-palette="sunset"] {
   --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
 }
 
-html[data-theme="light"] .desktop-menu .fi-desk-nav-item .nav-icon,
-html[data-theme="light"] .desktop-menu .sticky-nav-color-toggle .color-menu-trigger.btn.icon-only,
-html[data-theme="light"] .desktop-menu .sticky-nav-a11y-toggle .a11y-menu-trigger.btn.icon-only {
-}
-
 html[data-theme="light"] .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
 html[data-theme="light"]
   .desktop-menu
@@ -532,6 +527,7 @@ html[data-theme="light"][data-palette="forest"] {
   --interactive-surface-bg: var(--nav-drawer-active-surface-bg);
   --interactive-surface-fg: var(--nav-drawer-active-surface-fg);
   --interactive-surface-border-color: var(--nav-drawer-active-surface-border-color);
+
   color: var(--interactive-surface-fg);
   background: var(--interactive-surface-bg);
 }

@@ -430,7 +430,6 @@ const AccordionList = ({
         id={id}
         className="fa-list"
         ref={listRef}
-        role="tree"
         aria-label={title || "Section navigation"}
         accordion={accordion}
         activeKey={openIndex === null ? null : String(openIndex)}

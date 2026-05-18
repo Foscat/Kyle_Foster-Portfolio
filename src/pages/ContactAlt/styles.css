@@ -9,6 +9,7 @@
 
 .contact-page .contact-centered-stack {
   --contact-icon-gutter: clamp(2.5rem, 3.6vw, 3.5rem);
+
   width: 100%;
   max-width: 1200px;
   display: flex;
@@ -53,6 +54,21 @@
   width: 100%;
 }
 
+.contact-page .toast {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 20;
+  padding: 0.8rem 1.15rem;
+  color: var(--text-primary);
+  background: rgba(var(--white-rgb), 0.12);
+  border: 1px solid rgba(var(--white-rgb), 0.2);
+  border-radius: var(--border-radius);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-soft);
+}
+
 @media (width >= 1025px) {
   .contact-page .contact-centered-stack {
     width: 52%;
@@ -63,6 +79,7 @@
 @media (width <= 1024px) {
   .contact-page .contact-centered-stack {
     --contact-icon-gutter: clamp(1.25rem, 2.4vw, 2rem);
+
     max-width: 920px;
   }
 }

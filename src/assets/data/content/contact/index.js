@@ -5,7 +5,6 @@
  */
 
 import { BlockType } from "types/ui.types.js";
-// import contactForm from "./contactForm"; // Removed until email form functionality is implemented properly and tested.
 
 const contactAltSections = [
   {
@@ -77,7 +76,8 @@ const contactAltSections = [
             ],
           },
         ],
-        // contactForm, // Removed until email form functionality is implemented properly and tested.
+        // Contact form schema is rendered by `ContactAlt` so it can attach
+        // async submit behavior and status messaging.
       },
     ],
   },
