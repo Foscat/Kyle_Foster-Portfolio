@@ -135,8 +135,9 @@ async function collectRouteResourceTotals(page: Page, route: string) {
   await page.goto(targetUrl);
   await stabilizePage(page, { theme: "light" });
   await page.waitForLoadState("networkidle");
-  await Promise.all(pendingSizeReads);
   page.off("response", responseHandler);
+  const sizeReads = [...pendingSizeReads];
+  await Promise.all(sizeReads);
 
   return totals;
 }
