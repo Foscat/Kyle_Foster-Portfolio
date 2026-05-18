@@ -130,7 +130,9 @@ const main = () => {
   const totalMappedTests = mappedRoutes.reduce((count, routePath) => {
     const mapping = ROUTE_TEST_MAPPING[routePath];
     if (!mapping) return count;
-    return count + mapping.vitest.length + mapping.playwright.length;
+    const vitestCount = Array.isArray(mapping.vitest) ? mapping.vitest.length : 0;
+    const playwrightCount = Array.isArray(mapping.playwright) ? mapping.playwright.length : 0;
+    return count + vitestCount + playwrightCount;
   }, 0);
 
   console.log(
