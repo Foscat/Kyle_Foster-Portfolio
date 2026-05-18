@@ -7,7 +7,7 @@
 import { describe, it, expect } from "vitest";
 import { screen } from "@testing-library/react";
 
-import { renderWithProviders } from "tests/renderWithProviders";
+import renderWithProviders from "tests/renderWithProviders";
 import MarkdownRenderer from "../MarkdownRenderer";
 
 describe("MarkdownRenderer", () => {
