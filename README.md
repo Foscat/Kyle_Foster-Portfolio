@@ -48,7 +48,7 @@ Reference docs:
 - `/smu` - Southern Methodist University case study
 - `/contact` - Contact information
 - `/docs` - Generated technical documentation
-- `/health` - Health check endpoint (JSON response)
+- `/health` - Runtime diagnostics panel (UI route)
 - `/**` - Not Found
 
 ## Environment Configuration
@@ -88,7 +88,9 @@ Primary checks:
 
 ```sh
 npm run lint
+npm run quality:route-tests
 npm run test
+npm run quality:bundle-budgets
 npm run quality:check
 ```
 
@@ -117,6 +119,11 @@ npm run lint:all
 npm run test
 npm run test-functions
 npm run test-ui
+npm run test-ui:dev-smoke
+npm run test-ui:a11y
+npm run test-ui:route-budgets
+npm run quality:route-tests
+npm run quality:bundle-budgets
 ```
 
 Diagrams:

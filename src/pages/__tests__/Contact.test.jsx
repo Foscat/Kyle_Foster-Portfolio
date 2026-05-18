@@ -13,7 +13,7 @@ vi.mock("components/navigation", () => ({
   Footer: () => null,
 }));
 
-import Contact, { CONTACT_API_URL } from "../Contact/index.jsx";
+import ContactAlt, { CONTACT_API_URL } from "../ContactAlt/index.jsx";
 import contactForm from "assets/data/content/contactForm.js";
 import renderWithProviders from "tests/renderWithProviders";
 
@@ -37,7 +37,7 @@ const toLabelMatcher = (label, fallback) =>
  * @see Contact.jsx for the component implementation
  */
 
-describe("Contact page", () => {
+describe("ContactAlt page", () => {
   const schemaFields = Array.isArray(contactForm?.fields) ? contactForm.fields : [];
   const nameLabel = schemaFields.find((field) => ["name", "fullName"].includes(field?.name))?.label;
   const emailLabel = schemaFields.find((field) => field?.name === "email")?.label;
@@ -67,7 +67,7 @@ describe("Contact page", () => {
       json: async () => ({ message: "Message sent successfully." }),
     });
 
-    renderWithProviders(<Contact />, {
+    renderWithProviders(<ContactAlt />, {
       initialEntries: ["/contact"],
     });
 
@@ -123,7 +123,7 @@ describe("Contact page", () => {
         json: async () => ({ message: "Message sent successfully." }),
       });
 
-    renderWithProviders(<Contact />, {
+    renderWithProviders(<ContactAlt />, {
       initialEntries: ["/contact"],
     });
 
@@ -168,7 +168,7 @@ describe("Contact page", () => {
       json: async () => ({ error: "Failed to send message." }),
     });
 
-    renderWithProviders(<Contact />, {
+    renderWithProviders(<ContactAlt />, {
       initialEntries: ["/contact"],
     });
 
@@ -207,7 +207,7 @@ describe("Contact page", () => {
       json: async () => ({ error: "Please provide a valid email address." }),
     });
 
-    renderWithProviders(<Contact />, {
+    renderWithProviders(<ContactAlt />, {
       initialEntries: ["/contact"],
     });
 
@@ -242,7 +242,7 @@ describe("Contact page", () => {
 
     global.fetch.mockRejectedValueOnce(new TypeError("Failed to fetch"));
 
-    renderWithProviders(<Contact />, {
+    renderWithProviders(<ContactAlt />, {
       initialEntries: ["/contact"],
     });
 

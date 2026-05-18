@@ -7,7 +7,6 @@
 import React, { Children, useEffect, useMemo, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import Prism from "prismjs";
 import "./style.css";
 
@@ -295,11 +294,7 @@ export default function MarkdownRenderer({
         ) : null}
 
         <div className="markdown-renderer__prose">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-            components={components}
-          >
+          <ReactMarkdown skipHtml remarkPlugins={[remarkGfm]} components={components}>
             {content}
           </ReactMarkdown>
         </div>

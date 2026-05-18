@@ -125,6 +125,12 @@ import { formatClassNames } from "assets/utils";
  * @param {string} [props.ariaLabel]
  *   Accessible label. Required for icon-only buttons if no tooltip is provided.
  *
+ * @param {boolean|string} [props.ariaExpanded]
+ *   Convenience alias mapped to `aria-expanded`.
+ *
+ * @param {string} [props.ariaCurrent]
+ *   Convenience alias mapped to `aria-current`.
+ *
  * @param {string} [props.tooltip]
  *   Tooltip text displayed on hover.
  *
@@ -185,6 +191,8 @@ const Btn = ({
   clickable = true,
   onClick = () => {},
   ariaLabel = undefined,
+  ariaExpanded = undefined,
+  ariaCurrent = undefined,
   href = undefined,
   hrefLocal = false,
   target = undefined,
@@ -224,6 +232,7 @@ const Btn = ({
   transform = void 0,
   swapOpacity = false,
   widthAuto = false,
+  ...restProps
 }) => {
   /**
    * @description Local async loading state used when onClick returns a Promise. This allows async visual feedback without forcing external state.
@@ -253,6 +262,11 @@ const Btn = ({
   const isDownloadLink = Boolean(download);
   const shouldUseRouterLink = hasHref && !isDownloadLink && (hrefLocal || isLocalHref);
   const isLinkMode = hasHref;
+  const resolvedAriaExpanded = ariaExpanded ?? restProps["aria-expanded"];
+  const resolvedAriaCurrent = ariaCurrent ?? restProps["aria-current"];
+  const passthroughProps = { ...restProps };
+  delete passthroughProps["aria-expanded"];
+  delete passthroughProps["aria-current"];
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");
@@ -313,10 +327,13 @@ const Btn = ({
 
   const button = (
     <Component
+      {...passthroughProps}
       role={isLinkMode ? "link" : "button"}
       onClick={handleClick}
       type={isLinkMode ? undefined : type}
       aria-label={resolvedAriaLabel}
+      aria-expanded={resolvedAriaExpanded}
+      aria-current={resolvedAriaCurrent}
       aria-busy={loading || asyncLoading}
       aria-disabled={disabled || loading || asyncLoading}
       className={classes}

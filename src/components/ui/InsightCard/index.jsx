@@ -132,7 +132,7 @@ export function InsightCard({
       <div className="insight-card__divider" />
 
       <div className="insight-card__body">
-        <div className="insight-card__content">
+        <div className="insight-card__content" tabIndex={0} aria-label={`${title} details`}>
           <RichText content={content} />
         </div>
         {url ? (

@@ -131,13 +131,39 @@ if (!globalThis.IntersectionObserver) {
 // -----------------------------------------------------------------------------
 // Scroll APIs
 // -----------------------------------------------------------------------------
-if (!window.scrollTo) {
-  window.scrollTo = () => {};
-}
+Object.defineProperty(window, "scrollTo", {
+  configurable: true,
+  writable: true,
+  value: vi.fn(() => {}),
+});
 
 if (!HTMLElement.prototype.scrollIntoView) {
   // eslint-disable-next-line no-extend-native
   HTMLElement.prototype.scrollIntoView = () => {};
+}
+
+if (typeof SVGElement !== "undefined") {
+  Object.defineProperty(SVGElement.prototype, "getBBox", {
+    configurable: true,
+    writable: true,
+    value: () => ({
+      x: 0,
+      y: 0,
+      width: 120,
+      height: 24,
+      top: 0,
+      left: 0,
+      right: 120,
+      bottom: 24,
+      toJSON: () => ({}),
+    }),
+  });
+
+  Object.defineProperty(SVGElement.prototype, "getComputedTextLength", {
+    configurable: true,
+    writable: true,
+    value: () => 120,
+  });
 }
 
 // -----------------------------------------------------------------------------

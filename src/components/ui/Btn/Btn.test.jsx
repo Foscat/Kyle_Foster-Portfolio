@@ -154,4 +154,12 @@ describe("Btn", () => {
     expect(link).not.toHaveAttribute("target", "_blank");
     expect(link).not.toHaveAttribute("rel", "noopener noreferrer");
   });
+
+  it("maps aria state aliases to DOM attributes", () => {
+    renderWithProviders(<Btn text="Toggle section" ariaExpanded ariaCurrent="location" />);
+
+    const button = screen.getByRole("button", { name: /toggle section/i });
+    expect(button).toHaveAttribute("aria-expanded", "true");
+    expect(button).toHaveAttribute("aria-current", "location");
+  });
 });
