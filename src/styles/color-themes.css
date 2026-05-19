@@ -1,0 +1,855 @@
+/* =========================================================
+   Theme Tokens
+   Usage:
+  <html data-palette="midnight-gold" data-theme="light">
+  <html data-palette="midnight-gold" data-theme="dark">
+  <html data-palette="midnight-gold" data-theme="contrast">
+========================================================= */
+
+:root {
+  color-scheme: light;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.14);
+  --shadow-lg: 0 18px 48px rgb(0 0 0 / 0.2);
+
+  --transition-fast: 160ms ease;
+  --transition-base: 240ms ease;
+}
+
+/* Generic mode helpers */
+[data-theme="light"],
+[data-mode="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"],
+[data-theme="contrast"],
+[data-mode="dark"],
+[data-mode="contrast"] {
+  color-scheme: dark;
+}
+
+/* =========================================================
+   1. Midnight Gold
+========================================================= */
+
+html[data-palette="midnight-gold"][data-theme="light"] {
+  --bg: #f6f3ea;
+  --surface: #fffaf0;
+  --surface-raised: #ffffff;
+  --surface-muted: #ede6d3;
+  --text: #172033;
+  --text-muted: #5f6879;
+  --border: #d6c8a5;
+
+  --primary: #b8872f;
+  --primary-hover: #94681f;
+  --primary-text: #ffffff;
+
+  --secondary: #22314f;
+  --secondary-hover: #17243c;
+  --secondary-text: #ffffff;
+
+  --accent: #d9a441;
+  --success: #2f7d54;
+  --warning: #a76a00;
+  --danger: #b93f3f;
+
+  --link: #8a641f;
+  --focus-ring: #d9a441;
+}
+
+html[data-palette="midnight-gold"][data-theme="dark"] {
+  --bg: #07111f;
+  --surface: #101b2d;
+  --surface-raised: #17243a;
+  --surface-muted: #0c1627;
+  --text: #f7edd7;
+  --text-muted: #b9c0cc;
+  --border: #394861;
+
+  --primary: #d6a84f;
+  --primary-hover: #f0c86d;
+  --primary-text: #101010;
+
+  --secondary: #6f86b8;
+  --secondary-hover: #92a7d1;
+  --secondary-text: #08101d;
+
+  --accent: #f3d27a;
+  --success: #6bd69c;
+  --warning: #ffcb5b;
+  --danger: #ff7b7b;
+
+  --link: #f3d27a;
+  --focus-ring: #ffd66b;
+}
+
+html[data-palette="midnight-gold"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #080808;
+  --surface-raised: #111111;
+  --surface-muted: #050505;
+  --text: #ffffff;
+  --text-muted: #f5f5f5;
+  --border: #ffffff;
+
+  --primary: #ffd400;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #00d9ff;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #ffea00;
+  --success: #00ff75;
+  --warning: #ffbf00;
+  --danger: #ff4d4d;
+
+  --link: #00d9ff;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   2. Ocean Steel
+========================================================= */
+
+html[data-palette="ocean-steel"][data-theme="light"] {
+  --bg: #eef8fb;
+  --surface: #ffffff;
+  --surface-raised: #f8fdff;
+  --surface-muted: #dcecf2;
+  --text: #10242e;
+  --text-muted: #4e6570;
+  --border: #b8d3dd;
+
+  --primary: #087d9d;
+  --primary-hover: #06647e;
+  --primary-text: #ffffff;
+
+  --secondary: #39566b;
+  --secondary-hover: #2c4354;
+  --secondary-text: #ffffff;
+
+  --accent: #15b8c8;
+  --success: #267a5c;
+  --warning: #a76500;
+  --danger: #b64646;
+
+  --link: #06647e;
+  --focus-ring: #15b8c8;
+}
+
+html[data-palette="ocean-steel"][data-theme="dark"] {
+  --bg: #06161d;
+  --surface: #0d2530;
+  --surface-raised: #143442;
+  --surface-muted: #081d26;
+  --text: #e9fbff;
+  --text-muted: #a7c0c9;
+  --border: #315666;
+
+  --primary: #36c4dd;
+  --primary-hover: #73e3f4;
+  --primary-text: #041216;
+
+  --secondary: #8cb7c9;
+  --secondary-hover: #b2d5e2;
+  --secondary-text: #06161d;
+
+  --accent: #53f0ff;
+  --success: #67d8a6;
+  --warning: #ffc061;
+  --danger: #ff7b7b;
+
+  --link: #73e3f4;
+  --focus-ring: #53f0ff;
+}
+
+html[data-palette="ocean-steel"][data-theme="contrast"] {
+  --bg: #00080a;
+  --surface: #001014;
+  --surface-raised: #001a20;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #eaffff;
+  --border: #ffffff;
+
+  --primary: #00e5ff;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #ffff00;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #00ffff;
+  --success: #00ff90;
+  --warning: #ffd000;
+  --danger: #ff3b3b;
+
+  --link: #00e5ff;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   3. Forest Moss
+========================================================= */
+
+html[data-palette="forest-moss"][data-theme="light"] {
+  --bg: #f2f7ef;
+  --surface: #ffffff;
+  --surface-raised: #fbfff8;
+  --surface-muted: #e2eadb;
+  --text: #182417;
+  --text-muted: #586852;
+  --border: #c5d3ba;
+
+  --primary: #3f7d3a;
+  --primary-hover: #2f612b;
+  --primary-text: #ffffff;
+
+  --secondary: #6a5f38;
+  --secondary-hover: #51492b;
+  --secondary-text: #ffffff;
+
+  --accent: #9cba52;
+  --success: #2f7d54;
+  --warning: #9a6a00;
+  --danger: #ad4545;
+
+  --link: #2f612b;
+  --focus-ring: #9cba52;
+}
+
+html[data-palette="forest-moss"][data-theme="dark"] {
+  --bg: #071006;
+  --surface: #101c0f;
+  --surface-raised: #1a2a18;
+  --surface-muted: #0b160a;
+  --text: #edf7e8;
+  --text-muted: #b4c5ad;
+  --border: #3d5338;
+
+  --primary: #82d27a;
+  --primary-hover: #a2ed99;
+  --primary-text: #071006;
+
+  --secondary: #d2bd72;
+  --secondary-hover: #efd98b;
+  --secondary-text: #141006;
+
+  --accent: #b9ef6b;
+  --success: #75dfa7;
+  --warning: #ffd263;
+  --danger: #ff8585;
+
+  --link: #a2ed99;
+  --focus-ring: #b9ef6b;
+}
+
+html[data-palette="forest-moss"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #071007;
+  --surface-raised: #0b190b;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #f0fff0;
+  --border: #ffffff;
+
+  --primary: #6cff5f;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #ffdf00;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #b6ff00;
+  --success: #00ff75;
+  --warning: #ffd000;
+  --danger: #ff4040;
+
+  --link: #6cff5f;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   4. Sunset Ember
+========================================================= */
+
+html[data-palette="sunset-ember"][data-theme="light"] {
+  --bg: #fff4ec;
+  --surface: #ffffff;
+  --surface-raised: #fffaf6;
+  --surface-muted: #f4ded2;
+  --text: #2a1711;
+  --text-muted: #76584d;
+  --border: #e3bdaa;
+
+  --primary: #c4512b;
+  --primary-hover: #9f3f20;
+  --primary-text: #ffffff;
+
+  --secondary: #7c3f5c;
+  --secondary-hover: #613047;
+  --secondary-text: #ffffff;
+
+  --accent: #e69a3a;
+  --success: #317a57;
+  --warning: #b86f00;
+  --danger: #bd3d3d;
+
+  --link: #9f3f20;
+  --focus-ring: #e69a3a;
+}
+
+html[data-palette="sunset-ember"][data-theme="dark"] {
+  --bg: #170905;
+  --surface: #26110b;
+  --surface-raised: #351912;
+  --surface-muted: #1e0c07;
+  --text: #fff0e8;
+  --text-muted: #d0b1a5;
+  --border: #6a3b2d;
+
+  --primary: #ff8a5b;
+  --primary-hover: #ffad8a;
+  --primary-text: #1a0803;
+
+  --secondary: #e38ab5;
+  --secondary-hover: #ffafd0;
+  --secondary-text: #1a0712;
+
+  --accent: #ffc166;
+  --success: #70d7a3;
+  --warning: #ffd166;
+  --danger: #ff7777;
+
+  --link: #ffad8a;
+  --focus-ring: #ffc166;
+}
+
+html[data-palette="sunset-ember"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #120400;
+  --surface-raised: #1d0700;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #fff5ef;
+  --border: #ffffff;
+
+  --primary: #ff6a00;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #ff4fb8;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #ffd000;
+  --success: #00ff90;
+  --warning: #ffbf00;
+  --danger: #ff3030;
+
+  --link: #ff9d00;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   5. Royal Plum
+========================================================= */
+
+html[data-palette="royal-plum"][data-theme="light"] {
+  --bg: #f8f1fb;
+  --surface: #ffffff;
+  --surface-raised: #fdf8ff;
+  --surface-muted: #eadcf0;
+  --text: #24152d;
+  --text-muted: #695671;
+  --border: #d5bbdd;
+
+  --primary: #7b3fa0;
+  --primary-hover: #63317f;
+  --primary-text: #ffffff;
+
+  --secondary: #3f4c9a;
+  --secondary-hover: #303a77;
+  --secondary-text: #ffffff;
+
+  --accent: #c05ac6;
+  --success: #317c5c;
+  --warning: #a66a00;
+  --danger: #b7415f;
+
+  --link: #63317f;
+  --focus-ring: #c05ac6;
+}
+
+html[data-palette="royal-plum"][data-theme="dark"] {
+  --bg: #100614;
+  --surface: #1d1024;
+  --surface-raised: #2a1734;
+  --surface-muted: #160b1b;
+  --text: #faecff;
+  --text-muted: #c8b0d1;
+  --border: #553964;
+
+  --primary: #d891f2;
+  --primary-hover: #ebb8ff;
+  --primary-text: #130617;
+
+  --secondary: #9da8ff;
+  --secondary-hover: #c3caff;
+  --secondary-text: #080b1f;
+
+  --accent: #ff9cf6;
+  --success: #76dca9;
+  --warning: #ffd166;
+  --danger: #ff7a9c;
+
+  --link: #ebb8ff;
+  --focus-ring: #ff9cf6;
+}
+
+html[data-palette="royal-plum"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #100014;
+  --surface-raised: #1a0022;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #fff0ff;
+  --border: #ffffff;
+
+  --primary: #e45cff;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #00d9ff;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #ff00f5;
+  --success: #00ff90;
+  --warning: #ffe100;
+  --danger: #ff3f6e;
+
+  --link: #e45cff;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   6. Graphite Cyan
+========================================================= */
+
+html[data-palette="graphite-cyan"][data-theme="light"] {
+  --bg: #f1f3f4;
+  --surface: #ffffff;
+  --surface-raised: #f6f8f9;
+  --surface-muted: #d6dde1;
+  --text: #171d21;
+  --text-muted: #556068;
+  --border: #aeb9c1;
+
+  --primary: #3b454d;
+  --primary-hover: #2f383f;
+  --primary-text: #ffffff;
+
+  --secondary: #008fa0;
+  --secondary-hover: #006f7c;
+  --secondary-text: #ffffff;
+
+  --accent: #37d5e6;
+  --success: #287a5b;
+  --warning: #a76700;
+  --danger: #b64040;
+
+  --link: #006f7c;
+  --focus-ring: #37d5e6;
+}
+
+html[data-palette="graphite-cyan"][data-theme="dark"] {
+  --bg: #060708;
+  --surface: #101315;
+  --surface-raised: #171d21;
+  --surface-muted: #0b0e10;
+  --text: #eef3f6;
+  --text-muted: #a2afb7;
+  --border: #303b42;
+
+  --primary: #4f5d66;
+  --primary-hover: #67757f;
+  --primary-text: #ffffff;
+
+  --secondary: #4ee9ff;
+  --secondary-hover: #88f4ff;
+  --secondary-text: #051014;
+
+  --accent: #28d1e4;
+  --success: #6edaa5;
+  --warning: #ffc861;
+  --danger: #ff7d7d;
+
+  --link: #88f4ff;
+  --focus-ring: #4ee9ff;
+}
+
+html[data-palette="graphite-cyan"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #070707;
+  --surface-raised: #111111;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #f5f5f5;
+  --border: #ffffff;
+
+  --primary: #00f0ff;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #ff9f1a;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #00f0ff;
+  --success: #00ff75;
+  --warning: #ffd000;
+  --danger: #ff4040;
+
+  --link: #00f0ff;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   7. Desert Sage
+========================================================= */
+
+html[data-palette="desert-sage"][data-theme="light"] {
+  --bg: #f8f2e7;
+  --surface: #ffffff;
+  --surface-raised: #fffaf1;
+  --surface-muted: #eadfcd;
+  --text: #2b2419;
+  --text-muted: #716754;
+  --border: #d7c6a7;
+
+  --primary: #8c6a3d;
+  --primary-hover: #70532f;
+  --primary-text: #ffffff;
+
+  --secondary: #5f7655;
+  --secondary-hover: #485c40;
+  --secondary-text: #ffffff;
+
+  --accent: #c9974a;
+  --success: #517d48;
+  --warning: #a66b00;
+  --danger: #ae4a3f;
+
+  --link: #70532f;
+  --focus-ring: #c9974a;
+}
+
+html[data-palette="desert-sage"][data-theme="dark"] {
+  --bg: #120f09;
+  --surface: #211b12;
+  --surface-raised: #2f281b;
+  --surface-muted: #19140d;
+  --text: #f8efdf;
+  --text-muted: #c7baa3;
+  --border: #5b4e38;
+
+  --primary: #d9b878;
+  --primary-hover: #f0d39a;
+  --primary-text: #151006;
+
+  --secondary: #a8ce99;
+  --secondary-hover: #c8e9bb;
+  --secondary-text: #091407;
+
+  --accent: #f1c46e;
+  --success: #8ddb7d;
+  --warning: #ffd166;
+  --danger: #ff887a;
+
+  --link: #f0d39a;
+  --focus-ring: #f1c46e;
+}
+
+html[data-palette="desert-sage"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #0f0b03;
+  --surface-raised: #1a1205;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #fff8e8;
+  --border: #ffffff;
+
+  --primary: #ffd166;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #9dff6b;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #ffb000;
+  --success: #00ff75;
+  --warning: #ffe100;
+  --danger: #ff4d4d;
+
+  --link: #ffd166;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   8. Rose Quartz
+========================================================= */
+
+html[data-palette="rose-quartz"][data-theme="light"] {
+  --bg: #fff2f5;
+  --surface: #ffffff;
+  --surface-raised: #fff8fa;
+  --surface-muted: #f2dce3;
+  --text: #2b151d;
+  --text-muted: #765a63;
+  --border: #dfb8c6;
+
+  --primary: #b8476d;
+  --primary-hover: #963757;
+  --primary-text: #ffffff;
+
+  --secondary: #8a3f60;
+  --secondary-hover: #6e304c;
+  --secondary-text: #ffffff;
+
+  --accent: #f093b2;
+  --success: #317a5c;
+  --warning: #a66a00;
+  --danger: #bd3f55;
+
+  --link: #963757;
+  --focus-ring: #f093b2;
+}
+
+html[data-palette="rose-quartz"][data-theme="dark"] {
+  --bg: #16070c;
+  --surface: #251018;
+  --surface-raised: #351824;
+  --surface-muted: #1c0b11;
+  --text: #fff0f4;
+  --text-muted: #d2aeb9;
+  --border: #653747;
+
+  --primary: #ff8fb3;
+  --primary-hover: #ffb6cd;
+  --primary-text: #18060d;
+
+  --secondary: #f19ac0;
+  --secondary-hover: #ffc2dc;
+  --secondary-text: #19050f;
+
+  --accent: #ff9fc2;
+  --success: #77dba9;
+  --warning: #ffd166;
+  --danger: #ff7890;
+
+  --link: #ffb6cd;
+  --focus-ring: #ff9fc2;
+}
+
+html[data-palette="rose-quartz"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #120006;
+  --surface-raised: #20000d;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #fff0f5;
+  --border: #ffffff;
+
+  --primary: #ff4f93;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #f000ff;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #ff8ab3;
+  --success: #00ff90;
+  --warning: #ffe100;
+  --danger: #ff3030;
+
+  --link: #ff8ab3;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   9. Cyber Lime
+========================================================= */
+
+html[data-palette="cyber-lime"][data-theme="light"] {
+  --bg: #f4faed;
+  --surface: #ffffff;
+  --surface-raised: #fbfff6;
+  --surface-muted: #e2efd3;
+  --text: #172214;
+  --text-muted: #596952;
+  --border: #c6d8b3;
+
+  --primary: #5f9f1f;
+  --primary-hover: #497d17;
+  --primary-text: #ffffff;
+
+  --secondary: #5b3fb8;
+  --secondary-hover: #452f90;
+  --secondary-text: #ffffff;
+
+  --accent: #c3ef38;
+  --success: #2f7d54;
+  --warning: #9c6800;
+  --danger: #b34141;
+
+  --link: #497d17;
+  --focus-ring: #c3ef38;
+}
+
+html[data-palette="cyber-lime"][data-theme="dark"] {
+  --bg: #050b05;
+  --surface: #0d180c;
+  --surface-raised: #162515;
+  --surface-muted: #081108;
+  --text: #efffe9;
+  --text-muted: #b4c7ad;
+  --border: #395236;
+
+  --primary: #a8ff3d;
+  --primary-hover: #caff7f;
+  --primary-text: #061005;
+
+  --secondary: #bf9cff;
+  --secondary-hover: #d7beff;
+  --secondary-text: #140823;
+
+  --accent: #d5ff59;
+  --success: #6ff0a8;
+  --warning: #ffda62;
+  --danger: #ff7777;
+
+  --link: #caff7f;
+  --focus-ring: #d5ff59;
+}
+
+html[data-palette="cyber-lime"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #050b00;
+  --surface-raised: #0b1600;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #f4ffe8;
+  --border: #ffffff;
+
+  --primary: #aaff00;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #ff4dff;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #ccff00;
+  --success: #00ff75;
+  --warning: #ffe100;
+  --danger: #ff3030;
+
+  --link: #aaff00;
+  --focus-ring: #ffffff;
+}
+
+/* =========================================================
+   10. Arctic Indigo
+========================================================= */
+
+html[data-palette="arctic-indigo"][data-theme="light"] {
+  --bg: #f1f5ff;
+  --surface: #ffffff;
+  --surface-raised: #f8fbff;
+  --surface-muted: #dfe7f6;
+  --text: #141b2e;
+  --text-muted: #58647a;
+  --border: #becbe3;
+
+  --primary: #4f62d8;
+  --primary-hover: #3a49b3;
+  --primary-text: #ffffff;
+
+  --secondary: #6f7dda;
+  --secondary-hover: #5866bc;
+  --secondary-text: #ffffff;
+
+  --accent: #a0adff;
+  --success: #2f7d54;
+  --warning: #a66a00;
+  --danger: #b64052;
+
+  --link: #3a49b3;
+  --focus-ring: #a0adff;
+}
+
+html[data-palette="arctic-indigo"][data-theme="dark"] {
+  --bg: #060a16;
+  --surface: #10182b;
+  --surface-raised: #182342;
+  --surface-muted: #0a1020;
+  --text: #edf3ff;
+  --text-muted: #b2bfd9;
+  --border: #3a4b78;
+
+  --primary: #aab7ff;
+  --primary-hover: #ccd6ff;
+  --primary-text: #050816;
+
+  --secondary: #8fa0ff;
+  --secondary-hover: #b4c0ff;
+  --secondary-text: #070a1f;
+
+  --accent: #d6deff;
+  --success: #72dba6;
+  --warning: #ffd166;
+  --danger: #ff7d91;
+
+  --link: #ccd6ff;
+  --focus-ring: #d6deff;
+}
+
+html[data-palette="arctic-indigo"][data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #030816;
+  --surface-raised: #08122a;
+  --surface-muted: #000000;
+  --text: #ffffff;
+  --text-muted: #eef4ff;
+  --border: #ffffff;
+
+  --primary: #89a2ff;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+
+  --secondary: #ff66cc;
+  --secondary-hover: #ffffff;
+  --secondary-text: #000000;
+
+  --accent: #c9d4ff;
+  --success: #00ff90;
+  --warning: #ffe100;
+  --danger: #ff3f5f;
+
+  --link: #b6c5ff;
+  --focus-ring: #ffffff;
+}

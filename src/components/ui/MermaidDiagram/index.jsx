@@ -792,17 +792,17 @@ function MermaidDiagram(props) {
   const baseDiagram = isMobile ? mobileDiagram : desktopDiagram;
   const altDiagram = isMobile ? desktopDiagram : mobileDiagram;
   const activeDiagram = forceAlt && hasBoth ? altDiagram : baseDiagram;
+  const resolvedTheme = theme === Theme.AUTO ? appTheme : theme;
   const renderId = useMemo(() => {
     const sourceId = id || title || "mermaid-diagram";
     return sourceId.toLowerCase().replace(/[^a-z0-9_-]+/g, "-");
   }, [id, title]);
 
   const finalDiagram = useMemo(
-    () => applyPaletteToDiagramSource(activeDiagram?.diagram || diagram, palette),
-    [activeDiagram?.diagram, diagram, palette]
+    () => applyPaletteToDiagramSource(activeDiagram?.diagram || diagram, palette, resolvedTheme),
+    [activeDiagram?.diagram, diagram, palette, resolvedTheme]
   );
   const finalDescription = activeDiagram?.description || description;
-  const resolvedTheme = theme === Theme.AUTO ? appTheme : theme;
 
   // Initialize Mermaid with appropriate configuration on component mount, ensuring that Mermaid is ready to render diagrams when the source changes. The configuration includes:
   // - `startOnLoad: false` to prevent Mermaid from automatically rendering diagrams on page load, allowing for controlled rendering within the component.

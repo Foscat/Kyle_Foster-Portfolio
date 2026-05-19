@@ -16,7 +16,7 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  color: var(--accent-dark);
+  color: var(--primary-light);
   background: var(--frost-bg);
   border-radius: var(--border-radius);
   gap: var(--mobile-gap);
@@ -28,6 +28,9 @@
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   text-decoration: none;
+  transition:
+    color 0.18s,
+    filter 0.18s;
 }
 
 /* ------------------------------------------------------------
@@ -112,7 +115,7 @@
    ============================================================ */
 
 .rs-btn.btn.interactive-surface.primary {
-  color: var(--accent);
+  color: var(--primary-light);
   background: var(--frost-bg);
   border-color: rgba(var(--white-rgb), 0.2);
 }

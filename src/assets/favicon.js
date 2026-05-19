@@ -6,8 +6,20 @@
  * @module assets/favicon
  */
 
-const DEFAULT_PALETTE = "alt";
+const DEFAULT_PALETTE = "ocean-steel";
 const FAVICON_VARIANT_BY_PALETTE = Object.freeze({
+  "midnight-gold": "midnight",
+  "ocean-steel": "ocean",
+  "forest-moss": "forest",
+  "sunset-ember": "sunset",
+  "royal-plum": null,
+  "graphite-cyan": "ocean",
+  "desert-sage": null,
+  "rose-quartz": "sunset",
+  "cyber-lime": "forest",
+  "arctic-indigo": "ocean",
+
+  // Legacy palette keys kept for backward compatibility.
   primary: "midnight",
   alt: null,
   forest: "forest",

@@ -11,12 +11,31 @@ const THEME_STORAGE_KEY = "portfolio-theme";
 const PALETTE_STORAGE_KEY = "portfolio-palette";
 const SUPPORTED_THEMES = Object.freeze(["light", "dark"]);
 const DEFAULT_THEME = "dark";
-const SUPPORTED_PALETTES = Object.freeze(["primary", "alt", "forest", "ocean", "sunset"]);
-const DEFAULT_PALETTE = "ocean";
+const SUPPORTED_PALETTES = Object.freeze([
+  "midnight-gold",
+  "ocean-steel",
+  "forest-moss",
+  "sunset-ember",
+  "royal-plum",
+  "graphite-cyan",
+  "desert-sage",
+  "rose-quartz",
+  "cyber-lime",
+  "arctic-indigo",
+]);
+const DEFAULT_PALETTE = "ocean-steel";
+const THEME_CYCLE_HOTKEY = "Alt+Shift+T";
 
 const isSupportedTheme = (value) => typeof value === "string" && SUPPORTED_THEMES.includes(value);
 const isSupportedPalette = (value) =>
   typeof value === "string" && SUPPORTED_PALETTES.includes(value);
+
+const isEditableTarget = (target) =>
+  target instanceof HTMLElement &&
+  (target.isContentEditable ||
+    target.tagName === "INPUT" ||
+    target.tagName === "TEXTAREA" ||
+    target.tagName === "SELECT");
 
 const safeReadStorage = (key) => {
   try {
@@ -69,7 +88,18 @@ function getInitialPalette() {
 /**
  * Supported application palettes.
  *
- * @typedef {"primary"|"alt"|"forest"|"ocean"|"sunset"} Palette
+ * @typedef {
+ *   "midnight-gold"|
+ *   "ocean-steel"|
+ *   "forest-moss"|
+ *   "sunset-ember"|
+ *   "royal-plum"|
+ *   "graphite-cyan"|
+ *   "desert-sage"|
+ *   "rose-quartz"|
+ *   "cyber-lime"|
+ *   "arctic-indigo"
+ * } Palette
  */
 
 /**
@@ -153,14 +183,33 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     if (typeof document === "undefined") return;
 
-    // Apply theme and palette as data attributes for CSS selectors
+    // Legacy attribute model on root: mode + palette selectors.
     document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.mode = theme;
     document.documentElement.dataset.palette = palette;
+
     if (typeof window !== "undefined") {
       safeWriteStorage(THEME_STORAGE_KEY, theme);
       safeWriteStorage(PALETTE_STORAGE_KEY, palette);
     }
   }, [palette, theme]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleThemeCycleHotkey = (event) => {
+      if (event.defaultPrevented) return;
+      if (isEditableTarget(event.target)) return;
+      if (!event.altKey || !event.shiftKey || event.ctrlKey || event.metaKey) return;
+      if (event.key.toLowerCase() !== "t") return;
+
+      event.preventDefault();
+      toggleTheme();
+    };
+
+    window.addEventListener("keydown", handleThemeCycleHotkey);
+    return () => window.removeEventListener("keydown", handleThemeCycleHotkey);
+  }, [toggleTheme]);
 
   return (
     <ThemeContext.Provider
@@ -195,3 +244,5 @@ export function useTheme() {
 
   return context;
 }
+
+export { THEME_CYCLE_HOTKEY };

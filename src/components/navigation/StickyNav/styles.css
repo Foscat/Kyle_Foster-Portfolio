@@ -12,14 +12,14 @@
 }
 
 :root {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
-  --sticky-nav-trigger-utility-icon-color: var(--text-secondary);
-  --sticky-nav-trigger-utility-icon-hover-color: var(--text-primary);
-  --sticky-nav-trigger-theme-icon-color: var(--sticky-nav-trigger-utility-icon-color);
-  --sticky-nav-trigger-theme-icon-hover-color: var(--sticky-nav-trigger-utility-icon-hover-color);
-  --sticky-nav-trigger-a11y-icon-color: var(--sticky-nav-trigger-utility-icon-color);
-  --sticky-nav-trigger-a11y-icon-hover-color: var(--sticky-nav-trigger-utility-icon-hover-color);
+  --sticky-nav-trigger-navigation-icon-color: var(--primary-light);
+  --sticky-nav-trigger-navigation-icon-hover-color: var(--primary-light);
+  --sticky-nav-trigger-utility-icon-color: var(--primary-light);
+  --sticky-nav-trigger-utility-icon-hover-color: var(--primary-light);
+  --sticky-nav-trigger-theme-icon-color: var(--primary-light);
+  --sticky-nav-trigger-theme-icon-hover-color: var(--primary-light);
+  --sticky-nav-trigger-a11y-icon-color: var(--primary-light);
+  --sticky-nav-trigger-a11y-icon-hover-color: var(--primary-light);
 }
 
 svg:not(:root) {
@@ -30,7 +30,7 @@ svg:not(:root) {
 .brand-text {
   font-size: var(--font-md);
   font-weight: 600;
-  color: var(--primary-darkest);
+  color: var(--primary-light);
 }
 
 /* Mobile hamburger button */
@@ -359,6 +359,7 @@ html[data-theme="dark"]
 .desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:focus-visible,
 .desktop-menu .sticky-nav-desktop-trigger .btn.icon-only:active {
   background: transparent !important;
+  filter: brightness(1.08);
 }
 
 .desktop-menu .sticky-nav-desktop-trigger--round .btn.icon-only {
@@ -376,16 +377,16 @@ html[data-theme="dark"]
 
 html[data-theme="dark"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 0.99);
   --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-100-rgb), 0.98);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-200-rgb), 0.98);
 }
 
 html[data-theme="light"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
   --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
 }
 
 /* Ensure utility icon colors stay consistent across all supported palettes. */
@@ -395,7 +396,7 @@ html[data-theme="dark"][data-palette="forest"],
 html[data-theme="dark"][data-palette="ocean"],
 html[data-theme="dark"][data-palette="sunset"] {
   --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-100-rgb), 0.98);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-200-rgb), 0.98);
 }
 
 html[data-theme="light"][data-palette="primary"],
@@ -404,7 +405,7 @@ html[data-theme="light"][data-palette="forest"],
 html[data-theme="light"][data-palette="ocean"],
 html[data-theme="light"][data-palette="sunset"] {
   --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-rgb), 0.98);
 }
 
 /*
@@ -413,7 +414,7 @@ html[data-theme="light"][data-palette="sunset"] {
  */
 html[data-theme="light"][data-palette="forest"] {
   --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-500-rgb), 0.94);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-900-rgb), 0.99);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-500-rgb), 0.99);
 }
 
 /*
@@ -422,7 +423,7 @@ html[data-theme="light"][data-palette="forest"] {
  */
 html[data-theme="light"][data-palette="sunset"] {
   --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-rgb), 0.9);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.96);
+  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-rgb), 0.96);
 }
 
 html[data-theme="light"] .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
@@ -470,23 +471,23 @@ html[data-theme="dark"][data-palette="sunset"] {
 
 html[data-theme="light"][data-palette="alt"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="primary"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="ocean"],
 html[data-theme="light"][data-palette="sunset"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
 }
 
 html[data-theme="light"][data-palette="forest"] {
   --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-darkest-rgb), 0.99);
+  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface {

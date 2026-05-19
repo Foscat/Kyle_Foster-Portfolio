@@ -110,7 +110,6 @@ classDef accent stroke:#C9A227,stroke-width:2px,color:#c9a227;
 classDef dashed stroke-dasharray:,4,stroke-dashoffset:0;
 classDef edgePath fill:none,stroke:#C9A227,stroke-width:2px,color:#C9A227;
 classDef path stroke:#C9A227,stroke-width:2px,color:#C9A227;
-classDef path stroke:#C9A227,stroke-width:2px,color:#C9A227;
 `.trim();
 
 const ARCH_FLOWCHART_PALETTE_ALT = `
@@ -147,7 +146,6 @@ classDef animate stroke-dasharray:,5,stroke-dashoffset:00,animation:ash 25s line
 classDef accent stroke:#5BA4FF,stroke-width:2px,color:#5BA4FF;
 classDef dashed stroke-dasharray:,4,stroke-dashoffset:0;
 classDef edgePath fill:none,stroke:#5BA4FF,stroke-width:2px,color:#5BA4FF;
-classDef path stroke:#5BA4FF,stroke-width:2px,color:#5BA4FF;
 classDef path stroke:#5BA4FF,stroke-width:2px,color:#5BA4FF;
 `.trim();
 

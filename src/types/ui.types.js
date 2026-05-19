@@ -56,11 +56,16 @@ export const Theme = Object.freeze({
  * @enum {string}
  */
 export const Palette = Object.freeze({
-  PRIMARY: "primary",
-  ALT: "alt",
-  FOREST: "forest",
-  OCEAN: "ocean",
-  SUNSET: "sunset",
+  MIDNIGHT_GOLD: "midnight-gold",
+  OCEAN_STEEL: "ocean-steel",
+  FOREST_MOSS: "forest-moss",
+  SUNSET_EMBER: "sunset-ember",
+  ROYAL_PLUM: "royal-plum",
+  GRAPHITE_CYAN: "graphite-cyan",
+  DESERT_SAGE: "desert-sage",
+  ROSE_QUARTZ: "rose-quartz",
+  CYBER_LIME: "cyber-lime",
+  ARCTIC_INDIGO: "arctic-indigo",
 });
 
 // Backward-compatible re-export for legacy imports that still resolve
