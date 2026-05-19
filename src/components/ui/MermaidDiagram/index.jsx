@@ -7,6 +7,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Modal, Panel } from "rsuite";
 import { faExpand, faEye, faFileDownload } from "@fortawesome/free-solid-svg-icons";
+import { toPng } from "html-to-image";
 import { Size, Theme, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
 import { Btn } from "components/ui";
@@ -18,7 +19,27 @@ import { applyPaletteToDiagramSource } from "./paletteTransform";
 let mermaidInstancePromise;
 let mermaidInitialized = false;
 const EXPORT_PADDING_PX = 24;
-const EXPORT_PIXEL_RATIO = 2;
+const EXPORT_PIXEL_RATIO = 3;
+const EXPORT_EDGE_LABEL_FONT_SIZE = "14px";
+
+function toExportFilename(title) {
+  const cleanedTitle = String(title || "diagram")
+    .trim()
+    .replace(/[<>:"/\\|?*]+/g, "-")
+    .replace(/\s+/g, " ")
+    .slice(0, 120);
+  const safeTitle = [...cleanedTitle].filter((char) => char.charCodeAt(0) >= 32).join("");
+  return `${safeTitle || "diagram"}.png`;
+}
+
+function triggerDownload(dataUrl, filename) {
+  const link = document.createElement("a");
+  link.href = dataUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
 
 function getMermaidInstance() {
   if (!mermaidInstancePromise) {
@@ -74,31 +95,58 @@ function normalizeRenderedSvg(host) {
   svg.style.overflow = "visible";
 }
 
-function buildExportNode(svg, theme) {
-  const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
-  const exportWidth = Math.max(1, Math.ceil(intrinsicWidth + EXPORT_PADDING_PX * 2));
-  const exportHeight = Math.max(1, Math.ceil(intrinsicHeight + EXPORT_PADDING_PX * 2));
+function getExportBackground(theme) {
   const rootStyles =
     typeof window !== "undefined" ? window.getComputedStyle(document.documentElement) : null;
-  const exportBackground =
-    rootStyles?.getPropertyValue(theme === Theme.LIGHT ? "--bg-bright" : "--bg-primary")?.trim() ||
-    (theme === Theme.LIGHT ? "#f4f6fb" : "#0f0f12");
-  const exportSvg = svg.cloneNode(true);
-  const viewBox = svg.getAttribute("viewBox");
-  const svgWidth = Math.max(1, Math.ceil(intrinsicWidth));
-  const svgHeight = Math.max(1, Math.ceil(intrinsicHeight));
 
+  return (
+    rootStyles?.getPropertyValue(theme === Theme.LIGHT ? "--bg-bright" : "--bg-primary")?.trim() ||
+    (theme === Theme.LIGHT ? "#f4f6fb" : "#0f0f12")
+  );
+}
+
+function buildExportNodeFromSvg(svg, theme) {
+  const renderedBounds = svg.getBoundingClientRect();
+  const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
+  const svgWidth = Math.max(
+    1,
+    Math.ceil(
+      renderedBounds.width ||
+        intrinsicWidth ||
+        parseNumericDimension(svg.getAttribute("width")) ||
+        0
+    )
+  );
+  const svgHeight = Math.max(
+    1,
+    Math.ceil(
+      renderedBounds.height ||
+        intrinsicHeight ||
+        parseNumericDimension(svg.getAttribute("height")) ||
+        0
+    )
+  );
+  const exportWidth = svgWidth + EXPORT_PADDING_PX * 2;
+  const exportHeight = svgHeight + EXPORT_PADDING_PX * 2;
+
+  const exportSvg = svg.cloneNode(true);
+  snapshotComputedColors(svg, exportSvg);
+  applyExportLabelStyles(exportSvg, theme);
   exportSvg.setAttribute("width", String(svgWidth));
   exportSvg.setAttribute("height", String(svgHeight));
-  if (!viewBox) {
+  if (!svg.getAttribute("viewBox")) {
     exportSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
   }
-  exportSvg.style.width = `${svgWidth}px`;
-  exportSvg.style.height = `${svgHeight}px`;
-  exportSvg.style.maxWidth = "none";
-  exportSvg.style.maxHeight = "none";
-  exportSvg.style.display = "block";
-  exportSvg.style.overflow = "visible";
+  exportSvg.style.cssText = [
+    `width:${svgWidth}px`,
+    `height:${svgHeight}px`,
+    "max-width:none",
+    "max-height:none",
+    "min-width:0",
+    "min-height:0",
+    "display:block",
+    "overflow:visible",
+  ].join(";");
 
   const exportNode = document.createElement("div");
   exportNode.style.position = "fixed";
@@ -109,11 +157,536 @@ function buildExportNode(svg, theme) {
   exportNode.style.padding = `${EXPORT_PADDING_PX}px`;
   exportNode.style.margin = "0";
   exportNode.style.boxSizing = "border-box";
-  exportNode.style.backgroundColor = exportBackground;
+  exportNode.style.backgroundColor = getExportBackground(theme);
   exportNode.style.overflow = "visible";
+  exportNode.style.display = "flex";
+  exportNode.style.alignItems = "flex-start";
+  exportNode.style.justifyContent = "center";
   exportNode.appendChild(exportSvg);
 
-  return { exportNode, exportWidth, exportHeight, exportBackground };
+  return {
+    exportNode,
+    exportWidth,
+    exportHeight,
+  };
+}
+
+function getExportTextColor(theme) {
+  return theme === Theme.LIGHT ? "#F8FAFC" : "#F5F7FF";
+}
+
+function getExportLabelBackground(theme) {
+  return "rgba(255, 255, 255, 1)";
+}
+
+function getExportSectionLabelBackground(theme) {
+  return "rgba(255, 255, 255, 0.98)";
+}
+
+function getExportSectionLabelTextColor(theme) {
+  return theme === Theme.LIGHT ? "#F8FAFC" : "#F5F7FF";
+}
+
+function getPxNumber(value, fallback) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value !== "string") return fallback;
+
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function isTransparentColor(value) {
+  return (
+    !value || value === "transparent" || value === "rgba(0, 0, 0, 0)" || value === "rgb(0 0 0 / 0)"
+  );
+}
+
+function applyExportLabelStyles(exportSvg, theme) {
+  const edgeLabelBackground = getExportLabelBackground(theme);
+  const sectionLabelBackground = getExportSectionLabelBackground(theme);
+  const sectionLabelTextColor = getExportSectionLabelTextColor(theme);
+
+  for (const el of exportSvg.querySelectorAll(
+    ".edgeLabel, .edgeLabel foreignObject, .edgeLabel div, .edgeLabel span, .edgeLabel p"
+  )) {
+    el.style.setProperty("position", "relative");
+    el.style.setProperty("z-index", "2");
+  }
+
+  for (const el of exportSvg.querySelectorAll(
+    ".edgeLabel foreignObject, .edgeLabel div, .edgeLabel span, .edgeLabel p"
+  )) {
+    el.style.setProperty("background-color", edgeLabelBackground);
+    el.style.setProperty("font-size", EXPORT_EDGE_LABEL_FONT_SIZE);
+    el.style.setProperty("line-height", "1.25");
+  }
+
+  for (const el of exportSvg.querySelectorAll(".edgeLabel text, .edgeLabel tspan")) {
+    el.style.setProperty("font-size", EXPORT_EDGE_LABEL_FONT_SIZE);
+    el.setAttribute("font-size", EXPORT_EDGE_LABEL_FONT_SIZE);
+    el.style.setProperty("fill", getExportTextColor(theme));
+    el.style.setProperty("color", getExportTextColor(theme));
+    el.setAttribute("fill", getExportTextColor(theme));
+  }
+
+  for (const el of exportSvg.querySelectorAll(
+    ".cluster-label, .cluster-label foreignObject, .cluster-label div, .cluster-label span, .cluster-label p"
+  )) {
+    el.style.setProperty("position", "relative");
+    el.style.setProperty("z-index", "2");
+  }
+
+  for (const el of exportSvg.querySelectorAll(
+    ".cluster-label div, .cluster-label span, .cluster-label p"
+  )) {
+    el.style.setProperty("background-color", sectionLabelBackground);
+    el.style.setProperty("padding", "0 6px");
+    el.style.setProperty("border-radius", "6px");
+    el.style.setProperty("display", "inline-flex");
+    el.style.setProperty("align-items", "center");
+    el.style.setProperty("justify-content", "center");
+    el.style.setProperty("text-align", "center");
+    el.style.setProperty("line-height", "1.2");
+    el.style.setProperty("margin", "0");
+  }
+
+  for (const el of exportSvg.querySelectorAll(".cluster-label text, .cluster-label tspan")) {
+    el.style.setProperty("font-size", "16px");
+    el.style.setProperty("fill", sectionLabelTextColor);
+    el.style.setProperty("color", sectionLabelTextColor);
+    el.setAttribute("font-size", "16px");
+    el.setAttribute("fill", sectionLabelTextColor);
+  }
+
+  // Override SVG rect fill colors in edge labels
+  for (const rect of exportSvg.querySelectorAll(".edgeLabel rect")) {
+    rect.setAttribute("fill", edgeLabelBackground);
+    rect.style.setProperty("fill", edgeLabelBackground);
+  }
+
+  // Override SVG rect fill colors in cluster labels
+  for (const rect of exportSvg.querySelectorAll(".cluster-label rect")) {
+    rect.setAttribute("fill", sectionLabelBackground);
+    rect.style.setProperty("fill", sectionLabelBackground);
+  }
+}
+
+function getForeignObjectLabelStyles(fo, defaults) {
+  let backgroundColor = defaults.backgroundColor;
+  let textColor = defaults.textColor;
+  let fontSize = defaults.fontSize;
+  let fontFamily = defaults.fontFamily;
+  let fontWeight = defaults.fontWeight;
+
+  let resolvedBackground = false;
+  let resolvedTextColor = false;
+  let resolvedFontSize = false;
+  let resolvedFontFamily = false;
+  let resolvedFontWeight = false;
+
+  for (const el of [fo, ...fo.querySelectorAll("*")]) {
+    const candidateBackground = el.style?.getPropertyValue("background-color")?.trim();
+    if (!resolvedBackground && !isTransparentColor(candidateBackground)) {
+      backgroundColor = candidateBackground;
+      resolvedBackground = true;
+    }
+
+    const candidateTextColor =
+      el.style?.getPropertyValue("color")?.trim() || el.style?.getPropertyValue("fill")?.trim();
+    if (!resolvedTextColor && !isTransparentColor(candidateTextColor)) {
+      textColor = candidateTextColor;
+      resolvedTextColor = true;
+    }
+
+    const candidateFontSize = el.style?.getPropertyValue("font-size")?.trim();
+    if (!resolvedFontSize && candidateFontSize) {
+      fontSize = candidateFontSize;
+      resolvedFontSize = true;
+    }
+
+    const candidateFontFamily = el.style?.getPropertyValue("font-family")?.trim();
+    if (!resolvedFontFamily && candidateFontFamily) {
+      fontFamily = candidateFontFamily;
+      resolvedFontFamily = true;
+    }
+
+    const candidateFontWeight = el.style?.getPropertyValue("font-weight")?.trim();
+    if (!resolvedFontWeight && candidateFontWeight) {
+      fontWeight = candidateFontWeight;
+      resolvedFontWeight = true;
+    }
+
+    if (
+      resolvedBackground &&
+      resolvedTextColor &&
+      resolvedFontSize &&
+      resolvedFontFamily &&
+      resolvedFontWeight
+    ) {
+      break;
+    }
+  }
+
+  return {
+    backgroundColor,
+    textColor,
+    fontSize,
+    fontFamily,
+    fontWeight,
+  };
+}
+
+/**
+ * Browsers taint a canvas when an SVG drawn via <img> contains <foreignObject>
+ * or external resource URLs, making toDataURL() throw a SecurityError.
+ * This function sanitizes a cloned SVG in-place before export:
+ *   - Replaces <foreignObject> nodes with SVG <text> equivalents
+ *   - Strips @font-face rules that reference external (http/https) URLs
+ *   - Removes <image> elements that reference external URLs
+ */
+function sanitizeSvgForExport(svgClone, theme) {
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const exportTextColor = getExportTextColor(theme);
+  const exportLabelBackground = getExportLabelBackground(theme);
+  const exportSectionLabelBackground = getExportSectionLabelBackground(theme);
+  const exportSectionLabelTextColor = getExportSectionLabelTextColor(theme);
+
+  // <foreignObject> is the primary canvas-taint source in Mermaid output.
+  // Replace each one with a centered <text> carrying the same text content.
+  for (const fo of [...svgClone.querySelectorAll("foreignObject")]) {
+    const edgeLabelHost =
+      typeof fo.closest === "function"
+        ? fo.closest(".edgeLabel")
+        : fo.parentNode?.classList?.contains("edgeLabel")
+          ? fo.parentNode
+          : null;
+    const clusterLabelHost =
+      typeof fo.closest === "function"
+        ? fo.closest(".cluster-label")
+        : fo.parentNode?.classList?.contains("cluster-label")
+          ? fo.parentNode
+          : null;
+    // Mermaid nests edge-label foreignObjects under .edgeLabel > .label, so
+    // ancestor lookup is required here rather than checking only the immediate parent.
+    const isEdgeLabel = Boolean(edgeLabelHost);
+    const isClusterLabel = !isEdgeLabel && Boolean(clusterLabelHost);
+    const x = parseFloat(fo.getAttribute("x") || "0");
+    const y = parseFloat(fo.getAttribute("y") || "0");
+    const width = parseFloat(fo.getAttribute("width") || "0");
+    const height = parseFloat(fo.getAttribute("height") || "0");
+    const textContent = fo.textContent?.trim() || "";
+
+    if (textContent) {
+      if (isEdgeLabel || isClusterLabel) {
+        const labelStyles = isEdgeLabel
+          ? getForeignObjectLabelStyles(fo, {
+              backgroundColor: exportLabelBackground,
+              textColor: getExportTextColor(theme),
+              fontSize: EXPORT_EDGE_LABEL_FONT_SIZE,
+              fontFamily: "trebuchet ms, verdana, arial, sans-serif",
+              fontWeight: "500",
+            })
+          : {
+              backgroundColor: exportSectionLabelBackground,
+              textColor: getExportSectionLabelTextColor(theme),
+              fontSize: "16px",
+              fontFamily: "trebuchet ms, verdana, arial, sans-serif",
+              fontWeight: "600",
+            };
+
+        // Preserve label chips when export sanitization has to replace foreignObject markup.
+        const groupEl = document.createElementNS(SVG_NS, "g");
+        groupEl.setAttribute(
+          "class",
+          isEdgeLabel ? "exported-label-chip" : "exported-section-label-chip"
+        );
+
+        const rectEl = document.createElementNS(SVG_NS, "rect");
+
+        let rectX = x;
+        let rectY = y;
+        let rectWidth = width;
+        let rectHeight = height;
+
+        if (isClusterLabel) {
+          const fontPx = getPxNumber(labelStyles.fontSize, 16);
+          const lines = textContent.split(/\r?\n/);
+          const maxLineChars = Math.max(1, ...lines.map((line) => line.trim().length));
+          const measuredWidth = maxLineChars * fontPx * 0.56 + 14;
+          const measuredHeight = lines.length * fontPx * 1.2 + 8;
+
+          rectWidth = Math.max(20, width > 0 ? Math.min(width, measuredWidth) : measuredWidth);
+          rectHeight = Math.max(20, height > 0 ? Math.min(height, measuredHeight) : measuredHeight);
+          rectX = x + Math.max(0, (width - rectWidth) / 2);
+          rectY = y + Math.max(0, (height - rectHeight) / 2);
+        }
+
+        rectEl.setAttribute("x", String(rectX));
+        rectEl.setAttribute("y", String(rectY));
+        rectEl.setAttribute("width", String(rectWidth));
+        rectEl.setAttribute("height", String(rectHeight));
+        rectEl.setAttribute("rx", "4");
+        rectEl.setAttribute("ry", "4");
+        rectEl.setAttribute("fill", labelStyles.backgroundColor);
+
+        const textEl = document.createElementNS(SVG_NS, "text");
+        textEl.setAttribute("x", String(rectX + rectWidth / 2));
+        textEl.setAttribute("y", String(rectY + rectHeight / 2));
+        textEl.setAttribute("text-anchor", "middle");
+        textEl.setAttribute("dominant-baseline", "middle");
+        textEl.setAttribute("font-size", labelStyles.fontSize);
+        textEl.setAttribute("font-family", labelStyles.fontFamily);
+        textEl.setAttribute("fill", labelStyles.textColor);
+        textEl.setAttribute("font-weight", labelStyles.fontWeight);
+
+        // Split on \n and use <tspan> for each line
+        const lines = textContent.split(/\r?\n/);
+        lines.forEach((line, i) => {
+          const tspan = document.createElementNS(SVG_NS, "tspan");
+          tspan.textContent = line;
+          tspan.setAttribute("x", String(rectX + rectWidth / 2));
+          if (i === 0) {
+            tspan.setAttribute("dy", "0");
+          } else {
+            tspan.setAttribute("dy", "1.2em");
+          }
+          textEl.appendChild(tspan);
+        });
+
+        groupEl.appendChild(rectEl);
+        groupEl.appendChild(textEl);
+        fo.parentNode?.replaceChild(groupEl, fo);
+      } else {
+        // Node text: just replace with <text> and preserve line breaks
+        const textEl = document.createElementNS(SVG_NS, "text");
+        textEl.setAttribute("x", String(x + width / 2));
+        textEl.setAttribute("y", String(y + height / 2));
+        textEl.setAttribute("text-anchor", "middle");
+        textEl.setAttribute("dominant-baseline", "middle");
+        textEl.setAttribute("font-size", "14");
+        textEl.setAttribute("font-family", "trebuchet ms, verdana, arial, sans-serif");
+        textEl.setAttribute("fill", exportTextColor);
+        textEl.setAttribute("font-weight", "500");
+        const lines = textContent.split(/\r?\n/);
+        lines.forEach((line, i) => {
+          const tspan = document.createElementNS(SVG_NS, "tspan");
+          tspan.textContent = line;
+          tspan.setAttribute("x", String(x + width / 2));
+          if (i === 0) {
+            tspan.setAttribute("dy", "0");
+          } else {
+            tspan.setAttribute("dy", "1.2em");
+          }
+          textEl.appendChild(tspan);
+        });
+        fo.parentNode?.replaceChild(textEl, fo);
+      }
+    } else {
+      fo.parentNode?.removeChild(fo);
+    }
+  }
+
+  // Always ensure edge label backgrounds are present in export, even if Mermaid output changes structure.
+  // For every .edgeLabel group, if it contains a <text> but no <rect>, insert a background rect behind the text.
+  for (const edgeLabel of svgClone.querySelectorAll(".edgeLabel")) {
+    const textEl = edgeLabel.querySelector("text");
+    let rectEl = edgeLabel.querySelector("rect");
+    if (textEl && !rectEl) {
+      const textParent = textEl.parentNode;
+      if (!textParent) continue;
+
+      // Compute bounding box for the text.
+      let bbox = { x: 0, y: 0, width: 0, height: 0 };
+      if (typeof textEl.getBBox === "function") {
+        try {
+          bbox = textEl.getBBox();
+        } catch {
+          bbox = { x: 0, y: 0, width: 0, height: 0 };
+        }
+      }
+
+      rectEl = document.createElementNS(SVG_NS, "rect");
+      rectEl.setAttribute("x", String(bbox.x - 6));
+      rectEl.setAttribute("y", String(bbox.y - 2));
+      rectEl.setAttribute("width", String(bbox.width + 12));
+      rectEl.setAttribute("height", String(bbox.height + 4));
+      rectEl.setAttribute("rx", "4");
+      rectEl.setAttribute("ry", "4");
+      rectEl.setAttribute("fill", exportLabelBackground);
+
+      // Insert the background into the same group as the text so the sibling
+      // relationship is valid even when Mermaid nests the text inside a child <g>.
+      textParent.insertBefore(rectEl, textEl);
+    } else if (rectEl) {
+      const rectFill = rectEl.getAttribute("fill") || rectEl.style.getPropertyValue("fill");
+      if (!rectFill || rectFill === "none") {
+        rectEl.setAttribute("fill", exportLabelBackground);
+      }
+    }
+  }
+
+  // Strip @font-face rules with external URLs from embedded <style> blocks.
+  for (const styleEl of svgClone.querySelectorAll("style")) {
+    styleEl.textContent = styleEl.textContent.replace(
+      /@font-face\s*\{[^{}]*url\([^)]*https?:[^)]*\)[^{}]*\}/gi,
+      ""
+    );
+  }
+
+  // Remove <image> elements that point to non-data external URLs.
+  for (const img of svgClone.querySelectorAll("image")) {
+    const href = img.getAttribute("href") || img.getAttribute("xlink:href") || "";
+    if (href && !href.startsWith("data:")) {
+      img.parentNode?.removeChild(img);
+    }
+  }
+
+  // Strip stroke from text elements. Text nodes inherit the gold `.mermaid { stroke: var(--accent) }`
+  // rule, which getComputedStyle resolves to a gold color and snapshotComputedColors then locks in
+  // as an inline style. In the isolated export context (no external CSS) that inherited gold stroke
+  // dominates the fill, making text appear gold and blurry due to paint-order / thick stroke.
+  for (const el of svgClone.querySelectorAll("text, tspan, textPath")) {
+    const currentFill = el.getAttribute("fill") || el.style.getPropertyValue("fill");
+    const currentFontWeight =
+      el.getAttribute("font-weight") || el.style.getPropertyValue("font-weight");
+
+    el.style.removeProperty("stroke");
+    el.style.removeProperty("stroke-width");
+    el.style.removeProperty("paint-order");
+    el.style.setProperty("stroke", "none");
+    el.style.setProperty("stroke-width", "0");
+    el.style.setProperty("paint-order", "normal");
+    el.setAttribute("stroke", "none");
+    el.setAttribute("stroke-width", "0");
+    el.setAttribute("paint-order", "normal");
+
+    if (!currentFill || currentFill === "none") {
+      el.style.setProperty("fill", exportTextColor);
+      el.style.setProperty("color", exportTextColor);
+      el.setAttribute("fill", exportTextColor);
+    }
+
+    if (!currentFontWeight) {
+      el.style.setProperty("font-weight", "500");
+      el.setAttribute("font-weight", "500");
+    }
+  }
+}
+
+/**
+ * Snapshots the browser-computed presentation colors (fill, stroke, color) from
+ * each element in the live SVG onto the corresponding element in the export clone.
+ *
+ * When the SVG is serialized to a blob and drawn via <img>, external CSS
+ * (including var() references) no longer applies.  By capturing the resolved
+ * values here we preserve the live theme appearance in the exported PNG.
+ *
+ * Must be called BEFORE cloneNode so sourceSvg is still in the document and
+ * getComputedStyle returns fully resolved values.
+ */
+function snapshotComputedColors(sourceSvg, targetSvg) {
+  if (typeof window === "undefined" || !sourceSvg || !targetSvg) return;
+
+  const COLOR_PROPS = [
+    "fill",
+    "stroke",
+    "color",
+    "stop-color",
+    "background-color",
+    "font-size",
+    "font-family",
+    "font-weight",
+  ];
+  const sourceEls = [sourceSvg, ...sourceSvg.querySelectorAll("*")];
+  const targetEls = [targetSvg, ...targetSvg.querySelectorAll("*")];
+  const count = Math.min(sourceEls.length, targetEls.length);
+
+  for (let i = 0; i < count; i++) {
+    const tagName = sourceEls[i].tagName?.toLowerCase?.() || "";
+    const isTextElement = tagName === "text" || tagName === "tspan" || tagName === "textpath";
+    const computed = window.getComputedStyle(sourceEls[i]);
+    for (const prop of COLOR_PROPS) {
+      if (isTextElement && prop === "stroke") continue;
+      const val = computed.getPropertyValue(prop).trim();
+      const isTransparentBackground = prop === "background-color" && isTransparentColor(val);
+      // Only override with real presentation values — skip "none", empty, transparent,
+      // and unresolved var() references.
+      if (val && val !== "none" && !val.startsWith("var(") && !isTransparentBackground) {
+        targetEls[i].style.setProperty(prop, val);
+      }
+    }
+  }
+}
+
+async function renderSvgToCanvas(svg, theme, { sanitize = true, useRenderedSize = true } = {}) {
+  const renderedBounds = svg.getBoundingClientRect();
+  const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
+  const svgWidth = Math.max(
+    1,
+    Math.ceil(useRenderedSize ? renderedBounds.width || intrinsicWidth : intrinsicWidth)
+  );
+  const svgHeight = Math.max(
+    1,
+    Math.ceil(useRenderedSize ? renderedBounds.height || intrinsicHeight : intrinsicHeight)
+  );
+  const exportWidth = svgWidth + EXPORT_PADDING_PX * 2;
+  const exportHeight = svgHeight + EXPORT_PADDING_PX * 2;
+  const background = getExportBackground(theme);
+
+  // Clone AFTER computing styles so getComputedStyle runs on the live DOM element.
+  const exportSvg = svg.cloneNode(true);
+  exportSvg.setAttribute("width", String(svgWidth));
+  exportSvg.setAttribute("height", String(svgHeight));
+  if (!svg.getAttribute("viewBox")) {
+    exportSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+  }
+  // Remove style overrides set by normalizeRenderedSvg so the SVG has
+  // hard pixel dimensions during rasterization.
+  exportSvg.style.cssText = `width:${svgWidth}px;height:${svgHeight}px;display:block;overflow:visible;`;
+
+  // Inline the live computed colors onto the clone before external CSS is lost.
+  snapshotComputedColors(svg, exportSvg);
+  applyExportLabelStyles(exportSvg, theme);
+
+  // Optional sanitize mode for hostile SVG content. Disabled by default for
+  // export parity so the downloaded diagram matches the on-screen rendering.
+  if (sanitize) {
+    sanitizeSvgForExport(exportSvg, theme);
+  }
+
+  const serializer = new XMLSerializer();
+  const svgString = serializer.serializeToString(exportSvg);
+  const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+  const svgObjectUrl = URL.createObjectURL(svgBlob);
+
+  try {
+    const img = new Image();
+    img.src = svgObjectUrl;
+    await new Promise((resolve, reject) => {
+      img.onload = resolve;
+      img.onerror = reject;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = exportWidth * EXPORT_PIXEL_RATIO;
+    canvas.height = exportHeight * EXPORT_PIXEL_RATIO;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      throw new Error("Failed to create canvas context for diagram export");
+    }
+    ctx.imageSmoothingEnabled = true;
+    if ("imageSmoothingQuality" in ctx) {
+      ctx.imageSmoothingQuality = "high";
+    }
+    ctx.scale(EXPORT_PIXEL_RATIO, EXPORT_PIXEL_RATIO);
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, exportWidth, exportHeight);
+    ctx.drawImage(img, EXPORT_PADDING_PX, EXPORT_PADDING_PX, svgWidth, svgHeight);
+
+    return canvas.toDataURL("image/png");
+  } finally {
+    URL.revokeObjectURL(svgObjectUrl);
+  }
 }
 
 /**
@@ -251,6 +824,9 @@ function MermaidDiagram(props) {
         handDrawnSeed: 0,
         deterministicIds: true,
         deterministicIDSeed: "portfolio-diagrams",
+        flowchart: {
+          htmlLabels: false,
+        },
       });
       mermaidInitialized = true;
     }
@@ -362,39 +938,62 @@ function MermaidDiagram(props) {
   async function handleExport() {
     if (!hostRef.current) return;
 
-    const svg = hostRef.current.querySelector("svg");
+    const filename = toExportFilename(title);
+    const exportHost = hostRef.current;
+    const svg = exportHost.querySelector("svg");
     if (!svg) return;
-    let exportNode = null;
 
     try {
       await document.fonts?.ready;
+    } catch {
+      // Continue with best-effort export if document fonts are unavailable.
+    }
 
-      const {
-        exportNode: nextExportNode,
-        exportWidth,
-        exportHeight,
-        exportBackground,
-      } = buildExportNode(svg, resolvedTheme);
-      exportNode = nextExportNode;
-      document.body.appendChild(exportNode);
-      const { toPng } = await import("html-to-image");
-
-      const dataUrl = await toPng(exportNode, {
-        cacheBust: true,
-        pixelRatio: EXPORT_PIXEL_RATIO,
-        width: exportWidth,
-        height: exportHeight,
-        backgroundColor: exportBackground,
+    try {
+      const dataUrl = await renderSvgToCanvas(svg, resolvedTheme, {
+        sanitize: false,
+        useRenderedSize: true,
       });
+      triggerDownload(dataUrl, filename);
+      return;
+    } catch (primaryCanvasError) {
+      console.warn(
+        "Diagram export canvas path failed, retrying with sanitized SVG fallback:",
+        primaryCanvasError
+      );
+    }
 
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = `${title || "diagram"}.png`;
-      link.click();
-    } catch (error) {
-      console.error("Diagram export failed:", error);
-    } finally {
-      exportNode?.remove();
+    try {
+      const dataUrl = await renderSvgToCanvas(svg, resolvedTheme, {
+        sanitize: true,
+        useRenderedSize: true,
+      });
+      triggerDownload(dataUrl, filename);
+      return;
+    } catch (sanitizedCanvasError) {
+      console.warn(
+        "Diagram export sanitized canvas fallback failed, retrying with DOM capture:",
+        sanitizedCanvasError
+      );
+    }
+
+    try {
+      const { exportNode, exportWidth, exportHeight } = buildExportNodeFromSvg(svg, resolvedTheme);
+      document.body.appendChild(exportNode);
+      try {
+        const dataUrl = await toPng(exportNode, {
+          cacheBust: true,
+          pixelRatio: EXPORT_PIXEL_RATIO,
+          width: exportWidth,
+          height: exportHeight,
+          backgroundColor: getExportBackground(resolvedTheme),
+        });
+        triggerDownload(dataUrl, filename);
+      } finally {
+        exportNode.remove();
+      }
+    } catch (fallbackError) {
+      console.error("Diagram export failed:", fallbackError);
     }
   }
 

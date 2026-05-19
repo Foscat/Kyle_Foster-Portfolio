@@ -19,7 +19,20 @@
   font-family: var(--font-Lexend), system-ui, sans-serif !important;
   letter-spacing: normal;
   fill: var(--text-primary);
-  stroke: var(--accent);
+}
+
+/* Boost text contrast inside diagrams.  The global --text-primary uses 0.85 opacity
+     which appears grey on dark nodes; override to near-opaque white for the SVG host only. */
+.mermaid .mermaid-svg-host {
+  --text-primary: rgba(var(--white-rgb), 0.99);
+}
+
+/* Keep Mermaid text crisp by preventing inherited stroke outlines from the container. */
+.mermaid .mermaid-svg-host svg text,
+.mermaid .mermaid-svg-host svg tspan,
+.mermaid .mermaid-svg-host svg textPath {
+  stroke: none !important;
+  stroke-width: 0 !important;
 }
 
 .mermaid p {
@@ -127,6 +140,17 @@
 /* Lift labels above clusters */
 .mermaid .edgeLabel {
   z-index: 100;
+}
+
+.mermaid .mermaid-svg-host .cluster-label {
+  z-index: 2;
+}
+
+.mermaid .mermaid-svg-host .cluster-label span,
+.mermaid .mermaid-svg-host .cluster-label p {
+  display: inline;
+  text-align: center;
+  margin: 0;
 }
 
 /* ------------------------------------------------------------
@@ -444,7 +468,12 @@
 .mermaid .mermaid-svg-host.dark .cluster-label p {
   fill: var(--text-blue-dark) !important;
   color: var(--text-blue-dark) !important;
-  background: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.dark .cluster-label div,
+.mermaid .mermaid-svg-host.dark .cluster-label span,
+.mermaid .mermaid-svg-host.dark .cluster-label p {
+  background: rgba(var(--white-rgb), 0.92) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node rect,
@@ -603,6 +632,20 @@
 .mermaid .mermaid-svg-host.light .edgeLabel span,
 .mermaid .mermaid-svg-host.light .edgeLabel p {
   color: var(--text-blue-dark) !important;
+  background-color: rgba(var(--white-rgb), 0.96) !important;
+}
+
+.mermaid .mermaid-svg-host.light .cluster-label text,
+.mermaid .mermaid-svg-host.light .cluster-label span,
+.mermaid .mermaid-svg-host.light .cluster-label p {
+  fill: var(--text-blue-dark) !important;
+  color: var(--text-blue-dark) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light .cluster-label div,
+.mermaid .mermaid-svg-host.light .cluster-label span,
+.mermaid .mermaid-svg-host.light .cluster-label p {
   background-color: rgba(var(--white-rgb), 0.96) !important;
 }
 

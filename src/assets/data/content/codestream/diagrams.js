@@ -22,7 +22,7 @@ const diagrams = {
 
 Input[Lesson Markdown]
 Panel[Instruction Panel]
-Editor[Ace Editor<br/>HTML · CSS · JS · Python]
+Editor[Ace Editor\nHTML · CSS · JS · Python]
 Router[Execution Router]
 Web[Sandboxed iframe Runtime]
 Py[In-Browser Python Runtime]
@@ -48,14 +48,14 @@ Editor ==> Save ==> Store ==> Access`
 subgraph Authoring[Authoring Surface]
   Lesson[Lesson Markdown]
   Panel[Instruction Panel]
-  Editor[Ace Editor<br/>HTML · CSS · JS · Python]
+  Editor[Ace Editor\nHTML · CSS · JS · Python]
   Lesson ==> Panel
 end
 
 subgraph Runtime[Execution Runtime]
   Router[Execution Router]
   Web[Sandboxed iframe Runtime]
-  Py[In-Browser Python Runtime<br/>Skulpt]
+  Py[In-Browser Python Runtime\nSkulpt]
   Terminal[Terminal / Rendered Output]
 
   Router ==>|Web| Web
@@ -65,7 +65,7 @@ subgraph Runtime[Execution Runtime]
 end
 
 subgraph Persistence[Persistence + Retrieval]
-  Save[Explicit Save Action<br/>Ctrl + S]
+  Save[Explicit Save Action\nCtrl + S]
   Store[AWS S3 Project Storage]
   Access[Teacher + Student Retrieval]
 
@@ -287,8 +287,8 @@ Entry ==>|Student| Student
 Teacher ==> Dashboard
 Student ==> Dashboard
 Dashboard ==> Lessons ==> Resolver
-Resolver ==>|Existing Work| Existing
-Resolver ==>|No Prior Work| Clone ==> Project`
+Resolver ==> Existing
+Resolver ==> Clone ==> Project`
       ),
     },
     desktop: {
@@ -310,8 +310,8 @@ subgraph Workspace[Shared \nClassroom Workspace]
 end
 
 subgraph Outcome[Project Outcome]
-  Existing[Open \nExisting Project]
-  Clone[Clone \nLesson Template]
+  Existing[Existing Work\nOpen Project]
+  Clone[No Prior Work\nClone Lesson Template]
   Grade[Initialize Project \n+ \nGrade Record]
 end
 
@@ -320,8 +320,8 @@ Entry ==>|Student| Student
 Teacher ==> Dashboard
 Student ==> Dashboard
 Dashboard ==> Lessons ==> Resolver
-Resolver ==>|Existing Work| Existing
-Resolver ==>|No Prior Work| Clone ==> Grade`
+Resolver ==> Existing
+Resolver ==> Clone ==> Grade`
       ),
     },
     description: [
