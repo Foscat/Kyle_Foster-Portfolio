@@ -80,11 +80,26 @@ describe("color-themes contrast coverage", () => {
       for (const [foregroundKey, backgroundKey, minimum] of checks) {
         const foregroundHex = block.variables[foregroundKey];
         const backgroundHex = block.variables[backgroundKey];
-        if (!foregroundHex || !backgroundHex) continue;
+        const missingKeys = [];
+
+        if (!foregroundHex) missingKeys.push(foregroundKey);
+        if (!backgroundHex) missingKeys.push(backgroundKey);
+        if (missingKeys.length > 0) {
+          failures.push(`${block.palette}/${block.theme} missing required token(s): ${missingKeys.join(", ")}`);
+          continue;
+        }
 
         const foreground = parseHex(foregroundHex);
         const background = parseHex(backgroundHex);
-        if (!foreground || !background) continue;
+        if (!foreground || !background) {
+          const invalidKeys = [];
+          if (!foreground) invalidKeys.push(`${foregroundKey}=${foregroundHex}`);
+          if (!background) invalidKeys.push(`${backgroundKey}=${backgroundHex}`);
+          failures.push(
+            `${block.palette}/${block.theme} has unparseable token value(s): ${invalidKeys.join(", ")}`
+          );
+          continue;
+        }
 
         const ratio = contrastRatio(foreground, background);
         if (ratio < minimum) {
