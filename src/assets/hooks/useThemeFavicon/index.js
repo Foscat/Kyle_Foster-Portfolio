@@ -18,7 +18,7 @@ import { subscribeToSystemThemeChanges, updateFavicon } from "../../favicon";
  * @param {"light"|"dark"|"auto"} themeMode - Current app theme mode.
  * @param {string} palette - Current app palette.
  */
-export function useThemeFavicon(themeMode = "auto", palette = "alt") {
+export function useThemeFavicon(themeMode = "auto", palette = "ocean-steel") {
   useEffect(() => {
     updateFavicon(themeMode, palette);
 

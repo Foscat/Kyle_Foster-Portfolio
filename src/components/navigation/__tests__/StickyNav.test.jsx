@@ -188,13 +188,23 @@ describe("StickyNav", () => {
     ).toBeInTheDocument();
   });
 
-  it("opens the site navigation drawer when Control is pressed", async () => {
+  it("opens the site navigation drawer when Ctrl+Shift+M is pressed", async () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    fireEvent.keyDown(window, { key: "M", ctrlKey: true, shiftKey: true });
+
+    await waitFor(() => {
+      expect(screen.getByRole("dialog", { name: /site navigation/i })).toBeInTheDocument();
+    });
+  });
+
+  it("does not open the site navigation drawer on bare Control key", async () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
     fireEvent.keyDown(window, { key: "Control" });
 
     await waitFor(() => {
-      expect(screen.getByRole("dialog", { name: /site navigation/i })).toBeInTheDocument();
+      expect(screen.queryByRole("dialog", { name: /site navigation/i })).not.toBeInTheDocument();
     });
   });
 

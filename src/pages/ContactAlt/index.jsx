@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FlexboxGrid, Message, Panel } from "rsuite";
+import { Message } from "rsuite";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider.jsx";
 import { StickyNav, Footer } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
@@ -307,7 +307,13 @@ export default function ContactAlt() {
 
         <main className="contact-content app-main" role="main">
           <div className="contact-centered-stack">
-            <SectionRenderer key={formResetNonce} section={contactAltSections[0]} />
+            {errorMessage ? (
+              <Message showIcon type="error" role="alert" className="mb-1">
+                {errorMessage}
+              </Message>
+            ) : null}
+            <SectionRenderer section={contactAltSections[0]} />
+            <SectionRenderer key={`contact-form-${formResetNonce}`} section={contactFormSection} />
             <ResumePreviewTrigger
               buttonText="Preview Resume"
               title="Kyle Foster - Resume"
@@ -320,6 +326,11 @@ export default function ContactAlt() {
           </div>
         </main>
         <Footer />
+        {showToast ? (
+          <div className="toast frosted-toast" role="status" aria-live="polite">
+            Message sent successfully.
+          </div>
+        ) : null}
       </div>
     </SectionRegistryProvider>
   );

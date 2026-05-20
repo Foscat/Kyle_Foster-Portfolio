@@ -15,11 +15,16 @@ describe("PaletteToggle", () => {
 
     const selector = await screen.findByRole("combobox", { name: /color palette selector/i });
 
-    expect(within(selector).getByRole("option", { name: /midnight/i })).toBeInTheDocument();
-    expect(within(selector).getByRole("option", { name: /classic/i })).toBeInTheDocument();
-    expect(within(selector).getByRole("option", { name: /forest/i })).toBeInTheDocument();
-    expect(within(selector).getByRole("option", { name: /ocean/i })).toBeInTheDocument();
-    expect(within(selector).getByRole("option", { name: /sunset/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /midnight gold/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /ocean steel/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /forest moss/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /sunset ember/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /royal plum/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /graphite cyan/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /desert sage/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /rose quartz/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /cyber lime/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /arctic indigo/i })).toBeInTheDocument();
   });
 
   test("updates the active palette when a new option is selected", async () => {
@@ -28,10 +33,10 @@ describe("PaletteToggle", () => {
     renderWithProviders(<PaletteToggle />);
 
     const selector = await screen.findByRole("combobox", { name: /color palette selector/i });
-    await user.selectOptions(selector, "forest");
+    await user.selectOptions(selector, "forest-moss");
 
     await waitFor(() => {
-      expect(document.documentElement.dataset.palette).toBe("forest");
+      expect(document.documentElement.dataset.palette).toBe("forest-moss");
     });
   });
 });

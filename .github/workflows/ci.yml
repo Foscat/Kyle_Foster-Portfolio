@@ -10,19 +10,38 @@ permissions:
   contents: read
 
 jobs:
-  build-and-test:
+  dev-runtime-smoke:
     runs-on: ubuntu-latest
-    env:
-      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Use Node.js 18 (LTS)
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run dev runtime smoke suite
+        run: npm run test-ui:dev-smoke
+
+  quality-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -31,14 +50,41 @@ jobs:
       - name: Lint (no warnings allowed)
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test -- --run
+      - name: Validate route-to-test mapping
+        run: npm run quality:route-tests
+
+      - name: Run unit and integration tests
+        run: npm run test-functions
+
+      - name: Build
+        run: npm run build
+
+      - name: Enforce bundle budgets
+        run: npm run quality:bundle-budgets
+
+  route-a11y-and-performance:
+    runs-on: ubuntu-latest
+    needs:
+      - dev-runtime-smoke
+      - quality-gates
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run mobile image regression test
-        run: npm run test:mobile-clickable-img
+      - name: Run axe accessibility checks on key routes
+        run: npm run test-ui:a11y
 
-      - name: Build
-        run: npm run build
+      - name: Run key-route performance budgets
+        run: npm run test-ui:route-budgets

@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Modal } from "rsuite";
 import { faArrowsRotate, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
+import { THEME_CYCLE_HOTKEY } from "assets/context/ThemeContext";
 import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
 import "../shared/modal-controls.css";
@@ -585,6 +586,9 @@ export default function AccessibilityMenu({
                   <li>
                     <kbd>Esc</kbd>: close any open drawer or modal. <kbd>{HOTKEY_LABEL}</kbd>: open
                     accessibility settings. Section navigation on mobile uses its on-screen button.
+                  </li>
+                  <li>
+                    <kbd>{THEME_CYCLE_HOTKEY}</kbd>: cycle theme mode between light and dark.
                   </li>
                 </ul>
               </section>

@@ -44,10 +44,10 @@ describe("favicon utilities", () => {
     document.head.appendChild(link);
 
     updateFavicon("dark");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark.png");
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark-ocean.png");
 
     updateFavicon("light");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-light.png");
+    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-light-ocean.png");
   });
 
   it("uses palette-specific themed favicon files when a palette variant exists", () => {
@@ -72,7 +72,7 @@ describe("favicon utilities", () => {
 
     const link = document.getElementById("app-favicon");
     expect(link).not.toBeNull();
-    expectCacheBustedHref(link?.getAttribute("href"), "/favicons/favicon-dark.png");
+    expectCacheBustedHref(link?.getAttribute("href"), "/favicons/favicon-dark-ocean.png");
   });
 
   it("removes competing rel=icon tags so only app-favicon remains", () => {
@@ -99,7 +99,7 @@ describe("favicon utilities", () => {
     const iconLinks = [...document.head.querySelectorAll('link[rel~="icon"]')];
     expect(iconLinks).toHaveLength(1);
     expect(iconLinks[0].id).toBe("app-favicon");
-    expectCacheBustedHref(iconLinks[0].getAttribute("href"), "/favicons/favicon-light.png");
+    expectCacheBustedHref(iconLinks[0].getAttribute("href"), "/favicons/favicon-light-ocean.png");
   });
 
   it("resolves auto mode from system preference", () => {
@@ -140,9 +140,9 @@ describe("favicon utilities", () => {
     expect(removeEventListener).toHaveBeenCalledWith("change", handler);
   });
 
-  it("falls back to classic base favicon when palette is unsupported", () => {
-    expect(resolveFaviconVariant("unknown")).toBeNull();
-    expect(resolveFaviconPath("dark", "unknown")).toBe("/favicons/favicon-dark.png");
-    expect(resolveFaviconPath("light", "unknown")).toBe("/favicons/favicon-light.png");
+  it("falls back to the default favicon variant when palette is unsupported", () => {
+    expect(resolveFaviconVariant("unknown")).toBe("ocean");
+    expect(resolveFaviconPath("dark", "unknown")).toBe("/favicons/favicon-dark-ocean.png");
+    expect(resolveFaviconPath("light", "unknown")).toBe("/favicons/favicon-light-ocean.png");
   });
 });

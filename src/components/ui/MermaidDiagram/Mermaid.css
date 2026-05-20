@@ -14,12 +14,33 @@
    ------------------------------------------------------------ */
 
 .mermaid {
-  color: var(--text-primary);
+  color: var(--primary-light);
   background: var(--glass-bg-strong);
   font-family: var(--font-Lexend), system-ui, sans-serif !important;
   letter-spacing: normal;
-  fill: var(--text-primary);
-  stroke: var(--accent);
+  fill: var(--primary-light);
+}
+
+/* Boost text contrast inside diagrams.  The global --text-primary uses 0.85 opacity
+     which appears grey on dark nodes; override to near-opaque white for the SVG host only. */
+.mermaid .mermaid-svg-host {
+  --text-primary: var(--primary-light);
+}
+
+.mermaid .mermaid-svg-host.light {
+  --mermaid-light-heading: var(--primary-light);
+  --mermaid-light-body: var(--primary-light);
+  --mermaid-light-icon: var(--primary-light);
+  --mermaid-light-cluster-bg: var(--glass-bg);
+  --mermaid-light-chip-bg: var(--glass-bg);
+}
+
+/* Keep Mermaid text crisp by preventing inherited stroke outlines from the container. */
+.mermaid .mermaid-svg-host svg text,
+.mermaid .mermaid-svg-host svg tspan,
+.mermaid .mermaid-svg-host svg textPath {
+  stroke: none !important;
+  stroke-width: 0 !important;
 }
 
 .mermaid p {
@@ -129,6 +150,17 @@
   z-index: 100;
 }
 
+.mermaid .mermaid-svg-host .cluster-label {
+  z-index: 2;
+}
+
+.mermaid .mermaid-svg-host .cluster-label span,
+.mermaid .mermaid-svg-host .cluster-label p {
+  display: inline;
+  text-align: center;
+  margin: 0;
+}
+
 /* ------------------------------------------------------------
    Semantic Node Classes
    ------------------------------------------------------------ */
@@ -211,7 +243,7 @@
 .mermaid .mermaid-svg-host .edgeLabel {
   color: var(--text-primary) !important;
   border-radius: var(--radius-sm);
-  background-color: var(--bg-primary-dark);
+  background-color: var(--primary-darker-bg);
 }
 
 .mermaid .mermaid-svg-host .edgeLabel text {
@@ -253,14 +285,37 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host g.clusters g.cluster rect {
-  fill: var(--bg-gradient) !important;
+  fill: var(--glass-bg-strong) !important;
   stroke: var(--glass-border);
 }
 
 .mermaid .mermaid-svg-host .cluster text {
   font-size: var(--font-md);
   font-weight: 700;
-  fill: var(--accent-light);
+  fill: var(--primary-light);
+}
+
+html[data-theme="light"] .mermaid .mermaid-svg-host g.clusters g.cluster rect {
+  fill: rgba(var(--white-rgb), 0.9) !important;
+  stroke: rgba(var(--primary-dark-rgb), 0.32) !important;
+}
+
+html[data-theme="light"] .mermaid .mermaid-svg-host .cluster text {
+  fill: var(--text-blue-dark) !important;
+}
+
+html[data-theme="light"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.clusters
+  g.cluster
+  rect {
+  fill: rgba(248, 253, 236, 0.94) !important;
+  stroke: rgba(55, 80, 20, 0.34) !important;
+}
+
+html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .cluster text {
+  fill: #24380f !important;
 }
 
 /* ------------------------------------------------------------
@@ -312,7 +367,7 @@
 }
 
 .mermaid .mermaid-svg-host.dark g.label text {
-  fill: var(--primary-darkest);
+  fill: rgba(var(--white-rgb), 0.94);
 }
 
 .mermaid .mermaid-svg-host.dark svg.flowchart g.edgePaths path.flowchart-link {
@@ -442,9 +497,14 @@
 .mermaid .mermaid-svg-host.dark .cluster-label text,
 .mermaid .mermaid-svg-host.dark .cluster-label span,
 .mermaid .mermaid-svg-host.dark .cluster-label p {
-  fill: var(--text-blue-dark) !important;
-  color: var(--text-blue-dark) !important;
-  background: transparent !important;
+  fill: rgba(var(--white-rgb), 0.95) !important;
+  color: rgba(var(--white-rgb), 0.95) !important;
+}
+
+.mermaid .mermaid-svg-host.dark .cluster-label div,
+.mermaid .mermaid-svg-host.dark .cluster-label span,
+.mermaid .mermaid-svg-host.dark .cluster-label p {
+  background: rgba(var(--primary-darkest-rgb), 0.88) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node rect,
@@ -507,6 +567,21 @@
   stroke: var(--accent-dark) !important;
 }
 
+.mermaid .mermaid-svg-host.light .node.control rect {
+  fill: rgba(var(--primary-rgb), 0.2) !important;
+  stroke: rgba(var(--primary-dark-rgb), 0.9) !important;
+}
+
+.mermaid .mermaid-svg-host.light .node.state rect {
+  fill: rgba(var(--primary-light-rgb), 0.24) !important;
+  stroke: rgba(var(--primary-dark-rgb), 0.84) !important;
+}
+
+.mermaid .mermaid-svg-host.light .node.role rect {
+  fill: rgba(var(--accent-rgb), 0.22) !important;
+  stroke: rgba(var(--accent-dark-rgb), 0.92) !important;
+}
+
 .mermaid .mermaid-svg-host.light g.node.datastore rect,
 .mermaid .mermaid-svg-host.light g.node.datastore polygon,
 .mermaid .mermaid-svg-host.light g.node.datastore circle,
@@ -556,22 +631,22 @@
 .mermaid .mermaid-svg-host.light g.node.default .label text,
 .mermaid .mermaid-svg-host.light g.node.default text,
 .mermaid .mermaid-svg-host.light g.node.default tspan {
-  fill: rgba(var(--gray-100-rgb), 0.96) !important;
-  color: rgba(var(--gray-100-rgb), 0.96) !important;
+  fill: var(--mermaid-light-heading) !important;
+  color: var(--mermaid-light-heading) !important;
   stroke: transparent !important;
 }
 
 .mermaid .mermaid-svg-host.light .cluster rect,
 .mermaid .mermaid-svg-host.light .cluster polygon {
-  fill: rgba(var(--primary-lighter-rgb), 0.38);
+  fill: var(--mermaid-light-cluster-bg);
   stroke: var(--primary-dark);
 }
 
 .mermaid .mermaid-svg-host.light .messageText,
 .mermaid .mermaid-svg-host.light text.loopText,
 .mermaid .mermaid-svg-host.light .noteText {
-  fill: var(--text-blue-dark) !important;
-  color: var(--text-blue-dark) !important;
+  fill: var(--mermaid-light-body) !important;
+  color: var(--mermaid-light-body) !important;
   stroke: transparent !important;
 }
 
@@ -579,7 +654,7 @@
 .mermaid .mermaid-svg-host.light g.edgePaths .marker,
 .mermaid .mermaid-svg-host.light .arrowheadPath,
 .mermaid .mermaid-svg-host.light .lifeline {
-  stroke: var(--accent-dark) !important;
+  stroke: var(--mermaid-light-icon) !important;
 }
 
 .mermaid .mermaid-svg-host.light svg.flowchart g.edgePaths path.flowchart-link {
@@ -588,13 +663,13 @@
 
 .mermaid .mermaid-svg-host.light g.edgePaths .marker,
 .mermaid .mermaid-svg-host.light .arrowheadPath {
-  fill: var(--accent-dark) !important;
+  fill: var(--mermaid-light-icon) !important;
 }
 
 .mermaid .mermaid-svg-host.light .messageLine0,
 .mermaid .mermaid-svg-host.light .messageLine1,
 .mermaid .mermaid-svg-host.light .actor-line {
-  stroke: var(--accent-dark) !important;
+  stroke: var(--mermaid-light-icon) !important;
 }
 
 .mermaid .mermaid-svg-host.light .edgeLabel,
@@ -602,15 +677,63 @@
 .mermaid .mermaid-svg-host.light .edgeLabel div,
 .mermaid .mermaid-svg-host.light .edgeLabel span,
 .mermaid .mermaid-svg-host.light .edgeLabel p {
-  color: var(--text-blue-dark) !important;
-  background-color: rgba(var(--white-rgb), 0.96) !important;
+  color: var(--mermaid-light-body) !important;
+  background-color: var(--mermaid-light-chip-bg) !important;
+}
+
+.mermaid .mermaid-svg-host.light .cluster-label text,
+.mermaid .mermaid-svg-host.light .cluster-label span,
+.mermaid .mermaid-svg-host.light .cluster-label p {
+  fill: var(--mermaid-light-heading) !important;
+  color: var(--mermaid-light-heading) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light .cluster-label div,
+.mermaid .mermaid-svg-host.light .cluster-label span,
+.mermaid .mermaid-svg-host.light .cluster-label p {
+  background-color: var(--mermaid-light-chip-bg) !important;
 }
 
 .mermaid .mermaid-svg-host.light .edgeLabel text,
 .mermaid .mermaid-svg-host.light .text-outer-tspan .text-inner-tspan,
 .mermaid .mermaid-svg-host.light .cluster text > .text-outer-tspan > tspan.text-inner-tspan {
-  fill: var(--text-blue-dark) !important;
+  fill: var(--mermaid-light-heading) !important;
   stroke: rgba(var(--white-rgb), 0.85) !important;
+}
+
+.mermaid .mermaid-svg-host g.cluster:hover rect,
+.mermaid .mermaid-svg-host g.cluster:hover polygon {
+  fill: var(--glass-bg-strong) !important;
+  stroke: var(--accent) !important;
+}
+
+.mermaid .mermaid-svg-host g.cluster:hover .cluster-label text,
+.mermaid .mermaid-svg-host g.cluster:hover .cluster-label span,
+.mermaid .mermaid-svg-host g.cluster:hover .cluster-label p {
+  fill: var(--primary-light) !important;
+  color: var(--primary-light) !important;
+}
+
+.mermaid .mermaid-svg-host g.cluster:hover .cluster-label div,
+.mermaid .mermaid-svg-host g.cluster:hover .cluster-label span,
+.mermaid .mermaid-svg-host g.cluster:hover .cluster-label p {
+  background: var(--glass-bg) !important;
+}
+
+.mermaid .mermaid-svg-host g.node:hover rect,
+.mermaid .mermaid-svg-host g.node:hover polygon,
+.mermaid .mermaid-svg-host g.node:hover circle,
+.mermaid .mermaid-svg-host g.node:hover ellipse {
+  filter: brightness(1.06);
+}
+
+html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.light {
+  --mermaid-light-heading: rgba(20, 37, 8, 0.98);
+  --mermaid-light-body: rgba(28, 47, 10, 0.94);
+  --mermaid-light-icon: rgba(52, 30, 112, 0.98);
+  --mermaid-light-cluster-bg: rgba(248, 252, 241, 0.98);
+  --mermaid-light-chip-bg: rgba(252, 255, 248, 0.99);
 }
 
 /* ------------------------------------------------------------

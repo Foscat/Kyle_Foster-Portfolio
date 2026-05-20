@@ -39,7 +39,7 @@
   margin-top: 0.1rem;
   flex-shrink: 0;
   font-size: 1.1rem;
-  color: var(--text-accent-light);
+  color: var(--primary-light);
   background: transparent;
   border: 0;
   border-radius: 0;
@@ -58,9 +58,10 @@
   text-align: center;
   font-size: var(--font-sm);
   font-weight: 600;
-  color: var(--text-accent);
+  color: var(--text-blue-dark);
   line-height: 1.28;
-  text-shadow: none;
+    color: var(--primary-light);
+    transition: color 0.18s, filter 0.18s;
 }
 
 .insight-card__subtitle {
@@ -69,6 +70,18 @@
   color: var(--text-secondary-dark);
   line-height: 1.35;
   text-align: left;
+}
+
+.insight-card:hover .insight-card__title,
+.insight-card:focus-within .insight-card__title {
+  color: var(--primary-light);
+  filter: brightness(1.08);
+}
+
+.insight-card:hover .insight-card__icon,
+.insight-card:focus-within .insight-card__icon {
+  color: var(--primary-light);
+  filter: brightness(1.12);
 }
 
 .insight-card__divider {
@@ -82,8 +95,10 @@
   flex-direction: column;
   gap: 0.75rem;
   flex: 1 1 auto;
-  min-height: 0;
-  font-size: var(--font-sm);
+    .insight-card:focus-within .insight-card__icon {
+    color: var(--primary-light);
+    filter: brightness(1.12);
+  }
   line-height: 1.5;
 }
 

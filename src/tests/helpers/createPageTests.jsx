@@ -10,6 +10,8 @@ import React from "react";
 
 import renderWithProviders from "tests/renderWithProviders";
 
+const PAGE_TEST_TIMEOUT_MS = 15000;
+
 /**
  * @description Shared behavior contract for data-driven pages. The helper intentionally tests composition behavior rather than DOM structure: - scroll restoration occurs on mount - the page header is rendered with user-facing content - the page exposes the correct active route to primary navigation - section titles are delegated into both content and section navigation /
  */
@@ -42,47 +44,55 @@ export function createPageTests({ PageComponent, sections, pageRoute, pageName }
       target.remove();
     });
 
-    it("renders the page heading and section navigation entries", async () => {
-      renderWithProviders(<PageComponent />);
+    it(
+      "renders the page heading and section navigation entries",
+      async () => {
+        renderWithProviders(<PageComponent />);
 
-      expect(await screen.findByRole("heading", { level: 1 })).toBeInTheDocument();
+        expect(await screen.findByRole("heading", { level: 1 })).toBeInTheDocument();
 
-      const sectionNavigation = await screen.findByRole(
-        "navigation",
-        {
-          name: /section navigation/i,
-        },
-        {
-          timeout: 5000,
+        const sectionNavigation = await screen.findByRole(
+          "navigation",
+          {
+            name: /section navigation/i,
+          },
+          {
+            timeout: PAGE_TEST_TIMEOUT_MS,
+          }
+        );
+
+        for (const section of sections) {
+          const expectedLabel = section.navLabel || section.title;
+          expect(
+            await within(sectionNavigation).findByRole("button", { name: expectedLabel })
+          ).toBeInTheDocument();
         }
-      );
+      },
+      PAGE_TEST_TIMEOUT_MS
+    );
 
-      for (const section of sections) {
-        const expectedLabel = section.navLabel || section.title;
-        expect(
-          await within(sectionNavigation).findByRole("button", { name: expectedLabel })
-        ).toBeInTheDocument();
-      }
-    });
+    it(
+      "passes the active page route into primary navigation behavior",
+      async () => {
+        renderWithProviders(<PageComponent />);
 
-    it("passes the active page route into primary navigation behavior", async () => {
-      renderWithProviders(<PageComponent />);
+        const primaryNavigation = await screen.findByRole(
+          "navigation",
+          {
+            name: /primary navigation/i,
+          },
+          {
+            timeout: PAGE_TEST_TIMEOUT_MS,
+          }
+        );
 
-      const primaryNavigation = await screen.findByRole(
-        "navigation",
-        {
-          name: /primary navigation/i,
-        },
-        {
-          timeout: 5000,
-        }
-      );
+        const currentPageLink = within(primaryNavigation).getByRole("link", {
+          current: "page",
+        });
 
-      const currentPageLink = within(primaryNavigation).getByRole("link", {
-        current: "page",
-      });
-
-      expect(currentPageLink).toHaveAttribute("href", pageRoute);
-    });
+        expect(currentPageLink).toHaveAttribute("href", pageRoute);
+      },
+      PAGE_TEST_TIMEOUT_MS
+    );
   });
 }

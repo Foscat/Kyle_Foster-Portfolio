@@ -1,5 +1,36 @@
 # Diagram Visual Style Guide
 
+## Browser vs. Export Consistency (PNG/SVG)
+
+### Text Line Breaks
+
+- Use `\n` in node or label text to force a line break.
+- Line breaks are preserved in both browser rendering and PNG export.
+- In exported PNGs, line breaks are implemented using SVG `<tspan>` elements for visual fidelity.
+- Prefer `\n` over HTML `<br/>` in Mermaid labels when browser/export parity matters.
+
+### Routing Labels
+
+- Short edge labels such as `A ==>|Web| B` are supported for browser and PNG export.
+- Keep edge labels short, ideally one or two words, so they remain readable and compact in both browser and downloads.
+- Do not rely on a visible label chip as the only cue: dark theme may show a background chip, while light theme can intentionally render short edge labels as dark text without a visible chip.
+- If a route description becomes long or multi-line, move that meaning into the destination node label or an intermediate routing node instead of stretching the edge label.
+- Example: prefer `Resolver ==> Existing[Existing Work\nOpen Project]` over `Resolver ==>|Existing Work| Existing[Open Project]`.
+
+### Known Limitations
+
+- If you use custom HTML or advanced Mermaid features, browser and export may differ.
+- Font rendering and spacing may vary slightly between browser and PNG export due to browser SVG rasterization.
+- If you see a mismatch, check that your diagram uses only supported features and follows the structure/layout rules above.
+
+### Best Practices for Consistency
+
+- Always preview both the in-browser and exported PNG version of your diagram.
+- Keep node and label text short to avoid overflow or truncation.
+- Use only supported diagram types and avoid experimental Mermaid features.
+
+If you encounter a case where the export does not match the browser (e.g., missing line breaks, unwanted backgrounds), report it and check for updates to the export sanitizer logic.
+
 ## Supported Diagram Types
 
 Use only these **(stable + tolerant + exporter-friendly)**:

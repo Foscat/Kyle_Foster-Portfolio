@@ -54,10 +54,11 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ["mermaid"],
+    // Mermaid/dayjs must be pre-bundled to avoid dev-time ESM interop errors
+    // (`dayjs ... does not provide an export named 'default'`).
     // Resume export dependencies are lazy-loaded at runtime.
     // Pre-bundling avoids first-use hiccups in dev and keeps include aligned
     // to real dependencies in this repo.
-    include: ["html-to-image", "jspdf"],
+    include: ["mermaid", "dayjs", "html-to-image", "jspdf"],
   },
 });

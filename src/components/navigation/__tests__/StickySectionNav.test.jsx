@@ -506,13 +506,47 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "Enter", altKey: true });
+    const sectionNavButton = screen.getByRole("button", { name: "Details" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "Enter", altKey: true });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-block");
       expect(markProgrammaticScroll).toHaveBeenCalled();
     });
 
+    s1Block.remove();
+    s2Block.remove();
+  });
+
+  it("ignores section keyboard shortcuts when focus is outside the section nav", async () => {
+    const s1Block = document.createElement("div");
+    s1Block.id = "section-1-block";
+    document.body.appendChild(s1Block);
+
+    const s2Block = document.createElement("div");
+    s2Block.id = "section-2-block";
+    document.body.appendChild(s2Block);
+
+    scrollSpyState.activeLeafId = "section-2-block";
+    scrollSpyState.activeChain = ["section-2", "section-2-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
+
+    const outsideButton = document.createElement("button");
+    outsideButton.textContent = "outside";
+    document.body.appendChild(outsideButton);
+    outsideButton.focus();
+    const initialHash = window.location.hash;
+
+    fireEvent.keyDown(outsideButton, { key: "Enter", altKey: true });
+
+    await waitFor(() => {
+      expect(markProgrammaticScroll).not.toHaveBeenCalled();
+    });
+    expect(window.location.hash).toBe(initialHash);
+
+    outsideButton.remove();
     s1Block.remove();
     s2Block.remove();
   });
@@ -605,7 +639,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "ArrowDown" });
+    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-item-2");
@@ -658,7 +694,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "ArrowUp" });
+    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "ArrowUp" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-item-1");
@@ -717,7 +755,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "ArrowDown" });
+    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-item-3");
@@ -777,7 +817,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "ArrowDown" });
+    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-item-1");
@@ -824,13 +866,15 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
 
+    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
+    sectionNavButton.focus();
     const event = new KeyboardEvent("keydown", {
       key: "ArrowDown",
       bubbles: true,
       cancelable: true,
     });
 
-    const prevented = !window.dispatchEvent(event);
+    const prevented = !sectionNavButton.dispatchEvent(event);
     expect(prevented).toBe(true);
 
     section.remove();
@@ -884,7 +928,9 @@ describe("StickySectionNav", () => {
 
     renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
 
-    fireEvent.keyDown(window, { key: "ArrowDown" });
+    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
+    sectionNavButton.focus();
+    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
 
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-1-item-2");

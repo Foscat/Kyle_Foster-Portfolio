@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Frosted Glass Button — Core Styles (Updated)
    ============================================================ */
 
@@ -16,7 +16,7 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  color: var(--accent-dark);
+  color: var(--primary-light);
   background: var(--frost-bg);
   border-radius: var(--border-radius);
   gap: var(--mobile-gap);
@@ -28,6 +28,9 @@
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
   text-decoration: none;
+  transition:
+    color 0.18s,
+    filter 0.18s;
 }
 
 /* ------------------------------------------------------------
@@ -112,7 +115,7 @@
    ============================================================ */
 
 .rs-btn.btn.interactive-surface.primary {
-  color: var(--accent);
+  color: var(--primary-light);
   background: var(--frost-bg);
   border-color: rgba(var(--white-rgb), 0.2);
 }
@@ -146,7 +149,6 @@
   background: transparent;
   border-color: transparent;
   border-width: 0;
-
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
@@ -176,6 +178,7 @@ html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only .frosted-
 .btn-tooltip {
   --rs-tooltip-bg: rgba(var(--primary-darkest-rgb), 0.94);
   --rs-tooltip-text: rgba(var(--white-rgb), 0.96);
+
   padding: 4px 8px;
   font-size: var(--font-sm);
   border-radius: 4px;
@@ -185,6 +188,7 @@ html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only .frosted-
 html[data-theme="light"] .btn-tooltip {
   --rs-tooltip-bg: rgba(var(--white-rgb), 0.98);
   --rs-tooltip-text: rgba(var(--primary-darkest-rgb), 0.96);
+
   border: 1px solid rgba(var(--primary-dark-rgb), 0.22);
 }
 
@@ -192,6 +196,7 @@ html[data-theme="light"] .btn-tooltip {
   html[data-theme="auto"] .btn-tooltip {
     --rs-tooltip-bg: rgba(var(--white-rgb), 0.98);
     --rs-tooltip-text: rgba(var(--primary-darkest-rgb), 0.96);
+
     border: 1px solid rgba(var(--primary-dark-rgb), 0.22);
   }
 }

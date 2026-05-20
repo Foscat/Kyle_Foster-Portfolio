@@ -11,11 +11,16 @@ import { Size } from "types/ui.types";
 import "./styles.css";
 
 const PALETTE_LABELS = Object.freeze({
-  primary: "Midnight",
-  alt: "Classic",
-  forest: "Forest",
-  ocean: "Ocean",
-  sunset: "Sunset",
+  "midnight-gold": "Midnight Gold",
+  "ocean-steel": "Ocean Steel",
+  "forest-moss": "Forest Moss",
+  "sunset-ember": "Sunset Ember",
+  "royal-plum": "Royal Plum",
+  "graphite-cyan": "Graphite Cyan",
+  "desert-sage": "Desert Sage",
+  "rose-quartz": "Rose Quartz",
+  "cyber-lime": "Cyber Lime",
+  "arctic-indigo": "Arctic Indigo",
 });
 
 const SIZE_CLASS_BY_SIZE = Object.freeze({
@@ -66,7 +71,7 @@ const PaletteToggle = ({
   const activePalette =
     options.some((option) => option.value === palette) && palette
       ? palette
-      : (options[0]?.value ?? "primary");
+      : (options[0]?.value ?? "midnight-gold");
 
   return (
     <div className={`palette-toggle ${className}`.trim()}>

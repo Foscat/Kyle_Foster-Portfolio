@@ -26,6 +26,8 @@ import reportWebVitals from "./reportWebVitals.js";
 import "./index.css";
 // RSuite shell styles
 import "./styles/rsuite-shell.less";
+// Theme token definitions for all named color themes.
+import "./styles/color-themes.css";
 
 installChunkLoadRecovery();
 
