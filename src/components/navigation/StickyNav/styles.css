@@ -12,14 +12,14 @@
 }
 
 :root {
-  --sticky-nav-trigger-navigation-icon-color: var(--primary-light);
-  --sticky-nav-trigger-navigation-icon-hover-color: var(--primary-light);
-  --sticky-nav-trigger-utility-icon-color: var(--primary-light);
-  --sticky-nav-trigger-utility-icon-hover-color: var(--primary-light);
-  --sticky-nav-trigger-theme-icon-color: var(--primary-light);
-  --sticky-nav-trigger-theme-icon-hover-color: var(--primary-light);
-  --sticky-nav-trigger-a11y-icon-color: var(--primary-light);
-  --sticky-nav-trigger-a11y-icon-hover-color: var(--primary-light);
+  --sticky-nav-trigger-navigation-icon-color: var(--icon-color-strong);
+  --sticky-nav-trigger-navigation-icon-hover-color: var(--icon-color-strong);
+  --sticky-nav-trigger-utility-icon-color: var(--icon-color-strong);
+  --sticky-nav-trigger-utility-icon-hover-color: var(--icon-color-strong);
+  --sticky-nav-trigger-theme-icon-color: var(--icon-color-strong);
+  --sticky-nav-trigger-theme-icon-hover-color: var(--icon-color-strong);
+  --sticky-nav-trigger-a11y-icon-color: var(--icon-color-strong);
+  --sticky-nav-trigger-a11y-icon-hover-color: var(--icon-color-strong);
 }
 
 svg:not(:root) {
@@ -30,7 +30,7 @@ svg:not(:root) {
 .brand-text {
   font-size: var(--font-md);
   font-weight: 600;
-  color: var(--primary-light);
+  color: var(--heading-color);
 }
 
 /* Mobile hamburger button */
@@ -109,7 +109,7 @@ svg:not(:root) {
 .desktop-menu .rs-nav-item-active,
 .desktop-menu .rs-nav-item[aria-current="page"] {
   font-weight: 600;
-  color: var(--accent-light);
+  color: var(--text-accent);
 }
 
 .desktop-menu .rs-nav {

@@ -48,7 +48,7 @@
 /* Color variants */
 .frosted-icon.fi-variant-primary,
 .rs-nav-item .fi-variant-primary {
-  color: var(--primary-light);
+  color: var(--icon-color-strong);
 }
 
 .frosted-icon.fi-variant-secondary,
@@ -58,7 +58,7 @@
 
 .frosted-icon.fi-variant-accent,
 .rs-nav-item .fi-variant-accent {
-  color: var(--primary-light);
+  color: var(--icon-color-strong);
 }
 
 .frosted-icon.fi-variant-subtle,
@@ -88,17 +88,17 @@
 
 /* Theme hooks */
 .theme-light .frosted-icon {
-  color: var(--primary-light);
+  color: var(--icon-color-strong);
 }
 
 .theme-dark .frosted-icon,
 .theme-auto .frosted-icon {
-  color: var(--primary-light);
+  color: var(--icon-color-strong);
 }
 
 html[data-theme="dark"] .frosted-icon.fi-variant-accent,
 html[data-theme="dark"] .rs-nav-item .fi-variant-accent,
 html[data-theme="dark"] .frosted-icon.fi-no-bg.fi-variant-accent,
 html[data-theme="dark"] .frosted-icon.btn-icon.fi-variant-accent {
-  color: var(--primary-light);
+  color: var(--icon-color-strong);
 }

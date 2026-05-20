@@ -321,6 +321,10 @@ html[data-theme="dark"][data-a11y-high-contrast="true"] {
   --text-primary: rgba(var(--white-rgb), 0.98);
   --text-secondary: rgba(var(--white-rgb), 0.92);
   --text-accent: rgba(var(--gold-400-rgb), 1);
+  --text-accent-light: rgba(var(--gold-400-rgb), 1);
+  --heading-color: rgba(var(--white-rgb), 1);
+  --icon-color-strong: rgba(var(--white-rgb), 1);
+  --link-hover: rgba(var(--white-rgb), 1);
   --frost-border: 2px solid rgba(var(--white-rgb), 0.82);
   --glass-border: 2px solid rgba(var(--white-rgb), 0.86);
 }
@@ -329,6 +333,10 @@ html[data-theme="light"][data-a11y-high-contrast="true"] {
   --text-primary: rgba(var(--black-rgb), 0.98);
   --text-secondary: rgba(var(--black-rgb), 0.9);
   --text-accent: rgba(var(--accent-dark-rgb), 1);
+  --text-accent-light: rgba(var(--accent-dark-rgb), 1);
+  --heading-color: rgba(var(--black-rgb), 0.98);
+  --icon-color-strong: rgba(var(--black-rgb), 0.98);
+  --link-hover: rgba(var(--black-rgb), 0.98);
   --frost-border: 2px solid rgba(var(--black-rgb), 0.76);
   --glass-border: 2px solid rgba(var(--black-rgb), 0.8);
 }
@@ -363,7 +371,7 @@ html[data-theme="light"][data-a11y-high-contrast="true"] .rs-drawer-content {
 }
 
 html[data-a11y-high-contrast="true"] :focus-visible {
-  outline: 3px solid var(--accent) !important;
+  outline: 3px solid var(--focus-ring) !important;
   outline-offset: 2px;
 }
 
@@ -1422,7 +1430,7 @@ h1,
 h2,
 h3 {
   font-family: Audiowide, cursive;
-  color: var(--text-accent);
+  color: var(--heading-color);
   text-shadow: var(--text-shadow);
   margin-top: 0;
 }
@@ -1466,13 +1474,13 @@ small,
    Links
    ------------------------------------------------------------ */
 a {
-  color: rgba(var(--accent-rgb), 0.98);
+  color: var(--text-accent);
   text-decoration: none;
   transition: color var(--transition-speed) var(--easing-standard);
 }
 
 a:hover {
-  color: rgba(var(--accent-dark-rgb), 1);
+  color: var(--link-hover);
 }
 
 /* Shared renderer link-surface reset: keep text links clickable without tile backgrounds. */
@@ -1545,7 +1553,7 @@ section[id],
   margin: 0;
   font-size: var(--font-lg);
   font-weight: 600;
-  color: var(--accent);
+  color: var(--heading-color);
   text-align: left;
 }
 
@@ -1883,6 +1891,35 @@ footer {
   border-top: var(--glass-border);
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
+}
+
+/* ----------------------------------------------------------------
+   Theme contrast bridge
+   ----------------------------------------------------------------
+   The app still consumes legacy semantic tokens from App.css, while palette
+   definitions now live in color-themes.css. Keep the aliases readable by
+   mapping old foreground roles to palette-aware semantic roles.
+*/
+html[data-palette][data-theme] {
+  --text-primary: var(--text-strong);
+  --text-secondary: var(--text-soft);
+  --text-secondary-dark: var(--text-soft);
+  --text-blue: var(--text-on-surface);
+  --text-blue-dark: var(--text-on-surface);
+  --text-accent: var(--text-accent-readable);
+  --text-accent-light: var(--text-accent-readable);
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--surface-muted);
+  --divider-color: color-mix(in srgb, var(--border) 55%, transparent);
+}
+
+html[data-theme="light"][data-palette] {
+  --text-shadow: none;
+}
+
+html[data-a11y-high-contrast="true"][data-palette] {
+  --text-shadow: none;
+  --divider-color: var(--border);
 }
 
 /* ------------------------------------------------------------

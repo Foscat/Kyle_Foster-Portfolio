@@ -1,4 +1,4 @@
-﻿/* ------------------------------------------------------------
+/* ------------------------------------------------------------
    404 Page
 ------------------------------------------------------------ */
 
@@ -14,7 +14,7 @@
 .notFound-errorCode {
   font-size: clamp(5rem, 12vw, 8rem);
   font-weight: 900;
-  color: var(--accent);
+  color: var(--heading-color);
   text-shadow: var(--text-shadow);
   margin-bottom: 1rem;
 }

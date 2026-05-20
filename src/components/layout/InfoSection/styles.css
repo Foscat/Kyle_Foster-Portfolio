@@ -110,7 +110,7 @@ section.info-section.section-renderer .rs-panel {
 
 .info-section,
 .info-section.section-renderer {
-  --info-section-header-color: var(--primary-light);
+  --info-section-header-color: var(--icon-color-strong);
 
   position: relative;
 
@@ -151,14 +151,6 @@ section.info-section.section-renderer .rs-panel {
 .info-section.section-renderer .rs-panel-header .rs-panel-btn:active .rs-icon.rs-panel-btn-icon {
   color: var(--info-section-header-color);
   filter: brightness(1.1);
-}
-
-html[data-theme="light"] .info-section.section-renderer {
-  --info-section-header-color: var(--primary-darkest);
-}
-
-html[data-theme="light"][data-palette="cyber-lime"] .info-section.section-renderer {
-  --info-section-header-color: #497d17; /* readable dark lime, matches --primary-hover in cyber-lime palette */
 }
 
 /* ------------------------------------------------------------

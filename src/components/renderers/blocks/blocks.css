@@ -73,7 +73,7 @@
 .block-em {
   font-style: italic;
   font-weight: 500;
-  color: var(--accent-light);
+  color: var(--text-accent);
 }
 
 .block-strong {

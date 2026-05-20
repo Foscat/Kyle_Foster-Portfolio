@@ -16,7 +16,7 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  color: var(--primary-light);
+  color: var(--text-accent);
   background: var(--frost-bg);
   border-radius: var(--border-radius);
   gap: var(--mobile-gap);
@@ -115,7 +115,7 @@
    ============================================================ */
 
 .rs-btn.btn.interactive-surface.primary {
-  color: var(--primary-light);
+  color: var(--text-accent);
   background: var(--frost-bg);
   border-color: rgba(var(--white-rgb), 0.2);
 }
@@ -127,7 +127,7 @@
 }
 
 .rs-btn.btn.interactive-surface.accent {
-  color: var(--primary-dark);
+  color: var(--text-primary);
   background: var(--accent-bg);
   border-color: rgba(var(--accent-rgb), 0.45);
 }
@@ -155,7 +155,7 @@
 
 html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only,
 html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only {
-  color: var(--accent-light);
+  color: var(--text-accent);
 }
 
 html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only .frosted-icon,

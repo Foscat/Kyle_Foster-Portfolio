@@ -34,6 +34,43 @@
   color-scheme: dark;
 }
 
+/* Cross-palette semantic roles for readable foreground/background pairing. */
+html[data-palette][data-theme] {
+  --text-strong: var(--text);
+  --text-soft: var(--text-muted);
+  --text-on-surface: var(--text);
+  --text-on-muted-surface: var(--text-muted);
+  --text-accent-readable: var(--link);
+  --text-accent-readable-strong: var(--primary-hover);
+  --heading-color: var(--text-accent-readable);
+  --icon-color-strong: var(--text-accent-readable);
+  --surface-overlay: color-mix(in srgb, var(--surface) 88%, transparent);
+  --surface-overlay-strong: color-mix(in srgb, var(--surface-raised) 94%, transparent);
+  --surface-border-strong: color-mix(in srgb, var(--border) 78%, transparent);
+  --link-hover: var(--primary-hover);
+}
+
+html[data-palette][data-theme="dark"] {
+  --text-soft: color-mix(in srgb, var(--text) 80%, var(--surface) 20%);
+  --text-accent-readable: var(--accent);
+  --text-accent-readable-strong: var(--accent);
+  --heading-color: var(--accent);
+  --icon-color-strong: var(--accent);
+  --surface-overlay: color-mix(in srgb, var(--surface) 84%, transparent);
+}
+
+html[data-palette][data-theme="contrast"] {
+  --text-soft: var(--text);
+  --text-accent-readable: var(--link);
+  --text-accent-readable-strong: var(--link);
+  --heading-color: var(--link);
+  --icon-color-strong: var(--link);
+  --surface-overlay: var(--surface);
+  --surface-overlay-strong: var(--surface-raised);
+  --surface-border-strong: var(--border);
+  --link-hover: #ffffff;
+}
+
 /* =========================================================
    1. Midnight Gold
 ========================================================= */
@@ -49,7 +86,7 @@ html[data-palette="midnight-gold"][data-theme="light"] {
 
   --primary: #b8872f;
   --primary-hover: #94681f;
-  --primary-text: #ffffff;
+  --primary-text: #1a1203;
 
   --secondary: #22314f;
   --secondary-hover: #17243c;
@@ -463,7 +500,7 @@ html[data-palette="graphite-cyan"][data-theme="light"] {
 
   --secondary: #008fa0;
   --secondary-hover: #006f7c;
-  --secondary-text: #ffffff;
+  --secondary-text: #041014;
 
   --accent: #37d5e6;
   --success: #287a5b;
@@ -705,7 +742,7 @@ html[data-palette="cyber-lime"][data-theme="light"] {
 
   --primary: #5f9f1f;
   --primary-hover: #497d17;
-  --primary-text: #ffffff;
+  --primary-text: #071105;
 
   --secondary: #5b3fb8;
   --secondary-hover: #452f90;
@@ -791,7 +828,7 @@ html[data-palette="arctic-indigo"][data-theme="light"] {
 
   --secondary: #6f7dda;
   --secondary-hover: #5866bc;
-  --secondary-text: #ffffff;
+  --secondary-text: #0a0f2b;
 
   --accent: #a0adff;
   --success: #2f7d54;

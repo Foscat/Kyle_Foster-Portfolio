@@ -21,11 +21,11 @@
 
 .block-link.interactive-surface {
   --interactive-surface-bg: transparent;
-  --interactive-surface-fg: rgba(var(--accent-rgb), 1);
+  --interactive-surface-fg: var(--text-accent);
   --interactive-surface-border-color: transparent;
   --interactive-surface-border-width: 0;
   --interactive-surface-radius: 0;
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.45);
+  --interactive-surface-focus-ring-color: var(--focus-ring);
   --interactive-surface-focus-ring-width: 2px;
   --interactive-surface-focus-ring-offset: 2px;
 
@@ -36,14 +36,14 @@
 .block-link.interactive-surface:focus,
 .block-link.interactive-surface:active,
 .block-link.interactive-surface:focus-visible {
-  color: rgba(var(--accent-dark-rgb), 1);
+  color: var(--link-hover);
 }
 
 .inline-icon {
   display: inline-block;
   margin: 0 0.25em;
   font-size: var(--icon-xs);
-  color: var(--accent);
+  color: var(--icon-color-strong);
 }
 
 .block-list {
@@ -64,22 +64,11 @@
 
 .block-quote,
 blockquote {
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--text-accent);
   padding: 0.6rem 0.95rem;
   margin-left: 0;
   margin-right: 0;
   color: var(--text-secondary);
-  background: rgba(var(--white-rgb), 0.05);
+  background: var(--surface-overlay);
   border-radius: var(--radius-xs);
-}
-
-html[data-theme="light"] .block-em {
-  color: rgba(var(--primary-darkest-rgb), 0.9);
-}
-
-html[data-theme="light"] .block-quote,
-html[data-theme="light"] blockquote {
-  color: rgba(var(--primary-darkest-rgb), 0.9);
-  border-left-color: rgba(var(--accent-dark-rgb), 0.85);
-  background: rgba(var(--primary-light-rgb), 0.16);
 }
