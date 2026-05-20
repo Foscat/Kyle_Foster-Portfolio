@@ -21,8 +21,9 @@
   fill: var(--icon-color-strong);
 }
 
-/* Boost text contrast inside diagrams.  The global --text-primary uses 0.85 opacity
-     which appears grey on dark nodes; override to near-opaque white for the SVG host only. */
+/* Boost text contrast inside diagrams. The global --text-primary uses 0.85 opacity,
+   which can appear grey on dark nodes; override it to the semantic strong icon color
+   for the SVG host only. */
 .mermaid .mermaid-svg-host {
   --text-primary: var(--icon-color-strong);
 }
