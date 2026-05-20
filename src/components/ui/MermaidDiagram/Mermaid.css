@@ -14,23 +14,23 @@
    ------------------------------------------------------------ */
 
 .mermaid {
-  color: var(--primary-light);
+  color: var(--icon-color-strong);
   background: var(--glass-bg-strong);
   font-family: var(--font-Lexend), system-ui, sans-serif !important;
   letter-spacing: normal;
-  fill: var(--primary-light);
+  fill: var(--icon-color-strong);
 }
 
 /* Boost text contrast inside diagrams.  The global --text-primary uses 0.85 opacity
      which appears grey on dark nodes; override to near-opaque white for the SVG host only. */
 .mermaid .mermaid-svg-host {
-  --text-primary: var(--primary-light);
+  --text-primary: var(--icon-color-strong);
 }
 
 .mermaid .mermaid-svg-host.light {
-  --mermaid-light-heading: var(--primary-light);
-  --mermaid-light-body: var(--primary-light);
-  --mermaid-light-icon: var(--primary-light);
+  --mermaid-light-heading: var(--icon-color-strong);
+  --mermaid-light-body: var(--icon-color-strong);
+  --mermaid-light-icon: var(--icon-color-strong);
   --mermaid-light-cluster-bg: var(--glass-bg);
   --mermaid-light-chip-bg: var(--glass-bg);
 }
@@ -711,8 +711,8 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label text,
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label span,
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label p {
-  fill: var(--primary-light) !important;
-  color: var(--primary-light) !important;
+  fill: var(--icon-color-strong) !important;
+  color: var(--icon-color-strong) !important;
 }
 
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label div,

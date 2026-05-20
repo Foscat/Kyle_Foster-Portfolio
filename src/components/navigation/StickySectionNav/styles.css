@@ -81,7 +81,7 @@
   flex: 1;
   padding: 0.25rem;
   font: inherit;
-  color: var(--primary-light);
+  color: var(--text-accent);
   background: none;
   border: none;
   cursor: pointer;
@@ -95,7 +95,7 @@
 
 /* Active section */
 .section-nav-item.is-active .section-nav-link {
-  color: var(--primary-light);
+  color: var(--text-accent);
   border-color: var(--section-drawer-active-group-border-color);
   background: var(--section-drawer-active-group-bg);
   font-weight: 500;
@@ -104,7 +104,7 @@
 .section-nav-link:hover,
 .section-nav-link:focus-visible,
 .section-nav-link:active {
-  color: var(--primary-light);
+  color: var(--text-accent);
   background: rgba(var(--white-rgb), 0.03);
   filter: brightness(1.08);
 }

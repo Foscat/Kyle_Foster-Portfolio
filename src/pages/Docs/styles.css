@@ -12,11 +12,11 @@
 }
 
 .docs-page .info-section.section-renderer .info-title {
-  color: var(--accent-light);
+  color: var(--heading-color);
 }
 
 .docs-page .info-section.section-renderer .info-subtitle {
-  color: rgba(var(--white-rgb), 0.82);
+  color: var(--text-secondary);
 }
 
 .docs-page .markdown-docs-block__jump-list {

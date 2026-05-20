@@ -44,23 +44,23 @@
 }
 
 .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--light {
-  color: rgba(var(--white-rgb), 0.86);
+  color: var(--text-secondary);
 }
 
 .theme-toggle .rs-btn.btn.interactive-surface.theme-toggle__btn--dark {
-  color: rgba(var(--gray-200-rgb), 0.9);
+  color: var(--text-accent);
 }
 
 html[data-theme="dark"]
   .theme-toggle
   .rs-btn.btn.interactive-surface.theme-toggle__btn--light.secondary {
-  color: rgba(var(--gray-200-rgb), 0.72);
+  color: var(--text-secondary);
 }
 
 html[data-theme="dark"]
   .theme-toggle
   .rs-btn.btn.interactive-surface.theme-toggle__btn--dark.accent {
-  color: rgba(var(--accent-light-rgb), 0.98);
+  color: var(--text-accent);
 }
 
 html[data-theme="light"]
