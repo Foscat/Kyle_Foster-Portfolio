@@ -13,12 +13,21 @@ import { waitFor } from "@testing-library/react";
 // Mock lightweight page metadata so Head tests remain isolated from route content payloads.
 vi.mock("assets/data/pageSummaryMetas", () => ({
   default: {
-    Home: { title: "Home Page", description: "Home description" },
-    Hackathon: { title: "Hackathon Page", description: "Hackathon description" },
-    Smu: { title: "SMU Page", description: "SMU description" },
-    SideProjects: { title: "Side Projects Page", description: "Side projects description" },
-    Codestream: { title: "Codestream Page", description: "Codestream description" },
-    Contact: { title: "Contact Page", description: "Contact description" },
+    Home: { title: "Home Page", description: "Home description", url: "/" },
+    Hackathon: { title: "Hackathon Page", description: "Hackathon description", url: "/hackathon" },
+    Smu: { title: "SMU Page", description: "SMU description", url: "/smu" },
+    SideProjects: {
+      title: "Side Projects Page",
+      description: "Side projects description",
+      url: "/side-projects",
+    },
+    Codestream: {
+      title: "Codestream Page",
+      description: "Codestream description",
+      url: "/codestream",
+    },
+    Contact: { title: "Contact Page", description: "Contact description", url: "/contact" },
+    Docs: { title: "Docs Page", description: "Docs description", url: "/docs" },
   },
 }));
 
@@ -117,6 +126,31 @@ describe("Head", () => {
     renderHead("/contact");
     await waitFor(() => {
       expect(getJsonLdGraphTypes()).not.toContain("ProfilePage");
+    });
+  });
+
+  it("marks /health as noindex for crawlers", async () => {
+    renderHead("/health");
+    await waitFor(() => {
+      expect(getMetaContent('meta[name="robots"]')).toContain("noindex");
+      expect(getMetaContent('meta[name="googlebot"]')).toContain("noindex");
+    });
+  });
+
+  it("marks unknown routes as noindex and uses a not found title", async () => {
+    renderHead("/missing-route");
+    await waitFor(() => {
+      expect(document.title).toBe("Page Not Found | Kyle Foster Portfolio");
+      expect(getMetaContent('meta[name="robots"]')).toContain("noindex");
+    });
+  });
+
+  it("normalizes canonical URLs by trimming trailing slashes on non-root pages", async () => {
+    renderHead("/contact/");
+    await waitFor(() => {
+      // eslint-disable-next-line testing-library/no-node-access -- direct head query is required for canonical link assertions
+      const canonical = document.head.querySelector('link[rel="canonical"]');
+      expect(canonical?.getAttribute("href")).toBe("http://localhost:3000/contact");
     });
   });
 });

@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /health
 
 Sitemap: https://kyle-foster.com/sitemap.xml
