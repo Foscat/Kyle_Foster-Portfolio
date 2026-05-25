@@ -12,18 +12,39 @@ const pageSummaryMetas = {
   Home: {
     url: PageRoute.HOME,
     title: "Kyle Foster",
+    seoTitle: "Kyle Foster | Senior React Frontend Engineer Portfolio",
     description:
       "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product workflows with a focus on clarity and usability.",
+    keywords: [
+      "Kyle Foster",
+      "Senior React engineer",
+      "Frontend engineer portfolio",
+      "React architecture",
+      "JavaScript portfolio",
+      "UI systems engineering",
+      "RSuite",
+      "Vite",
+    ],
     timespan: "2018 - Current",
     jobTitle: "Senior MERN Stack Engineer",
   },
   Codestream: {
     url: PageRoute.PROFESSIONAL,
     title: "CodeStream Online Studios",
+    seoTitle: "CodeStream Online Studios Case Study | Kyle Foster Portfolio",
     description:
       "Explore my professional work at CodeStream Online Studios, where I built browser-based education tooling for students, instructors, and school administrators.",
     jobTitle: "React Frontend Engineer / Instructor",
     timespan: "2019 - 2025",
+    keywords: [
+      "CodeStream case study",
+      "React case study",
+      "education software engineering",
+      "frontend product engineering",
+      "role-based UI",
+      "web learning platform",
+      "Kyle Foster portfolio",
+    ],
     liveUrl: "https://codestreamonlinestudio.com",
     repo: "Private",
     tech: [
@@ -42,8 +63,17 @@ const pageSummaryMetas = {
   Hackathon: {
     url: PageRoute.HACKATHON,
     title: "Daimler Trucking Hackathon Winner | Kyle Foster",
+    seoTitle: "Daimler Trucking Hackathon Winner Case Study | Kyle Foster",
     description:
       "Learn how our team of junior developers won the Daimler Trucking Hackathon by building a voice-driven repair assistant for real technician workflows.",
+    keywords: [
+      "Daimler hackathon winner",
+      "voice assistant case study",
+      "React Native project",
+      "AWS Lex Lambda",
+      "technician workflow automation",
+      "Kyle Foster project",
+    ],
     tech: [
       { label: "React.js", type: "front" },
       { label: "React Native", type: "front" },
@@ -62,10 +92,20 @@ const pageSummaryMetas = {
   SideProjects: {
     url: PageRoute.SIDE_PROJECTS,
     title: "Side Projects",
+    seoTitle: "Side Projects in React, IoT, and Encryption | Kyle Foster",
     description:
       "Browse side projects spanning encryption, IoT automation, and custom tooling-practical builds that show hands-on problem framing and execution.",
     timespan: "2018 - Current",
     jobTitle: "Senior MERN Stack Engineer",
+    keywords: [
+      "side projects",
+      "IoT projects",
+      "encryption project",
+      "custom tooling",
+      "React side projects",
+      "engineering portfolio",
+      "Kyle Foster",
+    ],
     tech: [
       { label: "HTML", type: "front" },
       { label: "JavaScript", type: "front" },
@@ -85,10 +125,18 @@ const pageSummaryMetas = {
   Smu: {
     url: PageRoute.EDUCATION,
     title: "SMU Coding Bootcamp",
+    seoTitle: "SMU Coding Bootcamp Journey | Kyle Foster Portfolio",
     description:
       "Explore my journey through the SMU Coding Bootcamp, where I built the foundation for my development career through hands-on projects and rapid technical growth.",
     timespan: "August 2018 - February 2019",
     jobTitle: "MERN Stack Student",
+    keywords: [
+      "SMU coding bootcamp",
+      "web development journey",
+      "frontend portfolio education",
+      "MERN bootcamp",
+      "Kyle Foster",
+    ],
     tech: [
       { label: "HTML", type: "front" },
       { label: "CSS", type: "front" },
@@ -108,14 +156,31 @@ const pageSummaryMetas = {
   Contact: {
     url: PageRoute.CONTACT,
     title: "Contact Kyle Foster | Senior MERN Stack Engineer",
+    seoTitle: "Contact Kyle Foster | Senior React Frontend Engineer",
     description:
       "Get in touch with Kyle Foster, Senior MERN Stack Engineer, for roles, consulting, or technical collaboration.",
+    keywords: [
+      "contact Kyle Foster",
+      "hire React engineer",
+      "frontend consultant",
+      "React developer contact",
+      "portfolio contact",
+    ],
   },
   Docs: {
     url: PageRoute.DOCS,
     title: "Technical Docs | Portfolio",
+    seoTitle: "Technical Documentation | Kyle Foster Portfolio",
     description:
       "Browse architecture, components, scripts, and testing documentation for this portfolio project.",
+    keywords: [
+      "portfolio documentation",
+      "React architecture docs",
+      "frontend engineering docs",
+      "testing documentation",
+      "component documentation",
+      "Kyle Foster portfolio docs",
+    ],
   },
 };
 

@@ -85,7 +85,9 @@ describe("color-themes contrast coverage", () => {
         if (!foregroundHex) missingKeys.push(foregroundKey);
         if (!backgroundHex) missingKeys.push(backgroundKey);
         if (missingKeys.length > 0) {
-          failures.push(`${block.palette}/${block.theme} missing required token(s): ${missingKeys.join(", ")}`);
+          failures.push(
+            `${block.palette}/${block.theme} missing required token(s): ${missingKeys.join(", ")}`
+          );
           continue;
         }
 
