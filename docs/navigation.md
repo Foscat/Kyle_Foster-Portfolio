@@ -1,13 +1,15 @@
 ## Modules
 
 <dl>
+<dt><a href="#module_components/navigation/BackToTopButton">components/navigation/BackToTopButton</a></dt>
+<dd><p>Floating back-to-top action that appears after the user scrolls away from the top.</p>
+</dd>
 <dt><a href="#module_components/Footer">components/Footer</a></dt>
 <dd><p>Compact application footer providing quiet page closure,
 secondary social actions, and copyright information.</p>
 </dd>
-<dt><a href="#module_components/Head">components/Head</a></dt>
-<dd><p>Centralized document head manager responsible for injecting
-SEO, metadata, and social sharing tags based on the current route.</p>
+<dt><a href="#module_components/navigation/Head">components/navigation/Head</a></dt>
+<dd><p>Route-aware document metadata manager for SEO and social previews.</p>
 </dd>
 <dt><a href="#module_src\components\navigation\helpers\index">src\components\navigation\helpers\index</a></dt>
 <dd><p>src\components\navigation\helpers\index module.</p>
@@ -68,6 +70,15 @@ hierarchical scroll tracking and collapsible subsection groups.</p>
 </dd>
 </dl>
 
+<a name="module_components/navigation/BackToTopButton"></a>
+
+## components/navigation/BackToTopButton
+Floating back-to-top action that appears after the user scrolls away from the top.
+
+<a name="exp_module_components/navigation/BackToTopButton--module.exports"></a>
+
+### module.exports() ⇒ <code>JSX.Element</code> ⏏
+**Kind**: Exported function  
 <a name="module_components/Footer"></a>
 
 ## components/Footer
@@ -93,20 +104,43 @@ Footer-------------------------------------------------------------------------
 Current year used for copyright display. Computed at render time to avoid manual updates. /
 
 **Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
-<a name="module_components/Head"></a>
+<a name="module_components/navigation/Head"></a>
 
-## components/Head
-Centralized document head manager responsible for injectingSEO, metadata, and social sharing tags based on the current route.
+## components/navigation/Head
+Route-aware document metadata manager for SEO and social previews.
 
-<a name="exp_module_components/Head--module.exports"></a>
+
+* [components/navigation/Head](#module_components/navigation/Head)
+    * [module.exports()](#exp_module_components/navigation/Head--module.exports) ⇒ <code>JSX.Element</code> ⏏
+        * [~normalizePathname(pathname)](#module_components/navigation/Head--module.exports..normalizePathname) ⇒ <code>string</code>
+        * [~normalizeKeywords(keywords)](#module_components/navigation/Head--module.exports..normalizeKeywords) ⇒ <code>Array.&lt;string&gt;</code>
+
+<a name="exp_module_components/navigation/Head--module.exports"></a>
 
 ### module.exports() ⇒ <code>JSX.Element</code> ⏏
-Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
-
 **Kind**: Exported function  
-**Returns**: <code>JSX.Element</code> - Injected document head metadata.  
-**Access**: public  
-**Component**:   
+<a name="module_components/navigation/Head--module.exports..normalizePathname"></a>
+
+#### module.exports~normalizePathname(pathname) ⇒ <code>string</code>
+Normalizes a pathname to avoid canonical duplicates caused by trailing slashes.
+
+**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/navigation/Head--module.exports)  
+
+| Param | Type |
+| --- | --- |
+| pathname | <code>string</code> | 
+
+<a name="module_components/navigation/Head--module.exports..normalizeKeywords"></a>
+
+#### module.exports~normalizeKeywords(keywords) ⇒ <code>Array.&lt;string&gt;</code>
+Ensures every metadata keyword collection is normalized and stable.
+
+**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/navigation/Head--module.exports)  
+
+| Param | Type |
+| --- | --- |
+| keywords | <code>unknown</code> | 
+
 <a name="module_src\components\navigation\helpers\index"></a>
 
 ## src\components\navigation\helpers\index

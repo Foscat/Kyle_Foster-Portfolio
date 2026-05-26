@@ -5,7 +5,7 @@
  */
 
 import { CardGrid, InsightCard } from "components/ui";
-import { InfoSection } from "components/layout";
+import { Panel } from "rsuite";
 
 /**
  * @file index.jsx
@@ -67,7 +67,13 @@ function CardGridBlock(props) {
   }
 
   return (
-    <InfoSection id={id} title={title} className="card-grid-block blue-tile scroll-anchor">
+    <Panel
+      id={id}
+      collapsible
+      defaultExpanded
+      className="card-grid-block blue-tile block scroll-anchor"
+      header={title ? <span className="block-header">{title}</span> : undefined}
+    >
       <CardGrid columns={columns}>
         {items.map((item) => (
           <InsightCard
@@ -88,7 +94,7 @@ function CardGridBlock(props) {
           />
         ))}
       </CardGrid>
-    </InfoSection>
+    </Panel>
   );
 }
 

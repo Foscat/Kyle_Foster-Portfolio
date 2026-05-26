@@ -1,6 +1,7 @@
 /**
  * @file playwright/components/accordion-list.keyboard.spec.ts
  * @description Bounded keyboard accessibility smoke test for AccordionList behavior.
+ * @module playwright/components/accordion-list.keyboard.spec
  */
 
 import { expect, test } from "@playwright/test";

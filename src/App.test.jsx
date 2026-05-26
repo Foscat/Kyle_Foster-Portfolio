@@ -15,6 +15,10 @@ vi.mock("hooks/useThemeFavicon", () => ({
 
 vi.mock("interactive-surface-css", () => ({}));
 
+vi.mock("components/navigation/BackToTopButton", () => ({
+  default: () => <button type="button" aria-label="Back to top" />,
+}));
+
 vi.mock("components/navigation", () => ({
   Head: () => <div data-testid="app-head" />,
 }));

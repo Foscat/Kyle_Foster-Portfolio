@@ -210,6 +210,7 @@ async function hydratePortfolioDoc(entry) {
 }
 
 /**
+ * @description Metadata-only portfolio docs list.
  * Metadata-only portfolio docs list.
  * Does not include `content`; use `getPortfolioDocs`, `getPortfolioDoc`,
  * or `getPortfolioDocsByCategory` to load hydrated docs with `content`.

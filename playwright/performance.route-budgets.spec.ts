@@ -1,6 +1,7 @@
 /**
  * @file playwright/performance.route-budgets.spec.ts
  * @description Deterministic route payload budgets with bounded response accounting.
+ * @module playwright/performance.route-budgets.spec
  */
 
 import { expect, test, type Response } from "@playwright/test";

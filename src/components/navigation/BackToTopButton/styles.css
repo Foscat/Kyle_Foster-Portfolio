@@ -1,0 +1,74 @@
+/*
+ * @file styles.css
+ * @description Visual treatment for the global back-to-top floating action.
+ */
+
+.back-to-top {
+  position: fixed;
+  top: max(0.75rem, calc(20px + 0.5rem));
+  right: clamp(0.75rem, 1.6vw, 1.35rem);
+  z-index: 210;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.92);
+  pointer-events: none;
+  transition:
+    opacity 700ms var(--easing-standard),
+    transform 700ms var(--easing-standard);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.back-to-top__button {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  border: 1px solid rgba(var(--white-rgb), 0.22);
+  border-radius: 14px;
+  color: var(--icon-color-strong);
+  background: rgba(var(--white-rgb), 0.08);
+  box-shadow: var(--glass-shadow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+.back-to-top__button svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.28));
+}
+
+.back-to-top__button:hover,
+.back-to-top__button:focus-visible {
+  color: var(--text-accent);
+  border-color: rgba(var(--accent-rgb), 0.5);
+  background: rgba(var(--white-rgb), 0.12);
+  box-shadow: 0 10px 28px rgba(var(--deep-black-rgb), 0.24);
+}
+
+.back-to-top__button:focus-visible {
+  outline: 2px solid rgba(var(--accent-light-rgb), 0.72);
+  outline-offset: 2px;
+}
+
+.back-to-top-tooltip {
+  font-size: var(--font-xxs);
+}
+
+@media (width <= 768px) {
+  .back-to-top__button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .back-to-top {
+    right: clamp(0.6rem, 2.8vw, 1rem);
+  }
+}

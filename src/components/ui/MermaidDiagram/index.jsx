@@ -337,6 +337,8 @@ function getForeignObjectLabelStyles(fo, defaults) {
 }
 
 /**
+ * @private
+ * @description
  * Browsers taint a canvas when an SVG drawn via <img> contains <foreignObject>
  * or external resource URLs, making toDataURL() throw a SecurityError.
  * This function sanitizes a cloned SVG in-place before export:
@@ -574,6 +576,8 @@ function sanitizeSvgForExport(svgClone, theme) {
 }
 
 /**
+ * @private
+ * @description
  * Snapshots the browser-computed presentation colors (fill, stroke, color) from
  * each element in the live SVG onto the corresponding element in the export clone.
  *

@@ -1,6 +1,7 @@
 /**
  * @file playwright/scroll.mobile.spec.ts
  * @description Fast, deterministic mobile scroll regressions for side-project content.
+ * @module playwright/scroll.mobile.spec
  */
 
 import { expect, test } from "@playwright/test";

@@ -40,13 +40,15 @@ layout, spacing, and visual hierarchy across the portfolio.</p>
 <dd><p>Standardized page-level header component used to introduce
 pages and major sections with consistent hierarchy and styling.</p>
 </dd>
+<dt><a href="#module_components/navigation/BackToTopButton">components/navigation/BackToTopButton</a></dt>
+<dd><p>Floating back-to-top action that appears after the user scrolls away from the top.</p>
+</dd>
 <dt><a href="#module_components/Footer">components/Footer</a></dt>
 <dd><p>Compact application footer providing quiet page closure,
 secondary social actions, and copyright information.</p>
 </dd>
-<dt><a href="#module_components/Head">components/Head</a></dt>
-<dd><p>Centralized document head manager responsible for injecting
-SEO, metadata, and social sharing tags based on the current route.</p>
+<dt><a href="#module_components/navigation/Head">components/navigation/Head</a></dt>
+<dd><p>Route-aware document metadata manager for SEO and social previews.</p>
 </dd>
 <dt><a href="#module_components/navigation">components/navigation</a></dt>
 <dd><p>Centralized export module for all navigation-related components and helpers. This file serves as a single point of import for all navigation elements across the codebase, promoting modularity and ease of maintenance.</p>
@@ -122,6 +124,9 @@ pages and major sections with consistent hierarchy and styling.</p>
 <dt><a href="#module_src/components/renderers/blocks/ImageGalleryBlock">src/components/renderers/blocks/ImageGalleryBlock</a></dt>
 <dd><p>Renders a responsive image gallery inside a collapsible,
 frosted-style panel.</p>
+</dd>
+<dt><a href="#module_src\components\renderers\blocks\ImageTextSplitBlock\index">src\components\renderers\blocks\ImageTextSplitBlock\index</a></dt>
+<dd><p>src\components\renderers\blocks\ImageTextSplitBlock\index module.</p>
 </dd>
 <dt><a href="#module_src\components\renderers\blocks\LinksBlock\index">src\components\renderers\blocks\LinksBlock\index</a></dt>
 <dd><p>src\components\renderers\blocks\LinksBlock\index module.</p>
@@ -643,6 +648,15 @@ TechItem-----------------------------------------------------------------------
 | type | <code>string</code> | CSS class used to style the technology label. |
 | [id] | <code>string</code> | Optional unique identifier. |
 
+<a name="module_components/navigation/BackToTopButton"></a>
+
+## components/navigation/BackToTopButton
+Floating back-to-top action that appears after the user scrolls away from the top.
+
+<a name="exp_module_components/navigation/BackToTopButton--module.exports"></a>
+
+### module.exports() ⇒ <code>JSX.Element</code> ⏏
+**Kind**: Exported function  
 <a name="module_components/Footer"></a>
 
 ## components/Footer
@@ -668,20 +682,43 @@ Footer-------------------------------------------------------------------------
 Current year used for copyright display. Computed at render time to avoid manual updates. /
 
 **Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
-<a name="module_components/Head"></a>
+<a name="module_components/navigation/Head"></a>
 
-## components/Head
-Centralized document head manager responsible for injectingSEO, metadata, and social sharing tags based on the current route.
+## components/navigation/Head
+Route-aware document metadata manager for SEO and social previews.
 
-<a name="exp_module_components/Head--module.exports"></a>
+
+* [components/navigation/Head](#module_components/navigation/Head)
+    * [module.exports()](#exp_module_components/navigation/Head--module.exports) ⇒ <code>JSX.Element</code> ⏏
+        * [~normalizePathname(pathname)](#module_components/navigation/Head--module.exports..normalizePathname) ⇒ <code>string</code>
+        * [~normalizeKeywords(keywords)](#module_components/navigation/Head--module.exports..normalizeKeywords) ⇒ <code>Array.&lt;string&gt;</code>
+
+<a name="exp_module_components/navigation/Head--module.exports"></a>
 
 ### module.exports() ⇒ <code>JSX.Element</code> ⏏
-Head---------------------------------------------------------------------------Dynamically configures `<head>` metadata for each page in the applicationusing `react-helmet-async`.Responsibilities:- Selects page-specific metadata based on the current URL path- Injects SEO-relevant meta tags (title, description, keywords)- Configures Open Graph metadata for social sharing- Defines favicon, theme color, and canonical URL- Adds performance-related tags (preconnect)Behavior:- Determines the active page by inspecting `window.location.pathname`- Falls back to the Home metadata when no route match is foundUsage notes:- Intended to be rendered once near the top of the app tree- Requires `HelmetProvider` to be present higher in the component hierarchy
-
 **Kind**: Exported function  
-**Returns**: <code>JSX.Element</code> - Injected document head metadata.  
-**Access**: public  
-**Component**:   
+<a name="module_components/navigation/Head--module.exports..normalizePathname"></a>
+
+#### module.exports~normalizePathname(pathname) ⇒ <code>string</code>
+Normalizes a pathname to avoid canonical duplicates caused by trailing slashes.
+
+**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/navigation/Head--module.exports)  
+
+| Param | Type |
+| --- | --- |
+| pathname | <code>string</code> | 
+
+<a name="module_components/navigation/Head--module.exports..normalizeKeywords"></a>
+
+#### module.exports~normalizeKeywords(keywords) ⇒ <code>Array.&lt;string&gt;</code>
+Ensures every metadata keyword collection is normalized and stable.
+
+**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/navigation/Head--module.exports)  
+
+| Param | Type |
+| --- | --- |
+| keywords | <code>unknown</code> | 
+
 <a name="module_components/navigation"></a>
 
 ## components/navigation
@@ -1079,6 +1116,31 @@ Displays a responsive image gallery as a collapsible frosted panel.Key behavio
 
 **Example**  
 ```js<ImageGalleryBlockblock={{ id: "gallery1",title: "Project Screenshots",items: [   { id: "img1", src: "/images/screenshot1.png", alt: "Screenshot 1" },   { id: "img2", src: "/images/screenshot2.png", alt: "Screenshot 2" }, ],}}
+<a name="module_src\components\renderers\blocks\ImageTextSplitBlock\index"></a>
+
+## src\components\renderers\blocks\ImageTextSplitBlock\index
+src\components\renderers\blocks\ImageTextSplitBlock\index module.
+
+<a name="module_src\components\renderers\blocks\ImageTextSplitBlock\index..ImageTextSplitBlock"></a>
+
+### src\components\renderers\blocks\ImageTextSplitBlock\index~ImageTextSplitBlock ⇒ <code>JSX.Element</code> \| <code>null</code>
+Renders a magazine-style float layout where rich text wraps around a single image.On tablet and desktop the image floats left or right at roughly one-third width so the textflows naturally around it. On mobile the float is cleared and the image stacks above the textregardless of the imagePosition setting.
+
+**Kind**: inner property of [<code>src\components\renderers\blocks\ImageTextSplitBlock\index</code>](#module_src\components\renderers\blocks\ImageTextSplitBlock\index)  
+**Returns**: <code>JSX.Element</code> \| <code>null</code> - Float-layout image/text panel or null when required data is missing.  
+**Access**: public  
+**Component**:   
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>object</code> |  | Component props. |
+| [props.id] | <code>string</code> |  | DOM id assigned to the panel container. |
+| [props.title] | <code>string</code> |  | Optional heading displayed in the panel header. |
+| props.image | <code>FeatureImage</code> |  | Single image metadata. |
+| [props.imagePosition] | <code>&quot;left&quot;</code> \| <code>&quot;right&quot;</code> | <code>&quot;left&quot;</code> | Float side on tablet and desktop. |
+| [props.showCaption] | <code>boolean</code> | <code>false</code> | Render the image caption when true. Reserved for   future use cases; captions are hidden by default to keep the layout clean. |
+| props.content | <code>Array.&lt;RichTextNode&gt;</code> \| <code>Array.&lt;string&gt;</code> |  | Rich text nodes that wrap around the image. |
+
 <a name="module_src\components\renderers\blocks\LinksBlock\index"></a>
 
 ## src\components\renderers\blocks\LinksBlock\index
@@ -1444,6 +1506,8 @@ A unified, accessible, animated button component that conforms to theMidnight G
 | [props.onClick] | <code>function</code> |  | Click handler. May return a Promise to enable async loading state. |
 | [props.clickable] | <code>boolean</code> | <code>true</code> | Indicates whether the button/icon is clickable or not. |
 | [props.ariaLabel] | <code>string</code> |  | Accessible label. Required for icon-only buttons if no tooltip is provided. |
+| [props.ariaExpanded] | <code>boolean</code> \| <code>string</code> |  | Convenience alias mapped to `aria-expanded`. |
+| [props.ariaCurrent] | <code>string</code> |  | Convenience alias mapped to `aria-current`. |
 | [props.tooltip] | <code>string</code> |  | Tooltip text displayed on hover. |
 | [props.tooltipFollowCursor] | <code>boolean</code> | <code>true</code> | When true, the tooltip will follow the cursor. |
 | [props.tooltipPlacement] | <code>TooltipPlacement</code> | <code>&quot;right&quot;</code> | Placement of the tooltip relative to the button. |
@@ -1714,6 +1778,7 @@ A card component for displaying insights with a header and body. The header can 
 | [icon] | <code>object</code> | The FontAwesome icon to display in the card header. |
 | [subtitle] | <code>string</code> | The subtitle of the insight card. |
 | [variant] | <code>Variant</code> | The accent color for the card (default is "primary"). |
+| [previewImage] | <code>FeatureImage</code> | Optional expandable preview image shown above card details. |
 | content | <code>Array.&lt;RichTextNode&gt;</code> \| <code>string</code> | The content to be displayed within the card body. |
 
 **Example**  

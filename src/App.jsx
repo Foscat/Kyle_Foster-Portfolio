@@ -9,6 +9,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Head } from "components/navigation";
+import BackToTopButton from "components/navigation/BackToTopButton";
 import { useThemeFavicon } from "hooks/useThemeFavicon";
 import "./App.css";
 // Interactive surface CSS package.
@@ -71,6 +72,7 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        <BackToTopButton />
       </div>
     </BrowserRouter>
   );

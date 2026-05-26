@@ -13,6 +13,9 @@
 <dt><a href="#module_src\tests\helpers\expectAriaCurrent">src\tests\helpers\expectAriaCurrent</a></dt>
 <dd><p>src\tests\helpers\expectAriaCurrent module.</p>
 </dd>
+<dt><a href="#module_src/tests/renderWithAppProviders">src/tests/renderWithAppProviders</a></dt>
+<dd><p>Render helper for components that already own the router (e.g. App).</p>
+</dd>
 <dt><a href="#module_src/tests/renderWithProviders">src/tests/renderWithProviders</a></dt>
 <dd><p>src/tests/renderWithProviders module.</p>
 </dd>
@@ -58,6 +61,25 @@ Creates a test suite for a data-driven page component, focused on verifying comp
 
 ## src\tests\helpers\expectAriaCurrent
 src\tests\helpers\expectAriaCurrent module.
+
+<a name="module_src/tests/renderWithAppProviders"></a>
+
+## src/tests/renderWithAppProviders
+Render helper for components that already own the router (e.g. App).
+
+<a name="exp_module_src/tests/renderWithAppProviders--module.exports"></a>
+
+### module.exports(ui, [options]) ⇒ <code>object</code> ⏏
+Renders a component tree with app-level providers, excluding router wrappers.
+
+**Kind**: Exported function  
+**Returns**: <code>object</code> - Testing Library render result.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| ui | <code>React.ReactElement</code> |  | Component under test. |
+| [options] | <code>object</code> |  |  |
+| [options.rsuiteTheme] | <code>&quot;light&quot;</code> \| <code>&quot;dark&quot;</code> | <code>&quot;dark&quot;</code> | RSuite theme. |
 
 <a name="module_src/tests/renderWithProviders"></a>
 
