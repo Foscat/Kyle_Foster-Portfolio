@@ -50,7 +50,7 @@
 ------------------------------------------------------------ */
 .rs-btn.btn.interactive-surface.icon-only {
   margin: 0 auto;
-  padding: 0;
+  padding: 1px 5px;
   min-height: 0;
 }
 

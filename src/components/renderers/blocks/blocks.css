@@ -62,10 +62,10 @@
   padding: 1rem;
   font-size: var(--font-md);
   line-height: 1.4;
-  color: var(--text-primary);
+  color: rgba(var(--white-rgb), 0.95);
   border-radius: 4px;
   font-family: var(--font-Audiowide);
-  background-color: var(--bg-secondary);
+  background-color: rgba(12, 28, 48, 0.96);
   overflow-x: auto;
   max-width: 100%;
 }

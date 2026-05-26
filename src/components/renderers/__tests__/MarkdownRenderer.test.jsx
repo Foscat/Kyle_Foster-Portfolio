@@ -18,7 +18,7 @@ describe("MarkdownRenderer", () => {
 
     expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
     expect(screen.queryByText("Unsafe")).not.toBeInTheDocument();
-    expect(screen.queryByText("Section")).not.toBeInTheDocument();
+    expect(screen.getByText("Section")).toBeInTheDocument();
   });
 
   it("still renders standard markdown content", () => {

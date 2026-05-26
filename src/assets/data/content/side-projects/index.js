@@ -384,7 +384,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "This project reflects a systems mindset. Instead of styling isolated UI pieces, I extracted a repeated interaction problem and turned it into a reusable layer that can support many components.",
+                    text: "This project reflects my mindset of creating systems to solve problems. Instead of styling isolated UI pieces, I extracted a repeated interaction problem and turned it into a reusable layer that can support many components.",
                   },
                 ],
               },
@@ -529,6 +529,141 @@ const sideProjectSections = [
       },
     ],
   },
+
+  {
+    id: "ui-style-kit-css",
+    slug: "ui-style-kit-css",
+    title: "UI Style Kit CSS",
+    icon: faBrush,
+    isScroller: true,
+    blocks: [
+      {
+        id: "ui-style-kit-problem-text",
+        type: BlockType.RICH_TEXT,
+        icon: faExclamationTriangle,
+        title: "The Problem",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Teams often need lightweight, reusable UI styling primitives without adopting a full component framework. When utility styles, interaction states, and visual tokens are scattered across files, consistency drops and onboarding slows down.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "strong", text: "Inconsistent styles:" },
+                  {
+                    type: "text",
+                    text: " duplicated class patterns drift over time across pages and components.",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "strong", text: "Slow implementation:" },
+                  {
+                    type: "text",
+                    text: " repeated setup work is required before teams can ship polished interfaces.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ui-style-kit-solution-text",
+        type: BlockType.RICH_TEXT,
+        icon: faLightbulb,
+        title: "The Solution",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "ui-style-kit-css packages practical, reusable styling utilities into a focused npm library. It is designed to be dropped into existing projects quickly so teams can ship consistent UI styling and interaction behavior with less setup overhead.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Reusable style primitives for faster UI delivery" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Consistent interaction styling across components" },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Simple npm-based integration into existing frontend stacks",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "ui-style-kit-gallery",
+        type: BlockType.IMAGE_GALLERY,
+        title: "Project Preview",
+        items: [imgObjs.uiStyleKitSocialCard],
+      },
+      {
+        type: BlockType.LINKS,
+        id: "ui-style-kit-links",
+        items: [
+          {
+            id: "ui-style-kit-link-github",
+            title: "See the code",
+            url: "https://github.com/Foscat/ui-style-kit-css",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faCodeBranch,
+            ariaLabel: "Link to the ui-style-kit-css repository on GitHub",
+          },
+          {
+            id: "ui-style-kit-link-npm",
+            title: "View NPM package",
+            url: "https://www.npmjs.com/package/ui-style-kit-css",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faNpm,
+            ariaLabel: "Link to the ui-style-kit-css package on NPM",
+          },
+          {
+            id: "ui-style-kit-link-docs",
+            title: "Read the documentation",
+            url: "https://foscat.github.io/ui-style-kit-css/",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faBookBookmark,
+            ariaLabel: "Link to the ui-style-kit-css documentation site",
+          },
+        ],
+      },
+    ],
+  },
+
   {
     id: "mern-template",
     slug: "mern-app-template-with-auth",
@@ -678,6 +813,12 @@ const sideProjectSections = [
             ],
           },
         ],
+      },
+      {
+        id: "mern-template-gallery",
+        type: BlockType.IMAGE_GALLERY,
+        title: "Project Preview",
+        items: [imgObjs.mernTemplateSocialCard],
       },
 
       diagrams.mernAuthLifecycle,
@@ -1229,6 +1370,7 @@ const sideProjectSections = [
         type: BlockType.IMAGE_GALLERY,
         title: "Application Screenshots",
         items: [
+          imgObjs.enigmaSocialCard,
           imgObjs.enigmaApp,
           imgObjs.enigmaEncryption,
           imgObjs.enigmaDecryption,

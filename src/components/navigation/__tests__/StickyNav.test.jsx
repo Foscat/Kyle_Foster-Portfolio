@@ -38,11 +38,27 @@ vi.mock("components/ui", async () => {
 
   return {
     ...actual,
-    Btn: ({ onClick, ariaLabel }) => (
-      <button onClick={onClick} aria-label={ariaLabel}>
-        Open
-      </button>
-    ),
+    Btn: ({ onClick, ariaLabel, ariaCurrent, href, hrefLocal }) => {
+      if (href) {
+        return (
+          <a
+            href={href}
+            onClick={onClick}
+            aria-label={ariaLabel}
+            aria-current={ariaCurrent}
+            data-local={hrefLocal ? "true" : "false"}
+          >
+            Open
+          </a>
+        );
+      }
+
+      return (
+        <button onClick={onClick} aria-label={ariaLabel} aria-current={ariaCurrent}>
+          Open
+        </button>
+      );
+    },
     FrostedIcon: ({ ariaLabel }) => <span>{ariaLabel}</span>,
   };
 });
@@ -83,7 +99,7 @@ describe("StickyNav", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.PROFESSIONAL} />);
 
     expect(screen.getByRole("link", { current: "page" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /professional work/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /professional work/i })).toBeInTheDocument();
   });
 
   // Test to verify that when the menu trigger is activated, the mobile navigation opens and displays the site navigation dialog, ensuring that the StickyNav component correctly handles user interactions to open the mobile navigation menu and provides access to the site navigation options.

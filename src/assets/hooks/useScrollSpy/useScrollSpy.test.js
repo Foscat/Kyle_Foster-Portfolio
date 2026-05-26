@@ -148,4 +148,59 @@ describe("useScrollSpyWithHistory", () => {
       expect(result.current.activeChain).toEqual(["summary"]);
     });
   });
+
+  it("keeps the closest visible node active when observer emits a partial entry batch", async () => {
+    document.body.innerHTML = '<section id="overview"></section><div id="overview-block"></div>';
+
+    const sections = [
+      {
+        id: "overview",
+        blocks: [{ id: "overview-block" }],
+      },
+    ];
+
+    const { nodes, byId } = buildSectionTree(sections);
+    const { result } = renderHook(() => useScrollSpyWithHistory(nodes, byId, 96));
+
+    await waitFor(() => {
+      expect(observedElements).toHaveLength(2);
+    });
+
+    act(() => {
+      observerCallback([
+        {
+          isIntersecting: true,
+          intersectionRatio: 1,
+          target: observedElements.find((element) => element.id === "overview"),
+          boundingClientRect: { top: 240 },
+        },
+        {
+          isIntersecting: true,
+          intersectionRatio: 1,
+          target: observedElements.find((element) => element.id === "overview-block"),
+          boundingClientRect: { top: 28 },
+        },
+      ]);
+    });
+
+    await waitFor(() => {
+      expect(result.current.activeLeafId).toBe("overview-block");
+    });
+
+    act(() => {
+      observerCallback([
+        {
+          isIntersecting: true,
+          intersectionRatio: 0.2,
+          target: observedElements.find((element) => element.id === "overview"),
+          boundingClientRect: { top: 300 },
+        },
+      ]);
+    });
+
+    await waitFor(() => {
+      expect(result.current.activeLeafId).toBe("overview-block");
+      expect(result.current.activeChain).toEqual(["overview", "overview-block"]);
+    });
+  });
 });

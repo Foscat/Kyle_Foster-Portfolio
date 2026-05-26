@@ -1,10 +1,12 @@
 .insight-card {
+  --insight-card-max-height: 500px;
+
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   min-height: 100px;
-  max-height: 500px;
+  max-height: var(--insight-card-max-height);
   padding: 1.2rem 1.3rem 1.35rem;
   overflow: hidden;
   color: var(--text-primary);
@@ -16,6 +18,10 @@
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
   outline: none;
+}
+
+.insight-card--with-preview {
+  --insight-card-max-height: 1000px;
 }
 
 .insight-card__header {
@@ -45,7 +51,9 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-items: center;
   gap: 0.2rem;
+  text-align: center;
 }
 
 .insight-card__title {
@@ -64,7 +72,7 @@
   font-size: var(--font-xxs);
   color: var(--text-secondary);
   line-height: 1.35;
-  text-align: left;
+  text-align: center;
 }
 
 .insight-card:hover .insight-card__title,
@@ -90,16 +98,53 @@
   flex-direction: column;
   gap: 0.75rem;
   flex: 1 1 auto;
+  min-height: 0;
   line-height: 1.5;
+}
+
+.insight-card__preview {
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-overlay) 86%, transparent);
+  overflow: clip;
+}
+
+.insight-card__preview .clickable-img-container {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.insight-card__preview-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+}
+
+.insight-card__preview .img-caption {
+  margin: 0;
+  padding: 0.4rem 0.55rem;
+  font-size: var(--font-xxs);
+  color: var(--text-secondary);
+  border-top: 1px solid color-mix(in srgb, var(--border) 62%, transparent);
 }
 
 .insight-card__content {
   display: grid;
   flex: 1 1 auto;
   min-height: 0;
+  max-height: 100%;
   gap: 0.75rem;
   align-content: start;
-  overflow: hidden auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  touch-action: pan-y;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
   padding-right: 0.25rem;

@@ -59,6 +59,7 @@ vi.mock("components/renderers/blocks/MarkdownDocs.Block", () => ({
 vi.mock("components/renderers/blocks", () => ({
   RichTextBlock: () => <div data-testid="rich-text-block" />,
   ImageGalleryBlock: () => <div data-testid="image-gallery-block" />,
+  ImageTextSplitBlock: () => <div data-testid="image-text-split-block" />,
   LinksBlock: () => <div data-testid="links-block" />,
   CardGridBlock: () => <div data-testid="card-grid-block" />,
   FormBlock: () => <div data-testid="form-block" />,
@@ -81,6 +82,7 @@ vi.mock("types/ui.types", async () => {
     ...actual,
     createRichTextBlock: vi.fn((b) => b),
     createImageGalleryBlock: vi.fn((b) => b),
+    createImageTextSplitBlock: vi.fn((b) => b),
     createLinkListBlock: vi.fn((b) => b),
     createBulletListBlock: vi.fn((b) => b),
     createDiagramBlock: vi.fn((b) => b),
@@ -99,6 +101,7 @@ const SECTION = {
   blocks: [
     { type: BlockType.RICH_TEXT },
     { type: BlockType.IMAGE_GALLERY },
+    { type: BlockType.IMAGE_TEXT_SPLIT },
     { type: BlockType.LINKS },
     { type: BlockType.BULLETED_LIST },
     { type: BlockType.DIAGRAM },
@@ -372,6 +375,11 @@ describe("SectionRenderer", () => {
   it("renders an ImageGalleryBlock for IMAGE_GALLERY blocks", () => {
     renderWithProviders(<SectionRenderer section={SECTION} />);
     expect(screen.getByTestId("image-gallery-block")).toBeInTheDocument();
+  });
+
+  it("renders an ImageTextSplitBlock for IMAGE_TEXT_SPLIT blocks", () => {
+    renderWithProviders(<SectionRenderer section={SECTION} />);
+    expect(screen.getByTestId("image-text-split-block")).toBeInTheDocument();
   });
 
   it("renders a LinksBlock for LINKS blocks", () => {
@@ -1341,7 +1349,7 @@ describe("SectionRenderer", () => {
       expect.objectContaining({
         block: expect.objectContaining({ type: BlockType.DIAGRAM }),
         section: expect.objectContaining({ id: "test-section" }),
-        index: 4,
+        index: 5,
         diagramIndex: 0,
         totalDiagramCount: 1,
         deferSlotIndex: 0,

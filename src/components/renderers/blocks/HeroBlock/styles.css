@@ -35,7 +35,7 @@
   margin: 0;
 
   /* Clamp prevents oversized headlines on phones */
-  font-size: var(--font-lg);
+  font-size: var(--font-xxl);
   font-weight: 600;
   line-height: 1.2;
   color: var(--heading-color);

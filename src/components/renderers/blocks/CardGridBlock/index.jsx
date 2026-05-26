@@ -77,6 +77,7 @@ function CardGridBlock(props) {
             subtitle={item.subtitle}
             variant={item.variant}
             content={item.content}
+            previewImage={item.previewImage}
             url={item.url}
             local={item.local}
             ariaLabel={item.ariaLabel}

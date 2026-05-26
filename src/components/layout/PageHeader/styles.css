@@ -34,10 +34,10 @@
 .page-header-title {
   margin: 0;
 
-  /* Clamp prevents oversized headlines on phones */
-  font-size: var(--font-lg);
+  /* Stronger title hierarchy across viewports */
+  font-size: var(--font-xxl);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.05;
   color: var(--heading-color);
 
   /* Avoid text-shadow on mobile for clarity */
@@ -97,7 +97,8 @@
   }
 
   .page-header-title {
-    font-size: var(--font-xxl);
+    font-size: clamp(3rem, 4vw, 4.5rem);
+    line-height: 1;
   }
 
   .page-header-subtitle {

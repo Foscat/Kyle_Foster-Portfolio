@@ -17,6 +17,14 @@ const csos = {
   sections: codestreamSections,
 };
 
+const DIAGRAM_DEFER_CONFIG = {
+  rootMargin: "480px 0px",
+  threshold: 0.01,
+  placeholderMinHeight: "240px",
+  fallbackDelayMs: 1200,
+  startAt: 1,
+};
+
 /**
  * @file index.jsx
  * @fileoverview Professional work case study page for CodeStream Online Studio, featuring a data-driven layout with synchronized sticky navigation and scroll-spy behavior.
@@ -59,7 +67,13 @@ const CodeStream = () => {
         <div className="page-layout">
           <main className="page-content app-main" role="main">
             {csos.sections.map((sect) => {
-              return <SectionRenderer section={sect} key={sect.id} />;
+              return (
+                <SectionRenderer
+                  section={sect}
+                  deferDiagrams={DIAGRAM_DEFER_CONFIG}
+                  key={sect.id}
+                />
+              );
             })}
           </main>
           <aside className="page-sidebar">

@@ -10,6 +10,17 @@ export async function snapshotDiagram(page: Page, diagramId: string) {
   // Wait for network activity to settle before asserting; Mermaid renders async.
   await page.waitForLoadState("networkidle");
 
+  // Mermaid layout depends on text metrics; wait for fonts to avoid viewBox drift.
+  await page.evaluate(async () => {
+    try {
+      if ("fonts" in document) {
+        await document.fonts.ready;
+      }
+    } catch {
+      // Ignore font-loading API failures and continue with best-effort snapshotting.
+    }
+  });
+
   // Use .mermaid-svg-host to avoid matching icon SVGs inside the same panel.
   const svgHandle = page.locator(`#${diagramId} .mermaid-svg-host svg`);
 

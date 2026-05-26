@@ -82,7 +82,7 @@
   --ui_ux-rgb: 29, 52, 71;
 
   /* Typography scale */
-  --font-xxl: clamp(2rem, 1.3rem + 2vw, 3.625rem);
+  --font-xxl: clamp(2.5rem, 2.3rem + 2vw, 5.625rem);
   --font-xl: clamp(1.75rem, 1.2rem + 1.6vw, 3rem);
   --font-lg: clamp(1.5rem, 1.1rem + 1.2vw, 2.5rem);
   --font-md: clamp(1.18rem, 1rem + 0.9vw, 1.5rem);
@@ -250,6 +250,7 @@ html {
   scrollbar-gutter: stable;
 
   /* Prevent minor sub-pixel overflow from causing horizontal scroll on mobile. */
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
@@ -1400,6 +1401,7 @@ body {
   text-size-adjust: 100%;
 
   /* Reduce accidental horizontal scrolling on narrow devices. */
+  overflow-x: hidden;
   overflow-x: clip;
 }
 

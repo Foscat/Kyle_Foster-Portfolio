@@ -17,6 +17,14 @@ const smu = {
   sections: smuSections,
 };
 
+const DIAGRAM_DEFER_CONFIG = {
+  rootMargin: "480px 0px",
+  threshold: 0.01,
+  placeholderMinHeight: "240px",
+  fallbackDelayMs: 1200,
+  startAt: 1,
+};
+
 /**
  * SMU Page
  * ---------------------------------------------------------------------------
@@ -46,7 +54,13 @@ const Smu = () => {
         <div className="page-layout">
           <main className="page-content app-main" role="main">
             {smu.sections.map((sect, i) => {
-              return <SectionRenderer section={sect} key={`rt-${sect.id}-${i}`} />;
+              return (
+                <SectionRenderer
+                  section={sect}
+                  deferDiagrams={DIAGRAM_DEFER_CONFIG}
+                  key={`rt-${sect.id}-${i}`}
+                />
+              );
             })}
           </main>
           <aside className="page-sidebar">

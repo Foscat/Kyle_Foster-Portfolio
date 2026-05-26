@@ -190,6 +190,7 @@ export const HoverAnimation = Object.freeze({
  * - **HERO**: Full-width hero section with background image, title, subtitle, and call-to-action.
  * - **RICH_TEXT**: Custom rich text content using nested node structure for fine-grained control.
  * - **IMAGE_GALLERY**: Responsive gallery of images with metadata (alt text, captions, titles).
+ * - **IMAGE_TEXT_SPLIT**: Two-column layout with a single image on one side and rich text content on the other.
  * - **DIAGRAM**: Mermaid diagram definitions with separate desktop and mobile variants.
  * - **CARD_GRID**: Grid layout of insight cards with customizable column count and variant styling.
  * - **BULLETED_LIST**: List of bullet items rendered as expandable accordion sections for progressive disclosure.
@@ -212,6 +213,8 @@ export const BlockType = Object.freeze({
   RICH_TEXT: "richText",
   /* Responsive image gallery with metadata and zoom capability */
   IMAGE_GALLERY: "imageGallery",
+  /* Split layout with one image and rich text content */
+  IMAGE_TEXT_SPLIT: "imageTextSplit",
   /* Mermaid diagram with responsive desktop/mobile variant definitions */
   DIAGRAM: "diagram",
   /* Configurable form block with schema-driven fields */
@@ -239,6 +242,7 @@ export const BlockType = Object.freeze({
  * - **hero**: `title`, `subtitle`, `backgroundImage` - Hero section content and background.
  * - **richText**: `content`, `title` - Rich text nodes array and section heading.
  * - **imageGallery**: `images`, `title` - Image metadata array and section heading.
+ * - **imageTextSplit**: `image`, `content`, `title` - Single image metadata, rich text node array, and section heading.
  * - **diagram**: `desktopDiagram`, `mobileDiagram`, `title` - Device-specific diagram definitions and heading.
  * - **bulletedList**: `items`, `title`, `subtitle` - Bullet items, heading, and optional description.
  * - **links**: `links`, `title` - Link item array and section heading.
@@ -262,6 +266,8 @@ export const blockSchemas = Object.freeze({
   richText: ["content", "title"],
   /* Image gallery requires: images array and optional section title */
   imageGallery: ["images", "title"],
+  /* Image text split requires: one image, rich content, and optional title */
+  imageTextSplit: ["image", "content", "title"],
   /* Diagram block requires: desktop and mobile diagram definitions with title */
   diagram: ["desktopDiagram", "mobileDiagram", "title"],
   /* Bulleted list requires: bullet items, section title, and optional subtitle */
@@ -286,6 +292,7 @@ export const blockSchemas = Object.freeze({
  * - **HERO**: {@link HeroBlock} - Full-width hero section with background image and CTA.
  * - **RICH_TEXT**: {@link RichTextBlock} - Custom rich text content with nested node trees.
  * - **IMAGE_GALLERY**: {@link ImageGalleryBlock} - Responsive image gallery with metadata.
+ * - **IMAGE_TEXT_SPLIT**: {@link ImageTextSplitBlock} - Split layout with one image and rich text content.
  * - **DIAGRAM**: {@link MermaidDiagram} - Mermaid diagram definitions with desktop/mobile variants.
  * - **CARD_GRID**: {@link CardGridBlock} - Grid layout of insight cards with customizable columns.
  * - **BULLETED_LIST**: {@link AccordionList} - Bullet items rendered as expandable accordion sections.
@@ -314,6 +321,7 @@ export const BLOCK_RENDERERS = Object.freeze({
   [BlockType.HERO]: null,
   [BlockType.RICH_TEXT]: null,
   [BlockType.IMAGE_GALLERY]: null,
+  [BlockType.IMAGE_TEXT_SPLIT]: null,
   [BlockType.DIAGRAM]: null,
   [BlockType.CARD_GRID]: null,
   [BlockType.BULLETED_LIST]: null,
@@ -423,6 +431,7 @@ export const RichTextNodeType = Object.freeze({
  * @property {string} [subtitle] - Optional subtitle.
  * @property {string} [icon] - Optional icon key.
  * @property {Variant} [variant="primary"] - Visual style variant.
+ * @property {FeatureImage|null} [previewImage] - Optional expandable preview image.
  * @property {RichTextNode} content - Card content, either as rich text nodes or plain string.
  */
 
@@ -461,6 +470,16 @@ export const RichTextNodeType = Object.freeze({
  * @property {"imageGallery"} type - Block discriminator.
  * @property {string} [title] - Optional heading.
  * @property {FeatureImage[]} images - Images to render.
+ */
+
+/**
+ * Image + rich text split block
+ * @typedef {object} ImageTextSplitBlock
+ * @property {"imageTextSplit"} type - Block discriminator.
+ * @property {string} [title] - Optional heading.
+ * @property {FeatureImage} image - Single image metadata object.
+ * @property {"left"|"right"} [imagePosition="left"] - Side of the image on desktop view.
+ * @property {RichTextNode[]|string[]} content - Rich text content rendered opposite the image.
  */
 
 /**
@@ -513,7 +532,7 @@ export const RichTextNodeType = Object.freeze({
 
 /**
  * Union of all feature blocks
- * @typedef {RichTextBlock | ImageGalleryBlock | DiagramBlock | BulletListBlock | LinkListBlock | MarkdownDocsBlock} FeatureBlock
+ * @typedef {RichTextBlock | ImageGalleryBlock | ImageTextSplitBlock | DiagramBlock | BulletListBlock | LinkListBlock | MarkdownDocsBlock} FeatureBlock
  */
 
 /**
@@ -576,6 +595,22 @@ export const createImageGalleryBlock = (block) => ({
   type: BlockType.IMAGE_GALLERY,
   title: block.title || "",
   images: block.images || [],
+});
+
+/**
+ * Create a default ImageTextSplitBlock
+ * @param {Partial<ImageTextSplitBlock>} block - Image/text split block properties.
+ * @returns {ImageTextSplitBlock}
+ */
+export const createImageTextSplitBlock = (block) => ({
+  ...block,
+  id: block.id || "",
+  type: BlockType.IMAGE_TEXT_SPLIT,
+  title: block.title || "",
+  image: createFeatureImage(block.image || {}),
+  imagePosition: block.imagePosition === "right" ? "right" : "left",
+  showCaption: block.showCaption === true,
+  content: block.content || [],
 });
 
 /**
@@ -643,6 +678,7 @@ const createInsightCard = (item, position) => ({
   subtitle: item.subtitle || "",
   icon: item.icon || "",
   variant: item.variant || item.accent || Variant.PRIMARY,
+  previewImage: item.previewImage || null,
   content: item.content || "",
 });
 

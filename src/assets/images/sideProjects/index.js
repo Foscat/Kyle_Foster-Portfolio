@@ -7,13 +7,30 @@
 import d20Dash from "./d20-dashboard.png";
 import oppEdit from "./d20-opp-editor.png";
 import enigma from "./enigma.png";
+import enigmaSocialCard from "./enigma-social-card.png";
 import encryption from "./encrypting.png";
 import decryption from "./decrypting.png";
 import enigmaGuide from "./how-to-encrypt.png";
 import greCon from "./greenhouse-controls.jpg";
 import greHook from "./greenhouse-hooked-up.jpg";
+import interactiveSurfaceSocialCard from "./interactive-surface-social-card.png";
+import mernTemplateSocialCard from "./mern-template-social-card.png";
+import uiStyleKitSocialCard from "./ui-style-kit-social-card.png";
 
-export { d20Dash, oppEdit, enigma, encryption, decryption, enigmaGuide, greCon, greHook };
+export {
+  d20Dash,
+  oppEdit,
+  enigma,
+  enigmaSocialCard,
+  encryption,
+  decryption,
+  enigmaGuide,
+  greCon,
+  greHook,
+  interactiveSurfaceSocialCard,
+  mernTemplateSocialCard,
+  uiStyleKitSocialCard,
+};
 
 const imgObjs = {
   d20Dashboard: {
@@ -40,6 +57,14 @@ const imgObjs = {
     title: "Enigma website page",
     caption: "Client-side encryption tool implementing a multi-alphabet cipher.",
     ariaLabel: "Screenshot of the Enigma encryption tool in action",
+  },
+  enigmaSocialCard: {
+    id: "enigma_social_card_img",
+    src: enigmaSocialCard,
+    alt: "Caesar's Enigma live project preview",
+    title: "Caesar's Enigma social card",
+    caption: "Homepage preview from the Caesar's Enigma live project.",
+    ariaLabel: "Caesar's Enigma live project preview",
   },
   enigmaEncryption: {
     id: "enigma_encryption_img",
@@ -85,6 +110,31 @@ const imgObjs = {
     caption:
       "The control board installed inside the greenhouse, actively monitoring and adjusting conditions in real time.",
     ariaLabel: "Greenhouse control board installed inside the greenhouse",
+  },
+  interactiveSurfaceSocialCard: {
+    id: "interactive_surface_social_card_img",
+    src: interactiveSurfaceSocialCard,
+    alt: "Interactive Surface CSS documentation landing page preview",
+    title: "Interactive Surface CSS preview",
+    caption: "Homepage preview of the Interactive Surface CSS documentation and demo experience.",
+    ariaLabel: "Interactive Surface CSS documentation landing page preview",
+  },
+  mernTemplateSocialCard: {
+    id: "mern_template_social_card_img",
+    src: mernTemplateSocialCard,
+    alt: "MERN app template repository preview on GitHub",
+    title: "MERN template repository preview",
+    caption: "Repository preview for the MERN App Template with Auth project.",
+    ariaLabel: "MERN app template repository preview on GitHub",
+  },
+  uiStyleKitSocialCard: {
+    id: "ui_style_kit_social_card_img",
+    src: uiStyleKitSocialCard,
+    alt: "ui-style-kit-css social card preview image",
+    title: "ui-style-kit-css social card",
+    caption:
+      "Social card preview used for the ui-style-kit-css library listing and share metadata.",
+    ariaLabel: "ui-style-kit-css social card preview image",
   },
 };
 
