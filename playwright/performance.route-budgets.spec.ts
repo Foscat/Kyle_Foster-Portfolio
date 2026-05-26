@@ -31,11 +31,19 @@ const BUDGETS: Budget[] = [
   { route: "/codestream", name: "CodeStream", jsKb: 9000, cssKb: 35, imageKb: 3200 },
 ];
 
-const parseSize = (response: Response) => {
+const parseSize = async (response: Response) => {
   const contentLength = response.headers()["content-length"];
-  if (!contentLength) return 0;
-  const parsed = Number.parseInt(contentLength, 10);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+  if (contentLength) {
+    const parsed = Number.parseInt(contentLength, 10);
+    if (Number.isFinite(parsed) && parsed > 0) return parsed;
+  }
+
+  try {
+    const body = await response.body();
+    return body?.byteLength ?? 0;
+  } catch {
+    return 0;
+  }
 };
 
 const bucketFor = (response: Response): keyof Totals | null => {
@@ -69,11 +77,17 @@ test.describe("Route-level performance budgets @route-budget", () => {
       await preparePageForStableTests(page, { theme: "light" });
 
       const totals: Totals = { js: 0, css: 0, image: 0 };
+      const pendingSizeReads: Promise<void>[] = [];
       const responseHandler = (response: Response) => {
         if (!shouldTrack(response)) return;
         const bucket = bucketFor(response);
         if (!bucket) return;
-        totals[bucket] += parseSize(response);
+
+        pendingSizeReads.push(
+          parseSize(response).then((size) => {
+            totals[bucket] += size;
+          })
+        );
       };
 
       page.on("response", responseHandler);
@@ -81,6 +95,7 @@ test.describe("Route-level performance budgets @route-budget", () => {
       await stabilizePage(page, { theme: "light" });
       await page.waitForLoadState("networkidle");
       page.off("response", responseHandler);
+      await Promise.all(pendingSizeReads);
 
       const jsKb = totals.js / KB;
       const cssKb = totals.css / KB;

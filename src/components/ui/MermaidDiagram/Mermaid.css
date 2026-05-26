@@ -383,6 +383,17 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
   stroke: var(--accent-light);
 }
 
+.mermaid .mermaid-svg-host.dark g.node .nodeLabel,
+.mermaid .mermaid-svg-host.dark g.node .label,
+.mermaid .mermaid-svg-host.dark g.node .label p,
+.mermaid .mermaid-svg-host.dark g.node .nodeLabel p,
+.mermaid .mermaid-svg-host.dark g.node text,
+.mermaid .mermaid-svg-host.dark g.node tspan {
+  fill: rgba(var(--white-rgb), 0.94) !important;
+  color: rgba(var(--white-rgb), 0.94) !important;
+  stroke: transparent !important;
+}
+
 .mermaid .mermaid-svg-host.dark svg.flowchart g.edgePaths path.flowchart-link,
 .mermaid .mermaid-svg-host.dark g.edgePaths .marker,
 .mermaid .mermaid-svg-host.dark g.edgePaths .marker {
@@ -480,7 +491,9 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.dark g.node.core .nodeLabel,
 .mermaid .mermaid-svg-host.dark g.node.core .label p,
 .mermaid .mermaid-svg-host.dark g.node.core .nodeLabel p,
-.mermaid .mermaid-svg-host.dark g.node.core text {
+.mermaid .mermaid-svg-host.dark g.node.core text,
+.mermaid .mermaid-svg-host.dark g.node.layerDomain tspan,
+.mermaid .mermaid-svg-host.dark g.node.core tspan {
   fill: var(--text-dark) !important;
   color: var(--text-dark) !important;
 }
@@ -512,8 +525,8 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node polygon,
 .mermaid .mermaid-svg-host.light g.node circle,
 .mermaid .mermaid-svg-host.light g.node ellipse {
-  fill: rgba(var(--white-rgb), 0.9);
-  stroke: var(--accent-dark);
+  fill: rgba(var(--white-rgb), 0.9) !important;
+  stroke: var(--accent-dark) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerPresentation rect,
@@ -591,6 +604,17 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
   stroke: var(--primary-dark) !important;
 }
 
+.mermaid .mermaid-svg-host.light g.node .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node .label,
+.mermaid .mermaid-svg-host.light g.node .label p,
+.mermaid .mermaid-svg-host.light g.node .nodeLabel p,
+.mermaid .mermaid-svg-host.light g.node text,
+.mermaid .mermaid-svg-host.light g.node tspan {
+  fill: rgba(var(--white-rgb), 0.96) !important;
+  color: rgba(var(--white-rgb), 0.96) !important;
+  stroke: transparent !important;
+}
+
 .mermaid .mermaid-svg-host.light g.node.layerPresentation .nodeLabel,
 .mermaid .mermaid-svg-host.light g.node.layerPresentation .label p,
 .mermaid .mermaid-svg-host.light g.node.layerPresentation .nodeLabel p,
@@ -632,8 +656,8 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node.default .label text,
 .mermaid .mermaid-svg-host.light g.node.default text,
 .mermaid .mermaid-svg-host.light g.node.default tspan {
-  fill: var(--mermaid-light-heading) !important;
-  color: var(--mermaid-light-heading) !important;
+  fill: rgba(var(--white-rgb), 0.96) !important;
+  color: rgba(var(--white-rgb), 0.96) !important;
   stroke: transparent !important;
 }
 

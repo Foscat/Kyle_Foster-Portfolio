@@ -12,12 +12,11 @@ describe("applyPaletteToDiagramSource", () => {
     expect(applyPaletteToDiagramSource(source, "midnight-gold", "dark")).toBe(source);
   });
 
-  test("adjusts text tokens for midnight-gold in light mode", () => {
+  test("keeps source colors unchanged for midnight-gold in light mode", () => {
     const source = "classDef default fill:#1F2793,stroke:#C9A227,color:#F5F7FF;";
     const next = applyPaletteToDiagramSource(source, "midnight-gold", "light");
 
-    expect(next).toContain("color:#1a2332");
-    expect(next).toContain("fill:#1F2793");
+    expect(next).toBe(source);
   });
 
   test("maps legacy alias palettes to current theme palettes", () => {

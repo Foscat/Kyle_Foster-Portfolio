@@ -187,14 +187,6 @@ const PALETTE_ALIASES = Object.freeze({
   sunset: "sunset-ember",
 });
 
-const LIGHT_MODE_TEXT_OVERRIDES = Object.freeze({
-  "#f5f7ff": "#1a2332",
-  "#e8eef9": "#1f2a3d",
-  "#e2edf5": "#1a2636",
-  "#e1e1e3": "#222735",
-  "#d1d1d6": "#2c3242",
-});
-
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 function applyHexColorMap(source, colorMap) {
@@ -228,18 +220,13 @@ export function applyPaletteToDiagramSource(source, palette, mode = "dark") {
   const normalizedPalette = normalizePalette(palette);
   const paletteKey = PALETTE_ALIASES[normalizedPalette] || normalizedPalette;
   if (!paletteKey || paletteKey === "midnight-gold") {
-    const withFallbackText =
-      mode === "light" ? applyHexColorMap(source, LIGHT_MODE_TEXT_OVERRIDES) : source;
-    return withFallbackText;
+    return source;
   }
 
   const colorMap = COLOR_MAPS_BY_PALETTE[paletteKey] || COLOR_MAPS_BY_PALETTE["royal-plum"];
   const mapped = applyHexColorMap(source, colorMap);
 
-  if (mode === "light") {
-    return applyHexColorMap(mapped, LIGHT_MODE_TEXT_OVERRIDES);
-  }
-
+  void mode;
   return mapped;
 }
 
