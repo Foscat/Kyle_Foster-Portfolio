@@ -101,7 +101,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Across hardware automation, security tooling, and full-stack applications, these projects show adaptability across domains while maintaining a consistent engineering approach.",
+                text: "Across hardware automation, security tooling, and full-stack applications, these projects show domain adaptability with a consistent engineering approach.",
               },
             ],
           },
@@ -120,7 +120,7 @@ const sideProjectSections = [
         id: "overview-why-it-mattered",
         type: BlockType.CARD_GRID,
         title: "Why It Mattered",
-        subtitle: "Who it served -> problem -> solution -> ownership -> impact",
+        subtitle: "Who it served, the problem, the solution, ownership, and impact.",
         items: [
           {
             id: "side-projects-who-it-served",
@@ -141,7 +141,7 @@ const sideProjectSections = [
           },
           {
             id: "side-projects-problem-solved",
-            title: "Problem",
+            title: "Primary Constraint",
             subtitle: "Practical constraints lacked clean off-the-shelf solutions",
             icon: faExclamationTriangle,
             content: [
@@ -158,7 +158,7 @@ const sideProjectSections = [
           },
           {
             id: "side-projects-solution",
-            title: "Solution",
+            title: "Custom Software Response",
             subtitle: "Constraint-first system design and iteration",
             icon: faLightbulb,
             content: [
@@ -223,14 +223,14 @@ const sideProjectSections = [
         id: "interactive-surface-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "The Problem",
+        title: "Constraint: Inconsistent Interaction Behavior",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Small interaction details are easy to underestimate, but they strongly influence how polished an interface feels. Buttons, cards, icon controls, and other click targets often end up with slightly different hover, focus, and pressed behavior when they are styled independently.",
+                text: "Small interaction details are easy to underestimate, but they strongly affect how polished an interface feels. Buttons, cards, icon controls, and other click targets often drift into different hover, focus, and pressed behavior when styled independently.",
               },
             ],
           },
@@ -239,7 +239,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "That inconsistency creates two problems at once: the product feels less cohesive to users, and the codebase becomes harder to maintain because the same interaction logic is being reinvented across multiple components.",
+                text: "That inconsistency creates two problems: the product feels less cohesive, and the codebase is harder to maintain because the same interaction logic is reinvented across components.",
               },
             ],
           },
@@ -297,14 +297,14 @@ const sideProjectSections = [
         id: "interactive-surface-solution-text",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
-        title: "The Solution",
+        title: "Solution: Shared Interaction Primitive",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Interactive Surface CSS was built as a framework-agnostic CSS primitive for interactive surfaces such as buttons, cards, and icon controls. Instead of baking interaction decisions into each component separately, the package centralizes those decisions into a reusable layer.",
+                text: "Interactive Surface CSS is a framework-agnostic primitive for surfaces like buttons, cards, and icon controls. Instead of embedding interaction decisions in each component, the package centralizes them in a reusable layer.",
               },
             ],
           },
@@ -313,7 +313,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The library standardizes base, hover, focus-visible, active, pressed, toggled, and disabled behavior while remaining themeable through CSS custom properties. That lets it adapt to different products without losing consistency.",
+                text: "The library standardizes base, hover, focus-visible, active, pressed, toggled, and disabled behavior while staying themeable through CSS custom properties. That lets it adapt to different products without losing consistency.",
               },
             ],
           },
@@ -370,7 +370,7 @@ const sideProjectSections = [
       {
         id: "interactive-surface-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Proved",
         subtitle: "What this project demonstrates beyond surface-level styling",
         items: [
           {
@@ -501,7 +501,7 @@ const sideProjectSections = [
         items: [
           {
             id: "interactive-surface-link-1",
-            title: "See the code",
+            title: "View Source Code",
             url: "",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -510,7 +510,7 @@ const sideProjectSections = [
           },
           {
             id: "interactive-surface-link-2",
-            title: "View NPM package",
+            title: "View NPM Package",
             url: "https://www.npmjs.com/package/interactive-surface-css",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -519,7 +519,7 @@ const sideProjectSections = [
           },
           {
             id: "interactive-surface-link-3",
-            title: "Read the documentation",
+            title: "Read Documentation",
             url: "https://foscat.github.io/Interactive-Surface-CSS/",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -541,14 +541,14 @@ const sideProjectSections = [
         id: "ui-style-kit-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "The Problem",
+        title: "Constraint: Repetitive UI Styling Work",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Teams often need lightweight, reusable UI styling primitives without adopting a full component framework. When utility styles, interaction states, and visual tokens are scattered across files, consistency drops and onboarding slows down.",
+                text: "Teams often need lightweight, reusable UI styling primitives without adopting a full component framework. When utility styles, interaction states, and visual tokens are scattered, consistency drops and onboarding slows.",
               },
             ],
           },
@@ -583,14 +583,14 @@ const sideProjectSections = [
         id: "ui-style-kit-solution-text",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
-        title: "The Solution",
+        title: "Solution: Reusable Styling Utility Layer",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "ui-style-kit-css packages practical, reusable styling utilities into a focused npm library. It is designed to be dropped into existing projects quickly so teams can ship consistent UI styling and interaction behavior with less setup overhead.",
+                text: "ui-style-kit-css packages practical, reusable styling utilities into a focused npm library. It is designed for quick drop-in adoption so teams can ship consistent UI behavior with less setup overhead.",
               },
             ],
           },
@@ -634,7 +634,7 @@ const sideProjectSections = [
         items: [
           {
             id: "ui-style-kit-link-github",
-            title: "See the code",
+            title: "View Source Code",
             url: "https://github.com/Foscat/ui-style-kit-css",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -643,7 +643,7 @@ const sideProjectSections = [
           },
           {
             id: "ui-style-kit-link-npm",
-            title: "View NPM package",
+            title: "View NPM Package",
             url: "https://www.npmjs.com/package/ui-style-kit-css",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -652,7 +652,7 @@ const sideProjectSections = [
           },
           {
             id: "ui-style-kit-link-docs",
-            title: "Read the documentation",
+            title: "Read Documentation",
             url: "https://foscat.github.io/ui-style-kit-css/",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -675,14 +675,14 @@ const sideProjectSections = [
         id: "mern-template-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "The Problem",
+        title: "Constraint: Slow Full-Stack Project Starts",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "New full-stack projects often lose momentum early because the same foundational concerns keep getting rebuilt from scratch. Authentication, route protection, API wiring, session handling, and deployment shape all have to exist before the real product work can even begin.",
+                text: "New full-stack projects often lose momentum early because the same foundations are rebuilt from scratch. Authentication, route protection, API wiring, session handling, and deployment shape all need to exist before product work can begin.",
               },
             ],
           },
@@ -691,7 +691,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "When those pieces are rebuilt in a hurry, the result is usually fragile scaffolding that works just enough for a prototype but does not establish good long-term patterns.",
+                text: "When those pieces are rebuilt in a rush, teams often end up with fragile scaffolding that works for a prototype but fails to establish durable patterns.",
               },
             ],
           },
@@ -747,14 +747,14 @@ const sideProjectSections = [
         id: "mern-template-solution-text",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
-        title: "The Solution",
+        title: "Solution: Auth-Ready MERN Foundation",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "This template combines a React and Vite frontend with an Express and MongoDB backend, then layers in JWT-based authentication, protected frontend routes, role-aware structure, and a deployment model that can serve both the API and built client from one service.",
+                text: "This template combines a React + Vite frontend with an Express + MongoDB backend, then adds JWT authentication, protected routes, role-aware structure, and a deployment model that serves both API and built client from one service.",
               },
             ],
           },
@@ -827,7 +827,7 @@ const sideProjectSections = [
       {
         id: "mern-template-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Proved",
         subtitle: "What this starter says about how I approach application architecture",
         items: [
           {
@@ -971,7 +971,7 @@ const sideProjectSections = [
         id: "greenhouse-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "The Problem",
+        title: "Constraint: Manual Climate Control Overhead",
         content: [
           {
             type: "p",
@@ -1046,7 +1046,7 @@ const sideProjectSections = [
       {
         id: "greenhouse-solution-text",
         type: BlockType.RICH_TEXT,
-        title: "The Solution",
+        title: "Solution: Sensor-Driven Control Loop",
         icon: faLightbulb,
         content: [
           {
@@ -1134,7 +1134,7 @@ const sideProjectSections = [
       {
         id: "greenhouse-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Proved",
         subtitle: "Lessons learned from designing and implementing a real-world automation system",
         items: [
           {
@@ -1305,7 +1305,7 @@ const sideProjectSections = [
         items: [
           {
             id: "greenhouse-link-1",
-            title: "See the code",
+            title: "View Source Code",
             url: "https://github.com/Foscat/greenhouse",
             rel: "noopener noreferrer",
             target: "_blank",
@@ -1332,14 +1332,14 @@ const sideProjectSections = [
         id: "enigma-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "The Problem",
+        title: "Constraint: Practical Client-Side Encryption",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Cryptography education often remains theoretical, disconnected from practical implementation. While classical ciphers are well understood conceptually, there are few opportunities to examine how deterministic transformations behave inside a real, user-facing system.",
+                text: "Cryptography education is often theoretical and disconnected from implementation. While classical ciphers are conceptually familiar, there are fewer chances to study deterministic transformations inside a real user-facing system.",
               },
             ],
           },
@@ -1348,7 +1348,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The challenge was to design a modern encryption tool rooted in classical cipher mechanics that operated entirely client-side. This meant eliminating server processing, preserving user privacy, and ensuring repeatable, predictable transformations within a constrained browser environment.",
+                text: "The challenge was to design a modern encryption tool rooted in classical cipher mechanics that runs entirely client-side. That meant eliminating server processing, preserving user privacy, and ensuring repeatable transformations in a constrained browser environment.",
               },
             ],
           },
@@ -1381,14 +1381,14 @@ const sideProjectSections = [
         id: "enigma-solution-text",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
-        title: "The Solution",
+        title: "Solution: Deterministic Browser Cipher Engine",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "The system was designed as a deterministic, client-side encryption engine inspired by classical Caesar substitution and multi-rotor transformation mechanics. Rather than relying on a single static alphabet, the implementation composes multiple rotating character sets to increase transformation depth while preserving reversibility.",
+                text: "The system was designed as a deterministic, client-side encryption engine inspired by Caesar substitution and multi-rotor mechanics. Instead of a single static alphabet, it composes rotating character sets to increase transformation depth while preserving reversibility.",
               },
             ],
           },
@@ -1397,7 +1397,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Each character transformation is derived from predictable rotation rules and an embedded metadata tag, allowing encrypted messages to carry the information necessary for accurate decryption without storing state externally. This ensures the cipher remains stateless, reproducible, and fully reversible.",
+                text: "Each character transformation follows predictable rotation rules plus an embedded metadata tag. Encrypted messages carry what is needed for accurate decryption without external state, keeping the cipher stateless and reproducible.",
               },
             ],
           },
@@ -1406,7 +1406,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The engine was initially prototyped in Python to validate algorithmic correctness, then fully refactored into JavaScript for browser execution. The final implementation runs entirely client-side, eliminating server dependency and ensuring that plaintext input never leaves the user's device.",
+                text: "The engine was first prototyped in Python to validate correctness, then refactored into JavaScript for browser execution. The final implementation runs entirely client-side, so plaintext never leaves the user's device.",
               },
             ],
           },
@@ -1462,7 +1462,7 @@ const sideProjectSections = [
       {
         id: "enigma-takeaways",
         type: BlockType.RICH_TEXT,
-        title: "Key Takeaways",
+        title: "What This Proved",
         content: [
           {
             type: "h3",
@@ -1557,7 +1557,7 @@ const sideProjectSections = [
         items: [
           {
             id: "enigma-link-1",
-            title: "See the code",
+            title: "View Source Code",
             url: "https://github.com/Foscat/Enigma",
             icon: faCodeBranch,
             ariaLabel: "Link to the Caesar's Enigma code repository on GitHub",
@@ -1567,7 +1567,7 @@ const sideProjectSections = [
           },
           {
             id: "enigma-link-2",
-            title: "View the project",
+            title: "View Live Demo",
             url: "https://foscat.github.io/Enigma/",
             icon: faLaptopCode,
             ariaLabel: "Link to the live Caesar's Enigma project website",
@@ -1595,14 +1595,14 @@ const sideProjectSections = [
         id: "d20-problem-text",
         icon: faExclamationTriangle,
         type: BlockType.RICH_TEXT,
-        title: "The Problem",
+        title: "Constraint: Fragmented Campaign Data",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Dungeon Masters manage campaigns that evolve over months or years, yet the tooling available to them is typically fragmented across documents, spreadsheets, and loosely connected note systems. These tools capture information, but they do not model relationships.",
+                text: "Dungeon Masters manage campaigns that evolve over months or years, yet available tooling is often fragmented across documents, spreadsheets, and loosely connected notes. These tools capture information but do not model relationships.",
               },
             ],
           },
@@ -1611,7 +1611,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "A campaign is not just text — it is a structured domain composed of story arcs, encounters, entities, rewards, and branching paths. Without a formal data model, narrative consistency becomes difficult to maintain as complexity grows.",
+                text: "A campaign is not just text; it is a structured domain of story arcs, encounters, entities, rewards, and branching paths. Without a formal data model, narrative consistency becomes hard to maintain as complexity grows.",
               },
             ],
           },
@@ -1650,7 +1650,7 @@ const sideProjectSections = [
               { type: "inlineIcon", icon: "🗺️" },
               {
                 type: "text",
-                text: "The real problem was not note-taking — it was the absence of a structured domain model for long-running narrative systems.",
+                text: "The real problem was not note-taking; it was the absence of a structured domain model for long-running narrative systems.",
               },
             ],
           },
@@ -1666,7 +1666,7 @@ const sideProjectSections = [
         id: "d20-solution-text",
         icon: faLightbulb,
         type: BlockType.RICH_TEXT,
-        title: "The Solution",
+        title: "Solution: Structured Narrative Domain Model",
         content: [
           {
             type: "p",
@@ -1675,7 +1675,10 @@ const sideProjectSections = [
                 type: "text",
                 text: "D20 King models campaigns as structured narrative systems rather than collections of notes. The platform decomposes content into a hierarchical domain: ",
               },
-              { type: "strong", text: "Storybook → Act → Room → Encounter → Opponent / Reward" },
+              {
+                type: "strong",
+                text: "Storybook -> Act -> Room -> Encounter -> Opponent / Reward",
+              },
               {
                 type: "text",
                 text: ", giving Dungeon Masters a predictable framework for organizing long-running campaigns.",
@@ -1687,7 +1690,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Each layer represents a distinct aggregation boundary. Storybooks define campaign scope, Acts represent narrative phases, Rooms encapsulate explorable contexts, and Encounters define gameplay events composed of opponents and potential rewards. This separation keeps narrative structure stable as campaign complexity increases.",
+                text: "Each layer represents a distinct aggregation boundary. Storybooks define campaign scope, Acts define narrative phases, Rooms define explorable contexts, and Encounters define gameplay events with opponents and rewards. This separation keeps structure stable as campaign complexity increases.",
               },
             ],
           },
@@ -1742,7 +1745,7 @@ const sideProjectSections = [
       {
         id: "d20-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Proved",
         subtitle: "Architectural lessons from building a modular narrative system",
         items: [
           {
@@ -1878,83 +1881,6 @@ const sideProjectSections = [
                     ],
                   },
                 ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  /* ============================================================
-       Conclusion
-       ============================================================ */
-  {
-    id: "sp_conclusion",
-    title: "Conclusion",
-    icon: faFlagCheckered,
-    blocks: [
-      {
-        id: "sp-conclusion-text",
-        type: BlockType.RICH_TEXT,
-        content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "These projects extend beyond experimentation. Each one required end-to-end ownership — from defining the problem space to designing architecture, implementing systems, and maintaining operational stability.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "Whether automating a greenhouse control system, modeling narrative domains, or building a client-side encryption engine, the common thread was disciplined structure under constraint. Hardware limits, browser execution boundaries, and evolving data models demanded deliberate architectural decisions rather than ad-hoc solutions.",
-              },
-            ],
-          },
-          {
-            type: "ul",
-            children: [
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Full ownership:" },
-                  {
-                    type: "text",
-                    text: " requirements, architecture, implementation, and iteration.",
-                  },
-                ],
-              },
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Constraint-driven design:" },
-                  { type: "text", text: " systems shaped by real-world limitations." },
-                ],
-              },
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Maintainability focus:" },
-                  {
-                    type: "text",
-                    text: " long-term stability prioritized over short-term novelty.",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            type: "blockquote",
-            children: [
-              { type: "inlineIcon", icon: "🧭" },
-              {
-                type: "text",
-                text: "The throughline across every project is structured thinking — designing systems that remain coherent as complexity grows.",
               },
             ],
           },

@@ -48,7 +48,7 @@ const smuSections = [
               { type: "strong", text: "Southern Methodist University" },
               {
                 type: "text",
-                text: " marked the beginning of my transition into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.",
+                text: " marked the start of my move into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.",
               },
             ],
           },
@@ -59,7 +59,7 @@ const smuSections = [
               { type: "em", text: "end-to-end projects" },
               {
                 type: "text",
-                text: " that required planning, iteration, and trade-off analysis. These projects exposed me to early system thinking and the realities of maintaining code beyond the first successful demo.",
+                text: " that required planning, iteration, and trade-off analysis. These projects introduced system thinking and the reality of maintaining code beyond the first successful demo.",
               },
             ],
           },
@@ -92,7 +92,7 @@ const smuSections = [
         id: "gif-freak-problem",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "The Problem",
+        title: "Constraint: Learning Real API Behavior",
         content: [
           {
             type: "p",
@@ -144,7 +144,7 @@ const smuSections = [
         id: "gif-freak-solution",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
-        title: "The Solution",
+        title: "Solution: Build an Async API App",
         content: [
           {
             type: "p",
@@ -162,7 +162,7 @@ const smuSections = [
             children: [
               {
                 type: "text",
-                text: "Each interaction triggers an asynchronous request, updating the UI in real time. While persistence was limited to session state, the project gave me early exposure to:",
+                text: "Each interaction triggered an asynchronous request and updated the UI in real time. Persistence was session-scoped, but the project gave me early exposure to:",
               },
             ],
           },
@@ -192,7 +192,7 @@ const smuSections = [
       {
         id: "gif-freak-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Project Taught Me",
         subtitle:
           "Lessons learned from building a real-world API integration with asynchronous behavior and user-facing complexity",
         items: [
@@ -270,7 +270,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Working with asynchronous requests reshaped how I approached control flow and UI state. I had to design interactions that stayed clear and responsive while data was in transit.",
+                    text: "Asynchronous requests changed how I approached control flow and UI state. I had to keep interactions clear and responsive while data was in transit.",
                   },
                 ],
               },
@@ -329,7 +329,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Gif Freak reinforced that strong interfaces are defined by feedback quality, not just features. Every action needed to feel immediate, understandable, and trustworthy.",
+                    text: "Gif Freak showed me that interface quality comes from feedback, not just features. Every action needed to feel immediate, understandable, and trustworthy.",
                   },
                 ],
               },
@@ -437,7 +437,7 @@ const smuSections = [
             children: [
               {
                 type: "text",
-                text: "On the user experience side, accessibility refinements, explicit loading states, and performance optimizations such as memoization would reduce unnecessary re-renders and improve perceived responsiveness.",
+                text: "On the UX side, accessibility refinements, explicit loading states, and memoization would reduce unnecessary re-renders and improve perceived responsiveness.",
               },
             ],
           },
@@ -459,7 +459,7 @@ const smuSections = [
         type: BlockType.LINKS,
         items: [
           {
-            title: "See the code",
+            title: "View Source Code",
             url: "https://github.com/Foscat/gif-buttons",
             icon: faCode,
             ariaLabel: "Link to the Gif Freak code repository on GitHub",
@@ -467,7 +467,7 @@ const smuSections = [
             tooltip: "GitHub Repository",
           },
           {
-            title: "View the project",
+            title: "View Live Demo",
             url: "https://foscat.github.io/gif-buttons/",
             icon: faLaptopCode,
             ariaLabel: "Link to the live Gif Freak project",
@@ -493,7 +493,7 @@ const smuSections = [
       {
         id: "stock-memer-problem",
         type: BlockType.RICH_TEXT,
-        title: "The Problem",
+        title: "Constraint: Making Market Data Usable",
         content: [
           {
             type: "p",
@@ -535,7 +535,7 @@ const smuSections = [
       {
         id: "stock-memer-solution",
         type: BlockType.RICH_TEXT,
-        title: "The Solution",
+        title: "Solution: Real-Time Data Plus User Content",
         content: [
           {
             type: "p",
@@ -571,7 +571,7 @@ const smuSections = [
       {
         id: "stock-memer-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Project Taught Me",
         subtitle:
           "Lessons learned from integrating real-time financial data and coordinating development across a team",
         items: [
@@ -586,7 +586,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "This was my first project in a multi-developer repository with shared ownership and overlapping responsibilities. It quickly showed me how one implementation decision can create friction across other workstreams.",
+                    text: "This was my first shared repository with overlapping ownership. It quickly showed me how one implementation decision can create friction across adjacent workstreams.",
                   },
                 ],
               },
@@ -635,7 +635,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I implemented flows that combined external stock API responses with Firebase-stored user content. The work centered on making live and persisted data cooperate without breaking UI assumptions.",
+                    text: "I built flows that combined external stock API responses with Firebase-stored user content. The key challenge was keeping live and persisted data aligned without breaking UI assumptions.",
                   },
                 ],
               },
@@ -683,7 +683,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Stock Memer required real coordination instead of isolated execution. We split responsibility across contributors and had to keep interface decisions synchronized to avoid integration failures.",
+                    text: "Stock Memer required tight coordination rather than isolated execution. We split responsibilities across contributors and synchronized interface decisions to avoid integration failures.",
                   },
                 ],
               },
@@ -779,7 +779,7 @@ const smuSections = [
             children: [
               {
                 type: "text",
-                text: "From a team perspective, clearer ownership boundaries and formalized API contracts would improve coordination. Structured code reviews, shared documentation, and defined service interfaces would reduce ambiguity and make scaling contributors significantly easier.",
+                text: "From a team perspective, clearer ownership boundaries and formal API contracts would improve coordination. Structured code reviews, shared documentation, and defined interfaces would reduce ambiguity and make scaling contributors easier.",
               },
             ],
           },
@@ -801,7 +801,7 @@ const smuSections = [
         type: BlockType.LINKS,
         items: [
           {
-            title: "See the code",
+            title: "View Source Code",
             url: "https://github.com/Foscat/Stock-Memer",
             icon: faCode,
           },
@@ -824,14 +824,14 @@ const smuSections = [
       {
         id: "scion-problem",
         type: BlockType.RICH_TEXT,
-        title: "The Problem",
+        title: "Constraint: Manual and Opaque Matching",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Matching Intended Parents with Gestational Carriers is emotionally, financially, and logistically complex. Existing processes relied heavily on manual review, creating delays during an already stressful journey.",
+                text: "Matching Intended Parents with Gestational Carriers is emotionally, financially, and logistically complex. Existing processes depended heavily on manual review, creating delays during an already stressful journey.",
               },
             ],
           },
@@ -850,7 +850,7 @@ const smuSections = [
       {
         id: "scion-solution",
         type: BlockType.RICH_TEXT,
-        title: "The Solution",
+        title: "Solution: Explainable Compatibility Scoring",
         content: [
           {
             type: "p",
@@ -891,7 +891,7 @@ const smuSections = [
         type: BlockType.LINKS,
         items: [
           {
-            title: "See the code",
+            title: "View Source Code",
             url: "https://github.com/justinkunz/scion/tree/master",
             tooltip: "GitHub Repository",
             icon: faCode,
@@ -902,7 +902,7 @@ const smuSections = [
       {
         id: "scion-takeaways",
         type: BlockType.CARD_GRID,
-        title: "Key Takeaways",
+        title: "What This Project Taught Me",
         subtitle: "Lessons from designing a real-world matching algorithm with human impact",
         items: [
           {
@@ -916,7 +916,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Designing a compatibility engine required translating qualitative survey responses into structured, weighted scoring logic. The algorithm needed to balance fairness, interpretability, and predictability rather than optimize for raw mathematical output.",
+                    text: "Designing a compatibility engine meant translating qualitative survey input into structured, weighted scoring logic. The algorithm had to balance fairness, interpretability, and predictability rather than optimize for raw mathematical output.",
                   },
                 ],
               },
@@ -962,7 +962,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The matching algorithm represented the core value of the system. I owned the business logic from requirement interpretation through implementation, defining how edge cases, ties, and ambiguous inputs were resolved.",
+                    text: "The matching algorithm represented the core value of the system. I owned the business logic from requirement interpretation through implementation, including how edge cases, ties, and ambiguous inputs were resolved.",
                   },
                 ],
               },
@@ -988,7 +988,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Because matching outcomes had real human implications, design decisions required care and ethical awareness. Data handling, scoring transparency, and long-term maintainability were treated as architectural requirements rather than optional enhancements.",
+                    text: "Because matching outcomes had real human implications, design decisions required care and ethical awareness. Data handling, scoring transparency, and long-term maintainability were treated as core architectural requirements rather than optional enhancements.",
                   },
                 ],
               },
@@ -1001,81 +1001,6 @@ const smuSections = [
                     text: "When algorithms influence people directly, clarity and responsibility matter as much as correctness.",
                   },
                 ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "smu-conclusion",
-    title: "Conclusion",
-    blocks: [
-      {
-        id: "smu-conclusion-text",
-        type: BlockType.RICH_TEXT,
-        content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The projects completed at SMU established the foundation of how I approach software design today. They introduced real constraints — external APIs, team coordination, shifting requirements — and required solutions that extended beyond isolated code exercises.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "Working across integration challenges and collaborative workflows reinforced that effective software demands more than functional correctness. It requires clarity in structure, disciplined communication, and thoughtful handling of dependencies.",
-              },
-            ],
-          },
-          {
-            type: "ul",
-            children: [
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Integration awareness:" },
-                  {
-                    type: "text",
-                    text: " designing around third-party APIs and service boundaries.",
-                  },
-                ],
-              },
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Collaborative development:" },
-                  {
-                    type: "text",
-                    text: " coordinating responsibilities and shared logic within a team.",
-                  },
-                ],
-              },
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Ownership mindset:" },
-                  {
-                    type: "text",
-                    text: " recognizing that deployed software carries ongoing responsibility.",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            type: "blockquote",
-            children: [
-              { type: "inlineIcon", icon: "🎓" },
-              {
-                type: "text",
-                text: "These projects shaped the transition from writing code to designing systems.",
               },
             ],
           },

@@ -67,7 +67,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Competing against more experienced teams, we focused less on presentation and more on operational practicality — designing a solution grounded in real technician constraints rather than abstract feature sets.",
+                text: "Competing against more experienced teams, we prioritized operational practicality over presentation. The solution was designed around real technician constraints, not abstract feature sets.",
               },
             ],
           },
@@ -85,7 +85,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Following the hackathon, several team members invested their winnings to pursue the project further. I became the sole developer to continue building the product and independently learned ",
+                text: "After the hackathon, several team members invested their winnings to continue the project. I became the sole developer and independently learned ",
               },
               {
                 type: "strong",
@@ -102,7 +102,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Although the venture ultimately dissolved due to leadership and contractual misalignment, the experience accelerated my technical growth and reinforced key lessons in product ownership, execution, and governance.",
+                text: "The venture later dissolved because of leadership and contract misalignment, but the work accelerated my growth in product ownership, execution, and governance.",
               },
             ],
           },
@@ -121,7 +121,7 @@ const hackathonSections = [
         id: "overview-why-it-mattered",
         type: BlockType.CARD_GRID,
         title: "Why It Mattered",
-        subtitle: "Who it served -> problem -> solution -> ownership -> impact",
+        subtitle: "Who it served, the problem, the solution, ownership, and impact.",
         items: [
           {
             id: "hackathon-who-it-served",
@@ -142,7 +142,7 @@ const hackathonSections = [
           },
           {
             id: "hackathon-problem-solved",
-            title: "Problem",
+            title: "Primary Constraint",
             subtitle: "Instruction delivery disrupted repair flow",
             icon: faCircleExclamation,
             content: [
@@ -159,7 +159,7 @@ const hackathonSections = [
           },
           {
             id: "hackathon-solution",
-            title: "Solution",
+            title: "Custom Software Response",
             subtitle: "Voice-first, hands-free workflow design",
             icon: faLightbulb,
             content: [
@@ -216,7 +216,7 @@ const hackathonSections = [
         items: [
           {
             id: "overview-article-link",
-            title: "Read The Article",
+            title: "Read Hackathon Article",
             url: "https://austinstartups.com/21-teams-gather-at-capital-factory-to-hack-daimler-north-americas-voice-technology-for-truck-77ed19862592",
             icon: faNewspaper,
             ariaLabel: "Read the article about the Daimler Hackathon on Austin Startups",
@@ -224,7 +224,7 @@ const hackathonSections = [
           },
           {
             id: "overview-project-link",
-            title: "Hackathon Project",
+            title: "View Reinforce Project",
             url: "#reinforce",
             icon: faPersonChalkboard,
             ariaLabel: "View the hackathon project section",
@@ -233,7 +233,7 @@ const hackathonSections = [
           },
           {
             id: "overview-tech-assist-link",
-            title: "Tech Assist Code",
+            title: "View Tech Assist Build",
             url: "#tech_assist",
             icon: faHeadset,
             ariaLabel: "View the post-hackathon Tech Assist section",
@@ -263,7 +263,7 @@ const hackathonSections = [
       {
         id: "problem-statement",
         type: BlockType.RICH_TEXT,
-        title: "The Problem",
+        title: "Constraint: Hands-Busy Repair Workflows",
         icon: faCircleExclamation,
         content: [
           {
@@ -403,7 +403,7 @@ const hackathonSections = [
       {
         id: "the-solution",
         type: BlockType.RICH_TEXT,
-        title: "The Solution",
+        title: "Solution: Voice-First Repair Assistant",
         icon: faLightbulb,
         content: [
           {
@@ -612,7 +612,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Unlike many competing prototypes, the solution focused on operational alignment rather than feature complexity. It addressed Daimler's stated constraints without requiring new hardware or increasing cognitive load.",
+                text: "Unlike many prototypes, our solution prioritized operational fit over feature volume. It met Daimler's constraints without new hardware or added cognitive load.",
               },
             ],
           },
@@ -771,7 +771,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Naive in-memory parsing was no longer viable on mobile devices. To maintain performance and support offline execution, I refactored the system to preprocess and normalize hierarchical XML trees into optimized, queryable instruction graphs.",
+                text: "In-memory parsing no longer worked on mobile. To support performance and offline use, I refactored XML processing into preprocessed, normalized, queryable instruction graphs.",
               },
             ],
           },
@@ -990,7 +990,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Although significant progress was made in refining requirements, restructuring architecture, and expanding the mobile implementation, contractual and organizational misalignment halted further development.",
+                text: "We made strong progress on requirements, architecture, and the mobile implementation, but contractual and organizational misalignment ended further development.",
               },
             ],
           },
@@ -1027,7 +1027,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Despite the venture’s conclusion, the experience accelerated my growth in mobile architecture, microservice design, offline-first systems, and large-scale document modeling.",
+                text: "Even though the venture ended, the experience accelerated my growth in mobile architecture, microservice design, offline-first systems, and large-scale document modeling.",
               },
             ],
           },

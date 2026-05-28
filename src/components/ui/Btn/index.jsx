@@ -150,6 +150,9 @@ import { formatClassNames } from "assets/utils";
  * @param {string} [props.target]
  *   Anchor target value (e.g., "_blank").
  *
+ * @param {number} [props.tabIndex]
+ *   Explicit tabIndex for the button. By default, it will be focusable when visible and not disabled.
+ *
  * @param {string} [props.rel]
  *   Anchor `rel` attribute.
  *
@@ -196,6 +199,7 @@ const Btn = ({
   href = undefined,
   hrefLocal = false,
   target = undefined,
+  tabIndex = undefined,
   rel = undefined,
   tooltip = "",
   tooltipFollowCursor = false,

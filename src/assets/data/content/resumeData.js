@@ -12,7 +12,7 @@ const resumeData = {
   phone: "(469) 410-5286",
   website: "kyle-foster.com",
   summary:
-    "Senior Frontend Engineer with 6+ years of experience building React applications, browser-based tooling, and role-based product systems. Strong in translating complex workflows into clear, dependable interfaces through reusable UI architecture, responsive design, and practical product thinking.",
+    "Senior Frontend Engineer with 6+ years of experience building React applications, browser-based tooling, and role-based product systems. Skilled at translating complex workflows into clear, dependable interfaces through reusable UI architecture, responsive design, and practical product thinking.",
 
   experience: [
     {
