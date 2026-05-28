@@ -5,10 +5,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { Tooltip, Whisper } from "rsuite";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Btn } from "components/ui";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { useCoarsePointer } from "assets/hooks";
 import "./styles.css";
 
 const VISIBILITY_THRESHOLD_PX = 300;
@@ -31,7 +29,6 @@ function isReducedMotionEnabled() {
  */
 export default function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
-  const isCoarsePointer = useCoarsePointer();
 
   useEffect(() => {
     const updateVisibility = () => {
@@ -70,22 +67,16 @@ export default function BackToTopButton() {
 
   return (
     <div className={`back-to-top ${isVisible ? "is-visible" : "is-hidden"}`}>
-      <Whisper
-        trigger={isCoarsePointer ? "none" : ["hover", "focus"]}
-        placement="left"
-        enterable={false}
-        speaker={<Tooltip className="back-to-top-tooltip">Back to top</Tooltip>}
-      >
-        <button
-          type="button"
-          className="back-to-top__button interactive-surface"
-          aria-label="Back to top"
-          onClick={handleScrollToTop}
-          tabIndex={isVisible ? 0 : -1}
-        >
-          <FontAwesomeIcon icon={faArrowUp} aria-hidden="true" />
-        </button>
-      </Whisper>
+      <Btn
+        type="button"
+        className="back-to-top__button"
+        ariaLabel="Back to top"
+        tooltip="Back to top"
+        tooltipPlacement="left"
+        onClick={handleScrollToTop}
+        tabIndex={isVisible ? 0 : -1}
+        icon={faArrowUp}
+      />
     </div>
   );
 }

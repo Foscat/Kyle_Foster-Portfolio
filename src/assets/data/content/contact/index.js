@@ -76,8 +76,6 @@ const contactAltSections = [
             ],
           },
         ],
-        // Contact form schema is rendered by `ContactAlt` so it can attach
-        // async submit behavior and status messaging.
       },
     ],
   },

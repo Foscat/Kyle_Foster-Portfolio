@@ -313,7 +313,6 @@ export default function ContactAlt() {
               </Message>
             ) : null}
             <SectionRenderer section={contactAltSections[0]} />
-            <SectionRenderer key={`contact-form-${formResetNonce}`} section={contactFormSection} />
             <ResumePreviewTrigger
               buttonText="Preview Resume"
               title="Kyle Foster - Resume"

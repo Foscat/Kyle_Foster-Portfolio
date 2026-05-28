@@ -68,7 +68,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I bring experience across both production delivery and rapid prototyping. I built a custom education platform used in live classrooms, and I have also delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
+                text: "I work across both production delivery and rapid prototyping. I built a custom education platform used in live classrooms and delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
               },
               { type: "em", text: "concrete constraints" },
               {
@@ -83,61 +83,7 @@ const homeSections = [
               { type: "inlineIcon", icon: "👨‍🔬" },
               {
                 type: "text",
-                text: " I believe great engineering is not just about writing code, but about understanding the problem domain deeply and designing solutions that are elegant and effective.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "hero-profile-highlight",
-        title: "Beyond the Resume",
-        type: BlockType.IMAGE_TEXT_SPLIT,
-        imagePosition: "right",
-        image: homeImgObjs.suitStanding,
-        content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "I work from a product mindset: understand constraints first, design the interaction model second, and implement with enough structure that future iterations stay fast rather than brittle.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The photos are intentional. I wanted this portfolio to feel personal and accountable rather than anonymous. The way I show up in design reviews and delivery is the same way I show up in the work itself: clear, direct, and focused on practical outcomes.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "hero-profile-highlight-2",
-        title: "Working With Teams",
-        type: BlockType.IMAGE_TEXT_SPLIT,
-        imagePosition: "left",
-        image: homeImgObjs.headshot,
-        content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "I communicate early, document decisions, and keep interface contracts explicit so frontend and backend work can proceed in parallel without guesswork.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "In practice, that means aligning scope to outcomes, reducing risky assumptions before implementation, and shipping iterations that are straightforward to test, review, and extend.",
+                text: " Great engineering starts with understanding the domain and designing solutions that hold up in real use.",
               },
             ],
           },
@@ -226,14 +172,14 @@ const homeSections = [
     id: "professional",
     slug: "professional-work",
     title: "Professional Work",
-    subtitle: "Senior React / Frontend Engineer for CodeStream Studios LLC",
+    subtitle: "Senior React / Frontend Engineer at CodeStream Studios LLC (2019-2025)",
     icon: faBuildingUser,
     isScroller: true,
     blocks: [
       {
         id: "professional-codestream",
         title: "CodeStream Studios LLC",
-        subtitle: "Senior React / Frontend Engineer · 2019–2025",
+        subtitle: "Senior React / Frontend Engineer | 2019-2025",
         type: BlockType.RICH_TEXT,
         content: [
           {
@@ -246,7 +192,7 @@ const homeSections = [
               { type: "strong", text: "production education platform" },
               {
                 type: "text",
-                text: " used by real students, teachers, and organizations. It supported both synchronous and asynchronous learning, from lesson delivery and assignment grading to classroom operations and organization-level administration.",
+                text: " used by students, teachers, and organizations. It supported synchronous and asynchronous learning, from lesson delivery and grading to classroom operations and organization-level administration.",
               },
             ],
           },
@@ -257,7 +203,7 @@ const homeSections = [
               { type: "em", text: "sole frontend engineer" },
               {
                 type: "text",
-                text: ", owning the UI from requirements through release. I built core workflows including a multi-panel browser-based IDE, organization and classroom permissions, virtual classroom flows, grading tools, reporting, and administrative dashboards.",
+                text: ", owning the UI from requirements through release. I built core workflows including a multi-panel browser IDE, organization and classroom permissions, virtual classroom flows, grading tools, reporting, and admin dashboards.",
               },
             ],
           },
@@ -443,7 +389,7 @@ const homeSections = [
       },
       {
         id: "professional-learn-more",
-        title: "Learn More",
+        title: "Professional Links",
         type: BlockType.LINKS,
         items: [
           {
@@ -495,7 +441,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "After being initially overlooked by senior teams, I joined a group of junior developers and focused on understanding the client's actual pain points. We prioritized usability and practical constraints over technical flash.",
+                text: "After being overlooked by senior teams, I joined a junior group and focused on the client's actual pain points. We prioritized usability and practical constraints over technical flash.",
               },
             ],
           },
@@ -530,7 +476,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Delivered a hands-free repair assistant aligned with real-world shop workflows. We prioritized practical constraints, including technicians needing to keep both hands free and attention on the task, instead of building flashy but impractical features.",
+                    text: "Delivered a hands-free repair assistant aligned with shop workflows. We prioritized real constraints, including technicians needing both hands free and attention on the task, instead of flashy but impractical features.",
                   },
                 ],
               },
@@ -573,7 +519,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Designed a speech-driven interface optimized for environments where hands and attention are limited. This approach directly addressed the core constraints of repair shops, allowing technicians to interact with the system without needing to stop their work or use a separate device.",
+                    text: "Designed a speech-driven interface for environments where hands and attention are limited. This let technicians interact with the system without stopping work or switching to a separate device.",
                   },
                 ],
               },
@@ -614,7 +560,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Continued development as sole engineer, transitioning the prototype into a mobile-first React Native application. I focused first on reinforcing the core value proposition and addressing real-world deployment challenges rather than adding new features. This phase emphasized building for durability and long-term maintainability.",
+                    text: "Continued development as sole engineer, transitioning the prototype into a mobile-first React Native app. I focused on reinforcing the core value and addressing deployment challenges before adding features, with durability and maintainability as priorities.",
                   },
                 ],
               },
@@ -662,7 +608,7 @@ const homeSections = [
       },
       {
         id: "hackathon-learn-more",
-        title: "Learn More",
+        title: "Hackathon Links",
         type: BlockType.LINKS,
         items: [
           {
@@ -705,7 +651,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "These builds range from Raspberry Pi greenhouse automation to encryption experiments and campaign tooling. Each one moves from concept to deployment, with me owning design tradeoffs, implementation, and iteration.",
+                text: "These builds range from Raspberry Pi greenhouse automation to encryption experiments and campaign tooling. Each moves from concept to deployment, with me owning tradeoffs, implementation, and iteration.",
               },
             ],
           },
@@ -779,7 +725,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Build hardware-integrated systems that operate outside controlled environments and solve real problems. These projects require designing for physical constraints, reliability, and user needs in ways that purely software projects do not.",
+                    text: "Build hardware-integrated systems that run outside controlled environments and solve real problems. These projects require design decisions shaped by physical constraints, reliability needs, and user context.",
                   },
                 ],
               },
@@ -828,7 +774,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects have pushed me to learn and direct myself through every phase of the software development lifecycle, from requirements gathering to deployment and maintenance.",
+                    text: "Side projects have pushed me to self-direct across the full software lifecycle, from requirements to deployment and maintenance.",
                   },
                 ],
               },
@@ -893,7 +839,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "An open-source CSS library for building interactive surfaces with depth and motion. It provides a set of utility classes that can be applied to any HTML element to create dynamic, responsive interfaces that react to user input and environmental factors. The library is designed to be framework-agnostic, allowing developers to easily integrate it into any web project regardless of the underlying technology stack.",
+                    text: "An open-source, framework-agnostic CSS library for interactive surfaces with consistent depth, motion, and state behavior. Utility classes apply to any HTML element, making polished interactions easy in any web stack.",
                   },
                 ],
               },
@@ -999,7 +945,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A custom designed boilerplate MERN stack application with built-in authentication and deployment scripts to streamline full-stack development. This template provides a solid foundation for quickly launching new projects while maintaining a scalable architecture.",
+                    text: "A custom MERN boilerplate with built-in authentication and deployment scripts. It gives teams a reliable starting point so they can ship features faster instead of rebuilding foundational plumbing.",
                   },
                 ],
               },
@@ -1011,7 +957,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Deployment ready to multiple different cloud-based platforms with platform specific guides included in the app.",
+                        text: "Deployment-ready for multiple cloud platforms, with platform-specific setup guides included.",
                       },
                     ],
                   },
@@ -1020,7 +966,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Built-in authentication routes, auto generated MongoDB and password encryption using JWT. ",
+                        text: "Built-in authentication routes with JWT, encrypted passwords, and auto-generated MongoDB schema scaffolding.",
                       },
                     ],
                   },
@@ -1029,7 +975,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Built with professional-grade architecture and automatic documentation generation using JSDoc2md to ensure maintainability and scalability as projects evolve.",
+                        text: "Includes automatic documentation generation via JSDoc2md to keep architecture and implementation easier to maintain as projects grow.",
                       },
                     ],
                   },
@@ -1094,12 +1040,12 @@ const homeSections = [
       },
       {
         id: "sp-learn-more",
-        title: "Learn More",
+        title: "Side Project Links",
         type: BlockType.LINKS,
         items: [
           {
             id: "sp-explore-side-projects",
-            title: "Explore Side Projects",
+            title: "View Side Projects",
             url: `${PageRoute.SIDE_PROJECTS}`,
             icon: faFlask,
           },
@@ -1142,7 +1088,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "This period represents the transition from learning syntax to solving meaningful problems through software. The projects from this phase highlight early growth, first team experiences, and increasing ownership of technical decisions.",
+                text: "This period marks the transition from learning syntax to solving meaningful problems with software. These projects highlight early growth, first team experiences, and increasing ownership of technical decisions.",
               },
             ],
           },
@@ -1316,14 +1262,81 @@ const homeSections = [
       },
       {
         id: "ed-learn-more",
-        title: "Learn More",
+        title: "Education Links",
         type: BlockType.LINKS,
         items: [
           {
             id: "ed-explore-smu-projects",
-            title: "Explore SMU Projects",
+            title: "View SMU Projects",
             url: `${PageRoute.EDUCATION}`,
             icon: faGraduationCap,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "approach",
+    slug: "approach",
+    title: "Problem-Solving Throughline",
+    subtitle: "How I apply custom software thinking across environments",
+    icon: faChartLine,
+    isScroller: true,
+    blocks: [
+      {
+        id: "approach-summary",
+        title: "Constraint -> System -> Outcome",
+        type: BlockType.RICH_TEXT,
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Across professional work, hackathon delivery, and side projects, I follow the same model: identify the real constraint, design a focused system, and iterate until it is stable in real use.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Clarify who is blocked and what operational constraint is creating friction.",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Build custom software boundaries that solve the constraint without unnecessary complexity.",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Measure behavior, refine edge cases, and keep maintainability as a first-class goal.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              {
+                type: "text",
+                text: "The goal is software that reduces real workflow friction and remains dependable as scope grows.",
+              },
+            ],
           },
         ],
       },
@@ -1350,7 +1363,7 @@ const homeSections = [
               { type: "strong", text: "own UI architecture" },
               {
                 type: "text",
-                text: ", think in systems, and collaborate closely across product and engineering teams, I’d love to connect.",
+                text: ", think in systems, and collaborate closely across product and engineering teams, I'd love to connect.",
               },
             ],
           },
@@ -1371,14 +1384,14 @@ const homeSections = [
         items: [
           {
             id: "cta-contact-me",
-            title: "Open Contact Page",
+            title: "Open Contact Form",
             url: PageRoute.CONTACT,
             icon: faEnvelope,
             tooltip: "View contact page",
           },
           {
             id: "cta-download-resume",
-            title: "View Resume",
+            title: "Open Resume Preview",
             resumePreview: true,
             icon: faFileArrowDown,
             tooltip: "Open resume preview and download a theme-aware PDF",
