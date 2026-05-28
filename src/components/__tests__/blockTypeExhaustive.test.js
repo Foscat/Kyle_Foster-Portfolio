@@ -16,6 +16,7 @@ describe("BlockType exhaustiveness", () => {
     const supported = new Set([
       BlockType.RICH_TEXT,
       BlockType.IMAGE_GALLERY,
+      BlockType.IMAGE_TEXT_SPLIT,
       BlockType.LINKS,
       BlockType.BULLETED_LIST,
       BlockType.CARD_GRID,

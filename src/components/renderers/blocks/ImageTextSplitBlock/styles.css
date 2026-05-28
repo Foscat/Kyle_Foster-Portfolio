@@ -1,0 +1,71 @@
+/* ============================================================
+   ImageTextSplitBlock — magazine-style float layout
+   ============================================================
+   The figure floats left or right on tablet/desktop so the
+   paragraph text wraps around it naturally, like a newspaper
+   or magazine article. On mobile the float is cleared and the
+   image always stacks above the text regardless of position.
+*/
+
+/* ------------------------------------------------------------
+   Base container — clearfix so the panel stretches to contain
+   the floated figure even when text is short.
+   ------------------------------------------------------------ */
+.image-text-split-layout {
+  overflow: hidden; /* clearfix */
+}
+
+/* ------------------------------------------------------------
+   Figure — block on mobile, floated on wider screens.
+   ------------------------------------------------------------ */
+.image-text-split-media {
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem 0;
+}
+
+.image-text-split-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+/* Caption — hidden by default (controlled by showCaption prop). */
+.image-text-split-caption {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------
+   Mobile — image above text, full width, no float.
+   ------------------------------------------------------------ */
+@media (width < 768px) {
+  .image-text-split-media {
+    float: none !important;
+    width: 100% !important;
+    margin: 0 0 1rem 0 !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   Tablet (768px – 899px) — float at ~33%, text wraps.
+   ------------------------------------------------------------ */
+@media (width >= 768px) {
+  .image-text-split-layout.image-left .image-text-split-media {
+    float: left;
+    width: 33%;
+    margin: 0.15rem 1.25rem 0.75rem 0;
+  }
+
+  .image-text-split-layout.image-right .image-text-split-media {
+    float: right;
+    width: 33%;
+    margin: 0.15rem 0 0.75rem 1.25rem;
+  }
+}

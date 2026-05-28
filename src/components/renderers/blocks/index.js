@@ -33,6 +33,11 @@ const ImageGalleryBlock = withLazySuspense(
   "Loading image gallery...",
   "ImageGalleryBlock"
 );
+const ImageTextSplitBlock = withLazySuspense(
+  () => import("./ImageTextSplitBlock"),
+  "Loading profile highlight...",
+  "ImageTextSplitBlock"
+);
 const LinksBlock = withLazySuspense(() => import("./LinksBlock"), "Loading links...", "LinksBlock");
 const RichTextBlock = withLazySuspense(
   () => import("./RichTextBlock"),
@@ -47,4 +52,12 @@ const CardGridBlock = withLazySuspense(
 const HeroBlock = withLazySuspense(() => import("./HeroBlock"), "Loading hero...", "HeroBlock");
 const FormBlock = withLazySuspense(() => import("./FormBlock"), "Loading form...", "FormBlock");
 
-export { ImageGalleryBlock, LinksBlock, RichTextBlock, CardGridBlock, HeroBlock, FormBlock };
+export {
+  ImageGalleryBlock,
+  ImageTextSplitBlock,
+  LinksBlock,
+  RichTextBlock,
+  CardGridBlock,
+  HeroBlock,
+  FormBlock,
+};

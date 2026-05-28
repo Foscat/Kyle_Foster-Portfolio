@@ -1,3 +1,9 @@
+/**
+ * @file src/styles/colorThemes.contrast.test.js
+ * @description Contrast regression checks for core color-theme token pairings.
+ * @module src/styles/colorThemes.contrast.test
+ */
+
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";

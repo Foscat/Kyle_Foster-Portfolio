@@ -12,6 +12,7 @@
   width: auto;
   max-width: 24rem;
   text-decoration: none;
+  margin: 2px 0;
 }
 
 @media (max-width: 900px) {

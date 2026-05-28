@@ -169,12 +169,50 @@ export function useScrollSpyWithHistory(nodes = [], byId, offset = 0) {
   // Prevent observer churn during programmatic scrolls
   const programmaticScroll = useRef(false);
   const scrollTimeout = useRef(null);
+  const visibilityById = useRef(new Map());
+  const topById = useRef(new Map());
+
+  const pickActiveFromVisible = () => {
+    if (typeof document === "undefined") return null;
+
+    const anchor = Math.max(0, Number(offset) || 0);
+    const visibleIds = [...visibilityById.current.entries()]
+      .filter(([, isVisible]) => Boolean(isVisible))
+      .map(([id]) => id);
+
+    if (!visibleIds.length) return null;
+
+    const scored = visibleIds
+      .map((id) => {
+        let rectTop = topById.current.get(id);
+
+        if (typeof rectTop !== "number") {
+          const el = document.getElementById(id);
+          if (!el) return null;
+          rectTop = el.getBoundingClientRect().top;
+        }
+
+        const topDelta = rectTop - anchor;
+
+        return {
+          id,
+          rectTop,
+          score: topDelta >= 0 ? topDelta : Math.abs(topDelta) * 1.35,
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => {
+        if (a.score !== b.score) return a.score - b.score;
+        return a.rectTop - b.rectTop;
+      });
+
+    return scored[0]?.id || null;
+  };
 
   /**
-   * @description Marks a programmatic scroll window. Navigation clicks should call this BEFORE scrolling. /
+   * @description Marks a programmatic scroll window. Navigation clicks should call this BEFORE scrolling.
    */
   const markProgrammaticScroll = (id) => {
-    programmaticScroll.click = true;
     // Immediately reflect active state on click
     if (id) {
       setActiveLeafId(id);
@@ -186,7 +224,7 @@ export function useScrollSpyWithHistory(nodes = [], byId, offset = 0) {
     programmaticScroll.current = true;
     scrollTimeout.current = setTimeout(() => {
       programmaticScroll.current = false;
-    }, 600); // longer than typical smooth scroll
+    }, 900);
   };
 
   /* ------------------------------------------------------------------------ */
@@ -197,20 +235,24 @@ export function useScrollSpyWithHistory(nodes = [], byId, offset = 0) {
   useEffect(() => {
     if (!nodes.length) return;
 
+    visibilityById.current = new Map();
+
     // Create an observer with a callback that updates activeLeafId based on visible nodes
     const observer = new IntersectionObserver(
       (entries) => {
         if (programmaticScroll.current) return;
 
-        // Filter to visible entries with IDs, then sort by proximity to top of viewport
-        const visible = entries
-          .filter((e) => e.isIntersecting && e.target.id)
-          .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top));
+        entries.forEach((entry) => {
+          const id = entry.target?.id;
+          if (!id) return;
+          visibilityById.current.set(id, entry.isIntersecting || entry.intersectionRatio > 0);
+          if (entry.boundingClientRect && typeof entry.boundingClientRect.top === "number") {
+            topById.current.set(id, entry.boundingClientRect.top);
+          }
+        });
 
-        if (!visible.length) return;
-
-        // The closest visible node to the top of the viewport is the active leaf
-        const nextId = visible[0].target.id;
+        const nextId = pickActiveFromVisible();
+        if (!nextId) return;
 
         setActiveLeafId((prev) => {
           if (prev === nextId) return prev;
@@ -220,7 +262,7 @@ export function useScrollSpyWithHistory(nodes = [], byId, offset = 0) {
       },
       {
         rootMargin: `-${offset}px 0px -60% 0px`,
-        threshold: [0, 0.15],
+        threshold: [0, 0.1, 0.2, 0.35, 0.5, 0.75, 1],
       }
     );
 
@@ -233,7 +275,11 @@ export function useScrollSpyWithHistory(nodes = [], byId, offset = 0) {
       requestAnimationFrame(() => observer.observe(el));
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      visibilityById.current.clear();
+      topById.current.clear();
+    };
   }, [nodes, offset]);
 
   /* ------------------------------------------------------------------------ */

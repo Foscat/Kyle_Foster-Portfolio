@@ -18,7 +18,7 @@ import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider
  * @param {React.ReactElement} ui - Component under test.
  * @param {object} [options]
  * @param {"light"|"dark"} [options.rsuiteTheme="dark"] - RSuite theme.
- * @returns {import("@testing-library/react").RenderResult}
+ * @returns {object} Testing Library render result.
  */
 export default function renderWithAppProviders(ui, { rsuiteTheme = "dark" } = {}) {
   return render(

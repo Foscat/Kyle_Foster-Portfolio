@@ -23,12 +23,12 @@ test.describe("Contact page", () => {
     await page.route("**/api/contact", async (route) => {
       const payload = route.request().postDataJSON();
 
-      // Verify the outbound request contract by checking that the payload sent to the API matches the expected structure and values based on the user input. This ensures that the frontend is correctly formatting the data before sending it to the backend, which is crucial for successful communication between the two layers of the application.
-      expect(payload).toEqual({
+      // Verify the outbound request contract while allowing schema-driven message formatting.
+      expect(payload).toMatchObject({
         name: "Kyle Foster",
         email: "kyle@example.com",
-        message: "Playwright contact test",
       });
+      expect(String(payload?.message || "")).toContain("Project Details: Playwright contact test");
 
       // Mock the API response to simulate a successful submission, allowing the test to be deterministic and not rely on the actual backend service. This ensures that the test can consistently verify the frontend behavior without being affected by external factors such as network issues or backend downtime.
       await route.fulfill({
@@ -48,6 +48,6 @@ test.describe("Contact page", () => {
       .fill("Playwright contact test");
     await page.getByRole("button", { name: /send message/i }).click();
 
-    await expect(page.getByText(/message sent successfully/i)).toBeVisible();
+    await expect(page.getByRole("status").getByText(/message sent successfully/i)).toBeVisible();
   });
 });

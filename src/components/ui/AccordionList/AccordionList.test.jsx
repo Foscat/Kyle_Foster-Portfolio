@@ -139,9 +139,9 @@ describe("AccordionList", () => {
    * Accessibility
    * ------------------------------------------------------------ */
 
-  it("renders the accordion container with role='tree'", () => {
+  it("renders the accordion container with an accessible label", () => {
     renderAccordion();
-    expect(screen.getByRole("tree")).toBeInTheDocument();
+    expect(screen.getByLabelText("Test Sections", { selector: ".fa-list" })).toBeInTheDocument();
   });
 
   it("updates screen reader live region on interaction", async () => {

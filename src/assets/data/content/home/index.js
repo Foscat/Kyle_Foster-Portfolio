@@ -34,6 +34,8 @@ import {
 import { faCss3Alt, faGitSquare } from "@fortawesome/free-brands-svg-icons";
 import { BlockType, PageRoute } from "types/ui.types.js";
 import diagrams from "./diagrams.js";
+import sideProjectSocialCards from "assets/images/sideProjects/socialCards";
+import homeImgObjs from "assets/images/home";
 
 const homeSections = [
   {
@@ -82,6 +84,60 @@ const homeSections = [
               {
                 type: "text",
                 text: " I believe great engineering is not just about writing code, but about understanding the problem domain deeply and designing solutions that are elegant and effective.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "hero-profile-highlight",
+        title: "Beyond the Resume",
+        type: BlockType.IMAGE_TEXT_SPLIT,
+        imagePosition: "right",
+        image: homeImgObjs.suitStanding,
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "I work from a product mindset: understand constraints first, design the interaction model second, and implement with enough structure that future iterations stay fast rather than brittle.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "The photos are intentional. I wanted this portfolio to feel personal and accountable rather than anonymous. The way I show up in design reviews and delivery is the same way I show up in the work itself: clear, direct, and focused on practical outcomes.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "hero-profile-highlight-2",
+        title: "Working With Teams",
+        type: BlockType.IMAGE_TEXT_SPLIT,
+        imagePosition: "left",
+        image: homeImgObjs.headshot,
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "I communicate early, document decisions, and keep interface contracts explicit so frontend and backend work can proceed in parallel without guesswork.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "In practice, that means aligning scope to outcomes, reducing risky assumptions before implementation, and shipping iterations that are straightforward to test, review, and extend.",
               },
             ],
           },
@@ -824,12 +880,13 @@ const homeSections = [
         items: [
           {
             id: "sp-interactive-surface",
-            title: "Interactive Surface CSS Library",
+            title: "Interactive Surface CSS",
             subtitle:
-              "Framework-agnostic CSS library for building interactive surfaces with depth and motion",
+              "Framework-agnostic CSS system for interactive surfaces with consistent depth, motion, and state handling",
             icon: faCss3Alt,
             url: `${PageRoute.SIDE_PROJECTS}/#interactive-surface-css`,
             isScroller: false,
+            previewImage: sideProjectSocialCards.interactiveSurface,
             content: [
               {
                 type: "p",
@@ -875,13 +932,67 @@ const homeSections = [
             ],
           },
           {
-            id: "sp-mern-template",
-            title: "MERN App Template + Auth",
+            id: "sp-ui-style-kit-css",
+            title: "UI Style Kit CSS",
             subtitle:
-              "Custom MERN stack boilerplate with built-in authentication and deployment scripts for rapid prototyping",
+              "Reusable CSS utility library for consistent UI styling and faster frontend delivery",
+            icon: faCss3Alt,
+            url: `${PageRoute.SIDE_PROJECTS}/#ui-style-kit-css`,
+            isScroller: false,
+            previewImage: sideProjectSocialCards.uiStyleKit,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "A lightweight npm CSS package that centralizes practical UI styling primitives so teams can build consistent interfaces with less repetition.",
+                  },
+                ],
+              },
+              {
+                type: "ul",
+                children: [
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Drop-in utility styles for faster implementation",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Improves style consistency across components and pages",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Published as an npm package for easy adoption",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "sp-mern-template",
+            title: "MERN App Template with Authentication",
+            subtitle:
+              "Custom MERN boilerplate with built-in authentication and deployment tooling for rapid prototyping",
             icon: faLock,
             url: `${PageRoute.SIDE_PROJECTS}/#mern-template`,
             isScroller: false,
+            previewImage: sideProjectSocialCards.mernTemplate,
             content: [
               {
                 type: "p",
@@ -928,19 +1039,20 @@ const homeSections = [
           },
           {
             id: "sp-enigma",
-            title: "Ceaser's Enigma",
+            title: "Caesar's Enigma",
             subtitle:
-              "A secure messaging application inspired by the Enigma machine, utilizing a custom implementation of the Ceaser cipher for encryption and decryption.",
+              "Secure messaging application inspired by the Enigma machine and powered by a custom Caesar-style cipher.",
             icon: faUserSecret,
             url: `${PageRoute.SIDE_PROJECTS}/#enigma`,
             isScroller: false,
+            previewImage: sideProjectSocialCards.enigma,
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "A simple secure messaging application inspired by the Enigma machine, utilizing a custom implementation of the Ceaser cipher for encryption and decryption. The app allows users to send encrypted messages that can only be decrypted by recipients with the correct key, demonstrating principles of cryptography in an accessible way.",
+                    text: "A secure messaging application inspired by the Enigma machine, using a custom Caesar-style cipher for encryption and decryption. The app allows users to send encrypted messages that can only be decrypted by recipients with the correct key, demonstrating cryptography in an accessible, product-oriented format.",
                   },
                 ],
               },
@@ -952,7 +1064,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Custom implementation of the Ceaser cipher for message encryption and decryption using a randomly generated key for each message.",
+                        text: "Custom implementation of the Caesar cipher for message encryption and decryption using a randomly generated key for each message.",
                       },
                     ],
                   },

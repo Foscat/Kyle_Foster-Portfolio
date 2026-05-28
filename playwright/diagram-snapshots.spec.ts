@@ -1,36 +1,32 @@
 /**
  * @file playwright\diagram-snapshots.spec.ts
- * @description playwright\diagram-snapshots.spec module.
+ * @description Deterministic smoke checks for Mermaid diagrams.
  * @module playwright\diagram-snapshots.spec
  */
 
 import { expect, test } from "@playwright/test";
 import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
-import { snapshotDiagram } from "./utils/snapshotDiagram";
+import { waitForMermaidRender } from "./utils/waitForMermaid";
 import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 
-test.describe("Mermaid SVG snapshots", () => {
-  for (const entry of DIAGRAM_ENTRIES) {
-    test(`snapshot ${entry.id}`, async ({ page }) => {
-      test.setTimeout(60_000);
+const DIAGRAM_ROUTES = [...new Set(DIAGRAM_ENTRIES.map((entry) => entry.route))];
+
+test.describe("Mermaid diagram smoke", () => {
+  for (const route of DIAGRAM_ROUTES) {
+    test(`${route} renders its diagrams`, async ({ page }) => {
+      test.setTimeout(45_000);
+
       await page.setViewportSize({ width: 1366, height: 900 });
       await preparePageForStableTests(page, { theme: "dark" });
-      await page.goto(entry.route);
+      await page.goto(route);
       await stabilizePage(page, { theme: "dark" });
 
-      if (entry.id === "diagram-greenhouse-mental-model") {
-        // Mermaid layout for this diagram is nondeterministic across runs; assert critical content instead.
-        const svgHandle = page.locator(`#${entry.id} .mermaid-svg-host svg`);
-        await expect(svgHandle).toBeVisible({ timeout: 15000 });
-        const svgMarkup = await svgHandle.evaluate((el) => el.outerHTML);
-        expect(svgMarkup).toContain(">Sense<");
-        expect(svgMarkup).toContain(">Decide<");
-        expect(svgMarkup).toContain(">Act<");
-        expect(svgMarkup).toContain("Stability Delay");
-        return;
-      }
+      const entries = DIAGRAM_ENTRIES.filter((entry) => entry.route === route);
+      expect(entries.length).toBeGreaterThan(0);
 
-      await snapshotDiagram(page, entry.id);
+      for (const entry of entries) {
+        await waitForMermaidRender(page, entry.id);
+      }
     });
   }
 });

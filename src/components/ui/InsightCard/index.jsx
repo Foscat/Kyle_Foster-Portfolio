@@ -7,7 +7,7 @@
 import clsx from "clsx";
 import { Children } from "react";
 import { Size, Variant } from "types/ui.types";
-import { Btn, FrostedIcon } from "..";
+import { Btn, ClickableImg, FrostedIcon } from "..";
 import { RichText } from "components/renderers";
 import "./style.css";
 
@@ -71,6 +71,7 @@ export function CardGrid({ columns = 3, children }) {
  * @param {object} [icon] - The FontAwesome icon to display in the card header.
  * @param {string} [subtitle] - The subtitle of the insight card.
  * @param {Variant} [variant] - The accent color for the card (default is "primary").
+ * @param {FeatureImage} [previewImage] - Optional expandable preview image shown above card details.
  * @param {RichTextNode[]|string} content - The content to be displayed within the card body.
  * @returns {JSX.Element} The rendered InsightCard component.
  *
@@ -103,6 +104,7 @@ export function InsightCard({
   subtitle,
   variant = Variant.PRIMARY,
   content,
+  previewImage,
   url,
   local,
   ariaLabel,
@@ -115,9 +117,15 @@ export function InsightCard({
     typeof local === "boolean"
       ? local
       : typeof url === "string" && (url.startsWith("/") || url.startsWith("#"));
+  const hasPreviewImage = Boolean(previewImage?.src);
 
   return (
-    <article className={clsx("insight-card", `insight-card--${variant}`)} role="listitem">
+    <article
+      className={clsx("insight-card", `insight-card--${variant}`, {
+        "insight-card--with-preview": hasPreviewImage,
+      })}
+      role="listitem"
+    >
       <div className="insight-card__header">
         {icon && (
           <div className="insight-card__icon">
@@ -132,6 +140,23 @@ export function InsightCard({
       <div className="insight-card__divider" />
 
       <div className="insight-card__body">
+        {hasPreviewImage ? (
+          <figure
+            className="insight-card__preview"
+            aria-label={previewImage.ariaLabel || undefined}
+          >
+            <ClickableImg
+              id={previewImage.id || `${title}-preview-image`}
+              index={0}
+              src={previewImage.src}
+              alt={previewImage.alt || `${title} preview image`}
+              title={previewImage.title || `${title} preview`}
+              caption={previewImage.caption || ""}
+              ariaLabel={previewImage.ariaLabel || `${title} preview image, click to expand`}
+              className="insight-card__preview-image"
+            />
+          </figure>
+        ) : null}
         <div className="insight-card__content" tabIndex={0} aria-label={`${title} details`}>
           <RichText content={content} />
         </div>

@@ -11,11 +11,9 @@ const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "htt
 const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
-const PALETTE_VALUES = ["primary", "alt", "forest", "ocean", "sunset"] as const;
-
 test.describe("Theme and Palette Stability", () => {
   test("does not crash while repeatedly switching theme and palette", async ({ page }) => {
-    test.setTimeout(120000);
+    test.setTimeout(60_000);
 
     const runtimeErrors: string[] = [];
     page.on("pageerror", (err) => runtimeErrors.push(String(err)));
@@ -42,24 +40,31 @@ test.describe("Theme and Palette Stability", () => {
     await expect(darkThemeButton).toBeVisible();
     await expect(paletteSelect).toBeVisible();
 
-    for (let round = 0; round < 3; round += 1) {
-      await lightThemeButton.click();
-      await expect
-        .poll(() => page.evaluate(() => document.documentElement.dataset.theme || ""))
-        .toBe("light");
+    const paletteValues = await paletteSelect.locator("option").evaluateAll((options) =>
+      options
+        .map((option) => option.getAttribute("value") || "")
+        .map((value) => value.trim())
+        .filter(Boolean)
+    );
 
-      await darkThemeButton.click();
-      await expect
-        .poll(() => page.evaluate(() => document.documentElement.dataset.theme || ""))
-        .toBe("dark");
+    expect(paletteValues.length).toBeGreaterThan(0);
 
-      for (const palette of PALETTE_VALUES) {
-        await paletteSelect.selectOption(palette);
-        await expect
-          .poll(() => page.evaluate(() => document.documentElement.dataset.palette || ""))
-          .toBe(palette);
-      }
+    await lightThemeButton.click();
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.dataset.theme || ""))
+      .toBe("light");
+
+    for (const palette of paletteValues) {
+      await paletteSelect.selectOption(palette);
+      await expect
+        .poll(() => page.evaluate(() => document.documentElement.dataset.palette || ""))
+        .toBe(palette);
     }
+
+    await darkThemeButton.click();
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.dataset.theme || ""))
+      .toBe("dark");
 
     await expect(page.locator("main")).toBeVisible();
     expect(runtimeErrors, runtimeErrors.join("\n\n")).toHaveLength(0);

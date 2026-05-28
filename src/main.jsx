@@ -21,7 +21,6 @@ import { ThemeProvider } from "assets/context/ThemeContext.jsx";
 import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider.jsx";
 import { installChunkLoadRecovery } from "assets/chunkLoadRecovery.js";
 import App from "./App.jsx";
-import reportWebVitals from "./reportWebVitals.js";
 // Reset
 import "./index.css";
 // RSuite shell styles
@@ -61,40 +60,46 @@ const shouldSendVitals = import.meta.env.PROD && webVitalsEndpoint.length > 0;
 const shouldInitVitals = shouldLogVitals || shouldSendVitals;
 
 if (shouldInitVitals) {
-  reportWebVitals((metric) => {
-    try {
-      if (!metric || typeof metric !== "object") return;
+  import("./reportWebVitals.js")
+    .then(({ default: reportWebVitals }) => {
+      reportWebVitals((metric) => {
+        try {
+          if (!metric || typeof metric !== "object") return;
 
-      if (shouldLogVitals) {
-        console.debug("[web-vitals]", metric.name, metric.value, metric);
-      }
+          if (shouldLogVitals) {
+            console.debug("[web-vitals]", metric.name, metric.value, metric);
+          }
 
-      if (!shouldSendVitals) return;
+          if (!shouldSendVitals) return;
 
-      const payload = JSON.stringify({
-        ...metric,
-        path: window.location.pathname,
-        timestamp: Date.now(),
+          const payload = JSON.stringify({
+            ...metric,
+            path: window.location.pathname,
+            timestamp: Date.now(),
+          });
+
+          if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+            const blob = new Blob([payload], { type: "application/json" });
+            navigator.sendBeacon(webVitalsEndpoint, blob);
+            return;
+          }
+
+          if (typeof fetch === "function") {
+            fetch(webVitalsEndpoint, {
+              method: "POST",
+              body: payload,
+              headers: { "Content-Type": "application/json" },
+              keepalive: true,
+            }).catch(() => {
+              // Ignore reporting errors to avoid affecting app UX.
+            });
+          }
+        } catch {
+          // Never allow vitals reporting to break app execution.
+        }
       });
-
-      if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
-        const blob = new Blob([payload], { type: "application/json" });
-        navigator.sendBeacon(webVitalsEndpoint, blob);
-        return;
-      }
-
-      if (typeof fetch === "function") {
-        fetch(webVitalsEndpoint, {
-          method: "POST",
-          body: payload,
-          headers: { "Content-Type": "application/json" },
-          keepalive: true,
-        }).catch(() => {
-          // Ignore reporting errors to avoid affecting app UX.
-        });
-      }
-    } catch {
-      // Never allow vitals reporting to break app execution.
-    }
-  });
+    })
+    .catch(() => {
+      // Keep app startup resilient even if vitals module fails to load.
+    });
 }

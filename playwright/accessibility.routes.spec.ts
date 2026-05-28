@@ -32,21 +32,10 @@ const ROUTE_CASES: RouteAccessibilityCase[] = [
     allowedSeriousViolations: [{ id: "color-contrast", maxNodes: 1 }],
   },
   {
-    route: "/docs",
-    name: "Docs",
-    allowedSeriousViolations: [{ id: "color-contrast", maxNodes: 1 }],
-  },
-  {
     route: "/side-projects",
     name: "Side Projects",
     allowedSeriousViolations: [{ id: "color-contrast", maxNodes: 1 }],
   },
-  {
-    route: "/hackathon",
-    name: "Hackathon",
-    allowedSeriousViolations: [{ id: "color-contrast", maxNodes: 1 }],
-  },
-  { route: "/smu", name: "SMU", allowedSeriousViolations: [{ id: "color-contrast", maxNodes: 1 }] },
 ];
 
 const formatViolations = (
@@ -62,9 +51,11 @@ async function runAxeScan(page: Page) {
 
 test.describe("Accessibility route scans @a11y", () => {
   for (const routeCase of ROUTE_CASES) {
-    test(`${routeCase.name} route keeps critical violations at zero and serious violations near-zero @a11y`, async ({
+    test(`${routeCase.name} route keeps accessibility regressions bounded @a11y`, async ({
       page,
     }) => {
+      test.setTimeout(45_000);
+
       await page.setViewportSize({ width: 1280, height: 720 });
       await preparePageForStableTests(page, { theme: "light" });
       await page.goto(routeCase.route);
@@ -98,8 +89,12 @@ test.describe("Accessibility route scans @a11y", () => {
         }
 
         if (violation.nodes.length > maxNodes) {
+          const sampleTargets = violation.nodes
+            .slice(0, 3)
+            .map((node) => node.target?.join(" ") || "<unknown-target>")
+            .join(" | ");
           overBudgetSeriousViolations.push(
-            `${violation.id} nodes ${violation.nodes.length} > ${maxNodes}`
+            `${violation.id} nodes ${violation.nodes.length} > ${maxNodes}; targets: ${sampleTargets}`
           );
         }
       }

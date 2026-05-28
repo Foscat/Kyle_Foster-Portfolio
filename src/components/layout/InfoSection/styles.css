@@ -56,6 +56,10 @@ section.info-section.section-renderer .rs-panel {
   gap: 0.75rem;
 }
 
+.info-section.section-renderer .frosted-icon.infoSect-icon {
+  padding: 0;
+}
+
 .info-title {
   margin: 0;
   min-width: 0;
@@ -216,8 +220,8 @@ section.info-section.section-renderer .rs-panel {
   }
 
   .info-section.section-renderer .frosted-icon.infoSect-icon.fi-size-xl {
-    width: var(--icon-lg);
-    height: var(--icon-lg);
+    width: clamp(1.5rem, 7vw, var(--font-xl));
+    height: clamp(1.5rem, 7vw, var(--font-xl));
   }
 
   .info-title {
@@ -230,7 +234,7 @@ section.info-section.section-renderer .rs-panel {
   }
 
   .info-content {
-    font-size: var(--font-lg);
+    font-size: var(--font-md);
   }
 }
 

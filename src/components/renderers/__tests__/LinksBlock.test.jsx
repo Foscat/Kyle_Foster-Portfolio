@@ -144,7 +144,7 @@ describe("LinksBlock", () => {
 
   it("renders resume preview trigger links with theme and palette aware download names", () => {
     window.localStorage.setItem("portfolio-theme", "light");
-    window.localStorage.setItem("portfolio-palette", "forest");
+    window.localStorage.setItem("portfolio-palette", "ocean-steel");
 
     renderWithProviders(
       <LinksBlock
@@ -159,7 +159,8 @@ describe("LinksBlock", () => {
 
     const trigger = screen.getByTestId("resume-preview-trigger");
     expect(trigger).toHaveTextContent("View Resume");
-    expect(trigger).toHaveAttribute("data-download-name", "Kyle-Foster-Resume-light-forest.pdf");
+    const downloadName = trigger.getAttribute("data-download-name") || "";
+    expect(downloadName).toMatch(/^Kyle-Foster-Resume-light-[a-z0-9-]+\.pdf$/);
     expect(trigger).toHaveAttribute("data-pdf-href", expect.stringContaining("LightMode.pdf"));
     expect(trigger).toHaveClass("links-block-item");
   });

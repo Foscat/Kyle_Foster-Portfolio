@@ -14,6 +14,7 @@ import {
   createFormBlock,
   createHeroBlock,
   createImageGalleryBlock,
+  createImageTextSplitBlock,
   createLinkListBlock,
   createRichTextBlock,
 } from "types/ui.types";
@@ -23,6 +24,7 @@ import {
   FormBlock,
   HeroBlock,
   ImageGalleryBlock,
+  ImageTextSplitBlock,
   LinksBlock,
   RichTextBlock,
 } from "components/renderers/blocks";
@@ -517,6 +519,9 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
 
               case BlockType.IMAGE_GALLERY:
                 return <ImageGalleryBlock key={blockKey} {...createImageGalleryBlock(block)} />;
+
+              case BlockType.IMAGE_TEXT_SPLIT:
+                return <ImageTextSplitBlock key={blockKey} {...createImageTextSplitBlock(block)} />;
 
               case BlockType.LINKS:
                 return <LinksBlock key={blockKey} {...createLinkListBlock(block)} />;

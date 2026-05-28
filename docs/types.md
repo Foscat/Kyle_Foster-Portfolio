@@ -121,6 +121,7 @@ Shared UI-related type definitions used across components,including buttons, ic
         * [.Palette](#module_types/ui.Palette) : <code>enum</code>
         * [.createFeatureImage](#module_types/ui.createFeatureImage) ⇒ <code>FeatureImage</code>
         * [.createImageGalleryBlock](#module_types/ui.createImageGalleryBlock) ⇒ <code>ImageGalleryBlock</code>
+        * [.createImageTextSplitBlock](#module_types/ui.createImageTextSplitBlock) ⇒ <code>ImageTextSplitBlock</code>
         * [.createRichTextBlock](#module_types/ui.createRichTextBlock) ⇒ <code>RichTextBlock</code>
         * [.createDiagramBlock](#module_types/ui.createDiagramBlock) ⇒ <code>DiagramBlock</code>
         * [.createCardGridBlock](#module_types/ui.createCardGridBlock) ⇒ <code>CardGridBlock</code>
@@ -166,12 +167,13 @@ Shared UI-related type definitions used across components,including buttons, ic
         * [~DiagramVariant](#module_types/ui..DiagramVariant) : <code>object</code>
         * [~DiagramBlock](#module_types/ui..DiagramBlock) : <code>object</code>
         * [~ImageGalleryBlock](#module_types/ui..ImageGalleryBlock) : <code>object</code>
+        * [~ImageTextSplitBlock](#module_types/ui..ImageTextSplitBlock) : <code>object</code>
         * [~BulletListBlock](#module_types/ui..BulletListBlock) : <code>object</code>
         * [~LinkListBlock](#module_types/ui..LinkListBlock) : <code>object</code>
         * [~MarkdownHeading](#module_types/ui..MarkdownHeading) : <code>object</code>
         * [~MarkdownRendererProps](#module_types/ui..MarkdownRendererProps) : <code>object</code>
         * [~MarkdownDocsBlock](#module_types/ui..MarkdownDocsBlock) : <code>object</code>
-        * [~FeatureBlock](#module_types/ui..FeatureBlock) : <code>RichTextBlock</code> \| <code>ImageGalleryBlock</code> \| <code>DiagramBlock</code> \| <code>BulletListBlock</code> \| <code>LinkListBlock</code> \| <code>MarkdownDocsBlock</code>
+        * [~FeatureBlock](#module_types/ui..FeatureBlock) : <code>RichTextBlock</code> \| <code>ImageGalleryBlock</code> \| <code>ImageTextSplitBlock</code> \| <code>DiagramBlock</code> \| <code>BulletListBlock</code> \| <code>LinkListBlock</code> \| <code>MarkdownDocsBlock</code>
         * [~FeatureSection](#module_types/ui..FeatureSection) : <code>object</code>
         * [~BaseUIProps](#module_types/ui..BaseUIProps) : <code>Object</code>
         * [~IconConfig](#module_types/ui..IconConfig) : <code>Object</code>
@@ -225,6 +227,17 @@ Create a default ImageGalleryBlock
 | Param | Type | Description |
 | --- | --- | --- |
 | block | <code>Partial.&lt;ImageGalleryBlock&gt;</code> | Image gallery block properties. |
+
+<a name="module_types/ui.createImageTextSplitBlock"></a>
+
+### types/ui.createImageTextSplitBlock ⇒ <code>ImageTextSplitBlock</code>
+Create a default ImageTextSplitBlock
+
+**Kind**: static constant of [<code>types/ui</code>](#module_types/ui)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| block | <code>Partial.&lt;ImageTextSplitBlock&gt;</code> | Image/text split block properties. |
 
 <a name="module_types/ui.createRichTextBlock"></a>
 
@@ -453,21 +466,21 @@ Standardized variant options for accordion components.This enum provides a cent
 <a name="module_types/ui..BlockType"></a>
 
 ### *types/ui~BlockType : <code>enum</code>*
-Enumeration of block types used to define the structure of feature sections.Each block type corresponds to a specific layout or content pattern, enabling dynamic renderingof feature sections based on their defined block type. Each type has an associated renderer componentin the `BLOCK_RENDERERS` registry and required fields defined in `blockSchemas`.**Available block types:**- **HERO**: Full-width hero section with background image, title, subtitle, and call-to-action.- **RICH_TEXT**: Custom rich text content using nested node structure for fine-grained control.- **IMAGE_GALLERY**: Responsive gallery of images with metadata (alt text, captions, titles).- **DIAGRAM**: Mermaid diagram definitions with separate desktop and mobile variants.- **CARD_GRID**: Grid layout of insight cards with customizable column count and variant styling.- **BULLETED_LIST**: List of bullet items rendered as expandable accordion sections for progressive disclosure.- **LINKS**: Collection of styled link items with optional icons, tooltips, and size variants.- **MARKDOWN_DOCS**: Portfolio documentation fetched and rendered as collapsible panels with auto-generated table of contents.**To add new block types:**1. Add new constant to this enum (uppercase with underscores)2. Create renderer component and add it to `BLOCK_RENDERERS`3. Define required fields in `blockSchemas`4. Create factory function (e.g., `createNewBlock()`)5. Update `FeatureBlock` union typedef
+Enumeration of block types used to define the structure of feature sections.Each block type corresponds to a specific layout or content pattern, enabling dynamic renderingof feature sections based on their defined block type. Each type has an associated renderer componentin the `BLOCK_RENDERERS` registry and required fields defined in `blockSchemas`.**Available block types:**- **HERO**: Full-width hero section with background image, title, subtitle, and call-to-action.- **RICH_TEXT**: Custom rich text content using nested node structure for fine-grained control.- **IMAGE_GALLERY**: Responsive gallery of images with metadata (alt text, captions, titles).- **IMAGE_TEXT_SPLIT**: Two-column layout with a single image on one side and rich text content on the other.- **DIAGRAM**: Mermaid diagram definitions with separate desktop and mobile variants.- **CARD_GRID**: Grid layout of insight cards with customizable column count and variant styling.- **BULLETED_LIST**: List of bullet items rendered as expandable accordion sections for progressive disclosure.- **LINKS**: Collection of styled link items with optional icons, tooltips, and size variants.- **MARKDOWN_DOCS**: Portfolio documentation fetched and rendered as collapsible panels with auto-generated table of contents.**To add new block types:**1. Add new constant to this enum (uppercase with underscores)2. Create renderer component and add it to `BLOCK_RENDERERS`3. Define required fields in `blockSchemas`4. Create factory function (e.g., `createNewBlock()`)5. Update `FeatureBlock` union typedef
 
 **Kind**: inner abstract enum of [<code>types/ui</code>](#module_types/ui)  
 **Read only**: true  
 <a name="module_types/ui..blockSchemas"></a>
 
 ### types/ui~blockSchemas : <code>enum</code>
-Defines the required fields for each block type in the feature section registry.Used as validation reference to ensure block configurations contain all necessary data for proper rendering.Each key corresponds to a BlockType, and its value is an array of required field names.**Field reference by block type:**- **hero**: `title`, `subtitle`, `backgroundImage` - Hero section content and background.- **richText**: `content`, `title` - Rich text nodes array and section heading.- **imageGallery**: `images`, `title` - Image metadata array and section heading.- **diagram**: `desktopDiagram`, `mobileDiagram`, `title` - Device-specific diagram definitions and heading.- **bulletedList**: `items`, `title`, `subtitle` - Bullet items, heading, and optional description.- **links**: `links`, `title` - Link item array and section heading.- **cardGrid**: `cards`, `columns`, `title`, `subtitle`, `icon` - Card items, layout columns, and headers.- **markdownDocs**: `docSlugs`, `title`, `intro` - Documentation slugs to fetch and section headers.**Usage in validation:**```jsconst requiredFields = blockSchemas[block.type];const isValid = requiredFields.every(field => field in block);```**When adding new block types:** Add a new entry with all required field names to maintain validation consistency.
+Defines the required fields for each block type in the feature section registry.Used as validation reference to ensure block configurations contain all necessary data for proper rendering.Each key corresponds to a BlockType, and its value is an array of required field names.**Field reference by block type:**- **hero**: `title`, `subtitle`, `backgroundImage` - Hero section content and background.- **richText**: `content`, `title` - Rich text nodes array and section heading.- **imageGallery**: `images`, `title` - Image metadata array and section heading.- **imageTextSplit**: `image`, `content`, `title` - Single image metadata, rich text node array, and section heading.- **diagram**: `desktopDiagram`, `mobileDiagram`, `title` - Device-specific diagram definitions and heading.- **bulletedList**: `items`, `title`, `subtitle` - Bullet items, heading, and optional description.- **links**: `links`, `title` - Link item array and section heading.- **cardGrid**: `cards`, `columns`, `title`, `subtitle`, `icon` - Card items, layout columns, and headers.- **markdownDocs**: `docSlugs`, `title`, `intro` - Documentation slugs to fetch and section headers.**Usage in validation:**```jsconst requiredFields = blockSchemas[block.type];const isValid = requiredFields.every(field => field in block);```**When adding new block types:** Add a new entry with all required field names to maintain validation consistency.
 
 **Kind**: inner enum of [<code>types/ui</code>](#module_types/ui)  
 **Read only**: true  
 <a name="module_types/ui..BLOCK_RENDERERS"></a>
 
 ### types/ui~BLOCK\_RENDERERS : <code>Object.&lt;BlockType, React.ComponentType&gt;</code>
-Central registry mapping BlockType enums to their corresponding React renderer components.Enables dynamic block rendering in feature sections without conditional logic.Each renderer component accepts a `block` prop conforming to its corresponding BlockType schema.**Renderers included:**- **HERO**: [HeroBlock](HeroBlock) - Full-width hero section with background image and CTA.- **RICH_TEXT**: [RichTextBlock](RichTextBlock) - Custom rich text content with nested node trees.- **IMAGE_GALLERY**: [ImageGalleryBlock](ImageGalleryBlock) - Responsive image gallery with metadata.- **DIAGRAM**: [MermaidDiagram](MermaidDiagram) - Mermaid diagram definitions with desktop/mobile variants.- **CARD_GRID**: [CardGridBlock](CardGridBlock) - Grid layout of insight cards with customizable columns.- **BULLETED_LIST**: [AccordionList](AccordionList) - Bullet items rendered as expandable accordion sections.- **LINKS**: [LinksBlock](LinksBlock) - Collection of styled link items with optional icons and tooltips.- **MARKDOWN_DOCS**: [MarkdownDocsBlock](MarkdownDocsBlock) - Portfolio documentation rendered as collapsible panels with TOC.**Usage example:**```jsconst blockComponent = BLOCK_RENDERERS[block.type];return blockComponent ? <blockComponent block={block} /> : null;```**When adding new block types:**1. Create renderer component and add type definition (e.g. `NewBlock` variable)2. Add type to `BlockType` enum (uppercase naming convention)3. Update `blockSchemas` with required fields for validation4. Add mapping entry to `BLOCK_RENDERERS`5. Create factory function `createNewBlock()` in DEFAULT FACTORIES section6. Update `FeatureBlock` union typedef to include new type
+Central registry mapping BlockType enums to their corresponding React renderer components.Enables dynamic block rendering in feature sections without conditional logic.Each renderer component accepts a `block` prop conforming to its corresponding BlockType schema.**Renderers included:**- **HERO**: [HeroBlock](HeroBlock) - Full-width hero section with background image and CTA.- **RICH_TEXT**: [RichTextBlock](RichTextBlock) - Custom rich text content with nested node trees.- **IMAGE_GALLERY**: [ImageGalleryBlock](ImageGalleryBlock) - Responsive image gallery with metadata.- **IMAGE_TEXT_SPLIT**: [ImageTextSplitBlock](ImageTextSplitBlock) - Split layout with one image and rich text content.- **DIAGRAM**: [MermaidDiagram](MermaidDiagram) - Mermaid diagram definitions with desktop/mobile variants.- **CARD_GRID**: [CardGridBlock](CardGridBlock) - Grid layout of insight cards with customizable columns.- **BULLETED_LIST**: [AccordionList](AccordionList) - Bullet items rendered as expandable accordion sections.- **LINKS**: [LinksBlock](LinksBlock) - Collection of styled link items with optional icons and tooltips.- **MARKDOWN_DOCS**: [MarkdownDocsBlock](MarkdownDocsBlock) - Portfolio documentation rendered as collapsible panels with TOC.**Usage example:**```jsconst blockComponent = BLOCK_RENDERERS[block.type];return blockComponent ? <blockComponent block={block} /> : null;```**When adding new block types:**1. Create renderer component and add type definition (e.g. `NewBlock` variable)2. Add type to `BlockType` enum (uppercase naming convention)3. Update `blockSchemas` with required fields for validation4. Add mapping entry to `BLOCK_RENDERERS`5. Create factory function `createNewBlock()` in DEFAULT FACTORIES section6. Update `FeatureBlock` union typedef to include new type
 
 **Kind**: inner constant of [<code>types/ui</code>](#module_types/ui)  
 **Access**: public  
@@ -613,6 +626,7 @@ InsightCard
 | [subtitle] | <code>string</code> |  | Optional subtitle. |
 | [icon] | <code>string</code> |  | Optional icon key. |
 | [variant] | <code>Variant</code> | <code>&quot;primary&quot;</code> | Visual style variant. |
+| [previewImage] | <code>FeatureImage</code> \| <code>null</code> |  | Optional expandable preview image. |
 | content | <code>RichTextNode</code> |  | Card content, either as rich text nodes or plain string. |
 
 <a name="module_types/ui..CardGridBlock"></a>
@@ -675,6 +689,22 @@ Image gallery block
 | type | <code>&quot;imageGallery&quot;</code> | Block discriminator. |
 | [title] | <code>string</code> | Optional heading. |
 | images | <code>Array.&lt;FeatureImage&gt;</code> | Images to render. |
+
+<a name="module_types/ui..ImageTextSplitBlock"></a>
+
+### types/ui~ImageTextSplitBlock : <code>object</code>
+Image + rich text split block
+
+**Kind**: inner typedef of [<code>types/ui</code>](#module_types/ui)  
+**Properties**
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| type | <code>&quot;imageTextSplit&quot;</code> |  | Block discriminator. |
+| [title] | <code>string</code> |  | Optional heading. |
+| image | <code>FeatureImage</code> |  | Single image metadata object. |
+| [imagePosition] | <code>&quot;left&quot;</code> \| <code>&quot;right&quot;</code> | <code>&quot;left&quot;</code> | Side of the image on desktop view. |
+| content | <code>Array.&lt;RichTextNode&gt;</code> \| <code>Array.&lt;string&gt;</code> |  | Rich text content rendered opposite the image. |
 
 <a name="module_types/ui..BulletListBlock"></a>
 
@@ -756,7 +786,7 @@ Markdown documentation block
 
 <a name="module_types/ui..FeatureBlock"></a>
 
-### types/ui~FeatureBlock : <code>RichTextBlock</code> \| <code>ImageGalleryBlock</code> \| <code>DiagramBlock</code> \| <code>BulletListBlock</code> \| <code>LinkListBlock</code> \| <code>MarkdownDocsBlock</code>
+### types/ui~FeatureBlock : <code>RichTextBlock</code> \| <code>ImageGalleryBlock</code> \| <code>ImageTextSplitBlock</code> \| <code>DiagramBlock</code> \| <code>BulletListBlock</code> \| <code>LinkListBlock</code> \| <code>MarkdownDocsBlock</code>
 Union of all feature blocks
 
 **Kind**: inner typedef of [<code>types/ui</code>](#module_types/ui)  
