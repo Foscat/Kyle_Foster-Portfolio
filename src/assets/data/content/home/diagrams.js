@@ -14,7 +14,7 @@ import {
 const diagrams = {
   engineeringFlow: {
     id: "hero-engineering-flow",
-    title: "Engineering Workflow",
+    title: "Engineering Process",
     type: BlockType.DIAGRAM,
     mobile: {
       diagram: diagram(
@@ -22,7 +22,7 @@ const diagrams = {
         `flowchart TB
     
     Problem[Problem + Domain Context]
-    Model[Domain Model + Constraints]
+    Model[Domain Rules + Limits]
     Ux[UX + Interaction Design]
     Build[Implementation + Integration]
     Verify[Testing + Feedback]
@@ -38,7 +38,7 @@ const diagrams = {
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
     
-    Problem[Problem + Domain Context] --> Model[Domain Model + Constraints]
+    Problem[Problem + Domain Context] --> Model[Domain Rules + Limits]
     Model --> Ux[UX + Interaction Design]
     Ux --> Build[Implementation + Integration]
     Build --> Verify[Testing + Feedback]
@@ -108,7 +108,7 @@ const diagrams = {
           { type: "strong", text: "Three connected systems." },
           {
             type: "text",
-            text: " The IDE delivers instruction and execution. The classroom layer handles grading, feedback, and reporting. The organization layer governs roles, licensing, and seat access — all built and owned as the sole frontend engineer.",
+            text: " The IDE delivers instruction and runs code. The classroom layer handles grading, feedback, and reporting. The organization layer governs roles, licensing, and seat access, all built and owned as the sole frontend engineer.",
           },
         ],
       },

@@ -160,12 +160,15 @@ describe("LinksBlock", () => {
     const trigger = screen.getByTestId("resume-preview-trigger");
     expect(trigger).toHaveTextContent("View Resume");
     const downloadName = trigger.getAttribute("data-download-name") || "";
-    expect(downloadName).toMatch(/^Kyle-Foster-Resume-light-[a-z0-9-]+\.pdf$/);
-    expect(trigger).toHaveAttribute("data-pdf-href", expect.stringContaining("LightMode.pdf"));
+    expect(downloadName).toMatch(/^Kyle-Foster-Senior-Developer-Resume-light-[a-z0-9-]+\.pdf$/);
+    expect(trigger).toHaveAttribute(
+      "data-pdf-href",
+      expect.stringContaining("Kyle_Foster_Senior_Developer_Resume.pdf")
+    );
     expect(trigger).toHaveClass("links-block-item");
   });
 
-  it("uses the dark resume PDF asset for resume preview links when dark theme is active", () => {
+  it("uses the senior developer resume PDF asset for resume preview links when dark theme is active", () => {
     window.localStorage.setItem("portfolio-theme", "dark");
 
     renderWithProviders(
@@ -181,7 +184,7 @@ describe("LinksBlock", () => {
 
     expect(screen.getByTestId("resume-preview-trigger")).toHaveAttribute(
       "data-pdf-href",
-      expect.stringContaining("DarkMode.pdf")
+      expect.stringContaining("Kyle_Foster_Senior_Developer_Resume.pdf")
     );
   });
 });

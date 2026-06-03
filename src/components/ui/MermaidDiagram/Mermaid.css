@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Mermaid Theme — Midnight Gold (Architecture Scale)
    ------------------------------------------------------------
    Goals:
@@ -24,17 +24,6 @@
 /* Boost text contrast inside diagrams. The global --text-primary uses 0.85 opacity,
    which can appear grey on dark nodes; override it to the semantic strong icon color
    for the SVG host only. */
-.mermaid .mermaid-svg-host {
-  --text-primary: var(--icon-color-strong);
-}
-
-.mermaid .mermaid-svg-host.light {
-  --mermaid-light-heading: var(--icon-color-strong);
-  --mermaid-light-body: var(--icon-color-strong);
-  --mermaid-light-icon: var(--icon-color-strong);
-  --mermaid-light-cluster-bg: var(--glass-bg);
-  --mermaid-light-chip-bg: var(--glass-bg);
-}
 
 /* Keep Mermaid text crisp by preventing inherited stroke outlines from the container. */
 .mermaid .mermaid-svg-host svg text,
@@ -751,14 +740,6 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host g.node:hover circle,
 .mermaid .mermaid-svg-host g.node:hover ellipse {
   filter: brightness(1.06);
-}
-
-html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.light {
-  --mermaid-light-heading: rgba(20, 37, 8, 0.98);
-  --mermaid-light-body: rgba(28, 47, 10, 0.94);
-  --mermaid-light-icon: rgba(52, 30, 112, 0.98);
-  --mermaid-light-cluster-bg: rgba(248, 252, 241, 0.98);
-  --mermaid-light-chip-bg: rgba(252, 255, 248, 0.99);
 }
 
 /* ------------------------------------------------------------

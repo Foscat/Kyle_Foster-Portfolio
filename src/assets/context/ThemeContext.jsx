@@ -11,6 +11,7 @@ const THEME_STORAGE_KEY = "portfolio-theme";
 const PALETTE_STORAGE_KEY = "portfolio-palette";
 const SUPPORTED_THEMES = Object.freeze(["light", "dark"]);
 const DEFAULT_THEME = "dark";
+const STYLE_KIT_UI = "retro-glass";
 const SUPPORTED_PALETTES = Object.freeze([
   "midnight-gold",
   "ocean-steel",
@@ -187,6 +188,12 @@ export function ThemeProvider({ children }) {
     document.documentElement.dataset.theme = theme;
     document.documentElement.dataset.mode = theme;
     document.documentElement.dataset.palette = palette;
+
+    if (document.body) {
+      document.body.dataset.ui = STYLE_KIT_UI;
+      document.body.dataset.theme = palette;
+      document.body.dataset.mode = theme;
+    }
 
     if (typeof window !== "undefined") {
       safeWriteStorage(THEME_STORAGE_KEY, theme);

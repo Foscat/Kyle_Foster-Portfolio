@@ -26,7 +26,7 @@
               },
               {
                 "type": "text",
-                "text": " Search interaction updates client state instead of directly mutating the view."
+                "text": " Search interaction updates client state instead of directly changing the view."
               }
             ]
           },
@@ -190,7 +190,7 @@
   {
     "id": "diagram-hands-free-repair-workflow",
     "type": "diagram",
-    "title": "Hands-Free Repair Workflow",
+    "title": "Hands-Free Repair Flow",
     "mobile": {
       "diagram": "%%{init:{\n  \"flowchart\":{\n    \"curve\":\"stepAfter\",\n    \"nodeSpacing\":24,\n    \"rankSpacing\":36,\n    \"fontSize\":25,\n    \"htmlLabels\":true\n  },\n  \"theme\":\"base\",\n  \"themeVariables\": {\"fontFamily\":\"Lexend Deca, system-ui, sans-serif\",\"fontSize\":\"25px\",\"primaryColor\":\"#131A77\",\"primaryTextColor\":\"#F5F7FF\",\"primaryBorderColor\":\"#b8860b\",\"primaryBorderWidth\":\"3px\",\"secondaryColor\":\"#131A77\",\"secondaryTextColor\":\"#F5F7FF\",\"secondaryBorderColor\":\"#c9a227\",\"nodeBkg\":\"#1f2793\",\"nodeBorder\":\"#b8860b\",\"nodeTextColor\":\"#F5F7FF\",\"nodeFontSize\":\"25px\",\"lineColor\":\"#C9A227\",\"stroke\":\"#b8860b\",\"strokeWidth\":\"3px\",\"strokeColor\":\"#b8860b\",\"fill\":\"#b8860b\",\"clusterTitle\":\"#C9A227\",\"clusterColor\":\"#F5F7FF\",\"clusterBkg\":\"#22305F\",\"clusterBorder\":\"#a88900\",\"clusterTextColor\":\"#F5F7FF\",\"clusterFontSize\":\"25px\",\"clusterFontWeight\":\"600\",\"actorBkg\":\"#131A77\",\"actorBorder\":\"#C9A227\",\"actorTextColor\":\"#e1e1e3\",\"actorFontSize\":\"25px\",\"signalColor\":\"#C9A227\",\"signalTextColor\":\"#F5F7FF\",\"labelBoxBkgColor\":\"#22305F\",\"labelBoxBorderColor\":\"#C9A227\",\"labelTextColor\":\"#C9A227\",\"messageColor\":\"#C9A227\",\"messageTextColor\":\"#F5F7FF\",\"loopLineColor\":\"#C9A227\",\"loopTextColor\":\"#F5F7FF\"}\n}}%%\n\n\nflowchart TB\n\n%% ==========================================================\n%% Architecture Layer Palette (Mermaid-safe)\n%% - hex colors only (no rgba)\n%% - integer px only\n%% - avoid rx/ry (parser inconsistencies)\n%% ==========================================================\n\n%% Default\nclassDef default fill:#1F2793,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;\n\n%% Presentation\nclassDef layerPresentation fill:#1F2793,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;\n\n%% Application (glass)\nclassDef layerApplication fill:#2A326E,stroke:#D1D1D6,stroke-width:2px,color:#F5F7FF;\n\n%% Domain (gold)\nclassDef layerDomain fill:#C9A227,stroke:#E6C767,stroke-width:2px,color:#0F0F12;\n\n%% Infrastructure\nclassDef layerInfrastructure fill:#1A214C,stroke:#7E89C9,stroke-width:2px,color:#F5F7FF;\n\n%% Persistence (success)\nclassDef layerPersistence fill:#1F6D49,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;\n\n%% External (warning)\nclassDef layerExternal fill:#8D710D,stroke:#E6C767,stroke-width:2px,color:#F5F7FF;\n\n%% Common node types\nclassDef datastore fill:#22305F,stroke:#C9A227,stroke-width:2px,color:#F5F7FF;\nclassDef core fill:#C9A227,stroke:#E6C767,stroke-width:2px,color:#0F0F12;\nclassDef text fill:#E8EEF9,stroke:#C9A227,stroke-width:2px,color:#0F0F12;\nclassDef animate stroke-dasharray:,5,stroke-dashoffset:00,animation:ash 25s linear infinite;\nclassDef accent stroke:#C9A227,stroke-width:2px,color:#c9a227;\nclassDef dashed stroke-dasharray:,4,stroke-dashoffset:0;\nclassDef edgePath fill:none,stroke:#C9A227,stroke-width:2px,color:#C9A227;\nclassDef path stroke:#C9A227,stroke-width:2px,color:#C9A227;\n\nTech[Technician\nAction]\nCommand[Voice\nCommand]\nSTT[Speech-to-Text]\nIntent[NLP\nIntent Parser]\nCloud[AWS Lambda\nOrchestration]\nGuide[Instruction\nResolver]\nAudio[Audio\nGuidance]\n\nTech ==> Command ==> STT ==> Intent ==> Cloud ==> Guide ==> Audio ==> Tech\n"
     },
@@ -207,7 +207,7 @@
           },
           {
             "type": "text",
-            "text": " This hackathon prototype models a voice-driven repair assistant as a closed operational loop rather than a one-shot speech demo."
+            "text": " This hackathon prototype models a voice-driven repair assistant as a closed repair loop rather than a one-time speech demo."
           }
         ]
       },
@@ -236,7 +236,7 @@
               },
               {
                 "type": "text",
-                "text": " Audio is transcribed and interpreted through an NLP stage so free-form commands can map to structured workflow actions."
+                "text": " Audio is transcribed and interpreted through an NLP stage so free-form commands can map to structured repair actions."
               }
             ]
           },
@@ -245,7 +245,7 @@
             "children": [
               {
                 "type": "strong",
-                "text": "Cloud logic holds workflow state."
+                "text": "Cloud logic holds repair state."
               },
               {
                 "type": "text",
@@ -258,7 +258,7 @@
             "children": [
               {
                 "type": "strong",
-                "text": "Guidance re-enters the physical workflow."
+                "text": "Guidance returns to the repair flow."
               },
               {
                 "type": "text",
@@ -273,7 +273,7 @@
         "children": [
           {
             "type": "text",
-            "text": "Even under hackathon constraints, the design hinted at a scalable event-driven workflow assistant for industrial repair and guided maintenance."
+            "text": "Even under hackathon time limits, the design hinted at a scalable event-driven repair assistant for industrial maintenance."
           }
         ]
       }
@@ -341,7 +341,7 @@
               },
               {
                 "type": "text",
-                "text": " Audio guidance is not a terminal event; it directly informs the next technician action and keeps the workflow cyclical."
+                "text": " Audio guidance is not the final step; it directly informs the next technician action and keeps the repair loop moving."
               }
             ]
           }
@@ -369,7 +369,7 @@
           },
           {
             "type": "text",
-            "text": " The editor acts as a browser-native instructional IDE that keeps lesson content, code authoring, runtime execution, and persistence in a single bounded workflow."
+            "text": " The editor acts as a browser-native instructional IDE that keeps lesson content, code writing, runtime output, and saving in one contained flow."
           }
         ]
       },
@@ -394,7 +394,7 @@
             "children": [
               {
                 "type": "strong",
-                "text": "Execution is routed by project type."
+                "text": "Runtime is routed by project type."
               },
               {
                 "type": "text",
@@ -424,7 +424,7 @@
               },
               {
                 "type": "text",
-                "text": " Saving is treated as a first-class user action and writes project state to S3 so work remains available across classrooms, devices, and grading flows."
+                "text": " Saving is treated as a clear user action and writes project state to S3 so work remains available across classrooms, devices, and grading flows."
               }
             ]
           }
@@ -435,7 +435,7 @@
         "children": [
           {
             "type": "text",
-            "text": "The design balances IDE-level capability with classroom constraints by isolating execution paths while preserving a single coherent teaching surface."
+            "text": "The design balances IDE-level capability with classroom needs by isolating runtime paths while preserving a single coherent teaching surface."
           }
         ]
       }
@@ -461,7 +461,7 @@
           },
           {
             "type": "text",
-            "text": " The model separates user identity, personal ownership, and institutional entitlement so multi-tenant access rules do not corrupt individual project data."
+            "text": " The model separates user identity, personal ownership, and institutional access so multi-tenant rules do not mix individual project data."
           }
         ]
       },
@@ -503,7 +503,7 @@
               },
               {
                 "type": "text",
-                "text": " An expired subscription moves institutional work into read-only mode so historical artifacts remain visible without allowing uncontrolled mutation."
+                "text": " An expired subscription moves institutional work into read-only mode so historical work remains visible without allowing uncontrolled changes."
               }
             ]
           }
@@ -540,7 +540,7 @@
           },
           {
             "type": "text",
-            "text": " This flow shows how classroom context resolves into executable student work while preserving deterministic behavior for both teachers and students."
+            "text": " This flow shows how classroom context turns into student project work while keeping behavior predictable for both teachers and students."
           }
         ]
       },
@@ -565,7 +565,7 @@
             "children": [
               {
                 "type": "strong",
-                "text": "Project resolution is deterministic."
+                "text": "Project startup is predictable."
               },
               {
                 "type": "text",
@@ -593,7 +593,7 @@
         "children": [
           {
             "type": "text",
-            "text": "The resolver removed friction between instruction and execution by making project startup predictable regardless of user role or prior work state."
+            "text": "The resolver removed friction between instruction and project work by making startup predictable regardless of user role or prior work state."
           }
         ]
       }
@@ -644,7 +644,7 @@
             "children": [
               {
                 "type": "strong",
-                "text": "Execution is isolated."
+                "text": "Classroom use is isolated."
               },
               {
                 "type": "text",
@@ -657,11 +657,11 @@
             "children": [
               {
                 "type": "strong",
-                "text": "Templates provide indirection."
+                "text": "Templates keep reuse clear."
               },
               {
                 "type": "text",
-                "text": " Lessons can evolve through stable template references and resource attachments instead of mutating classroom copies directly."
+                "text": " Lessons can evolve through stable template references and resource attachments instead of changing classroom copies directly."
               }
             ]
           }
@@ -672,7 +672,7 @@
         "children": [
           {
             "type": "text",
-            "text": "This composition model made curriculum reuse practical across organizations while preserving clear boundaries between authoring and live classroom execution."
+            "text": "This composition model made curriculum reuse practical across organizations while preserving clear boundaries between authoring and live classroom delivery."
           }
         ]
       }
@@ -1045,7 +1045,7 @@
           },
           {
             "type": "strong",
-            "text": "deterministic closed-loop control system"
+            "text": "predictable closed-loop control system"
           },
           {
             "type": "text",
@@ -1216,7 +1216,7 @@
           },
           {
             "type": "text",
-            "text": ": plaintext input is routed through mode resolution, cipher configuration, deterministic rotation, and metadata tagging before output is produced."
+            "text": ": plaintext input is routed through mode resolution, cipher configuration, predictable rotation, and metadata tagging before output is produced."
           }
         ]
       },
@@ -1254,7 +1254,7 @@
               },
               {
                 "type": "text",
-                "text": " A versioned alphabet and magic number provide the inputs needed to make rotation deterministic and reversible."
+                "text": " A versioned alphabet and magic number provide the inputs needed to make rotation predictable and reversible."
               }
             ]
           },

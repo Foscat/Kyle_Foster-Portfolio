@@ -475,7 +475,7 @@ Delay ==> Read`
             type: "text",
             text: "This project treats a Raspberry Pi greenhouse controller as a ",
           },
-          { type: "strong", text: "deterministic closed-loop control system" },
+          { type: "strong", text: "predictable closed-loop control system" },
           {
             type: "text",
             text: ", not just a collection of GPIO scripts. Sensor input, policy evaluation, and relay state updates are modeled as explicit phases in a recurring cycle.",
@@ -705,7 +705,7 @@ Rotate ==> Tag ==> Cipher`
           { type: "strong", children: [{ type: "text", text: "client-side encryption pipeline" }] },
           {
             type: "text",
-            text: ": plaintext input is routed through mode resolution, cipher configuration, deterministic rotation, and metadata tagging before output is produced.",
+            text: ": plaintext input is routed through mode resolution, cipher configuration, predictable rotation, and metadata tagging before output is produced.",
           },
         ],
       },
@@ -737,7 +737,7 @@ Rotate ==> Tag ==> Cipher`
               { type: "strong", text: "Cipher configuration:" },
               {
                 type: "text",
-                text: " A versioned alphabet and magic number provide the inputs needed to make rotation deterministic and reversible.",
+                text: " A versioned alphabet and magic number provide the inputs needed to make rotation predictable and reversible.",
               },
             ],
           },

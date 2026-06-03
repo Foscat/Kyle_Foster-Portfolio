@@ -66,16 +66,16 @@ const LinksBlock = ({ items = [] }) => {
           if (link?.resumePreview) {
             const safeTheme = typeof theme === "string" ? theme : "auto";
             const safePalette = typeof palette === "string" ? palette : "ocean";
-            const downloadName = `Kyle-Foster-Resume-${safeTheme}-${safePalette}.pdf`;
+            const downloadName = `Kyle-Foster-Senior-Developer-Resume-${safeTheme}-${safePalette}.pdf`;
 
             return (
               <ResumePreviewTrigger
                 key={link.id || i}
                 buttonText={link.title || "View Resume"}
-                title={link.previewTitle || "Kyle Foster - Resume"}
+                title={link.previewTitle || "Kyle Foster - Senior Developer Resume"}
                 subtitle={
                   link.previewSubtitle ||
-                  "A cleaner, document-first preview with improved spacing and a real paper stage."
+                  "A compact resume preview with PDF-style spacing and download options."
                 }
                 resume={resumeData}
                 pdfHref={resumePdfHref}

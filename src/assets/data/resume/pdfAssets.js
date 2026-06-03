@@ -4,12 +4,11 @@
  * @module assets/data/resume/pdfAssets
  */
 
-import resumeLightPdf from "./Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
-import resumeDarkPdf from "./Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
+import seniorDeveloperResumePdf from "./Kyle_Foster_Senior_Developer_Resume.pdf";
 
 export const RESUME_PDF_HREFS = Object.freeze({
-  light: resumeLightPdf,
-  dark: resumeDarkPdf,
+  light: seniorDeveloperResumePdf,
+  dark: seniorDeveloperResumePdf,
 });
 
 /**

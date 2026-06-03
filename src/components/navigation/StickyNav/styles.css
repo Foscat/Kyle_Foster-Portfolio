@@ -11,17 +11,6 @@
   z-index: 100;
 }
 
-:root {
-  --sticky-nav-trigger-navigation-icon-color: var(--icon-color-strong);
-  --sticky-nav-trigger-navigation-icon-hover-color: var(--icon-color-strong);
-  --sticky-nav-trigger-utility-icon-color: var(--icon-color-strong);
-  --sticky-nav-trigger-utility-icon-hover-color: var(--icon-color-strong);
-  --sticky-nav-trigger-theme-icon-color: var(--icon-color-strong);
-  --sticky-nav-trigger-theme-icon-hover-color: var(--icon-color-strong);
-  --sticky-nav-trigger-a11y-icon-color: var(--icon-color-strong);
-  --sticky-nav-trigger-a11y-icon-hover-color: var(--icon-color-strong);
-}
-
 svg:not(:root) {
   overflow: visible;
 }
@@ -74,25 +63,6 @@ svg:not(:root) {
 
 /* Hide desktop menu on mobile */
 .desktop-menu {
-  --sticky-nav-page-icon-button-size: 54px;
-  --sticky-nav-utility-icon-button-size: 48px;
-  --sticky-nav-desktop-icon-inline-padding: 6px;
-  --sticky-nav-desktop-icon-block-padding: 6px;
-  --sticky-nav-page-icon-glyph-size: calc(var(--icon-sm) + 1px);
-  --sticky-nav-utility-icon-glyph-size: var(--icon-sm);
-  --sticky-nav-circle-icon-glyph-size: calc(var(--sticky-nav-utility-icon-glyph-size) - 2px);
-  --sticky-nav-desktop-page-icon-color: var(--sticky-nav-trigger-navigation-icon-color);
-  --sticky-nav-desktop-page-icon-active-color: var(
-    --sticky-nav-trigger-navigation-icon-hover-color
-  );
-  --sticky-nav-desktop-page-icon-hover-color: var(--sticky-nav-trigger-navigation-icon-hover-color);
-  --sticky-nav-desktop-theme-icon-color: var(--sticky-nav-trigger-theme-icon-color);
-  --sticky-nav-desktop-theme-icon-hover-color: var(--sticky-nav-trigger-theme-icon-hover-color);
-  --sticky-nav-desktop-a11y-icon-color: var(--sticky-nav-trigger-a11y-icon-color);
-  --sticky-nav-desktop-a11y-icon-hover-color: var(--sticky-nav-trigger-a11y-icon-hover-color);
-  --sticky-nav-desktop-resume-icon-color: var(--sticky-nav-trigger-utility-icon-color);
-  --sticky-nav-desktop-resume-icon-hover-color: var(--sticky-nav-trigger-utility-icon-hover-color);
-
   background-color: var(--glass-bg);
   display: flex;
   justify-content: center;
@@ -255,12 +225,6 @@ svg:not(:root) {
 
 .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
 .desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.62);
-}
-
-.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
-.desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon {
   color: var(--sticky-nav-desktop-page-icon-active-color);
 }
 
@@ -410,120 +374,26 @@ html[data-theme="dark"]
   box-shadow: none !important;
 }
 
-html[data-theme="dark"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 0.99);
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-200-rgb), 0.98);
-}
-
-html[data-theme="light"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
-}
-
 /* Ensure utility icon colors stay consistent across all supported palettes. */
-html[data-theme="dark"][data-palette="primary"],
-html[data-theme="dark"][data-palette="alt"],
-html[data-theme="dark"][data-palette="forest"],
-html[data-theme="dark"][data-palette="ocean"],
-html[data-theme="dark"][data-palette="sunset"] {
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-200-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-200-rgb), 0.98);
-}
-
-html[data-theme="light"][data-palette="primary"],
-html[data-theme="light"][data-palette="alt"],
-html[data-theme="light"][data-palette="forest"],
-html[data-theme="light"][data-palette="ocean"],
-html[data-theme="light"][data-palette="sunset"] {
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-rgb), 0.92);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-rgb), 0.98);
-}
 
 /*
  * Forest (light mode):
  * Keep utility controls in a neutral silver so they stay legible on the rail.
  */
-html[data-theme="light"][data-palette="forest"] {
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--gray-500-rgb), 0.94);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--gray-500-rgb), 0.99);
-}
 
 /*
  * Sunset (light mode):
  * Preserve warm utility hue while keeping hover affordance distinct.
  */
-html[data-theme="light"][data-palette="sunset"] {
-  --sticky-nav-trigger-utility-icon-color: rgba(var(--primary-rgb), 0.9);
-  --sticky-nav-trigger-utility-icon-hover-color: rgba(var(--primary-rgb), 0.96);
-}
-
-html[data-theme="light"] .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
-html[data-theme="light"]
-  .desktop-menu
-  .sticky-nav-desktop-trigger--page[aria-current="page"]
-  .nav-icon {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.76);
-}
 
 /* ─── Dark mode trigger colors ──────────────────────────────────────────────
    Each palette's token names resolve to palette-specific color values, so
    shared token patterns still produce visually distinct results per palette.
    ─────────────────────────────────────────────────────────────────────────── */
 
-html[data-theme="dark"][data-palette="alt"] {
-  /* Classic: utility triggers in silver-white */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
-}
-
-html[data-theme="dark"][data-palette="primary"] {
-  /* Midnight: utility triggers in silver-white */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
-}
-
-html[data-theme="dark"][data-palette="ocean"] {
-  /* Ocean: utility triggers in silver-white */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
-}
-
-html[data-theme="dark"][data-palette="forest"],
-html[data-theme="dark"][data-palette="sunset"] {
-  /* Forest + Sunset: utility triggers in gray-silver */
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--gold-400-rgb), 0.96);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--gold-400-rgb), 1);
-}
-
 /* ─── Light mode trigger colors ─────────────────────────────────────────────
    On pale/white backgrounds, icons need darker, fully-saturated tones.
    ─────────────────────────────────────────────────────────────────────────── */
-
-html[data-theme="light"][data-palette="alt"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
-}
-
-html[data-theme="light"][data-palette="primary"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
-}
-
-html[data-theme="light"][data-palette="ocean"],
-html[data-theme="light"][data-palette="sunset"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
-}
-
-html[data-theme="light"][data-palette="forest"] {
-  --sticky-nav-trigger-navigation-icon-color: rgba(var(--primary-dark-rgb), 0.94);
-  --sticky-nav-trigger-navigation-icon-hover-color: rgba(var(--primary-dark-rgb), 0.99);
-}
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface {
   border: none;
@@ -560,10 +430,6 @@ html[data-theme="light"][data-palette="forest"] {
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
-  --interactive-surface-bg: var(--nav-drawer-active-surface-bg);
-  --interactive-surface-fg: var(--nav-drawer-active-surface-fg);
-  --interactive-surface-border-color: var(--nav-drawer-active-surface-border-color);
-
   color: var(--interactive-surface-fg);
   background: var(--interactive-surface-bg);
 }
@@ -692,63 +558,22 @@ html[data-theme="light"]
 
 /* Mobile + small tablet responsiveness */
 @media (width <= 1024px) {
-  :root {
-    --sticky-nav-mobile-trigger-size: 42px;
-    --sticky-nav-mobile-trigger-gap: 10px;
-    --sticky-nav-mobile-trigger-padding-inline: 6px;
-    --sticky-nav-mobile-trigger-padding-block: 6px;
-    --sticky-nav-mobile-trigger-glyph-size: calc(var(--icon-sm) + 8px);
-    --sticky-nav-mobile-trigger-utility-glyph-size: var(--sticky-nav-mobile-trigger-glyph-size);
-    --sticky-nav-mobile-circle-glyph-size: calc(var(--sticky-nav-mobile-trigger-glyph-size) - 2px);
-    --sticky-nav-mobile-trigger-section-glyph-size: var(--sticky-nav-mobile-trigger-glyph-size);
-    --sticky-nav-mobile-rail-top: calc(env(safe-area-inset-top, 0px) + 10px);
-    --sticky-nav-mobile-trigger-left: calc(env(safe-area-inset-left, 0px) + 14px);
-    --sticky-nav-mobile-trigger-gutter: 8px;
-    --sticky-nav-mobile-section-slot: 0;
-    --sticky-nav-mobile-stack-nav-icon-color: var(--sticky-nav-trigger-navigation-icon-color);
-    --sticky-nav-mobile-stack-utility-icon-color: var(--sticky-nav-trigger-utility-icon-color);
-    --sticky-nav-mobile-stack-color-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
-    --sticky-nav-mobile-stack-a11y-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
-    --sticky-nav-mobile-stack-resume-icon-color: var(--sticky-nav-mobile-stack-utility-icon-color);
-    --sticky-nav-mobile-trigger-backplate-bg: rgba(var(--deep-black-rgb), 0.38);
-    --sticky-nav-mobile-trigger-backplate-border: rgba(var(--white-rgb), 0.22);
-    --sticky-nav-mobile-trigger-backplate-shadow:
-      0 6px 16px rgba(var(--deep-black-rgb), 0.26), inset 0 1px 0 rgba(var(--white-rgb), 0.08);
-  }
-
-  html[data-theme="light"] {
-    /* Keep floating mobile icons visibly darker than the rail surface on all light palettes. */
-    --sticky-nav-mobile-stack-nav-icon-color: rgba(var(--gray-900-rgb), 0.96);
-    --sticky-nav-mobile-stack-utility-icon-color: rgba(var(--gray-900-rgb), 0.92);
-    --sticky-nav-mobile-trigger-backplate-bg: rgba(var(--white-rgb), 0.66);
-    --sticky-nav-mobile-trigger-backplate-border: rgba(var(--primary-dark-rgb), 0.34);
-    --sticky-nav-mobile-trigger-backplate-shadow:
-      0 6px 16px rgba(var(--primary-dark-rgb), 0.2), inset 0 1px 0 rgba(var(--white-rgb), 0.9);
-  }
-
-  html[data-theme="dark"] {
-    /* Preserve strong contrast for dark-mode mobile rails across palettes. */
-    --sticky-nav-mobile-stack-nav-icon-color: rgba(var(--gray-100-rgb), 0.98);
-    --sticky-nav-mobile-stack-utility-icon-color: rgba(var(--gray-100-rgb), 0.94);
-    --sticky-nav-mobile-trigger-backplate-bg: rgba(var(--deep-black-rgb), 0.44);
-    --sticky-nav-mobile-trigger-backplate-border: rgba(var(--white-rgb), 0.24);
-    --sticky-nav-mobile-trigger-backplate-shadow:
-      0 6px 16px rgba(var(--deep-black-rgb), 0.34), inset 0 1px 0 rgba(var(--white-rgb), 0.08);
-  }
-
-  html[data-has-mobile-section-nav="true"] {
-    --sticky-nav-mobile-section-slot: 1;
-  }
-
   .desktop-menu {
     display: none;
+  }
+
+  .mobile-nav-drawer,
+  .mobile-nav-drawer > .rs-drawer-dialog,
+  .mobile-nav-drawer > .rs-drawer-dialog > .rs-drawer-content {
+    width: min(100vw, 420px) !important;
+    max-width: 100vw;
   }
 
   /* Mobile slide-out menu */
   .rs-drawer-backdrop .mobile-nav-drawer {
     width: 100%;
     padding: 0.5rem 1rem;
-    background: rgba(var(--gray-900), 0.85);
+    background: rgba(var(--gray-900-rgb), 0.85);
     animation: slideDown 180ms ease-out;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -799,13 +624,6 @@ html[data-theme="light"]
     box-shadow: none;
   }
 
-  .sticky-nav-mobile-trigger .btn.icon-only {
-    --interactive-surface-radius: var(--radius-sm);
-    --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
-    --interactive-surface-focus-ring-width: 2px;
-    --interactive-surface-focus-ring-offset: 2px;
-  }
-
   .sticky-nav-mobile-trigger--rail {
     top: var(--sticky-nav-mobile-rail-top);
     left: var(--sticky-nav-mobile-trigger-left);
@@ -843,15 +661,19 @@ html[data-theme="light"]
   }
 
   .sticky-nav-mobile-trigger--rail .btn.icon-only {
-    background: var(--sticky-nav-mobile-trigger-backplate-bg) !important;
-    border: 1px solid var(--sticky-nav-mobile-trigger-backplate-border) !important;
-    box-shadow: var(--sticky-nav-mobile-trigger-backplate-shadow) !important;
-    -webkit-backdrop-filter: blur(8px) saturate(115%);
-    backdrop-filter: blur(8px) saturate(115%);
+    background: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
-  html[data-theme="light"] .sticky-nav-mobile-trigger .btn.icon-only {
-    --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
+  .sticky-nav-mobile-trigger--rail .btn.icon-only:hover,
+  .sticky-nav-mobile-trigger--rail .btn.icon-only:focus-visible,
+  .sticky-nav-mobile-trigger--rail .btn.icon-only:active {
+    background: transparent !important;
+    border-color: transparent !important;
+    filter: brightness(1.08);
   }
 
   .sticky-nav-mobile-trigger .btn.icon-only {
@@ -866,11 +688,16 @@ html[data-theme="light"]
     line-height: 1;
     box-sizing: border-box;
     border: none;
-    border-radius: none;
+    border-radius: var(--radius-sm);
   }
 
   .sticky-nav-mobile-trigger--utility .btn.icon-only {
-    border-radius: none;
+    border-radius: var(--radius-sm);
+  }
+
+  .sticky-nav-mobile-trigger--color .btn.icon-only,
+  .sticky-nav-mobile-trigger--a11y .btn.icon-only {
+    border-radius: 50% !important;
   }
 
   .sticky-nav-mobile-trigger .frosted-icon.btn-icon {
@@ -881,7 +708,7 @@ html[data-theme="light"]
     display: grid;
     place-items: center;
     line-height: 1;
-    border-radius: none;
+    border-radius: inherit;
   }
 
   .sticky-nav-mobile-trigger--color .frosted-icon.btn-icon {
@@ -893,20 +720,6 @@ html[data-theme="light"]
   .sticky-nav-mobile-trigger--resume .frosted-icon.btn-icon {
     padding: calc(var(--sticky-nav-mobile-trigger-padding-block) - 1px)
       var(--sticky-nav-mobile-trigger-padding-inline);
-  }
-
-  /* .sticky-nav-mobile-trigger--utility .frosted-icon.btn-icon {
-    border-radius: 50% !important;
-  } */
-
-  .sticky-nav-mobile-trigger--color {
-    --sticky-nav-mobile-current-glyph-size: var(--sticky-nav-mobile-circle-glyph-size);
-  }
-
-  .sticky-nav-mobile-trigger--nav,
-  .sticky-nav-mobile-trigger--a11y,
-  .sticky-nav-mobile-trigger--resume {
-    --sticky-nav-mobile-current-glyph-size: var(--sticky-nav-mobile-trigger-utility-glyph-size);
   }
 
   .sticky-nav-mobile-trigger .frosted-icon.btn-icon svg {
@@ -956,10 +769,6 @@ html[data-theme="light"]
     color: var(--sticky-nav-mobile-stack-a11y-icon-color);
   }
 
-  .sticky-nav-mobile-trigger--a11y {
-    --sticky-nav-mobile-current-glyph-size: var(--sticky-nav-mobile-circle-glyph-size);
-  }
-
   .sticky-nav-mobile-trigger--resume .frosted-icon.btn-icon {
     color: var(--sticky-nav-mobile-stack-resume-icon-color);
   }
@@ -978,15 +787,3 @@ html[data-theme="light"]
 }
 
 /* Narrow mobile devices */
-@media (width <= 650px) {
-  :root {
-    --sticky-nav-mobile-trigger-size: 38px;
-    --sticky-nav-mobile-trigger-gap: 5px;
-    --sticky-nav-mobile-trigger-padding-inline: 5px;
-    --sticky-nav-mobile-trigger-padding-block: 5px;
-    --sticky-nav-mobile-trigger-glyph-size: calc(var(--icon-xs) + 10px);
-    --sticky-nav-mobile-trigger-utility-glyph-size: var(--sticky-nav-mobile-trigger-glyph-size);
-    --sticky-nav-mobile-circle-glyph-size: calc(var(--sticky-nav-mobile-trigger-glyph-size) - 2px);
-    --sticky-nav-mobile-trigger-section-glyph-size: var(--sticky-nav-mobile-trigger-glyph-size);
-  }
-}

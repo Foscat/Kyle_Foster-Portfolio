@@ -58,7 +58,7 @@ State ==> Renderer`
               { type: "strong", text: "UI drives intent." },
               {
                 type: "text",
-                text: " Search interaction updates client state instead of directly mutating the view.",
+                text: " Search interaction updates client state instead of directly changing the view.",
               },
             ],
           },

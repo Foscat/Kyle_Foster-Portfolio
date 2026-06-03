@@ -58,7 +58,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Shortly after completing my second bootcamp, I joined a small team focused on improving technician workflows for a large enterprise environment.",
+                text: "Shortly after completing my second bootcamp, I joined a small team focused on improving technician repair processes for a large enterprise environment.",
               },
             ],
           },
@@ -67,7 +67,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Competing against more experienced teams, we prioritized operational practicality over presentation. The solution was designed around real technician constraints, not abstract feature sets.",
+                text: "Competing against more experienced teams, we prioritized practical shop needs over presentation. The solution was designed around actual technician needs, not abstract feature sets.",
               },
             ],
           },
@@ -102,7 +102,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "The venture later dissolved because of leadership and contract misalignment, but the work accelerated my growth in product ownership, execution, and governance.",
+                text: "The project later ended because of leadership and contract issues, but the work accelerated my growth in product ownership, delivery, and governance.",
               },
             ],
           },
@@ -111,7 +111,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Key takeaway: execution depth and adaptability matter more than seniority labels.",
+                text: "Key takeaway: practical delivery and adaptability matter more than seniority labels.",
               },
             ],
           },
@@ -142,7 +142,7 @@ const hackathonSections = [
           },
           {
             id: "hackathon-problem-solved",
-            title: "Primary Constraint",
+            title: "Main Challenge",
             subtitle: "Instruction delivery disrupted repair flow",
             icon: faCircleExclamation,
             content: [
@@ -151,7 +151,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Technicians had to bounce between tools and instruction surfaces, which slowed execution and made timing and feedback data less reliable.",
+                    text: "Technicians had to switch between tools and instructions, which slowed repairs and made timing and feedback data less reliable.",
                   },
                 ],
               },
@@ -160,7 +160,7 @@ const hackathonSections = [
           {
             id: "hackathon-solution",
             title: "Custom Software Response",
-            subtitle: "Voice-first, hands-free workflow design",
+            subtitle: "Voice-first, hands-free repair guidance",
             icon: faLightbulb,
             content: [
               {
@@ -168,7 +168,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "We built a voice-guided assistant that delivered spoken steps, captured progression data, and worked within existing shop constraints without new hardware.",
+                    text: "We built a voice-guided assistant that delivered spoken steps, captured progress data, and worked within existing shop conditions without new hardware.",
                   },
                 ],
               },
@@ -202,7 +202,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The team won the Daimler event, and the work proved the concept under pressure while accelerating my execution depth in architecture and product ownership.",
+                    text: "The team won the Daimler event, and the work proved the concept under pressure while accelerating my growth in architecture and product ownership.",
                   },
                 ],
               },
@@ -263,7 +263,7 @@ const hackathonSections = [
       {
         id: "problem-statement",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Hands-Busy Repair Workflows",
+        title: "Challenge: Hands-Busy Repair Workflows",
         icon: faCircleExclamation,
         content: [
           {
@@ -274,7 +274,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Technician workflows were constrained by screen- and paper-based instruction systems.",
+                    text: "Technician repair work was slowed by screen- and paper-based instruction systems.",
                   },
                 ],
               },
@@ -321,7 +321,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Daimler also sought a way to capture and operationalize insights from high-performing technicians.",
+                text: "Daimler also needed a way to capture insights from high-performing technicians and turn them into process improvements.",
               },
             ],
           },
@@ -331,7 +331,7 @@ const hackathonSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Feedback submission was cumbersome and underutilized." },
+                  { type: "text", text: "Feedback was hard to submit and easy to ignore." },
                 ],
               },
               {
@@ -339,7 +339,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "There was no measurable linkage between suggested improvements and workflow performance.",
+                    text: "There was no clear link between suggested improvements and repair performance.",
                   },
                 ],
               },
@@ -388,7 +388,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Constraint: improve operational efficiency without increasing cognitive load or infrastructure cost.",
+                text: "Challenge: improve repair efficiency without increasing mental load or infrastructure cost.",
               },
             ],
           },
@@ -414,7 +414,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "We built a fully voice-operated repair assistant designed for hands-free execution.",
+                    text: "We built a voice-operated repair assistant technicians could use hands-free.",
                   },
                 ],
               },
@@ -532,7 +532,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Design objective: reduce workflow interruption while generating measurable step-level performance data.",
+                text: "Goal: reduce interruptions while generating measurable step-level performance data.",
               },
             ],
           },
@@ -566,7 +566,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The prototype enabled fully hands-free repair execution with real-time telemetry.",
+                    text: "The prototype enabled hands-free repair guidance with real-time progress tracking.",
                   },
                 ],
               },
@@ -577,7 +577,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Technicians could complete an entire service workflow without touching a screen, while the system automatically recorded step-level timing and progression data.",
+                text: "Technicians could complete an entire repair procedure without touching a screen, while the system automatically recorded step-level timing and progress data.",
               },
             ],
           },
@@ -586,7 +586,7 @@ const hackathonSections = [
             children: [
               {
                 type: "li",
-                children: [{ type: "text", text: "Reduced workflow interruption." }],
+                children: [{ type: "text", text: "Reduced repair interruptions." }],
               },
               {
                 type: "li",
@@ -603,7 +603,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "The system also introduced a low-friction feedback mechanism, allowing technicians to contribute process improvements directly within the workflow.",
+                text: "The system also introduced a simple feedback mechanism, allowing technicians to suggest process improvements during the repair.",
               },
             ],
           },
@@ -612,7 +612,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Unlike many prototypes, our solution prioritized operational fit over feature volume. It met Daimler's constraints without new hardware or added cognitive load.",
+                text: "Unlike many prototypes, our solution prioritized shop fit over feature volume. It met Daimler's requirements without new hardware or added mental load.",
               },
             ],
           },
@@ -667,7 +667,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "I became the sole developer responsible for turning the proof of concept into a production-grade mobile application.",
+                text: "I became the sole developer responsible for turning the proof of concept into a production-ready mobile application.",
               },
             ],
           },
@@ -787,7 +787,7 @@ const hackathonSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Rebuilt architecture around mobile-first constraints." },
+                  { type: "text", text: "Rebuilt architecture around mobile-first requirements." },
                 ],
               },
               {
@@ -795,7 +795,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Redesigned workflow orchestration for high-demand technician environments.",
+                    text: "Redesigned step coordination for high-demand technician environments.",
                   },
                 ],
               },
@@ -825,7 +825,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The transition to production required redefining scope and architecture in collaboration with Daimler stakeholders.",
+                    text: "The transition to production required refining scope and architecture with Daimler stakeholders.",
                   },
                 ],
               },
@@ -836,7 +836,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Multiple scope-defining sessions clarified operational expectations, performance constraints, and long-term scalability requirements.",
+                text: "Planning sessions clarified operational expectations, performance needs, and long-term scalability requirements.",
               },
             ],
           },
@@ -898,7 +898,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Implemented keyword-driven matching derived from technician speech input to resolve the intended repair workflow.",
+                    text: "Implemented keyword-driven matching from technician speech input to identify the intended repair procedure.",
                   },
                 ],
               },
@@ -909,7 +909,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "The resulting system workflow operated as follows:",
+                text: "The resulting flow worked as follows:",
               },
             ],
           },
@@ -950,7 +950,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "The system combined natural-language input, intelligent document resolution, and structured procedural parsing into a continuous hands-free execution loop.",
+                text: "The system combined natural-language input, document matching, and structured procedure parsing into a continuous hands-free repair flow.",
               },
             ],
           },
@@ -979,7 +979,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The post-hackathon venture ultimately concluded before reaching production deployment.",
+                    text: "The post-hackathon project ended before reaching production deployment.",
                   },
                 ],
               },
@@ -990,7 +990,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "We made strong progress on requirements, architecture, and the mobile implementation, but contractual and organizational misalignment ended further development.",
+                text: "We made strong progress on requirements, architecture, and the mobile implementation, but contract and organization issues ended further development.",
               },
             ],
           },
@@ -999,7 +999,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "The experience exposed the operational risks that arise when technical execution and business governance are not aligned under clear agreements.",
+                text: "The experience showed the risks that arise when technical work and business governance are not aligned under clear agreements.",
               },
             ],
           },
@@ -1027,7 +1027,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Even though the venture ended, the experience accelerated my growth in mobile architecture, microservice design, offline-first systems, and large-scale document modeling.",
+                text: "Even though the project ended, the experience accelerated my growth in mobile architecture, microservice design, offline-first systems, and large-scale document modeling.",
               },
             ],
           },

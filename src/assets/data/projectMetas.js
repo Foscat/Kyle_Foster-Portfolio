@@ -9,7 +9,7 @@ export default {
     id: "codestream",
     title: "CodeStream Online Studio",
     description:
-      "At CodeStream Studios LLC, I served as the sole frontend developer responsible for building and evolving the React application that powered the platform. I translated product ideas into shipped features, established the frontend architecture, and supported the product beyond implementation through bug fixing, documentation, and testing support. Working within a lean team sharpened my ability to balance speed, ownership, and long-term maintainability.",
+      "At CodeStream Studios LLC, I served as the sole frontend developer for the React application that powered the platform. I translated product ideas into shipped features, established the frontend architecture, and supported releases through bug fixing, documentation, and testing. Working on a lean team strengthened my ability to balance speed, ownership, and long-term maintainability.",
     jobTitle: "Frontend Engineer",
     timespan: "2019 - 2025",
     url: "https://codestreamonlinestudio.com",
@@ -31,7 +31,7 @@ export default {
     id: "nodemailer",
     title: "Nodemailer Microservice",
     description:
-      "An email microservice powered by Nodemailer that gives websites a simple way to send messages without heavy custom configuration. It accepts a straightforward payload containing sender information and message content, making it easy to integrate into contact workflows.",
+      "An email microservice powered by Nodemailer that gives websites a simple way to send messages without heavy custom configuration. It accepts a straightforward payload containing sender information and message content, making it easy to integrate into contact forms.",
     jobTitle: "Software Engineer",
     timespan: "1 hour",
     tech: ["Node.js", "Express.js", "Nodemailer", "Render"],
@@ -54,14 +54,14 @@ export default {
       "Render",
       "RSuite",
     ],
-    url: "Website contains NSFW content, so no link will be provided.",
+    url: "No public link is provided because the site includes NSFW content.",
     repo: "Private",
     images: [],
   },
   Freelance_3: {
     id: "hvac",
     title: "Emergency Air Services",
-    url: "The company no longer pays for hosting, so the site has been taken offline.",
+    url: "The site is offline because hosting is no longer active.",
     repo: "https://github.com/Foscat/HVAC_Site",
     description:
       "A business website where customers could review services, browse job-site photos, and quickly access contact details, email links, and social media channels for Emergency Air Service.",
@@ -73,7 +73,7 @@ export default {
     id: "hackathon",
     title: "Daimler Trucking Hackathon: Tech Assist / Reinforce",
     description:
-      "This winning hackathon project was built for Daimler Chrysler to support technicians maintaining fleet vehicles. The app guided mechanics through repair procedures with hands-free voice interaction, searched model-specific service information, and parsed XML-based repair documentation into usable steps and sub-steps. It also captured technician feedback when a task was completed faster than expected, creating a path for process improvement based on real-world shop-floor experience.",
+      "This winning hackathon project was built for Daimler to support technicians maintaining fleet vehicles. The app guided mechanics through repair procedures with hands-free voice interaction, searched model-specific service information, and parsed XML repair documentation into usable steps. It also captured timing and feedback data so process improvements could be based on shop-floor experience.",
     tech: [
       "React.js",
       "React Native",
@@ -100,7 +100,7 @@ export default {
       },
       {
         id: "h2",
-        title: "Demonstrating voice parsing for the search workflow",
+        title: "Demonstrating voice parsing for the search flow",
         alt: "Photo of me showing the team how the voice-to-text flow identified search variables.",
         src: "../images/hackathon/chat-botting.jpg",
         caption: "",
@@ -138,7 +138,7 @@ export default {
     id: "greenhouse",
     title: "Greenhouse Climate Controller",
     description:
-      "The Greenhouse Climate Controller is one of my favorite real-world projects because it solved a practical problem for a friend who struggled to maintain greenhouse conditions consistently. Built in Python for a Raspberry Pi Zero, the system automated environmental monitoring and device control so temperature and humidity could stay within target ranges without constant manual intervention.",
+      "The Greenhouse Climate Controller solved a practical problem for a friend who needed more consistent greenhouse conditions. Built in Python for a Raspberry Pi Zero, the system automated environmental monitoring and device control so temperature and humidity could stay within target ranges without constant manual adjustment.",
     jobTitle: "Software Developer",
     timespan: "1 day",
     tech: ["Python", "Raspberry Pi Sense HAT", "IoT", "Custom Hardware"],
@@ -151,7 +151,7 @@ export default {
         alt: "Greenhouse climate control board",
         src: "../images/sideProjects/greenhouse-controls.jpg",
         caption:
-          'Strategically positioned temperature and humidity sensors, extended via CAT5 cable to a centralized location, provide precise climate monitoring. The system dynamically adjusts environmental variables using relay-controlled devices that function like a smart power strip for heaters, fans, humidifiers, dehumidifiers, vents, and lighting. With three distinct settings—"Veg," "Flower," and "Final Flower"—the controller adapts to different growth stages and helps optimize both yield and quality. Built with my father\'s help on soldering and wiring, the project reflects a practical, collaborative approach to automation.',
+          'Temperature and humidity sensors send data to a central Raspberry Pi controller. Relay-controlled outlets manage heaters, fans, humidifiers, dehumidifiers, vents, and lighting. Three profiles, "Veg," "Flower," and "Final Flower," adjust target ranges for different growth stages. My father helped with soldering and wiring, making this a practical collaborative automation project.',
       },
       {
         id: "g2",
@@ -178,14 +178,14 @@ export default {
         alt: "Screenshot of the D20 tabletop campaign creator website",
         src: "../images/sideProjects/d20-dashboard.png",
         caption:
-          'What sets "D20 King" apart is its modular architecture, inspired by the collaborative structure of GitHub repositories. Each "Storybook" acts as a storytelling container made up of "Acts" and "Rooms" that can be filled with characters, locations, opponents, and treasures. The system is designed to help Dungeon Masters build rich, organized worlds that support long-form campaign creation.',
+          '"D20 King" uses modular architecture inspired by the collaborative structure of GitHub repositories. Each "Storybook" acts as a storytelling container made up of "Acts" and "Rooms" that can hold characters, locations, opponents, and treasures. The system helps Dungeon Masters build organized worlds for long-form campaigns.',
       },
     ],
   },
   SMU_1: {
     id: "gifFreak",
     title: "Gif Freak",
-    description: `"Gif Freak" is a dynamic website I built during my time at SMU. Deployed on GitHub Pages, it showcases early proficiency with HTML, JavaScript, jQuery, and AJAX by using the Giphy API to fetch and display GIFs based on user input. The app ships with predefined buttons, lets users add their own, and dynamically renders up to 10 matching GIFs for each search term. Looking back, the code is simple, but this project was one of the first that made software development feel genuinely exciting and creative to me.`,
+    description: `"Gif Freak" is a dynamic website I built during my time at SMU. Deployed on GitHub Pages, it shows early practice with HTML, JavaScript, jQuery, and AJAX by using the Giphy API to fetch and display GIFs from user input. The app includes predefined buttons, lets users add their own, and renders up to 10 matching GIFs for each search term. The code is simple by my current standards, but this project was one of the first that made software development feel genuinely creative to me.`,
     jobTitle: "Student Developer",
     timespan: "3 days",
     tech: ["HTML", "CSS", "jQuery", "AJAX", "Third-Party APIs"],
@@ -205,7 +205,7 @@ export default {
     id: "StockMemer",
     title: "Stock Memer",
     description:
-      '"Stock Memer" was my first group project at SMU and an early lesson in collaborative product development. The app let users view real-time stock data for Nasdaq companies, review key company details, and create memes tied to individual stocks. Memes and stock associations were stored in Firebase. Although the meme generator integration is no longer functional because the API key expired, the project still reflects strong collaboration and early experience connecting APIs, data storage, and interactive UI behavior.',
+      '"Stock Memer" was my first group project at SMU and an early lesson in collaborative product development. The app let users view real-time stock data for Nasdaq companies, review key company details, and create memes tied to individual stocks. Memes and stock associations were stored in Firebase. Although the meme generator integration is no longer functional because the API key expired, the project still reflects teamwork and early experience connecting APIs, data storage, and interactive UI behavior.',
     url: "The deployed version is no longer active.",
     repo: "https://github.com/Foscat/Stock-Memer",
     jobTitle: "JavaScript Developer",

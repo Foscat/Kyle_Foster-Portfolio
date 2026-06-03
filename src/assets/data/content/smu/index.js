@@ -48,7 +48,7 @@ const smuSections = [
               { type: "strong", text: "Southern Methodist University" },
               {
                 type: "text",
-                text: " marked the start of my move into professional software development. This phase was less about memorizing syntax and more about learning how real systems are designed, reasoned about, and evolved.",
+                text: " marked the start of my move into professional software development. This phase was less about memorizing syntax and more about learning how software systems are designed, reasoned about, and improved over time.",
               },
             ],
           },
@@ -59,7 +59,7 @@ const smuSections = [
               { type: "em", text: "end-to-end projects" },
               {
                 type: "text",
-                text: " that required planning, iteration, and trade-off analysis. These projects introduced system thinking and the reality of maintaining code beyond the first successful demo.",
+                text: " that required planning, iteration, and trade-off analysis. These projects introduced systems thinking and the reality of maintaining code beyond the first successful demo.",
               },
             ],
           },
@@ -92,7 +92,7 @@ const smuSections = [
         id: "gif-freak-problem",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Constraint: Learning Real API Behavior",
+        title: "Challenge: Learning Real API Behavior",
         content: [
           {
             type: "p",
@@ -194,21 +194,21 @@ const smuSections = [
         type: BlockType.CARD_GRID,
         title: "What This Project Taught Me",
         subtitle:
-          "Lessons learned from building a real-world API integration with asynchronous behavior and user-facing complexity",
+          "Lessons learned from building a practical API integration with asynchronous behavior and user-facing complexity",
         items: [
           {
             id: "smu-kt-1",
             title: "API Integration",
-            subtitle: "Working with external data sources and designing around their constraints",
+            subtitle: "Working with external data sources and designing around their limits",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "This project was my first real implementation of ",
+                    text: "This project was my first hands-on implementation of ",
                   },
-                  { type: "strong", text: "3rd-party API integration" },
+                  { type: "strong", text: "third-party API integration" },
                   {
                     type: "text",
                     text: ". It moved me from theory to production-minded thinking about data contracts, reliability, and user-facing behavior.",
@@ -391,7 +391,7 @@ const smuSections = [
             children: [
               {
                 type: "text",
-                text: "Revisiting this project with current standards in mind, several architectural and UX improvements would meaningfully elevate its robustness and maintainability.",
+                text: "Revisiting this project with current standards in mind, several architecture and UX improvements would make it more robust and maintainable.",
               },
             ],
           },
@@ -448,7 +448,7 @@ const smuSections = [
               { type: "inlineIcon", icon: "🛠️" },
               {
                 type: "text",
-                text: "The core API integration remains sound, but today I would harden the system around resilience, performance, and long-term maintainability.",
+                text: "The core API integration remains sound, but today I would strengthen the system around resilience, performance, and long-term maintainability.",
               },
             ],
           },
@@ -493,7 +493,7 @@ const smuSections = [
       {
         id: "stock-memer-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Making Market Data Usable",
+        title: "Challenge: Making Market Data Usable",
         content: [
           {
             type: "p",
@@ -507,7 +507,7 @@ const smuSections = [
           {
             type: "p",
             children: [
-              { type: "text", text: "This project also introduced a new constraint: " },
+              { type: "text", text: "This project also introduced a new challenge: " },
               { type: "strong", text: "team-based development" },
               {
                 type: "text",
@@ -790,7 +790,7 @@ const smuSections = [
               { type: "inlineIcon", icon: "📈" },
               {
                 type: "text",
-                text: " The core idea remains viable, but today the emphasis would be on modular services, resilience, and collaborative maintainability.",
+                text: " The core idea remains useful, but today the emphasis would be on modular services, resilience, and collaborative maintainability.",
               },
             ],
           },
@@ -824,7 +824,7 @@ const smuSections = [
       {
         id: "scion-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Manual and Opaque Matching",
+        title: "Challenge: Manual and Unclear Matching",
         content: [
           {
             type: "p",
@@ -841,7 +841,7 @@ const smuSections = [
               { type: "inlineIcon", icon: "🤍" },
               {
                 type: "text",
-                text: " This problem demanded more than technical correctness — it required trust and care.",
+                text: " This problem demanded more than technical accuracy; it required trust and care.",
               },
             ],
           },
@@ -871,7 +871,7 @@ const smuSections = [
             children: [
               {
                 type: "text",
-                text: "The algorithm balanced multiple weighted factors, prioritizing transparency and explainability over opaque scoring.",
+                text: "The algorithm balanced multiple weighted factors, prioritizing transparency and explainability over hard-to-understand scoring.",
               },
             ],
           },
@@ -903,7 +903,7 @@ const smuSections = [
         id: "scion-takeaways",
         type: BlockType.CARD_GRID,
         title: "What This Project Taught Me",
-        subtitle: "Lessons from designing a real-world matching algorithm with human impact",
+        subtitle: "Lessons from designing a matching algorithm with human impact",
         items: [
           {
             id: "scion-takeaway-1",
@@ -971,7 +971,7 @@ const smuSections = [
                 children: [
                   {
                     type: "text",
-                    text: "This reinforced that central business logic must be explicit, testable, and resilient — especially when it directly affects user outcomes.",
+                    text: "This reinforced that central business logic must be explicit, testable, and resilient, especially when it directly affects user outcomes.",
                   },
                 ],
               },

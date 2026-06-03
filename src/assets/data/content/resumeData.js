@@ -6,16 +6,36 @@
 
 const resumeData = {
   name: "Kyle Foster",
-  title: "Senior Frontend Engineer",
+  title: "Senior Developer",
   location: "Wills Point, TX",
   email: "fosterkyle6456@gmail.com",
   phone: "(469) 410-5286",
   website: "kyle-foster.com",
+  github: "github.com/Foscat",
+  linkedin: "linkedin.com/in/kylefoster-dev",
+  footer: "Kyle Foster | Senior Developer | kyle-foster.com",
   summary:
-    "Senior Frontend Engineer with 6+ years of experience building React applications, browser-based tooling, and role-based product systems. Skilled at translating complex workflows into clear, dependable interfaces through reusable UI architecture, responsive design, and practical product thinking.",
+    "Senior Developer with 6+ years of experience building React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessibility-focused interfaces, and maintainable product delivery across education platforms, creator-focused systems, admin dashboards, and service-based web products.",
 
   experience: [
     {
+      id: "sanderson-technology-enterprises",
+      role: "Senior Developer",
+      company: "Sanderson Technology Enterprises",
+      location: "Remote",
+      dates: "2025 - Present",
+      summary:
+        "Develop custom web platforms, marketing sites, admin tools, and digital business systems for creator-focused brands and independent clients.",
+      bullets: [
+        "Built the company's web presence as a clean, SEO-focused business site with service positioning, brand assets, responsive layouts, theme support, and static hosting support.",
+        "Plan and implement creator-owned platform concepts, including branded websites, private content systems, member-only areas, CMS workflows, admin dashboards, and storefront infrastructure.",
+        "Create reusable frontend patterns using HTML, CSS, JavaScript, React-compatible architecture, ui-style-kit-css, and interactive-surface-css.",
+        "Own technical scoping, information architecture, implementation planning, documentation, testing checks, and long-term maintenance strategy.",
+        "Translate business needs into clear technical requirements that balance brand control, scalability, performance, accessibility, and maintainability.",
+      ],
+    },
+    {
+      id: "codestream-studios",
       role: "Senior Frontend Engineer",
       company: "CodeStream Studios LLC",
       location: "Remote",
@@ -23,55 +43,50 @@ const resumeData = {
       summary:
         "Served as the primary frontend engineer for CodeStream Online Studio, a React-based learning platform used by students, teachers, and administrators.",
       bullets: [
-        "Architected and delivered a browser-native coding platform with lesson rendering, project editing, three-panel IDE workflows, live preview, and in-browser execution for web and Python projects.",
-        "Built classroom, organization, licensing, and grading systems that supported distinct admin, teacher, and student experiences through role-based UI and workflow design.",
-        "Developed reusable component patterns for content rendering, responsive navigation, documentation-style presentation, and maintainable feature delivery across the platform.",
-        "Integrated cloud-backed project persistence and workflow tooling so users could save, review, clone, grade, and continue work across sessions and devices.",
-        "Worked directly as both engineer and instructor, using real classroom feedback to improve workflow clarity, usability, and feature design.",
+        "Architected a browser-native coding platform with lesson rendering, project editing, three-panel IDE workflows, live preview, and in-browser code execution.",
+        "Built classroom, organization, licensing, and grading systems that supported admin, teacher, and student workflows through role-based UI design.",
+        "Developed reusable component patterns for content rendering, responsive navigation, documentation interfaces, and maintainable feature delivery.",
+        "Integrated cloud-backed project persistence so users could save, review, clone, grade, and continue work across sessions and devices.",
+        "Applied direct classroom feedback to improve workflow clarity, reduce friction, and refine feature design.",
       ],
     },
   ],
 
   projects: [
     {
-      name: "Daimler Truck Hackathon Winner",
-      subtitle: "Voice-powered technician assistant",
-      dates: "2019",
-      summary:
-        "Built a hands-free repair workflow prototype for technicians using voice interaction, structured repair guidance, and backend-driven step retrieval.",
+      id: "css-library-systems",
+      name: "CSS Library Systems",
+      subtitle: "Interactive Surface CSS / UI Style Kit CSS",
       bullets: [
-        "Helped design the voice and NLP-driven workflow for retrieving and presenting repair steps in a hands-free environment.",
-        "Extended the concept into a mobile-ready architecture after the event, contributing to a solution that won against 20+ teams.",
+        "Published reusable CSS systems for accessible interactions, theme palettes, design tokens, and polished interface patterns across static sites and application UIs.",
       ],
     },
     {
+      id: "portfolio-system",
       name: "Portfolio System",
       subtitle: "kyle-foster.com",
-      summary:
-        "Built a CMS-style portfolio architecture focused on case-study storytelling, reusable rendering systems, responsive navigation, and polished presentation of technical work.",
       bullets: [
-        "Created reusable page, section, and block rendering systems to support long-form project documentation without hardcoding layouts.",
-        "Built responsive section navigation, custom rich-text rendering, and diagram support to make dense technical content easier to explore and understand.",
+        "Built a CMS-style React portfolio architecture with reusable page and section rendering, responsive navigation, rich text rendering, technical diagrams, and case study presentation.",
       ],
     },
     {
-      name: "Enigma",
-      subtitle: "Multi-alphabet browser encryption tool",
-      summary:
-        "Built a JavaScript encryption application centered on usability, custom algorithm rules, and polished browser-based interaction.",
+      id: "daimler-truck-hackathon",
+      name: "Daimler Truck Hackathon Winner",
+      subtitle: "Voice-powered technician assistant",
       bullets: [
-        "Implemented a custom Caesar-style cipher with rotating alphabets, tagging logic, and support for broader character handling.",
-        "Designed a clean browser UI focused on clarity, repeat use, and approachable interaction for non-technical users.",
+        "Helped build a hands-free repair workflow prototype using voice interaction, structured guidance, and backend-driven step retrieval. The project was selected as the winner among 20+ teams.",
       ],
     },
   ],
 
   skills: [
     {
+      id: "frontend",
       label: "Frontend",
-      items: ["React", "JavaScript (ES6+)", "HTML5", "CSS3", "Responsive UI", "RSuite", "Vite"],
+      items: ["React", "JavaScript (ES6+)", "HTML5", "CSS3", "responsive UI", "RSuite", "Vite"],
     },
     {
+      id: "ui-architecture",
       label: "UI Architecture",
       items: [
         "Component architecture",
@@ -83,50 +98,49 @@ const resumeData = {
       ],
     },
     {
-      label: "Platform / Product Systems",
+      id: "platform-systems",
+      label: "Platform Systems",
       items: [
         "Role-based systems",
         "content rendering",
         "browser-based IDE workflows",
-        "grading/reporting tools",
-        "documentation UX",
+        "admin dashboards",
+        "CMS workflows",
       ],
     },
     {
+      id: "backend-services",
       label: "Backend / Services",
       items: ["Node.js", "Express.js", "REST APIs", "MongoDB", "Mongoose", "AWS S3", "AWS Lambda"],
     },
     {
+      id: "workflow",
       label: "Workflow",
       items: [
         "Git",
         "GitHub",
-        "Agile collaboration",
         "debugging",
         "testing",
         "technical documentation",
+        "product planning",
       ],
     },
   ],
 
   education: [
     {
+      id: "smu-coding-bootcamp",
       program: "SMU Coding Bootcamp",
       school: "Southern Methodist University",
       location: "Dallas, TX",
       dates: "2019",
-      notes: [
-        "Focused on full-stack web development with React, JavaScript, Node.js, and modern frontend fundamentals.",
-      ],
     },
     {
+      id: "tech-talent-south",
       program: "Full-Time Coding Bootcamp",
       school: "Tech Talent South",
       location: "Dallas, TX",
       dates: "2019",
-      notes: [
-        "Completed immersive software development training with Java and broader engineering fundamentals.",
-      ],
     },
   ],
 };

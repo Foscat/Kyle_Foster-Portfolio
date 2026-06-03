@@ -68,7 +68,7 @@ function getPaletteBlocks(css) {
 
 describe("color-themes contrast coverage", () => {
   it("keeps core text/surface pairings above WCAG AA", () => {
-    const cssPath = path.resolve(process.cwd(), "src/styles/color-themes.css");
+    const cssPath = path.resolve(process.cwd(), "src/styles/tokens.css");
     const css = readFileSync(cssPath, "utf8");
     const blocks = getPaletteBlocks(css);
     const checks = [

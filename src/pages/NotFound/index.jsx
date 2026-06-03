@@ -35,13 +35,13 @@ const NotFound = () => {
           </div>
 
           {/* Title */}
-          <h1 className="notFound-title">This Page Drifted Off</h1>
+          <h1 className="notFound-title">Page Not Found</h1>
 
           {/* Description */}
           <p className="notFound-description">
-            The page you're looking for doesn't exist or has been moved.
+            The page you're looking for does not exist or may have moved.
             <br />
-            Let's get you back on track.
+            Use the button below to return home.
           </p>
 
           {/* Call to Action */}

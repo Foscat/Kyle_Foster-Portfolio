@@ -201,7 +201,7 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
 
   const resetDraftToDefaults = useCallback(() => {
     setDraftHighContrast(null);
-    announce("Draft reset to system defaults. Select Apply changes to confirm.");
+    announce("Changes reset to system defaults. Select Apply changes to confirm.");
   }, [announce]);
 
   const applyDraft = useCallback(async () => {
@@ -254,7 +254,7 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
 
         <Modal.Body className="color-modal__body modal-body-pad">
           <p className="color-modal__intro">
-            Select mode and palette styles for this device. Theme and palette changes apply
+            Choose a theme and color palette for this device. Theme and palette changes apply
             immediately.
           </p>
 
@@ -283,11 +283,11 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
 
         <Modal.Footer className="color-modal__footer feature-settings-modal__footer">
           <Btn
-            text="Reset draft"
+            text="Reset changes"
             icon={faArrowsRotate}
             size={Size.SM}
             variant={Variant.ACCENT}
-            ariaLabel="Reset draft color preferences"
+            ariaLabel="Reset color changes"
             disabled={isApplying || !hasPendingChanges}
             onClick={resetDraftToDefaults}
           />

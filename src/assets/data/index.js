@@ -14,8 +14,7 @@ import {
   smuSections,
 } from "./content";
 import pageMetas from "./pageMetas.js";
-import resumeLight from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_LightMode.pdf";
-import resumeDark from "./resume/Kyle Foster _ Senior React _ Frontend Engineer_DarkMode.pdf";
+import seniorDeveloperResume from "./resume/Kyle_Foster_Senior_Developer_Resume.pdf";
 
 export {
   codestreamSections,
@@ -26,6 +25,6 @@ export {
   sideProjectsSections,
   smuSections,
   pageMetas,
-  resumeLight,
-  resumeDark,
+  seniorDeveloperResume as resumeLight,
+  seniorDeveloperResume as resumeDark,
 };

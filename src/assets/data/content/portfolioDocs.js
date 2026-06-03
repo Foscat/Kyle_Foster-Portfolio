@@ -43,7 +43,7 @@ const DOC_META = {
   scripts: {
     title: "Scripts",
     category: "Tooling",
-    summary: "Project scripts and the build and developer workflow.",
+    summary: "Project scripts and the build/development process.",
     order: 4,
   },
   tests: {
@@ -85,7 +85,7 @@ const DOC_META = {
   "scripts-tooling-overview": {
     title: "Scripts Tooling Overview",
     category: "Developer Guides",
-    summary: "Guide to script architecture, intent, and safe maintenance workflow.",
+    summary: "Guide to script architecture, intent, and safe maintenance practices.",
     order: 22,
   },
   "testing-guidelines": {
