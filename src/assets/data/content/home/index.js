@@ -59,7 +59,7 @@ const homeSections = [
               { type: "strong", text: "Senior React / Frontend Engineer" },
               {
                 type: "text",
-                text: " I design user-facing products around explicit domain rules and practical interaction patterns, so workflows stay understandable as data volume, roles, and feature depth increase.",
+                text: " I design user-facing products around clear domain rules and practical interaction patterns, so people can understand the work even as data, roles, and features grow.",
               },
             ],
           },
@@ -70,10 +70,10 @@ const homeSections = [
                 type: "text",
                 text: "I work across both production delivery and rapid prototyping. I built a custom education platform used in live classrooms and delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
               },
-              { type: "em", text: "concrete constraints" },
+              { type: "em", text: "practical limits" },
               {
                 type: "text",
-                text: " like hardware I/O, session continuity, and long-running content workflows, then carry those lessons into shipped product work.",
+                text: " like hardware input, session continuity, and long-running content flows, then carry those lessons into shipped product work.",
               },
             ],
           },
@@ -140,7 +140,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Helped deliver the winning solution by prioritizing real operator constraints over flashy features.",
+                    text: "Helped deliver the winning solution by focusing on technician needs instead of unnecessary features.",
                   },
                 ],
               },
@@ -203,7 +203,7 @@ const homeSections = [
               { type: "em", text: "sole frontend engineer" },
               {
                 type: "text",
-                text: ", owning the UI from requirements through release. I built core workflows including a multi-panel browser IDE, organization and classroom permissions, virtual classroom flows, grading tools, reporting, and admin dashboards.",
+                text: ", owning the UI from requirements through release. I built core product flows including a multi-panel browser IDE, organization and classroom permissions, virtual classroom tools, grading, reporting, and admin dashboards.",
               },
             ],
           },
@@ -242,7 +242,7 @@ const homeSections = [
         id: "professional-key-features",
         type: BlockType.CARD_GRID,
         title: "Notable Features",
-        subtitle: "Systems designed for real-world educational contexts and organizational growth",
+        subtitle: "Systems designed for classroom use and organizational growth",
         items: [
           {
             id: "pro-grading",
@@ -432,7 +432,7 @@ const homeSections = [
               { type: "strong", text: "Daimler Trucking Hackathon" },
               {
                 type: "text",
-                text: " in Austin, Texas, where teams were tasked with improving real-world repair workflows under tight time constraints.",
+                text: " in Austin, Texas, where teams were asked to improve repair processes under tight time limits.",
               },
             ],
           },
@@ -441,7 +441,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "After being overlooked by senior teams, I joined a junior group and focused on the client's actual pain points. We prioritized usability and practical constraints over technical flash.",
+                text: "I joined a junior developer group and focused on the client's actual pain points. We prioritized usability, shop conditions, and technician needs over presentation polish.",
               },
             ],
           },
@@ -460,13 +460,13 @@ const homeSections = [
       {
         id: "hackathon-key-features",
         title: "Key Features",
-        subtitle: "Core aspects of our winning solution that addressed real-world constraints",
+        subtitle: "Core parts of our winning solution and why they mattered",
         type: BlockType.CARD_GRID,
         items: [
           {
             id: "h-kf-mvp-solution",
             title: "Voice-Driven MVP Architecture",
-            subtitle: "Focused on real-world repair workflows and operator needs",
+            subtitle: "Focused on repair processes and technician needs",
             icon: faHeadset,
             url: `${PageRoute.HACKATHON}/#reinforce`,
             local: true,
@@ -476,7 +476,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Delivered a hands-free repair assistant aligned with shop workflows. We prioritized real constraints, including technicians needing both hands free and attention on the task, instead of flashy but impractical features.",
+                    text: "Delivered a hands-free repair assistant aligned with shop work. We accounted for technicians needing both hands free and their attention on the repair, avoiding features that looked impressive but added friction.",
                   },
                 ],
               },
@@ -500,7 +500,7 @@ const homeSections = [
               {
                 type: "blockquote",
                 children: [
-                  { type: "text", text: "Solve the real constraint, not the imagined one." },
+                  { type: "text", text: "Solve the actual problem, not the imagined one." },
                 ],
               },
             ],
@@ -549,7 +549,7 @@ const homeSections = [
             id: "h-kf-post-hackathon",
             title: "Post-Hackathon Productization",
             subtitle:
-              "Transitioning from prototype to production with a focus on durability and real-world deployment.",
+              "Moving from prototype to production with a focus on durability and deployment.",
             icon: faMobileScreenButton,
             accent: "warning",
             url: `${PageRoute.HACKATHON}/#tech_assist`,
@@ -570,7 +570,7 @@ const homeSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Reinforcement of core voice-driven workflow" },
+                      { type: "text", text: "Reinforcement of the core voice-guided repair flow" },
                     ],
                   },
                   {
@@ -587,7 +587,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Iterative testing and refinement based on real-world feedback",
+                        text: "Iterative testing and refinement based on user feedback",
                       },
                     ],
                   },
@@ -640,10 +640,10 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My side projects are where I test unfamiliar tools, explore new workflows, and solve ",
+                text: "My side projects are where I test unfamiliar tools, explore new patterns, and solve ",
               },
               { type: "strong", text: "practical problems" },
-              { type: "text", text: " outside of client or organizational constraints." },
+              { type: "text", text: " outside of client or company requirements." },
             ],
           },
           {
@@ -717,15 +717,14 @@ const homeSections = [
           {
             id: "sp-practical-applications",
             title: "Real-World Problem Solving",
-            subtitle:
-              "Building solutions that operate in real environments with practical constraints",
+            subtitle: "Building solutions that operate in practical, real-use environments",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Build hardware-integrated systems that run outside controlled environments and solve real problems. These projects require design decisions shaped by physical constraints, reliability needs, and user context.",
+                    text: "Build hardware-integrated systems that run outside controlled environments and solve practical problems. These projects require design decisions shaped by physical limits, reliability needs, and user context.",
                   },
                 ],
               },
@@ -739,7 +738,7 @@ const homeSections = [
                   { type: "li", children: [{ type: "text", text: "Field-tested reliability" }] },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Design shaped by physical constraints" }],
+                    children: [{ type: "text", text: "Design shaped by physical limits" }],
                   },
                   {
                     type: "li",
@@ -757,7 +756,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Practical constraints expose better architectural decisions.",
+                    text: "Practical limits lead to better architectural decisions.",
                   },
                 ],
               },
@@ -860,7 +859,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Out of the box support for hover, focus, active, and disabled states",
+                        text: "Out-of-the-box support for hover, focus, active, and disabled states",
                       },
                     ],
                   },
@@ -1028,7 +1027,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Educational tool that demonstrates basic cryptographic principles in an easy to approach and interactive way.",
+                        text: "Educational tool that demonstrates basic cryptographic principles in an approachable, interactive way.",
                       },
                     ],
                   },
@@ -1220,7 +1219,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A capstone project focused on designing a compatibility scoring algorithm for a real-world domain with meaningful user impact.",
+                    text: "A capstone project focused on designing a compatibility scoring algorithm for a sensitive domain with meaningful user impact.",
                   },
                 ],
               },
@@ -1278,14 +1277,14 @@ const homeSections = [
   {
     id: "approach",
     slug: "approach",
-    title: "Problem-Solving Throughline",
+    title: "Problem-Solving Approach",
     subtitle: "How I apply custom software thinking across environments",
     icon: faChartLine,
     isScroller: true,
     blocks: [
       {
         id: "approach-summary",
-        title: "Constraint -> System -> Outcome",
+        title: "Problem -> System -> Outcome",
         type: BlockType.RICH_TEXT,
         content: [
           {
@@ -1293,7 +1292,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "Across professional work, hackathon delivery, and side projects, I follow the same model: identify the real constraint, design a focused system, and iterate until it is stable in real use.",
+                text: "Across professional work, hackathon delivery, and side projects, I follow the same model: identify the real problem, design a focused system, and iterate until it is stable in use.",
               },
             ],
           },
@@ -1305,7 +1304,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Clarify who is blocked and what operational constraint is creating friction.",
+                    text: "Clarify who is blocked and what is creating friction.",
                   },
                 ],
               },
@@ -1314,7 +1313,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Build custom software boundaries that solve the constraint without unnecessary complexity.",
+                    text: "Build custom software boundaries that solve the problem without unnecessary complexity.",
                   },
                 ],
               },
@@ -1334,7 +1333,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "The goal is software that reduces real workflow friction and remains dependable as scope grows.",
+                text: "The goal is software that reduces process friction and remains dependable as scope grows.",
               },
             ],
           },
@@ -1372,7 +1371,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I'm open to remote senior frontend / React roles, product UI work, and consulting conversations where clear workflows, maintainable systems, and thoughtful execution matter.",
+                text: "I'm open to remote senior frontend / React roles, product UI work, and consulting conversations where clear processes, maintainable systems, and thoughtful execution matter.",
               },
             ],
           },
@@ -1394,7 +1393,7 @@ const homeSections = [
             title: "Open Resume Preview",
             resumePreview: true,
             icon: faFileArrowDown,
-            tooltip: "Open resume preview and download a theme-aware PDF",
+            tooltip: "Open resume preview and download a PDF",
           },
         ],
       },

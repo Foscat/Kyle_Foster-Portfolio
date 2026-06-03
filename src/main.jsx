@@ -25,8 +25,8 @@ import App from "./App.jsx";
 import "./index.css";
 // RSuite shell styles
 import "./styles/rsuite-shell.less";
-// Theme token definitions for all named color themes.
-import "./styles/color-themes.css";
+// Centralized app tokens and style-kit theme imports.
+import "./styles/tokens.css";
 
 installChunkLoadRecovery();
 

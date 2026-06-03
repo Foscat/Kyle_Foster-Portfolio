@@ -40,7 +40,7 @@ const sideProjectSections = [
       {
         id: "overview-text",
         type: BlockType.RICH_TEXT,
-        title: "Exploring Practical Constraints",
+        title: "Exploring Practical Builds",
         icon: faTowerObservation,
         content: [
           {
@@ -51,7 +51,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects are where I pressure-test ideas end to end before they ever reach client work.",
+                    text: "Side projects are where I test ideas end to end before they ever reach client work.",
                   },
                 ],
               },
@@ -62,7 +62,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Each project starts from a concrete constraint, such as unstable greenhouse climate signals, auth session edge cases, or campaign data that outgrows spreadsheets.",
+                text: "Each project starts from a specific problem, such as unstable greenhouse climate signals, auth session edge cases, or campaign data that outgrows spreadsheets.",
               },
             ],
           },
@@ -80,7 +80,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "li",
-                children: [{ type: "text", text: "Technology choices and tradeoff mapping." }],
+                children: [{ type: "text", text: "Technology choices and trade-off mapping." }],
               },
               {
                 type: "li",
@@ -110,7 +110,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Principle: identify constraints, choose pragmatic tradeoffs, and iterate until behavior holds up outside ideal conditions.",
+                text: "Principle: identify the problem, choose practical trade-offs, and iterate until behavior holds up outside ideal conditions.",
               },
             ],
           },
@@ -133,7 +133,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "These builds served concrete use cases across automation, security tooling, and creator workflows where generic products were not a good fit.",
+                    text: "These builds served concrete use cases across automation, security tooling, and creator tasks where generic products were not a good fit.",
                   },
                 ],
               },
@@ -141,8 +141,8 @@ const sideProjectSections = [
           },
           {
             id: "side-projects-problem-solved",
-            title: "Primary Constraint",
-            subtitle: "Practical constraints lacked clean off-the-shelf solutions",
+            title: "Main Challenge",
+            subtitle: "Practical problems lacked clean off-the-shelf solutions",
             icon: faExclamationTriangle,
             content: [
               {
@@ -150,7 +150,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Each project started from a specific operational constraint that required custom tradeoffs in UX, architecture, or hardware/software behavior.",
+                    text: "Each project started from a specific operational problem that required custom trade-offs in UX, architecture, or hardware/software behavior.",
                   },
                 ],
               },
@@ -159,7 +159,7 @@ const sideProjectSections = [
           {
             id: "side-projects-solution",
             title: "Custom Software Response",
-            subtitle: "Constraint-first system design and iteration",
+            subtitle: "Problem-first system design and iteration",
             icon: faLightbulb,
             content: [
               {
@@ -167,7 +167,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I converted constraints into working architectures, then iterated from real use and failure points instead of stopping at prototype-level demos.",
+                    text: "I turned practical problems into working architectures, then iterated from real use and failure points instead of stopping at prototype-level demos.",
                   },
                 ],
               },
@@ -184,7 +184,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I owned architecture, implementation, iteration, and long-term maintenance, including frontend, backend, hardware integration, and deployment tradeoffs.",
+                    text: "I owned architecture, implementation, iteration, and long-term maintenance, including frontend, backend, hardware integration, and deployment trade-offs.",
                   },
                 ],
               },
@@ -223,7 +223,7 @@ const sideProjectSections = [
         id: "interactive-surface-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Constraint: Inconsistent Interaction Behavior",
+        title: "Challenge: Inconsistent Interaction Behavior",
         content: [
           {
             type: "p",
@@ -333,7 +333,7 @@ const sideProjectSections = [
               {
                 type: "li",
                 children: [
-                  { type: "strong", text: "Token driven:" },
+                  { type: "strong", text: "Token-driven:" },
                   {
                     type: "text",
                     text: " appearance, motion, focus ring, and depth are controlled through a structured token contract.",
@@ -343,7 +343,7 @@ const sideProjectSections = [
               {
                 type: "li",
                 children: [
-                  { type: "strong", text: "Accessibility aware:" },
+                  { type: "strong", text: "Accessibility-aware:" },
                   {
                     type: "text",
                     text: " keyboard focus, reduced motion, high contrast, and icon target sizing were treated as first-class requirements.",
@@ -541,7 +541,7 @@ const sideProjectSections = [
         id: "ui-style-kit-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Constraint: Repetitive UI Styling Work",
+        title: "Challenge: Repetitive UI Styling Work",
         content: [
           {
             type: "p",
@@ -675,7 +675,7 @@ const sideProjectSections = [
         id: "mern-template-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Constraint: Slow Full-Stack Project Starts",
+        title: "Challenge: Slow Full-Stack Project Starts",
         content: [
           {
             type: "p",
@@ -724,7 +724,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Auth complexity:" },
                   {
                     type: "text",
-                    text: " session continuity and token refresh introduce real-world edge cases quickly.",
+                    text: " session continuity and token refresh introduce practical edge cases quickly.",
                   },
                 ],
               },
@@ -793,7 +793,7 @@ const sideProjectSections = [
               {
                 type: "li",
                 children: [
-                  { type: "strong", text: "Deployment minded:" },
+                  { type: "strong", text: "Deployment-minded:" },
                   {
                     type: "text",
                     text: " the server can host both the API and the built client for simpler production setup.",
@@ -901,9 +901,7 @@ const sideProjectSections = [
                   },
                   {
                     type: "li",
-                    children: [
-                      { type: "text", text: "Environment-aware start and build workflow" },
-                    ],
+                    children: [{ type: "text", text: "Environment-aware start and build process" }],
                   },
                 ],
               },
@@ -971,7 +969,7 @@ const sideProjectSections = [
         id: "greenhouse-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Constraint: Manual Climate Control Overhead",
+        title: "Challenge: Manual Climate Control Overhead",
         content: [
           {
             type: "p",
@@ -1030,7 +1028,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Constraint: environmental regulation must be continuous, autonomous, and adaptive to changing conditions.",
+                text: "Challenge: environmental regulation must be continuous, autonomous, and adaptive to changing conditions.",
               },
             ],
           },
@@ -1135,12 +1133,12 @@ const sideProjectSections = [
         id: "greenhouse-takeaways",
         type: BlockType.CARD_GRID,
         title: "What This Proved",
-        subtitle: "Lessons learned from designing and implementing a real-world automation system",
+        subtitle: "Lessons learned from designing and implementing a practical automation system",
         items: [
           {
             id: "gh-takeaway-1",
             title: "Automation & Control Systems",
-            subtitle: "Designing a responsive, real-time control system under physical constraints",
+            subtitle: "Designing a responsive, real-time control system under physical limits",
             content: [
               {
                 type: "p",
@@ -1188,7 +1186,7 @@ const sideProjectSections = [
           },
           {
             id: "gh-takeaway-2",
-            title: "Embedded Systems Constraints",
+            title: "Embedded System Limits",
             subtitle: "Designing for limited hardware resources and real-time performance",
             content: [
               {
@@ -1196,7 +1194,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Designing for a resource-constrained embedded environment required prioritizing efficiency, reliability, and simplicity over feature complexity.",
+                    text: "Designing for limited hardware required prioritizing efficiency, reliability, and simplicity over feature complexity.",
                   },
                 ],
               },
@@ -1226,7 +1224,7 @@ const sideProjectSections = [
                     children: [
                       {
                         type: "text",
-                        text: "No-crash tolerance in long-running processes.",
+                        text: "Crash-resistant behavior in long-running processes.",
                       },
                     ],
                   },
@@ -1247,14 +1245,14 @@ const sideProjectSections = [
           {
             id: "gh-takeaway-3",
             title: "Reliability as a Design Priority",
-            subtitle: "Designing for consistent operation under real-world conditions",
+            subtitle: "Designing for consistent operation under real operating conditions",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "The system was designed with reliability as a core objective, prioritizing consistent operation under real-world conditions over feature richness.",
+                    text: "The system was designed with reliability as a core objective, prioritizing consistent operation under real conditions over feature richness.",
                   },
                 ],
               },
@@ -1290,7 +1288,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Principle: reliability is achieved through disciplined design that anticipates real-world variability and failure modes.",
+                    text: "Principle: reliability is achieved through disciplined design that anticipates environmental variability and failure modes.",
                   },
                 ],
               },
@@ -1332,14 +1330,14 @@ const sideProjectSections = [
         id: "enigma-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Constraint: Practical Client-Side Encryption",
+        title: "Challenge: Practical Client-Side Encryption",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Cryptography education is often theoretical and disconnected from implementation. While classical ciphers are conceptually familiar, there are fewer chances to study deterministic transformations inside a real user-facing system.",
+                text: "Cryptography education is often theoretical and disconnected from implementation. While classical ciphers are conceptually familiar, there are fewer chances to study predictable transformations inside a real user-facing system.",
               },
             ],
           },
@@ -1358,7 +1356,7 @@ const sideProjectSections = [
               { type: "inlineIcon", icon: "🔐" },
               {
                 type: "text",
-                text: "How can simple cryptographic principles be composed into a deterministic system that feels modern, usable, and privacy-preserving?",
+                text: "How can simple cryptographic principles become a predictable system that feels modern, usable, and privacy-preserving?",
               },
             ],
           },
@@ -1388,7 +1386,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The system was designed as a deterministic, client-side encryption engine inspired by Caesar substitution and multi-rotor mechanics. Instead of a single static alphabet, it composes rotating character sets to increase transformation depth while preserving reversibility.",
+                text: "The system was designed as a predictable, client-side encryption engine inspired by Caesar substitution and multi-rotor mechanics. Instead of a single static alphabet, it composes rotating character sets to increase transformation depth while preserving reversibility.",
               },
             ],
           },
@@ -1419,7 +1417,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Multi-alphabet rotation:" },
                   {
                     type: "text",
-                    text: " layered substitutions increase complexity without sacrificing determinism.",
+                    text: " layered substitutions increase complexity without sacrificing predictable results.",
                   },
                 ],
               },
@@ -1476,7 +1474,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The project served as a practical exploration of classical cryptography through direct implementation. By composing rotating alphabets and deterministic transformations, I examined how simple substitution mechanics can form layered systems.",
+                text: "The project served as a practical exploration of classical cryptography through direct implementation. By composing rotating alphabets and predictable transformations, I examined how simple substitution mechanics can form layered systems.",
               },
             ],
           },
@@ -1501,7 +1499,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "All encryption and decryption logic executes entirely in the browser. No user data is transmitted to a server, reducing the application’s attack surface and reinforcing privacy by design.",
+                text: "All encryption and decryption logic executes entirely in the browser. No user data is transmitted to a server, reducing the application's attack surface and reinforcing privacy by design.",
               },
             ],
           },
@@ -1510,7 +1508,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "This constraint required deterministic behavior and performance awareness in a client-only environment. Security here is expressed through architectural decisions, not just cipher mechanics.",
+                text: "This requirement called for predictable behavior and performance awareness in a client-only environment. Security here is expressed through architectural decisions, not just cipher mechanics.",
               },
             ],
           },
@@ -1526,7 +1524,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "A core objective was to make cryptographic concepts approachable without oversimplifying them. The interface guides users through encryption and decryption workflows without requiring prior cipher knowledge.",
+                text: "A core objective was to make cryptographic concepts approachable without oversimplifying them. The interface guides users through encryption and decryption without requiring prior cipher knowledge.",
               },
             ],
           },
@@ -1545,7 +1543,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Security is not only about complexity — it is about deterministic, well-defined behavior.",
+                text: "Security is not only about complexity; it is about predictable, well-defined behavior.",
               },
             ],
           },
@@ -1595,7 +1593,7 @@ const sideProjectSections = [
         id: "d20-problem-text",
         icon: faExclamationTriangle,
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Fragmented Campaign Data",
+        title: "Challenge: Fragmented Campaign Data",
         content: [
           {
             type: "p",
@@ -1805,7 +1803,7 @@ const sideProjectSections = [
             id: "d20-takeaway-2",
             title: "Product Thinking for Creator Workflows",
             subtitle:
-              "Designing a user interface that aligns with the underlying domain model to support creative workflows",
+              "Designing a user interface that aligns with the underlying domain model to support creative planning",
             icon: faBrush,
             content: [
               {
@@ -1866,7 +1864,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Constraint at the campaign level" }],
+                    children: [{ type: "text", text: "Structure at the campaign level" }],
                   },
                   {
                     type: "li",

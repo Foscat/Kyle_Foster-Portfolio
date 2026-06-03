@@ -1,6 +1,6 @@
 # Kyle Foster Portfolio Application
 
-Production-focused React portfolio application built around section-driven content, reusable rendering primitives, accessibility-aware UI behavior, and repeatable engineering workflows.
+Production-focused React portfolio application built around section-driven content, reusable rendering primitives, accessibility-aware UI behavior, and repeatable engineering processes.
 
 ## Live Site
 

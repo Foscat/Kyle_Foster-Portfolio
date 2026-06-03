@@ -247,7 +247,7 @@ export default function Contact() {
   const [formResetNonce, setFormResetNonce] = useState(0);
 
   const resumePdfHref = resolveResumePdfHref(theme);
-  const previewResumeDownloadName = `Kyle-Foster-Resume-${theme}-${palette}.pdf`;
+  const previewResumeDownloadName = `Kyle-Foster-Senior-Developer-Resume-${theme}-${palette}.pdf`;
 
   useEffect(() => {
     if (!showToast) return undefined;
@@ -322,8 +322,8 @@ export default function Contact() {
                   <div className="contact-page__actions">
                     <ResumePreviewTrigger
                       buttonText="Preview Resume"
-                      title="Kyle Foster - Resume"
-                      subtitle="A cleaner, document-first preview with improved spacing and a real paper stage."
+                      title="Kyle Foster - Senior Developer Resume"
+                      subtitle="A compact resume preview with PDF-style spacing and download options."
                       resume={resumeData}
                       pdfHref={resumePdfHref}
                       downloadName={previewResumeDownloadName}

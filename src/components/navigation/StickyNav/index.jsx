@@ -70,7 +70,7 @@ const NAV_ITEMS = [
     label: "Personal Projects",
     icon: faFolderOpen,
   },
-  { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact Me", icon: faEnvelope },
+  { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact", icon: faEnvelope },
   { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
 ];
 
@@ -175,10 +175,10 @@ const StickyNav = ({ activePage }) => {
   const safeTheme = typeof theme === "string" ? theme : "auto";
   const safePalette = typeof palette === "string" ? palette : "ocean";
   const resumePdfHref = resolveResumePdfHref(theme);
-  const resumeDownloadName = `Kyle-Foster-Resume-${safeTheme}-${safePalette}.pdf`;
-  const resumePreviewTitle = "Kyle Foster - Resume";
+  const resumeDownloadName = `Kyle-Foster-Senior-Developer-Resume-${safeTheme}-${safePalette}.pdf`;
+  const resumePreviewTitle = "Kyle Foster - Senior Developer Resume";
   const resumePreviewSubtitle =
-    "A cleaner, document-first preview with improved spacing and a real paper stage.";
+    "A compact resume preview with PDF-style spacing and download options.";
 
   const closeMobileNav = useCallback(() => {
     setMobileOpen(false);
@@ -371,7 +371,7 @@ const StickyNav = ({ activePage }) => {
         data-testid="mobile-a11y-trigger-wrapper"
         onClickCapture={dismissMobileIconHints}
       >
-        <span className="mobile-icon-hint">A11y</span>
+        <span className="mobile-icon-hint">Access</span>
         <AccessibilityMenu size={Size.LG} showTooltip={false} />
       </div>
 

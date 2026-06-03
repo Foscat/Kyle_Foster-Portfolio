@@ -44,14 +44,14 @@ const contactAltSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Phone 1: " },
+                  { type: "text", text: "Primary phone: " },
                   { type: "a", text: "(469) 410-5286", href: "tel:+14694105286" },
                 ],
               },
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Phone 2: " },
+                  { type: "text", text: "Alternate phone: " },
                   { type: "a", text: "(972) 802-9297", href: "tel:+19728029297" },
                 ],
               },

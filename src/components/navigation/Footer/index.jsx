@@ -93,7 +93,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit GitHub profile"
-            tooltip="👨🏻‍💻 GitHub"
+            tooltip="GitHub"
             tooltipPlacement="top"
           />
 
@@ -106,7 +106,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit LinkedIn profile"
-            tooltip="🏢 LinkedIn"
+            tooltip="LinkedIn"
             tooltipPlacement="top"
           />
 
@@ -117,7 +117,7 @@ const Footer = () => {
             noBG
             href="mailto:fosterkyle6456@gmail.com"
             aria-label="Send email"
-            tooltip="📬 Email Me"
+            tooltip="Email"
             tooltipPlacement="top"
           />
         </div>

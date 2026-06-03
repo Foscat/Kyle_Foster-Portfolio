@@ -14,7 +14,7 @@ const diagrams = {
   repairWorkflow: {
     id: "diagram-hands-free-repair-workflow",
     type: "diagram",
-    title: "Hands-Free Repair Workflow",
+    title: "Hands-Free Repair Flow",
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
@@ -63,7 +63,7 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
           { type: "strong", text: "Architectural intent." },
           {
             type: "text",
-            text: " This hackathon prototype models a voice-driven repair assistant as a closed operational loop rather than a one-shot speech demo.",
+            text: " This hackathon prototype models a voice-driven repair assistant as a closed repair loop rather than a one-time speech demo.",
           },
         ],
       },
@@ -86,14 +86,14 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
               { type: "strong", text: "Speech is normalized into intent." },
               {
                 type: "text",
-                text: " Audio is transcribed and interpreted through an NLP stage so free-form commands can map to structured workflow actions.",
+                text: " Audio is transcribed and interpreted through an NLP stage so free-form commands can map to structured repair actions.",
               },
             ],
           },
           {
             type: "li",
             children: [
-              { type: "strong", text: "Cloud logic holds workflow state." },
+              { type: "strong", text: "Cloud logic holds repair state." },
               {
                 type: "text",
                 text: " Lambda functions act as a lightweight orchestration layer that can evaluate prior step context before issuing the next instruction.",
@@ -103,7 +103,7 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
           {
             type: "li",
             children: [
-              { type: "strong", text: "Guidance re-enters the physical workflow." },
+              { type: "strong", text: "Guidance returns to the repair flow." },
               {
                 type: "text",
                 text: " The system returns spoken instructions so the operator can continue working hands-free and immediately feed the next action back into the same loop.",
@@ -117,7 +117,7 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
         children: [
           {
             type: "text",
-            text: "Even under hackathon constraints, the design hinted at a scalable event-driven workflow assistant for industrial repair and guided maintenance.",
+            text: "Even under hackathon time limits, the design hinted at a scalable event-driven repair assistant for industrial maintenance.",
           },
         ],
       },
@@ -204,7 +204,7 @@ Audio -->> Tech: Spoken guidance`
               { type: "strong", text: "Output closes the loop." },
               {
                 type: "text",
-                text: " Audio guidance is not a terminal event; it directly informs the next technician action and keeps the workflow cyclical.",
+                text: " Audio guidance is not the final step; it directly informs the next technician action and keeps the repair loop moving.",
               },
             ],
           },

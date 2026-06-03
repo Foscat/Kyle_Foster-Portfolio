@@ -470,7 +470,7 @@ export default function AccessibilityMenu({
       reducedTransparency: null,
       highContrast: null,
     });
-    announce("Draft reset to system defaults. Select Apply changes to confirm.");
+    announce("Changes reset to system defaults. Select Apply changes to confirm.");
   }, [announce]);
 
   const hasPendingChanges =
@@ -645,11 +645,11 @@ export default function AccessibilityMenu({
 
         <Modal.Footer className="a11y-modal__footer feature-settings-modal__footer">
           <Btn
-            text="Reset draft"
+            text="Reset changes"
             icon={faArrowsRotate}
             size={Size.SM}
             variant={Variant.ACCENT}
-            ariaLabel="Reset draft accessibility preferences"
+            ariaLabel="Reset accessibility changes"
             disabled={isApplying || (!hasPendingChanges && !hasAccessibilityOverrides)}
             onClick={resetDraftToDefaults}
           />

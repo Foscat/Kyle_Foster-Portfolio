@@ -1,6 +1,4 @@
 .insight-card {
-  --insight-card-max-height: 500px;
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -18,10 +16,6 @@
   -webkit-backdrop-filter: var(--slight-blur);
   backdrop-filter: var(--slight-blur);
   outline: none;
-}
-
-.insight-card--with-preview {
-  --insight-card-max-height: 1000px;
 }
 
 .insight-card__header {
@@ -198,8 +192,6 @@
 }
 
 .card-grid {
-  --card-grid-gap: clamp(1.2rem, 2.4vw, 1.8rem);
-
   display: flex;
   flex-wrap: wrap;
   gap: var(--card-grid-gap);

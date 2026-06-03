@@ -93,7 +93,7 @@ const codestreamSections = [
               { type: "strong", text: "CodeStream Studios LLC" },
               {
                 type: "text",
-                text: ", I was the sole frontend engineer who took a React platform from concept to production. I defined the UI architecture, built core workflows, and shipped stable features instructors used every day.",
+                text: ", I was the sole frontend engineer who took a React platform from concept to production. I defined the UI architecture, built core product flows, and shipped stable features instructors used every day.",
               },
             ],
           },
@@ -112,7 +112,7 @@ const codestreamSections = [
               { type: "inlineIcon", icon: "💻" },
               {
                 type: "text",
-                text: "This role required owning workflows, not just components.",
+                text: "This role required owning the user experience, not just individual components.",
               },
             ],
           },
@@ -131,7 +131,7 @@ const codestreamSections = [
               { type: "strong", text: "taught on it" },
               {
                 type: "text",
-                text: ". I taught on the platform while building it: running classes, creating curriculum, managing teachers, onboarding students, and grading assignments. That dual perspective informed major product decisions.",
+                text: ". I taught classes while building the platform: creating curriculum, managing teachers, onboarding students, and grading assignments. That dual perspective informed major product decisions.",
               },
             ],
           },
@@ -187,7 +187,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Students needed reliable browser-based coding, teachers needed assign-and-grade workflows, and administrators needed governance controls across organizations.",
+                    text: "Students needed reliable browser-based coding, teachers needed clear assignment and grading flows, and administrators needed governance controls across organizations.",
                   },
                 ],
               },
@@ -195,8 +195,8 @@ const codestreamSections = [
           },
           {
             id: "overview-problem-solved",
-            title: "Primary Constraint",
-            subtitle: "Core teaching workflows were fragmented",
+            title: "Main Challenge",
+            subtitle: "Core teaching flows were fragmented",
             icon: faCircleExclamation,
             content: [
               {
@@ -204,7 +204,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Lessons, coding, grading, and oversight were split across disconnected surfaces, creating context switching and inconsistent execution as programs scaled.",
+                    text: "Lessons, coding, grading, and oversight were split across disconnected surfaces, creating context switching and inconsistent delivery as programs scaled.",
                   },
                 ],
               },
@@ -221,7 +221,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I helped shape a unified browser-based system that connected curriculum, coding, grading, and admin workflows while preserving scoped access boundaries.",
+                    text: "I helped shape a unified browser-based system that connected curriculum, coding, grading, and admin tools while preserving scoped access boundaries.",
                   },
                 ],
               },
@@ -230,7 +230,7 @@ const codestreamSections = [
           {
             id: "overview-what-i-owned",
             title: "What I Owned",
-            subtitle: "End-to-end frontend delivery and execution",
+            subtitle: "End-to-end frontend delivery",
             icon: faHouseLaptop,
             content: [
               {
@@ -255,7 +255,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "What started as a short-term fix became a durable multi-organization teaching platform with cleaner daily workflows and stronger governance visibility.",
+                    text: "What started as a short-term fix became a durable multi-organization teaching platform with cleaner daily flows and stronger governance visibility.",
                   },
                 ],
               },
@@ -311,7 +311,7 @@ const codestreamSections = [
               { type: "strong", text: "complete teaching environment" },
               {
                 type: "text",
-                text: ", not just a code editor. The platform unified browser-based coding, classroom management, grading workflows, and administrative oversight into a single system.",
+                text: ", not just a code editor. The platform unified browser-based coding, classroom management, grading, and administrative oversight into a single system.",
               },
             ],
           },
@@ -320,7 +320,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "What began as a COVID-era workaround matured into an ecosystem supporting multiple schools, programs, and organizations with different constraints.",
+                text: "What began as a COVID-era workaround matured into a platform supporting multiple schools, programs, and organizations with different needs.",
               },
             ],
           },
@@ -363,7 +363,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Treating classrooms as first-class entities, not global-data filters, kept behavior predictable as organizations scaled and teachers managed multiple cohorts.",
+                    text: "Treating classrooms as core product entities, not global-data filters, kept behavior predictable as organizations scaled and teachers managed multiple cohorts.",
                   },
                 ],
               },
@@ -398,7 +398,7 @@ const codestreamSections = [
           {
             id: "kp-p-editor-system",
             title: "3-Panel Editor System",
-            subtitle: "Project-level execution environment designed for instructional clarity.",
+            subtitle: "Project-level coding environment designed for instructional clarity.",
             icon: faTableColumns,
             content: [
               {
@@ -406,7 +406,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The editor defined the project boundary. Each lesson opened a three-panel workspace for instructions, code, and runtime output. This removed setup friction while keeping guidance, implementation, and execution clearly separated.",
+                    text: "The editor defined the project boundary. Each lesson opened a three-panel workspace for instructions, code, and runtime output. This removed setup friction while keeping guidance, implementation, and results clearly separated.",
                   },
                 ],
               },
@@ -415,7 +415,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The interface mirrors lightweight IDE workflows without unnecessary complexity. Students work in a stable execution context while teachers evaluate deterministic outputs.",
+                    text: "The interface mirrors lightweight IDE patterns without unnecessary complexity. Students work in a stable coding context while teachers evaluate predictable outputs.",
                   },
                 ],
               },
@@ -469,7 +469,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "All privileged actions flow through audited APIs instead of manual database edits. This preserves traceability, enforces consistent validation, and prevents hidden state mutation.",
+                    text: "All privileged actions flow through audited APIs instead of manual database edits. This preserves traceability, enforces consistent validation, and prevents hidden state changes.",
                   },
                 ],
               },
@@ -496,7 +496,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "License enforcement restricts new instructional activity without deleting student work, preserving continuity while satisfying contractual constraints.",
+                    text: "License enforcement restricts new instructional activity without deleting student work, preserving continuity while satisfying contract requirements.",
                   },
                 ],
               },
@@ -521,7 +521,7 @@ const codestreamSections = [
       {
         id: "pe-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: In-Class Project Review Friction",
+        title: "Challenge: In-Class Project Review Friction",
         icon: faCircleExclamation,
         content: [
           {
@@ -629,7 +629,7 @@ const codestreamSections = [
       {
         id: "org-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Multi-Organization Access Control",
+        title: "Challenge: Multi-Organization Access Control",
         icon: faTriangleExclamation,
         content: [
           {
@@ -643,7 +643,7 @@ const codestreamSections = [
               },
               {
                 type: "text",
-                text: " The true customer was the organization — schools, bootcamps, and training programs operating under centralized licensing.",
+                text: " The true customer was the organization: schools, bootcamps, and training programs operating under centralized licensing.",
               },
             ],
           },
@@ -703,7 +703,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Constraint: organizational control governs access — not data deletion.",
+                    text: "Rule: organizational control governs access, not data deletion.",
                   },
                 ],
               },
@@ -768,7 +768,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Access decisions are evaluated against organization scope — not global user state.",
+                    text: "Access decisions are evaluated against organization scope, not global user state.",
                   },
                 ],
               },
@@ -788,7 +788,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "When a license expires, access to organizational resources is revoked — but student-created artifacts remain intact and accessible.",
+                text: "When a license expires, access to organizational resources is revoked, but student-created work remains intact and accessible.",
               },
             ],
           },
@@ -812,13 +812,13 @@ const codestreamSections = [
         type: BlockType.BULLETED_LIST,
         title: "Outcomes",
         subtitle:
-          "By modeling organizations as first-class entities with scoped roles and access rules, the platform was able to scale cleanly from a single school to multiple institutions without compromising data integrity or user experience.",
+          "By modeling organizations as core entities with scoped roles and access rules, the platform was able to scale cleanly from a single school to multiple institutions without compromising data integrity or user experience.",
         icon: faRoute,
         items: [
           {
             id: "org-o-scalable-multi-tenancy",
             title: "Scalable Multi-Tenancy",
-            subtitle: "Isolated organizational contexts without duplicated infrastructure.",
+            subtitle: "Isolated organizational contexts without repeated infrastructure.",
             content: [
               {
                 type: "p",
@@ -841,7 +841,7 @@ const codestreamSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "No duplicated deployments required for growth" },
+                      { type: "text", text: "No repeated deployments required for growth" },
                     ],
                   },
                   {
@@ -861,7 +861,7 @@ const codestreamSections = [
           {
             id: "org-o-role-based-access",
             title: "Role-Based Access",
-            subtitle: "Scoped permissions that reflect real-world organizational structure.",
+            subtitle: "Scoped permissions that reflect practical organizational structure.",
             content: [
               {
                 type: "p",
@@ -945,7 +945,7 @@ const codestreamSections = [
               {
                 type: "blockquote",
                 children: [
-                  { type: "text", text: "Governance restricts participation — not ownership." },
+                  { type: "text", text: "Governance restricts participation, not ownership." },
                 ],
               },
             ],
@@ -1013,7 +1013,7 @@ const codestreamSections = [
       {
         id: "vc-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Fragmented Classroom Workflow",
+        title: "Challenge: Fragmented Classroom Flow",
         content: [
           {
             type: "p",
@@ -1025,7 +1025,7 @@ const codestreamSections = [
               { type: "strong", text: "actually teach" },
               {
                 type: "text",
-                text: ". Teachers needed a consistent home base for each course—somewhere to present curriculum, share resources, and track progress without duct-taping tools together.",
+                text: ". Teachers needed a consistent home base for each course: somewhere to present curriculum, share resources, and track progress without patching separate tools together.",
               },
             ],
           },
@@ -1034,7 +1034,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "Students needed one predictable workflow to join class, open lessons, and access projects. If the experience changed by teacher or lesson, learning slowed and support load increased.",
+                text: "Students needed one predictable path to join class, open lessons, and access projects. If the experience changed by teacher or lesson, learning slowed and support load increased.",
               },
             ],
           },
@@ -1061,9 +1061,7 @@ const codestreamSections = [
               },
               {
                 type: "li",
-                children: [
-                  { type: "text", text: "A stable workflow from lesson → project → grade" },
-                ],
+                children: [{ type: "text", text: "A stable path from lesson to project to grade" }],
               },
             ],
           },
@@ -1090,9 +1088,7 @@ const codestreamSections = [
             children: [
               {
                 type: "strong",
-                children: [
-                  { type: "text", text: "Classrooms became a first-class domain entity." },
-                ],
+                children: [{ type: "text", text: "Classrooms became a core domain entity." }],
               },
               {
                 type: "text",
@@ -1154,7 +1150,7 @@ const codestreamSections = [
               },
               {
                 type: "text",
-                text: " — a centralized operational hub.",
+                text: ": a centralized classroom hub.",
               },
             ],
           },
@@ -1180,7 +1176,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "When a student opens a lesson, the system enforces isolation between curriculum and execution.",
+                text: "When a student opens a lesson, the system keeps curriculum separate from student work.",
               },
             ],
           },
@@ -1221,7 +1217,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Core design principle: curriculum remains immutable; student work exists as an isolated derivative artifact.",
+                    text: "Core design principle: curriculum remains unchanged; student work exists as an isolated copy.",
                   },
                 ],
               },
@@ -1324,7 +1320,7 @@ const codestreamSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Standardized submission format simplifies grading workflows",
+                        text: "Standardized submission format simplifies grading",
                       },
                     ],
                   },
@@ -1351,7 +1347,7 @@ const codestreamSections = [
             id: "vc-b-resource-management",
             title: "Streamlined Project Management",
             subtitle:
-              "A unified lifecycle that connects lessons, projects, and grading into a cohesive workflow.",
+              "A unified lifecycle that connects lessons, projects, and grading into one clear flow.",
             content: [
               {
                 type: "p",
@@ -1426,7 +1422,7 @@ const codestreamSections = [
               },
               {
                 type: "blockquote",
-                children: [{ type: "text", text: "Clear workflow reduces cognitive load." }],
+                children: [{ type: "text", text: "Clear flow reduces cognitive load." }],
               },
             ],
           },
@@ -1443,13 +1439,13 @@ const codestreamSections = [
     icon: faUserGraduate,
     title: "Grades & Reports",
     subtitle:
-      "Integrated grading workflows and exportable reports that align with how real classrooms operate.",
+      "Integrated grading flows and exportable reports that align with how real classrooms operate.",
     isScroller: true,
     blocks: [
       {
         id: "gr-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Slow Grading Feedback Loops",
+        title: "Challenge: Slow Grading Feedback Loops",
         content: [
           {
             type: "p",
@@ -1465,7 +1461,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "On top of that, leadership needed a way to understand classroom outcomes without relying on spreadsheets and memory. We didn’t have a consistent workflow for:",
+                text: "On top of that, leadership needed a way to understand classroom outcomes without relying on spreadsheets and memory. We did not have a consistent process for:",
               },
             ],
           },
@@ -1496,7 +1492,7 @@ const codestreamSections = [
               { type: "inlineIcon", icon: "❕" },
               {
                 type: "text",
-                text: " The platform needed to support real teaching workflows—not just store projects.",
+                text: " The platform needed to support real teaching activity, not just store projects.",
               },
             ],
           },
@@ -1618,7 +1614,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "This approach avoids schema fragmentation while keeping UI presentation flexible.",
+                text: "This approach keeps the data model consistent while keeping UI presentation flexible.",
               },
             ],
           },
@@ -1658,12 +1654,12 @@ const codestreamSections = [
         type: BlockType.BULLETED_LIST,
         title: "Feature Breakdown",
         subtitle:
-          "Each feature was designed to align with real-world teaching workflows and institutional requirements.",
+          "Each feature was designed to align with classroom teaching and institutional requirements.",
         items: [
           {
             id: "gr-f-secure-grading",
             title: "Secure Grading Interface",
-            subtitle: "Role-scoped access to immutable project snapshots for safe evaluation.",
+            subtitle: "Role-scoped access to preserved project snapshots for safe evaluation.",
             content: [
               {
                 type: "p",
@@ -1754,7 +1750,7 @@ const codestreamSections = [
           {
             id: "gr-f-flexible-grading-models",
             title: "Flexible Grading Models",
-            subtitle: "Supports multiple grading paradigms without schema divergence.",
+            subtitle: "Supports multiple grading methods without splitting the data model.",
             content: [
               {
                 type: "p",
@@ -1879,7 +1875,7 @@ const codestreamSections = [
               { type: "strong", text: "RSuite tables" },
               {
                 type: "text",
-                text: " so classroom performance could be reviewed quickly and consistently. The focus wasn’t flashy dashboards—it was reliable visibility into completion, averages, and trends.",
+                text: " so classroom performance could be reviewed quickly and consistently. The focus was not flashy dashboards; it was reliable visibility into completion, averages, and trends.",
               },
             ],
           },
@@ -2107,7 +2103,7 @@ const codestreamSections = [
       {
         id: "am-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Unsafe Admin Operations at Scale",
+        title: "Challenge: Unsafe Admin Operations at Scale",
         content: [
           {
             type: "p",
@@ -2173,7 +2169,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "As the platform grew beyond single classrooms, operational visibility and governance had to scale with it. I implemented a structured role hierarchy—",
+                text: "As the platform grew beyond single classrooms, operational visibility and governance had to scale with it. I implemented a structured role hierarchy: ",
               },
               { type: "strong", text: "Teacher" },
               { type: "text", text: ", " },
@@ -2182,7 +2178,7 @@ const codestreamSections = [
               { type: "strong", text: "Super Admin" },
               {
                 type: "text",
-                text: "—so support, licensing, reporting, and exception handling could happen through controlled interfaces instead of ad-hoc fixes.",
+                text: ", so support, licensing, reporting, and exception handling could happen through controlled interfaces instead of one-off fixes.",
               },
             ],
           },
@@ -2191,7 +2187,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "Each role had a clear scope boundary: Teachers managed classrooms, Organization Admins managed one tenant, and Super Admins managed platform operations without bypassing rules. This kept authority proportional to responsibility and avoided 'god mode' behavior in production.",
+                text: "Each role had a clear scope boundary: Teachers managed classrooms, Organization Admins managed one tenant, and Super Admins managed platform operations without bypassing rules. This kept authority proportional to responsibility and avoided unchecked access in production.",
               },
             ],
           },
@@ -2202,7 +2198,7 @@ const codestreamSections = [
                 type: "text",
                 text: "Most importantly, admin functionality was implemented as ",
               },
-              { type: "strong", text: "first-class product workflows" },
+              { type: "strong", text: "core product flows" },
               {
                 type: "text",
                 text: " rather than hidden database operations. Privileged actions used the same request/validation pipeline as standard features, with explicit permission checks and predictable side effects.",
@@ -2250,7 +2246,7 @@ const codestreamSections = [
               { type: "inlineIcon", icon: "🛡️" },
               {
                 type: "text",
-                text: "Every privileged action flowed through the same audited API paths — no database shortcuts.",
+                text: "Every privileged action flowed through the same audited API paths; no database shortcuts.",
               },
             ],
           },
@@ -2428,7 +2424,7 @@ const codestreamSections = [
               {
                 type: "ul",
                 children: [
-                  { type: "li", children: [{ type: "text", text: "Explicit override workflows" }] },
+                  { type: "li", children: [{ type: "text", text: "Explicit override flows" }] },
                   { type: "li", children: [{ type: "text", text: "Role-restricted capability" }] },
                   {
                     type: "li",
@@ -2588,7 +2584,7 @@ const codestreamSections = [
             children: [
               {
                 type: "text",
-                text: "Operational safety was the goal: admin actions followed the same API pathways as normal usage, keeping behavior predictable and auditable while reducing risky ad hoc database edits.",
+                text: "Operational safety was the goal: admin actions followed the same API paths as normal usage, keeping behavior predictable and auditable while reducing risky manual database edits.",
               },
             ],
           },
@@ -2598,7 +2594,7 @@ const codestreamSections = [
               { type: "inlineIcon", icon: "🛡️" },
               {
                 type: "text",
-                text: " Super Admin wasn’t about power—it was about safe, repeatable support.",
+                text: " Super Admin was not about power; it was about safe, repeatable support.",
               },
             ],
           },
@@ -2622,7 +2618,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Super Admins could inspect tenant health, monitor license usage, and run diagnostics across organizations without direct database access, using the same UI workflows as other roles.",
+                    text: "Super Admins could inspect tenant health, monitor license usage, and run diagnostics across organizations without direct database access.",
                   },
                 ],
               },
@@ -2639,13 +2635,15 @@ const codestreamSections = [
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Operational diagnostics via UI workflows" }],
+                    children: [
+                      { type: "text", text: "Operational diagnostics through standard UI flows" },
+                    ],
                   },
                 ],
               },
               {
                 type: "blockquote",
-                children: [{ type: "text", text: "Observe broadly. Modify deliberately." }],
+                children: [{ type: "text", text: "Broad visibility with deliberate action." }],
               },
             ],
             icon: faIdCard,
@@ -2661,7 +2659,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Super Admins could create organizations, assign admins, and configure tenant structure through controlled UI workflows. Those flows enforced standard validation and side effects, reducing misconfiguration risk.",
+                    text: "Super Admins could create organizations, assign admins, and configure tenant structure through controlled UI flows. Those flows enforced standard validation and predictable updates, reducing misconfiguration risk.",
                   },
                 ],
               },
@@ -2670,7 +2668,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Centralized onboarding workflows" }],
+                    children: [{ type: "text", text: "Centralized onboarding flows" }],
                   },
                   {
                     type: "li",
@@ -2680,7 +2678,7 @@ const codestreamSections = [
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Eliminates ad-hoc backend scripting" }],
+                    children: [{ type: "text", text: "Less need for backend scripting" }],
                   },
                 ],
               },
@@ -2733,14 +2731,14 @@ const codestreamSections = [
             id: "am-s-license-adjustments",
             title: "License Adjustments",
             subtitle:
-              "Super Admins can resolve edge-case licensing issues through audited UI-driven workflows and API.",
+              "Super Admins can resolve edge-case licensing issues through audited UI-driven flows and APIs.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Resolves edge-case licensing issues through audited UI-driven workflows rather than direct database edits.",
+                    text: "Resolves edge-case licensing issues through audited UI-driven flows rather than direct database edits.",
                   },
                 ],
               },
@@ -2763,7 +2761,7 @@ const codestreamSections = [
               },
               {
                 type: "blockquote",
-                children: [{ type: "text", text: "High privilege requires higher auditability." }],
+                children: [{ type: "text", text: "More access requires more traceability." }],
               },
             ],
             icon: faDatabase,
@@ -2786,7 +2784,7 @@ const codestreamSections = [
               {
                 type: "ul",
                 children: [
-                  { type: "li", children: [{ type: "text", text: "No hidden state mutations" }] },
+                  { type: "li", children: [{ type: "text", text: "No hidden state changes" }] },
                   {
                     type: "li",
                     children: [{ type: "text", text: "Consistent privilege validation" }],
@@ -2799,7 +2797,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Even the highest privilege operates within system constraints.",
+                    text: "Even the highest privilege operates within system rules.",
                   },
                 ],
               },
@@ -2813,13 +2811,12 @@ const codestreamSections = [
         type: BlockType.CARD_GRID,
         title: "Architecture Highlights",
         subtitle:
-          "The Super Admin dashboard was built on a foundation of secure, auditable API design that informed the entire platform architecture.",
+          "The Super Admin dashboard used the same secure API and permission model as the rest of the platform.",
         items: [
           {
-            id: "am-s-platform-oversight",
-            title: "Platform-Wide Oversight",
-            subtitle:
-              "The Super Admin dashboard provides visibility across all organizations, licenses, and usage boundaries.",
+            id: "am-a-platform-oversight",
+            title: "Centralized Visibility",
+            subtitle: "A single view for organization health, licensing, and support signals.",
             icon: faIdCard,
             variant: "primary",
             content: [
@@ -2828,7 +2825,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Super Admins could inspect tenant health, monitor license usage, and run diagnostics across organizations without direct database access, using the same UI workflows as other roles.",
+                    text: "The dashboard gave trusted users broad visibility without requiring direct database access. Support work stayed inside the product instead of moving into one-off scripts.",
                   },
                 ],
               },
@@ -2837,7 +2834,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Tenant-level health inspection" }],
+                    children: [{ type: "text", text: "Organization-level health checks" }],
                   },
                   {
                     type: "li",
@@ -2845,13 +2842,13 @@ const codestreamSections = [
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Operational diagnostics via UI workflows" }],
+                    children: [{ type: "text", text: "Diagnostics through standard UI flows" }],
                   },
                 ],
               },
               {
                 type: "blockquote",
-                children: [{ type: "text", text: "Observe broadly. Modify deliberately." }],
+                children: [{ type: "text", text: "Broad visibility with controlled action." }],
               },
             ],
           },
@@ -2859,14 +2856,14 @@ const codestreamSections = [
             id: "am-a-tenant-isolation",
             title: "Tenant Isolation",
             subtitle:
-              "Super Admins can create and manage organizations, assign admins, and configure tenant structure via consistent system APIs.",
+              "Organization boundaries stay intact even when support users have broad visibility.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Creates and manages organizations, assigns admins, and configures tenant structure through consistent system APIs.",
+                    text: "Organization setup and admin assignment used shared API rules, so tenant boundaries remained consistent across onboarding, support, and license changes.",
                   },
                 ],
               },
@@ -2875,17 +2872,15 @@ const codestreamSections = [
                 children: [
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Centralized onboarding workflows" }],
+                    children: [{ type: "text", text: "Centralized onboarding flows" }],
                   },
                   {
                     type: "li",
-                    children: [
-                      { type: "text", text: "Predictable propagation through shared APIs" },
-                    ],
+                    children: [{ type: "text", text: "Predictable updates through shared APIs" }],
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Eliminates ad-hoc backend scripting" }],
+                    children: [{ type: "text", text: "Less need for backend scripting" }],
                   },
                 ],
               },
@@ -2903,15 +2898,15 @@ const codestreamSections = [
           },
           {
             id: "am-a-super-admin-ui",
-            title: "Super Admin Interface",
-            subtitle: "Super Admins can inspect student projects directly without screen sharing.",
+            title: "Safe Support Actions",
+            subtitle: "High-trust tools still follow normal validation and logging.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Resolves edge-case licensing issues through audited UI-driven workflows rather than direct database edits.",
+                    text: "License and support fixes ran through UI-driven flows with the same validation rules as standard product actions.",
                   },
                 ],
               },
@@ -2920,37 +2915,38 @@ const codestreamSections = [
                 children: [
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Adjust counts and expiration windows" }],
+                    children: [
+                      { type: "text", text: "Adjust counts and expiration windows safely" },
+                    ],
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "All changes logged and traceable." }],
+                    children: [{ type: "text", text: "All changes logged and traceable" }],
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Reduces operational risk exposure" }],
+                    children: [{ type: "text", text: "Reduced risk during support work" }],
                   },
                 ],
               },
               {
                 type: "blockquote",
-                children: [{ type: "text", text: "High privilege requires higher auditability." }],
+                children: [{ type: "text", text: "More access requires more traceability." }],
               },
             ],
             icon: faBlackTie,
           },
           {
             id: "am-a-api-driven-modifications",
-            title: "API-Driven Modifications",
-            subtitle:
-              "Ensures all critical actions pass through traceable, role-enforced API boundaries.",
+            title: "API-Driven Changes",
+            subtitle: "Critical changes pass through traceable, role-enforced API boundaries.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "All privileged actions passed through traceable, role-enforced APIs with consistent validation, predictable side effects, and comprehensive logging.",
+                    text: "Privileged actions passed through role-enforced APIs with consistent validation, predictable side effects, and clear logging.",
                   },
                 ],
               },
@@ -2959,7 +2955,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "li",
-                    children: [{ type: "text", text: "No hidden state mutations" }],
+                    children: [{ type: "text", text: "No hidden state changes" }],
                   },
                   {
                     type: "li",
@@ -2973,7 +2969,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Even the highest privilege operates within system constraints.",
+                    text: "Even the highest privilege operates within system rules.",
                   },
                 ],
               },
@@ -2999,7 +2995,7 @@ const codestreamSections = [
       {
         id: "cb-problem",
         type: BlockType.RICH_TEXT,
-        title: "Constraint: Curriculum Duplication and Drift",
+        title: "Challenge: Curriculum Duplication and Drift",
         content: [
           {
             type: "p",
@@ -3219,7 +3215,7 @@ const codestreamSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Organizations attach resources without mutating base lessons",
+                        text: "Organizations attach resources without changing base lessons",
                       },
                     ],
                   },
@@ -3227,7 +3223,7 @@ const codestreamSections = [
               },
               {
                 type: "blockquote",
-                children: [{ type: "text", text: "Decouple structure from execution." }],
+                children: [{ type: "text", text: "Keep structure separate from delivery." }],
               },
             ],
           },
@@ -3258,7 +3254,7 @@ const codestreamSections = [
                   },
                   {
                     type: "li",
-                    children: [{ type: "text", text: "Prevents orphaned or duplicate lessons" }],
+                    children: [{ type: "text", text: "Prevents orphaned or repeated lessons" }],
                   },
                 ],
               },

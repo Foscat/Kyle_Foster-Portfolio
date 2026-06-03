@@ -86,7 +86,7 @@ const docsSections = [
       { id: "doc-scripts-tooling-overview", title: "Scripts Tooling Overview" },
       { id: "doc-testing-guidelines", title: "Testing Guidelines" },
     ],
-    subtitle: "Contributor-focused authoring and workflow guides from the dev-guides directory.",
+    subtitle: "Contributor-focused authoring and process guides from the dev-guides directory.",
     icon: faBookOpenReader,
     isScroller: true,
     blocks: [

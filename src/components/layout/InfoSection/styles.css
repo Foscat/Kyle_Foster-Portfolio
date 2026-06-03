@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    InfoSection Wrapper
    ------------------------------------------------------------ */
 
@@ -114,8 +114,6 @@ section.info-section.section-renderer .rs-panel {
 
 .info-section,
 .info-section.section-renderer {
-  --info-section-header-color: var(--icon-color-strong);
-
   position: relative;
 
   /* Mobile-first spacing: readable, not theatrical */

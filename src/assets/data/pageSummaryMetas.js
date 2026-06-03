@@ -14,7 +14,7 @@ const pageSummaryMetas = {
     title: "Kyle Foster",
     seoTitle: "Kyle Foster | Senior React Frontend Engineer Portfolio",
     description:
-      "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product workflows with a focus on clarity and usability.",
+      "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product flows with a focus on clarity and usability.",
     keywords: [
       "Kyle Foster",
       "Senior React engineer",
@@ -65,13 +65,13 @@ const pageSummaryMetas = {
     title: "Daimler Trucking Hackathon Winner | Kyle Foster",
     seoTitle: "Daimler Trucking Hackathon Winner Case Study | Kyle Foster",
     description:
-      "Learn how our team of junior developers won the Daimler Trucking Hackathon by building a voice-driven repair assistant for real technician workflows.",
+      "Learn how our team of junior developers won the Daimler Trucking Hackathon by building a voice-driven repair assistant for technician repair processes.",
     keywords: [
       "Daimler hackathon winner",
       "voice assistant case study",
       "React Native project",
       "AWS Lex Lambda",
-      "technician workflow automation",
+      "technician process automation",
       "Kyle Foster project",
     ],
     tech: [
@@ -94,7 +94,7 @@ const pageSummaryMetas = {
     title: "Side Projects",
     seoTitle: "Side Projects in React, IoT, and Encryption | Kyle Foster",
     description:
-      "Browse side projects spanning encryption, IoT automation, and custom tooling-practical builds that show hands-on problem framing and execution.",
+      "Browse side projects spanning encryption, IoT automation, and custom tooling. Each build shows practical problem framing and hands-on execution.",
     timespan: "2018 - Current",
     jobTitle: "Senior MERN Stack Engineer",
     keywords: [
@@ -158,7 +158,7 @@ const pageSummaryMetas = {
     title: "Contact Kyle Foster | Senior MERN Stack Engineer",
     seoTitle: "Contact Kyle Foster | Senior React Frontend Engineer",
     description:
-      "Get in touch with Kyle Foster, Senior MERN Stack Engineer, for roles, consulting, or technical collaboration.",
+      "Contact Kyle Foster for senior frontend roles, consulting, or technical collaboration.",
     keywords: [
       "contact Kyle Foster",
       "hire React engineer",

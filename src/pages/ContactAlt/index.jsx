@@ -248,7 +248,6 @@ export default function ContactAlt() {
   const [formResetNonce, setFormResetNonce] = useState(0);
 
   const resumePdfHref = resolveResumePdfHref(theme);
-  // const previewResumeDownloadName = `Kyle-Foster-Resume-${theme}-${palette}.pdf`;
 
   useEffect(() => {
     if (!showToast) return undefined;
@@ -315,11 +314,11 @@ export default function ContactAlt() {
             <SectionRenderer section={contactAltSections[0]} />
             <ResumePreviewTrigger
               buttonText="Preview Resume"
-              title="Kyle Foster - Resume"
-              subtitle="A cleaner, document-first preview with improved spacing and a real paper stage."
+              title="Kyle Foster - Senior Developer Resume"
+              subtitle="A compact resume preview with PDF-style spacing and download options."
               resume={resumeData}
               pdfHref={resumePdfHref}
-              downloadName={"Kyle-Foster-Resume.pdf"}
+              downloadName={"Kyle-Foster-Senior-Developer-Resume.pdf"}
               buttonClassName="contact-resume-trigger"
             />
           </div>

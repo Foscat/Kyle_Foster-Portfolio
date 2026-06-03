@@ -83,7 +83,7 @@ Editor ==> Save`
           { type: "strong", text: "Purpose." },
           {
             type: "text",
-            text: " The editor acts as a browser-native instructional IDE that keeps lesson content, code authoring, runtime execution, and persistence in a single bounded workflow.",
+            text: " The editor acts as a browser-native instructional IDE that keeps lesson content, code writing, runtime output, and saving in one contained flow.",
           },
         ],
       },
@@ -103,7 +103,7 @@ Editor ==> Save`
           {
             type: "li",
             children: [
-              { type: "strong", text: "Execution is routed by project type." },
+              { type: "strong", text: "Runtime is routed by project type." },
               {
                 type: "text",
                 text: " Web projects run in a sandboxed iframe while Python exercises execute through an in-browser runtime, allowing the same workspace to support multiple instructional modes.",
@@ -126,7 +126,7 @@ Editor ==> Save`
               { type: "strong", text: "Persistence is explicit." },
               {
                 type: "text",
-                text: " Saving is treated as a first-class user action and writes project state to S3 so work remains available across classrooms, devices, and grading flows.",
+                text: " Saving is treated as a clear user action and writes project state to S3 so work remains available across classrooms, devices, and grading flows.",
               },
             ],
           },
@@ -137,7 +137,7 @@ Editor ==> Save`
         children: [
           {
             type: "text",
-            text: "The design balances IDE-level capability with classroom constraints by isolating execution paths while preserving a single coherent teaching surface.",
+            text: "The design balances IDE-level capability with classroom needs by isolating runtime paths while preserving a single coherent teaching surface.",
           },
         ],
       },
@@ -211,7 +211,7 @@ ClassroomShell ==> Students`
           { type: "strong", text: "Purpose." },
           {
             type: "text",
-            text: " The model separates user identity, personal ownership, and institutional entitlement so multi-tenant access rules do not corrupt individual project data.",
+            text: " The model separates user identity, personal ownership, and institutional access so multi-tenant rules do not mix individual project data.",
           },
         ],
       },
@@ -244,7 +244,7 @@ ClassroomShell ==> Students`
               { type: "strong", text: "Expiration degrades safely." },
               {
                 type: "text",
-                text: " An expired subscription moves institutional work into read-only mode so historical artifacts remain visible without allowing uncontrolled mutation.",
+                text: " An expired subscription moves institutional work into read-only mode so historical work remains visible without allowing uncontrolled changes.",
               },
             ],
           },
@@ -331,7 +331,7 @@ Resolver ==> Clone ==> Grade`
           { type: "strong", text: "Purpose." },
           {
             type: "text",
-            text: " This flow shows how classroom context resolves into executable student work while preserving deterministic behavior for both teachers and students.",
+            text: " This flow shows how classroom context turns into student project work while keeping behavior predictable for both teachers and students.",
           },
         ],
       },
@@ -351,7 +351,7 @@ Resolver ==> Clone ==> Grade`
           {
             type: "li",
             children: [
-              { type: "strong", text: "Project resolution is deterministic." },
+              { type: "strong", text: "Project startup is predictable." },
               {
                 type: "text",
                 text: " When a lesson is selected, the resolver either loads prior work or clones a fresh project from the lesson template using the same decision path every time.",
@@ -375,7 +375,7 @@ Resolver ==> Clone ==> Grade`
         children: [
           {
             type: "text",
-            text: "The resolver removed friction between instruction and execution by making project startup predictable regardless of user role or prior work state.",
+            text: "The resolver removed friction between instruction and project work by making startup predictable regardless of user role or prior work state.",
           },
         ],
       },
@@ -461,7 +461,7 @@ Course ==> Classroom`
           {
             type: "li",
             children: [
-              { type: "strong", text: "Execution is isolated." },
+              { type: "strong", text: "Classroom use is isolated." },
               {
                 type: "text",
                 text: " Classrooms consume lesson outputs and templates while leaving the source curriculum graph intact, protecting active instruction from structural edits.",
@@ -471,10 +471,10 @@ Course ==> Classroom`
           {
             type: "li",
             children: [
-              { type: "strong", text: "Templates provide indirection." },
+              { type: "strong", text: "Templates keep reuse clear." },
               {
                 type: "text",
-                text: " Lessons can evolve through stable template references and resource attachments instead of mutating classroom copies directly.",
+                text: " Lessons can evolve through stable template references and resource attachments instead of changing classroom copies directly.",
               },
             ],
           },
@@ -485,7 +485,7 @@ Course ==> Classroom`
         children: [
           {
             type: "text",
-            text: "This composition model made curriculum reuse practical across organizations while preserving clear boundaries between authoring and live classroom execution.",
+            text: "This composition model made curriculum reuse practical across organizations while preserving clear boundaries between authoring and live classroom delivery.",
           },
         ],
       },
