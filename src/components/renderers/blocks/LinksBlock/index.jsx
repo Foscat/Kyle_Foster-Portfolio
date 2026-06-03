@@ -56,7 +56,6 @@ const LinksBlock = ({ items = [] }) => {
   const resumePdfHref = resolveResumePdfHref(theme);
 
   // Guard against empty link lists
-  // console.log("Rendering LinksBlock with items:", items);
   if (!Array.isArray(items) || items.length === 0) return null;
 
   return (

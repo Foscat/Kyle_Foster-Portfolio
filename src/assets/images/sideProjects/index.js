@@ -7,15 +7,15 @@
 import d20Dash from "./d20-dashboard.png";
 import oppEdit from "./d20-opp-editor.png";
 import enigma from "./enigma.png";
-import enigmaSocialCard from "./enigma-social-card.png";
+import enigmaSocialCard from "./enigma-social-card.webp";
 import encryption from "./encrypting.png";
 import decryption from "./decrypting.png";
 import enigmaGuide from "./how-to-encrypt.png";
 import greCon from "./greenhouse-controls.jpg";
 import greHook from "./greenhouse-hooked-up.jpg";
-import interactiveSurfaceSocialCard from "./interactive-surface-social-card.png";
-import mernTemplateSocialCard from "./mern-template-social-card.png";
-import uiStyleKitSocialCard from "./ui-style-kit-social-card.png";
+import interactiveSurfaceSocialCard from "./interactive-surface-social-card.webp";
+import mernTemplateSocialCard from "./mern-template-social-card.webp";
+import uiStyleKitSocialCard from "./ui-style-kit-social-card.webp";
 
 export {
   d20Dash,

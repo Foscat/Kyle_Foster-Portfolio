@@ -4,10 +4,10 @@
  * @module src\assets\images\sideProjects\socialCards
  */
 
-import interactiveSurfaceSocialCard from "./interactive-surface-social-card.png";
-import mernTemplateSocialCard from "./mern-template-social-card.png";
-import enigmaSocialCard from "./enigma-social-card.png";
-import uiStyleKitSocialCard from "./ui-style-kit-social-card.png";
+import interactiveSurfaceSocialCard from "./interactive-surface-social-card.webp";
+import mernTemplateSocialCard from "./mern-template-social-card.webp";
+import enigmaSocialCard from "./enigma-social-card.webp";
+import uiStyleKitSocialCard from "./ui-style-kit-social-card.webp";
 
 const sideProjectSocialCards = {
   interactiveSurface: {

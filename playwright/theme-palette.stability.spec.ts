@@ -1,6 +1,6 @@
 /**
  * @file playwright\theme-palette.stability.spec.ts
- * @description Regressions for repeated theme + palette switching.
+ * @description Regressions for repeated theme, UI style, and palette switching.
  * @module playwright/theme-palette-stability
  */
 
@@ -11,8 +11,10 @@ const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "htt
 const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
-test.describe("Theme and Palette Stability", () => {
-  test("does not crash while repeatedly switching theme and palette", async ({ page }) => {
+test.describe("Theme, UI Style, and Palette Stability", () => {
+  test("does not crash while repeatedly switching theme, UI style, and palette", async ({
+    page,
+  }) => {
     test.setTimeout(60_000);
 
     const runtimeErrors: string[] = [];
@@ -34,12 +36,20 @@ test.describe("Theme and Palette Stability", () => {
       .getByRole("button", { name: /light theme/i })
       .first();
     const darkThemeButton = colorSettingsModal.getByRole("button", { name: /dark theme/i }).first();
+    const uiStyleSelect = colorSettingsModal.getByRole("combobox", { name: /ui style/i });
     const paletteSelect = colorSettingsModal.getByRole("combobox", { name: /color palette/i });
 
     await expect(lightThemeButton).toBeVisible();
     await expect(darkThemeButton).toBeVisible();
+    await expect(uiStyleSelect).toBeVisible();
     await expect(paletteSelect).toBeVisible();
 
+    const uiStyleValues = await uiStyleSelect.locator("option").evaluateAll((options) =>
+      options
+        .map((option) => option.getAttribute("value") || "")
+        .map((value) => value.trim())
+        .filter(Boolean)
+    );
     const paletteValues = await paletteSelect.locator("option").evaluateAll((options) =>
       options
         .map((option) => option.getAttribute("value") || "")
@@ -47,6 +57,7 @@ test.describe("Theme and Palette Stability", () => {
         .filter(Boolean)
     );
 
+    expect(uiStyleValues.length).toBeGreaterThan(1);
     expect(paletteValues.length).toBeGreaterThan(0);
 
     await lightThemeButton.click();
@@ -59,6 +70,11 @@ test.describe("Theme and Palette Stability", () => {
       await expect
         .poll(() => page.evaluate(() => document.documentElement.dataset.palette || ""))
         .toBe(palette);
+    }
+
+    for (const uiStyle of uiStyleValues) {
+      await uiStyleSelect.selectOption(uiStyle);
+      await expect.poll(() => page.evaluate(() => document.body.dataset.ui || "")).toBe(uiStyle);
     }
 
     await darkThemeButton.click();

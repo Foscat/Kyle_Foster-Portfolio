@@ -14,11 +14,24 @@
    ------------------------------------------------------------ */
 
 .mermaid {
-  color: var(--icon-color-strong);
-  background: var(--glass-bg-strong);
+  --mermaid-surface-bg: var(--app-surface-bg, var(--glass-bg-strong));
+  --mermaid-surface-strong-bg: var(--app-surface-strong-bg, var(--glass-bg-strong));
+  --mermaid-surface-muted-bg: var(--app-surface-muted-bg, var(--glass-bg));
+  --mermaid-surface-border-color: var(--app-surface-border-color, var(--glass-border));
+  --mermaid-node-bg: var(--mermaid-surface-strong-bg);
+  --mermaid-node-fg: var(--app-surface-fg, var(--text-primary));
+  --mermaid-node-border: var(--app-surface-accent, var(--accent));
+  --mermaid-edge: var(--app-surface-accent, var(--accent));
+  --mermaid-label-bg: var(--mermaid-surface-strong-bg);
+  --mermaid-label-fg: var(--mermaid-node-fg);
+  --mermaid-cluster-bg: var(--mermaid-surface-muted-bg);
+  --mermaid-cluster-fg: var(--app-surface-accent, var(--icon-color-strong));
+
+  color: var(--mermaid-node-fg);
+  background: var(--mermaid-surface-bg);
   font-family: var(--font-Lexend), system-ui, sans-serif !important;
   letter-spacing: normal;
-  fill: var(--icon-color-strong);
+  fill: var(--mermaid-node-fg);
 }
 
 /* Boost text contrast inside diagrams. The global --text-primary uses 0.85 opacity,
@@ -53,7 +66,8 @@
 .mermaid {
   overflow: auto;
   padding: 1.5rem 1rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--app-surface-radius-lg, var(--border-radius));
+  box-shadow: var(--app-surface-shadow-soft, none);
 }
 
 .mermaid-svg-host {
@@ -93,7 +107,7 @@
 .edgeLabel rect.background {
   background-color: transparent;
   fill: transparent;
-  color: var(--text-primary);
+  color: var(--mermaid-label-fg);
   box-sizing: content-box;
 }
 
@@ -102,21 +116,21 @@
   font-size: var(--font-sm);
   font-weight: 500;
   paint-order: stroke; /* stroke behind fill for contrast */
-  stroke: var(--text-dark); /* dark outline */
-  background-color: var(--primary-darker-bg);
+  stroke: var(--mermaid-surface-bg); /* contrast outline */
+  background-color: var(--mermaid-label-bg);
 }
 
 .mermaid .text-outer-tspan .text-inner-tspan {
   font-size: var(--font-sm) !important;
   font-weight: 600;
-  fill: var(--text-accent) !important;
+  fill: var(--mermaid-label-fg) !important;
   stroke-width: 3px;
-  stroke: var(--text-dark) !important;
+  stroke: var(--mermaid-surface-bg) !important;
 }
 
 /* HTML-based labels (Mermaid v11 default) */
 .mermaid .cluster text > .text-outer-tspan > tspan.text-inner-tspan {
-  fill: var(--text-accent) !important;
+  fill: var(--mermaid-cluster-fg) !important;
   letter-spacing: calc(-0.02em);
   stroke-width: 0.5px;
   stroke: transparent !important;
@@ -130,8 +144,9 @@
 .mermaid .edgeLabel p {
   font-weight: 600;
   opacity: 1 !important;
+  color: var(--mermaid-label-fg) !important;
   fill: transparent !important;
-  background-color: var(--primary-darker-bg) !important;
+  background-color: var(--mermaid-label-bg) !important;
   text-shadow: none;
 }
 
@@ -196,14 +211,14 @@
 .mermaid svg .edgePath path.flowchart-link,
 .mermaid svg.flowchart g g.edgePaths path.flowchart-link,
 .flowchart-link {
-  stroke: var(--accent);
+  stroke: var(--mermaid-edge);
   fill: none;
   stroke-width: 4px;
 }
 
 .mermaid .mermaid-svg-host .arrowheadPath {
-  fill: var(--accent);
-  stroke: var(--accent);
+  fill: var(--mermaid-edge);
+  stroke: var(--mermaid-edge);
 }
 
 .mermaid svg .actor rect {
@@ -213,7 +228,54 @@
 
 .mermaid .mermaid-svg-host svg g text tspan {
   font-weight: 600;
-  fill: var(--text-primary);
+  fill: var(--mermaid-label-fg) !important;
+}
+
+.mermaid .mermaid-svg-host g.node .nodeLabel,
+.mermaid .mermaid-svg-host g.node .label,
+.mermaid .mermaid-svg-host g.node .label p,
+.mermaid .mermaid-svg-host g.node .nodeLabel p,
+.mermaid .mermaid-svg-host g.node foreignObject div,
+.mermaid .mermaid-svg-host g.node foreignObject span,
+.mermaid .mermaid-svg-host g.node foreignObject p,
+.mermaid .mermaid-svg-host g.node text,
+.mermaid .mermaid-svg-host g.node tspan {
+  fill: var(--mermaid-node-fg) !important;
+  color: var(--mermaid-node-fg) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host foreignObject .nodeLabel,
+.mermaid .mermaid-svg-host foreignObject .nodeLabel p,
+.mermaid .mermaid-svg-host foreignObject span.nodeLabel,
+.mermaid .mermaid-svg-host foreignObject span.nodeLabel p {
+  fill: var(--mermaid-node-fg) !important;
+  color: var(--mermaid-node-fg) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host g.node foreignObject div,
+.mermaid .mermaid-svg-host g.node foreignObject span,
+.mermaid .mermaid-svg-host g.node foreignObject p {
+  fill: var(--mermaid-node-fg) !important;
+  color: var(--mermaid-node-fg) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host .edgeLabel foreignObject .nodeLabel,
+.mermaid .mermaid-svg-host .edgeLabel foreignObject .nodeLabel p,
+.mermaid .mermaid-svg-host .edgeLabel foreignObject span.nodeLabel,
+.mermaid .mermaid-svg-host .edgeLabel foreignObject span.nodeLabel p {
+  fill: var(--mermaid-label-fg) !important;
+  color: var(--mermaid-label-fg) !important;
+}
+
+.mermaid .mermaid-svg-host .cluster-label foreignObject .nodeLabel,
+.mermaid .mermaid-svg-host .cluster-label foreignObject .nodeLabel p,
+.mermaid .mermaid-svg-host .cluster-label foreignObject span.nodeLabel,
+.mermaid .mermaid-svg-host .cluster-label foreignObject span.nodeLabel p {
+  fill: var(--mermaid-cluster-fg) !important;
+  color: var(--mermaid-cluster-fg) !important;
 }
 
 .mermaid .mermaid-svg-host svg g text.loopText > tspan {
@@ -223,7 +285,7 @@
 .mermaid svg .edgeLabel text {
   font-size: var(--font-md);
   font-weight: 600;
-  fill: var(--text-primary);
+  fill: var(--mermaid-label-fg);
 }
 
 /* ------------------------------------------------------------
@@ -231,13 +293,13 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host .edgeLabel {
-  color: var(--text-primary) !important;
+  color: var(--mermaid-label-fg) !important;
   border-radius: var(--radius-sm);
-  background-color: var(--primary-darker-bg);
+  background-color: var(--mermaid-label-bg);
 }
 
 .mermaid .mermaid-svg-host .edgeLabel text {
-  fill: var(--text-primary);
+  fill: var(--mermaid-label-fg);
   font-size: var(--font-sm);
   font-weight: 600;
 }
@@ -247,20 +309,20 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host .label text {
-  fill: var(--text-primary);
+  fill: var(--mermaid-label-fg);
   font-size: var(--font-sm);
   font-weight: 600;
 }
 
 .mermaid .mermaid-svg-host .messageText {
-  fill: var(--text-primary);
+  fill: var(--mermaid-label-fg);
   font-weight: 600 !important;
   font-size: 18px !important;
 }
 
 .mermaid .mermaid-svg-host text.loopText,
 .mermaid .mermaid-svg-host .noteText {
-  fill: var(--text-primary);
+  fill: var(--mermaid-label-fg);
   font-size: 20px !important;
 }
 
@@ -275,37 +337,23 @@
    ------------------------------------------------------------ */
 
 .mermaid .mermaid-svg-host g.clusters g.cluster rect {
-  fill: var(--glass-bg-strong) !important;
-  stroke: var(--glass-border);
+  fill: var(--mermaid-cluster-bg) !important;
+  stroke: var(--mermaid-surface-border-color);
 }
 
 .mermaid .mermaid-svg-host .cluster text {
   font-size: var(--font-md);
   font-weight: 700;
-  fill: var(--primary-light);
+  fill: var(--mermaid-cluster-fg);
 }
 
 html[data-theme="light"] .mermaid .mermaid-svg-host g.clusters g.cluster rect {
-  fill: rgba(var(--white-rgb), 0.9) !important;
-  stroke: rgba(var(--primary-dark-rgb), 0.32) !important;
+  fill: var(--mermaid-cluster-bg) !important;
+  stroke: var(--mermaid-surface-border-color) !important;
 }
 
 html[data-theme="light"] .mermaid .mermaid-svg-host .cluster text {
-  fill: var(--text-blue-dark) !important;
-}
-
-html[data-theme="light"][data-palette="cyber-lime"]
-  .mermaid
-  .mermaid-svg-host
-  g.clusters
-  g.cluster
-  rect {
-  fill: rgba(248, 253, 236, 0.94) !important;
-  stroke: rgba(55, 80, 20, 0.34) !important;
-}
-
-html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .cluster text {
-  fill: #24380f !important;
+  fill: var(--mermaid-cluster-fg) !important;
 }
 
 /* ------------------------------------------------------------
@@ -350,6 +398,12 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 /* ------------------------------------------------------------
    Light / Dark Theme Variants
    ------------------------------------------------------------ */
+
+.mermaid .mermaid-svg-host.dark {
+  --mermaid-node-fg: rgba(var(--white-rgb), 0.94);
+  --mermaid-label-fg: rgba(var(--white-rgb), 0.94);
+  --mermaid-cluster-fg: rgba(var(--white-rgb), 0.95);
+}
 
 .mermaid .mermaid-svg-host.dark g.node rect {
   fill: var(--black);
@@ -492,8 +546,8 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.dark g.node.default .label text,
 .mermaid .mermaid-svg-host.dark g.node.default text,
 .mermaid .mermaid-svg-host.dark g.node.default tspan {
-  fill: rgba(var(--gray-200-rgb), 0.96) !important;
-  color: rgba(var(--gray-200-rgb), 0.96) !important;
+  fill: var(--mermaid-node-fg) !important;
+  color: var(--mermaid-node-fg) !important;
   stroke: transparent !important;
 }
 
@@ -514,24 +568,24 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node polygon,
 .mermaid .mermaid-svg-host.light g.node circle,
 .mermaid .mermaid-svg-host.light g.node ellipse {
-  fill: rgba(var(--white-rgb), 0.9) !important;
-  stroke: var(--accent-dark) !important;
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerPresentation rect,
 .mermaid .mermaid-svg-host.light g.node.layerPresentation polygon,
 .mermaid .mermaid-svg-host.light g.node.layerPresentation circle,
 .mermaid .mermaid-svg-host.light g.node.layerPresentation ellipse {
-  fill: rgba(var(--primary-lighter-rgb), 0.26) !important;
-  stroke: var(--primary-dark) !important;
+  fill: var(--mermaid-light-node-muted-bg) !important;
+  stroke: var(--mermaid-light-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerApplication rect,
 .mermaid .mermaid-svg-host.light g.node.layerApplication polygon,
 .mermaid .mermaid-svg-host.light g.node.layerApplication circle,
 .mermaid .mermaid-svg-host.light g.node.layerApplication ellipse {
-  fill: rgba(var(--white-rgb), 0.96) !important;
-  stroke: rgba(var(--primary-dark-rgb), 0.42) !important;
+  fill: var(--mermaid-light-node-bg) !important;
+  stroke: var(--mermaid-light-border-muted) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerDomain rect,
@@ -542,55 +596,55 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node.core polygon,
 .mermaid .mermaid-svg-host.light g.node.core circle,
 .mermaid .mermaid-svg-host.light g.node.core ellipse {
-  fill: rgba(var(--accent-rgb), 0.38) !important;
-  stroke: var(--accent-dark) !important;
+  fill: var(--mermaid-light-node-strong-bg) !important;
+  stroke: var(--mermaid-light-accent-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerInfrastructure rect,
 .mermaid .mermaid-svg-host.light g.node.layerInfrastructure polygon,
 .mermaid .mermaid-svg-host.light g.node.layerInfrastructure circle,
 .mermaid .mermaid-svg-host.light g.node.layerInfrastructure ellipse {
-  fill: rgba(var(--primary-dark-rgb), 0.12) !important;
-  stroke: rgba(var(--primary-dark-rgb), 0.38) !important;
+  fill: var(--mermaid-light-node-muted-bg) !important;
+  stroke: var(--mermaid-light-border-muted) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerPersistence rect,
 .mermaid .mermaid-svg-host.light g.node.layerPersistence polygon,
 .mermaid .mermaid-svg-host.light g.node.layerPersistence circle,
 .mermaid .mermaid-svg-host.light g.node.layerPersistence ellipse {
-  fill: rgba(var(--success-rgb), 0.16) !important;
-  stroke: rgba(var(--success-dark-rgb), 0.72) !important;
+  fill: var(--mermaid-light-node-accent-bg) !important;
+  stroke: var(--mermaid-light-accent-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.layerExternal rect,
 .mermaid .mermaid-svg-host.light g.node.layerExternal polygon,
 .mermaid .mermaid-svg-host.light g.node.layerExternal circle,
 .mermaid .mermaid-svg-host.light g.node.layerExternal ellipse {
-  fill: rgba(var(--warning-rgb), 0.22) !important;
-  stroke: var(--accent-dark) !important;
+  fill: var(--mermaid-light-node-accent-bg) !important;
+  stroke: var(--mermaid-light-accent-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light .node.control rect {
-  fill: rgba(var(--primary-rgb), 0.2) !important;
-  stroke: rgba(var(--primary-dark-rgb), 0.9) !important;
+  fill: var(--mermaid-light-node-muted-bg) !important;
+  stroke: var(--mermaid-light-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light .node.state rect {
-  fill: rgba(var(--primary-light-rgb), 0.24) !important;
-  stroke: rgba(var(--primary-dark-rgb), 0.84) !important;
+  fill: var(--mermaid-light-node-muted-bg) !important;
+  stroke: var(--mermaid-light-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light .node.role rect {
-  fill: rgba(var(--accent-rgb), 0.22) !important;
-  stroke: rgba(var(--accent-dark-rgb), 0.92) !important;
+  fill: var(--mermaid-light-node-accent-bg) !important;
+  stroke: var(--mermaid-light-accent-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.datastore rect,
 .mermaid .mermaid-svg-host.light g.node.datastore polygon,
 .mermaid .mermaid-svg-host.light g.node.datastore circle,
 .mermaid .mermaid-svg-host.light g.node.datastore ellipse {
-  fill: rgba(var(--primary-light-rgb), 0.2) !important;
-  stroke: var(--primary-dark) !important;
+  fill: var(--mermaid-light-node-muted-bg) !important;
+  stroke: var(--mermaid-light-border) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node .nodeLabel,
@@ -599,8 +653,8 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node .nodeLabel p,
 .mermaid .mermaid-svg-host.light g.node text,
 .mermaid .mermaid-svg-host.light g.node tspan {
-  fill: rgba(var(--white-rgb), 0.96) !important;
-  color: rgba(var(--white-rgb), 0.96) !important;
+  fill: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
+  color: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
   stroke: transparent !important;
 }
 
@@ -636,8 +690,8 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node.layerExternal text,
 .mermaid .mermaid-svg-host.light g.node.datastore text,
 .mermaid .mermaid-svg-host.light g.node.core text {
-  fill: var(--text-blue-dark) !important;
-  color: var(--text-blue-dark) !important;
+  fill: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
+  color: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
 }
 
 .mermaid .mermaid-svg-host.light g.node.default .nodeLabel,
@@ -645,15 +699,15 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light g.node.default .label text,
 .mermaid .mermaid-svg-host.light g.node.default text,
 .mermaid .mermaid-svg-host.light g.node.default tspan {
-  fill: rgba(var(--white-rgb), 0.96) !important;
-  color: rgba(var(--white-rgb), 0.96) !important;
+  fill: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
+  color: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
   stroke: transparent !important;
 }
 
 .mermaid .mermaid-svg-host.light .cluster rect,
 .mermaid .mermaid-svg-host.light .cluster polygon {
   fill: var(--mermaid-light-cluster-bg);
-  stroke: var(--primary-dark);
+  stroke: var(--mermaid-light-border);
 }
 
 .mermaid .mermaid-svg-host.light .messageText,
@@ -661,6 +715,23 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light .noteText {
   fill: var(--mermaid-light-body) !important;
   color: var(--mermaid-light-body) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light text,
+.mermaid .mermaid-svg-host.light tspan {
+  fill: var(--mermaid-label-fg) !important;
+  color: var(--mermaid-label-fg) !important;
+  stroke: transparent !important;
+}
+
+.mermaid .mermaid-svg-host.light g.node foreignObject div,
+.mermaid .mermaid-svg-host.light g.node foreignObject span,
+.mermaid .mermaid-svg-host.light g.node foreignObject p,
+.mermaid .mermaid-svg-host.light g.node foreignObject .nodeLabel,
+.mermaid .mermaid-svg-host.light g.node foreignObject .nodeLabel p {
+  fill: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
+  color: var(--mermaid-light-node-fg, var(--mermaid-node-fg)) !important;
   stroke: transparent !important;
 }
 
@@ -713,26 +784,113 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 .mermaid .mermaid-svg-host.light .text-outer-tspan .text-inner-tspan,
 .mermaid .mermaid-svg-host.light .cluster text > .text-outer-tspan > tspan.text-inner-tspan {
   fill: var(--mermaid-light-heading) !important;
-  stroke: rgba(var(--white-rgb), 0.85) !important;
+  stroke: var(--mermaid-light-chip-bg) !important;
+}
+
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node rect,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node polygon,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node circle,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node ellipse {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-edge) !important;
+}
+
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.layerDomain
+  rect,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.layerDomain
+  polygon,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.layerDomain
+  circle,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.layerDomain
+  ellipse,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node.core rect,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.core
+  polygon,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.core
+  circle,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node.core
+  ellipse {
+  fill: rgba(58, 88, 20, 0.96) !important;
+  stroke: rgba(213, 255, 89, 0.82) !important;
+}
+
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node
+  .nodeLabel,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node .label,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node .label p,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node
+  .nodeLabel
+  p,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node
+  foreignObject
+  div,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node
+  foreignObject
+  span,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host.dark
+  g.node
+  foreignObject
+  p,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node text,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.dark g.node tspan {
+  fill: var(--mermaid-node-fg) !important;
+  color: var(--mermaid-node-fg) !important;
+  stroke: transparent !important;
 }
 
 .mermaid .mermaid-svg-host g.cluster:hover rect,
 .mermaid .mermaid-svg-host g.cluster:hover polygon {
-  fill: var(--glass-bg-strong) !important;
-  stroke: var(--accent) !important;
+  fill: var(--mermaid-surface-strong-bg) !important;
+  stroke: var(--mermaid-edge) !important;
 }
 
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label text,
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label span,
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label p {
-  fill: var(--icon-color-strong) !important;
-  color: var(--icon-color-strong) !important;
+  fill: var(--mermaid-cluster-fg) !important;
+  color: var(--mermaid-cluster-fg) !important;
 }
 
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label div,
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label span,
 .mermaid .mermaid-svg-host g.cluster:hover .cluster-label p {
-  background: var(--glass-bg) !important;
+  background: var(--mermaid-label-bg) !important;
 }
 
 .mermaid .mermaid-svg-host g.node:hover rect,
@@ -776,6 +934,10 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 
 .mermaid-action-btn.rs-btn.btn.interactive-surface,
 .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+  --interactive-surface-bg: var(--app-surface-bg, var(--mermaid-surface-bg));
+  --interactive-surface-fg: var(--app-surface-fg, var(--mermaid-node-fg));
+  --interactive-surface-border-color: var(--app-surface-accent, var(--mermaid-edge));
+
   min-height: 2rem;
   padding: 0.3rem 0.62rem 0.3rem 0.5rem;
   gap: 0.34rem;
@@ -850,15 +1012,7 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
   height: 100dvh;
   padding: 0;
   overflow: hidden;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(var(--primary-darkest-rgb), 0.95),
-      rgba(var(--primary-dark-rgb), 0.82)
-    ),
-    radial-gradient(circle at 14% 16%, rgba(var(--accent-rgb), 0.2), transparent 34%),
-    radial-gradient(circle at 85% 12%, rgba(var(--primary-rgb), 0.14), transparent 28%),
-    rgba(var(--primary-darkest-rgb), 1) !important;
+  background: var(--app-bg-layer, var(--mermaid-surface-bg)) !important;
 }
 
 .mermaid-fullscreen-stage,
@@ -889,11 +1043,7 @@ html[data-theme="light"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host .
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal__body {
-  background:
-    linear-gradient(180deg, rgba(var(--white-rgb), 0.98), rgba(var(--primary-lighter-rgb), 0.86)),
-    radial-gradient(circle at 14% 14%, rgba(var(--accent-rgb), 0.14), transparent 30%),
-    radial-gradient(circle at 84% 12%, rgba(var(--primary-rgb), 0.1), transparent 26%),
-    rgba(var(--white-rgb), 1) !important;
+  background: var(--app-bg-layer, var(--mermaid-surface-bg)) !important;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -959,4 +1109,67 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
     transform: translateZ(0);
     backface-visibility: hidden;
   }
+}
+
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node rect,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node polygon,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node circle,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node ellipse {
+  fill: rgba(36, 72, 22, 0.96) !important;
+  stroke: rgba(202, 255, 127, 0.84) !important;
+}
+
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node.layerDomain
+  rect,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node.layerDomain
+  polygon,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node.layerDomain
+  circle,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node.layerDomain
+  ellipse,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node.core rect,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node.core polygon,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node.core circle,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node.core ellipse {
+  fill: rgba(58, 88, 20, 0.96) !important;
+  stroke: rgba(213, 255, 89, 0.84) !important;
+}
+
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node .nodeLabel,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node .label,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node
+  foreignObject
+  div,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node
+  foreignObject
+  span,
+html[data-theme="dark"][data-palette="cyber-lime"]
+  .mermaid
+  .mermaid-svg-host
+  g.node
+  foreignObject
+  p,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node text,
+html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host g.node tspan {
+  fill: rgba(var(--white-rgb), 0.96) !important;
+  color: rgba(var(--white-rgb), 0.96) !important;
+  stroke: transparent !important;
 }

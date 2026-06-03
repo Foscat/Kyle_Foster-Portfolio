@@ -124,7 +124,7 @@ describe("StickyNav", () => {
     await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
 
     const dialog = await screen.findByRole("dialog", { name: /site navigation/i });
-    await user.click(within(dialog).getByRole("link", { name: /contact me/i }));
+    await user.click(within(dialog).getByRole("link", { name: /contact/i }));
 
     await waitFor(() => {
       expect(screen.queryByRole("dialog", { name: /site navigation/i })).not.toBeInTheDocument();
@@ -139,7 +139,7 @@ describe("StickyNav", () => {
     await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
 
     const dialog = await screen.findByRole("dialog", { name: /site navigation/i });
-    await user.click(within(dialog).getByRole("link", { name: /contact me/i }));
+    await user.click(within(dialog).getByRole("link", { name: /contact/i }));
 
     await waitFor(() => {
       expect(screen.getByTestId("current-route-path")).toHaveTextContent(PageRoute.CONTACT);

@@ -105,7 +105,7 @@ describe("ContactAlt page", () => {
     expect(payload.message).toContain("Portfolio Contact Submission");
     expect(payload.message).toContain("Full Name: Kyle Foster");
     expect(payload.message).toContain("Email: kyle@example.com");
-    expect(payload.message).toContain("Project Details: Testing contact form");
+    expect(payload.message).toContain(`${messageLabel || "Project details"}: Testing contact form`);
     expect(payload.message).toContain("Timeline: Flexible");
   });
 

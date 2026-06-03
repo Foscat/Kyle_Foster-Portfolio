@@ -23,14 +23,18 @@
 }
 
 .back-to-top__button {
+  --back-to-top-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.12));
+  --back-to-top-fg: var(--app-surface-readable-fg, var(--app-surface-fg, var(--text-primary)));
+  --back-to-top-border-color: var(--app-surface-border-color, rgba(var(--white-rgb), 0.28));
+
   width: 48px;
   min-width: 48px;
   height: 48px;
-  border: var(--interactive-surface-border-width) solid var(--interactive-surface-border-color);
+  border: 1px solid var(--back-to-top-border-color);
   border-radius: 14px;
-  color: var(--interactive-surface-fg);
-  background-color: var(--interactive-surface-bg);
-  box-shadow: var(--glass-shadow);
+  color: var(--back-to-top-fg) !important;
+  background: var(--back-to-top-bg) !important;
+  box-shadow: var(--app-surface-shadow-soft, var(--glass-shadow));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -41,14 +45,21 @@
 .back-to-top__button svg {
   width: 1.05rem;
   height: 1.05rem;
-  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.28));
+  color: inherit !important;
+  fill: currentColor !important;
+  filter: none;
+}
+
+.back-to-top__button svg * {
+  color: inherit !important;
+  fill: currentColor !important;
 }
 
 .back-to-top__button:hover,
 .back-to-top__button:focus-visible {
-  color: var(--interactive-surface-fg);
-  border-color: var(--interactive-surface-border-color);
-  background-color: var(--interactive-surface-bg);
+  color: var(--back-to-top-fg) !important;
+  border-color: var(--app-surface-accent, var(--back-to-top-border-color));
+  background: var(--back-to-top-bg) !important;
   box-shadow: 0 10px 28px rgba(var(--deep-black-rgb), 0.24);
 }
 

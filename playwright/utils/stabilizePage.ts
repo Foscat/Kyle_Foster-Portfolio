@@ -161,6 +161,17 @@ export async function stabilizePage(page: Page, opts: { theme?: "light" | "dark"
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   });
 
-  // Give the UI one frame to repaint after theme change
+  await page.waitForTimeout(100);
+  await page.evaluate(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
+
+  await expect
+    .poll(async () => {
+      return page.evaluate(() => Math.round(window.scrollY));
+    })
+    .toBe(0);
+
+  // Give the UI one frame to repaint after theme change and final scroll reset.
   await page.waitForTimeout(500);
 }

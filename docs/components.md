@@ -26,6 +26,9 @@ palette themes.</p>
 <dd><p>Compact theme selection control for switching between
 light and dark application themes.</p>
 </dd>
+<dt><a href="#module_components/UiStyleToggle">components/UiStyleToggle</a></dt>
+<dd><p>In-app selector for switching ui-style-kit-css visual systems.</p>
+</dd>
 <dt><a href="#module_src\components\layout\InfoSection\index">src\components\layout\InfoSection\index</a></dt>
 <dd><p>src\components\layout\InfoSection\index module.</p>
 </dd>
@@ -530,6 +533,29 @@ ThemeToggle------------------------------------------------------------------C
 | --- | --- | --- | --- |
 | props | <code>Object</code> |  | Component props. |
 | [props.size] | <code>Size</code> | <code>Size.SM</code> | Size applied to the toggle buttons. |
+
+<a name="module_components/UiStyleToggle"></a>
+
+## components/UiStyleToggle
+In-app selector for switching ui-style-kit-css visual systems.
+
+<a name="module_components/UiStyleToggle..UiStyleToggle"></a>
+
+### components/UiStyleToggle~UiStyleToggle(props) ⇒ <code>JSX.Element</code>
+UiStyleToggle------------------------------------------------------------------Compact select control for switching ui-style-kit-css visual systems.
+
+**Kind**: inner method of [<code>components/UiStyleToggle</code>](#module_components/UiStyleToggle)  
+**Access**: public  
+**Component**:   
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| props | <code>Object</code> |  | Component props. |
+| [props.size] | <code>Size</code> | <code>Size.MD</code> | Visual size of the select control. |
+| [props.showLabel] | <code>boolean</code> | <code>true</code> | Whether to render a visible label. |
+| [props.className] | <code>string</code> |  | Optional root className. |
+| [props.labelText] | <code>string</code> | <code>&quot;\&quot;UI Style\&quot;&quot;</code> | Visible label text. |
+| [props.ariaLabel] | <code>string</code> | <code>&quot;\&quot;UI style selector\&quot;&quot;</code> | Accessible label for select. |
 
 <a name="module_src\components\layout\InfoSection\index"></a>
 
@@ -1515,6 +1541,7 @@ A unified, accessible, animated button component that conforms to theMidnight G
 | [props.href] | <code>string</code> |  | Converts the button into a link when provided. |
 | [props.hrefLocal] | <code>boolean</code> | <code>false</code> | When true, renders a React Router `<Link>` instead of an anchor. |
 | [props.target] | <code>string</code> |  | Anchor target value (e.g., "_blank"). |
+| [props.tabIndex] | <code>number</code> |  | Explicit tabIndex for the button. By default, it will be focusable when visible and not disabled. |
 | [props.rel] | <code>string</code> |  | Anchor `rel` attribute. |
 | [props.className] | <code>string</code> |  | Additional CSS class names. |
 | [props.noBG] | <code>boolean</code> | <code>false</code> | Disables the frosted background treatment. |

@@ -1,0 +1,57 @@
+.ui-style-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ui-style-toggle__label {
+  margin: 0;
+  color: var(--app-surface-muted-fg, var(--text-secondary));
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+.ui-style-toggle__select {
+  min-width: 160px;
+  border: var(--app-surface-border, 1px solid var(--surface-border-strong));
+  border-radius: var(--app-surface-radius-md, var(--radius-sm));
+  background: var(--app-surface-strong-bg, var(--surface-overlay-strong));
+  color: var(--app-surface-fg, var(--text-primary));
+  font-family: var(--font-Golos);
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: var(--app-surface-shadow-soft, var(--shadow-soft));
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
+  backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
+}
+
+.ui-style-toggle__select--xs {
+  min-height: 30px;
+  padding: 0.2rem 0.45rem;
+  font-size: var(--font-xxs);
+}
+
+.ui-style-toggle__select--sm {
+  min-height: 34px;
+  padding: 0.28rem 0.55rem;
+  font-size: var(--font-xs);
+}
+
+.ui-style-toggle__select--md,
+.ui-style-toggle__select--lg,
+.ui-style-toggle__select--xl {
+  min-height: 38px;
+  padding: 0.35rem 0.65rem;
+  font-size: var(--font-sm);
+}
+
+.ui-style-toggle__select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.ui-style-toggle__select option {
+  color: var(--app-surface-fg, var(--text-primary));
+  background-color: var(--app-surface-strong-bg, var(--surface-raised));
+}

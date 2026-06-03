@@ -4,9 +4,8 @@
  * @module src/styles/colorThemes.contrast.test
  */
 
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { PALETTE_TOKENS } from "../assets/themePalettes.js";
 
 function parseHex(hex) {
   const clean = hex.replace("#", "").trim();
@@ -44,33 +43,19 @@ function contrastRatio(foreground, background) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function getPaletteBlocks(css) {
-  const blockRegex = /html\[data-palette="([^"]+)"\]\[data-theme="([^"]+)"\]\s*\{([\s\S]*?)\n\}/g;
-  const blocks = [];
-  let match = blockRegex.exec(css);
-
-  while (match) {
-    const [, palette, theme, body] = match;
-    const variables = {};
-
-    for (const line of body.split("\n")) {
-      const tokenMatch = line.match(/--([a-z0-9-]+):\s*(#[0-9a-fA-F]{3,8})\s*;/);
-      if (!tokenMatch) continue;
-      variables[tokenMatch[1]] = tokenMatch[2];
-    }
-
-    blocks.push({ palette, theme, variables });
-    match = blockRegex.exec(css);
-  }
-
-  return blocks;
+function getPaletteBlocks() {
+  return Object.entries(PALETTE_TOKENS).flatMap(([palette, themes]) =>
+    Object.entries(themes).map(([theme, variables]) => ({
+      palette,
+      theme,
+      variables,
+    }))
+  );
 }
 
 describe("color-themes contrast coverage", () => {
   it("keeps core text/surface pairings above WCAG AA", () => {
-    const cssPath = path.resolve(process.cwd(), "src/styles/tokens.css");
-    const css = readFileSync(cssPath, "utf8");
-    const blocks = getPaletteBlocks(css);
+    const blocks = getPaletteBlocks();
     const checks = [
       ["text", "bg", 4.5],
       ["text", "surface", 4.5],

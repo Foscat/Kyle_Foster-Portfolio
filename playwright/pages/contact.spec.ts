@@ -28,7 +28,7 @@ test.describe("Contact page", () => {
         name: "Kyle Foster",
         email: "kyle@example.com",
       });
-      expect(String(payload?.message || "")).toContain("Project Details: Playwright contact test");
+      expect(String(payload?.message || "")).toContain("Project details: Playwright contact test");
 
       // Mock the API response to simulate a successful submission, allowing the test to be deterministic and not rely on the actual backend service. This ensures that the test can consistently verify the frontend behavior without being affected by external factors such as network issues or backend downtime.
       await route.fulfill({

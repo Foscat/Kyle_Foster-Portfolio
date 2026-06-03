@@ -1,116 +1,129 @@
 /**
  * @file favicon.js
- * @description Utilities for resolving and updating the active site favicon
- * based on the current app theme mode, palette, and system color-scheme
- * preference.
+ * @description Theme- and palette-aware favicon helpers for the portfolio.
  * @module assets/favicon
  */
 
-const DEFAULT_PALETTE = "ocean-steel";
-const FAVICON_VARIANT_BY_PALETTE = Object.freeze({
-  "midnight-gold": "midnight",
-  "ocean-steel": "ocean",
-  "forest-moss": "forest",
-  "sunset-ember": "sunset",
-  "royal-plum": null,
-  "graphite-cyan": "ocean",
-  "desert-sage": null,
-  "rose-quartz": "sunset",
-  "cyber-lime": "forest",
-  "arctic-indigo": "ocean",
+export const FAVICON_THEME_MODE = {
+  LIGHT: "light",
+  DARK: "dark",
+  AUTO: "auto",
+  CONTRAST: "contrast",
+};
 
-  // Legacy palette keys kept for backward compatibility.
-  primary: "midnight",
-  alt: null,
-  forest: "forest",
-  ocean: "ocean",
-  sunset: "sunset",
-});
+export const FAVICON_PALETTES = {
+  CLASSIC: "classic",
+  MIDNIGHT_GOLD: "midnight-gold",
+  OCEAN_STEEL: "ocean-steel",
+  FOREST_MOSS: "forest-moss",
+  SUNSET_EMBER: "sunset-ember",
+  ROYAL_PLUM: "royal-plum",
+  GRAPHITE_CYAN: "graphite-cyan",
+  DESERT_SAGE: "desert-sage",
+  ROSE_QUARTZ: "rose-quartz",
+  CYBER_LIME: "cyber-lime",
+  ARCTIC_INDIGO: "arctic-indigo",
+};
 
+const DEFAULT_FAVICON_PALETTE = FAVICON_PALETTES.OCEAN_STEEL;
 const FAVICON_ID = "app-favicon";
 
-function resolveFaviconCacheBustVersion() {
-  if (
-    typeof globalThis !== "undefined" &&
-    typeof globalThis.__APP_BUILD_ID__ === "string" &&
-    globalThis.__APP_BUILD_ID__.trim() !== ""
-  ) {
-    return globalThis.__APP_BUILD_ID__.trim();
-  }
+const PALETTE_ALIASES = {
+  classic: FAVICON_PALETTES.CLASSIC,
+  primary: FAVICON_PALETTES.CLASSIC,
 
-  return "0";
-}
+  midnight: FAVICON_PALETTES.MIDNIGHT_GOLD,
+  "midnight-gold": FAVICON_PALETTES.MIDNIGHT_GOLD,
 
-const FAVICON_CACHE_BUST_VERSION = resolveFaviconCacheBustVersion();
+  ocean: FAVICON_PALETTES.OCEAN_STEEL,
+  "ocean-steel": FAVICON_PALETTES.OCEAN_STEEL,
 
-/**
- * Returns the user's current system color-scheme preference.
- *
- * @returns {"light"|"dark"} The resolved system theme.
- */
+  forest: FAVICON_PALETTES.FOREST_MOSS,
+  "forest-moss": FAVICON_PALETTES.FOREST_MOSS,
+
+  sunset: FAVICON_PALETTES.SUNSET_EMBER,
+  "sunset-ember": FAVICON_PALETTES.SUNSET_EMBER,
+
+  amethyst: FAVICON_PALETTES.ROYAL_PLUM,
+  alt: FAVICON_PALETTES.ROYAL_PLUM,
+  "royal-plum": FAVICON_PALETTES.ROYAL_PLUM,
+
+  cyan: FAVICON_PALETTES.GRAPHITE_CYAN,
+  "graphite-cyan": FAVICON_PALETTES.GRAPHITE_CYAN,
+
+  slate: FAVICON_PALETTES.DESERT_SAGE,
+  "desert-sage": FAVICON_PALETTES.DESERT_SAGE,
+
+  rose: FAVICON_PALETTES.ROSE_QUARTZ,
+  "rose-quartz": FAVICON_PALETTES.ROSE_QUARTZ,
+
+  "cyber-lime": FAVICON_PALETTES.CYBER_LIME,
+  "arctic-indigo": FAVICON_PALETTES.ARCTIC_INDIGO,
+};
+
+const FAVICON_PATHS = {
+  light: {
+    [FAVICON_PALETTES.CLASSIC]: "/favicons/favicon-classic-light.png",
+    [FAVICON_PALETTES.MIDNIGHT_GOLD]: "/favicons/favicon-midnight-gold-light.png",
+    [FAVICON_PALETTES.OCEAN_STEEL]: "/favicons/favicon-ocean-steel-light.png",
+    [FAVICON_PALETTES.FOREST_MOSS]: "/favicons/favicon-forest-moss-light.png",
+    [FAVICON_PALETTES.SUNSET_EMBER]: "/favicons/favicon-sunset-ember-light.png",
+    [FAVICON_PALETTES.ROYAL_PLUM]: "/favicons/favicon-royal-plum-light.png",
+    [FAVICON_PALETTES.GRAPHITE_CYAN]: "/favicons/favicon-graphite-cyan-light.png",
+    [FAVICON_PALETTES.DESERT_SAGE]: "/favicons/favicon-desert-sage-light.png",
+    [FAVICON_PALETTES.ROSE_QUARTZ]: "/favicons/favicon-rose-quartz-light.png",
+    [FAVICON_PALETTES.CYBER_LIME]: "/favicons/favicon-cyber-lime-light.png",
+    [FAVICON_PALETTES.ARCTIC_INDIGO]: "/favicons/favicon-arctic-indigo-light.png",
+  },
+  dark: {
+    [FAVICON_PALETTES.CLASSIC]: "/favicons/favicon-classic-dark.png",
+    [FAVICON_PALETTES.MIDNIGHT_GOLD]: "/favicons/favicon-midnight-gold-dark.png",
+    [FAVICON_PALETTES.OCEAN_STEEL]: "/favicons/favicon-ocean-steel-dark.png",
+    [FAVICON_PALETTES.FOREST_MOSS]: "/favicons/favicon-forest-moss-dark.png",
+    [FAVICON_PALETTES.SUNSET_EMBER]: "/favicons/favicon-sunset-ember-dark.png",
+    [FAVICON_PALETTES.ROYAL_PLUM]: "/favicons/favicon-royal-plum-dark.png",
+    [FAVICON_PALETTES.GRAPHITE_CYAN]: "/favicons/favicon-graphite-cyan-dark.png",
+    [FAVICON_PALETTES.DESERT_SAGE]: "/favicons/favicon-desert-sage-dark.png",
+    [FAVICON_PALETTES.ROSE_QUARTZ]: "/favicons/favicon-rose-quartz-dark.png",
+    [FAVICON_PALETTES.CYBER_LIME]: "/favicons/favicon-cyber-lime-dark.png",
+    [FAVICON_PALETTES.ARCTIC_INDIGO]: "/favicons/favicon-arctic-indigo-dark.png",
+  },
+};
+
 export function getSystemTheme() {
   if (
     typeof window !== "undefined" &&
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
-    return "dark";
+    return FAVICON_THEME_MODE.DARK;
   }
 
-  return "light";
+  return FAVICON_THEME_MODE.LIGHT;
 }
 
-/**
- * Resolves the final theme that should control the favicon.
- *
- * @param {"light"|"dark"|"auto"} mode - The app theme mode.
- * @returns {"light"|"dark"} The resolved theme.
- */
-export function resolveFaviconTheme(mode = "auto") {
-  if (mode === "light" || mode === "dark") {
-    return mode;
-  }
+export function getDocumentPalette() {
+  if (typeof document === "undefined") return DEFAULT_FAVICON_PALETTE;
+
+  return document.documentElement?.dataset?.palette || DEFAULT_FAVICON_PALETTE;
+}
+
+export function resolvePalette(palette = DEFAULT_FAVICON_PALETTE) {
+  const normalized = String(palette || "")
+    .trim()
+    .toLowerCase();
+
+  return PALETTE_ALIASES[normalized] || DEFAULT_FAVICON_PALETTE;
+}
+
+export function resolveFaviconTheme(themeMode = FAVICON_THEME_MODE.AUTO) {
+  if (themeMode === FAVICON_THEME_MODE.LIGHT) return FAVICON_THEME_MODE.LIGHT;
+  if (themeMode === FAVICON_THEME_MODE.DARK) return FAVICON_THEME_MODE.DARK;
+  if (themeMode === FAVICON_THEME_MODE.CONTRAST) return FAVICON_THEME_MODE.DARK;
 
   return getSystemTheme();
 }
 
-/**
- * Resolves the favicon palette variant segment for a palette.
- *
- * @param {string} palette - The current app palette.
- * @returns {string|null} Variant suffix segment or null for base icons.
- */
-export function resolveFaviconVariant(palette = DEFAULT_PALETTE) {
-  if (typeof palette !== "string") {
-    return FAVICON_VARIANT_BY_PALETTE[DEFAULT_PALETTE];
-  }
-
-  return FAVICON_VARIANT_BY_PALETTE[palette] ?? FAVICON_VARIANT_BY_PALETTE[DEFAULT_PALETTE];
-}
-
-/**
- * Builds the favicon path from the active theme mode and palette.
- *
- * @param {"light"|"dark"|"auto"} mode - The app theme mode.
- * @param {string} palette - The current app palette.
- * @returns {string} Absolute favicon path.
- */
-export function resolveFaviconPath(mode = "auto", palette = DEFAULT_PALETTE) {
-  const resolvedTheme = resolveFaviconTheme(mode);
-  const variant = resolveFaviconVariant(palette);
-
-  if (variant) {
-    return `/favicons/favicon-${resolvedTheme}-${variant}.png`;
-  }
-
-  return `/favicons/favicon-${resolvedTheme}.png`;
-}
-
-/**
- * Ensures the favicon link element exists.
- *
- * @returns {HTMLLinkElement|null} The favicon link element.
- */
 function getOrCreateFaviconLink() {
   if (typeof document === "undefined") return null;
 
@@ -129,89 +142,42 @@ function getOrCreateFaviconLink() {
   return link;
 }
 
-/**
- * Removes competing favicon link tags so the app-controlled favicon
- * remains the only active `rel="icon"` candidate.
- *
- * @param {HTMLLinkElement} canonicalLink - The canonical theme-managed link.
- */
 function pruneCompetingFaviconLinks(canonicalLink) {
   if (typeof document === "undefined" || !canonicalLink) return;
 
-  const iconLinks = document.head.querySelectorAll('link[rel~="icon"]');
-  iconLinks.forEach((node) => {
-    if (!(node instanceof HTMLLinkElement) || node === canonicalLink) {
-      return;
+  document.head.querySelectorAll('link[rel~="icon"]').forEach((node) => {
+    if (node instanceof HTMLLinkElement && node !== canonicalLink) {
+      node.remove();
     }
-
-    node.remove();
   });
 }
 
-/**
- * Appends a stable cache-busting version so deployed favicon updates
- * are fetched even when browsers hold aggressive icon caches.
- *
- * @param {string} path - Base favicon path.
- * @returns {string} Versioned favicon path.
- */
-function withCacheBust(path) {
-  if (typeof path !== "string" || path.length === 0) return path;
+export function getFaviconPath(themeMode = FAVICON_THEME_MODE.AUTO, palette) {
+  const resolvedTheme = resolveFaviconTheme(themeMode);
+  const resolvedPalette = resolvePalette(palette || getDocumentPalette());
 
-  const joiner = path.includes("?") ? "&" : "?";
-  return `${path}${joiner}v=${FAVICON_CACHE_BUST_VERSION}`;
+  return (
+    FAVICON_PATHS[resolvedTheme]?.[resolvedPalette] || FAVICON_PATHS.dark[DEFAULT_FAVICON_PALETTE]
+  );
 }
 
-/**
- * Updates the active favicon based on the supplied theme mode.
- *
- * @param {"light"|"dark"|"auto"} mode - The app theme mode.
- * @param {string} palette - The current app palette.
- */
-export function updateFavicon(mode = "auto", palette = DEFAULT_PALETTE) {
+export function updateFavicon(themeMode = FAVICON_THEME_MODE.AUTO, palette) {
   const link = getOrCreateFaviconLink();
 
   if (!link) return;
 
-  const href = withCacheBust(resolveFaviconPath(mode, palette));
-  link.href = href;
-}
-
-/**
- * Updates the managed favicon and removes any competing `rel="icon"` links.
- *
- * Use this when the app explicitly wants its managed favicon link to be the
- * only active favicon candidate in the document.
- *
- * @param {"light"|"dark"|"auto"} mode - The app theme mode.
- * @param {string} palette - The current app palette.
- */
-export function updateFaviconAndPrune(mode = "auto", palette = DEFAULT_PALETTE) {
-  updateFavicon(mode, palette);
-
-  const link = getOrCreateFaviconLink();
-
-  if (!link) return;
-
+  link.rel = "icon";
+  link.type = "image/png";
+  link.href = getFaviconPath(themeMode, palette);
   pruneCompetingFaviconLinks(link);
 }
 
-/**
- * Subscribes to system theme changes.
- *
- * Useful when the app is in "auto" mode and the favicon should follow
- * OS/browser theme changes live.
- *
- * @param {() => void} onChange - Callback fired when system theme changes.
- * @returns {() => void} Cleanup function.
- */
 export function subscribeToSystemThemeChanges(onChange) {
   if (typeof window === "undefined" || !window.matchMedia || typeof onChange !== "function") {
     return () => {};
   }
 
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
   const handler = () => onChange();
 
   if (typeof mediaQuery.addEventListener === "function") {
@@ -219,11 +185,39 @@ export function subscribeToSystemThemeChanges(onChange) {
     return () => mediaQuery.removeEventListener("change", handler);
   }
 
-  // Fallback for older browsers
   if (typeof mediaQuery.addListener === "function") {
     mediaQuery.addListener(handler);
     return () => mediaQuery.removeListener(handler);
   }
 
   return () => {};
+}
+
+export function subscribeToPaletteChanges(onChange) {
+  if (typeof document === "undefined" || typeof onChange !== "function") {
+    return () => {};
+  }
+
+  const root = document.documentElement;
+
+  if (typeof MutationObserver === "undefined") {
+    return () => {};
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    const paletteChanged = mutations.some(
+      (mutation) => mutation.type === "attributes" && mutation.attributeName === "data-palette"
+    );
+
+    if (paletteChanged) {
+      onChange();
+    }
+  });
+
+  observer.observe(root, {
+    attributes: true,
+    attributeFilter: ["data-palette"],
+  });
+
+  return () => observer.disconnect();
 }

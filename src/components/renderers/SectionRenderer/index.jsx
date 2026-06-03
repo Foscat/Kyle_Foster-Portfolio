@@ -604,7 +604,7 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
                       </p>
                     }
                   >
-                    <MarkdownDocsBlock block={block} />
+                    <MarkdownDocsBlock key={block.id} block={block} />
                   </Suspense>
                 );
 

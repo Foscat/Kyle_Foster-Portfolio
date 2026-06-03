@@ -8,13 +8,15 @@ Production-focused React portfolio application built around section-driven conte
 - Docs route: [https://kyle-foster.com/docs](https://kyle-foster.com/docs)
 - Health route: [https://kyle-foster.com/health](https://kyle-foster.com/health)
 
-## Current State (May 2026)
+## Current State (June 2026)
 
-- Contact content modules were consolidated: `src/assets/data/content/contact/alt.js` was removed and merged into `src/assets/data/content/contact/index.js` while preserving the `contactAltSections` alias export for compatibility.
-- `/contact` route handling remains explicit in `src/App.jsx`, and route-level regression coverage was added in `src/App.test.jsx`.
-- `src/pages/ContactAlt/index.jsx` now centralizes contact endpoint resolution and payload normalization utilities for the contact service contract (`VITE_CONTACT_API_URL` aware).
-- Contact page layout and navigation visuals were refined (`src/pages/ContactAlt/styles.css`, `src/components/navigation/StickyNav/styles.css`).
-- Component docs were regenerated (`docs/components.md`) to reflect current exported APIs.
+- The Color menu now exposes palette, light/dark mode, high-contrast mode, and `ui-style-kit-css` visual style switching from one UI surface.
+- The app supports 10 color palettes and 11 UI styles: Minimal SaaS, Bento, Maximalist, Bauhaus, Tactile, Neumorphism, Retrofuturism, Brutalism, Cyberpunk, Y2K, and Retro Glass.
+- Palette values are applied at runtime from `src/assets/themePalettes.js`, while CSS consumes semantic variables from `src/styles/tokens.css`. This keeps contrast coverage intact and keeps the initial CSS bundle under budget.
+- `src/styles/ui-style-kit-tokens.css` imports only the `ui-style-kit-css` tokens the app consumes, so package utility CSS does not block app styling or inflate the main stylesheet.
+- Mermaid diagrams, shared buttons, the back-to-top control, navigation triggers, and content surfaces were reviewed for readable foreground/background contrast across light, dark, and cyber-lime-heavy combinations.
+- Theme-aware favicon assets now cover the active palette set through `public/favicons/favicon-manifest.json` and `src/assets/favicon.js`.
+- Large portrait and social-card assets now ship optimized WebP derivatives to keep image budgets within the stage 1 limits.
 
 ## Project Goals
 
@@ -30,6 +32,7 @@ The app is organized around declarative page content modules and shared renderer
 - Page content data lives under `src/assets/data/content/**`.
 - Reusable rendering and layout primitives live under `src/components/**`.
 - Route composition is centralized in `src/App.jsx`.
+- Runtime palette tokens live in `src/assets/themePalettes.js`; semantic surface/style tokens live in `src/styles/tokens.css`.
 - Generated technical docs are built into `docs/**`.
 
 Reference docs:
@@ -87,12 +90,20 @@ npm run preview
 Primary checks:
 
 ```sh
-npm run lint
+npm run lint:all
 npm run quality:route-tests
-npm run test
 npm run quality:bundle-budgets
+npm run test
 npm run quality:check
 ```
+
+Focused theme and contrast checks:
+
+```sh
+npx playwright test playwright/color-contrast.spec.ts playwright/ui-style-visual-distinction.spec.ts
+```
+
+`npm run test-ui` uses local visual baselines under `playwright/test-results/snapshots`. If those ignored local baselines are missing, the first run writes them and the next run verifies against them.
 
 CI-equivalent gate:
 
@@ -153,6 +164,7 @@ npm run docs:jsdoc:enforce
 - [Font Awesome](https://fontawesome.com)
 - [Mermaid 11](https://mermaid-js.github.io/mermaid/#/)
 - [Interactive Surface CSS](https://github.com/kylefoster/interactive-surface-css)
+- [ui-style-kit-css](https://www.npmjs.com/package/ui-style-kit-css)
 - [Vitest 4](https://vitest.dev) + [Testing Library](https://testing-library.com)
 - [Playwright](https://playwright.dev)
 - [ESLint](https://eslint.org/) + [Stylelint](https://stylelint.io/) + [Prettier](https://prettier.io/)

@@ -165,6 +165,14 @@ svg:not(:root) {
   color: var(--sticky-nav-desktop-page-icon-color);
 }
 
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon svg,
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon svg *,
+.desktop-menu .sticky-nav-desktop-trigger--utility .frosted-icon.btn-icon svg,
+.desktop-menu .sticky-nav-desktop-trigger--utility .frosted-icon.btn-icon svg * {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
 .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon svg {
   font-size: var(--sticky-nav-page-icon-glyph-size);
   width: 1em;
@@ -228,6 +236,19 @@ svg:not(:root) {
   color: var(--sticky-nav-desktop-page-icon-active-color);
 }
 
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon,
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.btn,
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.rs-btn {
+  color: var(--sticky-nav-desktop-page-icon-color) !important;
+}
+
+.desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
+.desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon,
+.desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon.btn,
+.desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon.rs-btn {
+  color: var(--sticky-nav-desktop-page-icon-active-color) !important;
+}
+
 .desktop-menu .sticky-nav-desktop-trigger--a11y .btn.icon-only {
   color: var(--sticky-nav-desktop-a11y-icon-color);
 }
@@ -238,6 +259,12 @@ svg:not(:root) {
 
 .desktop-menu .sticky-nav-desktop-trigger--resume .btn.icon-only {
   color: var(--sticky-nav-desktop-resume-icon-color);
+}
+
+.desktop-menu .sticky-nav-desktop-trigger--utility .btn.icon-only svg,
+.desktop-menu .sticky-nav-desktop-trigger--utility .btn.icon-only svg * {
+  color: inherit !important;
+  fill: currentColor !important;
 }
 
 .desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon.fi-variant-secondary {
