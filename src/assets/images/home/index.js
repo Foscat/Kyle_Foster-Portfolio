@@ -4,10 +4,10 @@
  * @module src\assets\images\home\index
  */
 
-import headshot from "./headshot.jpg";
+import headshot from "./headshot.webp";
 import stem from "./stem.jpg";
-import suitSitting from "./suit-sitting.jpg";
-import suitStanding from "./suit-standing.jpg";
+import suitSitting from "./suit-sitting.webp";
+import suitStanding from "./suit-standing.webp";
 
 export { headshot, stem, suitSitting, suitStanding };
 

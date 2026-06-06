@@ -88,8 +88,6 @@ const ClickableImg = ({
   caption = "",
   ariaLabel = "Clickable image, click to expand",
 }) => {
-  // console.log("Clickable image", { id, index, src, alt, title, caption });
-
   /**
    * @description Local modal open/close state controlled internally to keep usage simple.
    */

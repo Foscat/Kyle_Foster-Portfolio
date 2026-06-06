@@ -41,6 +41,9 @@
 export default function fixUnusedMapIndex(file, api) {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const hasCallbackParams = (node) =>
+    (node?.type === "ArrowFunctionExpression" || node?.type === "FunctionExpression") &&
+    Array.isArray(node.params);
 
   root
     .find(j.CallExpression, {
@@ -48,7 +51,7 @@ export default function fixUnusedMapIndex(file, api) {
     })
     .forEach((path) => {
       const callback = path.node.arguments[0];
-      if (!callback || callback.params.length < 2) return;
+      if (!hasCallbackParams(callback) || callback.params.length < 2) return;
 
       const indexParam = callback.params[1];
       if (indexParam.type !== "Identifier") return;

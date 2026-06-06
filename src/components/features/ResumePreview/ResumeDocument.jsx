@@ -109,13 +109,11 @@ const ResumeDocument = ({ resume }) => {
           </p>
         ) : null}
       </header>
-
       {summary ? (
         <ResumeSection title="Professional Summary">
           <p className="resume-document__summary">{summary}</p>
         </ResumeSection>
       ) : null}
-
       {experience.length ? (
         <ResumeSection title="Professional Experience">
           <div className="resume-document__stack">
@@ -125,7 +123,6 @@ const ResumeDocument = ({ resume }) => {
           </div>
         </ResumeSection>
       ) : null}
-
       {projects.length ? (
         <ResumeSection title="Selected Technical Projects">
           <div className="resume-document__stack resume-document__stack--compact">
@@ -135,20 +132,22 @@ const ResumeDocument = ({ resume }) => {
           </div>
         </ResumeSection>
       ) : null}
-
       {skills.length ? (
         <ResumeSection title="Technical Skills">
           <div className="resume-document__skills">
             {skills.map((group) => (
               <div key={group.id || group.label} className="resume-document__skill-group">
-                <p className="resume-document__skill-label">{group.label}</p>
-                <p className="resume-document__skill-values">{group.items.join(", ")}</p>
+                <p key={group.id} className="resume-document__skill-label">
+                  {group.label}
+                </p>
+                <p key={group.id} className="resume-document__skill-values">
+                  {group.items.join(", ")}
+                </p>
               </div>
             ))}
           </div>
         </ResumeSection>
       ) : null}
-
       {education.length ? (
         <ResumeSection title="Education">
           <div className="resume-document__stack resume-document__stack--compact">
@@ -158,7 +157,6 @@ const ResumeDocument = ({ resume }) => {
           </div>
         </ResumeSection>
       ) : null}
-
       {footer ? <footer className="resume-document__footer">{footer}</footer> : null}
     </div>
   );

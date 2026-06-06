@@ -34,7 +34,7 @@ describe("ColorMenu", () => {
     });
   });
 
-  it("renders mode and palette controls in the color modal", async () => {
+  it("renders mode, UI style, and palette controls in the color modal", async () => {
     const user = userEvent.setup();
     renderWithProviders(<ColorMenu />);
 
@@ -42,7 +42,23 @@ describe("ColorMenu", () => {
     await screen.findByRole("dialog", { name: /color settings/i });
 
     expect(screen.getByRole("heading", { name: /theme mode/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /light theme/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /dark theme/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /ui style/i })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: /ui style/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /palette/i })).toBeInTheDocument();
     expect(screen.getByRole("combobox", { name: /color palette/i })).toBeInTheDocument();
+  });
+
+  it("changes the active UI style from the color modal", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ColorMenu />);
+
+    await user.click(screen.getByRole("button", { name: /open color settings/i }));
+    await screen.findByRole("dialog", { name: /color settings/i });
+
+    await user.selectOptions(screen.getByRole("combobox", { name: /ui style/i }), "cyberpunk");
+
+    expect(document.body.dataset.ui).toBe("cyberpunk");
   });
 });

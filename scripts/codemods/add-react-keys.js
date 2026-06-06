@@ -44,6 +44,10 @@
 export default function addReactKeys(file, api) {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const hasCallbackParams = (node) =>
+    (node?.type === "ArrowFunctionExpression" || node?.type === "FunctionExpression") &&
+    Array.isArray(node.params);
+
   root
     .find(j.CallExpression, {
       callee: {
@@ -52,7 +56,7 @@ export default function addReactKeys(file, api) {
     })
     .forEach((path) => {
       const callback = path.node.arguments[0];
-      if (!callback || !callback.params.length) return;
+      if (!hasCallbackParams(callback) || !callback.params.length) return;
 
       const itemParam = callback.params[0];
       const indexParam = callback.params[1];

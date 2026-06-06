@@ -6,26 +6,26 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import {
+  getFaviconPath,
   getSystemTheme,
-  resolveFaviconPath,
+  resolvePalette,
   resolveFaviconTheme,
-  resolveFaviconVariant,
+  subscribeToPaletteChanges,
   subscribeToSystemThemeChanges,
   updateFavicon,
-  updateFaviconAndPrune,
 } from "./favicon";
 
 describe("favicon utilities", () => {
   const originalMatchMedia = window.matchMedia;
-  const expectCacheBustedHref = (href, basePath) => {
+  const expectFaviconHref = (href, basePath) => {
     expect(href).toBeTruthy();
     const url = new URL(href, window.location.origin);
     expect(url.pathname).toBe(basePath);
-    expect(url.searchParams.get("v")).toBeTruthy();
   };
 
   beforeEach(() => {
     document.head.innerHTML = "";
+    delete document.documentElement.dataset.palette;
   });
 
   afterEach(() => {
@@ -44,10 +44,10 @@ describe("favicon utilities", () => {
     document.head.appendChild(link);
 
     updateFavicon("dark");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark-ocean.png");
+    expectFaviconHref(link.getAttribute("href"), "/favicons/favicon-ocean-steel-dark.png");
 
     updateFavicon("light");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-light-ocean.png");
+    expectFaviconHref(link.getAttribute("href"), "/favicons/favicon-ocean-steel-light.png");
   });
 
   it("uses palette-specific themed favicon files when a palette variant exists", () => {
@@ -57,13 +57,13 @@ describe("favicon utilities", () => {
     document.head.appendChild(link);
 
     updateFavicon("dark", "ocean");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark-ocean.png");
+    expectFaviconHref(link.getAttribute("href"), "/favicons/favicon-ocean-steel-dark.png");
 
     updateFavicon("light", "forest");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-light-forest.png");
+    expectFaviconHref(link.getAttribute("href"), "/favicons/favicon-forest-moss-light.png");
 
-    updateFavicon("dark", "primary");
-    expectCacheBustedHref(link.getAttribute("href"), "/favicons/favicon-dark-midnight.png");
+    updateFavicon("dark", "midnight");
+    expectFaviconHref(link.getAttribute("href"), "/favicons/favicon-midnight-gold-dark.png");
   });
 
   it("creates a favicon link when one does not exist", () => {
@@ -72,7 +72,7 @@ describe("favicon utilities", () => {
 
     const link = document.getElementById("app-favicon");
     expect(link).not.toBeNull();
-    expectCacheBustedHref(link?.getAttribute("href"), "/favicons/favicon-dark-ocean.png");
+    expectFaviconHref(link?.getAttribute("href"), "/favicons/favicon-ocean-steel-dark.png");
   });
 
   it("removes competing rel=icon tags so only app-favicon remains", () => {
@@ -94,12 +94,12 @@ describe("favicon utilities", () => {
     shortcutLegacy.href = "/favicon.ico";
     document.head.appendChild(shortcutLegacy);
 
-    updateFaviconAndPrune("light");
+    updateFavicon("light");
 
     const iconLinks = [...document.head.querySelectorAll('link[rel~="icon"]')];
     expect(iconLinks).toHaveLength(1);
     expect(iconLinks[0].id).toBe("app-favicon");
-    expectCacheBustedHref(iconLinks[0].getAttribute("href"), "/favicons/favicon-light-ocean.png");
+    expectFaviconHref(iconLinks[0].getAttribute("href"), "/favicons/favicon-ocean-steel-light.png");
   });
 
   it("resolves auto mode from system preference", () => {
@@ -140,9 +140,27 @@ describe("favicon utilities", () => {
     expect(removeEventListener).toHaveBeenCalledWith("change", handler);
   });
 
-  it("falls back to the default favicon variant when palette is unsupported", () => {
-    expect(resolveFaviconVariant("unknown")).toBe("ocean");
-    expect(resolveFaviconPath("dark", "unknown")).toBe("/favicons/favicon-dark-ocean.png");
-    expect(resolveFaviconPath("light", "unknown")).toBe("/favicons/favicon-light-ocean.png");
+  it("subscribes and unsubscribes from document palette changes", async () => {
+    const onChange = vi.fn();
+    const unsubscribe = subscribeToPaletteChanges(onChange);
+
+    document.documentElement.dataset.palette = "forest-moss";
+    await Promise.resolve();
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+
+    unsubscribe();
+    document.documentElement.dataset.palette = "sunset-ember";
+    await Promise.resolve();
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("resolves palette aliases and falls back to the default favicon palette", () => {
+    expect(resolvePalette("ocean")).toBe("ocean-steel");
+    expect(resolvePalette("primary")).toBe("classic");
+    expect(resolvePalette("unknown")).toBe("ocean-steel");
+    expect(getFaviconPath("dark", "unknown")).toBe("/favicons/favicon-ocean-steel-dark.png");
+    expect(getFaviconPath("light", "unknown")).toBe("/favicons/favicon-ocean-steel-light.png");
   });
 });

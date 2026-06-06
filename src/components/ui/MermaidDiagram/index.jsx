@@ -80,7 +80,152 @@ function getSvgIntrinsicSize(svg) {
   };
 }
 
-function normalizeRenderedSvg(host) {
+const CYBER_LIME_DARK_NODE_FILL = "rgba(36, 72, 22, 0.96)";
+const CYBER_LIME_DARK_DOMAIN_NODE_FILL = "rgba(58, 88, 20, 0.96)";
+const CYBER_LIME_DARK_NODE_STROKE = "rgba(202, 255, 127, 0.84)";
+const CYBER_LIME_DARK_DOMAIN_NODE_STROKE = "rgba(213, 255, 89, 0.84)";
+const DEFAULT_LIGHT_NODE_PAINT = Object.freeze({
+  fill: "var(--mermaid-node-bg)",
+  stroke: "var(--mermaid-node-border)",
+});
+const LIGHT_NODE_PAINTS = Object.freeze([
+  Object.freeze({
+    classes: Object.freeze(["layerDomain", "core"]),
+    fill: "var(--mermaid-light-node-strong-bg)",
+    stroke: "var(--mermaid-light-accent-border)",
+  }),
+  Object.freeze({
+    classes: Object.freeze(["layerPersistence", "layerExternal", "role"]),
+    fill: "var(--mermaid-light-node-accent-bg)",
+    stroke: "var(--mermaid-light-accent-border)",
+  }),
+  Object.freeze({
+    classes: Object.freeze([
+      "layerPresentation",
+      "layerInfrastructure",
+      "datastore",
+      "control",
+      "state",
+    ]),
+    fill: "var(--mermaid-light-node-muted-bg)",
+    stroke: "var(--mermaid-light-border)",
+  }),
+  Object.freeze({
+    classes: Object.freeze(["layerApplication"]),
+    fill: "var(--mermaid-light-node-bg)",
+    stroke: "var(--mermaid-light-border-muted)",
+  }),
+]);
+
+function getLightNodePaint(node) {
+  return (
+    LIGHT_NODE_PAINTS.find(({ classes }) =>
+      classes.some((className) => node.classList.contains(className))
+    ) || DEFAULT_LIGHT_NODE_PAINT
+  );
+}
+
+function setImportantStyle(el, property, value) {
+  if (!el || !value) return;
+
+  el.style.setProperty(property, value, "important");
+}
+
+function setSvgPaint(el, property, value) {
+  setImportantStyle(el, property, value);
+
+  if (!value.includes("var(")) {
+    el.setAttribute(property, value);
+  }
+}
+
+function isConcreteColorValue(value) {
+  return Boolean(
+    value &&
+    value !== "none" &&
+    value !== "transparent" &&
+    !value.includes("var(") &&
+    !value.includes("currentColor")
+  );
+}
+
+function getInlineLabelColor(el) {
+  const color = el.style?.getPropertyValue("color")?.trim();
+  if (isConcreteColorValue(color)) return color;
+
+  const fill = el.style?.getPropertyValue("fill")?.trim();
+  if (isConcreteColorValue(fill)) return fill;
+
+  return null;
+}
+
+function applyRenderedLabelColor(elements, color, { preserveInlineColor = false } = {}) {
+  for (const el of elements) {
+    const labelColor = preserveInlineColor ? getInlineLabelColor(el) || color : color;
+
+    setImportantStyle(el, "color", labelColor);
+    setSvgPaint(el, "fill", labelColor);
+    setImportantStyle(el, "stroke", "transparent");
+  }
+}
+
+function applyRenderedMermaidContrast(svg, { theme, palette } = {}) {
+  const isCyberLime = palette === "cyber-lime";
+  const isLight = theme === Theme.LIGHT;
+  const isDark = theme === Theme.DARK;
+  const nodeLabelColor = isLight
+    ? "var(--mermaid-light-node-fg, var(--mermaid-node-fg))"
+    : "var(--mermaid-node-fg)";
+  const labelColor = "var(--mermaid-label-fg)";
+  const clusterLabelColor = "var(--mermaid-cluster-fg)";
+
+  applyRenderedLabelColor(svg.querySelectorAll("text, tspan"), labelColor);
+
+  for (const node of svg.querySelectorAll("g.node")) {
+    if (isLight) {
+      const nodePaint = getLightNodePaint(node);
+
+      for (const shape of node.querySelectorAll("rect, polygon, circle, ellipse")) {
+        setSvgPaint(shape, "fill", nodePaint.fill);
+        setSvgPaint(shape, "stroke", nodePaint.stroke);
+      }
+    } else if (isCyberLime && isDark) {
+      const isDomainNode =
+        node.classList.contains("layerDomain") || node.classList.contains("core");
+      const nodeFill = isDomainNode ? CYBER_LIME_DARK_DOMAIN_NODE_FILL : CYBER_LIME_DARK_NODE_FILL;
+      const nodeStroke = isDomainNode
+        ? CYBER_LIME_DARK_DOMAIN_NODE_STROKE
+        : CYBER_LIME_DARK_NODE_STROKE;
+
+      for (const shape of node.querySelectorAll("rect, polygon, circle, ellipse")) {
+        setSvgPaint(shape, "fill", nodeFill);
+        setSvgPaint(shape, "stroke", nodeStroke);
+      }
+    }
+
+    applyRenderedLabelColor(
+      node.querySelectorAll(".nodeLabel, .label, foreignObject, foreignObject *, text, tspan"),
+      nodeLabelColor
+    );
+  }
+
+  applyRenderedLabelColor(
+    svg.querySelectorAll(
+      ".edgeLabel, .edgeLabel foreignObject, .edgeLabel div, .edgeLabel span, .edgeLabel p, .edgeLabel text, .edgeLabel tspan"
+    ),
+    labelColor,
+    { preserveInlineColor: !isCyberLime }
+  );
+
+  applyRenderedLabelColor(
+    svg.querySelectorAll(
+      ".cluster-label, .cluster-label foreignObject, .cluster-label div, .cluster-label span, .cluster-label p, .cluster-label text, .cluster-label tspan"
+    ),
+    clusterLabelColor
+  );
+}
+
+function normalizeRenderedSvg(host, options = {}) {
   if (!host) return;
 
   const svg = host.querySelector("svg");
@@ -93,6 +238,7 @@ function normalizeRenderedSvg(host) {
   svg.style.maxHeight = "none";
   svg.style.display = "block";
   svg.style.overflow = "visible";
+  applyRenderedMermaidContrast(svg, options);
 }
 
 function getExportBackground(theme) {
@@ -172,7 +318,7 @@ function buildExportNodeFromSvg(svg, theme) {
 }
 
 function getExportTextColor(theme) {
-  return theme === Theme.LIGHT ? "#F8FAFC" : "#F5F7FF";
+  return theme === Theme.LIGHT ? "#172033" : "#F5F7FF";
 }
 
 function getExportLabelBackground(theme) {
@@ -184,7 +330,7 @@ function getExportSectionLabelBackground(theme) {
 }
 
 function getExportSectionLabelTextColor(theme) {
-  return theme === Theme.LIGHT ? "#F8FAFC" : "#F5F7FF";
+  return theme === Theme.LIGHT ? "#172033" : "#F5F7FF";
 }
 
 function getPxNumber(value, fallback) {
@@ -864,7 +1010,7 @@ function MermaidDiagram(props) {
 
         if (!existingSvg) {
           host.innerHTML = svg;
-          normalizeRenderedSvg(host);
+          normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
           return;
         }
 
@@ -873,7 +1019,7 @@ function MermaidDiagram(props) {
         window.setTimeout(() => {
           if (cancelled) return;
           host.innerHTML = svg;
-          normalizeRenderedSvg(host);
+          normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
           requestAnimationFrame(() => host.classList.remove("fade-out"));
         }, 180);
       } catch (error) {
@@ -908,7 +1054,7 @@ function MermaidDiagram(props) {
         if (cancelled) return;
 
         host.innerHTML = svg;
-        normalizeRenderedSvg(host);
+        normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
       } catch (error) {
         if (!cancelled) {
           console.error("Mermaid fullscreen render failed:", error);

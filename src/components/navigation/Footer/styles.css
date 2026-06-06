@@ -14,10 +14,10 @@
 .site-footer {
   padding: 20px 0;
   font-size: var(--font-sm);
-  color: var(--text-secondary);
-  background: var(--bg-gradient);
+  color: var(--app-surface-muted-fg, var(--text-secondary));
+  background: var(--app-surface-bg, var(--bg-gradient));
   margin-top: 1rem;
-  border-top: var(--mini-dark);
+  border-top: var(--app-surface-border, var(--mini-dark));
 }
 
 /* ------------------------------------------------------------
@@ -44,12 +44,16 @@
 }
 
 .site-footer_phone {
+  --interactive-surface-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
+  --interactive-surface-fg: var(--app-surface-fg, var(--text-primary));
+  --interactive-surface-border-color: var(--app-surface-border-color, rgba(var(--white-rgb), 0.22));
+
   padding: 0.35rem 0.55rem;
   font-size: var(--font-xs);
-  color: var(--text-accent);
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-sm);
+  color: var(--interactive-surface-fg);
+  background: var(--interactive-surface-bg);
+  border: 1px solid var(--interactive-surface-border-color);
+  border-radius: var(--app-surface-radius-sm, var(--radius-sm));
   cursor: pointer;
   text-decoration: none;
 }

@@ -81,8 +81,8 @@
     "react-dom": "18.2.0",
     "react-helmet-async": "2.0.5",
     "react-markdown": "~10.1.0",
-    "react-router": "6.30.3",
-    "react-router-dom": "6.30.3",
+    "react-router": "6.30.4",
+    "react-router-dom": "6.30.4",
     "rehype-raw": "~7.0.0",
     "remark-gfm": "~4.0.1",
     "rsuite": "5.83.3",
@@ -107,7 +107,7 @@
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "6.0.1",
-    "@vitest/coverage-v8": "4.0.16",
+    "@vitest/coverage-v8": "4.1.8",
     "cross-env": "7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
@@ -140,7 +140,7 @@
     "stylelint-config-standard": "^40.0.0",
     "stylelint-order": "^7.0.1",
     "vite": "8.0.5",
-    "vitest": "4.0.16"
+    "vitest": "4.1.8"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [

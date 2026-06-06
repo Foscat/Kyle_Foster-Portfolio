@@ -1,35 +1,42 @@
 /**
- * @file useThemeFavicon.js
- * @description React hook that keeps the favicon in sync with the app theme.
- * @module hooks/useThemeFavicon
+ * @file index.js
+ * @description React hook that synchronizes the document favicon with the active theme mode and palette.
+ * @module assets/hooks/useThemeFavicon
  */
 
 import { useEffect } from "react";
-import { subscribeToSystemThemeChanges, updateFavicon } from "../../favicon";
+import {
+  subscribeToPaletteChanges,
+  subscribeToSystemThemeChanges,
+  updateFavicon,
+} from "../../favicon";
 
 /**
- * Syncs the site favicon with the current theme mode.
+ * Keeps the favicon in sync with the current theme mode and palette.
  *
- * Supported modes:
- * - "light"
- * - "dark"
- * - "auto"
- *
- * @param {"light"|"dark"|"auto"} themeMode - Current app theme mode.
- * @param {string} palette - Current app palette.
+ * @param {"light"|"dark"|"auto"|"contrast"} themeMode
+ * @param {string} palette
  */
-export function useThemeFavicon(themeMode = "auto", palette = "ocean-steel") {
+export function useThemeFavicon(themeMode = "auto", palette) {
   useEffect(() => {
     updateFavicon(themeMode, palette);
 
-    if (themeMode !== "auto") {
-      return undefined;
+    const cleanups = [];
+
+    if (themeMode === "auto") {
+      cleanups.push(subscribeToSystemThemeChanges(() => updateFavicon("auto", palette)));
     }
 
-    const unsubscribe = subscribeToSystemThemeChanges(() => {
-      updateFavicon("auto", palette);
-    });
+    if (!palette) {
+      cleanups.push(subscribeToPaletteChanges(() => updateFavicon(themeMode, undefined)));
+    }
 
-    return unsubscribe;
+    return () => {
+      cleanups.forEach((cleanup) => {
+        if (typeof cleanup === "function") {
+          cleanup();
+        }
+      });
+    };
   }, [themeMode, palette]);
 }

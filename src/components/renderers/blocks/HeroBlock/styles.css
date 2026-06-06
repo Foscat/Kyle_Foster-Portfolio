@@ -21,8 +21,9 @@
   padding: clamp(0.75rem, 3vw, 1.25rem) 1rem;
 
   /* Keep header visually distinct but lightweight on mobile */
-  background: var(--bg-gradient);
-  border-bottom: var(--gb-BR);
+  color: var(--app-surface-fg, var(--text-primary));
+  background: var(--app-surface-strong-bg, var(--bg-gradient));
+  border-bottom: var(--app-surface-border, var(--gb-BR));
 
   /* Sticky-safe: do NOT add overflow, transform, or contain */
 }
@@ -38,7 +39,7 @@
   font-size: var(--font-xxl);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--heading-color);
+  color: var(--app-heading-color, var(--heading-color));
 
   /* Avoid text-shadow on mobile for clarity */
 }
@@ -51,7 +52,7 @@
   margin-top: 0.25rem;
   font-size: var(--font-md);
   line-height: 1.4;
-  color: var(--text-secondary);
+  color: var(--app-surface-muted-fg, var(--text-secondary));
 }
 
 /* ------------------------------------------------------------
@@ -66,7 +67,7 @@
   flex-wrap: wrap;
   gap: 0.5rem 0.75rem;
   font-size: var(--font-sm);
-  color: var(--text-secondary);
+  color: var(--app-surface-muted-fg, var(--text-secondary));
 }
 
 /* Individual meta item */
@@ -83,10 +84,10 @@
     padding: 2.5rem 2rem 2rem;
 
     /* Desktop glass depth restored */
-    background: var(--primary-dark-bg);
-    -webkit-backdrop-filter: var(--backdrop-blur);
-    backdrop-filter: var(--backdrop-blur);
-    border-bottom: var(--frost-border);
+    background: var(--app-surface-strong-bg, var(--primary-dark-bg));
+    -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
+    backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
+    border-bottom: var(--app-surface-border, var(--frost-border));
   }
 
   .page-header-title {

@@ -4,23 +4,29 @@
  * @module assets/context/ThemeContext.test
  */
 
-import { screen } from "@testing-library/react";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "tests/renderWithProviders";
 import { useTheme } from "./ThemeContext";
 
 function ThemeContextProbe() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, uiStyle, setUiStyle } = useTheme();
 
   return (
     <div>
       <p data-testid="theme-value">{theme}</p>
+      <p data-testid="ui-style-value">{uiStyle}</p>
       <button type="button" onClick={() => setTheme("light")}>
         Set light theme
       </button>
       <button type="button" onClick={() => setTheme("invalid-theme")}>
         Set invalid theme
+      </button>
+      <button type="button" onClick={() => setUiStyle("cyberpunk")}>
+        Set cyberpunk UI style
+      </button>
+      <button type="button" onClick={() => setUiStyle("invalid-style")}>
+        Set invalid UI style
       </button>
     </div>
   );
@@ -30,9 +36,13 @@ describe("ThemeContext", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     window.localStorage.clear();
+    delete document.documentElement.dataset.ui;
     delete document.documentElement.dataset.theme;
     delete document.documentElement.dataset.mode;
     delete document.documentElement.dataset.palette;
+    delete document.body.dataset.ui;
+    delete document.body.dataset.theme;
+    delete document.body.dataset.mode;
   });
 
   test("falls back to dark theme when storage read fails", async () => {
@@ -54,6 +64,35 @@ describe("ThemeContext", () => {
     expect(screen.getByTestId("theme-value")).toHaveTextContent("dark");
     await user.click(screen.getByRole("button", { name: /set invalid theme/i }));
     expect(screen.getByTestId("theme-value")).toHaveTextContent("dark");
+  });
+
+  test("applies supported UI style changes to the style-kit attribute", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
+    expect(document.documentElement.dataset.ui).toBe("retro-glass");
+    expect(document.body.dataset.ui).toBe("retro-glass");
+
+    await user.click(screen.getByRole("button", { name: /set cyberpunk ui style/i }));
+
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("cyberpunk");
+    expect(document.documentElement.dataset.ui).toBe("cyberpunk");
+    expect(document.body.dataset.ui).toBe("cyberpunk");
+    await waitFor(() => {
+      expect(window.localStorage.getItem("portfolio-ui-style")).toBe("cyberpunk");
+    });
+  });
+
+  test("ignores invalid UI style updates", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
+    await user.click(screen.getByRole("button", { name: /set invalid ui style/i }));
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
   });
 
   test("applies theme changes even when storage writes fail", async () => {

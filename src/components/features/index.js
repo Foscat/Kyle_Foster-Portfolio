@@ -9,6 +9,7 @@ import { lazy } from "react";
 const ResumePreviewModal = lazy(() => import("./ResumePreview/ResumePreviewModal"));
 const PreviewResume = lazy(() => import("./ResumePreview"));
 const ThemeToggle = lazy(() => import("./ThemeToggle"));
+const UiStyleToggle = lazy(() => import("./UiStyleToggle"));
 const PaletteToggle = lazy(() => import("./PaletteToggle"));
 const AccessibilityMenu = lazy(() => import("./AccessibilityMenu"));
 const ColorMenu = lazy(() => import("./ColorMenu"));
@@ -17,6 +18,7 @@ export {
   ResumePreviewModal,
   PreviewResume,
   ThemeToggle,
+  UiStyleToggle,
   PaletteToggle,
   AccessibilityMenu,
   ColorMenu,

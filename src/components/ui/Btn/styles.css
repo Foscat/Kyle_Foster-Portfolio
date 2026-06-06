@@ -4,6 +4,7 @@
 
 .rs-btn.btn.interactive-surface,
 .rs-panel-btn.interactive-surface {
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,17 +17,21 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  color: var(--text-accent);
-  background: var(--frost-bg);
-  border-radius: var(--border-radius);
+  color: var(--interactive-surface-fg, var(--text-accent));
+  background: var(--interactive-surface-bg, var(--frost-bg));
+  border-width: var(--interactive-surface-border-width, 1px);
+  border-style: var(--interactive-surface-border-style, solid);
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  border-radius: var(--interactive-surface-radius, var(--border-radius));
+  box-shadow: var(--interactive-surface-shadow-base, var(--app-surface-shadow-soft, none));
   gap: var(--mobile-gap);
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--interactive-surface-backdrop-filter, var(--glass-blur));
+  backdrop-filter: var(--interactive-surface-backdrop-filter, var(--glass-blur));
   text-decoration: none;
   transition:
     color 0.18s,
@@ -115,33 +120,33 @@
    ============================================================ */
 
 .rs-btn.btn.interactive-surface.primary {
-  color: var(--text-accent);
-  background: var(--frost-bg);
-  border-color: rgba(var(--white-rgb), 0.2);
+  color: var(--interactive-surface-fg, var(--text-accent));
+  background: var(--interactive-surface-bg, var(--frost-bg));
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
 }
 
 .rs-btn.btn.interactive-surface.secondary {
-  color: var(--text-primary);
-  background: var(--primary-darker-bg);
-  border-color: rgba(var(--white-rgb), 0.24);
+  color: var(--interactive-surface-fg, var(--text-primary));
+  background: var(--interactive-surface-bg, var(--primary-darker-bg));
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.24));
 }
 
 .rs-btn.btn.interactive-surface.accent {
-  color: var(--text-primary);
-  background: var(--accent-bg);
-  border-color: rgba(var(--accent-rgb), 0.45);
+  color: var(--interactive-surface-fg, var(--text-primary));
+  background: var(--interactive-surface-bg, var(--accent-bg));
+  border-color: var(--interactive-surface-border-color, rgba(var(--accent-rgb), 0.45));
 }
 
 .rs-btn.btn.interactive-surface.subtle {
-  color: var(--text-primary);
-  background: rgba(var(--white-rgb), 0.08);
-  border-color: rgba(var(--white-rgb), 0.18);
+  color: var(--interactive-surface-fg, var(--text-primary));
+  background: var(--interactive-surface-bg, rgba(var(--white-rgb), 0.08));
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.18));
 }
 
 .rs-btn.btn.interactive-surface.danger {
-  color: var(--error);
-  background: rgba(var(--error-rgb), 0.25);
-  border-color: rgba(var(--error-rgb), 0.45);
+  color: var(--interactive-surface-fg, var(--error));
+  background: var(--interactive-surface-bg, rgba(var(--error-rgb), 0.25));
+  border-color: var(--interactive-surface-border-color, rgba(var(--error-rgb), 0.45));
 }
 
 .rs-btn.btn.interactive-surface.btn-noBG,

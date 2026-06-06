@@ -19,7 +19,7 @@ test("contact form sends correct payload and shows success state", async ({ page
     expect(payload.message).toContain("Portfolio Contact Submission");
     expect(payload.message).toContain("Full Name: Kyle Foster");
     expect(payload.message).toContain("Email: kyle@example.com");
-    expect(payload.message).toContain("Project Details: Playwright contact test");
+    expect(payload.message).toContain("Project details: Playwright contact test");
 
     await route.fulfill({
       status: 200,

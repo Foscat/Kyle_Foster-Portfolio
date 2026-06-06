@@ -1,0 +1,200 @@
+{
+  "classic": {
+    "light": {
+      "png": "public/favicons/favicon-classic-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#f7f7f7",
+      "border": "#d6c8a5",
+      "accent": "#f2c232",
+      "text": "#0a2f78"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-classic-dark.png",
+      "surface": "#05154b",
+      "surface_raised": "#0a2368",
+      "border": "#f2c232",
+      "accent": "#f2c232",
+      "text": "#f2c232"
+    }
+  },
+  "midnight-gold": {
+    "light": {
+      "png": "public/favicons/favicon-midnight-gold-light.png",
+      "surface": "#fffaf0",
+      "surface_raised": "#ffffff",
+      "border": "#d6c8a5",
+      "accent": "#d9a441",
+      "text": "#22314f"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-midnight-gold-dark.png",
+      "surface": "#101b2d",
+      "surface_raised": "#17243a",
+      "border": "#394861",
+      "accent": "#f3d27a",
+      "text": "#d6a84f"
+    }
+  },
+  "ocean-steel": {
+    "light": {
+      "png": "public/favicons/favicon-ocean-steel-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#f8fdff",
+      "border": "#b8d3dd",
+      "accent": "#15b8c8",
+      "text": "#087d9d"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-ocean-steel-dark.png",
+      "surface": "#0d2530",
+      "surface_raised": "#143442",
+      "border": "#315666",
+      "accent": "#53f0ff",
+      "text": "#36c4dd"
+    }
+  },
+  "forest-moss": {
+    "light": {
+      "png": "public/favicons/favicon-forest-moss-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#fbfff8",
+      "border": "#c5d3ba",
+      "accent": "#9cba52",
+      "text": "#3f7d3a"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-forest-moss-dark.png",
+      "surface": "#101c0f",
+      "surface_raised": "#1a2a18",
+      "border": "#3d5338",
+      "accent": "#b9ef6b",
+      "text": "#82d27a"
+    }
+  },
+  "sunset-ember": {
+    "light": {
+      "png": "public/favicons/favicon-sunset-ember-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#fffaf6",
+      "border": "#e3bdaa",
+      "accent": "#e69a3a",
+      "text": "#c4512b"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-sunset-ember-dark.png",
+      "surface": "#26110b",
+      "surface_raised": "#351912",
+      "border": "#6a3b2d",
+      "accent": "#ffc166",
+      "text": "#ff8a5b"
+    }
+  },
+  "royal-plum": {
+    "light": {
+      "png": "public/favicons/favicon-royal-plum-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#fdf8ff",
+      "border": "#d5bbdd",
+      "accent": "#c05ac6",
+      "text": "#7b3fa0"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-royal-plum-dark.png",
+      "surface": "#1d1024",
+      "surface_raised": "#2a1734",
+      "border": "#553964",
+      "accent": "#ff9cf6",
+      "text": "#d891f2"
+    }
+  },
+  "graphite-cyan": {
+    "light": {
+      "png": "public/favicons/favicon-graphite-cyan-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#f6f8f9",
+      "border": "#aeb9c1",
+      "accent": "#37d5e6",
+      "text": "#008fa0"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-graphite-cyan-dark.png",
+      "surface": "#101315",
+      "surface_raised": "#171d21",
+      "border": "#303b42",
+      "accent": "#28d1e4",
+      "text": "#eef3f6"
+    }
+  },
+  "desert-sage": {
+    "light": {
+      "png": "public/favicons/favicon-desert-sage-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#fffaf1",
+      "border": "#d7c6a7",
+      "accent": "#c9974a",
+      "text": "#8c6a3d"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-desert-sage-dark.png",
+      "surface": "#211b12",
+      "surface_raised": "#2f281b",
+      "border": "#5b4e38",
+      "accent": "#f1c46e",
+      "text": "#d9b878"
+    }
+  },
+  "rose-quartz": {
+    "light": {
+      "png": "public/favicons/favicon-rose-quartz-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#fff8fa",
+      "border": "#dfb8c6",
+      "accent": "#f093b2",
+      "text": "#b8476d"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-rose-quartz-dark.png",
+      "surface": "#251018",
+      "surface_raised": "#351824",
+      "border": "#653747",
+      "accent": "#ff9fc2",
+      "text": "#ff8fb3"
+    }
+  },
+  "cyber-lime": {
+    "light": {
+      "png": "public/favicons/favicon-cyber-lime-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#fbfff6",
+      "border": "#c6d8b3",
+      "accent": "#c3ef38",
+      "text": "#5f9f1f"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-cyber-lime-dark.png",
+      "surface": "#0d180c",
+      "surface_raised": "#162515",
+      "border": "#395236",
+      "accent": "#d5ff59",
+      "text": "#a8ff3d"
+    }
+  },
+  "arctic-indigo": {
+    "light": {
+      "png": "public/favicons/favicon-arctic-indigo-light.png",
+      "surface": "#ffffff",
+      "surface_raised": "#f8fbff",
+      "border": "#becbe3",
+      "accent": "#a0adff",
+      "text": "#4f62d8"
+    },
+    "dark": {
+      "png": "public/favicons/favicon-arctic-indigo-dark.png",
+      "surface": "#10182b",
+      "surface_raised": "#182342",
+      "border": "#3a4b78",
+      "accent": "#d6deff",
+      "text": "#aab7ff"
+    }
+  }
+}

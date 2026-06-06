@@ -1,0 +1,161 @@
+/* =========================================================
+   ui-style-kit-css token bridge
+   ---------------------------------------------------------
+   Selected ui-style-kit-css v1.2.1 root and mode tokens used
+   by the portfolio semantic UI bridge. The app palette matrix
+   provides foreground/background color tokens.
+========================================================= */
+
+:root {
+  --saas-radius-sm: 0.5rem;
+  --saas-radius-md: 0.75rem;
+  --saas-radius-lg: 1.125rem;
+  --saas-radius-xl: calc(1.125rem + 0.5rem);
+  --bento-radius-sm: 0.5rem;
+  --bento-radius-md: 1rem;
+  --bento-radius-lg: 1.75rem;
+  --bento-radius-xl: calc(1.75rem + 0.5rem);
+  --max-radius-sm: 0.5rem;
+  --max-radius-md: 1.2rem;
+  --max-radius-lg: 2rem;
+  --max-radius-xl: calc(2rem + 0.5rem);
+  --bau-radius-sm: 0.5rem;
+  --bau-radius-md: 0.125rem;
+  --bau-radius-lg: 0.125rem;
+  --bau-radius-xl: calc(0.125rem + 0.5rem);
+  --tactile-radius-sm: 0.5rem;
+  --tactile-radius-md: 0.9rem;
+  --tactile-radius-lg: 1.4rem;
+  --tactile-radius-xl: calc(1.4rem + 0.5rem);
+  --neo-radius-sm: 0.5rem;
+  --neo-radius-md: 0.9rem;
+  --neo-radius-lg: 1.4rem;
+  --neo-radius-xl: calc(1.4rem + 0.5rem);
+  --retro-radius-sm: 0.5rem;
+  --retro-radius-md: 0.75rem;
+  --retro-radius-lg: 1rem;
+  --retro-radius-xl: calc(1rem + 0.5rem);
+  --brutal-radius-xs: 0.25rem;
+  --brutal-radius-sm: 0.5rem;
+  --brutal-radius-md: 0.75rem;
+  --brutal-radius-lg: 1rem;
+  --brutal-radius-xl: 1.5rem;
+  --cyber-radius-sm: 0.5rem;
+  --cyber-radius-md: 0.75rem;
+  --cyber-radius-lg: 1rem;
+  --cyber-radius-xl: 1.5rem;
+  --y2k-radius-sm: 0.5rem;
+  --y2k-radius-md: 0.75rem;
+  --y2k-radius-lg: 1rem;
+  --y2k-radius-xl: 1.5rem;
+  --y2k-radius-pill: 999px;
+  --rg-radius-sm: 0.5rem;
+  --rg-radius-md: 0.75rem;
+  --rg-radius-lg: 1rem;
+  --rg-radius-xl: 1.5rem;
+}
+
+[data-ui="minimal-saas"][data-mode="light"],
+[data-ui="bento"][data-mode="light"],
+[data-ui="maximalist"][data-mode="light"],
+[data-ui="bauhaus"][data-mode="light"],
+[data-ui="tactile"][data-mode="light"],
+[data-ui="neumorphism"][data-mode="light"],
+[data-ui="retrofuturism"][data-mode="light"] {
+  color-scheme: light;
+  --saas-shadow-alpha: 0.12;
+  --bento-shadow-alpha: 0.12;
+  --max-shadow-alpha: 0.12;
+  --bau-shadow-alpha: 0.12;
+  --tactile-shadow-alpha: 0.12;
+  --neo-shadow-alpha: 0.12;
+  --retro-shadow-alpha: 0.12;
+}
+
+[data-ui="minimal-saas"][data-mode="dark"],
+[data-ui="bento"][data-mode="dark"],
+[data-ui="maximalist"][data-mode="dark"],
+[data-ui="bauhaus"][data-mode="dark"],
+[data-ui="tactile"][data-mode="dark"],
+[data-ui="neumorphism"][data-mode="dark"],
+[data-ui="retrofuturism"][data-mode="dark"] {
+  color-scheme: dark;
+  --saas-shadow-alpha: 0.34;
+  --bento-shadow-alpha: 0.34;
+  --max-shadow-alpha: 0.34;
+  --bau-shadow-alpha: 0.34;
+  --tactile-shadow-alpha: 0.34;
+  --neo-shadow-alpha: 0.34;
+  --retro-shadow-alpha: 0.34;
+}
+
+[data-ui="minimal-saas"][data-mode="contrast"],
+[data-ui="bento"][data-mode="contrast"],
+[data-ui="maximalist"][data-mode="contrast"],
+[data-ui="bauhaus"][data-mode="contrast"],
+[data-ui="tactile"][data-mode="contrast"],
+[data-ui="neumorphism"][data-mode="contrast"],
+[data-ui="retrofuturism"][data-mode="contrast"] {
+  color-scheme: dark;
+  --saas-shadow-alpha: 0.5;
+  --bento-shadow-alpha: 0.5;
+  --max-shadow-alpha: 0.5;
+  --bau-shadow-alpha: 0.5;
+  --tactile-shadow-alpha: 0.5;
+  --neo-shadow-alpha: 0.5;
+  --retro-shadow-alpha: 0.5;
+}
+
+[data-ui="brutalism"][data-mode="light"],
+[data-ui="cyberpunk"][data-mode="light"],
+[data-ui="y2k"][data-mode="light"],
+[data-ui="retro-glass"][data-mode="light"] {
+  color-scheme: light;
+  --brutal-shadow-alpha: 0.18;
+  --cyber-shadow-alpha: 0.18;
+  --y2k-shadow-alpha: 0.18;
+  --rg-shadow-alpha: 0.18;
+}
+
+[data-ui="brutalism"][data-mode="dark"],
+[data-ui="cyberpunk"][data-mode="dark"],
+[data-ui="y2k"][data-mode="dark"],
+[data-ui="retro-glass"][data-mode="dark"] {
+  color-scheme: dark;
+  --brutal-shadow-alpha: 0.42;
+  --cyber-shadow-alpha: 0.42;
+  --y2k-shadow-alpha: 0.42;
+  --rg-shadow-alpha: 0.42;
+}
+
+[data-ui="brutalism"][data-mode="contrast"],
+[data-ui="cyberpunk"][data-mode="contrast"],
+[data-ui="y2k"][data-mode="contrast"],
+[data-ui="retro-glass"][data-mode="contrast"] {
+  color-scheme: dark;
+  --brutal-shadow-alpha: 0.56;
+  --cyber-shadow-alpha: 0.56;
+  --y2k-shadow-alpha: 0.56;
+  --rg-shadow-alpha: 0.56;
+}
+
+[data-ui="neumorphism"][data-mode="light"] {
+  --neo-nm-light: rgb(255 255 255 / 0.94);
+  --neo-nm-light-rgb: 255, 255, 255;
+  --neo-nm-dark: rgb(148 162 178 / 0.52);
+  --neo-nm-dark-rgb: 148, 162, 178;
+}
+
+[data-ui="neumorphism"][data-mode="dark"] {
+  --neo-nm-light: rgb(46 55 70 / 0.74);
+  --neo-nm-light-rgb: 46, 55, 70;
+  --neo-nm-dark: rgb(0 0 0 / 0.5);
+  --neo-nm-dark-rgb: 0, 0, 0;
+}
+
+[data-ui="neumorphism"][data-mode="contrast"] {
+  --neo-nm-light: rgb(64 64 64 / 1);
+  --neo-nm-light-rgb: 64, 64, 64;
+  --neo-nm-dark: rgb(0 0 0 / 1);
+  --neo-nm-dark-rgb: 0, 0, 0;
+}
