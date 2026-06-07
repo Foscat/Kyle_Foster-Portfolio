@@ -35,8 +35,8 @@ import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider
 export function renderWithProviders(ui, { initialEntries = ["/"], rsuiteTheme = "dark" } = {}) {
   return render(
     <HelmetProvider>
-      <ThemeProvider>
-        <ResponsiveProvider>
+      <ResponsiveProvider>
+        <ThemeProvider>
           <CustomProvider theme={rsuiteTheme}>
             <MemoryRouter
               initialEntries={initialEntries}
@@ -45,8 +45,8 @@ export function renderWithProviders(ui, { initialEntries = ["/"], rsuiteTheme = 
               {ui}
             </MemoryRouter>
           </CustomProvider>
-        </ResponsiveProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </ResponsiveProvider>
     </HelmetProvider>
   );
 }

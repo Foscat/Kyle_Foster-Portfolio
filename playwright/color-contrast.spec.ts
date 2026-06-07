@@ -5,10 +5,27 @@
  */
 
 import { expect, test, type Page } from "@playwright/test";
+import { PALETTE_IDS, PALETTE_TOKENS } from "../src/assets/themePalettes.js";
 import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 import { waitForMermaidRender } from "./utils/waitForMermaid";
 
 type Theme = "light" | "dark";
+type StyleKitMode = Theme | "contrast";
+
+const UI_STYLES = [
+  "minimal-saas",
+  "bento",
+  "maximalist",
+  "bauhaus",
+  "tactile",
+  "neumorphism",
+  "retrofuturism",
+  "brutalism",
+  "cyberpunk",
+  "y2k",
+  "retro-glass",
+] as const;
+const STYLE_KIT_MODES: StyleKitMode[] = ["light", "dark", "contrast"];
 
 const AUDIT_CASES = [
   {
@@ -336,6 +353,305 @@ async function collectContrastFailures(page: Page) {
 }
 
 test.describe("Rendered color contrast", () => {
+  test("keeps semantic app surfaces and controls readable for every palette, UI style, and style-kit mode", async ({
+    page,
+  }) => {
+    test.setTimeout(60_000);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await preparePageForStableTests(page, { theme: "dark" });
+    await page.goto("/");
+    await stabilizePage(page, { theme: "dark" });
+
+    const failures = await page.evaluate(
+      ({ modes, palettes, tokensByPalette, uiStyles }) => {
+        const MIN_TEXT_CONTRAST = 4.5;
+        const MAX_FAILURES = 60;
+
+        type Rgba = { r: number; g: number; b: number; a: number };
+
+        function parseColor(value: string | null): Rgba | null {
+          if (!value) return null;
+
+          const color = value.trim().toLowerCase();
+          if (!color || color === "none" || color === "transparent") return null;
+
+          const srgbMatch = color.match(
+            /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/
+          );
+          if (srgbMatch) {
+            const [, r, g, b, a = "1"] = srgbMatch;
+            return {
+              r: Number(r) * 255,
+              g: Number(g) * 255,
+              b: Number(b) * 255,
+              a: Number(a),
+            };
+          }
+
+          const rgbMatch = color.match(/^rgba?\((.+)\)$/);
+          if (rgbMatch) {
+            const parts = rgbMatch[1]
+              .replace(/\//g, " ")
+              .split(/[,\s]+/)
+              .map((part) => part.trim())
+              .filter(Boolean);
+            const [r, g, b, a = "1"] = parts;
+            if (r === undefined || g === undefined || b === undefined) return null;
+
+            return {
+              r: Number.parseFloat(r),
+              g: Number.parseFloat(g),
+              b: Number.parseFloat(b),
+              a: Number.parseFloat(a),
+            };
+          }
+
+          const hexMatch = color.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/);
+          if (hexMatch) {
+            const hex = hexMatch[1];
+            const normalized =
+              hex.length === 3
+                ? hex
+                    .split("")
+                    .map((char) => char + char)
+                    .join("")
+                : hex;
+            return {
+              r: Number.parseInt(normalized.slice(0, 2), 16),
+              g: Number.parseInt(normalized.slice(2, 4), 16),
+              b: Number.parseInt(normalized.slice(4, 6), 16),
+              a: 1,
+            };
+          }
+
+          return null;
+        }
+
+        function blend(foreground: Rgba, background: Rgba): Rgba {
+          const alpha = Math.max(0, Math.min(1, foreground.a));
+          return {
+            r: foreground.r * alpha + background.r * (1 - alpha),
+            g: foreground.g * alpha + background.g * (1 - alpha),
+            b: foreground.b * alpha + background.b * (1 - alpha),
+            a: 1,
+          };
+        }
+
+        function linearize(channel: number) {
+          const normalized = channel / 255;
+          return normalized <= 0.04045
+            ? normalized / 12.92
+            : Math.pow((normalized + 0.055) / 1.055, 2.4);
+        }
+
+        function luminance(color: Rgba) {
+          return (
+            0.2126 * linearize(color.r) + 0.7152 * linearize(color.g) + 0.0722 * linearize(color.b)
+          );
+        }
+
+        function contrastRatio(foreground: Rgba, background: Rgba) {
+          const l1 = luminance(foreground);
+          const l2 = luminance(background);
+          const lighter = Math.max(l1, l2);
+          const darker = Math.min(l1, l2);
+          return (lighter + 0.05) / (darker + 0.05);
+        }
+
+        function resolveBackground(background: Rgba, pageBackground: Rgba) {
+          return background.a < 1 ? blend(background, pageBackground) : background;
+        }
+
+        function colorToString(color: Rgba) {
+          return `rgb(${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)})`;
+        }
+
+        function makeProbe(
+          label: string,
+          background: string,
+          color: string,
+          parent = document.body
+        ) {
+          const probe = document.createElement("div");
+          probe.dataset.probe = label;
+          probe.textContent = label;
+          probe.style.position = "fixed";
+          probe.style.left = "-9999px";
+          probe.style.top = "0";
+          probe.style.width = "240px";
+          probe.style.height = "48px";
+          probe.style.background = background;
+          probe.style.color = color;
+          parent.append(probe);
+          return probe;
+        }
+
+        const desktopMenu = document.createElement("div");
+        desktopMenu.className = "desktop-menu";
+        desktopMenu.style.position = "fixed";
+        desktopMenu.style.left = "-9999px";
+        desktopMenu.style.top = "0";
+        document.body.append(desktopMenu);
+
+        const probes = [
+          makeProbe("body", "var(--ui-kit-bg)", "var(--app-surface-fg)"),
+          makeProbe("surface", "var(--app-surface-bg)", "var(--app-surface-readable-fg)"),
+          makeProbe(
+            "surface-muted",
+            "var(--app-surface-muted-bg)",
+            "var(--app-surface-readable-muted-fg)"
+          ),
+          makeProbe(
+            "surface-strong",
+            "var(--app-surface-strong-bg)",
+            "var(--app-surface-readable-fg)"
+          ),
+          makeProbe(
+            "interactive",
+            "var(--interactive-surface-bg)",
+            "var(--interactive-surface-fg)"
+          ),
+          makeProbe(
+            "control-on-page",
+            "var(--ui-kit-bg)",
+            "var(--app-kit-control-fg, var(--app-surface-readable-fg))"
+          ),
+          makeProbe(
+            "sticky-nav-trigger-nav-on-page",
+            "var(--ui-kit-bg)",
+            "var(--sticky-nav-trigger-navigation-icon-color)"
+          ),
+          makeProbe(
+            "sticky-nav-trigger-utility-on-page",
+            "var(--ui-kit-bg)",
+            "var(--sticky-nav-trigger-utility-icon-color)"
+          ),
+          makeProbe(
+            "desktop-nav-page-icon",
+            "var(--glass-bg)",
+            "var(--sticky-nav-desktop-page-icon-color)",
+            desktopMenu
+          ),
+          makeProbe(
+            "desktop-nav-theme-icon",
+            "var(--glass-bg)",
+            "var(--sticky-nav-desktop-theme-icon-color)",
+            desktopMenu
+          ),
+          makeProbe(
+            "desktop-nav-a11y-icon",
+            "var(--glass-bg)",
+            "var(--sticky-nav-desktop-a11y-icon-color)",
+            desktopMenu
+          ),
+          makeProbe(
+            "desktop-nav-resume-icon",
+            "var(--glass-bg)",
+            "var(--sticky-nav-desktop-resume-icon-color)",
+            desktopMenu
+          ),
+          makeProbe(
+            "mobile-nav-icon",
+            "var(--sticky-nav-mobile-trigger-backplate-bg)",
+            "var(--sticky-nav-mobile-stack-nav-icon-color)"
+          ),
+          makeProbe(
+            "mobile-utility-icon",
+            "var(--sticky-nav-mobile-trigger-backplate-bg)",
+            "var(--sticky-nav-mobile-stack-utility-icon-color)"
+          ),
+        ];
+        const failures = [];
+        const root = document.documentElement;
+
+        for (const palette of palettes) {
+          for (const mode of modes) {
+            const modeTokens = tokensByPalette[palette]?.[mode];
+            if (!modeTokens) {
+              failures.push(`${palette}/${mode} missing palette tokens`);
+              continue;
+            }
+
+            for (const [key, value] of Object.entries(modeTokens)) {
+              root.style.setProperty(`--${key}`, String(value));
+            }
+
+            root.dataset.theme = mode === "light" ? "light" : "dark";
+            root.dataset.mode = mode;
+            root.dataset.palette = palette;
+            root.dataset.a11yHighContrast = mode === "contrast" ? "true" : "false";
+
+            document.body.dataset.theme = palette;
+            document.body.dataset.mode = mode;
+
+            for (const uiStyle of uiStyles) {
+              root.dataset.ui = uiStyle;
+              document.body.dataset.ui = uiStyle;
+
+              // Force style recalc before sampling computed color values.
+              void document.body.offsetHeight;
+              const pageBackground = parseColor(
+                window.getComputedStyle(probes[0]).backgroundColor
+              ) ?? {
+                r: 255,
+                g: 255,
+                b: 255,
+                a: 1,
+              };
+
+              for (const probe of probes) {
+                const style = window.getComputedStyle(probe);
+                const foreground = parseColor(style.color);
+                const rawBackground = parseColor(style.backgroundColor);
+
+                if (!foreground || !rawBackground) {
+                  failures.push(
+                    `${palette}/${mode}/${uiStyle}/${probe.dataset.probe} unresolved color foreground=${style.color} background=${style.backgroundColor}`
+                  );
+                  continue;
+                }
+
+                const background = resolveBackground(rawBackground, pageBackground);
+                const ratio = contrastRatio(blend(foreground, background), background);
+                if (ratio < MIN_TEXT_CONTRAST) {
+                  failures.push(
+                    `${palette}/${mode}/${uiStyle}/${probe.dataset.probe} ${ratio.toFixed(
+                      2
+                    )} < ${MIN_TEXT_CONTRAST} foreground=${colorToString(
+                      foreground
+                    )} background=${colorToString(background)}`
+                  );
+                }
+
+                if (failures.length >= MAX_FAILURES) break;
+              }
+
+              if (failures.length >= MAX_FAILURES) break;
+            }
+
+            if (failures.length >= MAX_FAILURES) break;
+          }
+
+          if (failures.length >= MAX_FAILURES) break;
+        }
+
+        probes.forEach((probe) => probe.remove());
+        desktopMenu.remove();
+
+        return failures;
+      },
+      {
+        modes: STYLE_KIT_MODES,
+        palettes: PALETTE_IDS,
+        tokensByPalette: PALETTE_TOKENS,
+        uiStyles: UI_STYLES,
+      }
+    );
+
+    expect(failures, failures.join("\n")).toEqual([]);
+  });
+
   for (const auditCase of AUDIT_CASES) {
     test(`${auditCase.name} keeps visible foregrounds readable`, async ({ page }) => {
       test.setTimeout(60_000);

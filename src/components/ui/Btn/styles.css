@@ -17,10 +17,6 @@
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  color: var(--interactive-surface-fg, var(--text-accent));
-  background: var(--interactive-surface-bg, var(--frost-bg));
-  border-width: var(--interactive-surface-border-width, 1px);
-  border-style: var(--interactive-surface-border-style, solid);
   border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
   border-radius: var(--interactive-surface-radius, var(--border-radius));
   box-shadow: var(--interactive-surface-shadow-base, var(--app-surface-shadow-soft, none));
@@ -133,8 +129,7 @@
 
 .rs-btn.btn.interactive-surface.accent {
   color: var(--interactive-surface-fg, var(--text-primary));
-  background: var(--interactive-surface-bg, var(--accent-bg));
-  border-color: var(--interactive-surface-border-color, rgba(var(--accent-rgb), 0.45));
+  border-color: rgba(var(--accent-rgb), 0.45), var(--interactive-surface-border-color);
 }
 
 .rs-btn.btn.interactive-surface.subtle {
@@ -160,7 +155,6 @@
 
 html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only,
 html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only {
-  color: var(--text-accent);
 }
 
 html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only .frosted-icon,
