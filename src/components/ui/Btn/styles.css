@@ -1,26 +1,30 @@
 /* ============================================================
-   Frosted Glass Button — Core Styles (Updated)
+   Frosted Glass Button — Core Styles
    ============================================================ */
 
 .rs-btn.btn.interactive-surface,
 .rs-panel-btn.interactive-surface {
   box-sizing: border-box;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 14px;
+  gap: var(--mobile-gap);
+  min-width: 0;
+  min-height: 2.5rem;
+  height: auto;
+  padding: 0.625rem 0.875rem;
+  border-width: var(--interactive-surface-border-width, 1px);
+  border-style: var(--interactive-surface-border-style, solid);
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  border-radius: var(--interactive-surface-radius, var(--border-radius));
+  background: var(--interactive-surface-bg, var(--app-surface-strong-bg, var(--surface-raised)));
+  box-shadow: var(--interactive-surface-shadow-base, var(--app-surface-shadow-soft, none));
+  color: var(--interactive-surface-fg, var(--app-surface-readable-fg, var(--text-primary)));
   font-weight: 600;
   line-height: 1.2;
-  min-width: 0;
-  height: auto;
-  min-height: 2.5rem;
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: center;
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
-  border-radius: var(--interactive-surface-radius, var(--border-radius));
-  box-shadow: var(--interactive-surface-shadow-base, var(--app-surface-shadow-soft, none));
-  gap: var(--mobile-gap);
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -29,9 +33,28 @@
   -webkit-backdrop-filter: var(--interactive-surface-backdrop-filter, var(--glass-blur));
   backdrop-filter: var(--interactive-surface-backdrop-filter, var(--glass-blur));
   text-decoration: none;
+  text-shadow: none;
   transition:
-    color 0.18s,
-    filter 0.18s;
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+.rs-btn.btn.interactive-surface:hover:not(:disabled),
+.rs-btn.btn.interactive-surface:focus-visible:not(:disabled),
+.rs-panel-btn.interactive-surface:hover:not(:disabled),
+.rs-panel-btn.interactive-surface:focus-visible:not(:disabled) {
+  color: var(--interactive-surface-fg, var(--app-surface-readable-fg, var(--text-primary)));
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  background: var(--interactive-surface-bg, var(--app-surface-strong-bg, var(--surface-raised)));
+}
+
+.rs-btn.btn.interactive-surface:active:not(:disabled),
+.rs-panel-btn.interactive-surface:active:not(:disabled) {
+  color: var(--interactive-surface-fg, var(--app-surface-readable-fg, var(--text-primary)));
+  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
 }
 
 /* ------------------------------------------------------------
@@ -44,6 +67,24 @@
   align-items: center;
   margin: 0 auto;
   justify-self: center;
+}
+
+/* Button icons should always inherit the resolved button foreground. */
+.rs-btn.btn.interactive-surface .btn-icon,
+.rs-btn.btn.interactive-surface .btn-icon svg,
+.rs-btn.btn.interactive-surface .btn-icon path,
+.rs-btn.btn.interactive-surface .btn-icon .svg-inline--fa,
+.rs-btn.btn.interactive-surface .frosted-icon.btn-icon {
+  color: currentColor !important;
+  fill: currentColor;
+}
+
+.rs-btn.btn.interactive-surface .btn-label {
+  display: block;
+  min-width: 0;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* ------------------------------------------------------------
@@ -61,7 +102,6 @@
 
 .rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
   padding: 6px 10px 6px 8px;
-  font-weight: 600;
   align-items: center;
 }
 
@@ -69,16 +109,8 @@
   flex-shrink: 0;
 }
 
-.rs-btn.btn.interactive-surface .btn-label {
-  display: block;
-  min-width: 0;
-  line-height: 1.2;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-
 /* ------------------------------------------------------------
-   Size Variants (sync Btn + FrostedIcon)
+   Size Variants
 ------------------------------------------------------------ */
 .rs-btn.btn.btn-xs.interactive-surface {
   font-size: var(--font-xs);
@@ -105,45 +137,53 @@
 ------------------------------------------------------------ */
 .rs-btn.btn.interactive-surface:disabled,
 .icon.disabled {
-  opacity: 0.45;
+  opacity: 0.58;
   cursor: not-allowed;
   pointer-events: none;
-  filter: grayscale(30%);
+  filter: grayscale(18%);
 }
 
 /* ============================================================
-   Variant Styles (mapped to Variant enum)
+   Variant Styles
    ============================================================ */
 
 .rs-btn.btn.interactive-surface.primary {
-  color: var(--interactive-surface-fg, var(--text-accent));
-  background: var(--interactive-surface-bg, var(--frost-bg));
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  --interactive-surface-bg: var(--interactive-surface-variant-primary-bg, var(--primary));
+  --interactive-surface-fg: var(--interactive-surface-variant-primary-fg, var(--primary-text));
+  --interactive-surface-border-color: var(
+    --interactive-surface-variant-primary-border-color,
+    color-mix(in srgb, var(--primary) 78%, var(--border) 22%)
+  );
 }
 
 .rs-btn.btn.interactive-surface.secondary {
-  color: var(--interactive-surface-fg, var(--text-primary));
-  background: var(--interactive-surface-bg, var(--primary-darker-bg));
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.24));
+  --interactive-surface-bg: var(--interactive-surface-variant-secondary-bg, var(--secondary));
+  --interactive-surface-fg: var(--interactive-surface-variant-secondary-fg, var(--secondary-text));
+  --interactive-surface-border-color: var(
+    --interactive-surface-variant-secondary-border-color,
+    color-mix(in srgb, var(--secondary) 78%, var(--border) 22%)
+  );
 }
 
 .rs-btn.btn.interactive-surface.accent {
-  color: var(--interactive-surface-fg, var(--text-primary));
-  border-color: rgba(var(--accent-rgb), 0.45), var(--interactive-surface-border-color);
+  --interactive-surface-bg: var(--interactive-surface-variant-accent-bg);
+  --interactive-surface-fg: var(--interactive-surface-variant-accent-fg);
+  --interactive-surface-border-color: var(--interactive-surface-variant-accent-border-color);
 }
 
 .rs-btn.btn.interactive-surface.subtle {
-  color: var(--interactive-surface-fg, var(--text-primary));
-  background: var(--interactive-surface-bg, rgba(var(--white-rgb), 0.08));
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.18));
+  --interactive-surface-bg: var(--interactive-surface-variant-subtle-bg);
+  --interactive-surface-fg: var(--interactive-surface-variant-subtle-fg);
+  --interactive-surface-border-color: var(--interactive-surface-variant-subtle-border-color);
 }
 
 .rs-btn.btn.interactive-surface.danger {
-  color: var(--interactive-surface-fg, var(--error));
-  background: var(--interactive-surface-bg, rgba(var(--error-rgb), 0.25));
-  border-color: var(--interactive-surface-border-color, rgba(var(--error-rgb), 0.45));
+  --interactive-surface-bg: var(--interactive-surface-variant-danger-bg);
+  --interactive-surface-fg: var(--interactive-surface-variant-danger-fg);
+  --interactive-surface-border-color: var(--interactive-surface-variant-danger-border-color);
 }
 
+/* Ghost / no-background buttons need readable foreground tokens instead of filled-button text colors. */
 .rs-btn.btn.interactive-surface.btn-noBG,
 .rs-btn.btn.interactive-surface.noBG {
   background: transparent;
@@ -151,15 +191,38 @@
   border-width: 0;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+  box-shadow: none;
 }
 
-html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only,
-html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only {
+.rs-btn.btn.interactive-surface.primary.btn-noBG,
+.rs-btn.btn.interactive-surface.primary.noBG,
+.rs-btn.btn.interactive-surface.accent.btn-noBG,
+.rs-btn.btn.interactive-surface.accent.noBG {
+  color: var(--text-accent-readable, var(--link, var(--accent)));
 }
 
-html[data-theme="dark"] .rs-btn.btn.interactive-surface.btn-noBG.icon-only .frosted-icon,
-html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only .frosted-icon {
-  color: inherit;
+.rs-btn.btn.interactive-surface.secondary.btn-noBG,
+.rs-btn.btn.interactive-surface.secondary.noBG {
+  color: var(--app-surface-readable-fg, var(--text-primary));
+}
+
+.rs-btn.btn.interactive-surface.subtle.btn-noBG,
+.rs-btn.btn.interactive-surface.subtle.noBG {
+  color: var(--app-surface-readable-muted-fg, var(--text-secondary));
+}
+
+.rs-btn.btn.interactive-surface.danger.btn-noBG,
+.rs-btn.btn.interactive-surface.danger.noBG {
+  color: var(--danger);
+}
+
+.rs-btn.btn.interactive-surface.btn-noBG:hover:not(:disabled),
+.rs-btn.btn.interactive-surface.btn-noBG:focus-visible:not(:disabled),
+.rs-btn.btn.interactive-surface.noBG:hover:not(:disabled),
+.rs-btn.btn.interactive-surface.noBG:focus-visible:not(:disabled) {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  border-color: color-mix(in srgb, currentColor 18%, transparent);
+  border-width: 1px;
 }
 
 /* ============================================================
@@ -174,6 +237,7 @@ html[data-theme="dark"] .rs-btn.btn.interactive-surface.noBG.icon-only .frosted-
 /* ============================================================
    Tooltip Overrides
    ============================================================ */
+
 .btn-tooltip {
   padding: 4px 8px;
   font-size: var(--font-sm);

@@ -502,7 +502,7 @@ const sideProjectSections = [
           {
             id: "interactive-surface-link-1",
             title: "View Source Code",
-            url: "",
+            url: "https://github.com/kylefoster/interactive-surface-css",
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faCodeBranch,

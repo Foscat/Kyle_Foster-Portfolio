@@ -53,18 +53,20 @@
 
 /* Ensure SVG scales correctly */
 .mermaid svg {
-  width: 100%;
-  max-width: 100%;
+  width: auto;
+  max-width: none;
   min-width: 0;
   height: auto;
   min-height: 0;
   display: block;
   overflow: visible;
+  flex: 0 0 auto;
 }
 
 /* Scroll + zoom support */
 .mermaid {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1.5rem 1rem;
   border-radius: var(--app-surface-radius-lg, var(--border-radius));
   box-shadow: var(--app-surface-shadow-soft, none);
@@ -77,11 +79,17 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: visible;
+}
+
+.mermaid-svg-host.is-scrollable {
+  justify-content: flex-start;
 }
 
 .mermaid-svg-host svg {
-  width: 100%;
-  max-width: 100%;
+  width: auto;
+  max-width: none;
+  min-width: 0;
   height: auto;
   max-height: none;
   opacity: 1;

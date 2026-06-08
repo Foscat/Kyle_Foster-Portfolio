@@ -321,22 +321,28 @@ const ClickableImg = ({
     [applyZoom, clampPan, isZoomed, resetView, zoom]
   );
 
+  const thumbnailLabel = ariaLabel || `${alt}, open expanded image viewer`;
+
   return (
     <div id={id} className="frosted-tile clickable-img-container">
-      {/* Thumbnail (lazy-loaded) */}
-      <Image
-        id={`${id}-img-${index + 1}`}
-        rounded
-        src={src}
-        alt={alt}
-        title={title || alt}
-        aria-label={ariaLabel}
-        loading="lazy"
-        decoding="async"
-        fetchpriority="low"
-        className={`clickable-thumb interactive-surface glass-outline ${className}`}
+      <button
+        type="button"
+        className="clickable-thumb-button interactive-surface"
+        aria-label={thumbnailLabel}
         onClick={() => setOpen(true)}
-      />
+      >
+        <Image
+          id={`${id}-img-${index + 1}`}
+          rounded
+          src={src}
+          alt={alt}
+          title={title || alt}
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+          className={`clickable-thumb glass-outline ${className}`}
+        />
+      </button>
 
       {/* Optional caption beneath thumbnail */}
       {caption && <p className="img-caption text-center">{caption}</p>}

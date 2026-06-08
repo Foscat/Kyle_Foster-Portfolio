@@ -1506,7 +1506,7 @@ Unified frosted-glass button component implementing theMidnight Gold UI system 
 * [components/Btn](#module_components/Btn)
     * [~Btn](#module_components/Btn..Btn) ⇒ <code>JSX.Element</code>
         * [~isIconOnly](#module_components/Btn..Btn..isIconOnly)
-        * [~resolvedAriaLabel](#module_components/Btn..Btn..resolvedAriaLabel)
+        * [~nativeAriaLabel](#module_components/Btn..Btn..nativeAriaLabel)
         * [~handleClick(e)](#module_components/Btn..Btn..handleClick) ⇒ <code>void</code>
     * [~RSuiteButtonProps](#module_components/Btn..RSuiteButtonProps) : <code>Object</code>
     * [~FontAwesomeButtonIconProps](#module_components/Btn..FontAwesomeButtonIconProps) : <code>Object</code>
@@ -1553,7 +1553,7 @@ A unified, accessible, animated button component that conforms to theMidnight G
 
 * [~Btn](#module_components/Btn..Btn) ⇒ <code>JSX.Element</code>
     * [~isIconOnly](#module_components/Btn..Btn..isIconOnly)
-    * [~resolvedAriaLabel](#module_components/Btn..Btn..resolvedAriaLabel)
+    * [~nativeAriaLabel](#module_components/Btn..Btn..nativeAriaLabel)
     * [~handleClick(e)](#module_components/Btn..Btn..handleClick) ⇒ <code>void</code>
 
 <a name="module_components/Btn..Btn..isIconOnly"></a>
@@ -1562,9 +1562,9 @@ A unified, accessible, animated button component that conforms to theMidnight G
 True when the button renders only an icon with no text label
 
 **Kind**: inner constant of [<code>Btn</code>](#module_components/Btn..Btn)  
-<a name="module_components/Btn..Btn..resolvedAriaLabel"></a>
+<a name="module_components/Btn..Btn..nativeAriaLabel"></a>
 
-#### Btn~resolvedAriaLabel
+#### Btn~nativeAriaLabel
 Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
 
 **Kind**: inner constant of [<code>Btn</code>](#module_components/Btn..Btn)  
@@ -1582,7 +1582,7 @@ Async-aware click handler.Automatically manages loading state when a Promise is
 <a name="module_components/Btn..RSuiteButtonProps"></a>
 
 ### components/Btn~RSuiteButtonProps : <code>Object</code>
-Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.These are documented explicitly to make passthrough behavior clearwithout re-exporting RSuite types.Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.These are documented explicitly to make passthrough behavior clearwithout re-exporting RSuite types.
+Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.These are documented explicitly to make passthrough behavior clearwithout re-exporting RSuite types.
 
 **Kind**: inner typedef of [<code>components/Btn</code>](#module_components/Btn)  
 **Properties**

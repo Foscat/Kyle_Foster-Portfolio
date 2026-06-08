@@ -1,9 +1,26 @@
-/* Thumbnail */
+.clickable-thumb-button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.clickable-thumb-button:focus-visible {
+  outline: 3px solid var(--text-accent);
+  outline-offset: 4px;
+}
+
 .clickable-thumb {
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  cursor: pointer;
+  pointer-events: none;
 }
 
 /* Full-screen modal shell */

@@ -84,27 +84,4 @@ const ImageGalleryBlock = (block = {}) => {
   );
 };
 
-// return (
-//   <Panel
-//     collapsible
-//     defaultExpanded
-//     bordered
-//     className="frosted block"
-//     header={title ? <h3 className="block-header">{title}</h3> : undefined}
-//   >
-//     <FlexboxGrid justify="space-around" align="top">
-//       {items.map((img, i) => {
-//         // Prefer a stable image ID; fall back to index-based key
-//         const key = img?.id ?? `gallery-img-${i}`;
-
-//         return (
-//           <FlexboxGrid.Item className="mb-2" key={key} colspan={11}>
-//             <ClickableImg key={img.id} {...img} className="gallery-thumb" />
-//           </FlexboxGrid.Item>
-//         );
-//       })}
-//     </FlexboxGrid>
-//   </Panel>
-// );
-
 export default ImageGalleryBlock;

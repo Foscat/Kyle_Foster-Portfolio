@@ -87,16 +87,14 @@ describe("ClickableImg", () => {
    * Rendering
    * ------------------------------------------------------------ */
 
-  // Test that the ClickableImg component renders a thumbnail image with the correct source and alt text, ensuring that the component correctly displays the provided image and is accessible to users who rely on screen readers. This verifies that the component uses the src and alt props to render the thumbnail image as expected, allowing it to be identified and understood by assistive technologies.
   it("renders the thumbnail image", () => {
     renderClickableImg();
 
-    const thumbnail = screen.getByRole("img", { name: /clickable image, click to expand/i });
+    const thumbnail = screen.getByRole("img", { name: IMAGE_ALT });
     expect(thumbnail).toBeInTheDocument();
     expect(thumbnail).toHaveAttribute("src", IMAGE_SRC);
   });
 
-  // Test that when the ClickableImg component is rendered with a caption prop, the caption text is displayed beneath the thumbnail image, ensuring that the component correctly handles the optional caption and renders it in the expected location. This verifies that the ClickableImg component can display additional descriptive text for the image when provided, enhancing the context and information available to users.
   it("renders the caption beneath the thumbnail when provided", () => {
     renderClickableImg();
     expect(screen.getByText(IMAGE_CAPTION)).toBeInTheDocument();
@@ -106,22 +104,23 @@ describe("ClickableImg", () => {
    * Modal behavior
    * ------------------------------------------------------------ */
 
-  // Test that clicking the thumbnail image opens a modal dialog containing the expanded image, ensuring that the ClickableImg component correctly handles user interactions to display the larger version of the image in a modal. This verifies that the component manages its internal state to show and hide the modal as expected when the thumbnail is clicked.
   it("opens the modal when the thumbnail is clicked", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /clickable image, click to expand/i })
+    );
 
-    // RSuite Modal renders with role="dialog"
     expect(screen.getByRole("dialog")).toBeVisible();
     expect(screen.getAllByText(IMAGE_TITLE).length).toBeGreaterThan(0);
   });
 
-  // Test that the expanded image is rendered inside the modal with the correct alt text, ensuring that the ClickableImg component correctly displays the expanded version of the image when the thumbnail is clicked. This verifies that the component handles the modal state and renders the expanded image with the appropriate accessibility attributes, allowing users to view the larger image while maintaining accessibility standards.
   it("renders the expanded image inside the modal", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: /Clickable image, click to expand/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /Clickable image, click to expand/i })
+    );
 
     const modalImage = screen.getAllByRole("img", {
       name: /clickable image, click to expand/i,
@@ -129,11 +128,12 @@ describe("ClickableImg", () => {
     expect(modalImage).toBeInTheDocument();
   });
 
-  // Test that zoom controls are available in the modal and adjust zoom state, ensuring users can enlarge tiny screenshots on smaller screens.
   it("renders zoom controls and updates zoom level", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /clickable image, click to expand/i })
+    );
     await userEvent.click(screen.getByRole("button", { name: /zoom in image/i }));
     expect(screen.getByRole("button", { name: /reset image zoom/i })).toHaveTextContent("125%");
   });
@@ -165,7 +165,9 @@ describe("ClickableImg", () => {
     try {
       renderClickableImg();
 
-      await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+      await userEvent.click(
+        screen.getByRole("button", { name: /clickable image, click to expand/i })
+      );
 
       const modalImage = screen.getAllByRole("img", {
         name: /clickable image, click to expand/i,
@@ -220,7 +222,9 @@ describe("ClickableImg", () => {
     try {
       renderClickableImg();
 
-      await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+      await userEvent.click(
+        screen.getByRole("button", { name: /clickable image, click to expand/i })
+      );
 
       const modalImage = screen.getAllByRole("img", {
         name: /clickable image, click to expand/i,
@@ -248,11 +252,24 @@ describe("ClickableImg", () => {
    * Keyboard accessibility
    * ------------------------------------------------------------ */
 
-  // Test that pressing the Escape key while the modal is open closes the modal, ensuring that the ClickableImg component provides keyboard accessibility for users who rely on keyboard navigation. This verifies that the component correctly handles keyboard events to allow users to close the modal using the Escape key, providing an accessible user experience.
+  it("opens the modal when the thumbnail button is keyboard-activated", async () => {
+    const user = userEvent.setup();
+    renderClickableImg();
+
+    await user.tab();
+    expect(screen.getByRole("button", { name: /clickable image, click to expand/i })).toHaveFocus();
+
+    await user.keyboard("{Enter}");
+
+    expect(screen.getByRole("dialog")).toBeVisible();
+  });
+
   it("closes the modal when Escape is pressed", async () => {
     renderClickableImg();
 
-    await userEvent.click(screen.getByRole("img", { name: /clickable image, click to expand/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /clickable image, click to expand/i })
+    );
     expect(screen.getByRole("dialog")).toBeInTheDocument();
 
     await userEvent.keyboard("{Escape}");
@@ -263,18 +280,16 @@ describe("ClickableImg", () => {
    * Accessibility
    * ------------------------------------------------------------ */
 
-  // Test that the ClickableImg component renders the thumbnail image with the correct alt text, ensuring that the image is accessible to users who rely on screen readers. This verifies that the component correctly uses the alt prop to provide an accessible name for the thumbnail image, allowing it to be identified and understood by assistive technologies.
-  it("provides an accessible name for the thumbnail image", () => {
+  it("provides an accessible name for the thumbnail button", () => {
     renderClickableImg();
     expect(
-      screen.getByRole("img", { name: /Clickable image, click to expand/i })
+      screen.getByRole("button", { name: /Clickable image, click to expand/i })
     ).toBeInTheDocument();
   });
 
-  // Test that when the ClickableImg component is rendered with an ariaLabel prop, the thumbnail image has the correct accessible name for screen readers, ensuring that the component is accessible to users who rely on assistive technologies. This verifies that the ClickableImg component correctly uses the ariaLabel prop to provide an accessible name for the thumbnail image, allowing it to be identified and interacted with by screen readers.
   it("sets aria-label when provided", () => {
     renderClickableImg({ ariaLabel: "Expandable screenshot" });
 
-    expect(screen.getByRole("img", { name: /Expandable screenshot/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Expandable screenshot/i })).toBeInTheDocument();
   });
 });

@@ -21,9 +21,6 @@ import { formatClassNames } from "assets/utils";
  * @description Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.
  * These are documented explicitly to make passthrough behavior clear
  * without re-exporting RSuite types.
- * Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.
- * These are documented explicitly to make passthrough behavior clear
- * without re-exporting RSuite types.
  *
  * @typedef {Object} RSuiteButtonProps
  * @property {boolean} [active=true] - Whether the button is in an active state.
@@ -252,8 +249,10 @@ const Btn = ({
   /**
    * @description Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
    */
+  const nativeAriaLabel = restProps["aria-label"];
   const resolvedAriaLabel =
     ariaLabel ||
+    (typeof nativeAriaLabel === "string" ? nativeAriaLabel : undefined) ||
     (typeof tooltip === "string" ? tooltip : undefined) ||
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
   const tooltipMessage = disabled ? "Button is disabled" : tooltip || "";
@@ -271,6 +270,7 @@ const Btn = ({
   const passthroughProps = { ...restProps };
   delete passthroughProps["aria-expanded"];
   delete passthroughProps["aria-current"];
+  delete passthroughProps["aria-label"];
 
   if (import.meta.env.DEV && isIconOnly && !resolvedAriaLabel) {
     console.warn("[Btn] Icon-only buttons must include ariaLabel or tooltip for accessibility.");

@@ -55,7 +55,6 @@ const LinksBlock = ({ items = [] }) => {
   const { theme, palette } = useTheme();
   const resumePdfHref = resolveResumePdfHref(theme);
 
-  // Guard against empty link lists
   if (!Array.isArray(items) || items.length === 0) return null;
 
   return (
@@ -91,15 +90,17 @@ const LinksBlock = ({ items = [] }) => {
 
           const resolvedUrl =
             theme === "light" ? link.urlLight || link.url : link.urlDark || link.url;
+          const href = typeof resolvedUrl === "string" ? resolvedUrl.trim() : "";
 
-          // Determine whether the link should be treated as external
-          const isExternal = /^https?:\/\//.test(resolvedUrl);
+          if (!href) return null;
+
+          const isExternal = /^https?:\/\//.test(href);
           const isDownload = link?.download;
           return (
             <Btn
-              key={i}
+              key={link.id || `${href}-${i}`}
               className="links-block-item"
-              href={resolvedUrl}
+              href={href}
               hrefLocal={link.local}
               icon={link.icon || faLink}
               size={link.size || Size.MD}
