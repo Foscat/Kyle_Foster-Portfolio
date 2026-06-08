@@ -217,6 +217,8 @@ body::before {
 }
 
 body[data-ui][data-theme][data-mode] {
+  color: var(--app-surface-fg, var(--text-primary));
+  background-color: var(--ui-kit-bg, var(--bg-primary));
   --app-bg-layer:
     radial-gradient(
       circle at 15% 18%,

@@ -6,6 +6,7 @@
  */
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { PALETTE_IDS, applyPaletteTokens } from "assets/themePalettes.js";
 
 const THEME_STORAGE_KEY = "portfolio-theme";
@@ -168,9 +169,11 @@ const ThemeContext = createContext(null);
  * @returns {JSX.Element} Theme context provider.
  */
 export function ThemeProvider({ children }) {
+  const { highContrast } = useResponsive();
   const [theme, setThemeState] = useState(getInitialTheme);
   const [palette, setPaletteState] = useState(getInitialPalette);
   const [uiStyle, setUiStyleState] = useState(getInitialUiStyle);
+  const effectiveMode = highContrast ? "contrast" : theme;
 
   /**
    * Explicitly set theme while guarding against invalid values.
@@ -252,15 +255,15 @@ export function ThemeProvider({ children }) {
 
     // Legacy attribute model on root: mode + palette selectors.
     document.documentElement.dataset.theme = theme;
-    document.documentElement.dataset.mode = theme;
+    document.documentElement.dataset.mode = effectiveMode;
     document.documentElement.dataset.palette = palette;
     document.documentElement.dataset.ui = uiStyle;
-    applyPaletteTokens(document.documentElement, palette, theme);
+    applyPaletteTokens(document.documentElement, palette, effectiveMode);
 
     if (document.body) {
       document.body.dataset.ui = uiStyle;
       document.body.dataset.theme = palette;
-      document.body.dataset.mode = theme;
+      document.body.dataset.mode = effectiveMode;
     }
 
     if (typeof window !== "undefined") {
@@ -268,7 +271,7 @@ export function ThemeProvider({ children }) {
       safeWriteStorage(PALETTE_STORAGE_KEY, palette);
       safeWriteStorage(UI_STYLE_STORAGE_KEY, uiStyle);
     }
-  }, [palette, theme, uiStyle]);
+  }, [effectiveMode, palette, theme, uiStyle]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;

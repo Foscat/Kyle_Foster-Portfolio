@@ -203,25 +203,14 @@ svg:not(:root) {
 }
 
 .desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon {
-  padding: calc(var(--sticky-nav-desktop-icon-block-padding) - 1px)
+  padding: calc(var(--sticky-nav-desktop-icon-block-padding) - 5px)
     var(--sticky-nav-desktop-icon-inline-padding);
 }
 
 .desktop-menu .sticky-nav-desktop-trigger--a11y .frosted-icon.btn-icon,
 .desktop-menu .sticky-nav-desktop-trigger--resume .frosted-icon.btn-icon {
-  padding: calc(var(--sticky-nav-desktop-icon-block-padding) - 1px)
+  padding: calc(var(--sticky-nav-desktop-icon-block-padding) - 5px)
     var(--sticky-nav-desktop-icon-inline-padding);
-}
-
-.desktop-menu .sticky-nav-desktop-trigger--color .frosted-icon.btn-icon svg {
-  transform: translateY(-0.5px) scale(0.96);
-  transform-origin: center;
-}
-
-.desktop-menu .sticky-nav-desktop-trigger--a11y .frosted-icon.btn-icon svg,
-.desktop-menu .sticky-nav-desktop-trigger--resume .frosted-icon.btn-icon svg {
-  transform: translateY(0.8px) scale(0.86);
-  transform-origin: center;
 }
 
 .desktop-menu .sticky-nav-desktop-trigger .btn.icon-only,
@@ -584,7 +573,7 @@ html[data-theme="light"]
 }
 
 /* Mobile + small tablet responsiveness */
-@media (width <= 1024px) {
+@media (width <=1024px) {
   .desktop-menu {
     display: none;
   }

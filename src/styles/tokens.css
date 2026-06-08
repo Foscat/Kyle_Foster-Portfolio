@@ -483,6 +483,55 @@ body[data-ui][data-theme][data-mode] {
   --interactive-surface-shadow-base: var(--app-surface-shadow-soft);
   --interactive-surface-shadow-hover: var(--app-surface-shadow-hover);
   --interactive-surface-backdrop-filter: var(--app-surface-backdrop-filter);
+  --interactive-surface-variant-primary-bg: var(--primary);
+  --interactive-surface-variant-primary-fg: var(--primary-text);
+  --interactive-surface-variant-primary-border-color: color-mix(
+    in srgb,
+    var(--primary) 78%,
+    var(--border) 22%
+  );
+  --interactive-surface-variant-secondary-bg: var(--secondary);
+  --interactive-surface-variant-secondary-fg: var(--secondary-text);
+  --interactive-surface-variant-secondary-border-color: color-mix(
+    in srgb,
+    var(--secondary) 78%,
+    var(--border) 22%
+  );
+  --interactive-surface-variant-subtle-bg: var(--app-surface-muted-bg);
+  --interactive-surface-variant-subtle-fg: var(--app-surface-readable-muted-fg);
+  --interactive-surface-variant-subtle-border-color: var(--app-surface-border-color);
+  --interactive-surface-variant-accent-bg: color-mix(
+    in srgb,
+    var(--accent) 28%,
+    var(--app-surface-strong-bg) 72%
+  );
+  --interactive-surface-variant-accent-border-color: color-mix(
+    in srgb,
+    var(--accent) 70%,
+    var(--border) 30%
+  );
+  --interactive-surface-variant-warning-bg: color-mix(
+    in srgb,
+    var(--warning) 24%,
+    var(--app-surface-strong-bg) 76%
+  );
+  --interactive-surface-variant-warning-border-color: color-mix(
+    in srgb,
+    var(--warning) 70%,
+    var(--border) 30%
+  );
+  --interactive-surface-variant-danger-bg: color-mix(
+    in srgb,
+    var(--danger) 22%,
+    var(--app-surface-strong-bg) 78%
+  );
+  --interactive-surface-variant-danger-fg: var(--app-surface-readable-fg);
+  --interactive-surface-variant-danger-border-color: color-mix(
+    in srgb,
+    var(--danger) 70%,
+    var(--border) 30%
+  );
+  --interactive-surface-focus-ring-color: var(--focus-ring);
   --interactive-surface-variant-accent-fg: var(--app-surface-readable-fg);
   --interactive-surface-variant-warning-fg: var(--app-surface-readable-fg);
 }
@@ -645,8 +694,8 @@ body[data-ui][data-theme][data-mode="light"] {
 body[data-ui="brutalism"][data-theme][data-mode="dark"],
 body[data-ui="cyberpunk"][data-theme][data-mode="dark"],
 body[data-ui="retrofuturism"][data-theme][data-mode="dark"] {
-  --app-kit-control-fg: rgba(var(--primary-darkest-rgb), 0.96);
-  --app-kit-control-muted-fg: rgba(var(--primary-darkest-rgb), 0.78);
+  --app-kit-control-fg: var(--app-surface-readable-fg);
+  --app-kit-control-muted-fg: var(--app-surface-readable-muted-fg);
 }
 
 html[data-palette][data-theme="dark"] {
@@ -658,7 +707,8 @@ html[data-palette][data-theme="dark"] {
   --surface-overlay: color-mix(in srgb, var(--surface) 84%, transparent);
 }
 
-html[data-palette][data-theme="contrast"] {
+html[data-palette][data-theme="contrast"],
+html[data-palette][data-mode="contrast"] {
   --text-soft: var(--text);
   --text-accent-readable: var(--link);
   --text-accent-readable-strong: var(--link);

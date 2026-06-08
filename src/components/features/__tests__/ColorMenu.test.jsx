@@ -31,6 +31,7 @@ describe("ColorMenu", () => {
 
     await waitFor(() => {
       expect(document.documentElement.dataset.a11yHighContrast).toBe("true");
+      expect(document.body.dataset.mode).toBe("contrast");
     });
   });
 
