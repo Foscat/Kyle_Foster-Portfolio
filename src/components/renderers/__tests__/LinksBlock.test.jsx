@@ -60,9 +60,6 @@ describe("LinksBlock", () => {
     window.localStorage.removeItem("portfolio-palette");
   });
 
-  /**
-   * @description Verifies the component renders nothing when `links` is null. Guards against malformed CMS or configuration input. /
-   */
   it("renders nothing if links are missing", () => {
     renderWithProviders(
       <div data-testid="root">
@@ -73,9 +70,6 @@ describe("LinksBlock", () => {
     expect(screen.getByTestId("root")).toBeEmptyDOMElement();
   });
 
-  /**
-   * @description Verifies that valid link data produces accessible anchor elements with the expected href attributes. /
-   */
   it("renders a list of links", () => {
     renderWithProviders(
       <LinksBlock
@@ -90,6 +84,23 @@ describe("LinksBlock", () => {
       "href",
       "https://github.com"
     );
+    expect(screen.getByRole("link", { name: "Website" })).toHaveAttribute(
+      "href",
+      "https://example.com"
+    );
+  });
+
+  it("skips malformed link items without a URL", () => {
+    renderWithProviders(
+      <LinksBlock
+        items={[
+          { title: "Missing URL", url: "" },
+          { title: "Website", url: "https://example.com" },
+        ]}
+      />
+    );
+
+    expect(screen.queryByRole("link", { name: "Missing URL" })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Website" })).toHaveAttribute(
       "href",
       "https://example.com"

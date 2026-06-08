@@ -21,7 +21,11 @@ export const contactForm = {
       label: "Full Name",
       placeholder: "Enter your name",
       defaultValue: "",
+      required: true,
       helpText: "Use your preferred name.",
+      componentProps: {
+        autoComplete: "name",
+      },
     },
     {
       name: "email",
@@ -30,11 +34,13 @@ export const contactForm = {
       label: "Email",
       placeholder: "name@example.com",
       defaultValue: "",
+      required: true,
       inputGroup: {
         prefix: "@",
       },
       componentProps: {
         autoComplete: "email",
+        type: "email",
       },
     },
     {
@@ -103,6 +109,7 @@ export const contactForm = {
       label: "Project details",
       placeholder: "Tell me about the project, goals, timeline, and any requirements.",
       defaultValue: "",
+      required: true,
       componentProps: {
         rows: 7,
         maxLength: 2000,

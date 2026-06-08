@@ -225,6 +225,7 @@ export function renderFieldControl(field) {
     block,
     disabled,
     readOnly,
+    required,
     rule,
     errorPlacement,
     shouldResetWithUnmount,
@@ -243,6 +244,8 @@ export function renderFieldControl(field) {
         searchable
         disabled={disabled}
         readOnly={readOnly}
+        required={required}
+        aria-required={required || undefined}
         rule={rule}
         errorPlacement={errorPlacement}
         shouldResetWithUnmount={shouldResetWithUnmount}
@@ -258,6 +261,8 @@ export function renderFieldControl(field) {
         accepter={Checkbox}
         disabled={disabled}
         readOnly={readOnly}
+        required={required}
+        aria-required={required || undefined}
         rule={rule}
         errorPlacement={errorPlacement}
         shouldResetWithUnmount={shouldResetWithUnmount}
@@ -275,6 +280,8 @@ export function renderFieldControl(field) {
         accepter={CheckboxGroup}
         disabled={disabled}
         readOnly={readOnly}
+        required={required}
+        aria-required={required || undefined}
         rule={rule}
         errorPlacement={errorPlacement}
         shouldResetWithUnmount={shouldResetWithUnmount}
@@ -300,6 +307,8 @@ export function renderFieldControl(field) {
         accepter={RadioGroup}
         disabled={disabled}
         readOnly={readOnly}
+        required={required}
+        aria-required={required || undefined}
         rule={rule}
         errorPlacement={errorPlacement}
         shouldResetWithUnmount={shouldResetWithUnmount}
@@ -328,6 +337,8 @@ export function renderFieldControl(field) {
         suffix={inputGroup?.suffix}
         disabled={disabled}
         readOnly={readOnly}
+        required={required}
+        aria-required={required || undefined}
         rule={rule}
         errorPlacement={errorPlacement}
         shouldResetWithUnmount={shouldResetWithUnmount}
@@ -345,6 +356,8 @@ export function renderFieldControl(field) {
       placeholder={placeholder}
       disabled={disabled}
       readOnly={readOnly}
+      required={required}
+      aria-required={required || undefined}
       rule={rule}
       errorPlacement={errorPlacement}
       shouldResetWithUnmount={shouldResetWithUnmount}

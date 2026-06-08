@@ -285,7 +285,7 @@ const homeSections = [
               },
             ],
             icon: faChartLine,
-            url: `${PageRoute.PROFESSIONAL}/#grading`,
+            url: `${PageRoute.PROFESSIONAL}/#grades-and-reports`,
             ariaLabel: "View Teacher Tools Section",
           },
           {
@@ -382,7 +382,7 @@ const homeSections = [
               },
             ],
             icon: faLaptopCode,
-            url: `${PageRoute.PROFESSIONAL}/#editor`,
+            url: `${PageRoute.PROFESSIONAL}/#panel-editor`,
             ariaLabel: "View 3 Panel Browser-Based IDE Section",
           },
         ],
@@ -511,7 +511,7 @@ const homeSections = [
             subtitle: "Designed for repair shop environments with limited space and attention.",
             icon: faMicrophone,
             accent: "success",
-            url: `${PageRoute.HACKATHON}/#workflow-diagram`,
+            url: `${PageRoute.HACKATHON}/#reinforce`,
             local: true,
             content: [
               {
@@ -1105,7 +1105,7 @@ const homeSections = [
             subtitle:
               "Early experience designing interfaces that consume and react to the nuances of external data sources",
             icon: faPlug,
-            url: `${PageRoute.EDUCATION}/#gif_freak`,
+            url: `${PageRoute.EDUCATION}/#gif-freak`,
             isScroller: false,
             content: [
               {
@@ -1158,7 +1158,7 @@ const homeSections = [
             subtitle:
               "Early experience working in a team setting with shared code ownership and coordination",
             icon: faPeopleGroup,
-            url: `${PageRoute.EDUCATION}/#stock_memer`,
+            url: `${PageRoute.EDUCATION}/#stock-memer`,
             isScroller: false,
             content: [
               {
@@ -1211,7 +1211,7 @@ const homeSections = [
             subtitle:
               "Early experience designing algorithms to translate qualitative inputs into structured outputs",
             icon: faChartDiagram,
-            url: `${PageRoute.EDUCATION}/#scion_matches`,
+            url: `${PageRoute.EDUCATION}/#scion-matches`,
             isScroller: false,
             content: [
               {

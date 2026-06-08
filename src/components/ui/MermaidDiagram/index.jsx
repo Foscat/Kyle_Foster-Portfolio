@@ -231,13 +231,38 @@ function normalizeRenderedSvg(host, options = {}) {
   const svg = host.querySelector("svg");
   if (!svg) return;
 
+  const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
+  const hostBounds = host.getBoundingClientRect();
+  const hostWidth = Math.max(0, Math.ceil(hostBounds.width || host.clientWidth || 0));
+  const targetWidth =
+    intrinsicWidth > 0 && hostWidth > 0
+      ? Math.max(Math.ceil(intrinsicWidth), hostWidth)
+      : Math.ceil(intrinsicWidth || hostWidth || 0);
+  const isScrollable = intrinsicWidth > 0 && hostWidth > 0 && intrinsicWidth > hostWidth + 1;
+
   svg.removeAttribute("height");
-  svg.style.width = "100%";
-  svg.style.maxWidth = "100%";
+
+  if (!svg.getAttribute("viewBox") && intrinsicWidth > 0 && intrinsicHeight > 0) {
+    svg.setAttribute("viewBox", `0 0 ${intrinsicWidth} ${intrinsicHeight}`);
+  }
+
+  if (targetWidth > 0) {
+    svg.style.width = `${targetWidth}px`;
+    svg.style.minWidth = `${targetWidth}px`;
+  } else {
+    svg.style.removeProperty("width");
+    svg.style.removeProperty("min-width");
+  }
+
+  svg.style.maxWidth = "none";
   svg.style.height = "auto";
   svg.style.maxHeight = "none";
   svg.style.display = "block";
   svg.style.overflow = "visible";
+
+  host.classList.toggle("is-scrollable", isScrollable);
+  host.style.justifyContent = isScrollable ? "flex-start" : "center";
+
   applyRenderedMermaidContrast(svg, options);
 }
 
@@ -934,7 +959,7 @@ function MermaidDiagram(props) {
   const fullscreenHostRef = useRef(null);
   const [forceAlt, setForceAlt] = useState(false);
   const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
-  const { isMobile } = useResponsive();
+  const { isMobile, textScale } = useResponsive();
   const { theme: appTheme, palette } = useTheme();
   const { id, title, description, diagram, mobileDiagram, desktopDiagram, theme, className } =
     useMemo(() => normalizeProps(props), [props]);
@@ -1038,7 +1063,7 @@ function MermaidDiagram(props) {
     return () => {
       cancelled = true;
     };
-  }, [finalDiagram, renderId]);
+  }, [finalDiagram, palette, renderId, resolvedTheme, textScale]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1071,7 +1096,36 @@ function MermaidDiagram(props) {
     return () => {
       cancelled = true;
     };
-  }, [isFullscreenOpen, finalDiagram, renderId]);
+  }, [finalDiagram, isFullscreenOpen, palette, renderId, resolvedTheme, textScale]);
+
+  useEffect(() => {
+    if (typeof ResizeObserver === "undefined") return undefined;
+
+    const observers = [];
+
+    const observeHost = (host) => {
+      if (!host) return;
+
+      const observer = new ResizeObserver(() => {
+        window.requestAnimationFrame(() => {
+          normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
+        });
+      });
+
+      observer.observe(host);
+      observers.push(observer);
+    };
+
+    observeHost(hostRef.current);
+
+    if (isFullscreenOpen) {
+      observeHost(fullscreenHostRef.current);
+    }
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, [isFullscreenOpen, palette, resolvedTheme]);
 
   /**
    * @function handleExport

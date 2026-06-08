@@ -43,6 +43,14 @@ function contrastRatio(foreground, background) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
+function mixColors(foreground, background, foregroundWeight) {
+  const backgroundWeight = 1 - foregroundWeight;
+
+  return foreground.map((channel, index) =>
+    Math.round(channel * foregroundWeight + background[index] * backgroundWeight)
+  );
+}
+
 function getPaletteBlocks() {
   return Object.entries(PALETTE_TOKENS).flatMap(([palette, themes]) =>
     Object.entries(themes).map(([theme, variables]) => ({
@@ -100,6 +108,65 @@ describe("color-themes contrast coverage", () => {
             `${block.palette}/${block.theme} ${foregroundKey} on ${backgroundKey} ${ratio.toFixed(
               2
             )} < ${minimum}`
+          );
+        }
+      }
+    }
+
+    expect(failures).toEqual([]);
+  });
+
+  it("keeps interactive button variants above WCAG AA across every palette mode", () => {
+    const blocks = getPaletteBlocks();
+    const failures = [];
+
+    for (const block of blocks) {
+      const text = parseHex(block.variables.text);
+      const textMuted = parseHex(block.variables["text-muted"]);
+      const primary = parseHex(block.variables.primary);
+      const primaryText = parseHex(block.variables["primary-text"]);
+      const secondary = parseHex(block.variables.secondary);
+      const secondaryText = parseHex(block.variables["secondary-text"]);
+      const accent = parseHex(block.variables.accent);
+      const danger = parseHex(block.variables.danger);
+      const raisedSurface = parseHex(block.variables["surface-raised"]);
+      const mutedSurface = parseHex(block.variables["surface-muted"]);
+
+      const requiredValues = {
+        text,
+        textMuted,
+        primary,
+        primaryText,
+        secondary,
+        secondaryText,
+        accent,
+        danger,
+        raisedSurface,
+        mutedSurface,
+      };
+      const missing = Object.entries(requiredValues)
+        .filter(([, value]) => !value)
+        .map(([key]) => key);
+
+      if (missing.length > 0) {
+        failures.push(
+          `${block.palette}/${block.theme} missing interactive-surface source token(s): ${missing.join(", ")}`
+        );
+        continue;
+      }
+
+      const checks = [
+        ["primary", contrastRatio(primaryText, primary)],
+        ["secondary", contrastRatio(secondaryText, secondary)],
+        ["subtle", contrastRatio(textMuted, mutedSurface)],
+        ["accent", contrastRatio(text, mixColors(accent, raisedSurface, 0.28))],
+        ["danger", contrastRatio(text, mixColors(danger, raisedSurface, 0.22))],
+      ];
+
+      for (const [variant, ratio] of checks) {
+        if (ratio < 4.5) {
+          failures.push(
+            `${block.palette}/${block.theme} ${variant} button contrast ${ratio.toFixed(2)} < 4.5`
           );
         }
       }
