@@ -53,23 +53,27 @@
 
 /* Ensure SVG scales correctly */
 .mermaid svg {
-  width: auto;
-  max-width: none;
+  width: min(100%, var(--mermaid-svg-width, 100%));
+  max-width: 100%;
   min-width: 0;
   height: auto;
   min-height: 0;
   display: block;
-  overflow: visible;
-  flex: 0 0 auto;
+  overflow: hidden;
 }
 
-/* Scroll + zoom support */
 .mermaid {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
   padding: 1.5rem 1rem;
   border-radius: var(--app-surface-radius-lg, var(--border-radius));
   box-shadow: var(--app-surface-shadow-soft, none);
+}
+
+.mermaid-container,
+.mermaid-container > .rs-panel-body {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .mermaid-svg-host {
@@ -79,17 +83,12 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  overflow: visible;
-}
-
-.mermaid-svg-host.is-scrollable {
-  justify-content: flex-start;
+  overflow: hidden;
 }
 
 .mermaid-svg-host svg {
-  width: auto;
-  max-width: none;
-  min-width: 0;
+  width: min(100%, var(--mermaid-svg-width, 100%));
+  max-width: 100%;
   height: auto;
   max-height: none;
   opacity: 1;
@@ -1038,16 +1037,20 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   padding: clamp(0.9rem, 1.8vw, 1.7rem);
   border-radius: 0;
   background: transparent;
+  overflow: visible;
 }
 
 .mermaid-svg-host--fullscreen {
   min-height: calc(100dvh - clamp(1.8rem, 3.6vw, 3.4rem));
   align-items: center;
+  overflow: visible;
 }
 
 .mermaid-fullscreen-stage .mermaid-svg-host--fullscreen svg {
-  width: min(100%, 1900px);
+  width: max(100%, min(var(--mermaid-svg-width, 1400px), 1900px));
   margin: 0 auto;
+  max-width: none;
+  overflow: visible;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal__body {

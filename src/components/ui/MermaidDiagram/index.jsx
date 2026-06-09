@@ -21,6 +21,7 @@ let mermaidInitialized = false;
 const EXPORT_PADDING_PX = 24;
 const EXPORT_PIXEL_RATIO = 3;
 const EXPORT_EDGE_LABEL_FONT_SIZE = "14px";
+const INLINE_SVG_PADDING_PX = 12;
 
 function toExportFilename(title) {
   const cleanedTitle = String(title || "diagram")
@@ -78,6 +79,39 @@ function getSvgIntrinsicSize(svg) {
     width: bounds.width || 0,
     height: bounds.height || 0,
   };
+}
+
+function getSvgContentBounds(svg) {
+  if (!svg || typeof svg.getBBox !== "function") return null;
+
+  try {
+    const bounds = svg.getBBox();
+    if (bounds.width > 0 && bounds.height > 0) {
+      return bounds;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function normalizeSvgViewBoxToContent(svg, padding = INLINE_SVG_PADDING_PX) {
+  const contentBounds = getSvgContentBounds(svg);
+  if (!contentBounds) return getSvgIntrinsicSize(svg);
+
+  const x = Math.floor(contentBounds.x - padding);
+  const y = Math.floor(contentBounds.y - padding);
+  const width = Math.ceil(contentBounds.width + padding * 2);
+  const height = Math.ceil(contentBounds.height + padding * 2);
+
+  if (width <= 0 || height <= 0) return getSvgIntrinsicSize(svg);
+
+  svg.setAttribute("viewBox", `${x} ${y} ${width} ${height}`);
+  svg.removeAttribute("width");
+  svg.removeAttribute("height");
+
+  return { width, height };
 }
 
 const CYBER_LIME_DARK_NODE_FILL = "rgba(36, 72, 22, 0.96)";
@@ -231,38 +265,21 @@ function normalizeRenderedSvg(host, options = {}) {
   const svg = host.querySelector("svg");
   if (!svg) return;
 
-  const { width: intrinsicWidth, height: intrinsicHeight } = getSvgIntrinsicSize(svg);
-  const hostBounds = host.getBoundingClientRect();
-  const hostWidth = Math.max(0, Math.ceil(hostBounds.width || host.clientWidth || 0));
-  const targetWidth =
-    intrinsicWidth > 0 && hostWidth > 0
-      ? Math.max(Math.ceil(intrinsicWidth), hostWidth)
-      : Math.ceil(intrinsicWidth || hostWidth || 0);
-  const isScrollable = intrinsicWidth > 0 && hostWidth > 0 && intrinsicWidth > hostWidth + 1;
+  const { width, height } = normalizeSvgViewBoxToContent(svg);
+  const inlineWidth = width > 0 ? `min(100%, ${Math.ceil(width)}px)` : "100%";
 
+  host.style.setProperty("--mermaid-svg-width", width > 0 ? `${Math.ceil(width)}px` : "100%");
+  host.style.setProperty("--mermaid-svg-height", height > 0 ? `${Math.ceil(height)}px` : "auto");
+
+  svg.removeAttribute("width");
   svg.removeAttribute("height");
-
-  if (!svg.getAttribute("viewBox") && intrinsicWidth > 0 && intrinsicHeight > 0) {
-    svg.setAttribute("viewBox", `0 0 ${intrinsicWidth} ${intrinsicHeight}`);
-  }
-
-  if (targetWidth > 0) {
-    svg.style.width = `${targetWidth}px`;
-    svg.style.minWidth = `${targetWidth}px`;
-  } else {
-    svg.style.removeProperty("width");
-    svg.style.removeProperty("min-width");
-  }
-
-  svg.style.maxWidth = "none";
+  svg.style.width = inlineWidth;
+  svg.style.maxWidth = "100%";
   svg.style.height = "auto";
   svg.style.maxHeight = "none";
   svg.style.display = "block";
-  svg.style.overflow = "visible";
-
-  host.classList.toggle("is-scrollable", isScrollable);
-  host.style.justifyContent = isScrollable ? "flex-start" : "center";
-
+  svg.style.overflow = "hidden";
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   applyRenderedMermaidContrast(svg, options);
 }
 
@@ -959,7 +976,7 @@ function MermaidDiagram(props) {
   const fullscreenHostRef = useRef(null);
   const [forceAlt, setForceAlt] = useState(false);
   const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
-  const { isMobile, textScale } = useResponsive();
+  const { isMobile } = useResponsive();
   const { theme: appTheme, palette } = useTheme();
   const { id, title, description, diagram, mobileDiagram, desktopDiagram, theme, className } =
     useMemo(() => normalizeProps(props), [props]);
@@ -1063,7 +1080,7 @@ function MermaidDiagram(props) {
     return () => {
       cancelled = true;
     };
-  }, [finalDiagram, palette, renderId, resolvedTheme, textScale]);
+  }, [finalDiagram, renderId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1096,36 +1113,7 @@ function MermaidDiagram(props) {
     return () => {
       cancelled = true;
     };
-  }, [finalDiagram, isFullscreenOpen, palette, renderId, resolvedTheme, textScale]);
-
-  useEffect(() => {
-    if (typeof ResizeObserver === "undefined") return undefined;
-
-    const observers = [];
-
-    const observeHost = (host) => {
-      if (!host) return;
-
-      const observer = new ResizeObserver(() => {
-        window.requestAnimationFrame(() => {
-          normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
-        });
-      });
-
-      observer.observe(host);
-      observers.push(observer);
-    };
-
-    observeHost(hostRef.current);
-
-    if (isFullscreenOpen) {
-      observeHost(fullscreenHostRef.current);
-    }
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
-  }, [isFullscreenOpen, palette, resolvedTheme]);
+  }, [isFullscreenOpen, finalDiagram, renderId]);
 
   /**
    * @function handleExport

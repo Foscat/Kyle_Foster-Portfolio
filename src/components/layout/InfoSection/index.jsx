@@ -74,7 +74,7 @@ const InfoSection = ({
       defaultExpanded
       id={id}
       header={
-        <div className="info-header">
+        <div className="info-header interactive-surface">
           {sectionTag ? <span className="info-section-tag">{sectionTag}</span> : null}
           <div className="title-wrapper">
             {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}

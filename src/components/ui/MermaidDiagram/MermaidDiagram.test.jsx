@@ -93,7 +93,7 @@ describe("MermaidDiagram (unit)", () => {
     expect(screen.getByText("Test Diagram")).toBeInTheDocument();
   });
 
-  it("normalizes rendered svg dimensions", async () => {
+  it("normalizes rendered svg dimensions without forcing inline upscaling", async () => {
     renderWithProviders(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Normalize Test" />);
 
     const diagramHost = screen.getByRole("img", { name: /normalize test/i });
@@ -103,8 +103,38 @@ describe("MermaidDiagram (unit)", () => {
     });
 
     expect(diagramHost.innerHTML).not.toContain('height="');
-    expect(diagramHost.innerHTML).toMatch(/style="[^"]*width:\s*100%/i);
+    expect(diagramHost.innerHTML).toMatch(/style="[^"]*width:\s*min\(100%,/i);
     expect(diagramHost.innerHTML).toMatch(/style="[^"]*height:\s*auto/i);
+  });
+
+  it("trims Mermaid viewBox whitespace to the rendered graph bounds when possible", async () => {
+    const originalGetBBox = SVGSVGElement.prototype.getBBox;
+    SVGSVGElement.prototype.getBBox = vi.fn(() => ({
+      x: 40,
+      y: 80,
+      width: 220,
+      height: 120,
+    }));
+
+    try {
+      mermaid.render.mockResolvedValueOnce({
+        svg: '<svg viewBox="0 0 320 320"><g><rect x="40" y="80" width="220" height="120"></rect></g></svg>',
+      });
+
+      renderWithProviders(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Trim Test" />);
+
+      const diagramHost = screen.getByRole("img", { name: /trim test/i });
+
+      await waitFor(() => {
+        expect(diagramHost.innerHTML).toContain('viewBox="28 68 244 144"');
+      });
+    } finally {
+      if (originalGetBBox) {
+        SVGSVGElement.prototype.getBBox = originalGetBBox;
+      } else {
+        delete SVGSVGElement.prototype.getBBox;
+      }
+    }
   });
 
   it("exports a PNG from the rendered SVG canvas path when the download button is clicked", async () => {
