@@ -394,7 +394,7 @@ section[id],
 .rs-panel-header.rs-heading,
 .rs-panel .rs-panel-header,
 .rs-panel .rs-panel-title {
-  color: var(--app-heading-color, var(--heading-color));
+  color: var(--heading-color);
 }
 
 .rs-panel .rs-panel-header .rs-panel-btn:hover,
@@ -741,7 +741,7 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-@media (width <= 1024px) {
+@media (width <=1024px) {
   .page-layout {
     padding: 0 5px 0
       max(
@@ -757,7 +757,7 @@ footer {
 
 /* Layout breakpoint: enable a persistent sidebar only when mobile floating nav
    triggers are no longer present. */
-@media (width >= 1025px) {
+@media (width >=1025px) {
   .page-layout {
     grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
   }
@@ -780,7 +780,7 @@ footer {
   }
 }
 
-@media (width <= 700px) {
+@media (width <=700px) {
   .frosted .glass-card,
   .frosted,
   .blue-tile {
@@ -788,7 +788,7 @@ footer {
   }
 }
 
-@media (width <= 480px) {
+@media (width <=480px) {
   /* Smartphone ergonomics: reduce chrome padding and let buttons stretch. */
   nav,
   footer {

@@ -65,7 +65,7 @@ section.info-section.section-renderer .rs-panel {
   min-width: 0;
   font-size: var(--font-xl);
   font-weight: 600;
-  color: var(--info-section-header-color);
+  color: var(--heading-color);
   text-shadow: var(--shadow-dark);
   text-align: center;
   overflow-wrap: anywhere;
@@ -125,23 +125,23 @@ section.info-section.section-renderer .rs-panel {
 
 .info-section.section-renderer .rs-panel-header .rs-panel-btn .rs-icon.rs-panel-btn-icon {
   font-size: var(--icon-sm);
-  color: var(--info-section-header-color);
+  color: var(--heading-color);
 }
 
 .info-section.section-renderer .rs-panel-header .rs-panel-btn {
-  color: var(--info-section-header-color);
+  color: var(--heading-color);
 }
 
 .info-section.section-renderer .rs-panel-header .rs-panel-btn .info-title,
 .info-section.section-renderer .rs-panel-header .rs-panel-btn .info-header {
-  color: var(--info-section-header-color);
+  color: var(--heading-color);
   filter: none;
 }
 
 .info-section.section-renderer .rs-panel-header .rs-panel-btn:hover .info-title,
 .info-section.section-renderer .rs-panel-header .rs-panel-btn:focus-visible .info-title,
 .info-section.section-renderer .rs-panel-header .rs-panel-btn:active .info-title {
-  color: var(--info-section-header-color);
+  color: var(--heading-color);
   filter: brightness(1.06);
 }
 
@@ -151,7 +151,7 @@ section.info-section.section-renderer .rs-panel {
   .rs-panel-btn:focus-visible
   .rs-icon.rs-panel-btn-icon,
 .info-section.section-renderer .rs-panel-header .rs-panel-btn:active .rs-icon.rs-panel-btn-icon {
-  color: var(--info-section-header-color);
+  color: var(--heading-color);
   filter: brightness(1.1);
 }
 
@@ -203,7 +203,7 @@ section.info-section.section-renderer .rs-panel {
 }
 
 /* Mobile adjustments */
-@media (width <= 600px) {
+@media (width <=600px) {
   .info-section {
     padding: 0;
   }
@@ -240,7 +240,7 @@ section.info-section.section-renderer .rs-panel {
    Desktop enhancement
    ------------------------------------------------------------ */
 
-@media (width >= 900px) {
+@media (width >=900px) {
   .info-section {
     border: 1px solid rgb(var(--white-rgb), 0.12);
     border-radius: var(--border-radius);
