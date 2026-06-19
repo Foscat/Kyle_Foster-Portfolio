@@ -111,12 +111,12 @@ const decodeHtmlEntities = (value) =>
   value
     .replaceAll("&lt;", "<")
     .replaceAll("&gt;", ">")
-    .replaceAll("&amp;", "&")
     .replaceAll("&quot;", '"')
     .replaceAll("&#34;", '"')
     .replaceAll("&#39;", "'")
     .replaceAll("&apos;", "'")
-    .replaceAll("&nbsp;", " ");
+    .replaceAll("&nbsp;", " ")
+    .replaceAll("&amp;", "&");
 
 const stripUnsafeBlocks = (value) =>
   value.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/giu, "");
