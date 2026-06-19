@@ -1,320 +1,353 @@
-## Modules
-
-<dl>
-<dt><a href="#module_components/navigation/BackToTopButton">components/navigation/BackToTopButton</a></dt>
-<dd><p>Floating back-to-top action that appears after the user scrolls away from the top.</p>
-</dd>
-<dt><a href="#module_components/Footer">components/Footer</a></dt>
-<dd><p>Compact application footer providing quiet page closure,
-secondary social actions, and copyright information.</p>
-</dd>
-<dt><a href="#module_components/navigation/Head">components/navigation/Head</a></dt>
-<dd><p>Route-aware document metadata manager for SEO and social previews.</p>
-</dd>
-<dt><a href="#module_src\components\navigation\helpers\index">src\components\navigation\helpers\index</a></dt>
-<dd><p>src\components\navigation\helpers\index module.</p>
-</dd>
-<dt><a href="#module_src\components\navigation\helpers\restoreScrollPosition">src\components\navigation\helpers\restoreScrollPosition</a></dt>
-<dd><p>src\components\navigation\helpers\restoreScrollPosition module.</p>
-</dd>
-<dt><a href="#module_navigation/restoreScrollPosition">navigation/restoreScrollPosition</a></dt>
-<dd><p>Restores the user&#39;s scroll position when a page is loaded
-or reloaded by resolving a target section and scrolling it into view.</p>
-</dd>
-<dt><a href="#module_navigation/sectionPersistence">navigation/sectionPersistence</a></dt>
-<dd><p>Utilities for persisting and restoring the user&#39;s last active
-section on a per-page basis using sessionStorage.</p>
-</dd>
-<dt><a href="#module_components/navigation">components/navigation</a></dt>
-<dd><p>Centralized export module for all navigation-related components and helpers. This file serves as a single point of import for all navigation elements across the codebase, promoting modularity and ease of maintenance.</p>
-<p>Note: When adding new navigation components or helpers, simply import them here and include them in the export statement.</p>
-</dd>
-<dt><a href="#module_components/MobileSectionNavTrigger">components/MobileSectionNavTrigger</a></dt>
-<dd><p>Mobile drawer-based section navigation with collapsible subsections.</p>
-<p>Design:</p>
-<ul>
-<li>Section title click → navigate to section</li>
-<li>Caret/menu open → expand subsection list</li>
-<li>Subsection click → navigate to block</li>
-<li>Active state is derived from scroll-spy (passed from parent)</li>
-</ul>
-<p>This component does NOT manage scroll state.
-It only reflects and forwards user intent.
-The parent component (e.g. SectionRenderer) is responsible for:</p>
-<ul>
-<li>Tracking scroll position</li>
-<li>Determining active section/block IDs</li>
-<li>Managing expanded state of sections</li>
-<li>Handling actual navigation (e.g. scrollIntoView)</li>
-</ul>
-</dd>
-<dt><a href="#module_components/SectionAnchorNav">components/SectionAnchorNav</a></dt>
-<dd><p>A sticky/floating navigation component that uses the fully accessible
-AccordionList as its core. Intended for long portfolio pages with
-multiple subsections (CodeStream, Hackathon, etc.).</p>
-<p>Features:</p>
-<ul>
-<li>Sticky on desktop, collapsible drawer on mobile</li>
-<li>Auto-syncs with scroll position via AccordionList’s IntersectionObserver</li>
-<li>Smooth scrolling, keyboard navigation, screen-reader friendly</li>
-<li>Midnight Gold frosted UI styling</li>
-</ul>
-</dd>
-<dt><a href="#module_components/StickyNav">components/StickyNav</a></dt>
-<dd><p>Primary site navigation with synchronized desktop and mobile
-layouts, active-route handling, and accessibility semantics.</p>
-</dd>
-<dt><a href="#module_components/StickySectionNav">components/StickySectionNav</a></dt>
-<dd><p>Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.</p>
-</dd>
-</dl>
-
-<a name="module_components/navigation/BackToTopButton"></a>
-
-## components/navigation/BackToTopButton
-Floating back-to-top action that appears after the user scrolls away from the top.
-
-<a name="exp_module_components/navigation/BackToTopButton--module.exports"></a>
-
-### module.exports() ⇒ <code>JSX.Element</code> ⏏
-**Kind**: Exported function  
-<a name="module_components/Footer"></a>
-
-## components/Footer
-Compact application footer providing quiet page closure,secondary social actions, and copyright information.
-
-
-* [components/Footer](#module_components/Footer)
-    * [~Footer()](#module_components/Footer..Footer) ⇒ <code>JSX.Element</code>
-        * [~currentYear](#module_components/Footer..Footer..currentYear)
-
-<a name="module_components/Footer..Footer"></a>
-
-### components/Footer~Footer() ⇒ <code>JSX.Element</code>
-Footer---------------------------------------------------------------------------Minimal, mobile-first application footer.Responsibilities:- Provide visual closure at the end of each page- Offer secondary social/profile actions- Display copyright informationDesign philosophy:- Footer should be unobtrusive and visually calm- Avoid heavy glassmorphism and large vertical padding- Never compete with page content or navigationLayout behavior:- Mobile: stacked, centered, minimal height- Desktop: inline, horizontally distributedAccessibility:- All interactive controls use the custom `Btn` component- Icon-only buttons include `aria-label` attributes- No hover-only affordances required for usability
-
-**Kind**: inner method of [<code>components/Footer</code>](#module_components/Footer)  
-**Returns**: <code>JSX.Element</code> - Rendered application footer.  
-**Access**: public  
-**Component**:   
-<a name="module_components/Footer..Footer..currentYear"></a>
-
-#### Footer~currentYear
-Current year used for copyright display. Computed at render time to avoid manual updates. /
-
-**Kind**: inner constant of [<code>Footer</code>](#module_components/Footer..Footer)  
-<a name="module_components/navigation/Head"></a>
-
-## components/navigation/Head
-Route-aware document metadata manager for SEO and social previews.
-
-
-* [components/navigation/Head](#module_components/navigation/Head)
-    * [module.exports()](#exp_module_components/navigation/Head--module.exports) ⇒ <code>JSX.Element</code> ⏏
-        * [~normalizePathname(pathname)](#module_components/navigation/Head--module.exports..normalizePathname) ⇒ <code>string</code>
-        * [~normalizeKeywords(keywords)](#module_components/navigation/Head--module.exports..normalizeKeywords) ⇒ <code>Array.&lt;string&gt;</code>
-
-<a name="exp_module_components/navigation/Head--module.exports"></a>
-
-### module.exports() ⇒ <code>JSX.Element</code> ⏏
-**Kind**: Exported function  
-<a name="module_components/navigation/Head--module.exports..normalizePathname"></a>
-
-#### module.exports~normalizePathname(pathname) ⇒ <code>string</code>
-Normalizes a pathname to avoid canonical duplicates caused by trailing slashes.
-
-**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/navigation/Head--module.exports)  
-
-| Param | Type |
-| --- | --- |
-| pathname | <code>string</code> | 
-
-<a name="module_components/navigation/Head--module.exports..normalizeKeywords"></a>
-
-#### module.exports~normalizeKeywords(keywords) ⇒ <code>Array.&lt;string&gt;</code>
-Ensures every metadata keyword collection is normalized and stable.
-
-**Kind**: inner method of [<code>module.exports</code>](#exp_module_components/navigation/Head--module.exports)  
-
-| Param | Type |
-| --- | --- |
-| keywords | <code>unknown</code> | 
-
-<a name="module_src\components\navigation\helpers\index"></a>
-
-## src\components\navigation\helpers\index
-src\components\navigation\helpers\index module.
-
-<a name="module_src\components\navigation\helpers\restoreScrollPosition"></a>
-
-## src\components\navigation\helpers\restoreScrollPosition
-src\components\navigation\helpers\restoreScrollPosition module.
-
-<a name="module_navigation/restoreScrollPosition"></a>
-
-## navigation/restoreScrollPosition
-Restores the user's scroll position when a page is loadedor reloaded by resolving a target section and scrolling it into view.
-
-<a name="module_navigation/restoreScrollPosition..restoreScrollPosition"></a>
-
-### navigation/restoreScrollPosition~restoreScrollPosition() ⇒ <code>void</code>
-Restores the user's scroll position when a page is loaded or reloaded.Resolution order:1. URL hash (deep link or manual navigation)2. Persisted section state from a previous sessionBehavior:- Reads the current location hash, if present- Falls back to the last saved section ID- Smoothly scrolls the resolved section into viewDesign notes:- The URL hash is treated as the source of truth to support deep linking- `requestAnimationFrame` is used to ensure DOM layout is complete  before attempting to scroll- Function exits early if no valid section can be resolvedTypical usage:- Invoked once during page or application bootstrap- Works in conjunction with scroll-spy and section persistence utilities
-
-**Kind**: inner method of [<code>navigation/restoreScrollPosition</code>](#module_navigation/restoreScrollPosition)  
-**Access**: public  
-<a name="module_navigation/sectionPersistence"></a>
-
-## navigation/sectionPersistence
-Utilities for persisting and restoring the user's last activesection on a per-page basis using sessionStorage.
-
-
-* [navigation/sectionPersistence](#module_navigation/sectionPersistence)
-    * _static_
-        * [.saveLastSection](#module_navigation/sectionPersistence.saveLastSection) ⇒ <code>void</code>
-        * [.loadLastSection](#module_navigation/sectionPersistence.loadLastSection) ⇒ <code>string</code> \| <code>null</code>
-    * _inner_
-        * [~getPageKey()](#module_navigation/sectionPersistence..getPageKey) ⇒ <code>string</code>
-
-<a name="module_navigation/sectionPersistence.saveLastSection"></a>
-
-### navigation/sectionPersistence.saveLastSection ⇒ <code>void</code>
-Persists the currently active section ID for the current page.Intended to be called by scroll-spy or navigation logic whenever theactive section changes.No-op if a falsy section ID is provided.
-
-**Kind**: static constant of [<code>navigation/sectionPersistence</code>](#module_navigation/sectionPersistence)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| sectionId | <code>string</code> | ID of the active section to persist. |
-
-<a name="module_navigation/sectionPersistence.loadLastSection"></a>
-
-### navigation/sectionPersistence.loadLastSection ⇒ <code>string</code> \| <code>null</code>
-Loads the last persisted section ID for the current page.Returns `null` if no section has been saved for the current route.
-
-**Kind**: static constant of [<code>navigation/sectionPersistence</code>](#module_navigation/sectionPersistence)  
-**Returns**: <code>string</code> \| <code>null</code> - Previously saved section ID, if available.  
-**Access**: public  
-<a name="module_navigation/sectionPersistence..getPageKey"></a>
-
-### navigation/sectionPersistence~getPageKey() ⇒ <code>string</code>
-Generates a storage key scoped to the current page pathname.This ensures section state is isolated per route and does not leakacross different pages within the application.
-
-**Kind**: inner method of [<code>navigation/sectionPersistence</code>](#module_navigation/sectionPersistence)  
-**Returns**: <code>string</code> - Namespaced sessionStorage key.  
-<a name="module_components/navigation"></a>
+# Navigation Components
 
 ## components/navigation
-Centralized export module for all navigation-related components and helpers. This file serves as a single point of import for all navigation elements across the codebase, promoting modularity and ease of maintenance.Note: When adding new navigation components or helpers, simply import them here and include them in the export statement.
 
-<a name="module_components/navigation..withLazySuspense"></a>
+Centralized export module for all navigation-related components and helpers. This file serves as a single point of import for all navigation elements across the codebase, promoting modularity and ease of maintenance.
 
-### components/navigation~withLazySuspense(loader, displayName) ⇒ <code>React.ComponentType</code>
-Higher-order component that wraps a lazy-loaded component with React's Suspense for code-splitting and performance optimization.HOC to wrap a lazy-loaded component with Suspense.This allows us to keep the benefits of code-splitting while maintaining a clean and consistent import pattern across our navigation components.
+Note: When adding new navigation components or helpers, simply import them here and include them in the export statement.
 
-**Kind**: inner method of [<code>components/navigation</code>](#module_components/navigation)  
-**Returns**: <code>React.ComponentType</code> - - Wrapped component with Suspense.  
+### withLazySuspense()
 
-| Param | Type | Description |
-| --- | --- | --- |
-| loader | <code>function</code> | Function that dynamically imports the component. |
-| displayName | <code>string</code> | Display name for the wrapped component. |
+Higher-order component that wraps a lazy-loaded component with React's Suspense for code-splitting and performance optimization.
+HOC to wrap a lazy-loaded component with Suspense.
+This allows us to keep the benefits of code-splitting while maintaining a clean and consistent import pattern across our navigation components.
 
-**Example**  
-```jsconst LazyComponent = withLazySuspense(() => import("./MyComponent"), "MyComponent");```
-<a name="module_components/MobileSectionNavTrigger"></a>
+**Parameters**
+
+- `loader` (`function`) - Function that dynamically imports the component.
+- `displayName` (`string`) - Display name for the wrapped component.
+
+**Returns**
+
+- `React.ComponentType` - - Wrapped component with Suspense.
+
+**Examples**
+
+```js
+```js
+const LazyComponent = withLazySuspense(() => import("./MyComponent"), "MyComponent");
+```
+```
+
+## components/navigation/BackToTopButton
+
+Floating back-to-top action that appears after the user scrolls away from the top.
+
+### module.exports()
+
+**Returns**
+
+- `JSX.Element`
+
+## components/Footer
+
+Compact application footer providing quiet page closure,
+secondary social actions, and copyright information.
+
+### currentYear
+
+Current year used for copyright display. Computed at render time to avoid manual updates. /
+
+### Footer()
+
+Footer
+---------------------------------------------------------------------------
+Minimal, mobile-first application footer.
+
+Responsibilities:
+- Provide visual closure at the end of each page
+- Offer secondary social/profile actions
+- Display copyright information
+
+Design philosophy:
+- Footer should be unobtrusive and visually calm
+- Avoid heavy glassmorphism and large vertical padding
+- Never compete with page content or navigation
+
+Layout behavior:
+- Mobile: stacked, centered, minimal height
+- Desktop: inline, horizontally distributed
+
+Accessibility:
+- All interactive controls use the custom `Btn` component
+- Icon-only buttons include `aria-label` attributes
+- No hover-only affordances required for usability
+
+**Returns**
+
+- `JSX.Element` - Rendered application footer.
+
+## components/navigation/Head
+
+Route-aware document metadata manager for SEO and social previews.
+
+### module.exports()
+
+**Returns**
+
+- `JSX.Element`
+
+## src\\components\\navigation\\helpers\\index
+
+src\components\navigation\helpers\index module.
+
+## src\\components\\navigation\\helpers\\restoreScrollPosition
+
+src\components\navigation\helpers\restoreScrollPosition module.
+
+## navigation/restoreScrollPosition
+
+Restores the user's scroll position when a page is loaded
+or reloaded by resolving a target section and scrolling it into view.
+
+### restoreScrollPosition()
+
+Restores the user's scroll position when a page is loaded or reloaded.
+
+Resolution order:
+1. URL hash (deep link or manual navigation)
+2. Persisted section state from a previous session
+
+Behavior:
+- Reads the current location hash, if present
+- Falls back to the last saved section ID
+- Smoothly scrolls the resolved section into view
+
+Design notes:
+- The URL hash is treated as the source of truth to support deep linking
+- `requestAnimationFrame` is used to ensure DOM layout is complete
+  before attempting to scroll
+- Function exits early if no valid section can be resolved
+
+Typical usage:
+- Invoked once during page or application bootstrap
+- Works in conjunction with scroll-spy and section persistence utilities
+
+**Returns**
+
+- `void`
+
+## navigation/sectionPersistence
+
+Utilities for persisting and restoring the user's last active
+section on a per-page basis using sessionStorage.
+
+### saveLastSection
+
+Persists the currently active section ID for the current page.
+
+Intended to be called by scroll-spy or navigation logic whenever the
+active section changes.
+
+No-op if a falsy section ID is provided.
+
+**Parameters**
+
+- `sectionId` (`string`) - ID of the active section to persist.
+
+**Returns**
+
+- `void`
+
+### loadLastSection
+
+Loads the last persisted section ID for the current page.
+
+Returns `null` if no section has been saved for the current route.
+
+**Returns**
+
+- `string | null` - Previously saved section ID, if available.
+
+### getPageKey()
+
+Generates a storage key scoped to the current page pathname.
+
+This ensures section state is isolated per route and does not leak
+across different pages within the application.
+
+**Returns**
+
+- `string` - Namespaced sessionStorage key.
 
 ## components/MobileSectionNavTrigger
-Mobile drawer-based section navigation with collapsible subsections.Design:- Section title click → navigate to section- Caret/menu open → expand subsection list- Subsection click → navigate to block- Active state is derived from scroll-spy (passed from parent)This component does NOT manage scroll state.It only reflects and forwards user intent.The parent component (e.g. SectionRenderer) is responsible for:- Tracking scroll position- Determining active section/block IDs- Managing expanded state of sections- Handling actual navigation (e.g. scrollIntoView)
 
-<a name="module_components/MobileSectionNavTrigger..MobileSectionNavTrigger"></a>
-
-### components/MobileSectionNavTrigger~MobileSectionNavTrigger ⇒ <code>JSX.Element</code>
 Mobile drawer-based section navigation with collapsible subsections.
 
-**Kind**: inner property of [<code>components/MobileSectionNavTrigger</code>](#module_components/MobileSectionNavTrigger)  
-**Access**: public  
-**Component**:   
-**Remarks**: Renders a fixed floating trigger button inside a `.sect-nav-toggle-btn.mobile-only` wrapper(`data-testid="mobile-sect-nav-trigger-wrapper"`); the StickyNav stylesheet sizes and positionsthis wrapper on the mobile rail.Sets `data-has-mobile-section-nav="true"` on `document.documentElement` while mounted so theCSS rail layout can reserve the extra slot position; the attribute is removed on unmount.  
+Design:
+- Section title click → navigate to section
+- Caret/menu open → expand subsection list
+- Subsection click → navigate to block
+- Active state is derived from scroll-spy (passed from parent)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>object</code> |  |
-| props.title | <code>string</code> | Title displayed in the drawer header. |
-| props.sections | <code>Array</code> | List of sections. Each section may contain a `navItems`   array (takes priority) or a `blocks` array for subsection navigation. |
-| props.activeLeafId | <code>string</code> | ID of the currently active block (for highlighting). |
-| props.activeChain | <code>Array</code> | List of active section IDs in the current scroll path. |
-| props.isExpanded | <code>function</code> | Function to determine if a section's subsections are expanded. |
-| props.onToggleSection | <code>function</code> | Callback to toggle a section's expanded state. |
-| props.navigate | <code>function</code> | Callback to handle navigation when a section or block is clicked. |
+This component does NOT manage scroll state.
+It only reflects and forwards user intent.
+The parent component (e.g. SectionRenderer) is responsible for:
+- Tracking scroll position
+- Determining active section/block IDs
+- Managing expanded state of sections
+- Handling actual navigation (e.g. scrollIntoView)
 
-**Example**  
-```js<MobileSectionNavTrigger title="Page Navigation"sections={[     { id: "intro", title: "Introduction", blocks: [] },     { id: "features", title: "Features", blocks: [         { id: "feat1", title: "Feature 1" },         { id: "feat2", title: "Feature 2" },       ]     },     { id: "contact", title: "Contact", blocks: [] },  ]}activeLeafId="feat1"activeChain={["features", "feat1"]}isExpanded={(id) => id === "features"}onToggleSection={(id) => console.log("Toggle section", id)}navigate={(e, id) => console.log("Navigate to", id)}/>```
-<a name="module_components/SectionAnchorNav"></a>
+### MobileSectionNavTrigger
+
+Mobile drawer-based section navigation with collapsible subsections.
+
+**Parameters**
+
+- `props` (`object`)
+- `props.title` (`string`) - Title displayed in the drawer header.
+- `props.sections` (`Array`) - List of sections. Each section may contain a `navItems`   array (takes priority) or a `blocks` array for subsection navigation.
+- `props.activeLeafId` (`string`) - ID of the currently active block (for highlighting).
+- `props.activeChain` (`Array`) - List of active section IDs in the current scroll path.
+- `props.isExpanded` (`function`) - Function to determine if a section's subsections are expanded.
+- `props.onToggleSection` (`function`) - Callback to toggle a section's expanded state.
+- `props.navigate` (`function`) - Callback to handle navigation when a section or block is clicked.
+
+**Returns**
+
+- `JSX.Element`
+
+**Examples**
+
+```js
+```js
+<MobileSectionNavTrigger
+ title="Page Navigation"
+sections={[
+     { id: "intro", title: "Introduction", blocks: [] },
+     { id: "features", title: "Features", blocks: [
+         { id: "feat1", title: "Feature 1" },
+         { id: "feat2", title: "Feature 2" },
+       ]
+     },
+     { id: "contact", title: "Contact", blocks: [] },
+  ]}
+activeLeafId="feat1"
+activeChain={["features", "feat1"]}
+isExpanded={(id) => id === "features"}
+onToggleSection={(id) => console.log("Toggle section", id)}
+navigate={(e, id) => console.log("Navigate to", id)}
+/>
+```
+```
 
 ## components/SectionAnchorNav
-A sticky/floating navigation component that uses the fully accessibleAccordionList as its core. Intended for long portfolio pages withmultiple subsections (CodeStream, Hackathon, etc.).Features:- Sticky on desktop, collapsible drawer on mobile- Auto-syncs with scroll position via AccordionList’s IntersectionObserver- Smooth scrolling, keyboard navigation, screen-reader friendly- Midnight Gold frosted UI styling
 
+A sticky/floating navigation component that uses the fully accessible
+AccordionList as its core. Intended for long portfolio pages with
+multiple subsections (CodeStream, Hackathon, etc.).
 
-* [components/SectionAnchorNav](#module_components/SectionAnchorNav)
-    * [~SectionAnchorNav](#module_components/SectionAnchorNav..SectionAnchorNav)
-    * [~FeatureSection](#module_components/SectionAnchorNav..FeatureSection) : <code>FeatureSection</code>
+Features:
+- Sticky on desktop, collapsible drawer on mobile
+- Auto-syncs with scroll position via AccordionList’s IntersectionObserver
+- Smooth scrolling, keyboard navigation, screen-reader friendly
+- Midnight Gold frosted UI styling
 
-<a name="module_components/SectionAnchorNav..SectionAnchorNav"></a>
+### SectionAnchorNav
 
-### components/SectionAnchorNav~SectionAnchorNav
-A sticky/floating navigation component that uses the fully accessibleAccordionList as its core. Intended for long portfolio pages withmultiple subsections (CodeStream, Hackathon, etc.).Features:- Sticky on desktop, collapsible drawer on mobile- Auto-syncs with scroll position via AccordionList’s IntersectionObserver- Smooth scrolling, keyboard navigation, screen-reader friendly- Midnight Gold frosted UI styling
+A sticky/floating navigation component that uses the fully accessible
+AccordionList as its core. Intended for long portfolio pages with
+multiple subsections (CodeStream, Hackathon, etc.).
 
-**Kind**: inner property of [<code>components/SectionAnchorNav</code>](#module_components/SectionAnchorNav)  
-**Access**: public  
-**Component**:   
+Features:
+- Sticky on desktop, collapsible drawer on mobile
+- Auto-syncs with scroll position via AccordionList’s IntersectionObserver
+- Smooth scrolling, keyboard navigation, screen-reader friendly
+- Midnight Gold frosted UI styling
 
-| Param | Type |
-| --- | --- |
-| props | <code>object</code> | 
-| props.sections | <code>Array.&lt;FeatureSection&gt;</code> | 
-| [props.className] | <code>string</code> | 
+**Parameters**
 
-<a name="module_components/SectionAnchorNav..FeatureSection"></a>
+- `props` (`object`)
+- `props.sections` (`Array<FeatureSection>`)
+- `props.className` (`string`, optional)
 
-### components/SectionAnchorNav~FeatureSection : <code>FeatureSection</code>
-**Kind**: inner typedef of [<code>components/SectionAnchorNav</code>](#module_components/SectionAnchorNav)  
+### FeatureSection
+
+- Type: `FeatureSection`
+
 **Properties**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| id | <code>string</code> |  | Unique identifier for the section (used for anchors). |
-| title | <code>string</code> |  | Display title for the section. |
-| [isScroller] | <code>boolean</code> | <code>false</code> | If true, href will be `#id` for scroll behavior; otherwise, use `url`. |
-| [url] | <code>string</code> |  | Optional URL for non-scrolling navigation. |
-
-<a name="module_components/StickyNav"></a>
+- `id` (`string`) - Unique identifier for the section (used for anchors).
+- `title` (`string`) - Display title for the section.
+- `isScroller` (`boolean`, optional, default: `false`) - If true, href will be `#id` for scroll behavior; otherwise, use `url`.
+- `url` (`string`, optional) - Optional URL for non-scrolling navigation.
 
 ## components/StickyNav
-Primary site navigation with synchronized desktop and mobilelayouts, active-route handling, and accessibility semantics.
 
-<a name="module_components/StickySectionNav"></a>
+Primary site navigation with synchronized desktop and mobile
+layouts, active-route handling, and accessibility semantics.
 
 ## components/StickySectionNav
-Sticky, accessible intra-page section navigator withhierarchical scroll tracking and collapsible subsection groups.
 
-<a name="module_components/StickySectionNav..StickySectionNav"></a>
+Sticky, accessible intra-page section navigator with
+hierarchical scroll tracking and collapsible subsection groups.
 
-### components/StickySectionNav~StickySectionNav ⇒ <code>JSX.Element</code>
-Sticky, accessible intra-page section navigator withhierarchical scroll tracking and collapsible subsection groups.Designed for long-form portfolio pages with multiple sections and subsections(e.g. CodeStream, Hackathon, etc.).Features:- Sticky on desktop, collapsible drawer on mobile- Auto-syncs with scroll position via IntersectionObserver- Smooth scrolling, keyboard navigation, screen-reader friendly- Midnight Gold frosted UI styling- Data-driven from section/block metadata (no hardcoded IDs or structure)
+### StickySectionNav
 
-**Kind**: inner property of [<code>components/StickySectionNav</code>](#module_components/StickySectionNav)  
-**Access**: public  
-**Component**:   
+Sticky, accessible intra-page section navigator with
+hierarchical scroll tracking and collapsible subsection groups.
+Designed for long-form portfolio pages with multiple sections and subsections
+(e.g. CodeStream, Hackathon, etc.).
 
-| Param | Type | Description |
-| --- | --- | --- |
-| props | <code>object</code> |  |
-| props.sections | <code>Array</code> | List of sections with optional blocks for navigation. |
-| props.pageUrl | <code>string</code> | Base URL for the page (used for updating hash on navigation). |
-| props.mode | <code>string</code> | "desktop" or "mobile" to control styling and behavior. |
-| props.isOpen | <code>boolean</code> | For mobile mode, whether the drawer is open. |
+Features:
+- Sticky on desktop, collapsible drawer on mobile
+- Auto-syncs with scroll position via IntersectionObserver
+- Smooth scrolling, keyboard navigation, screen-reader friendly
+- Midnight Gold frosted UI styling
+- Data-driven from section/block metadata (no hardcoded IDs or structure)
 
-**Example**  
-```js<StickySectionNavsections={[    { id: "intro", title: "Introduction", blocks: [] },    { id: "features", title: "Features", blocks: [      { id: "feat1", title: "Feature 1" },      { id: "feat2", title: "Feature 2" },    ]  },]}pageUrl="/portfolio"mode="desktop"isOpen={true}/>```
+**Parameters**
+
+- `props` (`object`)
+- `props.sections` (`Array`) - List of sections with optional blocks for navigation.
+- `props.pageUrl` (`string`) - Base URL for the page (used for updating hash on navigation).
+- `props.mode` (`string`) - "desktop" or "mobile" to control styling and behavior.
+- `props.isOpen` (`boolean`) - For mobile mode, whether the drawer is open.
+
+**Returns**
+
+- `JSX.Element`
+
+**Examples**
+
+```js
+```js
+<StickySectionNav
+sections={[
+    { id: "intro", title: "Introduction", blocks: [] },
+    { id: "features", title: "Features", blocks: [
+      { id: "feat1", title: "Feature 1" },
+      { id: "feat2", title: "Feature 2" },
+    ]
+  },
+]}
+pageUrl="/portfolio"
+mode="desktop"
+isOpen={true}
+/>
+```
+```
+
+## normalizePathname()
+
+Normalizes a pathname to avoid canonical duplicates caused by trailing slashes.
+
+**Parameters**
+
+- `pathname` (`string`)
+
+**Returns**
+
+- `string`
+
+## normalizeKeywords()
+
+Ensures every metadata keyword collection is normalized and stable.
+
+**Parameters**
+
+- `keywords` (`unknown`)
+
+**Returns**
+
+- `Array<string>`

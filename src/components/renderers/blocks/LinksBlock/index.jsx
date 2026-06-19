@@ -9,7 +9,6 @@ import { Panel } from "rsuite";
 import { Btn } from "components/ui";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
 import resumeData from "assets/data/content/resumeData.js";
-import { resolveResumePdfHref } from "assets/data/resume/pdfAssets.js";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Variant } from "types/ui.types";
 import "./styles.css";
@@ -46,14 +45,13 @@ import "./styles.css";
  * <LinksBlock
  *   items={[
  *     { title: "GitHub", url: "https://github.com", icon: faGithub },
- *     { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },
+ *     { title: "Resume", resumePreview: true, icon: faFile },
  *   ]}
  * />
  * ```
  */
 const LinksBlock = ({ items = [] }) => {
   const { theme, palette } = useTheme();
-  const resumePdfHref = resolveResumePdfHref(theme);
 
   if (!Array.isArray(items) || items.length === 0) return null;
 
@@ -76,7 +74,6 @@ const LinksBlock = ({ items = [] }) => {
                   "A compact resume preview with PDF-style spacing and download options."
                 }
                 resume={resumeData}
-                pdfHref={resumePdfHref}
                 downloadName={downloadName}
                 buttonClassName="links-block-item"
                 icon={link.icon}

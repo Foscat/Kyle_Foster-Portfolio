@@ -1,3 +1,8 @@
+/**
+ * @file src/styles/interactiveSurfaceCssContract.test.js
+ * @description Guards against using package-owned interactive-surface CSS tokens in app component styles.
+ * @module styles/interactiveSurfaceCssContract.test
+ */
 import fs from "node:fs";
 import path from "node:path";
 

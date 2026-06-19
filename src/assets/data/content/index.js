@@ -13,13 +13,9 @@ import smuSections from "./smu";
 import docsSections from "./docs";
 import diagrams from "./diagrams.js";
 
-// `contact/alt` content was merged into `contact`; keep the alias export stable.
-const contactAltSections = contactSections;
-
 export {
   codestreamSections,
   contactSections,
-  contactAltSections,
   hackathonSections,
   homeSections,
   sideProjectsSections,

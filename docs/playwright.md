@@ -1,6 +1,5 @@
-<a name="DIAGRAM_IDS"></a>
+# Playwright Fixtures
 
 ## DIAGRAM\_IDS
-Flat list of just the IDs, for utilities that only need strings.
 
-**Kind**: global constant  
+Flat list of just the IDs, for utilities that only need strings.

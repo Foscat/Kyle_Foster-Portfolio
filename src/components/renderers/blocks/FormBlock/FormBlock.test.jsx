@@ -1,3 +1,8 @@
+/**
+ * @file src/components/renderers/blocks/FormBlock/FormBlock.test.jsx
+ * @description Verifies FormBlock schema rendering and submit behavior.
+ * @module components/renderers/blocks/FormBlock/FormBlock.test
+ */
 import { describe, expect, it, vi } from "vitest";
 import { screen } from "@testing-library/react";
 

@@ -20,7 +20,7 @@ const CodeStream = lazy(() => import("pages/CodeStream"));
 const SideProjects = lazy(() => import("pages/SideProjects"));
 const Hackathon = lazy(() => import("pages/Hackathon"));
 const Smu = lazy(() => import("pages/SMU"));
-const ContactAlt = lazy(() => import("pages/ContactAlt"));
+const Contact = lazy(() => import("pages/Contact"));
 const Docs = lazy(() => import("pages/Docs"));
 const Health = lazy(() => import("pages/Health"));
 const NotFound = lazy(() => import("pages/NotFound"));
@@ -64,7 +64,7 @@ export default function App() {
             <Route path="/side-projects" element={<SideProjects />} />
             <Route path="/hackathon" element={<Hackathon />} />
             <Route path="/smu" element={<Smu />} />
-            <Route path="/contact" element={<ContactAlt />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/docs" element={<Docs />} />
             <Route path="/health" element={<Health />} />
 

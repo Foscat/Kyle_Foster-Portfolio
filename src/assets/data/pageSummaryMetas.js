@@ -14,7 +14,7 @@ const pageSummaryMetas = {
     title: "Kyle Foster",
     seoTitle: "Kyle Foster | Senior React Frontend Engineer Portfolio",
     description:
-      "Senior React / Frontend Engineer building role-aware interfaces, browser-based learning tools, and data-heavy product flows with a focus on clarity and usability.",
+      "Senior React / Frontend Engineer building clear, scalable interfaces for learning platforms, admin tools, and data-rich product workflows.",
     keywords: [
       "Kyle Foster",
       "Senior React engineer",
@@ -33,7 +33,7 @@ const pageSummaryMetas = {
     title: "CodeStream Online Studios",
     seoTitle: "CodeStream Online Studios Case Study | Kyle Foster Portfolio",
     description:
-      "Explore my professional work at CodeStream Online Studios, where I built browser-based education tooling for students, instructors, and school administrators.",
+      "Explore my professional work at CodeStream Online Studios, where I built browser-based education tools for students, instructors, and school administrators.",
     jobTitle: "React Frontend Engineer / Instructor",
     timespan: "2019 - 2025",
     keywords: [
@@ -65,7 +65,7 @@ const pageSummaryMetas = {
     title: "Daimler Trucking Hackathon Winner | Kyle Foster",
     seoTitle: "Daimler Trucking Hackathon Winner Case Study | Kyle Foster",
     description:
-      "Learn how our team of junior developers won the Daimler Trucking Hackathon by building a voice-driven repair assistant for technician repair processes.",
+      "Learn how our team won the Daimler Trucking Hackathon by building a voice-driven repair assistant that helped technicians follow repair steps hands-free.",
     keywords: [
       "Daimler hackathon winner",
       "voice assistant case study",
@@ -94,7 +94,7 @@ const pageSummaryMetas = {
     title: "Side Projects",
     seoTitle: "Side Projects in React, IoT, and Encryption | Kyle Foster",
     description:
-      "Browse side projects spanning encryption, IoT automation, and custom tooling. Each build shows practical problem framing and hands-on execution.",
+      "Browse side projects spanning encryption, IoT automation, CSS utilities, and custom tooling. Each build shows practical problem framing and hands-on execution.",
     timespan: "2018 - Current",
     jobTitle: "Senior MERN Stack Engineer",
     keywords: [
@@ -127,7 +127,7 @@ const pageSummaryMetas = {
     title: "SMU Coding Bootcamp",
     seoTitle: "SMU Coding Bootcamp Journey | Kyle Foster Portfolio",
     description:
-      "Explore my journey through the SMU Coding Bootcamp, where I built the foundation for my development career through hands-on projects and rapid technical growth.",
+      "Explore the early projects from my SMU Coding Bootcamp, where I built the foundation for my development career through practical, hands-on work.",
     timespan: "August 2018 - February 2019",
     jobTitle: "MERN Stack Student",
     keywords: [

@@ -20,7 +20,7 @@
 }
 
 .block-link.interactive-surface {
-  color: var(--interactive-surface-fg);
+  color: var(--text-accent);
 }
 
 .block-link.interactive-surface:hover,

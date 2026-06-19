@@ -70,8 +70,11 @@ vi.mock("components/features", () => ({
 }));
 
 vi.mock("components/features/ResumePreview/ResumePreviewTrigger", () => ({
-  default: ({ ariaLabel, buttonText }) => (
-    <button aria-label={ariaLabel || buttonText || "Open resume preview and download options"}>
+  default: ({ ariaLabel, buttonText, pdfHref }) => (
+    <button
+      aria-label={ariaLabel || buttonText || "Open resume preview and download options"}
+      data-pdf-href={pdfHref}
+    >
       Resume
     </button>
   ),
@@ -157,9 +160,14 @@ describe("StickyNav", () => {
   it("renders resume quick actions in navigation controls", async () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
-    expect(
-      screen.getAllByRole("button", { name: /open resume preview and download options/i }).length
-    ).toBeGreaterThan(0);
+    const resumeTriggers = screen.getAllByRole("button", {
+      name: /open resume preview and download options/i,
+    });
+
+    expect(resumeTriggers.length).toBeGreaterThan(0);
+    resumeTriggers.forEach((trigger) => {
+      expect(trigger).not.toHaveAttribute("data-pdf-href");
+    });
   });
 
   it("renders the mobile floating nav trigger in the nav-toggle-btn wrapper", () => {

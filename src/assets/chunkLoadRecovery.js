@@ -119,7 +119,7 @@ const recoverNavigation = (win, now) => {
  * @param {Window} [options.win=window] - Window-like object used for navigation + storage.
  * @param {Object} [options.payload={}] - Error-like payload consumed by `isLikelyChunkLoadFailure`.
  * @param {number} [options.maxReloads=1] - Max automatic reload attempts per session.
- * @param {() => number} [options.now=Date.now] - Timestamp source used for cache-busting URLs.
+ * @param {Function} [options.now=Date.now] - Timestamp source used for cache-busting URLs.
  * @returns {boolean} True when recovery navigation was attempted.
  */
 export function tryRecoverFromChunkLoadFailure({
@@ -172,8 +172,8 @@ const clearRecoveryQueryParam = (win) => {
  * @param {Object} [options]
  * @param {Window} [options.win=window] - Window-like object used for listener registration.
  * @param {number} [options.maxReloads=1] - Max automatic reload attempts per session.
- * @param {() => number} [options.now=Date.now] - Timestamp source used for cache-busting URLs.
- * @returns {() => void} Cleanup function that removes installed listeners.
+ * @param {Function} [options.now=Date.now] - Timestamp source used for cache-busting URLs.
+ * @returns {Function} Cleanup function that removes installed listeners.
  */
 export function installChunkLoadRecovery({
   win = window,

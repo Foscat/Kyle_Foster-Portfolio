@@ -4,6 +4,20 @@
 
 .rs-btn.btn.interactive-surface,
 .rs-panel-btn.interactive-surface {
+  --btn-surface-bg: var(
+    --interactive-surface-bg,
+    var(--app-surface-strong-bg, var(--surface-raised))
+  );
+  --btn-surface-fg: var(
+    --interactive-surface-fg,
+    var(--app-surface-readable-fg, var(--text-primary))
+  );
+  --btn-surface-border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  --btn-surface-shadow-base: var(
+    --interactive-surface-shadow-base,
+    var(--app-surface-shadow-soft, none)
+  );
+
   box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
@@ -15,11 +29,11 @@
   padding: 0.625rem 0.875rem;
   border-width: var(--interactive-surface-border-width, 1px);
   border-style: var(--interactive-surface-border-style, solid);
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  border-color: var(--btn-surface-border-color);
   border-radius: var(--interactive-surface-radius, var(--border-radius));
-  background: var(--interactive-surface-bg, var(--app-surface-strong-bg, var(--surface-raised)));
-  box-shadow: var(--interactive-surface-shadow-base, var(--app-surface-shadow-soft, none));
-  color: var(--interactive-surface-fg, var(--app-surface-readable-fg, var(--text-primary)));
+  background: var(--btn-surface-bg);
+  box-shadow: var(--btn-surface-shadow-base);
+  color: var(--btn-surface-fg);
   font-weight: 600;
   line-height: 1.2;
   white-space: normal;
@@ -46,15 +60,15 @@
 .rs-btn.btn.interactive-surface:focus-visible:not(:disabled),
 .rs-panel-btn.interactive-surface:hover:not(:disabled),
 .rs-panel-btn.interactive-surface:focus-visible:not(:disabled) {
-  color: var(--interactive-surface-fg, var(--app-surface-readable-fg, var(--text-primary)));
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
-  background: var(--interactive-surface-bg, var(--app-surface-strong-bg, var(--surface-raised)));
+  color: var(--btn-surface-fg);
+  border-color: var(--btn-surface-border-color);
+  background: var(--btn-surface-bg);
 }
 
 .rs-btn.btn.interactive-surface:active:not(:disabled),
 .rs-panel-btn.interactive-surface:active:not(:disabled) {
-  color: var(--interactive-surface-fg, var(--app-surface-readable-fg, var(--text-primary)));
-  border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
+  color: var(--btn-surface-fg);
+  border-color: var(--btn-surface-border-color);
 }
 
 /* ------------------------------------------------------------

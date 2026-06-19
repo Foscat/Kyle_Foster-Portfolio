@@ -10,24 +10,20 @@ import { Variant } from "types/ui.types";
 
 /**
  * @name PreviewResume
- * @description A modal component that allows users to preview and download the resume PDF. It provides an embedded PDF viewer along with action buttons for opening the PDF in a new tab, printing, and closing the modal. The component is designed to work seamlessly in both development and production environments by leveraging Vite's asset management system.
+ * @description A modal component that allows users to preview the resume and generate a PDF download from the rendered document. It provides actions for downloading, printing, and closing the modal.
  *
  * Core responsibilities:
- * - Opens a modal containing an embedded PDF preview
- * - Provides a direct download link for the resume
- * - Uses Vite asset imports to ensure correct bundling across environments
+ * - Renders the live resume document in a print-focused preview
+ * - Provides a generated PDF download action
+ * - Keeps the preview and PDF export aligned with the shared resume data source
  *
  * Technical notes:
- * - PDF is imported as a Vite-managed asset
- * - Works consistently in local development and production builds
  * - Uses RSuite's ButtonToolbar for action buttons
- * - The embedded PDF viewer is implemented using an iframe for broad compatibility
  * - The component is styled to fit within the overall design system and maintain readability of the PDF content
  *
  * Accessibility:
  * - RSuite Modal provides focus trapping and ESC-to-close behavior
  * - Buttons include descriptive aria-labels and tooltips
- * - Embedded iframe includes a fallback message
  *
  * @public
  * @component
@@ -38,11 +34,9 @@ const PreviewResume = ({
   title = "Resume Preview",
   subtitle = "Review the resume in a document-focused view.",
   onClose,
-  onOpenPdf,
   onDownloadPdf,
   isDownloadPending = false,
   onPrint,
-  pdfHref,
   downloadName = "resume.pdf",
   children,
 }) => {
@@ -56,15 +50,6 @@ const PreviewResume = ({
         </div>
 
         <ButtonToolbar className="resume-preview__actions">
-          {pdfHref && onOpenPdf ? (
-            <Btn
-              text="Open PDF"
-              variant={Variant.SUBTLE}
-              className="resume-preview__action resume-preview__action--open"
-              onClick={onOpenPdf}
-            />
-          ) : null}
-
           {onDownloadPdf ? (
             <Btn
               text={isDownloadPending ? "Building PDF..." : "Download PDF"}

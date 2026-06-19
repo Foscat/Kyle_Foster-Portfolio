@@ -29,34 +29,82 @@ const DOC_META = {
     order: 1,
   },
   components: {
-    title: "Components",
-    category: "Systems",
-    summary: "Reusable component patterns and responsibilities.",
+    title: "Feature Components",
+    category: "Client Reference",
+    summary: "Reusable feature-level React component patterns and responsibilities.",
     order: 2,
   },
-  navigation: {
-    title: "Navigation",
-    category: "Systems",
-    summary: "Sticky nav, section nav, scroll behavior, and hierarchy.",
+  layout: {
+    title: "Layout Components",
+    category: "Client Reference",
+    summary: "Page frame, section, and content layout component references.",
     order: 3,
+  },
+  navigation: {
+    title: "Navigation Components",
+    category: "Client Reference",
+    summary: "Sticky nav, section nav, scroll behavior, and hierarchy.",
+    order: 4,
+  },
+  renderers: {
+    title: "Renderers",
+    category: "Client Reference",
+    summary: "Data-driven block renderers and markdown rendering surfaces.",
+    order: 5,
+  },
+  ui: {
+    title: "UI Components",
+    category: "Client Reference",
+    summary: "Reusable UI controls, cards, diagrams, and interaction primitives.",
+    order: 6,
+  },
+  pages: {
+    title: "Pages",
+    category: "Client Reference",
+    summary: "Route-level page composition and page-specific behavior.",
+    order: 7,
+  },
+  hooks: {
+    title: "Hooks",
+    category: "Client Reference",
+    summary: "Shared React hooks for responsive behavior, scrolling, and app utilities.",
+    order: 8,
+  },
+  context: {
+    title: "Context",
+    category: "Client Reference",
+    summary: "React context providers that coordinate app-wide state and preferences.",
+    order: 9,
+  },
+  data: {
+    title: "Data and Content",
+    category: "Client Reference",
+    summary: "Content registries, metadata, and source data powering the portfolio.",
+    order: 10,
   },
   scripts: {
     title: "Scripts",
     category: "Tooling",
     summary: "Project scripts and the build/development process.",
-    order: 4,
+    order: 30,
   },
   tests: {
-    title: "Tests",
+    title: "Test Helpers",
     category: "Quality",
     summary: "Testing structure, intent, and coverage strategy.",
-    order: 5,
+    order: 40,
   },
   types: {
     title: "Types",
-    category: "Systems",
+    category: "Client Reference",
     summary: "Shared shapes, block contracts, and model conventions.",
-    order: 6,
+    order: 11,
+  },
+  playwright: {
+    title: "Playwright Fixtures",
+    category: "Tooling",
+    summary: "Browser test fixtures and visual validation support files.",
+    order: 31,
   },
   breakpoints: {
     title: "Breakpoints",
@@ -97,7 +145,10 @@ const DOC_META = {
 };
 
 function titleize(value = "") {
-  return value.replace(/[_-]+/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 function getFileName(path) {
@@ -109,8 +160,37 @@ function getFileName(path) {
   );
 }
 
+function slugify(value = "") {
+  return String(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getDocsRelativePath(path) {
+  const normalizedPath = path.replaceAll("\\", "/");
+  const docsIndex = normalizedPath.indexOf("/docs/");
+
+  if (docsIndex >= 0) {
+    return normalizedPath.slice(docsIndex + "/docs/".length);
+  }
+
+  const devGuidesIndex = normalizedPath.indexOf("/dev-guides/");
+  if (devGuidesIndex >= 0) {
+    return normalizedPath.slice(devGuidesIndex + 1);
+  }
+
+  return normalizedPath;
+}
+
 function getSlug(path) {
-  return getFileName(path).toLowerCase();
+  const relativePath = getDocsRelativePath(path).replace(/\.(md|markdown)$/i, "");
+
+  if (relativePath.startsWith("reference/")) {
+    return slugify(relativePath);
+  }
+
+  return slugify(getFileName(path));
 }
 
 function getCategoryFromPath(path) {
@@ -118,8 +198,15 @@ function getCategoryFromPath(path) {
     return "Developer Guides";
   }
 
-  const cleanPath = path.split("/docs/")[1] || path;
+  const cleanPath = getDocsRelativePath(path);
   const parts = cleanPath.split("/");
+
+  if (parts[0] === "reference" && parts.length >= 3) {
+    const groupTitle = titleize(parts[1]);
+    const sectionTitle = parts[2]?.toLowerCase() === "readme" ? "Index" : titleize(parts[2] || "");
+    return sectionTitle === "Index" ? `${groupTitle} Reference` : `${groupTitle} ${sectionTitle}`;
+  }
+
   if (parts.length <= 1) return "Documentation";
   return titleize(parts[0]);
 }
@@ -166,16 +253,21 @@ const portfolioDocEntries = Object.entries(docLoaders)
   .map(([path, load]) => {
     const slug = getSlug(path);
     const fileName = getFileName(path);
+    const relativePath = getDocsRelativePath(path);
     const meta = DOC_META[slug] || {};
 
     return {
       slug,
       fileName,
       path,
+      relativePath,
       title: meta.title || titleize(fileName),
       category: meta.category || getCategoryFromPath(path),
       summary: meta.summary || "",
       order: meta.order || 999,
+      isReferenceDoc: relativePath.startsWith("reference/"),
+      isReferenceIndex:
+        relativePath.endsWith("/README.md") || relativePath === "reference/README.md",
       load,
     };
   })
@@ -193,6 +285,55 @@ function selectDocsBySlug(slugs = []) {
   return portfolioDocEntries.filter((doc) => wanted.has(doc.slug));
 }
 
+function normalizePathPrefix(prefix = "") {
+  return String(prefix)
+    .replaceAll("\\", "/")
+    .replace(/^(\.\.\/)+/g, "")
+    .replace(/^docs\//, "")
+    .replace(/^\/+/, "")
+    .replace(/\/?$/u, "/");
+}
+
+function matchesPathPrefix(doc, prefixes = []) {
+  if (!Array.isArray(prefixes) || prefixes.length === 0) {
+    return true;
+  }
+
+  return prefixes.some((prefix) => doc.relativePath.startsWith(normalizePathPrefix(prefix)));
+}
+
+function selectDocsByCriteria({
+  slugs = [],
+  categories = [],
+  pathPrefixes = [],
+  includeReferenceIndexes = false,
+} = {}) {
+  const hasSlugs = Array.isArray(slugs) && slugs.length > 0;
+  const hasCategories = Array.isArray(categories) && categories.length > 0;
+  const hasPathPrefixes = Array.isArray(pathPrefixes) && pathPrefixes.length > 0;
+
+  if (!hasSlugs && !hasCategories && !hasPathPrefixes) {
+    return portfolioDocEntries;
+  }
+
+  const wantedSlugs = new Set((slugs || []).map((slug) => String(slug).toLowerCase()));
+  const wantedCategories = new Set(
+    (categories || []).map((category) => String(category).toLowerCase())
+  );
+
+  return portfolioDocEntries.filter((doc) => {
+    if (!includeReferenceIndexes && doc.isReferenceIndex) {
+      return false;
+    }
+
+    const matchesSlug = !hasSlugs || wantedSlugs.has(doc.slug);
+    const matchesCategory = !hasCategories || wantedCategories.has(doc.category.toLowerCase());
+    const matchesPrefix = !hasPathPrefixes || matchesPathPrefix(doc, pathPrefixes);
+
+    return matchesSlug && matchesCategory && matchesPrefix;
+  });
+}
+
 async function hydratePortfolioDoc(entry) {
   const content = await entry.load();
   const sanitizedContent = sanitizeDocContent(content, entry.path);
@@ -201,10 +342,13 @@ async function hydratePortfolioDoc(entry) {
     slug: entry.slug,
     fileName: entry.fileName,
     path: entry.path,
+    relativePath: entry.relativePath,
     title: entry.title,
     category: entry.category,
     summary: entry.summary,
     order: entry.order,
+    isReferenceDoc: entry.isReferenceDoc,
+    isReferenceIndex: entry.isReferenceIndex,
     content: sanitizedContent,
   };
 }
@@ -232,6 +376,31 @@ export const portfolioDocs = portfolioDocsMeta;
 export async function getPortfolioDocs(slugs = []) {
   const docs = selectDocsBySlug(slugs);
   return Promise.all(docs.map(hydratePortfolioDoc));
+}
+
+/**
+ * Load hydrated portfolio docs using category or path-prefix selectors.
+ *
+ * @param {Object} [criteria={}] Selection criteria.
+ * @param {string[]} [criteria.slugs=[]] Optional slug allow-list.
+ * @param {string[]} [criteria.categories=[]] Optional category allow-list.
+ * @param {string[]} [criteria.pathPrefixes=[]] Optional docs-relative path prefixes.
+ * @param {boolean} [criteria.includeReferenceIndexes=false] Whether README index docs should be included.
+ * @returns {Promise<Array<{slug: string, fileName: string, path: string, relativePath: string, title: string, category: string, summary: string, order: number, content: string}>>}
+ */
+export async function getPortfolioDocsByCriteria(criteria = {}) {
+  const docs = selectDocsByCriteria(criteria);
+  return Promise.all(docs.map(hydratePortfolioDoc));
+}
+
+/**
+ * Read metadata-only docs using the same selector rules as hydrated docs.
+ *
+ * @param {Object} [criteria={}] Selection criteria.
+ * @returns {Array<Object>} Metadata-only docs for navigation generation.
+ */
+export function getPortfolioDocsMetaByCriteria(criteria = {}) {
+  return selectDocsByCriteria(criteria).map(({ load, ...doc }) => doc);
 }
 
 /**
