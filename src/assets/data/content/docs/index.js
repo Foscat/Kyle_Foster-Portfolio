@@ -1,78 +1,187 @@
+/**
+ * @file src/assets/data/content/docs/index.js
+ * @description Data-driven documentation page sections built from generated Markdown references.
+ * @module assets/data/content/docs
+ */
 import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons";
 import { BlockType } from "types/ui.types";
 
+const REFERENCE_PREFIXES = {
+  components: "reference/client/components/",
+  layout: "reference/client/layout/",
+  navigation: "reference/client/navigation/",
+  renderers: "reference/client/renderers/",
+  ui: "reference/client/ui/",
+  pages: "reference/client/pages/",
+  hooks: "reference/client/hooks/",
+  context: "reference/client/context/",
+  data: "reference/client/data/",
+  types: "reference/client/types/",
+  tests: "reference/client/tests/",
+  scripts: "reference/tooling/scripts/",
+  playwright: "reference/tooling/playwright/",
+};
+
+const REFERENCE_TITLES = {
+  components: "Feature Components",
+  layout: "Layout Components",
+  navigation: "Navigation Components",
+  renderers: "Renderers",
+  ui: "UI Components",
+  pages: "Pages",
+  hooks: "Hooks",
+  context: "Context",
+  data: "Data and Content",
+  types: "Types",
+  tests: "Test Helpers",
+  scripts: "Scripts",
+  playwright: "Playwright Fixtures",
+};
+
+function createReferenceNavItems(sectionKeys = []) {
+  return sectionKeys.map((key) => ({
+    id: `docs-reference-${key}`,
+    title: REFERENCE_TITLES[key],
+  }));
+}
+
+function createReferenceBlock({ key, title, intro }) {
+  return {
+    id: `docs-reference-${key}`,
+    type: BlockType.MARKDOWN_DOCS,
+    title,
+    intro,
+    docPathPrefixes: [REFERENCE_PREFIXES[key]],
+    selectMode: "single",
+    showToc: false,
+    showDocJumpList: true,
+  };
+}
+
 const docsSections = [
   {
-    id: "docs-architecture-systems",
-    title: "Architecture and Systems",
-    navLabel: "Architecture",
+    id: "docs-component-reference",
+    title: "Component Reference",
+    navLabel: "Components",
     sourceTag: "Generated Docs",
-    navItems: [
-      { id: "doc-components", title: "Components" },
-      { id: "doc-navigation", title: "Navigation" },
-      { id: "doc-types", title: "Types" },
-    ],
-    subtitle: "Core component, navigation, and type-system documentation.",
+    navItems: createReferenceNavItems(["components", "layout", "ui"]),
+    subtitle: "Feature, layout, and reusable UI component references generated from JSDoc.",
     icon: faBookOpenReader,
     isScroller: true,
     blocks: [
-      {
-        id: "docs-architecture-systems-content",
-        type: BlockType.MARKDOWN_DOCS,
-        title: "Architecture and Systems Docs",
-        intro:
-          "Reference docs for component architecture, page navigation, and shared data contracts.",
-        docSlugs: ["components", "navigation", "types"],
-        showToc: false,
-        showDocJumpList: true,
-      },
+      createReferenceBlock({
+        key: "components",
+        title: "Feature Components",
+        intro: "Generated module docs for feature-level React components.",
+      }),
+      createReferenceBlock({
+        key: "layout",
+        title: "Layout Components",
+        intro: "Generated module docs for shared layout and section framing components.",
+      }),
+      createReferenceBlock({
+        key: "ui",
+        title: "UI Components",
+        intro: "Generated module docs for reusable controls, cards, and UI primitives.",
+      }),
     ],
   },
   {
-    id: "docs-tooling",
-    title: "Tooling and Automation",
+    id: "docs-navigation-rendering",
+    title: "Navigation and Rendering",
+    navLabel: "Navigation",
+    sourceTag: "Generated Docs",
+    navItems: createReferenceNavItems(["navigation", "renderers"]),
+    subtitle: "Route navigation, scroll-spy behavior, markdown rendering, and block renderers.",
+    icon: faBookOpenReader,
+    isScroller: true,
+    blocks: [
+      createReferenceBlock({
+        key: "navigation",
+        title: "Navigation Components",
+        intro: "Generated module docs for page navigation, section navigation, and scroll helpers.",
+      }),
+      createReferenceBlock({
+        key: "renderers",
+        title: "Renderer Components",
+        intro: "Generated module docs for data-driven content blocks and markdown rendering.",
+      }),
+    ],
+  },
+  {
+    id: "docs-pages-data",
+    title: "Pages and Data",
+    navLabel: "Pages/Data",
+    sourceTag: "Generated Docs",
+    navItems: createReferenceNavItems(["pages", "data"]),
+    subtitle: "Route-level pages and content registries that drive the portfolio experience.",
+    icon: faBookOpenReader,
+    isScroller: true,
+    blocks: [
+      createReferenceBlock({
+        key: "pages",
+        title: "Pages",
+        intro: "Generated module docs for route-level page composition.",
+      }),
+      createReferenceBlock({
+        key: "data",
+        title: "Data and Content",
+        intro: "Generated module docs for content registries, metadata, and page source data.",
+      }),
+    ],
+  },
+  {
+    id: "docs-state-types",
+    title: "State, Hooks, and Types",
+    navLabel: "State/Types",
+    sourceTag: "Generated Docs",
+    navItems: createReferenceNavItems(["hooks", "context", "types"]),
+    subtitle: "Shared hooks, context providers, and typed runtime contracts.",
+    icon: faBookOpenReader,
+    isScroller: true,
+    blocks: [
+      createReferenceBlock({
+        key: "hooks",
+        title: "Hooks",
+        intro: "Generated module docs for shared React hooks.",
+      }),
+      createReferenceBlock({
+        key: "context",
+        title: "Context",
+        intro: "Generated module docs for context providers and app-wide state surfaces.",
+      }),
+      createReferenceBlock({
+        key: "types",
+        title: "Types",
+        intro: "Generated module docs for shared UI and navigation data contracts.",
+      }),
+    ],
+  },
+  {
+    id: "docs-tooling-quality",
+    title: "Tooling and Quality",
     navLabel: "Tooling",
     sourceTag: "Generated Docs",
-    navItems: [
-      { id: "doc-scripts", title: "Scripts" },
-      { id: "doc-playwright", title: "Playwright" },
-    ],
-    subtitle: "Documentation for build scripts and browser testing tooling.",
+    navItems: createReferenceNavItems(["tests", "scripts", "playwright"]),
+    subtitle: "Generated docs for test helpers, automation scripts, and browser-test fixtures.",
     icon: faBookOpenReader,
     isScroller: true,
     blocks: [
-      {
-        id: "docs-tooling-content",
-        type: BlockType.MARKDOWN_DOCS,
-        title: "Tooling Docs",
-        intro:
-          "Operational references for scripts, diagram tooling, and Playwright automation.",
-        docSlugs: ["scripts", "playwright"],
-        showToc: false,
-        showDocJumpList: true,
-      },
-    ],
-  },
-  {
-    id: "docs-quality",
-    title: "Testing and Quality",
-    navLabel: "Quality",
-    sourceTag: "Generated Docs",
-    navItems: [{ id: "doc-tests", title: "Tests" }],
-    subtitle: "Testing strategy and validation conventions.",
-    icon: faBookOpenReader,
-    isScroller: true,
-    blocks: [
-      {
-        id: "docs-quality-content",
-        type: BlockType.MARKDOWN_DOCS,
-        title: "Quality Docs",
-        intro:
-          "Behavior-driven testing guidance and coverage expectations for ongoing maintenance.",
-        docSlugs: ["tests"],
-        showToc: false,
-        showDocJumpList: false,
-      },
+      createReferenceBlock({
+        key: "tests",
+        title: "Test Helpers",
+        intro: "Generated module docs for shared unit and integration test helpers.",
+      }),
+      createReferenceBlock({
+        key: "scripts",
+        title: "Scripts",
+        intro: "Generated module docs for build, docs, diagrams, and quality scripts.",
+      }),
+      createReferenceBlock({
+        key: "playwright",
+        title: "Playwright Fixtures",
+        intro: "Generated module docs for browser-test fixture support files.",
+      }),
     ],
   },
   {

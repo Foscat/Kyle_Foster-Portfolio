@@ -55,23 +55,18 @@ vi.mock("rsuite", async () => {
 // Test suite for the ResumePreview component, covering modal open/close behavior and content rendering.
 describe("ResumePreview", () => {
   const mockResume = { name: "Test Resume", sections: [] };
-  const mockPdfHref = "test.pdf";
 
   // Test that the trigger button is rendered and opens the modal when clicked.
   it("renders the trigger button", async () => {
-    renderWithProviders(
-      <ResumePreview buttonText="Preview Resume" resume={mockResume} pdfHref={mockPdfHref} />
-    );
+    renderWithProviders(<ResumePreview buttonText="Preview Resume" resume={mockResume} />);
     await waitFor(() => {
       expect(screen.getByRole("button", { name: /preview resume/i })).toBeInTheDocument();
     });
   });
 
-  // Test that clicking the trigger button opens the modal and renders the resume content.
-  it("opens the modal and renders the iframe", async () => {
-    renderWithProviders(
-      <ResumePreview buttonText="Preview Resume" resume={mockResume} pdfHref={mockPdfHref} />
-    );
+  // Test that clicking the trigger button opens the modal and exposes generated resume actions.
+  it("opens the modal and renders generated resume actions", async () => {
+    renderWithProviders(<ResumePreview buttonText="Preview Resume" resume={mockResume} />);
 
     await waitFor(() => {
       const button = screen.getByRole("button", { name: /preview resume/i });
@@ -83,14 +78,14 @@ describe("ResumePreview", () => {
       expect(dialog).toBeInTheDocument();
       // The modal should contain the Close button from the PreviewResume component
       expect(screen.getByRole("button", { name: /close/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /download resume\.pdf/i })).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /open pdf/i })).not.toBeInTheDocument();
     });
   });
 
   // Test that clicking the close button closes the modal.
   it("closes the modal when Close is clicked", async () => {
-    renderWithProviders(
-      <ResumePreview buttonText="Preview Resume" resume={mockResume} pdfHref={mockPdfHref} />
-    );
+    renderWithProviders(<ResumePreview buttonText="Preview Resume" resume={mockResume} />);
 
     await waitFor(() => {
       const previewButton = screen.getByRole("button", { name: /preview resume/i });

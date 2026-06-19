@@ -18,7 +18,7 @@
  * @module tests/components/ClickableImg
  */
 
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import ClickableImg from "./index";
@@ -122,9 +122,9 @@ describe("ClickableImg", () => {
       screen.getByRole("button", { name: /Clickable image, click to expand/i })
     );
 
-    const modalImage = screen.getAllByRole("img", {
+    const modalImage = within(screen.getByRole("dialog")).getByRole("img", {
       name: /clickable image, click to expand/i,
-    })[1];
+    });
     expect(modalImage).toBeInTheDocument();
   });
 
@@ -169,9 +169,9 @@ describe("ClickableImg", () => {
         screen.getByRole("button", { name: /clickable image, click to expand/i })
       );
 
-      const modalImage = screen.getAllByRole("img", {
+      const modalImage = within(screen.getByRole("dialog")).getByRole("img", {
         name: /clickable image, click to expand/i,
-      })[1];
+      });
       Object.defineProperty(modalImage, "naturalWidth", { configurable: true, value: 1920 });
       Object.defineProperty(modalImage, "naturalHeight", { configurable: true, value: 1080 });
       fireEvent.load(modalImage);
@@ -226,9 +226,9 @@ describe("ClickableImg", () => {
         screen.getByRole("button", { name: /clickable image, click to expand/i })
       );
 
-      const modalImage = screen.getAllByRole("img", {
+      const modalImage = within(screen.getByRole("dialog")).getByRole("img", {
         name: /clickable image, click to expand/i,
-      })[1];
+      });
       Object.defineProperty(modalImage, "naturalWidth", { configurable: true, value: 1920 });
       Object.defineProperty(modalImage, "naturalHeight", { configurable: true, value: 1080 });
       fireEvent.load(modalImage);

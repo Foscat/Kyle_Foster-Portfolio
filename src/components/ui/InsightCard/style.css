@@ -138,8 +138,7 @@
   align-content: start;
   overflow: hidden auto;
   touch-action: pan-y;
-  overscroll-behavior-x: auto;
-  overscroll-behavior-y: auto;
+  overscroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-gutter: stable;
   padding-right: 0.25rem;

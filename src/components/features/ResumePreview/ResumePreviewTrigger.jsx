@@ -19,7 +19,6 @@ const ResumePreviewModal = lazy(() => import("./ResumePreviewModal.jsx"));
  * @param {string} props.title - The title of the resume preview.
  * @param {string} props.subtitle - The subtitle of the resume preview.
  * @param {Object} props.resume - The resume data object.
- * @param {string} props.pdfHref - The URL of the PDF version of the resume.
  * @param {string} props.downloadName - The name for the downloaded PDF file.
  * @param {string} props.buttonClassName - Additional class names for the trigger button.
  * @param {*} [props.icon] - Optional icon shown inside the trigger button.
@@ -35,7 +34,6 @@ const ResumePreviewTrigger = ({
   title = "Resume Preview",
   subtitle = "A cleaner, document-focused preview with real page proportions.",
   resume,
-  pdfHref,
   downloadName = "resume.pdf",
   buttonClassName = "",
   icon,
@@ -74,7 +72,6 @@ const ResumePreviewTrigger = ({
             onClose={() => setOpen(false)}
             title={title}
             subtitle={subtitle}
-            pdfHref={pdfHref}
             downloadName={downloadName}
           >
             <ResumeDocument resume={resume} />

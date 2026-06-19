@@ -107,49 +107,49 @@ describe("LinksBlock", () => {
     );
   });
 
-  it("uses the dark resume URL when dark theme is active", () => {
+  it("uses the dark theme-specific URL when dark theme is active", () => {
     window.localStorage.setItem("portfolio-theme", "dark");
 
     renderWithProviders(
       <LinksBlock
         items={[
           {
-            title: "Download Resume",
-            url: "/resume-default.pdf",
-            urlLight: "/resume-light.pdf",
-            urlDark: "/resume-dark.pdf",
+            title: "Download Reference",
+            url: "/reference-default.pdf",
+            urlLight: "/reference-light.pdf",
+            urlDark: "/reference-dark.pdf",
             download: true,
           },
         ]}
       />
     );
 
-    expect(screen.getByRole("link", { name: "Download Resume" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Download Reference" })).toHaveAttribute(
       "href",
-      "/resume-dark.pdf"
+      "/reference-dark.pdf"
     );
   });
 
-  it("uses the light resume URL when light theme is active", () => {
+  it("uses the light theme-specific URL when light theme is active", () => {
     window.localStorage.setItem("portfolio-theme", "light");
 
     renderWithProviders(
       <LinksBlock
         items={[
           {
-            title: "Download Resume",
-            url: "/resume-default.pdf",
-            urlLight: "/resume-light.pdf",
-            urlDark: "/resume-dark.pdf",
+            title: "Download Reference",
+            url: "/reference-default.pdf",
+            urlLight: "/reference-light.pdf",
+            urlDark: "/reference-dark.pdf",
             download: true,
           },
         ]}
       />
     );
 
-    expect(screen.getByRole("link", { name: "Download Resume" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Download Reference" })).toHaveAttribute(
       "href",
-      "/resume-light.pdf"
+      "/reference-light.pdf"
     );
   });
 
@@ -172,14 +172,11 @@ describe("LinksBlock", () => {
     expect(trigger).toHaveTextContent("View Resume");
     const downloadName = trigger.getAttribute("data-download-name") || "";
     expect(downloadName).toMatch(/^Kyle-Foster-Senior-Developer-Resume-light-[a-z0-9-]+\.pdf$/);
-    expect(trigger).toHaveAttribute(
-      "data-pdf-href",
-      expect.stringContaining("Kyle_Foster_Senior_Developer_Resume.pdf")
-    );
+    expect(trigger).not.toHaveAttribute("data-pdf-href");
     expect(trigger).toHaveClass("links-block-item");
   });
 
-  it("uses the senior developer resume PDF asset for resume preview links when dark theme is active", () => {
+  it("does not attach a static PDF asset to resume preview links when dark theme is active", () => {
     window.localStorage.setItem("portfolio-theme", "dark");
 
     renderWithProviders(
@@ -193,9 +190,10 @@ describe("LinksBlock", () => {
       />
     );
 
-    expect(screen.getByTestId("resume-preview-trigger")).toHaveAttribute(
-      "data-pdf-href",
-      expect.stringContaining("Kyle_Foster_Senior_Developer_Resume.pdf")
+    const trigger = screen.getByTestId("resume-preview-trigger");
+    expect(trigger).not.toHaveAttribute("data-pdf-href");
+    expect(trigger.getAttribute("data-download-name") || "").toMatch(
+      /^Kyle-Foster-Senior-Developer-Resume-dark-[a-z0-9-]+\.pdf$/
     );
   });
 });

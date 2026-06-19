@@ -1,12 +1,12 @@
 /**
- * @file src\assets\data\content\contact\alt.js
+ * @file src\assets\data\content\contact\index.js
  * @description Alternative contact page content module.
- * @module src\assets\data\content\contact\alt
+ * @module src\assets\data\content\contact
  */
 
 import { BlockType } from "types/ui.types.js";
 
-const contactAltSections = [
+const contactSections = [
   {
     id: "contact-info",
     title: "Contact Information",
@@ -51,13 +51,6 @@ const contactAltSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Alternate phone: " },
-                  { type: "a", text: "(972) 802-9297", href: "tel:+19728029297" },
-                ],
-              },
-              {
-                type: "li",
-                children: [
                   { type: "text", text: "LinkedIn:" },
                   {
                     type: "a",
@@ -80,6 +73,6 @@ const contactAltSections = [
     ],
   },
 ];
-Object.freeze(contactAltSections);
+Object.freeze(contactSections);
 
-export default contactAltSections;
+export default contactSections;

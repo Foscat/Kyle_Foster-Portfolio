@@ -79,7 +79,7 @@
 .markdown-renderer__toc-link {
   display: inline-flex;
   width: 100%;
-  color: var(--interactive-surface-fg);
+  color: var(--text-accent);
   text-decoration: none;
 }
 
@@ -214,7 +214,7 @@
 }
 
 .markdown-renderer__link {
-  color: var(--interactive-surface-fg);
+  color: var(--text-accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
@@ -316,7 +316,7 @@ html[data-theme="dark"] .markdown-renderer__dd {
 }
 
 html[data-theme="dark"] .markdown-renderer__link {
-  color: var(--interactive-surface-fg);
+  color: var(--text-accent);
   font-weight: 600;
 }
 

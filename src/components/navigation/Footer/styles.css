@@ -44,15 +44,15 @@
 }
 
 .site-footer_phone {
-  --interactive-surface-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
-  --interactive-surface-fg: var(--app-surface-fg, var(--text-primary));
-  --interactive-surface-border-color: var(--app-surface-border-color, rgba(var(--white-rgb), 0.22));
+  --site-footer-phone-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
+  --site-footer-phone-fg: var(--app-surface-fg, var(--text-primary));
+  --site-footer-phone-border-color: var(--app-surface-border-color, rgba(var(--white-rgb), 0.22));
 
   padding: 0.35rem 0.55rem;
   font-size: var(--font-xs);
-  color: var(--interactive-surface-fg);
-  background: var(--interactive-surface-bg);
-  border: 1px solid var(--interactive-surface-border-color);
+  color: var(--site-footer-phone-fg);
+  background: var(--site-footer-phone-bg);
+  border: 1px solid var(--site-footer-phone-border-color);
   border-radius: var(--app-surface-radius-sm, var(--radius-sm));
   cursor: pointer;
   text-decoration: none;

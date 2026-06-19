@@ -9,7 +9,7 @@ export default {
     id: "codestream",
     title: "CodeStream Online Studio",
     description:
-      "At CodeStream Studios LLC, I served as the sole frontend developer for the React application that powered the platform. I translated product ideas into shipped features, established the frontend architecture, and supported releases through bug fixing, documentation, and testing. Working on a lean team strengthened my ability to balance speed, ownership, and long-term maintainability.",
+      "At CodeStream Studios LLC, I was the sole frontend engineer for a React learning platform used by students, teachers, and administrators. I turned product ideas into shipped features, established the frontend architecture, and supported releases through bug fixing, documentation, and testing. Working on a lean team strengthened my ability to balance speed, ownership, and long-term maintainability.",
     jobTitle: "Frontend Engineer",
     timespan: "2019 - 2025",
     url: "https://codestreamonlinestudio.com",
@@ -31,7 +31,7 @@ export default {
     id: "nodemailer",
     title: "Nodemailer Microservice",
     description:
-      "An email microservice powered by Nodemailer that gives websites a simple way to send messages without heavy custom configuration. It accepts a straightforward payload containing sender information and message content, making it easy to integrate into contact forms.",
+      "A Nodemailer-powered email microservice that gives websites a simple way to send contact-form messages without heavy custom setup. It accepts a straightforward payload with sender details and message content, making it quick to integrate into small business and portfolio sites.",
     jobTitle: "Software Engineer",
     timespan: "1 hour",
     tech: ["Node.js", "Express.js", "Nodemailer", "Render"],
@@ -42,7 +42,7 @@ export default {
     id: "menOfHan",
     title: "Men of Han Models",
     description:
-      'A modeling site for a premium male talent brand signed to "Han Modeling." Visitors can browse public photos, while registered users can purchase subscription tiers to unlock additional content and account-level access.',
+      'A subscription-based modeling site for a premium male talent brand signed to "Han Modeling." Visitors can browse public photos, while registered users can purchase tiers that unlock additional content and account-level access.',
     jobTitle: "MERN Stack Developer",
     tech: [
       "React",
@@ -64,7 +64,7 @@ export default {
     url: "The site is offline because hosting is no longer active.",
     repo: "https://github.com/Foscat/HVAC_Site",
     description:
-      "A business website where customers could review services, browse job-site photos, and quickly access contact details, email links, and social media channels for Emergency Air Service.",
+      "A business website where customers could review services, browse job-site photos, and quickly find contact details, email links, and social media channels for Emergency Air Service.",
     jobTitle: "MERN Stack Developer",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js", "Mobile-First Design"],
     images: [],
@@ -73,7 +73,7 @@ export default {
     id: "hackathon",
     title: "Daimler Trucking Hackathon: Tech Assist / Reinforce",
     description:
-      "This winning hackathon project was built for Daimler to support technicians maintaining fleet vehicles. The app guided mechanics through repair procedures with hands-free voice interaction, searched model-specific service information, and parsed XML repair documentation into usable steps. It also captured timing and feedback data so process improvements could be based on shop-floor experience.",
+      "This winning hackathon project was built for Daimler to support technicians maintaining fleet vehicles. The app guided mechanics through repair procedures with hands-free voice interaction, searched model-specific service information, and converted XML repair documentation into usable steps. It also captured timing and feedback data so process improvements could be based on real shop-floor activity.",
     tech: [
       "React.js",
       "React Native",
@@ -118,7 +118,7 @@ export default {
     id: "enigma",
     title: "Caesar's Enigma",
     description:
-      'Originally conceived as a Python experiment in cipher systems, I later rebuilt the project in JavaScript with a friendlier interface and broader usability. Inspired by both the Caesar cipher and the Enigma machine, "Caesar\'s Enigma" uses five different alphabets to increase complexity. What began as a personal learning project evolved into a practical demonstration of algorithmic thinking, UI design, and secure-message tooling.',
+      'Originally conceived as a Python experiment in cipher systems, I later rebuilt the project in JavaScript with a friendlier interface and broader usability. Inspired by both the Caesar cipher and the Enigma machine, "Caesar\'s Enigma" uses five alphabets to increase complexity. What began as a personal learning project evolved into a practical demonstration of algorithmic thinking, UI design, and secure-message tooling.',
     jobTitle: "JavaScript Developer",
     timespan: "3 days",
     tech: ["HTML", "JavaScript", "Custom Encryption Algorithm", "Bootstrap CSS", "GitHub Pages"],
@@ -138,7 +138,7 @@ export default {
     id: "greenhouse",
     title: "Greenhouse Climate Controller",
     description:
-      "The Greenhouse Climate Controller solved a practical problem for a friend who needed more consistent greenhouse conditions. Built in Python for a Raspberry Pi Zero, the system automated environmental monitoring and device control so temperature and humidity could stay within target ranges without constant manual adjustment.",
+      "The Greenhouse Climate Controller solved a practical problem for a friend who needed more consistent greenhouse conditions. Built in Python for a Raspberry Pi Zero, the system monitored the environment and controlled connected devices so temperature and humidity could stay within target ranges without constant manual adjustment.",
     jobTitle: "Software Developer",
     timespan: "1 day",
     tech: ["Python", "Raspberry Pi Sense HAT", "IoT", "Custom Hardware"],
@@ -166,7 +166,7 @@ export default {
     id: "d20",
     title: "D20 King",
     description:
-      'This app addresses common challenges Dungeon Masters face in tabletop role-playing games, especially Dungeons & Dragons. Built from my "MERN App Template with BCrypt," the project grew into a passion-driven tool for campaign planning, note organization, and story development. While many tools are designed for players, "D20 King" focuses on the needs of Dungeon Masters and authors building custom adventures.',
+      'This app addresses common planning challenges for Dungeon Masters in tabletop role-playing games, especially Dungeons & Dragons. Built from my "MERN App Template with BCrypt," the project grew into a tool for campaign planning, note organization, and story development. While many tools are designed for players, "D20 King" focuses on Dungeon Masters and authors building custom adventures.',
     jobTitle: "Software Engineer",
     timespan: "1 year",
     url: "",
@@ -185,7 +185,7 @@ export default {
   SMU_1: {
     id: "gifFreak",
     title: "Gif Freak",
-    description: `"Gif Freak" is a dynamic website I built during my time at SMU. Deployed on GitHub Pages, it shows early practice with HTML, JavaScript, jQuery, and AJAX by using the Giphy API to fetch and display GIFs from user input. The app includes predefined buttons, lets users add their own, and renders up to 10 matching GIFs for each search term. The code is simple by my current standards, but this project was one of the first that made software development feel genuinely creative to me.`,
+    description: `"Gif Freak" is a dynamic website I built during my time at SMU. Deployed on GitHub Pages, it shows early practice with HTML, JavaScript, jQuery, and AJAX by using the Giphy API to fetch and display GIFs from user input. The app includes predefined buttons, lets users add their own, and renders up to 10 matching GIFs for each search term. The code is simple by my current standards, but this project was one of the first that made software development feel genuinely creative.`,
     jobTitle: "Student Developer",
     timespan: "3 days",
     tech: ["HTML", "CSS", "jQuery", "AJAX", "Third-Party APIs"],
@@ -205,7 +205,7 @@ export default {
     id: "StockMemer",
     title: "Stock Memer",
     description:
-      '"Stock Memer" was my first group project at SMU and an early lesson in collaborative product development. The app let users view real-time stock data for Nasdaq companies, review key company details, and create memes tied to individual stocks. Memes and stock associations were stored in Firebase. Although the meme generator integration is no longer functional because the API key expired, the project still reflects teamwork and early experience connecting APIs, data storage, and interactive UI behavior.',
+      '"Stock Memer" was my first group project at SMU and an early lesson in collaborative product development. The app let users view real-time stock data for Nasdaq companies, review key company details, and create memes tied to individual stocks. Memes and stock associations were stored in Firebase. Although the meme generator integration no longer works because the API key expired, the project still reflects teamwork and early experience connecting APIs, data storage, and interactive UI behavior.',
     url: "The deployed version is no longer active.",
     repo: "https://github.com/Foscat/Stock-Memer",
     jobTitle: "JavaScript Developer",
@@ -234,7 +234,7 @@ export default {
     id: "scion",
     title: "Scion Matches",
     description:
-      '"Scion Matches" was my final project at SMU and one of the first times I built software around a nuanced human process rather than a simple utility. The platform aimed to improve the matching process between Intended Parents and Gestational Carriers by collecting detailed survey responses and using a custom scoring algorithm to identify strong compatibility. I built the matching logic that compared responses, generated scores, and supported more confident connection requests.',
+      '"Scion Matches" was my final project at SMU and one of the first times I built software around a nuanced human process rather than a simple utility. The platform aimed to improve matching between Intended Parents and Gestational Carriers by collecting detailed survey responses and using a custom scoring algorithm to identify strong compatibility. I built the matching logic that compared responses, generated scores, and supported more confident connection requests.',
     url: "The deployed version is no longer active.",
     repo: "https://github.com/justinkunz/scion/tree/master",
     jobTitle: "JavaScript Developer",

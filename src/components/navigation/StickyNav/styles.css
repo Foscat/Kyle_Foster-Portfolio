@@ -434,7 +434,7 @@ html[data-theme="dark"]
   .rs-nav.rs-nav-default
   .rs-nav-item.interactive-surface
   .rs-nav-item-content:active {
-  color: var(--interactive-surface-fg) !important;
+  color: var(--text-primary) !important;
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:hover,
@@ -446,8 +446,8 @@ html[data-theme="dark"]
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
-  color: var(--interactive-surface-fg);
-  background: var(--interactive-surface-bg);
+  color: var(--nav-drawer-active-surface-fg);
+  background: var(--nav-drawer-active-surface-bg);
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:hover,

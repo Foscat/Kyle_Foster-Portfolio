@@ -21,6 +21,8 @@ vi.mock("components/navigation/BackToTopButton", () => ({
 
 vi.mock("components/navigation", () => ({
   Head: () => <div data-testid="app-head" />,
+  StickyNav: () => null,
+  Footer: () => null,
 }));
 
 vi.mock("pages/Home", () => ({ default: () => <h1>Home Mock</h1> }));
@@ -28,7 +30,7 @@ vi.mock("pages/CodeStream", () => ({ default: () => <h1>CodeStream Mock</h1> }))
 vi.mock("pages/SideProjects", () => ({ default: () => <h1>Side Projects Mock</h1> }));
 vi.mock("pages/Hackathon", () => ({ default: () => <h1>Hackathon Mock</h1> }));
 vi.mock("pages/SMU", () => ({ default: () => <h1>SMU Mock</h1> }));
-vi.mock("pages/ContactAlt", () => ({ default: () => <h1>ContactAlt Mock</h1> }));
+vi.mock("pages/Contact", () => ({ default: () => <h1>Contact Mock</h1> }));
 vi.mock("pages/Docs", () => ({ default: () => <h1>Docs Mock</h1> }));
 vi.mock("pages/Health", () => ({ default: () => <h1>Health Mock</h1> }));
 vi.mock("pages/NotFound", () => ({ default: () => <h1>NotFound Mock</h1> }));
@@ -40,12 +42,12 @@ describe("App routes", () => {
     window.history.pushState({}, "", "/");
   });
 
-  it("renders ContactAlt for /contact", async () => {
+  it("renders Contact for /contact", async () => {
     window.history.pushState({}, "", "/contact");
 
     renderApp();
 
-    expect(await screen.findByRole("heading", { name: "ContactAlt Mock" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Contact Mock" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "NotFound Mock" })).not.toBeInTheDocument();
   });
 });

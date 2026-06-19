@@ -44,7 +44,7 @@ const homeSections = [
     icon: faCode,
     title: "About Me",
     subtitle:
-      "I build React interfaces for content-heavy products, from browser-based learning tools to portfolio platforms, with a focus on usable flows and dependable behavior as complexity grows.",
+      "I build React interfaces for content-heavy products, from browser-based learning tools to portfolio platforms, with a focus on clear workflows, dependable behavior, and long-term maintainability.",
     isScroller: true,
     blocks: [
       {
@@ -59,7 +59,7 @@ const homeSections = [
               { type: "strong", text: "Senior React / Frontend Engineer" },
               {
                 type: "text",
-                text: " I design user-facing products around clear domain rules and practical interaction patterns, so people can understand the work even as data, roles, and features grow.",
+                text: " who designs user-facing products around clear domain rules and practical interaction patterns, so people can understand and use the work even as data, roles, and features grow.",
               },
             ],
           },
@@ -68,12 +68,12 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "I work across both production delivery and rapid prototyping. I built a custom education platform used in live classrooms and delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
+                text: "I work across production delivery and rapid prototyping. I built a custom education platform used in live classrooms and delivered hackathon prototypes under tight deadlines using my own MERN foundations. Across side projects, I pressure-test ideas against ",
               },
               { type: "em", text: "practical limits" },
               {
                 type: "text",
-                text: " like hardware input, session continuity, and long-running content flows, then carry those lessons into shipped product work.",
+                text: " like hardware input, session continuity, and long-running content flows, then apply those lessons to shipped product work.",
               },
             ],
           },
@@ -192,7 +192,7 @@ const homeSections = [
               { type: "strong", text: "production education platform" },
               {
                 type: "text",
-                text: " used by students, teachers, and organizations. It supported synchronous and asynchronous learning, from lesson delivery and grading to classroom operations and organization-level administration.",
+                text: " used by students, teachers, and organizations. It supported live and self-paced learning, from lesson delivery and grading to classroom operations and organization-level administration.",
               },
             ],
           },
@@ -230,7 +230,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Integrated grading interface and bug tracking that auto-assigns and forwards app issues to developers in real time",
+                    text: "Integrated grading interface and bug tracking that assigned and forwarded app issues to developers in real time",
                   },
                 ],
               },
@@ -254,7 +254,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Integrated grading and feedback system built into the learning platform to streamline evaluation and provide actionable student performance insights.",
+                    text: "Integrated grading and feedback directly into the learning platform so teachers could review work, assign scores, and understand student performance in one flow.",
                   },
                 ],
               },
@@ -291,14 +291,14 @@ const homeSections = [
           {
             id: "pro-organizations",
             title: "Organizations & Licensing",
-            subtitle: "Multi-tenant role and licensing system",
+            subtitle: "Multi-organization role and licensing system",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Multi-tenant role and licensing system that scales from individual classrooms to multi-school deployments while maintaining clear access boundaries and a consistent user experience.",
+                    text: "Role and licensing system that scaled from individual classrooms to multi-school deployments while maintaining clear access boundaries and a consistent user experience.",
                   },
                 ],
               },
@@ -349,7 +349,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Zero-install three-panel IDE for Web (HTML, CSS, JS) and Python projects, designed to provide a seamless browser-based coding experience with no setup friction for students and teachers.",
+                    text: "Zero-install three-panel IDE for Web (HTML, CSS, JS) and Python projects, designed so students and teachers could code in the browser without local setup.",
                   },
                 ],
               },
@@ -511,7 +511,7 @@ const homeSections = [
             subtitle: "Designed for repair shop environments with limited space and attention.",
             icon: faMicrophone,
             accent: "success",
-            url: `${PageRoute.HACKATHON}/#reinforce`,
+            url: `${PageRoute.HACKATHON}/#hackathon-solution`,
             local: true,
             content: [
               {
@@ -519,7 +519,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Designed a speech-driven interface for environments where hands and attention are limited. This let technicians interact with the system without stopping work or switching to a separate device.",
+                    text: "Designed a speech-driven interface for environments where hands and attention are limited, allowing technicians to interact with the system without stopping work or switching to a separate device.",
                   },
                 ],
               },
@@ -549,7 +549,7 @@ const homeSections = [
             id: "h-kf-post-hackathon",
             title: "Post-Hackathon Productization",
             subtitle:
-              "Moving from prototype to production with a focus on durability and deployment.",
+              "Moving from a winning prototype toward a mobile product built for accessibility, affordability, and durability.",
             icon: faMobileScreenButton,
             accent: "warning",
             url: `${PageRoute.HACKATHON}/#tech_assist`,
@@ -560,7 +560,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Continued development as sole engineer, transitioning the prototype into a mobile-first React Native app. I focused on reinforcing the core value and addressing deployment challenges before adding features, with durability and maintainability as priorities.",
+                    text: "After the event, I continued as the sole engineer responsible for turning the web-based prototype into a mobile app. I migrated and refactored the core system, addressed deployment constraints, and expanded functionality while keeping accessibility and flexibility central to the product.",
                   },
                 ],
               },
@@ -570,15 +570,9 @@ const homeSections = [
                   {
                     type: "li",
                     children: [
-                      { type: "text", text: "Reinforcement of the core voice-guided repair flow" },
-                    ],
-                  },
-                  {
-                    type: "li",
-                    children: [
                       {
                         type: "text",
-                        text: "Refactoring for mobile architecture and field performance",
+                        text: "Refactored, refined, and optimized the core voice-guided repair flow",
                       },
                     ],
                   },
@@ -587,7 +581,25 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Iterative testing and refinement based on user feedback",
+                        text: "Migrated to React Native for simultaneous iOS and Android development",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Rebuilt the parser from a one-off presentation function into a system that could handle thousands of inconsistently formatted instruction files",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Moved logic-heavy functions into a microservice API to work around mobile memory limits",
                       },
                     ],
                   },
@@ -598,7 +610,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Prototype velocity must transition into structural durability.",
+                    text: "Turning a prototype into a product requires architecture, constraints, and real operating conditions to meet.",
                   },
                 ],
               },

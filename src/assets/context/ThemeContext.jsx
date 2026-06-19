@@ -146,15 +146,15 @@ function getInitialUiStyle() {
  *
  * @typedef {Object} ThemeContextValue
  * @property {Theme} theme - Currently active theme.
- * @property {(theme: Theme) => void} setTheme - Explicitly set the theme.
- * @property {() => void} toggleTheme - Toggle between light and dark themes.
+ * @property {Function} setTheme - Explicitly set the theme.
+ * @property {Function} toggleTheme - Toggle between light and dark themes.
  * @property {Palette} palette - Currently active color palette.
- * @property {(palette: Palette) => void} setPalette - Explicitly set the palette.
- * @property {() => void} togglePalette - Cycle through available palettes.
+ * @property {Function} setPalette - Explicitly set the palette.
+ * @property {Function} togglePalette - Cycle through available palettes.
  * @property {Palette[]} palettes - Supported palette identifiers.
  * @property {UiStyle} uiStyle - Currently active ui-style-kit-css visual system.
- * @property {(uiStyle: UiStyle) => void} setUiStyle - Explicitly set the visual system.
- * @property {() => void} toggleUiStyle - Cycle through available visual systems.
+ * @property {Function} setUiStyle - Explicitly set the visual system.
+ * @property {Function} toggleUiStyle - Cycle through available visual systems.
  * @property {UiStyle[]} uiStyles - Supported visual system identifiers.
  */
 
@@ -178,7 +178,7 @@ export function ThemeProvider({ children }) {
   /**
    * Explicitly set theme while guarding against invalid values.
    *
-   * @param {Theme | ((prevTheme: Theme) => Theme)} nextTheme
+   * @param {(Theme|Function)} nextTheme - Theme value or updater function.
    */
   const setTheme = useCallback((nextTheme) => {
     setThemeState((prev) => {

@@ -15,7 +15,7 @@ const resumeData = {
   linkedin: "linkedin.com/in/kylefoster-dev",
   footer: "Kyle Foster | Senior Developer | kyle-foster.com",
   summary:
-    "Senior Developer with 6+ years of experience building React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessibility-focused interfaces, and maintainable product delivery across education platforms, creator-focused systems, admin dashboards, and service-based web products.",
+    "Senior Developer with 6+ years of experience building React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessible interfaces, and maintainable product delivery across education platforms, creator-focused systems, admin dashboards, and service-based web products.",
 
   experience: [
     {
@@ -30,7 +30,7 @@ const resumeData = {
         "Built the company's web presence as a clean, SEO-focused business site with service positioning, brand assets, responsive layouts, theme support, and static hosting support.",
         "Plan and implement creator-owned platform concepts, including branded websites, private content systems, member-only areas, CMS workflows, admin dashboards, and storefront infrastructure.",
         "Create reusable frontend patterns using HTML, CSS, JavaScript, React-compatible architecture, ui-style-kit-css, and interactive-surface-css.",
-        "Own technical scoping, information architecture, implementation planning, documentation, testing checks, and long-term maintenance strategy.",
+        "Own technical scoping, information architecture, implementation planning, documentation, testing, and long-term maintenance strategy.",
         "Translate business needs into clear technical requirements that balance brand control, scalability, performance, accessibility, and maintainability.",
       ],
     },
@@ -41,7 +41,7 @@ const resumeData = {
       location: "Remote",
       dates: "2019 - 2025",
       summary:
-        "Served as the primary frontend engineer for CodeStream Online Studio, a React-based learning platform used by students, teachers, and administrators.",
+        "Served as the sole frontend engineer for CodeStream Online Studio, a React-based learning platform used by students, teachers, and administrators.",
       bullets: [
         "Architected a browser-native coding platform with lesson rendering, project editing, three-panel IDE workflows, live preview, and in-browser code execution.",
         "Built classroom, organization, licensing, and grading systems that supported admin, teacher, and student workflows through role-based UI design.",

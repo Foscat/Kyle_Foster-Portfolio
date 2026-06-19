@@ -273,12 +273,18 @@ function normalizeRenderedSvg(host, options = {}) {
 
   svg.removeAttribute("width");
   svg.removeAttribute("height");
-  svg.style.width = inlineWidth;
-  svg.style.maxWidth = "100%";
-  svg.style.height = "auto";
-  svg.style.maxHeight = "none";
-  svg.style.display = "block";
-  svg.style.overflow = "hidden";
+  // Assign as an attribute so jsdom and browsers preserve `min()` width values.
+  svg.setAttribute(
+    "style",
+    [
+      `width: ${inlineWidth};`,
+      "max-width: 100%;",
+      "height: auto;",
+      "max-height: none;",
+      "display: block;",
+      "overflow: hidden;",
+    ].join(" ")
+  );
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   applyRenderedMermaidContrast(svg, options);
 }

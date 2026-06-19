@@ -7,8 +7,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Panel } from "rsuite";
 import MarkdownRenderer from "../../MarkdownRenderer";
-import { getPortfolioDocs } from "../../../../assets/data/content/portfolioDocs";
+import {
+  getPortfolioDocs,
+  getPortfolioDocsByCriteria,
+} from "../../../../assets/data/content/portfolioDocs";
 import "./styles.css";
+
+// Stable defaults prevent the docs-loading effect from restarting on every render.
+const EMPTY_DOC_FILTER_LIST = Object.freeze([]);
 
 /**
  * Renders a curated stack of documentation articles with optional jump links
@@ -19,31 +25,54 @@ import "./styles.css";
  * @returns {JSX.Element|null} Rendered docs block or `null` when no docs resolve.
  */
 export default function MarkdownDocsBlock({ block }) {
-  const { title, intro, docSlugs = [], showToc = true, showDocJumpList = true } = block;
+  const {
+    title,
+    intro,
+    docSlugs = EMPTY_DOC_FILTER_LIST,
+    docCategories = EMPTY_DOC_FILTER_LIST,
+    docPathPrefixes = EMPTY_DOC_FILTER_LIST,
+    includeReferenceIndexes = false,
+    maxDocs = 0,
+    selectMode = "all",
+    showToc = true,
+    showDocJumpList = true,
+  } = block;
   const [docs, setDocs] = useState([]);
+  const [activeDocSlug, setActiveDocSlug] = useState("");
   const [isLoadingDocs, setIsLoadingDocs] = useState(true);
-  const slugKey = useMemo(
-    () =>
-      Array.isArray(docSlugs)
-        ? docSlugs
-            .map((slug) => String(slug).toLowerCase())
-            .sort((a, b) => a.localeCompare(b))
-            .join("|")
-        : "",
-    [docSlugs]
-  );
+  const criteria = useMemo(() => {
+    const normalizeList = (value) =>
+      Array.isArray(value) ? value.map((item) => String(item).toLowerCase()).filter(Boolean) : [];
+
+    return {
+      slugs: normalizeList(docSlugs),
+      categories: normalizeList(docCategories),
+      pathPrefixes: normalizeList(docPathPrefixes),
+      includeReferenceIndexes: Boolean(includeReferenceIndexes),
+      maxDocs: Number.isFinite(Number(maxDocs)) ? Number(maxDocs) : 0,
+    };
+  }, [docCategories, docPathPrefixes, docSlugs, includeReferenceIndexes, maxDocs]);
 
   useEffect(() => {
     let isCancelled = false;
 
-    const requestedDocSlugs = slugKey ? slugKey.split("|") : [];
-
     const loadDocs = async () => {
       setIsLoadingDocs(true);
       try {
-        const loadedDocs = await getPortfolioDocs(requestedDocSlugs);
+        const hasExpandedCriteria =
+          criteria.categories.length > 0 || criteria.pathPrefixes.length > 0;
+        const loadedDocs = hasExpandedCriteria
+          ? await getPortfolioDocsByCriteria(criteria)
+          : await getPortfolioDocs(criteria.slugs);
+
         if (!isCancelled) {
-          setDocs(Array.isArray(loadedDocs) ? loadedDocs : []);
+          const normalizedDocs = Array.isArray(loadedDocs) ? loadedDocs : [];
+          const nextDocs =
+            criteria.maxDocs > 0 ? normalizedDocs.slice(0, criteria.maxDocs) : normalizedDocs;
+          setDocs(nextDocs);
+          setActiveDocSlug((currentSlug) =>
+            nextDocs.some((doc) => doc.slug === currentSlug) ? currentSlug : nextDocs[0]?.slug || ""
+          );
         }
       } catch (error) {
         if (!isCancelled) {
@@ -62,12 +91,17 @@ export default function MarkdownDocsBlock({ block }) {
     return () => {
       isCancelled = true;
     };
-  }, [slugKey]);
+  }, [criteria]);
 
   if (!isLoadingDocs && !docs.length) return null;
 
+  const usesSingleDocMode = selectMode === "single" && docs.length > 1;
+  const visibleDocs = usesSingleDocMode
+    ? docs.filter((doc) => doc.slug === activeDocSlug).slice(0, 1)
+    : docs;
+
   return (
-    <section className="markdown-docs-block">
+    <section id={block.id} className="markdown-docs-block">
       {(title || intro) && (
         <header className="markdown-docs-block__header">
           {title ? <h2 className="markdown-docs-block__title">{title}</h2> : null}
@@ -76,27 +110,40 @@ export default function MarkdownDocsBlock({ block }) {
       )}
       {showDocJumpList && docs.length > 1 ? (
         <nav className="markdown-docs-block__jump-list" aria-label="Documents">
-          {docs.map((doc) => (
-            <a
-              key={doc.slug}
-              href={`#doc-${doc.slug}`}
-              className="markdown-docs-block__jump-link interactive-surface"
-            >
-              <span key={doc.id}>{doc.title}</span>
-              {doc.category ? (
-                <small key={doc.id} className="markdown-docs-block__jump-meta">
-                  {doc.category}
-                </small>
-              ) : null}
-            </a>
-          ))}
+          {docs.map((doc) =>
+            usesSingleDocMode ? (
+              <button
+                key={doc.slug}
+                type="button"
+                aria-pressed={doc.slug === activeDocSlug}
+                className="markdown-docs-block__jump-link markdown-docs-block__jump-button interactive-surface"
+                onClick={() => setActiveDocSlug(doc.slug)}
+              >
+                <span>{doc.title}</span>
+                {doc.category ? (
+                  <small className="markdown-docs-block__jump-meta">{doc.category}</small>
+                ) : null}
+              </button>
+            ) : (
+              <a
+                key={doc.slug}
+                href={`#doc-${doc.slug}`}
+                className="markdown-docs-block__jump-link interactive-surface"
+              >
+                <span>{doc.title}</span>
+                {doc.category ? (
+                  <small className="markdown-docs-block__jump-meta">{doc.category}</small>
+                ) : null}
+              </a>
+            )
+          )}
         </nav>
       ) : null}
       {isLoadingDocs ? (
         <p className="mermaid-deferred-status-text">Loading documentation...</p>
       ) : (
         <div className="markdown-docs-block__stack">
-          {docs.map((doc) => (
+          {visibleDocs.map((doc) => (
             <Panel key={doc.slug} bordered className="markdown-docs-block__panel">
               <MarkdownRenderer
                 key={doc.id}

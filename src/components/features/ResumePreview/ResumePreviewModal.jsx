@@ -29,72 +29,39 @@ function collectDocumentStyles() {
  * @param {Function} props.onClose - Function to call when the modal is closed.
  * @param {string} props.title - The title of the resume.
  * @param {string} props.subtitle - The subtitle of the resume.
- * @param {string} props.pdfHref - The URL of the PDF version of the resume.
  * @param {string} props.downloadName - The name for the downloaded PDF file.
  * @param {React.ReactNode} props.children - The content of the modal.
  * @returns {JSX.Element} The rendered modal component.
  */
-const PreviewResumeModal = ({
-  open,
-  onClose,
-  title,
-  subtitle,
-  pdfHref,
-  downloadName,
-  children,
-}) => {
+const PreviewResumeModal = ({ open, onClose, title, subtitle, downloadName, children }) => {
   const printableRef = useRef(null);
   const [isDownloadPending, setIsDownloadPending] = useState(false);
-
-  const handleOpenPdf = useCallback(() => {
-    if (!pdfHref) return;
-    window.open(pdfHref, "_blank");
-  }, [pdfHref]);
 
   const handleDownloadPdf = useCallback(async () => {
     const resumePaper = printableRef.current?.querySelector(".resume-preview__paper");
 
-    if (resumePaper instanceof HTMLElement) {
-      setIsDownloadPending(true);
-      try {
-        await new Promise((resolve) => {
-          window.requestAnimationFrame(() => resolve());
-        });
-
-        await downloadResumePdf(resumePaper, {
-          fileName: downloadName || "resume.pdf",
-          marginPt: 0,
-        });
-        return;
-      } catch (error) {
-        if (!pdfHref) {
-          console.error("[ResumePreviewModal] Unable to generate PDF from preview.", error);
-          return;
-        }
-      } finally {
-        setIsDownloadPending(false);
-      }
+    if (!(resumePaper instanceof HTMLElement)) {
+      console.error("[ResumePreviewModal] Unable to find rendered resume content for PDF export.");
+      return;
     }
 
-    if (!pdfHref) return;
+    setIsDownloadPending(true);
+    try {
+      await new Promise((resolve) => {
+        window.requestAnimationFrame(() => resolve());
+      });
 
-    const response = await fetch(pdfHref, { credentials: "same-origin" });
-    if (!response.ok) {
-      throw new Error(`Failed to download resume PDF: ${response.status}`);
+      // The PDF is generated from the live preview so downloads always reflect resumeData.js.
+      await downloadResumePdf(resumePaper, {
+        fileName: downloadName || "resume.pdf",
+        marginPt: 0,
+      });
+    } catch (error) {
+      console.error("[ResumePreviewModal] Unable to generate PDF from preview.", error);
+    } finally {
+      setIsDownloadPending(false);
     }
-
-    const blob = await response.blob();
-    const objectUrl = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-
-    anchor.href = objectUrl;
-    anchor.download = downloadName || "resume.pdf";
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-
-    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-  }, [downloadName, pdfHref]);
+  }, [downloadName]);
 
   const handlePrint = useCallback(() => {
     if (!printableRef.current) return;
@@ -213,11 +180,9 @@ const PreviewResumeModal = ({
             title={title}
             subtitle={subtitle}
             onClose={onClose}
-            onOpenPdf={handleOpenPdf}
             onDownloadPdf={handleDownloadPdf}
             isDownloadPending={isDownloadPending}
             onPrint={handlePrint}
-            pdfHref={pdfHref}
             downloadName={downloadName}
           >
             {children}

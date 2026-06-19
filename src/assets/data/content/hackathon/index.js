@@ -10,9 +10,8 @@ import {
   faHeadset,
   faLightbulb,
   faMobileScreenButton,
-  faNewspaper,
-  faPersonChalkboard,
   faRoute,
+  faTicket,
   faTowerObservation,
   faTruckFast,
   faTruckFront,
@@ -29,7 +28,8 @@ const hackathonSections = [
   {
     id: "overview",
     title: "How We Won",
-    subtitle: "How a team of junior developers won Daimler's 2019 Hackathon.",
+    subtitle:
+      "How a junior developer team won Daimler's 2019 Hackathon by solving the practical repair problem first.",
     icon: faTruckFront,
     isScroller: true,
     blocks: [
@@ -58,7 +58,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Shortly after completing my second bootcamp, I joined a small team focused on improving technician repair processes for a large enterprise environment.",
+                text: "Shortly after completing my second bootcamp, I joined a small team focused on improving technician repair workflows for a large enterprise environment.",
               },
             ],
           },
@@ -67,7 +67,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "Competing against more experienced teams, we prioritized practical shop needs over presentation. The solution was designed around actual technician needs, not abstract feature sets.",
+                text: "Competing against more experienced teams, we prioritized practical shop needs over presentation polish. The solution was designed around actual technician behavior, not abstract feature lists.",
               },
             ],
           },
@@ -134,7 +134,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The solution targeted technicians in active repair environments who needed step guidance without interrupting hands-on mechanical work.",
+                    text: "The solution supported technicians in active repair environments who needed step-by-step guidance without interrupting hands-on mechanical work.",
                   },
                 ],
               },
@@ -185,7 +185,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I co-built core hackathon implementation, then became the sole developer post-event and rebuilt the product path in React Native for mobile delivery.",
+                    text: "I co-built the core hackathon implementation, then became the sole developer after the event and rebuilt the product path in React Native for mobile delivery.",
                   },
                 ],
               },
@@ -215,30 +215,22 @@ const hackathonSections = [
         type: BlockType.LINKS,
         items: [
           {
-            id: "overview-article-link",
-            title: "Read Hackathon Article",
-            url: "https://austinstartups.com/21-teams-gather-at-capital-factory-to-hack-daimler-north-americas-voice-technology-for-truck-77ed19862592",
-            icon: faNewspaper,
-            ariaLabel: "Read the article about the Daimler Hackathon on Austin Startups",
+            id: "org-event-link",
+            title: "See Event Info",
+            url: "https://www.eventbrite.com/e/mobilityx-hr-hackathon-presented-by-daimler-financial-services-tickets-49355982071",
+            icon: faTicket,
+            ariaLabel: "View the original event information",
             local: false,
-          },
-          {
-            id: "overview-project-link",
-            title: "View Reinforce Project",
-            url: "#reinforce",
-            icon: faPersonChalkboard,
-            ariaLabel: "View the hackathon project section",
-            local: true,
-            isScroller: true,
+            isScroller: false,
           },
           {
             id: "overview-tech-assist-link",
             title: "View Tech Assist Build",
-            url: "#tech_assist",
+            url: "https://github.com/Foscat/TechAssist_Public",
             icon: faHeadset,
-            ariaLabel: "View the post-hackathon Tech Assist section",
-            local: true,
-            isScroller: true,
+            ariaLabel: "View the post-hackathon mobile app project",
+            local: false,
+            isScroller: false,
           },
         ],
       },
@@ -397,7 +389,7 @@ const hackathonSections = [
       {
         id: "team-photo",
         type: BlockType.IMAGE_GALLERY,
-        title: 'Meet the team "Reinforce"',
+        title: 'Meet the Team "Reinforce"',
         items: [imageObjs.groupPhoto],
       },
       {
@@ -425,7 +417,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "The system delivered step-by-step repair guidance through synthesized speech while capturing real-time progression and timing data.",
+                text: "The system delivered step-by-step repair guidance through synthesized speech while capturing real-time progress and timing data.",
               },
             ],
           },
@@ -639,7 +631,8 @@ const hackathonSections = [
     id: "tech_assist",
     slug: "tech-assist",
     title: "Post-Hackathon Work (Tech Assist)",
-    subtitle: "Turning the hackathon prototype into a production-ready mobile app.",
+    subtitle:
+      "Turning the hackathon prototype into a mobile app designed for real repair environments.",
     icon: faMobileScreenButton,
     isScroller: true,
     blocks: [
@@ -771,7 +764,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "In-memory parsing no longer worked on mobile. To support performance and offline use, I refactored XML processing into preprocessed, normalized, queryable instruction graphs.",
+                text: "In-memory parsing no longer worked on mobile. To support performance and offline use, I refactored XML processing into preprocessed, normalized instruction data that the app could query efficiently.",
               },
             ],
           },
@@ -889,7 +882,7 @@ const hackathonSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Expanded the parser to intelligently locate the correct file among 500+ instruction sets spanning five truck types.",
+                    text: "Expanded the parser to locate the correct file among 500+ instruction sets spanning five truck types.",
                   },
                 ],
               },
@@ -990,7 +983,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "We made strong progress on requirements, architecture, and the mobile implementation, but contract and organization issues ended further development.",
+                text: "We made strong progress on requirements, architecture, and the mobile implementation, but contract and organizational issues ended further development.",
               },
             ],
           },
