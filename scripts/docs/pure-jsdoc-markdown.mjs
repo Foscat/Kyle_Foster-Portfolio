@@ -118,8 +118,17 @@ const decodeHtmlEntities = (value) =>
     .replaceAll("&nbsp;", " ")
     .replaceAll("&amp;", "&");
 
-const stripUnsafeBlocks = (value) =>
-  value.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/giu, "");
+const stripUnsafeBlocks = (value) => {
+  let current = value;
+
+  while (true) {
+    const next = current.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/giu, "");
+    if (next === current) {
+      return next;
+    }
+    current = next;
+  }
+};
 
 const stripKnownHtmlTag = (fullMatch, tagName) => {
   const normalizedTagName = tagName.toLowerCase();
