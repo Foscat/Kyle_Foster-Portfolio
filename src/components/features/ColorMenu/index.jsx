@@ -41,6 +41,8 @@ function ColorSwitch({ labelledBy, checked, onChange, disabled = false }) {
       className={`color-switch ui-switch interactive-surface ${checked ? "is-on" : ""} ${
         disabled ? "is-disabled" : ""
       }`}
+      data-surface-variant="subtle"
+      data-surface-level="1"
     >
       <input
         className="color-switch__input ui-switch__input"

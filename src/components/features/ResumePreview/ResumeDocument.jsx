@@ -137,12 +137,8 @@ const ResumeDocument = ({ resume }) => {
           <div className="resume-document__skills">
             {skills.map((group) => (
               <div key={group.id || group.label} className="resume-document__skill-group">
-                <p key={group.id} className="resume-document__skill-label">
-                  {group.label}
-                </p>
-                <p key={group.id} className="resume-document__skill-values">
-                  {group.items.join(", ")}
-                </p>
+                <p className="resume-document__skill-label">{group.label}</p>
+                <p className="resume-document__skill-values">{group.items.join(", ")}</p>
               </div>
             ))}
           </div>

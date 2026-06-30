@@ -109,24 +109,20 @@ Modal-based resume preview and download component.
 
 ### PreviewResume
 
-A modal component that allows users to preview and download the resume PDF. It provides an embedded PDF viewer along with action buttons for opening the PDF in a new tab, printing, and closing the modal. The component is designed to work seamlessly in both development and production environments by leveraging Vite's asset management system.
+A modal component that allows users to preview the resume and generate a PDF download from the rendered document. It provides actions for downloading, printing, and closing the modal.
 
 Core responsibilities:
-- Opens a modal containing an embedded PDF preview
-- Provides a direct download link for the resume
-- Uses Vite asset imports to ensure correct bundling across environments
+- Renders the live resume document in a print-focused preview
+- Provides a generated PDF download action
+- Keeps the preview and PDF export aligned with the shared resume data source
 
 Technical notes:
-- PDF is imported as a Vite-managed asset
-- Works consistently in local development and production builds
 - Uses RSuite's ButtonToolbar for action buttons
-- The embedded PDF viewer is implemented using an iframe for broad compatibility
 - The component is styled to fit within the overall design system and maintain readability of the PDF content
 
 Accessibility:
 - RSuite Modal provides focus trapping and ESC-to-close behavior
 - Buttons include descriptive aria-labels and tooltips
-- Embedded iframe includes a fallback message
 
 **Returns**
 
@@ -230,7 +226,6 @@ Component that triggers the resume preview modal.
 - `props.title` (`string`) - The title of the resume preview.
 - `props.subtitle` (`string`) - The subtitle of the resume preview.
 - `props.resume` (`Object`) - The resume data object.
-- `props.pdfHref` (`string`) - The URL of the PDF version of the resume.
 - `props.downloadName` (`string`) - The name for the downloaded PDF file.
 - `props.buttonClassName` (`string`) - Additional class names for the trigger button.
 - `props.icon` (`any`, optional) - Optional icon shown inside the trigger button.
@@ -573,7 +568,6 @@ Modal component for previewing the resume with print and download options.
 - `props.onClose` (`function`) - Function to call when the modal is closed.
 - `props.title` (`string`) - The title of the resume.
 - `props.subtitle` (`string`) - The subtitle of the resume.
-- `props.pdfHref` (`string`) - The URL of the PDF version of the resume.
 - `props.downloadName` (`string`) - The name for the downloaded PDF file.
 - `props.children` (`React.ReactNode`) - The content of the modal.
 

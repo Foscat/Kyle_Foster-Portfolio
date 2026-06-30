@@ -179,7 +179,7 @@ body {
     "Segoe UI",
     Roboto,
     sans-serif;
-  background-color: var(--ui-kit-bg, var(--bg-primary));
+  background-color: var(--app-kit-bg, var(--bg-primary));
   letter-spacing: 0.2px;
 
   /* Mobile-first viewport behavior
@@ -218,7 +218,7 @@ body::before {
 
 body[data-ui][data-theme][data-mode] {
   color: var(--app-surface-fg, var(--text-primary));
-  background-color: var(--ui-kit-bg, var(--bg-primary));
+  background-color: var(--app-kit-bg, var(--bg-primary));
   --app-bg-layer:
     radial-gradient(
       circle at 15% 18%,
@@ -232,7 +232,7 @@ body[data-ui][data-theme][data-mode] {
     ),
     linear-gradient(
       145deg,
-      var(--ui-kit-bg, var(--bg-primary)),
+      var(--app-kit-bg, var(--bg-primary)),
       var(--app-surface-muted-bg, var(--bg-secondary))
     );
 }

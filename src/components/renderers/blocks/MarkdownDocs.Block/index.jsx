@@ -117,6 +117,8 @@ export default function MarkdownDocsBlock({ block }) {
                 type="button"
                 aria-pressed={doc.slug === activeDocSlug}
                 className="markdown-docs-block__jump-link markdown-docs-block__jump-button interactive-surface"
+                data-surface-variant={doc.slug === activeDocSlug ? "primary" : "subtle"}
+                data-surface-level={doc.slug === activeDocSlug ? "2" : "1"}
                 onClick={() => setActiveDocSlug(doc.slug)}
               >
                 <span>{doc.title}</span>
@@ -129,6 +131,8 @@ export default function MarkdownDocsBlock({ block }) {
                 key={doc.slug}
                 href={`#doc-${doc.slug}`}
                 className="markdown-docs-block__jump-link interactive-surface"
+                data-surface-variant="subtle"
+                data-surface-level="1"
               >
                 <span>{doc.title}</span>
                 {doc.category ? (

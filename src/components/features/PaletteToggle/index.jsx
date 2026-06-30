@@ -83,6 +83,8 @@ const PaletteToggle = ({
       <select
         id={selectId}
         className={`interactive-surface palette-toggle__select ${selectSizeClass}`.trim()}
+        data-surface-variant="secondary"
+        data-surface-level="2"
         value={activePalette}
         aria-label={ariaLabel}
         onChange={(event) => setPalette(event.target.value)}

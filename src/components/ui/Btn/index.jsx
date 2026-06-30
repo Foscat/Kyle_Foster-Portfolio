@@ -12,7 +12,7 @@ import "./styles.css";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import FrostedIcon from "components/ui/FrostedIcon";
-import { Variant, Size, TooltipPlacement, HoverAnimation } from "types/ui.types";
+import { Variant, Size, SurfaceLevel, TooltipPlacement, HoverAnimation } from "types/ui.types";
 import { useCoarsePointer } from "assets/hooks";
 import { formatClassNames } from "assets/utils";
 
@@ -38,6 +38,7 @@ import { formatClassNames } from "assets/utils";
  * @property {string} [className] - Additional CSS class names.
  * @property {boolean} [noBG=false] - If true, disables the frosted background.
  * @property {Variant} [variant="primary"] - Visual style variant.
+ * @property {SurfaceLevel} [surfaceLevel="2"] - Interactive Surface visual depth level.
  * @property {Size} [size="md"] - Size variant applied to both button and icon.
  * @property {string} [text] - Text label rendered inside the button.
  * @property {"button"|"submit"|"reset"} [type="button"] - Native button type.
@@ -101,6 +102,9 @@ import { formatClassNames } from "assets/utils";
  *
  * @param {Variant} [props.variant="primary"]
  *   Visual style variant aligned with the frosted theme.
+ *
+ * @param {SurfaceLevel} [props.surfaceLevel="2"]
+ *   Interactive Surface depth level consumed by ui-style-kit-css v2.
  *
  * @param {Size} [props.size="md"]
  *   Size variant applied to both button and icon.
@@ -183,6 +187,7 @@ import { formatClassNames } from "assets/utils";
  */
 const Btn = ({
   variant = Variant.PRIMARY,
+  surfaceLevel = SurfaceLevel.RAISED,
   size = Size.MD,
   text = "",
   type = "button",
@@ -313,7 +318,12 @@ const Btn = ({
   // Choose Button or IconButton depending on icon presence
   const Component = icon ? IconButton : Button;
   const elementAs = isLinkMode ? (shouldUseRouterLink ? Link : "a") : as;
-  const resolvedVariant = variant || Variant.PRIMARY;
+  const allowedVariants = Object.values(Variant);
+  const allowedSurfaceLevels = Object.values(SurfaceLevel);
+  const resolvedVariant = allowedVariants.includes(variant) ? variant : Variant.PRIMARY;
+  const resolvedSurfaceLevel = allowedSurfaceLevels.includes(String(surfaceLevel))
+    ? String(surfaceLevel)
+    : SurfaceLevel.RAISED;
   const surfaceVariantClass = `variant-${resolvedVariant}`;
   const surfaceSizeClass =
     size === Size.XS || size === Size.SM
@@ -340,6 +350,8 @@ const Btn = ({
       aria-current={resolvedAriaCurrent}
       aria-busy={loading || asyncLoading}
       aria-disabled={disabled || loading || asyncLoading}
+      data-surface-variant={clickable ? resolvedVariant : undefined}
+      data-surface-level={clickable ? resolvedSurfaceLevel : undefined}
       className={classes}
       active={active}
       as={elementAs}

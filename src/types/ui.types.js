@@ -40,6 +40,17 @@ export const Variant = Object.freeze({
 });
 
 /**
+ * Interactive Surface depth levels.
+ * @readonly
+ * @enum {string}
+ */
+export const SurfaceLevel = Object.freeze({
+  QUIET: "1",
+  RAISED: "2",
+  PROMINENT: "3",
+});
+
+/**
  * Theme variants
  * @readonly
  * @enum {string}

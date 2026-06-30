@@ -11,9 +11,6 @@ import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Head } from "components/navigation";
 import BackToTopButton from "components/navigation/BackToTopButton";
 import { useThemeFavicon } from "hooks/useThemeFavicon";
-import "./App.css";
-// Interactive surface CSS package.
-import "interactive-surface-css";
 
 const Home = lazy(() => import("pages/Home"));
 const CodeStream = lazy(() => import("pages/CodeStream"));

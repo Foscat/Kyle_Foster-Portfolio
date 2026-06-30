@@ -520,6 +520,8 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                     <button
                       type="button"
                       className="section-nav-link interactive-surface"
+                      data-surface-variant={sectionActive ? "primary" : "subtle"}
+                      data-surface-level={sectionActive ? "2" : "1"}
                       aria-current={sectionActive ? "location" : undefined}
                       onClick={(e) => {
                         e.preventDefault();
@@ -537,6 +539,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                         variant={Variant.SUBTLE}
                         icon={expanded ? faCaretDown : faCaretRight}
                         className="section-nav-caret interactive-surface"
+                        surfaceLevel="1"
                         as="button"
                         ariaExpanded={expanded}
                         ariaLabel={`Toggle ${sectionNavLabel} subsections`}
@@ -567,6 +570,8 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                               type="button"
                               aria-label={`Navigate to subsection ${block.title}`}
                               className={`sub-section-nav-block interactive-surface ${blockActive ? "is-active" : ""}`}
+                              data-surface-variant={blockActive ? "primary" : "subtle"}
+                              data-surface-level={blockActive ? "2" : "1"}
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleNavigate(block.id);

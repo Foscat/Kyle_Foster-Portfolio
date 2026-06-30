@@ -23,18 +23,15 @@ function getCssRule(css, selector) {
 }
 
 describe("ui-style compatibility", () => {
-  it.skip("keeps interactive button surface colors in the theme bridge", () => {
-    const css = readProjectFile("src/components/ui/Btn/styles.css");
-    const baseRule = getCssRule(
-      css,
-      `.rs-btn.btn.interactive-surface,
-.rs-panel-btn.interactive-surface`
-    );
+  it("loads package CSS from the app entrypoint only", () => {
+    const mainJs = readProjectFile("src/main.jsx");
+    const appJs = readProjectFile("src/App.jsx");
 
-    expect(baseRule).toContain("color: var(--interactive-surface-fg");
-    expect(baseRule).toContain("background: var(--interactive-surface-bg");
-    expect(baseRule).toContain("border-color: var(--interactive-surface-border-color");
-    expect(baseRule).toContain("border-radius: var(--interactive-surface-radius");
+    expect(mainJs).toContain('import "interactive-surface-css/interactive-surface.css";');
+    expect(mainJs).toContain('import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";');
+    expect(mainJs).toContain('import "./App.css";');
+    expect(appJs).not.toContain("interactive-surface-css");
+    expect(appJs).not.toContain('import "./App.css"');
   });
 
   it("keeps Mermaid light-mode default node labels readable on dark fills", () => {
@@ -53,7 +50,7 @@ describe("ui-style compatibility", () => {
     expect(defaultLightLabelRule).toContain("var(--mermaid-light-node-fg");
     expect(tokenCss).toContain("--mermaid-light-node-fg: rgba(var(--white-rgb), 0.96);");
     expect(tokenCss).toContain("--mermaid-light-node-bg: color-mix(");
-    expect(tokenCss).toContain("var(--primary-dark) 78%");
+    expect(tokenCss).toContain("var(--app-surface-primary)");
     expect(tokenCss).not.toContain("--mermaid-light-node-bg: color-mix(in srgb, var(--bg-bright)");
     expect(mermaidJs).toContain("getLightNodePaint");
     expect(mermaidJs).toContain("var(--mermaid-light-node-muted-bg)");
@@ -75,10 +72,14 @@ describe("ui-style compatibility", () => {
   });
 
   it("routes shared app surfaces through ui-style-aware surface variables", () => {
+    const tokens = readProjectFile("src/styles/tokens.css");
     const css = readProjectFile("src/App.css");
 
+    expect(tokens).toContain("--app-surface-bg: rgb(var(--usk-surface-rgb");
+    expect(tokens).toContain("--app-surface-strong-bg: rgb(var(--usk-surface-strong-rgb");
+    expect(tokens).toContain("--app-surface-primary: rgb(var(--usk-primary-rgb");
+    expect(tokens).not.toContain("--ui-kit-bg:");
+    expect(tokens).not.toContain("--interactive-surface-bg:");
     expect(getCssRule(css, ".glass-card")).toContain("var(--app-surface-bg");
-    expect(getCssRule(css, ".frosted")).toContain("var(--app-surface-muted-bg");
-    expect(getCssRule(css, ".blue-tile")).toContain("var(--app-surface-strong-bg");
   });
 });

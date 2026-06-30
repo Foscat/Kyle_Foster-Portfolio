@@ -174,6 +174,8 @@ export default function MarkdownRenderer({
           <a
             href={href}
             className="markdown-renderer__link interactive-surface"
+            data-surface-variant="subtle"
+            data-surface-level="1"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noreferrer" : undefined}
           >
@@ -283,6 +285,8 @@ export default function MarkdownRenderer({
                       key={heading.id}
                       href={`#${heading.id}`}
                       className="markdown-renderer__toc-link interactive-surface"
+                      data-surface-variant="subtle"
+                      data-surface-level="1"
                     >
                       {heading.text}
                     </a>

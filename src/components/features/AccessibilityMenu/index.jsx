@@ -65,6 +65,8 @@ function A11ySwitch({ labelledBy, checked, onChange, disabled = false }) {
       className={`a11y-switch ui-switch interactive-surface ${checked ? "is-on" : ""} ${
         disabled ? "is-disabled" : ""
       }`}
+      data-surface-variant="subtle"
+      data-surface-level="1"
     >
       <input
         className="a11y-switch__input ui-switch__input"

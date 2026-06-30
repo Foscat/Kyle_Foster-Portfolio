@@ -941,13 +941,12 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 
 .mermaid-action-btn.rs-btn.btn.interactive-surface,
 .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
-  --interactive-surface-bg: var(--app-surface-bg, var(--mermaid-surface-bg));
-  --interactive-surface-fg: var(--app-surface-fg, var(--mermaid-node-fg));
-  --interactive-surface-border-color: var(--app-surface-accent, var(--mermaid-edge));
-
   min-height: 2rem;
   padding: 0.3rem 0.62rem 0.3rem 0.5rem;
   gap: 0.34rem;
+  border-color: var(--app-surface-accent, var(--mermaid-edge));
+  background: var(--app-surface-bg, var(--mermaid-surface-bg));
+  color: var(--app-surface-fg, var(--mermaid-node-fg));
   border-radius: 999px;
   font-size: var(--font-xxs);
 }

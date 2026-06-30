@@ -23,7 +23,6 @@ Modal component for previewing the resume with print and download options.
 - `props.onClose` (`function`) - Function to call when the modal is closed.
 - `props.title` (`string`) - The title of the resume.
 - `props.subtitle` (`string`) - The subtitle of the resume.
-- `props.pdfHref` (`string`) - The URL of the PDF version of the resume.
 - `props.downloadName` (`string`) - The name for the downloaded PDF file.
 - `props.children` (`React.ReactNode`) - The content of the modal.
 

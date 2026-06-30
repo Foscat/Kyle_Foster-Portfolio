@@ -577,7 +577,7 @@ Rendering notes:
 <LinksBlock
   items={[
     { title: "GitHub", url: "https://github.com", icon: faGithub },
-    { title: "Resume", url: "/resume.pdf", download: true, icon: faFile },
+    { title: "Resume", resumePreview: true, icon: faFile },
   ]}
 />
 ```

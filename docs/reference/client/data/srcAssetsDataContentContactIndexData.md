@@ -4,6 +4,6 @@
 
 # srcAssetsDataContentContactIndexData
 
-## src\\assets\\data\\content\\contact\\alt
+## src\\assets\\data\\content\\contact
 
 Alternative contact page content module.
