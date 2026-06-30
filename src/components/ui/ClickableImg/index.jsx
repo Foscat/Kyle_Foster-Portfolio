@@ -328,6 +328,8 @@ const ClickableImg = ({
       <button
         type="button"
         className="clickable-thumb-button interactive-surface"
+        data-surface-variant="subtle"
+        data-surface-level="2"
         aria-label={thumbnailLabel}
         onClick={() => setOpen(true)}
       >
@@ -404,6 +406,8 @@ const ClickableImg = ({
                 <button
                   type="button"
                   className="modal-zoom-btn interactive-surface"
+                  data-surface-variant="subtle"
+                  data-surface-level="2"
                   onClick={() => applyZoom(zoom - ZOOM_STEP)}
                   aria-label="Zoom out image"
                   disabled={zoom <= MIN_ZOOM}
@@ -413,6 +417,8 @@ const ClickableImg = ({
                 <button
                   type="button"
                   className="modal-zoom-btn interactive-surface"
+                  data-surface-variant="secondary"
+                  data-surface-level="2"
                   onClick={resetView}
                   aria-label="Reset image zoom"
                   disabled={!isZoomed && pan.x === 0 && pan.y === 0}
@@ -422,6 +428,8 @@ const ClickableImg = ({
                 <button
                   type="button"
                   className="modal-zoom-btn interactive-surface"
+                  data-surface-variant="subtle"
+                  data-surface-level="2"
                   onClick={() => applyZoom(zoom + ZOOM_STEP)}
                   aria-label="Zoom in image"
                   disabled={zoom >= MAX_ZOOM}

@@ -157,46 +157,6 @@
   filter: grayscale(18%);
 }
 
-/* ============================================================
-   Variant Styles
-   ============================================================ */
-
-.rs-btn.btn.interactive-surface.primary {
-  --interactive-surface-bg: var(--interactive-surface-variant-primary-bg, var(--primary));
-  --interactive-surface-fg: var(--interactive-surface-variant-primary-fg, var(--primary-text));
-  --interactive-surface-border-color: var(
-    --interactive-surface-variant-primary-border-color,
-    color-mix(in srgb, var(--primary) 78%, var(--border) 22%)
-  );
-}
-
-.rs-btn.btn.interactive-surface.secondary {
-  --interactive-surface-bg: var(--interactive-surface-variant-secondary-bg, var(--secondary));
-  --interactive-surface-fg: var(--interactive-surface-variant-secondary-fg, var(--secondary-text));
-  --interactive-surface-border-color: var(
-    --interactive-surface-variant-secondary-border-color,
-    color-mix(in srgb, var(--secondary) 78%, var(--border) 22%)
-  );
-}
-
-.rs-btn.btn.interactive-surface.accent {
-  --interactive-surface-bg: var(--interactive-surface-variant-accent-bg);
-  --interactive-surface-fg: var(--interactive-surface-variant-accent-fg);
-  --interactive-surface-border-color: var(--interactive-surface-variant-accent-border-color);
-}
-
-.rs-btn.btn.interactive-surface.subtle {
-  --interactive-surface-bg: var(--interactive-surface-variant-subtle-bg);
-  --interactive-surface-fg: var(--interactive-surface-variant-subtle-fg);
-  --interactive-surface-border-color: var(--interactive-surface-variant-subtle-border-color);
-}
-
-.rs-btn.btn.interactive-surface.danger {
-  --interactive-surface-bg: var(--interactive-surface-variant-danger-bg);
-  --interactive-surface-fg: var(--interactive-surface-variant-danger-fg);
-  --interactive-surface-border-color: var(--interactive-surface-variant-danger-border-color);
-}
-
 /* Ghost / no-background buttons need readable foreground tokens instead of filled-button text colors. */
 .rs-btn.btn.interactive-surface.btn-noBG,
 .rs-btn.btn.interactive-surface.noBG {
@@ -212,7 +172,7 @@
 .rs-btn.btn.interactive-surface.primary.noBG,
 .rs-btn.btn.interactive-surface.accent.btn-noBG,
 .rs-btn.btn.interactive-surface.accent.noBG {
-  color: var(--text-accent-readable, var(--link, var(--accent)));
+  color: var(--app-surface-readable-fg, var(--text-accent-readable, var(--link, var(--accent))));
 }
 
 .rs-btn.btn.interactive-surface.secondary.btn-noBG,

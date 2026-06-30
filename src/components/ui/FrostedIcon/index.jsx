@@ -182,6 +182,8 @@ const FrostedIcon = ({
         aria-hidden={isEmbeddedInBtn ? true : undefined}
         aria-busy={loading}
         tabIndex={isInteractive ? 0 : undefined}
+        data-surface-variant={isInteractive ? variant : undefined}
+        data-surface-level={isInteractive ? "2" : undefined}
         className={`
             frosted-icon
             fi-size-${size}

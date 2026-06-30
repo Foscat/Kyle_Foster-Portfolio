@@ -60,6 +60,18 @@ describe("Btn", () => {
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(button).toHaveClass("interactive-surface");
+    expect(button).toHaveAttribute("data-surface-variant", "primary");
+    expect(button).toHaveAttribute("data-surface-level", "2");
+  });
+
+  it("maps visual variants and explicit surface levels to bridge attributes", () => {
+    renderWithProviders(<Btn text="Details" variant="accent" surfaceLevel="3" />);
+
+    const button = screen.getByRole("button", { name: /details/i });
+
+    expect(button).toHaveClass("interactive-surface", "accent");
+    expect(button).toHaveAttribute("data-surface-variant", "accent");
+    expect(button).toHaveAttribute("data-surface-level", "3");
   });
 
   it("does not invoke the click handler when disabled", async () => {

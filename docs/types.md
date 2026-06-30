@@ -90,6 +90,12 @@ Visual style variants
 
 - Type: `string`
 
+### SurfaceLevel
+
+Interactive Surface depth levels.
+
+- Type: `string`
+
 ### Theme
 
 Theme variants

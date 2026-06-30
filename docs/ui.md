@@ -107,6 +107,7 @@ Accessibility:
 
 - `props` (`Object`) - Component props.
 - `props.variant` (`Variant`, optional, default: `"primary"`) - Visual style variant aligned with the frosted theme.
+- `props.surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface depth level consumed by ui-style-kit-css v2.
 - `props.size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `props.text` (`string`, optional) - Text label rendered inside the button.
 - `props.type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type forwarded to the underlying RSuite button.
@@ -197,6 +198,7 @@ without re-exporting RSuite types.
 - `className` (`string`, optional) - Additional CSS class names.
 - `noBG` (`boolean`, optional, default: `false`) - If true, disables the frosted background.
 - `variant` (`Variant`, optional, default: `"primary"`) - Visual style variant.
+- `surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface visual depth level.
 - `size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `text` (`string`, optional) - Text label rendered inside the button.
 - `type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type.

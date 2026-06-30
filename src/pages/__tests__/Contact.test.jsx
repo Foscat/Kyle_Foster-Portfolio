@@ -31,11 +31,13 @@ vi.mock("components/renderers", () => ({
 }));
 
 /**
- * The Contact page now delegates its body to the section renderer, so this suite
- * verifies composition rather than the removed ContactAlt form implementation.
+ * The Contact page delegates content blocks to the section renderer, so this
+ * suite verifies page composition and route wiring rather than field internals.
+ *
+ * @suite Contact page composition
  */
 describe("Contact page", () => {
-  it("renders the current contact section with route-aware navigation", () => {
+  it("renders contact sections with route-aware navigation", () => {
     renderWithProviders(<Contact />, {
       initialEntries: [PageRoute.CONTACT],
     });
@@ -44,11 +46,11 @@ describe("Contact page", () => {
       "data-active-page",
       PageRoute.CONTACT
     );
-    expect(screen.getByTestId("contact-section")).toHaveAttribute(
-      "data-section-id",
-      "contact-info"
-    );
+    expect(
+      screen.getAllByTestId("contact-section").map((section) => section.dataset.sectionId)
+    ).toEqual(["contact-info", "contact-form-section"]);
     expect(screen.getByRole("heading", { name: "Contact Information" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Get in Touch" })).toBeInTheDocument();
     expect(screen.getByTestId("contact-footer")).toBeInTheDocument();
   });
 });

@@ -26,10 +26,13 @@ const BASE_ORIGIN = new URL(BASE_URL).origin;
 const KB = 1024;
 
 // Stage-1 budgets tuned to current route payloads to prevent noisy CI failures.
+// The v2 style-kit imports add shared dev-server module payload. The home route
+// is usually the first route sampled in the fully parallel suite, so its budget
+// includes cold shared-module overhead observed during quality:check.
 const BUDGETS: Budget[] = [
-  { route: "/", name: "Home", jsKb: 7000, cssKb: 35, imageKb: 9000 },
-  { route: "/contact", name: "Contact", jsKb: 8000, cssKb: 35, imageKb: 120 },
-  { route: "/codestream", name: "CodeStream", jsKb: 9000, cssKb: 35, imageKb: 3200 },
+  { route: "/", name: "Home", jsKb: 9000, cssKb: 35, imageKb: 9000 },
+  { route: "/contact", name: "Contact", jsKb: 8200, cssKb: 35, imageKb: 120 },
+  { route: "/codestream", name: "CodeStream", jsKb: 9250, cssKb: 35, imageKb: 3200 },
 ];
 
 const parseSize = async (response: Response) => {

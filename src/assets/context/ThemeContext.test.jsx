@@ -85,6 +85,18 @@ describe("ThemeContext", () => {
     });
   });
 
+  test("uses package-owned palette roles instead of inline palette custom properties", async () => {
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(document.documentElement.dataset.palette).toBe("ocean-steel");
+    expect(document.body.dataset.theme).toBe("ocean-steel");
+    expect(document.body.dataset.mode).toBe("dark");
+    expect(document.documentElement.style.getPropertyValue("--bg")).toBe("");
+    expect(document.documentElement.style.getPropertyValue("--bg-rgb")).toBe("");
+    expect(document.documentElement.style.getPropertyValue("--primary")).toBe("");
+    expect(document.documentElement.style.getPropertyValue("--usk-bg-rgb")).toBe("");
+  });
+
   test("ignores invalid UI style updates", async () => {
     const user = userEvent.setup();
 

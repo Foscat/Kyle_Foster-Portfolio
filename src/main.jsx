@@ -25,8 +25,12 @@ import App from "./App.jsx";
 import "./index.css";
 // RSuite shell styles
 import "./styles/rsuite-shell.less";
-// Centralized app tokens and style-kit theme imports.
+// Package styles own interaction behavior and visual theme roles.
+import "interactive-surface-css/interactive-surface.css";
+import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";
+// App styles compose package tokens into portfolio layout contracts.
 import "./styles/tokens.css";
+import "./App.css";
 
 installChunkLoadRecovery();
 

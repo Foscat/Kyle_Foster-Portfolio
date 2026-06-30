@@ -7,7 +7,7 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
-import { PALETTE_IDS, applyPaletteTokens } from "assets/themePalettes.js";
+import { PALETTE_IDS } from "assets/themePalettes.js";
 
 const THEME_STORAGE_KEY = "portfolio-theme";
 const PALETTE_STORAGE_KEY = "portfolio-palette";
@@ -258,8 +258,6 @@ export function ThemeProvider({ children }) {
     document.documentElement.dataset.mode = effectiveMode;
     document.documentElement.dataset.palette = palette;
     document.documentElement.dataset.ui = uiStyle;
-    applyPaletteTokens(document.documentElement, palette, effectiveMode);
-
     if (document.body) {
       document.body.dataset.ui = uiStyle;
       document.body.dataset.theme = palette;

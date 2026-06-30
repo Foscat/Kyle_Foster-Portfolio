@@ -241,6 +241,8 @@ const FormBlock = ({
             appearance="primary"
             type="submit"
             className="interactive-surface form-block__action-btn"
+            data-surface-variant="primary"
+            data-surface-level="2"
           >
             {schema.submitLabel || "Submit"}
           </Button>
@@ -251,6 +253,8 @@ const FormBlock = ({
               type="button"
               onClick={handleReset}
               className="interactive-surface form-block__action-btn"
+              data-surface-variant="subtle"
+              data-surface-level="1"
             >
               {schema.resetLabel}
             </Button>

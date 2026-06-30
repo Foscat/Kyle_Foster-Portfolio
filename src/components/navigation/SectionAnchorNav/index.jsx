@@ -66,6 +66,8 @@ const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.
                   to={useRouterLink ? href : undefined}
                   href={useRouterLink ? undefined : href}
                   className="san-nav-item interactive-surface"
+                  data-surface-variant="subtle"
+                  data-surface-level="1"
                 >
                   {sect.title}
                 </Nav.Item>

@@ -97,6 +97,19 @@
   margin-top: 2rem;
 }
 
+.contact-resume-actions {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto var(--page-gap);
+}
+
+.contact-form-status {
+  min-height: 1.5rem;
+  margin: 0 auto var(--page-gap);
+  color: var(--app-surface-readable-fg, var(--text-primary));
+  text-align: center;
+}
+
 .contact-list {
   margin: 1rem 0 0;
   padding: 0;

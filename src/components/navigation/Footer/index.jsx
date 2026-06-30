@@ -72,6 +72,8 @@ const Footer = () => {
             type="button"
             aria-label="Copy phone number to clipboard"
             className="site-footer_phone interactive-surface"
+            data-surface-variant="subtle"
+            data-surface-level="1"
             onClick={() => {
               clipboard.copy("4694105286");
             }}

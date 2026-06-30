@@ -5,7 +5,7 @@
  */
 
 import { expect, test, type Page } from "@playwright/test";
-import { PALETTE_IDS, PALETTE_TOKENS } from "../src/assets/themePalettes.js";
+import { PALETTE_IDS } from "../src/assets/themePalettes.js";
 import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 import { waitForMermaidRender } from "./utils/waitForMermaid";
 
@@ -364,7 +364,7 @@ test.describe("Rendered color contrast", () => {
     await stabilizePage(page, { theme: "dark" });
 
     const failures = await page.evaluate(
-      ({ modes, palettes, tokensByPalette, uiStyles }) => {
+      ({ modes, palettes, uiStyles }) => {
         const MIN_TEXT_CONTRAST = 4.5;
         const MAX_FAILURES = 60;
 
@@ -495,7 +495,7 @@ test.describe("Rendered color contrast", () => {
         document.body.append(desktopMenu);
 
         const probes = [
-          makeProbe("body", "var(--ui-kit-bg)", "var(--app-surface-fg)"),
+          makeProbe("body", "var(--app-kit-bg)", "var(--app-surface-fg)"),
           makeProbe("surface", "var(--app-surface-bg)", "var(--app-surface-readable-fg)"),
           makeProbe(
             "surface-muted",
@@ -514,17 +514,17 @@ test.describe("Rendered color contrast", () => {
           ),
           makeProbe(
             "control-on-page",
-            "var(--ui-kit-bg)",
+            "var(--app-kit-bg)",
             "var(--app-kit-control-fg, var(--app-surface-readable-fg))"
           ),
           makeProbe(
             "sticky-nav-trigger-nav-on-page",
-            "var(--ui-kit-bg)",
+            "var(--app-kit-bg)",
             "var(--sticky-nav-trigger-navigation-icon-color)"
           ),
           makeProbe(
             "sticky-nav-trigger-utility-on-page",
-            "var(--ui-kit-bg)",
+            "var(--app-kit-bg)",
             "var(--sticky-nav-trigger-utility-icon-color)"
           ),
           makeProbe(
@@ -567,16 +567,6 @@ test.describe("Rendered color contrast", () => {
 
         for (const palette of palettes) {
           for (const mode of modes) {
-            const modeTokens = tokensByPalette[palette]?.[mode];
-            if (!modeTokens) {
-              failures.push(`${palette}/${mode} missing palette tokens`);
-              continue;
-            }
-
-            for (const [key, value] of Object.entries(modeTokens)) {
-              root.style.setProperty(`--${key}`, String(value));
-            }
-
             root.dataset.theme = mode === "light" ? "light" : "dark";
             root.dataset.mode = mode;
             root.dataset.palette = palette;
@@ -644,7 +634,6 @@ test.describe("Rendered color contrast", () => {
       {
         modes: STYLE_KIT_MODES,
         palettes: PALETTE_IDS,
-        tokensByPalette: PALETTE_TOKENS,
         uiStyles: UI_STYLES,
       }
     );

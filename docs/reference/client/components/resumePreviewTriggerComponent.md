@@ -19,7 +19,6 @@ Component that triggers the resume preview modal.
 - `props.title` (`string`) - The title of the resume preview.
 - `props.subtitle` (`string`) - The subtitle of the resume preview.
 - `props.resume` (`Object`) - The resume data object.
-- `props.pdfHref` (`string`) - The URL of the PDF version of the resume.
 - `props.downloadName` (`string`) - The name for the downloaded PDF file.
 - `props.buttonClassName` (`string`) - Additional class names for the trigger button.
 - `props.icon` (`any`, optional) - Optional icon shown inside the trigger button.

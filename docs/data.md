@@ -2,7 +2,7 @@
 
 ## assets/data/index
 
-Barrel export for shared data modules and resume asset references.
+Barrel export for shared content data modules.
 
 ## assets/data/pageMetas
 
@@ -18,10 +18,6 @@ imported globally without pulling all route content into the initial bundle.
 ## assets/data/projectMetas
 
 Static registry of project metadata for portfolio cards and detail surfaces.
-
-## src\\assets\\data\\content\\contactForm
-
-src\assets\data\content\contactForm module.
 
 ## src\\assets\\data\\content\\diagrams
 
@@ -112,34 +108,6 @@ Load hydrated portfolio docs for a category, including raw markdown `content`.
 
 Structured resume content used by the resume preview/export feature.
 
-## assets/data/resume/pdfAssets
-
-Theme-aware resume PDF asset helpers.
-
-### resolveResumePdfHref()
-
-Resolves the resume PDF href for the provided theme.
-
-**Parameters**
-
-- `theme` (`unknown`) - Theme identifier from theme context.
-
-**Returns**
-
-- `string` - Theme-matched PDF URL.
-
-### resolveEffectiveTheme()
-
-Resolves a raw theme value to an effective light/dark theme.
-
-**Parameters**
-
-- `theme` (`unknown`) - Theme identifier from theme context.
-
-**Returns**
-
-- `"light" | "dark"` - Effective theme identifier.
-
 ## src\\assets\\data\\content\\codestream\\diagrams
 
 src\assets\data\content\codestream\diagrams module.
@@ -152,7 +120,7 @@ src\assets\data\content\codestream\index module.
 
 CodeStream Case Study Data ------------------------------------------------------------ This file powers the CodeStream portfolio page using a data-driven approach. It is designed to work with: - Sticky Section Nav - AccordionList - InfoSection / ClickableImg / diagramDiagram components All UI layout should be derived from this data structure. /
 
-## src\\assets\\data\\content\\contact\\alt
+## src\\assets\\data\\content\\contact
 
 Alternative contact page content module.
 

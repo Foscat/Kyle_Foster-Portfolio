@@ -6,4 +6,4 @@
 
 ## assets/data/index
 
-Barrel export for shared data modules and resume asset references.
+Barrel export for shared content data modules.

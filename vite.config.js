@@ -1,13 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import process from "node:process";
 
 const normalizeModuleId = (id) => id.replaceAll("\\", "/");
+const shouldReportCompressedSize = process.env.VITE_REPORT_COMPRESSED_SIZE === "true";
 
 export default defineConfig({
   plugins: [react({ jsxRuntime: "automatic" })],
   build: {
     chunkSizeWarningLimit: 1500,
+    // Keep everyday builds focused on emitted assets; gzip reporting is available through build:report.
+    reportCompressedSize: shouldReportCompressedSize,
     rollupOptions: {
       output: {
         manualChunks(id) {

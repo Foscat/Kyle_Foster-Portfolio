@@ -82,7 +82,9 @@ const UiStyleToggle = ({
       ) : null}
       <select
         id={selectId}
-        className={`ui-style-toggle__select ${selectSizeClass}`.trim()}
+        className={`interactive-surface ui-style-toggle__select ${selectSizeClass}`.trim()}
+        data-surface-variant="secondary"
+        data-surface-level="2"
         value={activeUiStyle}
         aria-label={ariaLabel}
         onChange={(event) => setUiStyle(event.target.value)}

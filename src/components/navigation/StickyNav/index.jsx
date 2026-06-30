@@ -420,6 +420,8 @@ const StickyNav = ({ activePage }) => {
                   as={Link}
                   to={route}
                   className={`interactive-surface ${isActive ? "is-route-active" : ""}`}
+                  data-surface-variant={isActive ? "primary" : "subtle"}
+                  data-surface-level={isActive ? "2" : "1"}
                   aria-current={isActive ? "page" : undefined}
                   onClick={(event) =>
                     handleNavClick(event, {

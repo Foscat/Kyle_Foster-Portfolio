@@ -5,9 +5,8 @@
    Component styles should consume tokens, not define them.
 ========================================================= */
 
-@import url("./ui-style-kit-tokens.css") layer(ui-style-kit);
-
-/* Tokens imported from ui-style-kit-css are loaded in a low-priority layer. Portfolio-specific refinements below keep this app visually stable until the upstream kit is updated. */
+/* Package-owned visual roles are imported from src/main.jsx. This file only
+   defines portfolio layout tokens and app-owned aliases that compose --usk-* roles. */
 
 :root {
   --radius-md: 0.75rem;
@@ -256,320 +255,123 @@ html[data-palette][data-theme] {
   --ui_ux-rgb: var(--secondary-rgb);
 }
 
-body[data-ui="minimal-saas"][data-theme][data-mode] {
-  --ui-kit-bg: var(--saas-bg, var(--bg));
-  --ui-kit-surface: var(--saas-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--saas-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--saas-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--saas-text, var(--text));
-  --ui-kit-text-muted: var(--saas-text-muted, var(--text-muted));
-  --ui-kit-border: var(--saas-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--saas-primary, var(--primary));
-  --ui-kit-accent: var(--saas-accent, var(--accent));
-  --ui-kit-radius-sm: var(--saas-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--saas-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--saas-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--saas-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--saas-shadow-alpha, 0.18);
-}
-
-body[data-ui="bento"][data-theme][data-mode] {
-  --ui-kit-bg: var(--bento-bg, var(--bg));
-  --ui-kit-surface: var(--bento-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--bento-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--bento-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--bento-text, var(--text));
-  --ui-kit-text-muted: var(--bento-text-muted, var(--text-muted));
-  --ui-kit-border: var(--bento-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--bento-primary, var(--primary));
-  --ui-kit-accent: var(--bento-accent, var(--accent));
-  --ui-kit-radius-sm: var(--bento-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--bento-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--bento-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--bento-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--bento-shadow-alpha, 0.18);
-}
-
-body[data-ui="maximalist"][data-theme][data-mode] {
-  --ui-kit-bg: var(--max-bg, var(--bg));
-  --ui-kit-surface: var(--max-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--max-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--max-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--max-text, var(--text));
-  --ui-kit-text-muted: var(--max-text-muted, var(--text-muted));
-  --ui-kit-border: var(--max-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--max-primary, var(--primary));
-  --ui-kit-accent: var(--max-accent, var(--accent));
-  --ui-kit-radius-sm: var(--max-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--max-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--max-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--max-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--max-shadow-alpha, 0.18);
-}
-
-body[data-ui="bauhaus"][data-theme][data-mode] {
-  --ui-kit-bg: var(--bau-bg, var(--bg));
-  --ui-kit-surface: var(--bau-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--bau-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--bau-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--bau-text, var(--text));
-  --ui-kit-text-muted: var(--bau-text-muted, var(--text-muted));
-  --ui-kit-border: var(--bau-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--bau-primary, var(--primary));
-  --ui-kit-accent: var(--bau-accent, var(--accent));
-  --ui-kit-radius-sm: var(--bau-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--bau-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--bau-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--bau-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--bau-shadow-alpha, 0.18);
-}
-
-body[data-ui="tactile"][data-theme][data-mode] {
-  --ui-kit-bg: var(--tactile-bg, var(--bg));
-  --ui-kit-surface: var(--tactile-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--tactile-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--tactile-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--tactile-text, var(--text));
-  --ui-kit-text-muted: var(--tactile-text-muted, var(--text-muted));
-  --ui-kit-border: var(--tactile-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--tactile-primary, var(--primary));
-  --ui-kit-accent: var(--tactile-accent, var(--accent));
-  --ui-kit-radius-sm: var(--tactile-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--tactile-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--tactile-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--tactile-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--tactile-shadow-alpha, 0.18);
-}
-
-body[data-ui="neumorphism"][data-theme][data-mode] {
-  --ui-kit-bg: var(--neo-bg, var(--bg));
-  --ui-kit-surface: var(--neo-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--neo-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--neo-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--neo-text, var(--text));
-  --ui-kit-text-muted: var(--neo-text-muted, var(--text-muted));
-  --ui-kit-border: var(--neo-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--neo-primary, var(--primary));
-  --ui-kit-accent: var(--neo-accent, var(--accent));
-  --ui-kit-radius-sm: var(--neo-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--neo-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--neo-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--neo-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--neo-shadow-alpha, 0.18);
-}
-
-body[data-ui="retrofuturism"][data-theme][data-mode] {
-  --ui-kit-bg: var(--retro-bg, var(--bg));
-  --ui-kit-surface: var(--retro-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--retro-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--retro-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--retro-text, var(--text));
-  --ui-kit-text-muted: var(--retro-text-muted, var(--text-muted));
-  --ui-kit-border: var(--retro-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--retro-primary, var(--primary));
-  --ui-kit-accent: var(--retro-accent, var(--accent));
-  --ui-kit-radius-sm: var(--retro-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--retro-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--retro-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--retro-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--retro-shadow-alpha, 0.18);
-}
-
-body[data-ui="brutalism"][data-theme][data-mode] {
-  --ui-kit-bg: var(--brutal-bg, var(--bg));
-  --ui-kit-surface: var(--brutal-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--brutal-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--brutal-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--brutal-text, var(--text));
-  --ui-kit-text-muted: var(--brutal-text-muted, var(--text-muted));
-  --ui-kit-border: var(--brutal-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--brutal-primary, var(--primary));
-  --ui-kit-accent: var(--brutal-accent, var(--accent));
-  --ui-kit-radius-sm: var(--brutal-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--brutal-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--brutal-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--brutal-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--brutal-shadow-alpha, 0.18);
-}
-
-body[data-ui="cyberpunk"][data-theme][data-mode] {
-  --ui-kit-bg: var(--cyber-bg, var(--bg));
-  --ui-kit-surface: var(--cyber-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--cyber-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--cyber-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--cyber-text, var(--text));
-  --ui-kit-text-muted: var(--cyber-text-muted, var(--text-muted));
-  --ui-kit-border: var(--cyber-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--cyber-primary, var(--primary));
-  --ui-kit-accent: var(--cyber-accent, var(--accent));
-  --ui-kit-radius-sm: var(--cyber-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--cyber-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--cyber-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--cyber-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--cyber-shadow-alpha, 0.18);
-}
-
-body[data-ui="y2k"][data-theme][data-mode] {
-  --ui-kit-bg: var(--y2k-bg, var(--bg));
-  --ui-kit-surface: var(--y2k-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--y2k-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--y2k-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--y2k-text, var(--text));
-  --ui-kit-text-muted: var(--y2k-text-muted, var(--text-muted));
-  --ui-kit-border: var(--y2k-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--y2k-primary, var(--primary));
-  --ui-kit-accent: var(--y2k-accent, var(--accent));
-  --ui-kit-radius-sm: var(--y2k-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--y2k-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--y2k-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--y2k-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--y2k-shadow-alpha, 0.18);
-}
-
-body[data-ui="retro-glass"][data-theme][data-mode] {
-  --ui-kit-bg: var(--rg-bg, var(--bg));
-  --ui-kit-surface: var(--rg-surface, var(--surface-overlay));
-  --ui-kit-surface-strong: var(--rg-surface-strong, var(--surface-overlay-strong));
-  --ui-kit-surface-soft: var(--rg-surface-soft, var(--surface-muted));
-  --ui-kit-text: var(--rg-text, var(--text));
-  --ui-kit-text-muted: var(--rg-text-muted, var(--text-muted));
-  --ui-kit-border: var(--rg-border, var(--surface-border-strong));
-  --ui-kit-primary: var(--rg-primary, var(--primary));
-  --ui-kit-accent: var(--rg-accent, var(--accent));
-  --ui-kit-radius-sm: var(--rg-radius-sm, var(--radius-sm));
-  --ui-kit-radius-md: var(--rg-radius-md, var(--border-radius));
-  --ui-kit-radius-lg: var(--rg-radius-lg, var(--radius-lg));
-  --ui-kit-radius-xl: var(--rg-radius-xl, var(--radius-xl));
-  --ui-kit-shadow-alpha: var(--rg-shadow-alpha, 0.18);
-}
-
 body[data-ui][data-theme][data-mode] {
-  --app-surface-bg: var(--ui-kit-surface, var(--surface-overlay));
-  --app-surface-muted-bg: var(--ui-kit-surface-soft, var(--frost-bg));
-  --app-surface-strong-bg: var(--ui-kit-surface-strong, var(--surface-overlay-strong));
-  --app-surface-fg: var(--ui-kit-text, var(--text-primary));
-  --app-surface-muted-fg: var(--ui-kit-text-muted, var(--text-secondary));
-  --app-surface-border-color: var(--ui-kit-border, var(--surface-border-strong));
-  --app-surface-border-width: var(--ui-kit-border-width, 1px);
-  --app-surface-border-style: var(--ui-kit-border-style, solid);
+  --app-kit-bg: rgb(var(--usk-bg-rgb, 6 22 29));
+  --app-kit-control-fg: rgb(var(--usk-text-rgb, 233 251 255));
+  --app-kit-control-muted-fg: rgb(var(--usk-text-muted-rgb, 167 192 201));
+  --app-surface-bg: rgb(var(--usk-surface-rgb, 13 37 48) / 0.88);
+  --app-surface-muted-bg: rgb(var(--usk-surface-soft-rgb, 8 29 38) / 0.9);
+  --app-surface-strong-bg: rgb(var(--usk-surface-strong-rgb, 20 52 66) / 0.94);
+  --app-surface-fg: rgb(var(--usk-text-rgb, 233 251 255));
+  --app-surface-muted-fg: rgb(var(--usk-text-muted-rgb, 167 192 201));
+  --app-surface-border-color: rgb(var(--usk-border-rgb, 49 86 102) / 0.72);
+  --app-surface-border-width: 1px;
+  --app-surface-border-style: solid;
   --app-surface-border: var(--app-surface-border-width) var(--app-surface-border-style)
     var(--app-surface-border-color);
-  --app-surface-radius-sm: var(--ui-kit-radius-sm, var(--radius-sm));
-  --app-surface-radius-md: var(--ui-kit-radius-md, var(--border-radius));
-  --app-surface-radius-lg: var(--ui-kit-radius-lg, var(--radius-lg));
-  --app-surface-radius-xl: var(--ui-kit-radius-xl, var(--radius-xl));
-  --app-surface-shadow-soft: var(
-    --ui-kit-shadow-soft,
-    0 8px 22px rgb(0 0 0 / calc(var(--ui-kit-shadow-alpha, 0.14) + 0.02))
-  );
-  --app-surface-shadow: var(
-    --ui-kit-shadow,
-    0 14px 38px rgb(0 0 0 / calc(var(--ui-kit-shadow-alpha, 0.18) + 0.04))
-  );
-  --app-surface-shadow-hover: var(--ui-kit-shadow-hover, var(--app-surface-shadow));
-  --app-surface-primary: var(--ui-kit-primary, var(--primary));
-  --app-surface-accent: var(--ui-kit-accent, var(--accent));
+  --app-surface-radius-sm: var(--radius-sm);
+  --app-surface-radius-md: var(--border-radius);
+  --app-surface-radius-lg: var(--radius-lg);
+  --app-surface-radius-xl: var(--radius-xl);
+  --app-surface-shadow-soft: 0 8px 22px rgb(var(--usk-bg-rgb, 0 0 0) / 0.2);
+  --app-surface-shadow: 0 14px 38px rgb(var(--usk-bg-rgb, 0 0 0) / 0.28);
+  --app-surface-shadow-hover: 0 22px 60px rgb(var(--usk-bg-rgb, 0 0 0) / 0.34);
+  --app-surface-primary: rgb(var(--usk-primary-rgb, 54 196 221));
+  --app-surface-accent: rgb(var(--usk-accent-rgb, 83 240 255));
   --app-surface-backdrop-filter: var(--slight-blur);
   --app-surface-readable-fg: var(--app-surface-fg);
   --app-surface-readable-muted-fg: var(--app-surface-muted-fg);
-  --app-heading-color: var(--app-surface-readable-fg);
+  --app-heading-color: rgb(var(--usk-link-rgb, 115 227 244));
   --app-readable-accent: var(--app-surface-readable-fg);
-  --interactive-surface-bg: var(--app-surface-strong-bg);
-  --interactive-surface-fg: var(--app-surface-readable-fg);
-  --interactive-surface-border-color: var(--app-surface-border-color);
-  --interactive-surface-border-width: var(--app-surface-border-width);
-  --interactive-surface-border-style: var(--app-surface-border-style);
-  --interactive-surface-radius: var(--app-surface-radius-md);
-  --interactive-surface-shadow-base: var(--app-surface-shadow-soft);
-  --interactive-surface-shadow-hover: var(--app-surface-shadow-hover);
-  --interactive-surface-backdrop-filter: var(--app-surface-backdrop-filter);
-  --interactive-surface-variant-primary-bg: var(--primary);
-  --interactive-surface-variant-primary-fg: var(--primary-text);
-  --interactive-surface-variant-primary-border-color: color-mix(
-    in srgb,
-    var(--primary) 78%,
-    var(--border) 22%
-  );
-  --interactive-surface-variant-secondary-bg: var(--secondary);
-  --interactive-surface-variant-secondary-fg: var(--secondary-text);
-  --interactive-surface-variant-secondary-border-color: color-mix(
-    in srgb,
-    var(--secondary) 78%,
-    var(--border) 22%
-  );
-  --interactive-surface-variant-subtle-bg: var(--app-surface-muted-bg);
-  --interactive-surface-variant-subtle-fg: var(--app-surface-readable-muted-fg);
-  --interactive-surface-variant-subtle-border-color: var(--app-surface-border-color);
-  --interactive-surface-variant-accent-bg: color-mix(
-    in srgb,
-    var(--accent) 28%,
-    var(--app-surface-strong-bg) 72%
-  );
-  --interactive-surface-variant-accent-border-color: color-mix(
-    in srgb,
-    var(--accent) 70%,
-    var(--border) 30%
-  );
-  --interactive-surface-variant-warning-bg: color-mix(
-    in srgb,
-    var(--warning) 24%,
-    var(--app-surface-strong-bg) 76%
-  );
-  --interactive-surface-variant-warning-border-color: color-mix(
-    in srgb,
-    var(--warning) 70%,
-    var(--border) 30%
-  );
-  --interactive-surface-variant-danger-bg: color-mix(
-    in srgb,
-    var(--danger) 22%,
-    var(--app-surface-strong-bg) 78%
-  );
-  --interactive-surface-variant-danger-fg: var(--app-surface-readable-fg);
-  --interactive-surface-variant-danger-border-color: color-mix(
-    in srgb,
-    var(--danger) 70%,
-    var(--border) 30%
-  );
-  --interactive-surface-focus-ring-color: var(--focus-ring);
-  --interactive-surface-variant-accent-fg: var(--app-surface-readable-fg);
-  --interactive-surface-variant-warning-fg: var(--app-surface-readable-fg);
-}
 
-body[data-ui="minimal-saas"][data-theme][data-mode] {
-  --ui-kit-shadow-soft: 0 6px 18px rgb(0 0 0 / calc(var(--saas-shadow-alpha, 0.14) * 0.72));
-  --ui-kit-shadow: 0 10px 30px rgb(15 23 42 / var(--saas-shadow-alpha, 0.18));
-  --ui-kit-shadow-hover: 0 22px 60px rgb(0 0 0 / calc(var(--saas-shadow-alpha, 0.18) + 0.12));
+  --bg: var(--app-kit-bg);
+  --text: var(--app-surface-fg);
+  --text-muted: var(--app-surface-muted-fg);
+  --link: rgb(var(--usk-link-rgb, 115 227 244));
+  --link-hover: rgb(var(--usk-primary-hover-rgb, 115 227 244));
+  --border: var(--app-surface-border-color);
+  --surface: var(--app-surface-bg);
+  --surface-muted: var(--app-surface-muted-bg);
+  --surface-raised: var(--app-surface-strong-bg);
+  --surface-overlay: var(--app-surface-bg);
+  --surface-overlay-strong: var(--app-surface-strong-bg);
+  --surface-border-strong: var(--app-surface-border-color);
+  --primary: var(--app-surface-primary);
+  --primary-hover: rgb(var(--usk-primary-hover-rgb, 115 227 244));
+  --primary-text: rgb(var(--usk-primary-text-rgb, 4 18 22));
+  --secondary: rgb(var(--usk-secondary-rgb, 140 183 201));
+  --secondary-text: rgb(var(--usk-secondary-text-rgb, 6 22 29));
+  --accent: var(--app-surface-accent);
+  --danger: rgb(var(--usk-danger-rgb, 255 123 123));
+  --warning: rgb(var(--usk-warning-rgb, 255 192 97));
+  --success: rgb(var(--usk-success-rgb, 103 216 166));
+  --focus-ring: rgb(var(--usk-focus-rgb, 83 240 255));
+  --text-strong: var(--app-surface-readable-fg);
+  --text-soft: var(--app-surface-readable-muted-fg);
+  --text-on-surface: var(--app-surface-readable-fg);
+  --text-on-muted-surface: var(--app-surface-readable-muted-fg);
+  --text-accent-readable: var(--link);
+  --text-accent-readable-strong: var(--link-hover);
+  --heading-color: var(--app-heading-color);
+  --icon-color-strong: var(--app-heading-color);
+  --text-primary: var(--text-strong);
+  --text-secondary: var(--text-soft);
+  --text-secondary-dark: var(--text-soft);
+  --text-blue: var(--text-on-surface);
+  --text-blue-dark: var(--text-on-surface);
+  --text-accent: var(--text-accent-readable);
+  --text-accent-light: var(--text-accent-readable);
+  --bg-primary: var(--app-kit-bg);
+  --bg-secondary: var(--app-surface-muted-bg);
+  --divider-color: color-mix(in srgb, var(--app-surface-border-color) 55%, transparent);
 }
 
 body[data-ui="bento"][data-theme][data-mode] {
-  --ui-kit-shadow-soft: var(
+  --app-surface-radius-sm: var(--bento-radius-sm, var(--radius-sm));
+  --app-surface-radius-md: var(--bento-radius-md, var(--border-radius));
+  --app-surface-radius-lg: var(--bento-radius-lg, var(--radius-lg));
+  --app-surface-radius-xl: var(--bento-radius-xl, var(--radius-xl));
+  --app-surface-shadow-soft: var(
     --bento-shadow-sm,
     0 6px 18px rgb(0 0 0 / calc(var(--bento-shadow-alpha, 0.14) * 0.72))
   );
-  --ui-kit-shadow: var(
+  --app-surface-shadow: var(
     --bento-shadow-md,
     0 16px 40px rgb(0 0 0 / calc(var(--bento-shadow-alpha, 0.18) + 0.06))
   );
-  --ui-kit-shadow-hover: var(
+  --app-surface-shadow-hover: var(
     --bento-shadow-lg,
     0 22px 60px rgb(0 0 0 / calc(var(--bento-shadow-alpha, 0.18) + 0.12))
   );
 }
 
+body[data-ui="minimal-saas"][data-theme][data-mode] {
+  --app-surface-radius-sm: var(--saas-radius-sm, var(--radius-sm));
+  --app-surface-radius-md: var(--saas-radius-md, var(--border-radius));
+  --app-surface-radius-lg: var(--saas-radius-lg, var(--radius-lg));
+  --app-surface-radius-xl: var(--saas-radius-xl, var(--radius-xl));
+  --app-surface-shadow-soft: 0 6px 18px rgb(0 0 0 / calc(var(--saas-shadow-alpha, 0.14) * 0.72));
+  --app-surface-shadow: 0 10px 30px rgb(15 23 42 / var(--saas-shadow-alpha, 0.18));
+  --app-surface-shadow-hover: 0 22px 60px rgb(0 0 0 / calc(var(--saas-shadow-alpha, 0.18) + 0.12));
+}
+
 body[data-ui="maximalist"][data-theme][data-mode] {
-  --ui-kit-border-width: 2px;
-  --ui-kit-shadow-soft: var(
+  --app-surface-border-width: 2px;
+  --app-surface-radius-sm: var(--max-radius-sm, var(--radius-sm));
+  --app-surface-radius-md: var(--max-radius-md, var(--border-radius));
+  --app-surface-radius-lg: var(--max-radius-lg, var(--radius-lg));
+  --app-surface-radius-xl: var(--max-radius-xl, var(--radius-xl));
+  --app-surface-shadow-soft: var(
     --max-shadow-sm,
     0 0 0 2px color-mix(in srgb, var(--max-accent, var(--app-surface-accent)) 45%, transparent),
     0 10px 26px rgb(0 0 0 / calc(var(--max-shadow-alpha, 0.2) + 0.04))
   );
-  --ui-kit-shadow: var(
+  --app-surface-shadow: var(
     --max-shadow-md,
     0 0 0 2px color-mix(in srgb, var(--max-accent, var(--app-surface-accent)) 52%, transparent),
     0 18px 54px rgb(0 0 0 / calc(var(--max-shadow-alpha, 0.2) + 0.12))
   );
-  --ui-kit-shadow-hover: var(
+  --app-surface-shadow-hover: var(
     --max-shadow-lg,
     0 0 0 3px color-mix(in srgb, var(--max-primary, var(--app-surface-primary)) 62%, transparent),
     0 24px 70px rgb(0 0 0 / calc(var(--max-shadow-alpha, 0.2) + 0.16))
@@ -577,34 +379,41 @@ body[data-ui="maximalist"][data-theme][data-mode] {
 }
 
 body[data-ui="bauhaus"][data-theme][data-mode] {
-  --ui-kit-border-width: 2px;
-  --ui-kit-shadow-soft: var(
+  --app-surface-border-width: 2px;
+  --app-surface-radius-sm: var(--bau-radius-sm, var(--radius-sm));
+  --app-surface-radius-md: var(--bau-radius-md, var(--border-radius));
+  --app-surface-radius-lg: var(--bau-radius-lg, var(--radius-lg));
+  --app-surface-radius-xl: var(--bau-radius-xl, var(--radius-xl));
+  --app-surface-shadow-soft: var(
     --bau-shadow-sm,
     5px 5px 0 color-mix(in srgb, var(--bau-secondary, var(--app-surface-accent)) 72%, transparent)
   );
-  --ui-kit-shadow: var(
+  --app-surface-shadow: var(
     --bau-shadow-md,
     8px 8px 0 color-mix(in srgb, var(--bau-primary, var(--app-surface-primary)) 78%, transparent)
   );
-  --ui-kit-shadow-hover: var(
+  --app-surface-shadow-hover: var(
     --bau-shadow-lg,
     12px 12px 0 color-mix(in srgb, var(--bau-primary, var(--app-surface-primary)) 84%, transparent)
   );
 }
 
 body[data-ui="tactile"][data-theme][data-mode] {
-  --ui-kit-border-width: 1px;
-  --ui-kit-shadow-soft: var(
+  --app-surface-radius-sm: var(--tactile-radius-sm, var(--radius-sm));
+  --app-surface-radius-md: var(--tactile-radius-md, var(--border-radius));
+  --app-surface-radius-lg: var(--tactile-radius-lg, var(--radius-lg));
+  --app-surface-radius-xl: var(--tactile-radius-xl, var(--radius-xl));
+  --app-surface-shadow-soft: var(
     --tactile-shadow-sm,
     inset 0 1px 0 rgb(255 255 255 / 0.18),
     0 8px 20px rgb(0 0 0 / calc(var(--tactile-shadow-alpha, 0.16) + 0.02))
   );
-  --ui-kit-shadow: var(
+  --app-surface-shadow: var(
     --tactile-shadow-md,
     inset 0 1px 0 rgb(255 255 255 / 0.2),
     0 16px 38px rgb(0 0 0 / calc(var(--tactile-shadow-alpha, 0.18) + 0.08))
   );
-  --ui-kit-shadow-hover: var(
+  --app-surface-shadow-hover: var(
     --tactile-shadow-lg,
     inset 0 1px 0 rgb(255 255 255 / 0.24),
     0 22px 52px rgb(0 0 0 / calc(var(--tactile-shadow-alpha, 0.18) + 0.12))
@@ -612,40 +421,47 @@ body[data-ui="tactile"][data-theme][data-mode] {
 }
 
 body[data-ui="neumorphism"][data-theme][data-mode] {
-  --ui-kit-shadow-soft:
+  --app-surface-radius-sm: var(--neo-radius-sm, var(--radius-sm));
+  --app-surface-radius-md: var(--neo-radius-md, var(--border-radius));
+  --app-surface-radius-lg: var(--neo-radius-lg, var(--radius-lg));
+  --app-surface-radius-xl: var(--neo-radius-xl, var(--radius-xl));
+  --app-surface-shadow-soft:
     5px 5px 11px var(--neo-nm-dark, rgb(0 0 0 / 0.45)),
     -5px -5px 11px var(--neo-nm-light, rgb(255 255 255 / 0.12));
-  --ui-kit-shadow:
+  --app-surface-shadow:
     10px 10px 22px var(--neo-nm-dark, rgb(0 0 0 / 0.45)),
     -10px -10px 22px var(--neo-nm-light, rgb(255 255 255 / 0.12));
-  --ui-kit-shadow-hover:
+  --app-surface-shadow-hover:
     16px 16px 32px var(--neo-nm-dark, rgb(0 0 0 / 0.45)),
     -16px -16px 32px var(--neo-nm-light, rgb(255 255 255 / 0.12));
-  --app-surface-border-color: color-mix(in srgb, var(--ui-kit-border) 42%, transparent);
+  --app-surface-border-color: color-mix(in srgb, var(--app-surface-fg) 12%, transparent);
 }
 
 body[data-ui="retrofuturism"][data-theme][data-mode],
 body[data-ui="cyberpunk"][data-theme][data-mode] {
-  --ui-kit-border-width: 1px;
-  --ui-kit-shadow-soft:
-    0 0 0 1px color-mix(in srgb, var(--ui-kit-accent) 48%, transparent),
-    0 0 22px color-mix(in srgb, var(--ui-kit-accent) 30%, transparent),
-    0 10px 30px rgb(0 0 0 / calc(var(--ui-kit-shadow-alpha, 0.28) + 0.08));
-  --ui-kit-shadow:
-    0 0 0 1px color-mix(in srgb, var(--ui-kit-accent) 58%, transparent),
-    0 0 34px color-mix(in srgb, var(--ui-kit-accent) 38%, transparent),
-    0 18px 50px rgb(0 0 0 / calc(var(--ui-kit-shadow-alpha, 0.28) + 0.12));
-  --ui-kit-shadow-hover:
-    0 0 0 1px color-mix(in srgb, var(--ui-kit-primary) 68%, transparent),
-    0 0 48px color-mix(in srgb, var(--ui-kit-accent) 46%, transparent),
-    0 24px 64px rgb(0 0 0 / calc(var(--ui-kit-shadow-alpha, 0.28) + 0.16));
+  --app-surface-radius-sm: var(--retro-radius-sm, var(--cyber-radius-sm, var(--radius-sm)));
+  --app-surface-radius-md: var(--retro-radius-md, var(--cyber-radius-md, var(--border-radius)));
+  --app-surface-radius-lg: var(--retro-radius-lg, var(--cyber-radius-lg, var(--radius-lg)));
+  --app-surface-radius-xl: var(--retro-radius-xl, var(--cyber-radius-xl, var(--radius-xl)));
+  --app-surface-shadow-soft:
+    0 0 0 1px color-mix(in srgb, var(--app-surface-accent) 48%, transparent),
+    0 0 22px color-mix(in srgb, var(--app-surface-accent) 30%, transparent),
+    0 10px 30px rgb(var(--usk-bg-rgb, 0 0 0) / 0.32);
+  --app-surface-shadow:
+    0 0 0 1px color-mix(in srgb, var(--app-surface-accent) 58%, transparent),
+    0 0 34px color-mix(in srgb, var(--app-surface-accent) 38%, transparent),
+    0 18px 50px rgb(var(--usk-bg-rgb, 0 0 0) / 0.4);
+  --app-surface-shadow-hover:
+    0 0 0 1px color-mix(in srgb, var(--app-surface-primary) 68%, transparent),
+    0 0 48px color-mix(in srgb, var(--app-surface-accent) 46%, transparent),
+    0 24px 64px rgb(var(--usk-bg-rgb, 0 0 0) / 0.44);
 }
 
 body[data-ui="brutalism"][data-theme][data-mode] {
-  --ui-kit-border-width: 3px;
-  --ui-kit-shadow-soft: 6px 6px 0 var(--brutal-secondary, var(--app-surface-accent));
-  --ui-kit-shadow: 10px 10px 0 var(--brutal-primary, var(--app-surface-primary));
-  --ui-kit-shadow-hover: 14px 14px 0 var(--brutal-primary-hover, var(--app-surface-primary));
+  --app-surface-border-width: 3px;
+  --app-surface-shadow-soft: 6px 6px 0 var(--brutal-secondary, var(--app-surface-accent));
+  --app-surface-shadow: 10px 10px 0 var(--brutal-primary, var(--app-surface-primary));
+  --app-surface-shadow-hover: 14px 14px 0 var(--brutal-primary-hover, var(--app-surface-primary));
   --app-surface-radius-sm: var(--brutal-radius-xs, 0.25rem);
   --app-surface-radius-md: var(--brutal-radius-sm, 0.5rem);
   --app-surface-radius-lg: var(--brutal-radius-sm, 0.5rem);
@@ -653,15 +469,15 @@ body[data-ui="brutalism"][data-theme][data-mode] {
 }
 
 body[data-ui="y2k"][data-theme][data-mode] {
-  --ui-kit-shadow-soft:
+  --app-surface-shadow-soft:
     var(--y2k-shadow-sm, 0 2px 8px rgb(0 0 0 / var(--y2k-shadow-alpha, 0.24))),
     inset 0 1px 0 rgb(255 255 255 / 0.42),
     0 0 22px var(--y2k-glow-accent, color-mix(in srgb, var(--app-surface-accent) 38%, transparent));
-  --ui-kit-shadow:
+  --app-surface-shadow:
     var(--y2k-shadow-md, 0 10px 28px rgb(0 0 0 / calc(var(--y2k-shadow-alpha, 0.24) + 0.05))),
     inset 0 1px 0 rgb(255 255 255 / 0.42),
     0 0 28px var(--y2k-glow-accent, color-mix(in srgb, var(--app-surface-accent) 44%, transparent));
-  --ui-kit-shadow-hover:
+  --app-surface-shadow-hover:
     var(--y2k-shadow-lg, 0 22px 60px rgb(0 0 0 / calc(var(--y2k-shadow-alpha, 0.24) + 0.12))),
     0 0 42px var(--y2k-glow-accent, color-mix(in srgb, var(--app-surface-accent) 52%, transparent));
   --app-surface-radius-md: var(--y2k-radius-lg, 1rem);
@@ -670,13 +486,13 @@ body[data-ui="y2k"][data-theme][data-mode] {
 }
 
 body[data-ui="retro-glass"][data-theme][data-mode] {
-  --ui-kit-shadow-soft:
+  --app-surface-shadow-soft:
     var(--rg-shadow-sm, 0 8px 24px rgb(0 0 0 / calc(var(--rg-shadow-alpha, 0.28) + 0.04))),
     0 0 20px var(--rg-glow-primary, color-mix(in srgb, var(--app-surface-primary) 34%, transparent));
-  --ui-kit-shadow:
+  --app-surface-shadow:
     var(--rg-shadow-md, 0 18px 48px rgb(0 0 0 / calc(var(--rg-shadow-alpha, 0.28) + 0.08))),
     0 0 28px var(--rg-glow-primary, color-mix(in srgb, var(--app-surface-primary) 42%, transparent));
-  --ui-kit-shadow-hover:
+  --app-surface-shadow-hover:
     var(--rg-shadow-lg, 0 24px 68px rgb(0 0 0 / calc(var(--rg-shadow-alpha, 0.28) + 0.14))),
     0 0 44px var(--rg-glow-primary, color-mix(in srgb, var(--app-surface-primary) 52%, transparent)),
     0 0 60px
@@ -688,7 +504,8 @@ body[data-ui="retro-glass"][data-theme][data-mode] {
 
 body[data-ui][data-theme][data-mode="light"] {
   --app-surface-readable-fg: var(--text);
-  --app-surface-readable-muted-fg: var(--text-muted);
+  --app-surface-readable-muted-fg: color-mix(in srgb, var(--text) 88%, var(--text-muted) 12%);
+  --app-heading-color: var(--app-surface-readable-fg);
 }
 
 body[data-ui="brutalism"][data-theme][data-mode="dark"],
@@ -720,7 +537,7 @@ html[data-palette][data-mode="contrast"] {
   --link-hover: #ffffff;
 }
 
-/* Palette color values live in src/assets/themePalettes.js and are applied by ThemeProvider. */
+/* Palette color values are package-owned; ThemeProvider only sets data attributes. */
 
 html[data-a11y-reduced-transparency="true"] {
   --slight-blur: none;
@@ -1447,17 +1264,6 @@ html[data-a11y-high-contrast="true"][data-palette] {
     --sticky-nav-mobile-section-slot: 1;
   }
 
-  .sticky-nav-mobile-trigger .btn.icon-only {
-    --interactive-surface-radius: var(--radius-sm);
-    --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.76);
-    --interactive-surface-focus-ring-width: 2px;
-    --interactive-surface-focus-ring-offset: 2px;
-  }
-
-  html[data-theme="light"] .sticky-nav-mobile-trigger .btn.icon-only {
-    --interactive-surface-focus-ring-color: rgba(var(--primary-dark-rgb), 0.76);
-  }
-
   .sticky-nav-mobile-trigger--color,
   .sticky-nav-mobile-trigger--a11y {
     --sticky-nav-mobile-current-glyph-size: var(--sticky-nav-mobile-circle-glyph-size);
@@ -1493,15 +1299,15 @@ html[data-a11y-high-contrast="true"][data-palette] {
 }
 
 .modal-zoom-btn {
-  --interactive-surface-bg: rgba(var(--white-rgb), 0.14);
-  --interactive-surface-fg: var(--text-primary);
-  --interactive-surface-border-color: rgba(var(--white-rgb), 0.22);
+  border-color: rgba(var(--white-rgb), 0.22);
+  background: rgba(var(--white-rgb), 0.14);
+  color: var(--text-primary);
 }
 
 html[data-theme="light"] .modal-zoom-btn {
-  --interactive-surface-bg: rgba(var(--primary-dark-rgb), 0.08);
-  --interactive-surface-fg: rgba(var(--primary-darkest-rgb), 0.9);
-  --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.22);
+  border-color: rgba(var(--primary-dark-rgb), 0.22);
+  background: rgba(var(--primary-dark-rgb), 0.08);
+  color: rgba(var(--primary-darkest-rgb), 0.9);
 }
 
 .btn-tooltip {
@@ -1515,61 +1321,40 @@ html[data-theme="light"] .btn-tooltip {
 }
 
 .markdown-renderer__toc-link {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-fg: var(--text-secondary);
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: 10px;
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.4);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-secondary);
 }
 
 .markdown-renderer__link {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-fg: var(--text-accent);
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 1px;
-  --interactive-surface-radius: 6px;
-  --interactive-surface-focus-ring-color: var(--focus-ring);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-accent);
 }
 
 html[data-theme="dark"] .markdown-renderer__link {
-  --interactive-surface-fg: var(--text-accent);
-  --interactive-surface-focus-ring-color: var(--focus-ring);
+  color: var(--text-accent);
 }
 
 html[data-theme="dark"] .markdown-renderer__toc-link {
-  --interactive-surface-fg: rgba(var(--white-rgb), 0.75);
-  --interactive-surface-focus-ring-color: rgba(var(--accent-rgb), 0.52);
+  color: rgba(var(--white-rgb), 0.75);
 }
 
 .back-to-top__button {
-  --interactive-surface-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
-  --interactive-surface-fg: var(--app-surface-readable-fg, var(--app-surface-fg));
-  --interactive-surface-border-color: var(--app-surface-border-color, rgba(var(--white-rgb), 0.22));
-  --interactive-surface-border-width: var(--app-surface-border-width, 1px);
-  --interactive-surface-border-style: var(--app-surface-border-style, solid);
-  --interactive-surface-radius: var(--app-surface-radius-md, 14px);
-  --interactive-surface-shadow-base: var(--app-surface-shadow-soft, var(--glass-shadow));
-  --interactive-surface-shadow-hover: var(
-    --app-surface-shadow-hover,
-    0 10px 28px rgba(var(--deep-black-rgb), 0.24)
-  );
-  --interactive-surface-shadow-active: var(
-    --app-surface-shadow-soft,
-    0 6px 18px rgba(var(--deep-black-rgb), 0.2)
-  );
-  --interactive-surface-backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
+  border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.22));
+  border-radius: var(--app-surface-radius-md, 14px);
+  background: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
+  color: var(--app-surface-readable-fg, var(--app-surface-fg));
+  box-shadow: var(--app-surface-shadow-soft, var(--glass-shadow));
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
+  backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
 }
 
 .back-to-top__button:hover,
 .back-to-top__button:focus-visible {
-  --interactive-surface-fg: var(--app-surface-readable-fg, var(--app-surface-fg));
-  --interactive-surface-border-color: var(--app-surface-accent, rgba(var(--accent-rgb), 0.5));
-  --interactive-surface-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.12));
+  border-color: var(--app-surface-accent, rgba(var(--accent-rgb), 0.5));
+  background: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.12));
+  color: var(--app-surface-readable-fg, var(--app-surface-fg));
 }
 
 .mermaid .mermaid-svg-host {
@@ -1594,7 +1379,11 @@ html[data-theme="dark"] .markdown-renderer__toc-link {
     var(--accent-dark) 78%,
     var(--primary-dark) 22%
   );
-  --mermaid-light-node-bg: color-mix(in srgb, var(--primary-dark) 78%, var(--primary-darkest) 22%);
+  --mermaid-light-node-bg: color-mix(
+    in srgb,
+    var(--app-surface-primary) 54%,
+    var(--primary-darkest) 46%
+  );
   --mermaid-light-node-muted-bg: color-mix(
     in srgb,
     var(--primary-dark) 64%,
@@ -1658,8 +1447,8 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 
 .desktop-menu .sticky-nav-desktop-trigger--page .nav-icon.is-active,
 .desktop-menu .sticky-nav-desktop-trigger--page[aria-current="page"] .nav-icon {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: rgba(var(--accent-rgb), 0.62);
+  border-color: rgba(var(--accent-rgb), 0.62);
+  background: transparent;
 }
 
 html[data-theme="dark"][data-palette="primary"],
@@ -1697,8 +1486,8 @@ html[data-theme="light"]
   .desktop-menu
   .sticky-nav-desktop-trigger--page[aria-current="page"]
   .nav-icon {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-border-color: rgba(var(--primary-dark-rgb), 0.76);
+  border-color: rgba(var(--primary-dark-rgb), 0.76);
+  background: transparent;
 }
 
 html[data-theme="dark"][data-palette="alt"] {
@@ -1769,9 +1558,9 @@ body[data-ui][data-theme][data-mode] {
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
-  --interactive-surface-bg: var(--nav-drawer-active-surface-bg);
-  --interactive-surface-fg: var(--nav-drawer-active-surface-fg);
-  --interactive-surface-border-color: var(--nav-drawer-active-surface-border-color);
+  border-color: var(--nav-drawer-active-surface-border-color);
+  background: var(--nav-drawer-active-surface-bg);
+  color: var(--nav-drawer-active-surface-fg);
 }
 
 @media (width <=650px) {
@@ -1788,14 +1577,9 @@ body[data-ui][data-theme][data-mode] {
 }
 
 .block-link.interactive-surface {
-  --interactive-surface-bg: transparent;
-  --interactive-surface-fg: var(--text-accent);
-  --interactive-surface-border-color: transparent;
-  --interactive-surface-border-width: 0;
-  --interactive-surface-radius: 0;
-  --interactive-surface-focus-ring-color: var(--focus-ring);
-  --interactive-surface-focus-ring-width: 2px;
-  --interactive-surface-focus-ring-offset: 2px;
+  border: 0;
+  background: transparent;
+  color: var(--text-accent);
 }
 
 .resume-preview__paper {
