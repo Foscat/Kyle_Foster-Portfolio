@@ -7,14 +7,18 @@
   max-height: var(--insight-card-max-height);
   padding: 1.2rem 1.3rem 1.35rem;
   overflow: hidden;
-  color: var(--text-primary);
-  background: var(--surface-overlay);
-  border: 1px solid var(--surface-border-strong);
-  border-left: 4px solid var(--text-accent);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 26px rgba(var(--deep-black-rgb), 0.22);
-  -webkit-backdrop-filter: var(--slight-blur);
-  backdrop-filter: var(--slight-blur);
+  color: var(--app-surface-fg, var(--text-primary));
+  background:
+    var(--app-surface-card-texture, var(--app-surface-texture, none)),
+    var(--app-surface-card-bg, var(--surface-overlay));
+  border: var(--app-surface-border, 1px solid var(--surface-border-strong));
+  border-left: max(4px, var(--app-surface-border-width, 1px)) solid var(--text-accent);
+  border-radius: var(--app-surface-radius-lg, var(--radius-lg));
+  box-shadow:
+    var(--app-surface-ring, 0 0 0 0 transparent),
+    var(--app-surface-shadow-soft, 0 10px 26px rgba(var(--deep-black-rgb), 0.22));
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
+  backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
   outline: none;
 }
 
@@ -99,8 +103,11 @@
 .insight-card__preview {
   margin: 0;
   border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-  border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--surface-overlay) 86%, transparent);
+  border-radius: var(--app-surface-radius-md, var(--radius-md));
+  background: var(
+    --app-surface-control-bg,
+    color-mix(in srgb, var(--surface-overlay) 86%, transparent)
+  );
   overflow: clip;
 }
 
@@ -188,7 +195,7 @@
 .insight-card__metric-label {
   font-size: 0.75rem;
   color: var(--text-secondary);
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 
 .card-grid {

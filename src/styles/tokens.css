@@ -279,6 +279,19 @@ body[data-ui][data-theme][data-mode] {
   --app-surface-primary: rgb(var(--usk-primary-rgb, 54 196 221));
   --app-surface-accent: rgb(var(--usk-accent-rgb, 83 240 255));
   --app-surface-backdrop-filter: var(--slight-blur);
+  --app-surface-card-bg: var(--app-surface-bg);
+  --app-surface-panel-bg: var(--app-surface-strong-bg);
+  --app-surface-control-bg: var(--app-surface-muted-bg);
+  --app-surface-texture: none;
+  --app-surface-panel-texture: var(--app-surface-texture);
+  --app-surface-card-texture: var(--app-surface-texture);
+  --app-surface-ring: 0 0 0 0 transparent;
+  --app-bg-style-layer: none;
+  --app-heading-font-family: Audiowide, cursive;
+  --app-body-font-family: var(--font-Lexend);
+  --app-control-font-family: var(--font-Golos);
+  --app-heading-text-transform: none;
+  --app-heading-letter-spacing: 0;
   --app-surface-readable-fg: var(--app-surface-fg);
   --app-surface-readable-muted-fg: var(--app-surface-muted-fg);
   --app-heading-color: rgb(var(--usk-link-rgb, 115 227 244));
@@ -327,6 +340,19 @@ body[data-ui][data-theme][data-mode] {
 }
 
 body[data-ui="bento"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--bento-theme-bg, none);
+  --app-surface-card-bg: var(--bento-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--bento-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--bento-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--app-surface-primary) 9%, transparent),
+    transparent 42%
+  );
+  --app-surface-ring: inset 0 0 0 1px color-mix(in srgb, var(--app-surface-accent) 18%, transparent);
+  --app-heading-font-family: var(--bento-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--bento-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--bento-font-control, var(--font-Golos));
   --app-surface-radius-sm: var(--bento-radius-sm, var(--radius-sm));
   --app-surface-radius-md: var(--bento-radius-md, var(--border-radius));
   --app-surface-radius-lg: var(--bento-radius-lg, var(--radius-lg));
@@ -346,6 +372,18 @@ body[data-ui="bento"][data-theme][data-mode] {
 }
 
 body[data-ui="minimal-saas"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--saas-theme-bg, none);
+  --app-surface-card-bg: var(--saas-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--saas-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--saas-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--app-surface-primary) 5%, transparent),
+    transparent 60%
+  );
+  --app-heading-font-family: var(--saas-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--saas-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--saas-font-control, var(--font-Golos));
   --app-surface-radius-sm: var(--saas-radius-sm, var(--radius-sm));
   --app-surface-radius-md: var(--saas-radius-md, var(--border-radius));
   --app-surface-radius-lg: var(--saas-radius-lg, var(--radius-lg));
@@ -356,6 +394,25 @@ body[data-ui="minimal-saas"][data-theme][data-mode] {
 }
 
 body[data-ui="maximalist"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--max-theme-bg, none);
+  --app-surface-card-bg: var(--max-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--max-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--max-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture:
+    radial-gradient(
+      circle at 12% 8%,
+      color-mix(in srgb, var(--app-surface-accent) 20%, transparent),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--app-surface-primary) 12%, transparent),
+      transparent 46%
+    );
+  --app-surface-ring: inset 0 0 0 2px color-mix(in srgb, var(--app-surface-accent) 24%, transparent);
+  --app-heading-font-family: var(--max-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--max-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--max-font-control, var(--font-Golos));
   --app-surface-border-width: 2px;
   --app-surface-radius-sm: var(--max-radius-sm, var(--radius-sm));
   --app-surface-radius-md: var(--max-radius-md, var(--border-radius));
@@ -379,6 +436,19 @@ body[data-ui="maximalist"][data-theme][data-mode] {
 }
 
 body[data-ui="bauhaus"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--bau-theme-bg, none);
+  --app-surface-card-bg: var(--bau-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--bau-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--bau-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--app-surface-primary) 15%, transparent) 0 10px,
+    transparent 10px 28px
+  );
+  --app-heading-font-family: var(--bau-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--bau-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--bau-font-control, var(--font-Golos));
+  --app-heading-text-transform: uppercase;
   --app-surface-border-width: 2px;
   --app-surface-radius-sm: var(--bau-radius-sm, var(--radius-sm));
   --app-surface-radius-md: var(--bau-radius-md, var(--border-radius));
@@ -399,6 +469,15 @@ body[data-ui="bauhaus"][data-theme][data-mode] {
 }
 
 body[data-ui="tactile"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--tactile-theme-bg, none);
+  --app-surface-card-bg: var(--tactile-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--tactile-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--tactile-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture: linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(0 0 0 / 0.06));
+  --app-surface-ring: inset 0 1px 0 rgb(255 255 255 / 0.22);
+  --app-heading-font-family: var(--tactile-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--tactile-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--tactile-font-control, var(--font-Golos));
   --app-surface-radius-sm: var(--tactile-radius-sm, var(--radius-sm));
   --app-surface-radius-md: var(--tactile-radius-md, var(--border-radius));
   --app-surface-radius-lg: var(--tactile-radius-lg, var(--radius-lg));
@@ -421,6 +500,15 @@ body[data-ui="tactile"][data-theme][data-mode] {
 }
 
 body[data-ui="neumorphism"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--neo-theme-bg, none);
+  --app-surface-card-bg: var(--neo-surface, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--neo-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--neo-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture: linear-gradient(145deg, rgb(255 255 255 / 0.08), rgb(0 0 0 / 0.06));
+  --app-surface-ring: inset 1px 1px 2px rgb(255 255 255 / 0.08);
+  --app-heading-font-family: var(--neo-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--neo-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--neo-font-control, var(--font-Golos));
   --app-surface-radius-sm: var(--neo-radius-sm, var(--radius-sm));
   --app-surface-radius-md: var(--neo-radius-md, var(--border-radius));
   --app-surface-radius-lg: var(--neo-radius-lg, var(--radius-lg));
@@ -439,6 +527,37 @@ body[data-ui="neumorphism"][data-theme][data-mode] {
 
 body[data-ui="retrofuturism"][data-theme][data-mode],
 body[data-ui="cyberpunk"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--retro-theme-bg, var(--cyber-theme-bg, none));
+  --app-surface-card-bg: var(--retro-card-bg, var(--cyber-card-bg, var(--app-surface-bg)));
+  --app-surface-panel-bg: var(
+    --retro-surface-strong,
+    var(--cyber-surface-strong, var(--app-surface-strong-bg))
+  );
+  --app-surface-control-bg: var(
+    --retro-control-bg,
+    var(--cyber-control-bg, var(--app-surface-muted-bg))
+  );
+  --app-surface-texture:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--app-surface-primary) 16%, transparent),
+      transparent 42%
+    ),
+    linear-gradient(
+      315deg,
+      color-mix(in srgb, var(--app-surface-accent) 12%, transparent),
+      transparent 48%
+    );
+  --app-heading-font-family: var(
+    --retro-font-heading,
+    var(--cyber-font-heading, var(--font-Golos))
+  );
+  --app-body-font-family: var(--retro-font-body, var(--cyber-font-body, var(--font-Lexend)));
+  --app-control-font-family: var(
+    --retro-font-control,
+    var(--cyber-font-control, var(--font-Golos))
+  );
+  --app-heading-text-transform: uppercase;
   --app-surface-radius-sm: var(--retro-radius-sm, var(--cyber-radius-sm, var(--radius-sm)));
   --app-surface-radius-md: var(--retro-radius-md, var(--cyber-radius-md, var(--border-radius)));
   --app-surface-radius-lg: var(--retro-radius-lg, var(--cyber-radius-lg, var(--radius-lg)));
@@ -458,6 +577,19 @@ body[data-ui="cyberpunk"][data-theme][data-mode] {
 }
 
 body[data-ui="brutalism"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--brutal-theme-bg, none);
+  --app-surface-card-bg: var(--brutal-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--brutal-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--brutal-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brutal-primary, var(--app-surface-primary)) 12%, transparent),
+    transparent 46%
+  );
+  --app-heading-font-family: var(--brutal-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--brutal-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--brutal-font-control, var(--font-Golos));
+  --app-heading-text-transform: uppercase;
   --app-surface-border-width: 3px;
   --app-surface-shadow-soft: 6px 6px 0 var(--brutal-secondary, var(--app-surface-accent));
   --app-surface-shadow: 10px 10px 0 var(--brutal-primary, var(--app-surface-primary));
@@ -469,6 +601,21 @@ body[data-ui="brutalism"][data-theme][data-mode] {
 }
 
 body[data-ui="y2k"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--y2k-theme-bg, none);
+  --app-surface-card-bg: var(--y2k-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--y2k-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--y2k-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture:
+    radial-gradient(circle at 18% 16%, rgb(255 255 255 / 0.32), transparent 24%),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--app-surface-accent) 16%, transparent),
+      transparent 48%
+    );
+  --app-surface-ring: inset 0 1px 0 rgb(255 255 255 / 0.42);
+  --app-heading-font-family: var(--y2k-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--y2k-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--y2k-font-control, var(--font-Golos));
   --app-surface-shadow-soft:
     var(--y2k-shadow-sm, 0 2px 8px rgb(0 0 0 / var(--y2k-shadow-alpha, 0.24))),
     inset 0 1px 0 rgb(255 255 255 / 0.42),
@@ -482,10 +629,21 @@ body[data-ui="y2k"][data-theme][data-mode] {
     0 0 42px var(--y2k-glow-accent, color-mix(in srgb, var(--app-surface-accent) 52%, transparent));
   --app-surface-radius-md: var(--y2k-radius-lg, 1rem);
   --app-surface-radius-lg: var(--y2k-radius-xl, 1.5rem);
-  --app-surface-radius-xl: var(--y2k-radius-pill, 999px);
+  --app-surface-radius-xl: var(--y2k-radius-xl, 1.5rem);
 }
 
 body[data-ui="retro-glass"][data-theme][data-mode] {
+  --app-bg-style-layer: var(--rg-theme-bg, none);
+  --app-surface-card-bg: var(--rg-card-bg, var(--app-surface-bg));
+  --app-surface-panel-bg: var(--rg-surface-strong, var(--app-surface-strong-bg));
+  --app-surface-control-bg: var(--rg-control-bg, var(--app-surface-muted-bg));
+  --app-surface-texture:
+    linear-gradient(145deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.03)),
+    radial-gradient(circle at 18% 12%, var(--rg-glow-primary, transparent), transparent 38%);
+  --app-surface-ring: inset 0 1px 0 rgb(255 255 255 / 0.24);
+  --app-heading-font-family: var(--rg-font-heading, var(--font-Golos));
+  --app-body-font-family: var(--rg-font-body, var(--font-Lexend));
+  --app-control-font-family: var(--rg-font-control, var(--font-Golos));
   --app-surface-shadow-soft:
     var(--rg-shadow-sm, 0 8px 24px rgb(0 0 0 / calc(var(--rg-shadow-alpha, 0.28) + 0.04))),
     0 0 20px var(--rg-glow-primary, color-mix(in srgb, var(--app-surface-primary) 34%, transparent));

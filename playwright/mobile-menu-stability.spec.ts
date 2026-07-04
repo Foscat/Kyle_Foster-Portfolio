@@ -76,7 +76,15 @@ test.describe("Mobile Menu Stability", () => {
       postStabilizeLoadEvents += 1;
     });
 
+    await expect(page.locator(".mobile-icon-hint")).toHaveCount(0);
     await expect(page.getByRole("button", { name: /open section navigation/i })).toHaveCount(0);
+
+    const resumeTriggerBox = await page.getByTestId("mobile-resume-trigger-wrapper").boundingBox();
+    const firstContactItemBox = await page.getByText(/Email: fosterkyle/i).boundingBox();
+
+    expect(resumeTriggerBox).not.toBeNull();
+    expect(firstContactItemBox).not.toBeNull();
+    expect(firstContactItemBox!.y).toBeGreaterThan(resumeTriggerBox!.y + resumeTriggerBox!.height);
 
     const navTrigger = page.getByRole("button", { name: /open navigation menu/i }).first();
     await expect(navTrigger).toBeVisible();

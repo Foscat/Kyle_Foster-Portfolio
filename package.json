@@ -71,6 +71,7 @@
     "html-to-image": "1.11.13",
     "interactive-surface-css": "1.2.5",
     "jspdf": "~4.2.1",
+    "layout-style-css": "~1.0.0",
     "mermaid": "^11.15.0",
     "prismjs": "~1.30.0",
     "react": "18.2.0",

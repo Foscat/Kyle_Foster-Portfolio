@@ -26,8 +26,6 @@ import { Size, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
 
-const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
-
 /**
  * @public
  * @component
@@ -150,7 +148,6 @@ const MobileSectionNavTrigger = ({
         className="sect-nav-toggle-btn mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--nav sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-sect-nav-trigger-wrapper"
       >
-        <span className="mobile-icon-hint">Sections</span>
         <Btn
           icon={faListUl}
           size={Size.LG}
@@ -158,9 +155,6 @@ const MobileSectionNavTrigger = ({
           onClick={(event) => {
             event?.preventDefault?.();
             event?.stopPropagation?.();
-            if (typeof window !== "undefined") {
-              window.localStorage.setItem(MOBILE_ICON_HINTS_KEY, "1");
-            }
             setOpen(true);
           }}
           className="section-nav-trigger"

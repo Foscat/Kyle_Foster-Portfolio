@@ -29,8 +29,6 @@ import resumeData from "assets/data/content/resumeData.js";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 
-const MOBILE_ICON_HINTS_KEY = "mobile-icon-hints-dismissed";
-
 /*
  * @typedef {Object} NavItem
  * @description Describes a single navigation entry rendered in both desktop and mobile
@@ -170,7 +168,6 @@ const StickyNav = ({ activePage }) => {
   const navigate = useNavigate();
   const { theme, palette } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [showMobileIconHints, setShowMobileIconHints] = useState(false);
   const safeTheme = typeof theme === "string" ? theme : "auto";
   const safePalette = typeof palette === "string" ? palette : "ocean";
   const resumeDownloadName = `Kyle-Foster-Senior-Developer-Resume-${safeTheme}-${safePalette}.pdf`;
@@ -186,47 +183,6 @@ const StickyNav = ({ activePage }) => {
       activeElement.blur();
     }
   }, []);
-
-  const dismissMobileIconHints = () => {
-    if (typeof window === "undefined") return;
-    setShowMobileIconHints(false);
-    window.localStorage.setItem(MOBILE_ICON_HINTS_KEY, "1");
-  };
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const dismissed = window.localStorage.getItem(MOBILE_ICON_HINTS_KEY) === "1";
-    if (!dismissed) {
-      setShowMobileIconHints(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof document === "undefined") return undefined;
-
-    if (showMobileIconHints) {
-      document.documentElement.setAttribute("data-mobile-icon-hints", "true");
-      return () => {
-        document.documentElement.removeAttribute("data-mobile-icon-hints");
-      };
-    }
-
-    document.documentElement.removeAttribute("data-mobile-icon-hints");
-    return undefined;
-  }, [showMobileIconHints]);
-
-  useEffect(() => {
-    if (!showMobileIconHints || typeof window === "undefined") return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      dismissMobileIconHints();
-    }, 8000);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [showMobileIconHints]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -338,7 +294,6 @@ const StickyNav = ({ activePage }) => {
         className="nav-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--nav sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-nav-trigger-wrapper"
       >
-        <span className="mobile-icon-hint">Menu</span>
         <Btn
           icon={faSignsPost}
           variant={Variant.ACCENT}
@@ -348,7 +303,6 @@ const StickyNav = ({ activePage }) => {
           onClick={(event) => {
             event?.preventDefault?.();
             event?.stopPropagation?.();
-            dismissMobileIconHints();
             setMobileOpen(true);
           }}
         />
@@ -357,27 +311,21 @@ const StickyNav = ({ activePage }) => {
       <div
         className="color-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--color"
         data-testid="mobile-color-trigger-wrapper"
-        onClickCapture={dismissMobileIconHints}
       >
-        <span className="mobile-icon-hint">Color</span>
         <ColorMenu size={Size.LG} showTooltip={false} />
       </div>
 
       <div
         className="a11y-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-a11y-trigger-wrapper"
-        onClickCapture={dismissMobileIconHints}
       >
-        <span className="mobile-icon-hint">Access</span>
         <AccessibilityMenu size={Size.LG} showTooltip={false} />
       </div>
 
       <div
         className="resume-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled"
         data-testid="mobile-resume-trigger-wrapper"
-        onClickCapture={dismissMobileIconHints}
       >
-        <span className="mobile-icon-hint">Resume</span>
         <ResumePreviewTrigger
           buttonText=""
           title={resumePreviewTitle}

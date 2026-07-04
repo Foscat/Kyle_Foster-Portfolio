@@ -17,24 +17,75 @@ import { contactSections } from "@/assets/data";
 import contactForm from "@/assets/data/content/contact/contactForm.js";
 import { BlockType, Size, Variant } from "types/ui.types";
 
+const CONTACT_ENDPOINT_PATH = "/api/contact";
+
+/**
+ * Resolve the contact API endpoint from Vite configuration.
+ *
+ * The deployed portfolio is static, so production needs a full cross-origin
+ * Render endpoint while tests and local preview can keep using `/api/contact`.
+ *
+ * @param {string} [configuredUrl] - Optional base URL or full contact endpoint.
+ * @returns {string} Normalized contact API URL.
+ */
+export function resolveContactApiUrl(configuredUrl = import.meta.env.VITE_CONTACT_API_URL) {
+  const normalizedUrl = typeof configuredUrl === "string" ? configuredUrl.trim() : "";
+
+  if (!normalizedUrl) {
+    return CONTACT_ENDPOINT_PATH;
+  }
+
+  const withoutTrailingSlash = normalizedUrl.replace(/\/+$/u, "");
+
+  if (withoutTrailingSlash.endsWith(CONTACT_ENDPOINT_PATH)) {
+    return withoutTrailingSlash;
+  }
+
+  return `${withoutTrailingSlash}${CONTACT_ENDPOINT_PATH}`;
+}
+
+const formatContactMessageValue = (value) => {
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  return String(value ?? "").trim();
+};
+
 const buildContactMessage = (formValue) => {
   const lines = [
     "Portfolio Contact Submission",
-    `Full Name: ${formValue.fullName || ""}`,
-    `Email: ${formValue.email || ""}`,
-    formValue.reason ? `Reason: ${formValue.reason}` : null,
-    formValue.budget ? `Estimated budget: ${formValue.budget}` : null,
+    `Full Name: ${formatContactMessageValue(formValue.fullName)}`,
+    `Email: ${formatContactMessageValue(formValue.email)}`,
+    formValue.reason ? `Reason: ${formatContactMessageValue(formValue.reason)}` : null,
+    formValue.budget ? `Estimated budget: ${formatContactMessageValue(formValue.budget)}` : null,
     Array.isArray(formValue.contactMethods) && formValue.contactMethods.length
-      ? `Preferred contact method: ${formValue.contactMethods.join(", ")}`
+      ? `Preferred contact method: ${formValue.contactMethods.map(formatContactMessageValue).join(", ")}`
       : null,
-    formValue.timeline ? `Timeline: ${formValue.timeline}` : null,
+    formValue.timeline ? `Timeline: ${formatContactMessageValue(formValue.timeline)}` : null,
     formValue.wantsNda ? "NDA required: Yes" : null,
-    formValue.launchDate ? `Target launch date: ${formValue.launchDate}` : null,
-    `Project details: ${formValue.message || ""}`,
+    formValue.launchDate
+      ? `Target launch date: ${formatContactMessageValue(formValue.launchDate)}`
+      : null,
+    `Project details: ${formatContactMessageValue(formValue.message)}`,
   ];
 
   return lines.filter(Boolean).join("\n");
 };
+
+/**
+ * Build the payload expected by the deployed email microservice.
+ *
+ * @param {Object} formValue - Form values emitted by the schema-driven form.
+ * @returns {{name: string, email: string, message: string}} Contact API payload.
+ */
+export function buildContactRequestPayload(formValue = {}) {
+  return {
+    name: formatContactMessageValue(formValue.fullName),
+    email: formatContactMessageValue(formValue.email),
+    message: buildContactMessage(formValue),
+  };
+}
 
 /**
  * Contact page.
@@ -54,16 +105,12 @@ export default function Contact() {
     setStatusMessage("Sending message...");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(resolveContactApiUrl(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: formValue.fullName || "",
-          email: formValue.email || "",
-          message: buildContactMessage(formValue),
-        }),
+        body: JSON.stringify(buildContactRequestPayload(formValue)),
       });
       const payload = await response.json().catch(() => ({}));
 

@@ -12,6 +12,7 @@ import { PALETTE_IDS } from "assets/themePalettes.js";
 const THEME_STORAGE_KEY = "portfolio-theme";
 const PALETTE_STORAGE_KEY = "portfolio-palette";
 const UI_STYLE_STORAGE_KEY = "portfolio-ui-style";
+const LAYOUT_STYLE_STORAGE_KEY = "portfolio-layout-style";
 const SUPPORTED_THEMES = Object.freeze(["light", "dark"]);
 const DEFAULT_THEME = "dark";
 const SUPPORTED_UI_STYLES = Object.freeze([
@@ -28,6 +29,8 @@ const SUPPORTED_UI_STYLES = Object.freeze([
   "retro-glass",
 ]);
 const DEFAULT_UI_STYLE = "retro-glass";
+const SUPPORTED_LAYOUT_STYLES = SUPPORTED_UI_STYLES;
+const DEFAULT_LAYOUT_STYLE = DEFAULT_UI_STYLE;
 const SUPPORTED_PALETTES = PALETTE_IDS;
 const DEFAULT_PALETTE = "ocean-steel";
 const THEME_CYCLE_HOTKEY = "Alt+Shift+T";
@@ -35,6 +38,8 @@ const THEME_CYCLE_HOTKEY = "Alt+Shift+T";
 const isSupportedTheme = (value) => typeof value === "string" && SUPPORTED_THEMES.includes(value);
 const isSupportedUiStyle = (value) =>
   typeof value === "string" && SUPPORTED_UI_STYLES.includes(value);
+const isSupportedLayoutStyle = (value) =>
+  typeof value === "string" && SUPPORTED_LAYOUT_STYLES.includes(value);
 const isSupportedPalette = (value) =>
   typeof value === "string" && SUPPORTED_PALETTES.includes(value);
 
@@ -100,6 +105,19 @@ function getInitialUiStyle() {
   return DEFAULT_UI_STYLE;
 }
 
+function getInitialLayoutStyle() {
+  if (typeof window === "undefined") {
+    return DEFAULT_LAYOUT_STYLE;
+  }
+
+  const savedLayoutStyle = safeReadStorage(LAYOUT_STYLE_STORAGE_KEY);
+  if (isSupportedLayoutStyle(savedLayoutStyle)) {
+    return savedLayoutStyle;
+  }
+
+  return DEFAULT_LAYOUT_STYLE;
+}
+
 /**
  * Supported application themes.
  *
@@ -142,6 +160,24 @@ function getInitialUiStyle() {
  */
 
 /**
+ * Supported layout-style-css spatial systems.
+ *
+ * @typedef {
+ *   "minimal-saas"|
+ *   "bento"|
+ *   "maximalist"|
+ *   "bauhaus"|
+ *   "tactile"|
+ *   "neumorphism"|
+ *   "retrofuturism"|
+ *   "brutalism"|
+ *   "cyberpunk"|
+ *   "y2k"|
+ *   "retro-glass"
+ * } LayoutStyle
+ */
+
+/**
  * Context value exposed by the ThemeProvider.
  *
  * @typedef {Object} ThemeContextValue
@@ -156,6 +192,10 @@ function getInitialUiStyle() {
  * @property {Function} setUiStyle - Explicitly set the visual system.
  * @property {Function} toggleUiStyle - Cycle through available visual systems.
  * @property {UiStyle[]} uiStyles - Supported visual system identifiers.
+ * @property {LayoutStyle} layoutStyle - Currently active layout-style-css spatial system.
+ * @property {Function} setLayoutStyle - Explicitly set the spatial system.
+ * @property {Function} toggleLayoutStyle - Cycle through available spatial systems.
+ * @property {LayoutStyle[]} layoutStyles - Supported spatial system identifiers.
  */
 
 const ThemeContext = createContext(null);
@@ -173,6 +213,7 @@ export function ThemeProvider({ children }) {
   const [theme, setThemeState] = useState(getInitialTheme);
   const [palette, setPaletteState] = useState(getInitialPalette);
   const [uiStyle, setUiStyleState] = useState(getInitialUiStyle);
+  const [layoutStyle, setLayoutStyleState] = useState(getInitialLayoutStyle);
   const effectiveMode = highContrast ? "contrast" : theme;
 
   /**
@@ -250,6 +291,30 @@ export function ThemeProvider({ children }) {
     });
   }, []);
 
+  const setLayoutStyle = useCallback((nextLayoutStyle) => {
+    setLayoutStyleState((prev) => {
+      if (typeof nextLayoutStyle === "function") {
+        try {
+          const resolvedLayoutStyle = nextLayoutStyle(prev);
+          return isSupportedLayoutStyle(resolvedLayoutStyle) ? resolvedLayoutStyle : prev;
+        } catch {
+          return prev;
+        }
+      }
+
+      return isSupportedLayoutStyle(nextLayoutStyle) ? nextLayoutStyle : prev;
+    });
+  }, []);
+
+  const toggleLayoutStyle = useCallback(() => {
+    setLayoutStyleState((prev) => {
+      const currentIndex = SUPPORTED_LAYOUT_STYLES.indexOf(prev);
+      const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+      const nextIndex = (safeIndex + 1) % SUPPORTED_LAYOUT_STYLES.length;
+      return SUPPORTED_LAYOUT_STYLES[nextIndex];
+    });
+  }, []);
+
   useEffect(() => {
     if (typeof document === "undefined") return;
 
@@ -258,8 +323,14 @@ export function ThemeProvider({ children }) {
     document.documentElement.dataset.mode = effectiveMode;
     document.documentElement.dataset.palette = palette;
     document.documentElement.dataset.ui = uiStyle;
+    document.documentElement.dataset.layout = layoutStyle;
+    document.documentElement.setAttribute("layout-style", layoutStyle);
     if (document.body) {
+      // layout-style-css scopes its spatial variables from ly-root and data-layout.
+      document.body.classList.add("ly-root");
       document.body.dataset.ui = uiStyle;
+      document.body.dataset.layout = layoutStyle;
+      document.body.setAttribute("layout-style", layoutStyle);
       document.body.dataset.theme = palette;
       document.body.dataset.mode = effectiveMode;
     }
@@ -268,8 +339,9 @@ export function ThemeProvider({ children }) {
       safeWriteStorage(THEME_STORAGE_KEY, theme);
       safeWriteStorage(PALETTE_STORAGE_KEY, palette);
       safeWriteStorage(UI_STYLE_STORAGE_KEY, uiStyle);
+      safeWriteStorage(LAYOUT_STYLE_STORAGE_KEY, layoutStyle);
     }
-  }, [effectiveMode, palette, theme, uiStyle]);
+  }, [effectiveMode, layoutStyle, palette, theme, uiStyle]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -302,6 +374,10 @@ export function ThemeProvider({ children }) {
         setUiStyle,
         toggleUiStyle,
         uiStyles: SUPPORTED_UI_STYLES,
+        layoutStyle,
+        setLayoutStyle,
+        toggleLayoutStyle,
+        layoutStyles: SUPPORTED_LAYOUT_STYLES,
       }}
     >
       {children}

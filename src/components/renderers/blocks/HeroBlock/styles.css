@@ -22,7 +22,9 @@
 
   /* Keep header visually distinct but lightweight on mobile */
   color: var(--app-surface-fg, var(--text-primary));
-  background: var(--app-surface-strong-bg, var(--bg-gradient));
+  background:
+    var(--app-surface-panel-texture, var(--app-surface-texture, none)),
+    var(--app-surface-panel-bg, var(--app-surface-strong-bg, var(--bg-gradient)));
   border-bottom: var(--app-surface-border, var(--gb-BR));
 
   /* Sticky-safe: do NOT add overflow, transform, or contain */
@@ -84,7 +86,9 @@
     padding: 2.5rem 2rem 2rem;
 
     /* Desktop glass depth restored */
-    background: var(--app-surface-strong-bg, var(--primary-dark-bg));
+    background:
+      var(--app-surface-panel-texture, var(--app-surface-texture, none)),
+      var(--app-surface-panel-bg, var(--app-surface-strong-bg, var(--primary-dark-bg)));
     -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
     backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
     border-bottom: var(--app-surface-border, var(--frost-border));

@@ -15,13 +15,17 @@
   min-width: 160px;
   border: var(--app-surface-border, 1px solid var(--surface-border-strong));
   border-radius: var(--app-surface-radius-md, var(--radius-sm));
-  background: var(--app-surface-strong-bg, var(--surface-overlay-strong));
+  background: var(
+    --app-surface-control-bg,
+    var(--app-surface-strong-bg, var(--surface-overlay-strong))
+  );
   color: var(--app-surface-fg, var(--text-primary));
-  font-family: var(--font-Golos);
+  font-family: var(--app-control-font-family, var(--font-Golos));
   font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
-  box-shadow: var(--app-surface-shadow-soft, var(--shadow-soft));
+  box-shadow:
+    var(--app-surface-ring, 0 0 0 0 transparent), var(--app-surface-shadow-soft, var(--shadow-soft));
   -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
   backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
 }

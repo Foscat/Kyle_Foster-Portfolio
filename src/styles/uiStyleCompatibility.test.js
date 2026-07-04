@@ -26,11 +26,15 @@ describe("ui-style compatibility", () => {
   it("loads package CSS from the app entrypoint only", () => {
     const mainJs = readProjectFile("src/main.jsx");
     const appJs = readProjectFile("src/App.jsx");
+    const packageManifest = JSON.parse(readProjectFile("package.json"));
 
     expect(mainJs).toContain('import "interactive-surface-css/interactive-surface.css";');
     expect(mainJs).toContain('import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";');
+    expect(mainJs).toContain('import "layout-style-css";');
     expect(mainJs).toContain('import "./App.css";');
+    expect(packageManifest.dependencies).toHaveProperty("layout-style-css");
     expect(appJs).not.toContain("interactive-surface-css");
+    expect(appJs).not.toContain("layout-style-css");
     expect(appJs).not.toContain('import "./App.css"');
   });
 

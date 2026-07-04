@@ -49,7 +49,7 @@ Reference docs:
 - `/side-projects` - Side projects overview
 - `/hackathon` - Hackathon projects overview
 - `/smu` - Southern Methodist University case study
-- `/contact` - Contact information
+- `/contact` - Contact information and message form
 - `/docs` - Generated technical documentation
 - `/health` - Runtime diagnostics panel (UI route)
 - `/**` - Not Found

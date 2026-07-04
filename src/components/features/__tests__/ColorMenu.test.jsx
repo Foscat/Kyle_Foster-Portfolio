@@ -35,7 +35,7 @@ describe("ColorMenu", () => {
     });
   });
 
-  it("renders mode, UI style, and palette controls in the color modal", async () => {
+  it("renders mode, UI style, layout style, and palette controls in the color modal", async () => {
     const user = userEvent.setup();
     renderWithProviders(<ColorMenu />);
 
@@ -47,6 +47,8 @@ describe("ColorMenu", () => {
     expect(screen.getByRole("button", { name: /dark theme/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /ui style/i })).toBeInTheDocument();
     expect(screen.getByRole("combobox", { name: /ui style/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /layout style/i })).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: /layout style/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /palette/i })).toBeInTheDocument();
     expect(screen.getByRole("combobox", { name: /color palette/i })).toBeInTheDocument();
   });
@@ -61,5 +63,18 @@ describe("ColorMenu", () => {
     await user.selectOptions(screen.getByRole("combobox", { name: /ui style/i }), "cyberpunk");
 
     expect(document.body.dataset.ui).toBe("cyberpunk");
+  });
+
+  it("changes the active layout style from the color modal", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ColorMenu />);
+
+    await user.click(screen.getByRole("button", { name: /open color settings/i }));
+    await screen.findByRole("dialog", { name: /color settings/i });
+
+    await user.selectOptions(screen.getByRole("combobox", { name: /layout style/i }), "maximalist");
+
+    expect(document.body.dataset.layout).toBe("maximalist");
+    expect(document.body.getAttribute("layout-style")).toBe("maximalist");
   });
 });

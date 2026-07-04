@@ -70,11 +70,11 @@ describe("MobileSectionNavTrigger", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the mobile-icon-hint label inside the wrapper", () => {
+  it("keeps the floating trigger icon-only to avoid mobile content overlap", () => {
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
     const wrapper = screen.getByTestId("mobile-sect-nav-trigger-wrapper");
-    expect(within(wrapper).getByText("Sections")).toBeInTheDocument();
+    expect(within(wrapper).queryByText("Sections")).not.toBeInTheDocument();
   });
 
   /* ─── data-has-mobile-section-nav attribute ──────────────────── */

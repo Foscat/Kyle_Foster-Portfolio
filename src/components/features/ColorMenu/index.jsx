@@ -13,6 +13,7 @@ import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
 import ThemeToggle from "../ThemeToggle";
 import UiStyleToggle from "../UiStyleToggle";
+import LayoutStyleToggle from "../LayoutStyleToggle";
 import PaletteToggle from "../PaletteToggle";
 import "../shared/modal-controls.css";
 import "../shared/switch.css";
@@ -257,7 +258,8 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
 
         <Modal.Body className="color-modal__body modal-body-pad">
           <p className="color-modal__intro">
-            Choose a UI style, theme, and color palette for this device. Changes apply immediately.
+            Choose UI style, layout style, theme, and color palette for this device. Changes apply
+            immediately.
           </p>
 
           <div className="color-panel">
@@ -268,6 +270,11 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
           <div className="color-panel color-panel--ui-style">
             <h4 className="color-row__title">UI Style</h4>
             <UiStyleToggle size={Size.SM} showLabel={false} ariaLabel="UI style" />
+          </div>
+
+          <div className="color-panel color-panel--layout-style">
+            <h4 className="color-row__title">Layout Style</h4>
+            <LayoutStyleToggle size={Size.SM} showLabel={false} ariaLabel="Layout style" />
           </div>
 
           <div className="color-panel color-panel--palette">

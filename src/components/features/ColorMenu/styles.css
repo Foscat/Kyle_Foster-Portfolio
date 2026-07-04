@@ -45,11 +45,13 @@
 }
 
 .color-panel--ui-style .ui-style-toggle,
+.color-panel--layout-style .layout-style-toggle,
 .color-panel--palette .palette-toggle {
   justify-content: flex-end;
 }
 
 .color-panel--ui-style .ui-style-toggle__select,
+.color-panel--layout-style .layout-style-toggle__select,
 .color-panel--palette .palette-toggle__select {
   min-width: 168px;
 }
@@ -166,11 +168,13 @@ html[data-theme="light"] .color-switch.is-on .color-switch__track {
   }
 
   .color-panel--ui-style .ui-style-toggle,
+  .color-panel--layout-style .layout-style-toggle,
   .color-panel--palette .palette-toggle {
     width: 100%;
   }
 
   .color-panel--ui-style .ui-style-toggle__select,
+  .color-panel--layout-style .layout-style-toggle__select,
   .color-panel--palette .palette-toggle__select {
     width: 100%;
     min-width: 0;

@@ -5,10 +5,12 @@
 .info-section {
   width: 100%;
   margin: 10px 0 35px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  border-radius: var(--app-surface-radius-lg, var(--border-radius));
+  box-shadow:
+    var(--app-surface-ring, 0 0 0 0 transparent),
+    var(--app-surface-shadow-soft, var(--glass-shadow));
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
+  backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
 }
 
 .info-section.section-renderer {
@@ -242,12 +244,12 @@ section.info-section.section-renderer .rs-panel {
 
 @media (width >=900px) {
   .info-section {
-    border: 1px solid rgb(var(--white-rgb), 0.12);
-    border-radius: var(--border-radius);
+    border: var(--app-surface-border, 1px solid rgb(var(--white-rgb), 0.12));
+    border-radius: var(--app-surface-radius-lg, var(--border-radius));
 
     /* Glass restored only where GPU cost is acceptable */
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: var(--app-surface-backdrop-filter, blur(12px));
+    backdrop-filter: var(--app-surface-backdrop-filter, blur(12px));
   }
 
   .info-section__inner {

@@ -10,7 +10,9 @@ import React from "react";
 
 import renderWithProviders from "tests/renderWithProviders";
 
-const PAGE_TEST_TIMEOUT_MS = 15000;
+// Data-heavy pages lazy-load navigation and diagram sections; keep the shared
+// page contract stable during cold Vitest transforms on slower Windows runs.
+const PAGE_TEST_TIMEOUT_MS = 30000;
 
 /**
  * @description Shared behavior contract for data-driven pages. The helper intentionally tests composition behavior rather than DOM structure: - scroll restoration occurs on mount - the page header is rendered with user-facing content - the page exposes the correct active route to primary navigation - section titles are delegated into both content and section navigation /
