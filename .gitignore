@@ -19,6 +19,7 @@ dist-ssr/
 # Test and report artifacts (local-only)
 coverage/
 tmp/
+.tmp/
 playwright/test-results/
 playwright-report/
 test-results/

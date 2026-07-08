@@ -6,24 +6,15 @@
 
 .palette-toggle__label {
   margin: 0;
-  color: var(--text-secondary);
   font-size: var(--font-xs);
   font-weight: 600;
 }
 
 .palette-toggle__select {
   min-width: 160px;
-  border: 1px solid var(--surface-border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--surface-overlay-strong);
-  color: var(--text-primary);
-  font-family: var(--font-Golos);
-  font-weight: 600;
+  font: inherit;
   line-height: 1.2;
   cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  -webkit-backdrop-filter: var(--slight-blur);
-  backdrop-filter: var(--slight-blur);
 }
 
 .palette-toggle__select--xs {
@@ -44,14 +35,4 @@
   min-height: 38px;
   padding: 0.35rem 0.65rem;
   font-size: var(--font-sm);
-}
-
-.palette-toggle__select:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 2px;
-}
-
-.palette-toggle__select option {
-  color: var(--text-primary);
-  background-color: var(--surface-raised);
 }

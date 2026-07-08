@@ -22,6 +22,14 @@ vi.mock("../../../../assets/data/content/portfolioDocs", () => ({
         category: "Client Components",
         content: "# Example Component\n\nGenerated component docs.",
       },
+      {
+        id: "reference-client-components-second-example",
+        slug: "reference-client-components-second-example",
+        title: "Second Component",
+        summary: "Second generated doc.",
+        category: "Client Components",
+        content: "# Second Component\n\nMore generated component docs.",
+      },
     ])
   ),
 }));
@@ -50,5 +58,26 @@ describe("MarkdownDocsBlock", () => {
     });
 
     expect(getPortfolioDocsByCriteria).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses interactive-surface data variants for active and inactive document cards", async () => {
+    renderWithProviders(
+      <MarkdownDocsBlock
+        block={{
+          id: "docs-reference-components",
+          title: "Component Reference",
+          docPathPrefixes: ["reference/client/components/"],
+          selectMode: "single",
+        }}
+      />
+    );
+
+    const activeCard = await screen.findByRole("button", { name: /Example Component/i });
+    const inactiveCard = screen.getByRole("button", { name: /Second Component/i });
+
+    expect(activeCard).toHaveAttribute("data-surface-variant", "primary");
+    expect(inactiveCard).toHaveAttribute("data-surface-variant", "subtle");
+    expect(activeCard).not.toHaveClass("variant-primary");
+    expect(inactiveCard).not.toHaveClass("variant-subtle");
   });
 });

@@ -4,9 +4,9 @@
  * @module src\components\renderers\blocks\ImageGalleryBlock\index
  */
 
-import { FlexboxGrid, Panel } from "rsuite";
-import { useBreakpoint } from "assets/hooks";
+import { Panel } from "rsuite";
 import { ClickableImg } from "components/ui";
+import "./styles.css";
 
 /**
  * @file ImageGalleryBlock.jsx
@@ -22,7 +22,7 @@ import { ClickableImg } from "components/ui";
  * @description Displays a responsive image gallery as a collapsible frosted panel.
  *
  * Key behaviors:
- * - Renders a grid of image thumbnails using RSuite FlexboxGrid
+ * - Renders thumbnails through the `layout-style-css` gallery primitive
  * - Each image opens a ClickableImg modal viewer when activated
  * - Uses stable React keys, preferring `image.id` when available
  *
@@ -49,9 +49,10 @@ import { ClickableImg } from "components/ui";
  */
 const ImageGalleryBlock = (block = {}) => {
   const { id, title, items = [] } = block;
-  // Guard against invalid or empty image arrays
-  if (!Array.isArray(items) || items.length === 0) return null;
-  const { isMobile } = useBreakpoint();
+  const validItems = Array.isArray(items) ? items.filter((img) => img?.src) : [];
+
+  // Guard against malformed content payloads before rendering the panel shell.
+  if (validItems.length === 0) return null;
 
   return (
     <Panel
@@ -61,14 +62,13 @@ const ImageGalleryBlock = (block = {}) => {
       className="blue-tile block scroll-anchor"
       header={title ? <span className="block-header">{title}</span> : undefined}
     >
-      <FlexboxGrid justify="space-around" align="top">
-        {items.map((img, i) => {
-          if (!img || !img.src) return null;
-          // Prefer a stable image ID; fall back to index-based key
+      <div className="image-gallery-block-grid ly-gallery" role="list">
+        {validItems.map((img, i) => {
+          // Prefer a stable image ID; fall back to index-based key.
           const key = img?.id ? `gallery-img-${img.id}` : `gallery-img-${i}`;
 
           return (
-            <FlexboxGrid.Item className="mb-2" key={key} colspan={isMobile ? 24 : 11}>
+            <div className="image-gallery-block__item" key={key} role="listitem">
               <ClickableImg
                 index={i}
                 key={img?.id ?? key}
@@ -76,10 +76,10 @@ const ImageGalleryBlock = (block = {}) => {
                 id={img?.id ?? key}
                 className="gallery-thumb"
               />
-            </FlexboxGrid.Item>
+            </div>
           );
         })}
-      </FlexboxGrid>
+      </div>
     </Panel>
   );
 };

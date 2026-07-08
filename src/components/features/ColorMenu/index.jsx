@@ -13,6 +13,7 @@ import Btn from "components/ui/Btn";
 import { Size, Variant } from "types/ui.types";
 import ThemeToggle from "../ThemeToggle";
 import UiStyleToggle from "../UiStyleToggle";
+import LayoutStyleToggle from "../LayoutStyleToggle";
 import PaletteToggle from "../PaletteToggle";
 import "../shared/modal-controls.css";
 import "../shared/switch.css";
@@ -90,7 +91,7 @@ function ColorPreferenceRow({
   const usesSystem = overrideValue === null;
 
   return (
-    <div className="color-row">
+    <article className="color-row">
       <div className="color-row__content">
         <h4 id={id} className="color-row__title">
           {title}
@@ -113,7 +114,7 @@ function ColorPreferenceRow({
           className="color-row__system-btn feature-settings-system-btn"
         />
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -257,23 +258,29 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
 
         <Modal.Body className="color-modal__body modal-body-pad">
           <p className="color-modal__intro">
-            Choose a UI style, theme, and color palette for this device. Changes apply immediately.
+            Choose UI style, layout style, theme, and color palette for this device. Changes apply
+            immediately.
           </p>
 
-          <div className="color-panel">
+          <article className="color-panel">
             <h4 className="color-row__title">Theme Mode</h4>
             <ThemeToggle size={Size.SM} />
-          </div>
+          </article>
 
-          <div className="color-panel color-panel--ui-style">
+          <article className="color-panel color-panel--ui-style">
             <h4 className="color-row__title">UI Style</h4>
             <UiStyleToggle size={Size.SM} showLabel={false} ariaLabel="UI style" />
-          </div>
+          </article>
 
-          <div className="color-panel color-panel--palette">
+          <article className="color-panel color-panel--layout-style">
+            <h4 className="color-row__title">Layout Style</h4>
+            <LayoutStyleToggle size={Size.SM} showLabel={false} ariaLabel="Layout style" />
+          </article>
+
+          <article className="color-panel color-panel--palette">
             <h4 className="color-row__title">Palette</h4>
             <PaletteToggle size={Size.SM} showLabel={false} ariaLabel="Color palette" />
-          </div>
+          </article>
 
           <ColorPreferenceRow
             id="color-high-contrast"

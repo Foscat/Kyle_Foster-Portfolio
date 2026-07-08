@@ -10,12 +10,15 @@ import { renderWithProviders } from "tests/renderWithProviders";
 import { useTheme } from "./ThemeContext";
 
 function ThemeContextProbe() {
-  const { theme, setTheme, uiStyle, setUiStyle } = useTheme();
+  const { theme, setTheme, uiStyle, setUiStyle, layoutStyle, setLayoutStyle, layoutStyles } =
+    useTheme();
 
   return (
     <div>
       <p data-testid="theme-value">{theme}</p>
       <p data-testid="ui-style-value">{uiStyle}</p>
+      <p data-testid="layout-style-value">{layoutStyle}</p>
+      <p data-testid="layout-style-options">{layoutStyles.join(",")}</p>
       <button type="button" onClick={() => setTheme("light")}>
         Set light theme
       </button>
@@ -28,6 +31,15 @@ function ThemeContextProbe() {
       <button type="button" onClick={() => setUiStyle("invalid-style")}>
         Set invalid UI style
       </button>
+      <button type="button" onClick={() => setLayoutStyle("maximalist")}>
+        Set maximalist layout style
+      </button>
+      <button type="button" onClick={() => setLayoutStyle("synthwave")}>
+        Set synthwave layout style
+      </button>
+      <button type="button" onClick={() => setLayoutStyle("invalid-layout")}>
+        Set invalid layout style
+      </button>
     </div>
   );
 }
@@ -37,12 +49,17 @@ describe("ThemeContext", () => {
     vi.restoreAllMocks();
     window.localStorage.clear();
     delete document.documentElement.dataset.ui;
+    delete document.documentElement.dataset.layout;
     delete document.documentElement.dataset.theme;
     delete document.documentElement.dataset.mode;
     delete document.documentElement.dataset.palette;
+    document.documentElement.removeAttribute("layout-style");
     delete document.body.dataset.ui;
+    delete document.body.dataset.layout;
     delete document.body.dataset.theme;
     delete document.body.dataset.mode;
+    document.body.classList.remove("ly-root");
+    document.body.removeAttribute("layout-style");
   });
 
   test("falls back to dark theme when storage read fails", async () => {
@@ -85,6 +102,45 @@ describe("ThemeContext", () => {
     });
   });
 
+  test("applies supported layout style changes to layout-style-css attributes", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
+    expect(document.documentElement.dataset.layout).toBe("retro-glass");
+    expect(document.body.dataset.layout).toBe("retro-glass");
+    expect(document.body.getAttribute("layout-style")).toBe("retro-glass");
+    expect(document.body).toHaveClass("ly-root");
+
+    await user.click(screen.getByRole("button", { name: /set maximalist layout style/i }));
+
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("maximalist");
+    expect(document.documentElement.dataset.layout).toBe("maximalist");
+    expect(document.body.dataset.layout).toBe("maximalist");
+    expect(document.body.getAttribute("layout-style")).toBe("maximalist");
+    await waitFor(() => {
+      expect(window.localStorage.getItem("portfolio-layout-style")).toBe("maximalist");
+    });
+  });
+
+  test("exposes layout-style-css 1.1.2 layout styles", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("layout-style-options")).toHaveTextContent(
+      "f-pattern,z-pattern,split-screen,mondrian,synthwave"
+    );
+
+    await user.click(screen.getByRole("button", { name: /set synthwave layout style/i }));
+
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
+    expect(document.documentElement.dataset.layout).toBe("synthwave");
+    expect(document.body.dataset.layout).toBe("synthwave");
+    expect(document.body.getAttribute("layout-style")).toBe("synthwave");
+  });
+
   test("uses package-owned palette roles instead of inline palette custom properties", async () => {
     renderWithProviders(<ThemeContextProbe />);
 
@@ -105,6 +161,16 @@ describe("ThemeContext", () => {
     expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
     await user.click(screen.getByRole("button", { name: /set invalid ui style/i }));
     expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
+  });
+
+  test("ignores invalid layout style updates", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
+    await user.click(screen.getByRole("button", { name: /set invalid layout style/i }));
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
   });
 
   test("applies theme changes even when storage writes fail", async () => {

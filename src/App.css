@@ -127,7 +127,9 @@ html[data-theme="dark"] {
 
 html[data-theme="dark"] .glass-card {
   border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.24));
-  background: var(--app-surface-bg, var(--glass-bg));
+  background:
+    var(--app-surface-card-texture, var(--app-surface-texture, none)),
+    var(--app-surface-card-bg, var(--app-surface-bg, var(--glass-bg)));
 }
 
 html[data-theme="dark"] .blue-tile {
@@ -172,6 +174,7 @@ body {
   line-height: 1.6;
   color: var(--app-surface-fg, var(--text-primary));
   font-family:
+    var(--app-body-font-family, "Lexend Deca"),
     "Lexend Deca",
     Heebo,
     system-ui,
@@ -180,7 +183,7 @@ body {
     Roboto,
     sans-serif;
   background-color: var(--app-kit-bg, var(--bg-primary));
-  letter-spacing: 0.2px;
+  letter-spacing: 0;
 
   /* Mobile-first viewport behavior
      -------------------------------------------------------------------------
@@ -220,6 +223,7 @@ body[data-ui][data-theme][data-mode] {
   color: var(--app-surface-fg, var(--text-primary));
   background-color: var(--app-kit-bg, var(--bg-primary));
   --app-bg-layer:
+    var(--app-bg-style-layer, none),
     radial-gradient(
       circle at 15% 18%,
       color-mix(in srgb, var(--app-surface-accent) 22%, transparent),
@@ -250,16 +254,18 @@ body[data-ui][data-theme][data-mode] {
 h1,
 h2,
 h3 {
-  font-family: Audiowide, cursive;
+  font-family: var(--app-heading-font-family, Audiowide, cursive);
   color: var(--app-heading-color, var(--heading-color));
   text-shadow: var(--text-shadow);
+  letter-spacing: var(--app-heading-letter-spacing, 0);
+  text-transform: var(--app-heading-text-transform, none);
   margin-top: 0;
 }
 
 h4,
 h5,
 h6 {
-  font-family: var(--font-Golos);
+  font-family: var(--app-control-font-family, var(--font-Golos));
 }
 
 h1 {
@@ -339,28 +345,34 @@ section[id],
 .glass-card {
   padding: 1.5rem 2rem;
   color: var(--app-surface-fg, var(--text-primary));
-  background: var(--app-surface-bg, var(--bg-elevated));
+  background:
+    var(--app-surface-card-texture, var(--app-surface-texture, none)),
+    var(--app-surface-card-bg, var(--app-surface-bg, var(--bg-elevated)));
   border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.1));
   border-radius: var(--app-surface-radius-lg, var(--border-radius));
-  box-shadow: var(--app-surface-shadow-soft, none);
+  box-shadow: var(--app-surface-ring, 0 0 0 0 transparent), var(--app-surface-shadow-soft, none);
   -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
   backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
 }
 
 .frosted {
   color: var(--app-surface-fg, var(--text-primary));
-  background: var(--app-surface-muted-bg, var(--frost-bg));
+  background:
+    var(--app-surface-card-texture, var(--app-surface-texture, none)),
+    var(--app-surface-card-bg, var(--app-surface-muted-bg, var(--frost-bg)));
   border: var(--app-surface-border, 1px solid var(--frost-border));
   -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
   backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
   border-radius: var(--app-surface-radius-xl, var(--radius-xl));
-  box-shadow: var(--app-surface-shadow-soft, none);
+  box-shadow: var(--app-surface-ring, 0 0 0 0 transparent), var(--app-surface-shadow-soft, none);
 }
 
 .frosted-tile {
   padding: 1rem;
   color: var(--app-surface-fg, var(--text-blue));
-  background: var(--app-surface-bg, var(--glass-bg));
+  background:
+    var(--app-surface-card-texture, var(--app-surface-texture, none)),
+    var(--app-surface-card-bg, var(--app-surface-bg, var(--glass-bg)));
   border: var(--app-surface-border, var(--frost-border));
   border-radius: var(--app-surface-radius-md, var(--radius-sm));
 }
@@ -369,10 +381,12 @@ section[id],
   margin: 0.5rem 0;
   padding: 1.5rem;
   color: var(--app-surface-fg, var(--text-primary));
-  background: var(--app-surface-strong-bg, var(--bg-gradient));
+  background:
+    var(--app-surface-panel-texture, var(--app-surface-texture, none)),
+    var(--app-surface-panel-bg, var(--app-surface-strong-bg, var(--bg-gradient)));
   border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.12));
   border-radius: var(--app-surface-radius-lg, var(--radius-lg));
-  box-shadow: var(--app-surface-shadow, none);
+  box-shadow: var(--app-surface-ring, 0 0 0 0 transparent), var(--app-surface-shadow, none);
 }
 
 .blue-tile.rs-panel {
@@ -468,8 +482,7 @@ section[id],
 
 /* App chrome wrapper */
 .app-shell {
-  /* App chrome wrapper: follows the same viewport contract as <body>. */
-  min-height: 100dvh;
+  /* The ly-page primitive owns min-height; this class only preserves app chrome width. */
   width: 100%;
 }
 
@@ -479,7 +492,7 @@ section[id],
 }
 
 .page-shell {
-  width: 100%;
+  min-width: 0;
 }
 
 .page-container {
@@ -495,17 +508,12 @@ section[id],
 }
 
 .page-layout {
-  /* Mobile-first page layout: single column by default.
-     Desktop/tablet enhancements are layered via min-width queries below. */
-  display: grid;
+  /* layout-style-css owns spacing rhythm; this app owns the route nav breakpoint and feasible rail width. */
+  --portfolio-route-sidebar-width: clamp(18rem, var(--ly-sidebar-width, 18rem), 20rem);
+
   align-items: start;
   width: 100%;
-
-  /* critical: prevents uneven grid stretch */
   margin: 0;
-  padding: 0 var(--page-gutter);
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--page-gap);
 }
 
 .page-content {
@@ -741,25 +749,28 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-@media (width <=1024px) {
-  .page-layout {
-    padding: 0 5px 0
-      max(
-        calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
-        calc(
-          var(--sticky-nav-mobile-trigger-left, 14px) +
-            var(--sticky-nav-mobile-trigger-size, 42px) +
-            (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
-        )
-      );
+@media (width < 1024px) {
+  .page-layout.ly-sidebar-layout {
+    /* Keep route content clear of the fixed mobile navigation rail. */
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 5px;
+    padding-inline-start: max(
+      calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
+      calc(
+        var(--sticky-nav-mobile-trigger-left, 14px) + var(--sticky-nav-mobile-trigger-size, 42px) +
+          (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
+      )
+    );
   }
 }
 
-/* Layout breakpoint: enable a persistent sidebar only when mobile floating nav
-   triggers are no longer present. */
-@media (width >=1025px) {
+@media (width >= 1024px) {
   .page-layout {
-    grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
+    padding-inline: 0;
+  }
+
+  .page-layout.ly-sidebar-layout.ly-sidebar-layout--right {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, var(--portfolio-route-sidebar-width));
   }
 
   .page-sidebar {

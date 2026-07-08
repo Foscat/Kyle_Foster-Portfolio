@@ -5,7 +5,7 @@
  */
 
 /**
- * Palette ids exposed by ui-style-kit-css v2.0.1.
+ * Palette ids exposed by ui-style-kit-css v2.0.2.
  *
  * The CSS package owns the actual theme role values through `--usk-*` tokens;
  * the app keeps this list only for validation, persistence, and controls.

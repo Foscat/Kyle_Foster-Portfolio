@@ -48,12 +48,19 @@
 }
 
 .markdown-docs-block__jump-button[aria-pressed="true"] {
+  color: var(--app-surface-readable-fg, var(--app-surface-fg, var(--text-primary)));
   outline: 2px solid rgba(var(--accent-rgb), 0.55);
   outline-offset: 2px;
 }
 
 .markdown-docs-block__jump-meta {
   color: var(--text-secondary);
+}
+
+/* Active jump cards use the selected surface foreground for all card text. */
+.markdown-docs-block__jump-button[aria-pressed="true"]
+  :where(span, .markdown-docs-block__jump-meta) {
+  color: inherit;
 }
 
 .markdown-docs-block__stack {

@@ -52,7 +52,7 @@ export default function App() {
         v7_relativeSplatPath: true,
       }}
     >
-      <div className="app-shell">
+      <div className="app-shell ly-page">
         <Head />
         <Suspense fallback={<div aria-live="polite">Loading...</div>}>
           <Routes>

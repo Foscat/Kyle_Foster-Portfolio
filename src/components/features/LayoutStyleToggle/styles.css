@@ -1,0 +1,33 @@
+.layout-style-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.layout-style-toggle__label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+.layout-style-toggle__select {
+  min-width: 12rem;
+  padding: 0.4rem 0.65rem;
+  font: inherit;
+}
+
+.layout-style-toggle__select--xs {
+  min-height: 2rem;
+  font-size: var(--font-xs);
+}
+
+.layout-style-toggle__select--sm {
+  min-height: 2.25rem;
+  font-size: var(--font-sm);
+}
+
+.layout-style-toggle__select--md,
+.layout-style-toggle__select--lg,
+.layout-style-toggle__select--xl {
+  min-height: 2.5rem;
+  font-size: var(--font-md);
+}

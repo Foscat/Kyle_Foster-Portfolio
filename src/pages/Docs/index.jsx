@@ -28,16 +28,16 @@ const Docs = () => {
 
   return (
     <SectionRegistryProvider>
-      <div className="container docs-page">
+      <div className="page-shell docs-page ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader title={docs.title} subTitle={docs.description} />
         <StickyNav activePage={docs.url} />
-        <div className="page-layout">
-          <main className="page-content app-main" role="main">
+        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
+          <main className="page-content app-main ly-content" role="main">
             {docs.sections.map((sect) => (
               <SectionRenderer section={sect} key={sect.id} />
             ))}
           </main>
-          <aside className="page-sidebar">
+          <aside className="page-sidebar ly-sidebar">
             <StickySectionNav pageUrl={docs.url} sections={docs.sections} />
           </aside>
         </div>

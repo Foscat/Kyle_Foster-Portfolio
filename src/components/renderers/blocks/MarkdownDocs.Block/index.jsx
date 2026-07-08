@@ -110,15 +110,19 @@ export default function MarkdownDocsBlock({ block }) {
       )}
       {showDocJumpList && docs.length > 1 ? (
         <nav className="markdown-docs-block__jump-list" aria-label="Documents">
-          {docs.map((doc) =>
-            usesSingleDocMode ? (
+          {docs.map((doc) => {
+            // interactive-surface-css 1.3 owns variant paint through data-surface-variant.
+            const isActiveDoc = doc.slug === activeDocSlug;
+            const surfaceVariant = isActiveDoc ? "primary" : "subtle";
+
+            return usesSingleDocMode ? (
               <button
                 key={doc.slug}
                 type="button"
-                aria-pressed={doc.slug === activeDocSlug}
+                aria-pressed={isActiveDoc}
                 className="markdown-docs-block__jump-link markdown-docs-block__jump-button interactive-surface"
-                data-surface-variant={doc.slug === activeDocSlug ? "primary" : "subtle"}
-                data-surface-level={doc.slug === activeDocSlug ? "2" : "1"}
+                data-surface-variant={surfaceVariant}
+                data-surface-level={isActiveDoc ? "2" : "1"}
                 onClick={() => setActiveDocSlug(doc.slug)}
               >
                 <span>{doc.title}</span>
@@ -139,8 +143,8 @@ export default function MarkdownDocsBlock({ block }) {
                   <small className="markdown-docs-block__jump-meta">{doc.category}</small>
                 ) : null}
               </a>
-            )
-          )}
+            );
+          })}
         </nav>
       ) : null}
       {isLoadingDocs ? (

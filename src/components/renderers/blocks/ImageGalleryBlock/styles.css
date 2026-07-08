@@ -1,24 +1,11 @@
-﻿/* Mobile-first grid */
 .image-gallery-block-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--mobile-gap);
+  --ly-gallery-min: clamp(14rem, 48%, 24rem);
 }
 
-/* Desktop enhancement */
-@media (width >= 700px) {
-  .image-gallery-block-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.image-gallery-block__item {
+  min-width: 0;
 }
 
-@media (width >= 1100px) {
-  .image-gallery-block-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Images */
 .image-gallery-block img {
   width: 100%;
   height: auto;

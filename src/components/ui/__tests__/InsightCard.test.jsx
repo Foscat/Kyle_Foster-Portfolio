@@ -97,6 +97,8 @@ describe("CardGrid", () => {
 
     const grid = screen.getByRole("list");
     expect(grid).toBeInTheDocument();
+    expect(grid).toHaveClass("ly-card-grid");
+    expect(grid).not.toHaveClass("ly-grid");
   });
 
   it("sets CSS custom property for column count", () => {
@@ -154,6 +156,21 @@ describe("CardGrid", () => {
 
     const grid = screen.getByRole("list");
     expect(grid).toHaveStyle("--card-grid-count: 3");
+  });
+
+  it("marks odd multi-card grids so the final two-column row can be centered", () => {
+    renderWithProviders(
+      <CardGrid columns={3}>
+        <InsightCard title="Card 1" content="Content 1" />
+        <InsightCard title="Card 2" content="Content 2" />
+        <InsightCard title="Card 3" content="Content 3" />
+      </CardGrid>
+    );
+
+    const grid = screen.getByRole("list");
+    expect(grid).toHaveAttribute("data-card-count", "3");
+    expect(grid).toHaveAttribute("data-card-columns", "3");
+    expect(grid).toHaveClass("card-grid--center-orphan");
   });
 
   it("filters out null/undefined children when counting cards", () => {

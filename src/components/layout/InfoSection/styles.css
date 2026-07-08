@@ -4,11 +4,13 @@
 
 .info-section {
   width: 100%;
-  margin: 10px 0 35px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
+  margin: var(--ly-space-3, 10px) 0 var(--ly-space-6, 35px);
+  border-radius: var(--app-surface-radius-lg, var(--border-radius));
+  box-shadow:
+    var(--app-surface-ring, 0 0 0 0 transparent),
+    var(--app-surface-shadow-soft, var(--glass-shadow));
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
+  backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
 }
 
 .info-section.section-renderer {
@@ -18,7 +20,6 @@
   border-left: var(--gb-TL);
   border-right: var(--gb-BR);
   border-bottom: var(--gb-BR);
-  padding: 5px;
 }
 
 section.info-section.section-renderer .rs-panel {
@@ -116,11 +117,18 @@ section.info-section.section-renderer .rs-panel {
 .info-section.section-renderer {
   position: relative;
 
-  /* Mobile-first spacing: readable, not theatrical */
-  padding: var(--mobile-gap);
-
   /* Subtle separation without heavy visual weight */
   border-bottom: var(--fb-BR);
+}
+
+.info-section.ly-section {
+  /* Compose library-owned section rhythm with portfolio surface padding. */
+  padding-block: clamp(
+    var(--ly-space-4, 1rem),
+    calc(var(--ly-section-padding-block) * 0.45),
+    var(--ly-space-8, 4rem)
+  );
+  padding-inline: var(--ly-space-5, 1.5rem);
 }
 
 .info-section.section-renderer .rs-panel-header .rs-panel-btn .rs-icon.rs-panel-btn-icon {
@@ -204,8 +212,9 @@ section.info-section.section-renderer .rs-panel {
 
 /* Mobile adjustments */
 @media (width <=600px) {
-  .info-section {
-    padding: 0;
+  .info-section.ly-section {
+    padding-block: var(--ly-space-3, 0.75rem);
+    padding-inline: var(--ly-space-2, 0.5rem);
   }
 
   .rs-panel.info-section .rs-panel-body {
@@ -242,12 +251,12 @@ section.info-section.section-renderer .rs-panel {
 
 @media (width >=900px) {
   .info-section {
-    border: 1px solid rgb(var(--white-rgb), 0.12);
-    border-radius: var(--border-radius);
+    border: var(--app-surface-border, 1px solid rgb(var(--white-rgb), 0.12));
+    border-radius: var(--app-surface-radius-lg, var(--border-radius));
 
     /* Glass restored only where GPU cost is acceptable */
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: var(--app-surface-backdrop-filter, blur(12px));
+    backdrop-filter: var(--app-surface-backdrop-filter, blur(12px));
   }
 
   .info-section__inner {

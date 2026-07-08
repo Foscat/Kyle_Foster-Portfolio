@@ -5,9 +5,10 @@
  */
 
 import { describe, expect, it, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import Contact from "../Contact/index.jsx";
+import Contact, { buildContactRequestPayload, resolveContactApiUrl } from "../Contact/index.jsx";
 import renderWithProviders from "tests/renderWithProviders";
 import { PageRoute } from "types/navigation.types";
 
@@ -26,6 +27,23 @@ vi.mock("components/renderers", () => ({
       data-section-id={section?.id || ""}
     >
       <h2>{section?.title || "Contact section"}</h2>
+      {section?.blocks?.map((block) =>
+        typeof block.onSubmit === "function" ? (
+          <button
+            key={block.id}
+            type="button"
+            onClick={() =>
+              block.onSubmit({
+                fullName: "Kyle Foster",
+                email: "kyle@example.com",
+                message: "Testing the contact form",
+              })
+            }
+          >
+            Submit mocked contact form
+          </button>
+        ) : null
+      )}
     </section>
   ),
 }));
@@ -37,6 +55,36 @@ vi.mock("components/renderers", () => ({
  * @suite Contact page composition
  */
 describe("Contact page", () => {
+  it("normalizes configured contact API endpoints", () => {
+    expect(resolveContactApiUrl()).toBe("/api/contact");
+    expect(resolveContactApiUrl("https://email-microservice-grem.onrender.com")).toBe(
+      "https://email-microservice-grem.onrender.com/api/contact"
+    );
+    expect(resolveContactApiUrl("https://email-microservice-grem.onrender.com/")).toBe(
+      "https://email-microservice-grem.onrender.com/api/contact"
+    );
+    expect(resolveContactApiUrl("https://email-microservice-grem.onrender.com/api/contact")).toBe(
+      "https://email-microservice-grem.onrender.com/api/contact"
+    );
+  });
+
+  it("builds the Render email service payload from form values", () => {
+    const payload = buildContactRequestPayload({
+      fullName: "Kyle Foster",
+      email: "kyle@example.com",
+      contactMethods: ["email", "text"],
+      message: "Testing the contact form",
+    });
+
+    expect(payload).toMatchObject({
+      name: "Kyle Foster",
+      email: "kyle@example.com",
+    });
+    expect(payload.message).toContain("Portfolio Contact Submission");
+    expect(payload.message).toContain("Preferred contact method: email, text");
+    expect(payload.message).toContain("Project details: Testing the contact form");
+  });
+
   it("renders contact sections with route-aware navigation", () => {
     renderWithProviders(<Contact />, {
       initialEntries: [PageRoute.CONTACT],
@@ -52,5 +100,36 @@ describe("Contact page", () => {
     expect(screen.getByRole("heading", { name: "Contact Information" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Get in Touch" })).toBeInTheDocument();
     expect(screen.getByTestId("contact-footer")).toBeInTheDocument();
+  });
+
+  it("submits the contact form through the normalized API endpoint", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ message: "Message sent successfully." }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    renderWithProviders(<Contact />, {
+      initialEntries: [PageRoute.CONTACT],
+    });
+
+    await user.click(screen.getByRole("button", { name: /submit mocked contact form/i }));
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        "/api/contact",
+        expect.objectContaining({
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: expect.any(String),
+        })
+      );
+    });
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toMatchObject({
+      name: "Kyle Foster",
+      email: "kyle@example.com",
+    });
+    expect(await screen.findByRole("status")).toHaveTextContent("Message sent successfully.");
   });
 });

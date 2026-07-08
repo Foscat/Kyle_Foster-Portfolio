@@ -29,6 +29,7 @@ import { Size } from "types/ui.types";
  * - Optional title and subtitle
  * - Optional icon rendered alongside the title
  * - Collapsible frosted panel container
+ * - `layout-style-css` section primitive for switchable spatial rhythm
  * - Semantic `<section>` wrapper
  * - Arbitrary child content
  *
@@ -87,11 +88,11 @@ const InfoSection = ({
           {subtitle && <p className="info-subtitle">{subtitle}</p>}
         </div>
       }
-      className={`info-section glass-card ${className}`}
+      className={`info-section glass-card ly-section ly-surface ${className}`.trim()}
       as="section"
     >
       {/* CONTENT AREA */}
-      <div className="info-content">{children}</div>
+      <div className="info-content ly-stack ly-gap-4">{children}</div>
     </Panel>
   );
 };

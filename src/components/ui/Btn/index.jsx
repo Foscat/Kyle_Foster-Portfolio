@@ -324,7 +324,6 @@ const Btn = ({
   const resolvedSurfaceLevel = allowedSurfaceLevels.includes(String(surfaceLevel))
     ? String(surfaceLevel)
     : SurfaceLevel.RAISED;
-  const surfaceVariantClass = `variant-${resolvedVariant}`;
   const surfaceSizeClass =
     size === Size.XS || size === Size.SM
       ? "size-sm"
@@ -333,8 +332,9 @@ const Btn = ({
         : "";
   const surfaceStateClass = active ? "is-active" : "";
 
+  // Interactive Surface 1.3 reads variant paint from data-surface-variant; the local variant class remains for app-only button rules.
   const classes = formatClassNames(`btn btn-${size} btn-${active ? "active" : "inactive"}
-    ${clickable ? `interactive-surface ${surfaceVariantClass} ${surfaceSizeClass} ${surfaceStateClass}` : "not-clickable"}
+    ${clickable ? `interactive-surface ${surfaceSizeClass} ${surfaceStateClass}` : "not-clickable"}
     ${resolvedVariant}
     ${noBG ? "btn-noBG" : ""} ${isIconOnly ? "icon-only" : ""} 
     ${loading || asyncLoading ? "loading" : ""} ${className}`);

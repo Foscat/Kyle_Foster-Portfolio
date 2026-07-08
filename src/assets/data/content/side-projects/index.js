@@ -664,6 +664,222 @@ const sideProjectSections = [
     ],
   },
 
+  /* ============================================================
+       Layout Style CSS
+       ============================================================ */
+  {
+    id: "layout-style-css",
+    slug: "layout-style-css",
+    title: "Layout Style CSS",
+    icon: faArrowsToCircle,
+    isScroller: true,
+    blocks: [
+      {
+        id: "layout-style-problem-text",
+        type: BlockType.RICH_TEXT,
+        icon: faExclamationTriangle,
+        title: "Challenge: Layout Logic Drifted Across Projects",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Responsive wrappers, sidebars, grids, split sections, and spacing rules are easy to rebuild differently in every app. That drift makes layouts harder to reason about and pushes too much structural ownership into local project CSS.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "strong", text: "Repeated layout decisions:" },
+                  {
+                    type: "text",
+                    text: " the same wrapper, grid, and sidebar patterns were being solved more than once.",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "strong", text: "Unclear ownership:" },
+                  {
+                    type: "text",
+                    text: " local CSS mixed structural layout concerns with visual theme rules.",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  { type: "strong", text: "Harder responsive QA:" },
+                  {
+                    type: "text",
+                    text: " each app needed its own safeguards for sidebars, content width, and overflow behavior.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "layout-style-solution-text",
+        type: BlockType.RICH_TEXT,
+        icon: faLightbulb,
+        title: "Solution: Shared Spatial Composition Layer",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Layout Style CSS packages shell-first layout primitives into a small CSS library. It gives apps reusable classes for wrappers, content regions, sidebars, grids, stacks, clusters, panes, spacing utilities, and layout personalities while leaving color and surface paint to the UI theme layer.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  { type: "text", text: "Layout primitives such as " },
+                  { type: "strong", text: ".ly-wrapper, .ly-section, .ly-stack, .ly-grid" },
+                  { type: "text", text: ", and " },
+                  { type: "strong", text: ".ly-sidebar-layout" },
+                  { type: "text", text: " establish reusable page composition." },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Switchable layout styles let the same content move between spatial systems without rewriting page components.",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "The portfolio now consumes the library directly through global imports, theme context attributes, and shared layout primitives.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "layout-style-takeaways",
+        type: BlockType.CARD_GRID,
+        title: "What This Proved",
+        subtitle: "Package discipline behind reusable layout systems",
+        items: [
+          {
+            id: "layout-style-takeaway-1",
+            title: "Clear Style Ownership",
+            subtitle: "Layout stays separate from visual theme paint",
+            icon: faCodeCompare,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "The library keeps structural layout decisions in layout-style-css while ui-style-kit-css handles visual theme roles and interactive-surface-css handles interaction states.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "layout-style-takeaway-2",
+            title: "Reusable Responsive Contracts",
+            subtitle: "Wrappers, grids, stacks, and sidebars become shared primitives",
+            icon: faTowerObservation,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "The package turns repeated layout recipes into tested class contracts that can be applied across portfolio pages and future product surfaces.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "layout-style-takeaway-3",
+            title: "Publish-Ready Library Work",
+            subtitle: "Documentation, package exports, and demo artifacts matter",
+            icon: faBookBookmark,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "This project required npm package discipline, documentation, release verification, and a demo surface so the library could be reused beyond one local app.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: BlockType.LINKS,
+        id: "layout-style-links",
+        items: [
+          {
+            id: "layout-style-link-github",
+            title: "View Source Code",
+            url: "https://github.com/Foscat/layout-style-css",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faCodeBranch,
+            ariaLabel: "Link to the layout-style-css repository on GitHub",
+          },
+          {
+            id: "layout-style-link-npm",
+            title: "View NPM Package",
+            url: "https://www.npmjs.com/package/layout-style-css",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faNpm,
+            ariaLabel: "Link to the layout-style-css package on NPM",
+          },
+          {
+            id: "layout-style-link-docs",
+            title: "Read Documentation",
+            url: "https://foscat.github.io/layout-style-css/",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faBookBookmark,
+            ariaLabel: "Link to the layout-style-css documentation site",
+          },
+          {
+            id: "layout-style-link-demo",
+            title: "View Demo",
+            url: "https://foscat.github.io/layout-style-css/",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faLaptopCode,
+            ariaLabel: "Link to the layout-style-css demo site",
+          },
+        ],
+      },
+    ],
+  },
+
   {
     id: "mern-template",
     slug: "mern-app-template-with-auth",

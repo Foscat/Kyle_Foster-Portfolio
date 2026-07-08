@@ -25,9 +25,8 @@ import App from "./App.jsx";
 import "./index.css";
 // RSuite shell styles
 import "./styles/rsuite-shell.less";
-// Package styles own interaction behavior and visual theme roles.
-import "interactive-surface-css/interactive-surface.css";
-import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";
+// The aggregate import keeps layout, UI paint, and interaction-state layers in the package-defined order.
+import "layout-style-css/all-with-ui-kit-and-interactive-surface.css";
 // App styles compose package tokens into portfolio layout contracts.
 import "./styles/tokens.css";
 import "./App.css";

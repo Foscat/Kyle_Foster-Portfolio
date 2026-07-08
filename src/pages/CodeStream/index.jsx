@@ -55,7 +55,7 @@ const CodeStream = () => {
 
   return (
     <SectionRegistryProvider>
-      <div className="container">
+      <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader
           title={csos.title}
           subTitle={csos.description}
@@ -64,8 +64,8 @@ const CodeStream = () => {
           tech={csos.tech}
         />
         <StickyNav activePage={csos.url} />
-        <div className="page-layout">
-          <main className="page-content app-main" role="main">
+        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
+          <main className="page-content app-main ly-content" role="main">
             {csos.sections.map((sect) => {
               return (
                 <SectionRenderer
@@ -76,7 +76,7 @@ const CodeStream = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar">
+          <aside className="page-sidebar ly-sidebar">
             <StickySectionNav pageUrl={csos.url} sections={csos.sections} />
           </aside>
         </div>
