@@ -28,7 +28,6 @@
 
 .color-modal__intro {
   margin: 0;
-  color: var(--app-surface-muted-fg, var(--text-secondary));
 }
 
 .color-panel {
@@ -36,12 +35,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.6rem 0.9rem;
-  color: var(--app-surface-fg, var(--text-primary));
-  border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.14));
-  border-radius: var(--app-surface-radius-md, var(--radius-sm));
-  background: var(--app-surface-bg, rgba(var(--white-rgb), 0.08));
-  box-shadow: var(--app-surface-shadow-soft, none);
 }
 
 .color-panel--ui-style .ui-style-toggle,
@@ -61,12 +54,6 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 0.9rem;
-  color: var(--app-surface-fg, var(--text-primary));
-  border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.14));
-  border-radius: var(--app-surface-radius-md, var(--radius-sm));
-  background: var(--app-surface-bg, rgba(var(--white-rgb), 0.08));
-  box-shadow: var(--app-surface-shadow-soft, none);
 }
 
 .color-row__content {
@@ -77,34 +64,21 @@
 .color-row__title {
   margin: 0;
   font-size: var(--font-sm);
-  color: var(--app-heading-color, var(--text-primary));
 }
 
 .color-row__description {
   margin: 0;
   font-size: var(--font-xs);
-  color: var(--app-surface-fg, var(--text-primary));
 }
 
 .color-row__mode {
   margin: 0;
   font-size: var(--font-xxs);
-  color: var(--app-surface-fg, var(--text-primary));
 }
 
 .color-row__system {
   margin: 0;
   font-size: var(--font-xxs);
-  color: var(--app-surface-muted-fg, var(--text-secondary));
-}
-
-html[data-theme="dark"] .color-modal .rs-modal-content {
-  background: var(--app-surface-strong-bg, var(--surface-overlay-strong));
-}
-
-html[data-theme="dark"] .color-row {
-  border-color: var(--app-surface-border-color, rgba(var(--accent-rgb), 0.24));
-  background: var(--app-surface-bg, rgba(var(--white-rgb), 0.08));
 }
 
 html[data-theme="light"] .color-modal .rs-modal-content {
@@ -123,21 +97,8 @@ html[data-theme="light"] .color-modal .rs-modal-title {
 }
 
 html[data-theme="light"] .color-modal .rs-modal-header-close,
-html[data-theme="light"] .color-modal__intro,
-html[data-theme="light"] .color-row__description,
-html[data-theme="light"] .color-row__system {
+html[data-theme="light"] .color-modal__intro {
   color: var(--app-surface-muted-fg, rgba(var(--primary-dark-rgb), 0.92));
-}
-
-html[data-theme="light"] .color-row,
-html[data-theme="light"] .color-panel {
-  border-color: var(--app-surface-border-color, rgba(var(--primary-dark-rgb), 0.24));
-  background: var(--app-surface-bg, rgba(var(--white-rgb), 0.85));
-}
-
-html[data-theme="light"] .color-row__title,
-html[data-theme="light"] .color-row__mode {
-  color: var(--app-surface-fg, rgba(var(--primary-darkest-rgb), 0.95));
 }
 
 html[data-theme="light"] .color-switch__track {

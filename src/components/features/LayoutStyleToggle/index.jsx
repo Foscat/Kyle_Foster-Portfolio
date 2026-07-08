@@ -21,6 +21,11 @@ const LAYOUT_STYLE_LABELS = Object.freeze({
   cyberpunk: "Cyberpunk",
   y2k: "Y2K",
   "retro-glass": "Retro Glass",
+  "f-pattern": "F Pattern",
+  "z-pattern": "Z Pattern",
+  "split-screen": "Split Screen",
+  mondrian: "Mondrian",
+  synthwave: "Synthwave",
 });
 
 const SIZE_CLASS_BY_SIZE = Object.freeze({

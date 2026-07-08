@@ -10,13 +10,15 @@ import { renderWithProviders } from "tests/renderWithProviders";
 import { useTheme } from "./ThemeContext";
 
 function ThemeContextProbe() {
-  const { theme, setTheme, uiStyle, setUiStyle, layoutStyle, setLayoutStyle } = useTheme();
+  const { theme, setTheme, uiStyle, setUiStyle, layoutStyle, setLayoutStyle, layoutStyles } =
+    useTheme();
 
   return (
     <div>
       <p data-testid="theme-value">{theme}</p>
       <p data-testid="ui-style-value">{uiStyle}</p>
       <p data-testid="layout-style-value">{layoutStyle}</p>
+      <p data-testid="layout-style-options">{layoutStyles.join(",")}</p>
       <button type="button" onClick={() => setTheme("light")}>
         Set light theme
       </button>
@@ -31,6 +33,9 @@ function ThemeContextProbe() {
       </button>
       <button type="button" onClick={() => setLayoutStyle("maximalist")}>
         Set maximalist layout style
+      </button>
+      <button type="button" onClick={() => setLayoutStyle("synthwave")}>
+        Set synthwave layout style
       </button>
       <button type="button" onClick={() => setLayoutStyle("invalid-layout")}>
         Set invalid layout style
@@ -117,6 +122,23 @@ describe("ThemeContext", () => {
     await waitFor(() => {
       expect(window.localStorage.getItem("portfolio-layout-style")).toBe("maximalist");
     });
+  });
+
+  test("exposes layout-style-css 1.1.2 layout styles", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("layout-style-options")).toHaveTextContent(
+      "f-pattern,z-pattern,split-screen,mondrian,synthwave"
+    );
+
+    await user.click(screen.getByRole("button", { name: /set synthwave layout style/i }));
+
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
+    expect(document.documentElement.dataset.layout).toBe("synthwave");
+    expect(document.body.dataset.layout).toBe("synthwave");
+    expect(document.body.getAttribute("layout-style")).toBe("synthwave");
   });
 
   test("uses package-owned palette roles instead of inline palette custom properties", async () => {

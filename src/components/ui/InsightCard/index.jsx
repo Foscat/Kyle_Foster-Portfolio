@@ -21,7 +21,7 @@ import "./style.css";
  * @public
  * @component
  * @name CardGrid
- * @description A grid layout component for displaying multiple InsightCards. It uses CSS Grid to create a responsive layout based on the specified number of columns.
+ * @description A grid layout component for displaying multiple InsightCards. It uses the `layout-style-css` card-grid primitive with component-level sizing variables.
  * @param {number} columns - The number of columns in the grid. Default is 3.
  * @param {React.ReactNode} children - The content to be displayed within the grid. Each child will be treated as a separate card.
  * @returns {JSX.Element} A responsive grid container for InsightCards.
@@ -41,16 +41,22 @@ import "./style.css";
  *
  * Design notes:
  * - The `columns` prop allows for flexible layout configurations, enabling different numbers of cards per row based on design needs.
- * - The grid uses consistent spacing and alignment to create a cohesive visual presentation of the insights.
+ * - The grid delegates layout behavior to `layout-style-css` while preserving card count and column sizing variables for app-specific tuning.
  */
 export function CardGrid({ columns = 3, children }) {
   const normalizedColumns = Number.isFinite(columns) && Number(columns) > 0 ? Number(columns) : 3;
   const cardCount = Children.toArray(children).filter(Boolean).length;
+  // Give CSS a stable hook for centering the final card when auto-grid resolves to two columns.
+  const shouldCenterOrphan = normalizedColumns > 1 && cardCount > 1 && cardCount % 2 === 1;
 
   return (
     <div
-      className="card-grid"
+      className={clsx("card-grid ly-card-grid", {
+        "card-grid--center-orphan": shouldCenterOrphan,
+      })}
       role="list"
+      data-card-count={cardCount}
+      data-card-columns={normalizedColumns}
       style={{
         "--card-grid-columns": normalizedColumns,
         "--card-grid-count": cardCount,

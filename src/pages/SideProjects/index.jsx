@@ -100,7 +100,7 @@ const SideProjects = () => {
 
   return (
     <SectionRegistryProvider>
-      <div className="container">
+      <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader
           title={sidePro.title}
           subTitle={sidePro.description}
@@ -109,8 +109,8 @@ const SideProjects = () => {
           tech={sidePro.tech}
         />
         <StickyNav activePage={sidePro.url} />
-        <div className="page-layout">
-          <main className="page-content app-main" role="main">
+        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
+          <main className="page-content app-main ly-content" role="main">
             {sidePro.sections.map((sect, sectionIndex) => {
               return (
                 <SectionRenderer
@@ -125,7 +125,7 @@ const SideProjects = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar">
+          <aside className="page-sidebar ly-sidebar">
             <StickySectionNav pageUrl={sidePro.url} sections={sidePro.sections} />
           </aside>
         </div>

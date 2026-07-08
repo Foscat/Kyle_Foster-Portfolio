@@ -33,7 +33,7 @@ const Hackathon = () => {
 
   return (
     <SectionRegistryProvider>
-      <div className="container">
+      <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader
           title={hack.title}
           jobTitle={hack.jobTitle}
@@ -42,13 +42,13 @@ const Hackathon = () => {
           tech={hack.tech}
         />
         <StickyNav activePage={hack.url} />
-        <div className="page-layout">
-          <main className="page-content app-main" role="main">
+        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
+          <main className="page-content app-main ly-content" role="main">
             {hack.sections.map((sect) => {
               return <SectionRenderer section={sect} key={sect.id} />;
             })}
           </main>
-          <aside className="page-sidebar">
+          <aside className="page-sidebar ly-sidebar">
             <StickySectionNav pageUrl={hack.url} sections={hack.sections} />
           </aside>
         </div>

@@ -42,7 +42,7 @@ const Smu = () => {
 
   return (
     <SectionRegistryProvider>
-      <div className="container">
+      <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader
           title={smu.title}
           subTitle={smu.description}
@@ -51,8 +51,8 @@ const Smu = () => {
           tech={smu.tech}
         />
         <StickyNav activePage={smu.url} />
-        <div className="page-layout">
-          <main className="page-content app-main" role="main">
+        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
+          <main className="page-content app-main ly-content" role="main">
             {smu.sections.map((sect, i) => {
               return (
                 <SectionRenderer
@@ -63,7 +63,7 @@ const Smu = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar">
+          <aside className="page-sidebar ly-sidebar">
             <StickySectionNav pageUrl={smu.url} sections={smu.sections} />
           </aside>
         </div>

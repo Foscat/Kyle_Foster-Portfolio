@@ -12,7 +12,15 @@ const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
 const UI_STYLES = ["minimal-saas", "brutalism", "neumorphism", "y2k", "retro-glass"];
-const LAYOUT_STYLES = ["retro-glass", "maximalist"];
+const LAYOUT_STYLES = ["retro-glass", "synthwave"];
+const ROUTE_LAYOUT_STYLES = [
+  "retro-glass",
+  "maximalist",
+  "bauhaus",
+  "minimal-saas",
+  "retrofuturism",
+  "mondrian",
+];
 
 async function setStyleState(page: Page, uiStyle: string) {
   await page.evaluate((nextUiStyle) => {
@@ -70,15 +78,7 @@ async function getRenderedSignature(page: Page, uiStyle: string) {
 }
 
 async function getLayoutSignature(page: Page, layoutStyle: string) {
-  await page.evaluate((nextLayoutStyle) => {
-    document.body.classList.add("ly-root");
-    document.body.dataset.layout = nextLayoutStyle;
-    document.body.setAttribute("layout-style", nextLayoutStyle);
-
-    window.localStorage.setItem("portfolio-layout-style", nextLayoutStyle);
-  }, layoutStyle);
-
-  await expect.poll(() => page.evaluate(() => document.body.dataset.layout || "")).toBe(layoutStyle);
+  await setLayoutStyle(page, layoutStyle);
 
   return page.evaluate((currentLayoutStyle) => {
     const bodyStyles = window.getComputedStyle(document.body);
@@ -97,6 +97,83 @@ async function getLayoutSignature(page: Page, layoutStyle: string) {
         pagePadding: bodyStyles.getPropertyValue("--ly-page-padding-inline").trim(),
         sectionPadding: bodyStyles.getPropertyValue("--ly-section-padding-block").trim(),
         stackGap: bodyStyles.getPropertyValue("--ly-stack-gap").trim(),
+      },
+    };
+  }, layoutStyle);
+}
+
+async function setLayoutStyle(page: Page, layoutStyle: string) {
+  await page.evaluate((nextLayoutStyle) => {
+    document.documentElement.dataset.layout = nextLayoutStyle;
+    document.documentElement.setAttribute("layout-style", nextLayoutStyle);
+    document.body.classList.add("ly-root");
+    document.body.dataset.layout = nextLayoutStyle;
+    document.body.setAttribute("layout-style", nextLayoutStyle);
+
+    window.localStorage.setItem("portfolio-layout-style", nextLayoutStyle);
+  }, layoutStyle);
+
+  await expect
+    .poll(() => page.evaluate(() => document.body.dataset.layout || ""))
+    .toBe(layoutStyle);
+}
+
+async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width: number) {
+  await page.setViewportSize({ width, height: 900 });
+  await preparePageForStableTests(page, { theme: "dark" });
+  await page.goto(toUrl("/"));
+  await stabilizePage(page, { theme: "dark" });
+  await setLayoutStyle(page, layoutStyle);
+
+  return page.evaluate(async (currentLayoutStyle) => {
+    const getBox = (element: Element | null) => {
+      if (!element) return null;
+      const rect = element.getBoundingClientRect();
+
+      return {
+        height: Math.round(rect.height),
+        left: Math.round(rect.left),
+        right: Math.round(rect.right),
+        top: Math.round(rect.top),
+        width: Math.round(rect.width),
+      };
+    };
+
+    const layout = document.querySelector(".page-layout");
+    const main = document.querySelector(".page-content");
+    const sidebar = document.querySelector(".page-sidebar");
+    const nav = document.querySelector(".sticky-section-nav");
+
+    if (!layout || !main || !sidebar) {
+      throw new Error("Expected route layout, main content, and sidebar to be rendered");
+    }
+
+    const layoutStyles = window.getComputedStyle(layout);
+    const columnWidths = layoutStyles.gridTemplateColumns
+      .split(/\s+/)
+      .map((column) => Number.parseFloat(column))
+      .filter(Number.isFinite)
+      .filter((columnWidth) => columnWidth > 1);
+    const navBeforeScroll = getBox(nav);
+
+    window.scrollTo({ top: 700, behavior: "instant" });
+    await new Promise((resolve) => {
+      window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+    });
+
+    return {
+      layoutStyle: currentLayoutStyle,
+      columns: columnWidths,
+      layoutPaddingStart: Number.parseFloat(layoutStyles.paddingInlineStart) || 0,
+      layout: getBox(layout),
+      main: getBox(main),
+      mainGridArea: window.getComputedStyle(main).gridArea,
+      sidebar: getBox(sidebar),
+      nav: {
+        exists: Boolean(nav),
+        position: nav ? window.getComputedStyle(nav).position : "",
+        beforeScroll: navBeforeScroll,
+        afterScroll: getBox(nav),
       },
     };
   }, layoutStyle);
@@ -164,7 +241,10 @@ test.describe("UI style visual distinction", () => {
 
     const baseline = await getLayoutSignature(page, LAYOUT_STYLES[0]);
 
-    await page.getByRole("button", { name: /open color settings/i }).first().click();
+    await page
+      .getByRole("button", { name: /open color settings/i })
+      .first()
+      .click();
     await expect(page.getByRole("dialog", { name: /color settings/i })).toBeVisible();
     await page.getByRole("combobox", { name: /layout style/i }).selectOption(LAYOUT_STYLES[1]);
 
@@ -181,5 +261,52 @@ test.describe("UI style visual distinction", () => {
     expect(switched.tokens.gap).not.toBe(baseline.tokens.gap);
     expect(switched.tokens.sectionPadding).not.toBe(baseline.tokens.sectionPadding);
     expect(consoleErrors, consoleErrors.join("\n\n")).toHaveLength(0);
+  });
+
+  test("route sidebar layout aligns with the sticky nav breakpoint", async ({ page }) => {
+    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 1023);
+
+    expect(mobile.columns).toHaveLength(1);
+    expect(mobile.mainGridArea).toBe("auto");
+    expect(mobile.layoutPaddingStart).toBeGreaterThan(40);
+    expect(mobile.nav.exists).toBe(false);
+    expect(mobile.sidebar?.width).toBe(mobile.main?.width);
+
+    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 1024);
+
+    expect(desktop.columns).toHaveLength(2);
+    expect(desktop.mainGridArea).toBe("auto");
+    expect(desktop.layoutPaddingStart).toBe(0);
+    expect(desktop.nav.exists).toBe(true);
+    expect(desktop.nav.position).toBe("sticky");
+    expect(desktop.sidebar?.left).toBeGreaterThan(desktop.main?.left || 0);
+    expect(desktop.sidebar?.width).toBeGreaterThanOrEqual(220);
+    expect(desktop.main?.width).toBeGreaterThan(desktop.sidebar?.width || 0);
+    expect(desktop.nav.afterScroll?.top).toBeGreaterThanOrEqual(0);
+    expect(desktop.nav.afterScroll?.top).toBeLessThan(900);
+  });
+
+  test("layout styles keep route sidebars stable on the right", async ({ page }) => {
+    const measurements = [];
+
+    for (const layoutStyle of ROUTE_LAYOUT_STYLES) {
+      measurements.push(await getRouteLayoutMeasurement(page, layoutStyle, 1280));
+    }
+
+    for (const measurement of measurements) {
+      expect(measurement.columns, measurement.layoutStyle).toHaveLength(2);
+      expect(measurement.mainGridArea, measurement.layoutStyle).toBe("auto");
+      expect(measurement.sidebar?.left, measurement.layoutStyle).toBeGreaterThan(
+        measurement.main?.left || 0
+      );
+      expect(measurement.sidebar?.width, measurement.layoutStyle).toBeGreaterThanOrEqual(220);
+      expect(measurement.main?.width, measurement.layoutStyle).toBeGreaterThan(
+        measurement.sidebar?.width || 0
+      );
+      expect(measurement.nav.exists, measurement.layoutStyle).toBe(true);
+      expect(measurement.nav.position, measurement.layoutStyle).toBe("sticky");
+      expect(measurement.nav.afterScroll?.top, measurement.layoutStyle).toBeGreaterThanOrEqual(0);
+      expect(measurement.nav.afterScroll?.top, measurement.layoutStyle).toBeLessThan(900);
+    }
   });
 });

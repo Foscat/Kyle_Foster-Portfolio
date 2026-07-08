@@ -19,6 +19,7 @@
   top: 120px; /* matches SCROLL_OFFSET */
   align-self: flex-start;
   z-index: 10;
+  max-width: 100%;
   color: var(--app-surface-fg, var(--section-drawer-item-fg));
   background: var(--app-surface-bg, transparent);
   box-shadow: var(--app-surface-shadow-soft, var(--tile-shadow));
@@ -31,12 +32,13 @@
    ------------------------------------------------------------------ */
 
 .section-nav-list {
-  /* IMPORTANT: must NOT be sticky */
+  /* Keep intrinsic sizing local; surface visuals remain owned by the shared CSS libraries. */
   position: static;
   margin: 0;
   padding: 0;
+  max-width: 100%;
   max-height: 75dvh;
-  overflow-y: auto;
+  overflow: clip auto;
 }
 
 /* Each top-level section item */
@@ -70,6 +72,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
   padding: 0.4rem 0.5rem;
   border-radius: var(--radius-sm);
   gap: 0.5rem;
@@ -79,6 +83,8 @@
 /* Title button */
 .section-nav-link {
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
   padding: 0.25rem;
   font: inherit;
   color: var(--app-surface-fg, var(--section-drawer-item-fg));
@@ -88,6 +94,8 @@
   border-radius: var(--radius-sm);
   text-align: center;
   font-weight: 500;
+  white-space: normal;
+  overflow-wrap: anywhere;
   transition:
     color 0.18s,
     filter 0.18s;
@@ -115,6 +123,7 @@
 
 .section-nav-caret {
   display: inline-flex;
+  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
   width: 28px;
@@ -166,6 +175,8 @@
 
 /* Subsection button */
 .sub-section-nav-block {
+  min-width: 0;
+  max-width: 100%;
   padding: 0.25rem 0.75rem;
   font: inherit;
   font-weight: 500;
@@ -176,6 +187,8 @@
   text-align: left;
   cursor: pointer;
   display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .section-nav-item.is-active .sub-section-nav-block {

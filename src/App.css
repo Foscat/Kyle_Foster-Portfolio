@@ -482,8 +482,7 @@ section[id],
 
 /* App chrome wrapper */
 .app-shell {
-  /* App chrome wrapper: follows the same viewport contract as <body>. */
-  min-height: 100dvh;
+  /* The ly-page primitive owns min-height; this class only preserves app chrome width. */
   width: 100%;
 }
 
@@ -493,7 +492,7 @@ section[id],
 }
 
 .page-shell {
-  width: 100%;
+  min-width: 0;
 }
 
 .page-container {
@@ -509,17 +508,12 @@ section[id],
 }
 
 .page-layout {
-  /* Mobile-first page layout: single column by default.
-     Desktop/tablet enhancements are layered via min-width queries below. */
-  display: grid;
+  /* layout-style-css owns spacing rhythm; this app owns the route nav breakpoint and feasible rail width. */
+  --portfolio-route-sidebar-width: clamp(18rem, var(--ly-sidebar-width, 18rem), 20rem);
+
   align-items: start;
   width: 100%;
-
-  /* critical: prevents uneven grid stretch */
   margin: 0;
-  padding: 0 var(--page-gutter);
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--page-gap);
 }
 
 .page-content {
@@ -755,25 +749,28 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-@media (width <=1024px) {
-  .page-layout {
-    padding: 0 5px 0
-      max(
-        calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
-        calc(
-          var(--sticky-nav-mobile-trigger-left, 14px) +
-            var(--sticky-nav-mobile-trigger-size, 42px) +
-            (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
-        )
-      );
+@media (width < 1024px) {
+  .page-layout.ly-sidebar-layout {
+    /* Keep route content clear of the fixed mobile navigation rail. */
+    grid-template-columns: minmax(0, 1fr);
+    padding-inline: 5px;
+    padding-inline-start: max(
+      calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
+      calc(
+        var(--sticky-nav-mobile-trigger-left, 14px) + var(--sticky-nav-mobile-trigger-size, 42px) +
+          (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
+      )
+    );
   }
 }
 
-/* Layout breakpoint: enable a persistent sidebar only when mobile floating nav
-   triggers are no longer present. */
-@media (width >=1025px) {
+@media (width >= 1024px) {
   .page-layout {
-    grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
+    padding-inline: 0;
+  }
+
+  .page-layout.ly-sidebar-layout.ly-sidebar-layout--right {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, var(--portfolio-route-sidebar-width));
   }
 
   .page-sidebar {

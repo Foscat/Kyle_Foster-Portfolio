@@ -29,7 +29,15 @@ const SUPPORTED_UI_STYLES = Object.freeze([
   "retro-glass",
 ]);
 const DEFAULT_UI_STYLE = "retro-glass";
-const SUPPORTED_LAYOUT_STYLES = SUPPORTED_UI_STYLES;
+const SUPPORTED_LAYOUT_STYLES = Object.freeze([
+  ...SUPPORTED_UI_STYLES,
+  // layout-style-css 1.1.2 keeps spatial-only personalities independent from ui-style-kit-css paint.
+  "f-pattern",
+  "z-pattern",
+  "split-screen",
+  "mondrian",
+  "synthwave",
+]);
 const DEFAULT_LAYOUT_STYLE = DEFAULT_UI_STYLE;
 const SUPPORTED_PALETTES = PALETTE_IDS;
 const DEFAULT_PALETTE = "ocean-steel";
@@ -173,7 +181,12 @@ function getInitialLayoutStyle() {
  *   "brutalism"|
  *   "cyberpunk"|
  *   "y2k"|
- *   "retro-glass"
+ *   "retro-glass"|
+ *   "f-pattern"|
+ *   "z-pattern"|
+ *   "split-screen"|
+ *   "mondrian"|
+ *   "synthwave"
  * } LayoutStyle
  */
 

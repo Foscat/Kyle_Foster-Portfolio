@@ -142,11 +142,11 @@ export default function Contact() {
 
   return (
     <SectionRegistryProvider>
-      <div className="contact-page page-wrapper">
+      <div className="contact-page page-wrapper ly-wrapper ly-wrapper--wide ly-stack">
         <StickyNav activePage={PageRoute.CONTACT} />
 
         <main className="contact-content app-main" role="main">
-          <div className="contact-centered-stack">
+          <div className="contact-centered-stack ly-stack">
             <SectionRenderer section={contactSections[0]} />
             <div className="contact-resume-actions">
               <ResumePreviewTrigger

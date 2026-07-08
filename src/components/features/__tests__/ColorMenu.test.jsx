@@ -49,6 +49,7 @@ describe("ColorMenu", () => {
     expect(screen.getByRole("combobox", { name: /ui style/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /layout style/i })).toBeInTheDocument();
     expect(screen.getByRole("combobox", { name: /layout style/i })).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: /synthwave/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /palette/i })).toBeInTheDocument();
     expect(screen.getByRole("combobox", { name: /color palette/i })).toBeInTheDocument();
   });

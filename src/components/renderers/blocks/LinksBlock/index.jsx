@@ -57,7 +57,7 @@ const LinksBlock = ({ items = [] }) => {
 
   return (
     <Panel collapsible defaultExpanded className="block mt-2">
-      <div className="links-block-list">
+      <div className="links-block-list ly-cluster ly-gap-3">
         {items.map((link, i) => {
           if (link?.resumePreview) {
             const safeTheme = typeof theme === "string" ? theme : "auto";

@@ -37,7 +37,7 @@ const Home = () => {
 
   return (
     <SectionRegistryProvider>
-      <div>
+      <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader
           title={home.title}
           subTitle={home.description}
@@ -46,13 +46,13 @@ const Home = () => {
           jobTitle={home.jobTitle}
         />
         <StickyNav activePage={home.url} />
-        <div className="page-layout">
-          <main className="page-content app-main" role="main">
+        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
+          <main className="page-content app-main ly-content" role="main">
             {home.sections.map((sect) => {
               return <SectionRenderer section={sect} deferDiagrams key={sect.id} />;
             })}
           </main>
-          <aside className="page-sidebar">
+          <aside className="page-sidebar ly-sidebar">
             <StickySectionNav pageUrl={home.url} sections={home.sections} />
           </aside>
         </div>
