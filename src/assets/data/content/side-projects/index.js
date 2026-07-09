@@ -18,7 +18,6 @@ import {
   faLightbulb,
   faSeedling,
   faTowerObservation,
-  faUnlockKeyhole,
   faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { BlockType } from "types/ui.types.js";
@@ -502,7 +501,7 @@ const sideProjectSections = [
           {
             id: "interactive-surface-link-1",
             title: "View Source Code",
-            url: "https://github.com/kylefoster/interactive-surface-css",
+            url: "https://github.com/Foscat/Interactive-Surface-CSS",
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faCodeBranch,
@@ -678,14 +677,23 @@ const sideProjectSections = [
         id: "layout-style-problem-text",
         type: BlockType.RICH_TEXT,
         icon: faExclamationTriangle,
-        title: "Challenge: Layout Logic Drifted Across Projects",
+        title: "Challenge: Layout Ownership Across the UI Bundle",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "Responsive wrappers, sidebars, grids, split sections, and spacing rules are easy to rebuild differently in every app. That drift makes layouts harder to reason about and pushes too much structural ownership into local project CSS.",
+                text: "Reusable UI systems need a clear boundary between layout structure, visual paint, and interaction behavior. Without that boundary, responsive wrappers, sidebars, grids, split sections, and spacing rules get rebuilt differently in every app.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Layout Style CSS exists as the layout layer in my UI bundle: layout-style-css owns spatial composition, ui-style-kit-css owns theme and visual surface roles, and interactive-surface-css owns interaction states.",
               },
             ],
           },
@@ -698,7 +706,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Repeated layout decisions:" },
                   {
                     type: "text",
-                    text: " the same wrapper, grid, and sidebar patterns were being solved more than once.",
+                    text: " wrapper, grid, stack, and sidebar behavior should not be reinvented for every page.",
                   },
                 ],
               },
@@ -708,7 +716,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Unclear ownership:" },
                   {
                     type: "text",
-                    text: " local CSS mixed structural layout concerns with visual theme rules.",
+                    text: " local CSS should not mix structural layout concerns with visual theme rules.",
                   },
                 ],
               },
@@ -727,6 +735,13 @@ const sideProjectSections = [
         ],
       },
       {
+        id: "layout-style-preview",
+        type: BlockType.IMAGE_GALLERY,
+        title: "Documentation and Demo Preview",
+        items: [imgObjs.layoutStyleSocialCard],
+      },
+      diagrams.layoutStyleBundleFlow,
+      {
         id: "layout-style-solution-text",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
@@ -737,7 +752,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Layout Style CSS packages shell-first layout primitives into a small CSS library. It gives apps reusable classes for wrappers, content regions, sidebars, grids, stacks, clusters, panes, spacing utilities, and layout personalities while leaving color and surface paint to the UI theme layer.",
+                text: "Layout Style CSS packages shell-first layout primitives into layout-style-css@1.1.2. It gives apps reusable classes for wrappers, content regions, sidebars, grids, stacks, clusters, panes, spacing utilities, and layout personalities while leaving color and surface paint to the UI theme layer.",
               },
             ],
           },
@@ -759,7 +774,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Switchable layout styles let the same content move between spatial systems without rewriting page components.",
+                    text: "Switchable layout styles let the same content move between compact, editorial, maximalist, synthwave, and other spatial systems without rewriting page components.",
                   },
                 ],
               },
@@ -768,7 +783,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The portfolio now consumes the library directly through global imports, theme context attributes, and shared layout primitives.",
+                    text: "The portfolio consumes the library directly through global imports, theme context attributes, and shared layout primitives that stay independent from UI paint and interaction-state styling.",
                   },
                 ],
               },
@@ -780,12 +795,12 @@ const sideProjectSections = [
         id: "layout-style-takeaways",
         type: BlockType.CARD_GRID,
         title: "What This Proved",
-        subtitle: "Package discipline behind reusable layout systems",
+        subtitle: "How the layout layer completes the UI bundle",
         items: [
           {
             id: "layout-style-takeaway-1",
-            title: "Clear Style Ownership",
-            subtitle: "Layout stays separate from visual theme paint",
+            title: "Clear Bundle Ownership",
+            subtitle: "Layout, paint, and interaction states stay separate",
             icon: faCodeCompare,
             content: [
               {
@@ -810,7 +825,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The package turns repeated layout recipes into tested class contracts that can be applied across portfolio pages and future product surfaces.",
+                    text: "The package turns repeated layout recipes into tested class contracts that can be applied across portfolio pages, documentation surfaces, dashboards, and future product interfaces.",
                   },
                 ],
               },
@@ -860,7 +875,7 @@ const sideProjectSections = [
           {
             id: "layout-style-link-docs",
             title: "Read Documentation",
-            url: "https://foscat.github.io/layout-style-css/",
+            url: "https://foscat.github.io/Layout-Style-CSS/",
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faBookBookmark,
@@ -869,7 +884,7 @@ const sideProjectSections = [
           {
             id: "layout-style-link-demo",
             title: "View Demo",
-            url: "https://foscat.github.io/layout-style-css/",
+            url: "https://foscat.github.io/Layout-Style-CSS/",
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faLaptopCode,
@@ -1525,269 +1540,6 @@ const sideProjectSections = [
             target: "_blank",
             icon: faCodeBranch,
             ariaLabel: "Link to the Greenhouse Climate Controller code repository on GitHub",
-          },
-        ],
-      },
-    ],
-  },
-
-  /* ============================================================
-       Caesar's Enigma
-       ============================================================ */
-
-  {
-    id: "enigma",
-    slug: "caesars-enigma",
-    title: "Caesar's Enigma",
-    icon: faUnlockKeyhole,
-    isScroller: true,
-    blocks: [
-      {
-        id: "enigma-problem-text",
-        type: BlockType.RICH_TEXT,
-        icon: faExclamationTriangle,
-        title: "Challenge: Practical Client-Side Encryption",
-        content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "Cryptography education is often theoretical and disconnected from implementation. While classical ciphers are conceptually familiar, there are fewer chances to study predictable transformations inside a real user-facing system.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The challenge was to design a modern encryption tool rooted in classical cipher mechanics that runs entirely client-side. That meant eliminating server processing, preserving user privacy, and ensuring repeatable transformations in a constrained browser environment.",
-              },
-            ],
-          },
-          {
-            type: "blockquote",
-            children: [
-              { type: "inlineIcon", icon: "🔐" },
-              {
-                type: "text",
-                text: "How can simple cryptographic principles become a predictable system that feels modern, usable, and privacy-preserving?",
-              },
-            ],
-          },
-        ],
-      },
-      // diagrams.enigmaMentalModel,
-      {
-        id: "enigma-screenshots",
-        type: BlockType.IMAGE_GALLERY,
-        title: "Application Screenshots",
-        items: [
-          imgObjs.enigmaSocialCard,
-          imgObjs.enigmaApp,
-          imgObjs.enigmaEncryption,
-          imgObjs.enigmaDecryption,
-          imgObjs.enigmaGuide,
-        ],
-      },
-      {
-        id: "enigma-solution-text",
-        type: BlockType.RICH_TEXT,
-        icon: faLightbulb,
-        title: "Solution: Deterministic Browser Cipher Engine",
-        content: [
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The system was designed as a predictable, client-side encryption engine inspired by Caesar substitution and multi-rotor mechanics. Instead of a single static alphabet, it composes rotating character sets to increase transformation depth while preserving reversibility.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "Each character transformation follows predictable rotation rules plus an embedded metadata tag. Encrypted messages carry what is needed for accurate decryption without external state, keeping the cipher stateless and reproducible.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The engine was first prototyped in Python to validate correctness, then refactored into JavaScript for browser execution. The final implementation runs entirely client-side, so plaintext never leaves the user's device.",
-              },
-            ],
-          },
-          {
-            type: "ul",
-            children: [
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Multi-alphabet rotation:" },
-                  {
-                    type: "text",
-                    text: " layered substitutions increase complexity without sacrificing predictable results.",
-                  },
-                ],
-              },
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Stateless design:" },
-                  {
-                    type: "text",
-                    text: " encrypted output embeds versioning and transformation metadata.",
-                  },
-                ],
-              },
-              {
-                type: "li",
-                children: [
-                  { type: "strong", text: "Client-only execution:" },
-                  {
-                    type: "text",
-                    text: " no backend processing, reduced attack surface, privacy by architecture.",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            type: "blockquote",
-            children: [
-              { type: "inlineIcon", icon: "⚙️" },
-              {
-                type: "text",
-                text: "The goal was not complexity for its own sake, but controlled transformation rules that remain predictable, reversible, and transparent.",
-              },
-            ],
-          },
-        ],
-      },
-      diagrams.encryptionFlow,
-      diagrams.decryptFlow,
-      {
-        id: "enigma-takeaways",
-        type: BlockType.RICH_TEXT,
-        title: "What This Proved",
-        content: [
-          {
-            type: "h3",
-            children: [
-              { type: "inlineIcon", icon: "🔑" },
-              { type: "text", text: " Cryptography Principles" },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The project served as a practical exploration of classical cryptography through direct implementation. By composing rotating alphabets and predictable transformations, I examined how simple substitution mechanics can form layered systems.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "The emphasis was placed on clarity, correctness, and repeatability rather than artificial complexity. Well-defined transformation rules proved more important than algorithmic opacity.",
-              },
-            ],
-          },
-          {
-            type: "h3",
-            children: [
-              { type: "inlineIcon", icon: "🛡️" },
-              { type: "text", text: " Client-Side Security" },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "All encryption and decryption logic executes entirely in the browser. No user data is transmitted to a server, reducing the application's attack surface and reinforcing privacy by design.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "This requirement called for predictable behavior and performance awareness in a client-only environment. Security here is expressed through architectural decisions, not just cipher mechanics.",
-              },
-            ],
-          },
-          {
-            type: "h3",
-            children: [
-              { type: "inlineIcon", icon: "💻" },
-              { type: "text", text: " Usability Focus" },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "A core objective was to make cryptographic concepts approachable without oversimplifying them. The interface guides users through encryption and decryption without requiring prior cipher knowledge.",
-              },
-            ],
-          },
-          {
-            type: "p",
-            children: [
-              {
-                type: "text",
-                text: "Clear feedback, predictable outputs, and constrained configuration were prioritized to balance technical depth with accessibility. The result demonstrates that secure systems can remain understandable.",
-              },
-            ],
-          },
-
-          {
-            type: "blockquote",
-            children: [
-              {
-                type: "text",
-                text: "Security is not only about complexity; it is about predictable, well-defined behavior.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "enigma-links",
-        type: BlockType.LINKS,
-        items: [
-          {
-            id: "enigma-link-1",
-            title: "View Source Code",
-            url: "https://github.com/Foscat/Enigma",
-            icon: faCodeBranch,
-            ariaLabel: "Link to the Caesar's Enigma code repository on GitHub",
-            local: false,
-            target: "_blank",
-            rel: "noopener noreferrer",
-          },
-          {
-            id: "enigma-link-2",
-            title: "View Live Demo",
-            url: "https://foscat.github.io/Enigma/",
-            icon: faLaptopCode,
-            ariaLabel: "Link to the live Caesar's Enigma project website",
-            local: false,
-            target: "_blank",
-            rel: "noopener noreferrer",
           },
         ],
       },

@@ -5,7 +5,7 @@
  * @module components/StickySectionNav
  */
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { BlockType, Size, Variant } from "types/ui.types";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";

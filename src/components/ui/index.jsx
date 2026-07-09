@@ -7,7 +7,6 @@
  */
 
 import { lazy, Suspense } from "react";
-import React from "react";
 const withSuspense = (LazyComponent, fallback = "Loading component...") => {
   const WrappedComponent = (props) => (
     <Suspense fallback={<div role="status">{fallback}</div>}>

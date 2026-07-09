@@ -28,7 +28,6 @@ import {
   faHouseLaptop,
   faIdCard,
   faIndustry,
-  faLaptop,
   faLayerGroup,
   faLightbulb,
   faMagnifyingGlass,

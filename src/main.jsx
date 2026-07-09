@@ -25,8 +25,10 @@ import App from "./App.jsx";
 import "./index.css";
 // RSuite shell styles
 import "./styles/rsuite-shell.less";
-// The aggregate import keeps layout, UI paint, and interaction-state layers in the package-defined order.
-import "layout-style-css/all-with-ui-kit-and-interactive-surface.css";
+// Minified package entrypoints keep the library cascade order while reducing emitted global CSS.
+import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";
+import "interactive-surface-css/interactive-surface.css";
+import "layout-style-css/min.css";
 // App styles compose package tokens into portfolio layout contracts.
 import "./styles/tokens.css";
 import "./App.css";

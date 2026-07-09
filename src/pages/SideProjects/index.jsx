@@ -5,7 +5,6 @@
  */
 
 import { useEffect } from "react";
-import React from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import sideProjectsSections from "assets/data/content/side-projects";

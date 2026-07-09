@@ -6,28 +6,20 @@
 
 import d20Dash from "./d20-dashboard.png";
 import oppEdit from "./d20-opp-editor.png";
-import enigma from "./enigma.png";
-import enigmaSocialCard from "./enigma-social-card.webp";
-import encryption from "./encrypting.png";
-import decryption from "./decrypting.png";
-import enigmaGuide from "./how-to-encrypt.png";
 import greCon from "./greenhouse-controls.jpg";
 import greHook from "./greenhouse-hooked-up.jpg";
 import interactiveSurfaceSocialCard from "./interactive-surface-social-card.webp";
+import layoutStyleSocialCard from "./layout-style-social-card.jpg";
 import mernTemplateSocialCard from "./mern-template-social-card.webp";
 import uiStyleKitSocialCard from "./ui-style-kit-social-card.webp";
 
 export {
   d20Dash,
   oppEdit,
-  enigma,
-  enigmaSocialCard,
-  encryption,
-  decryption,
-  enigmaGuide,
   greCon,
   greHook,
   interactiveSurfaceSocialCard,
+  layoutStyleSocialCard,
   mernTemplateSocialCard,
   uiStyleKitSocialCard,
 };
@@ -49,49 +41,6 @@ const imgObjs = {
     caption:
       "Opponent editor page within D20, allowing users to customize and manage in-game adversaries.",
     ariaLabel: "Screenshot of D20 opponent editor page showing various stats and options",
-  },
-  enigmaApp: {
-    id: "enigma_app_img",
-    src: enigma,
-    alt: "Screenshot of Enigma encrypter website",
-    title: "Enigma website page",
-    caption: "Client-side encryption tool implementing a multi-alphabet cipher.",
-    ariaLabel: "Screenshot of the Enigma encryption tool in action",
-  },
-  enigmaSocialCard: {
-    id: "enigma_social_card_img",
-    src: enigmaSocialCard,
-    alt: "Caesar's Enigma live project preview",
-    title: "Caesar's Enigma social card",
-    caption: "Homepage preview from the Caesar's Enigma live project.",
-    ariaLabel: "Caesar's Enigma live project preview",
-  },
-  enigmaEncryption: {
-    id: "enigma_encryption_img",
-    src: encryption,
-    alt: "Screenshot of Enigma tool showing plaintext input and resulting ciphertext",
-    title: "Encryption in action",
-    caption:
-      "The Enigma tool encrypting a user's input into ciphertext using the configured cipher settings.",
-    ariaLabel: "Screenshot of Enigma tool showing plaintext input and resulting ciphertext",
-  },
-  enigmaDecryption: {
-    id: "enigma_decryption_img",
-    src: decryption,
-    alt: "Screenshot of Enigma tool showing ciphertext input and resulting plaintext",
-    title: "Decryption in action",
-    caption:
-      "The Enigma tool decrypting a user's input back into plaintext using the configured cipher settings.",
-    ariaLabel: "Screenshot of Enigma tool showing ciphertext input and resulting plaintext",
-  },
-  enigmaGuide: {
-    id: "enigma_guide_img",
-    src: enigmaGuide,
-    alt: "Screenshot of Enigma tool's how-to guide page with instructions for using the encryption and decryption features.",
-    title: "Enigma how-to guide",
-    caption:
-      "The Enigma tool's built-in how-to guide. This modal provides users with clear instructions on using the encryption and decryption features.",
-    ariaLabel: "Screenshot of Enigma tool's how-to guide page with instructions and diagrams",
   },
   greenhouseControls: {
     id: "greenhouse_controls_img",
@@ -118,6 +67,15 @@ const imgObjs = {
     title: "Interactive Surface CSS preview",
     caption: "Homepage preview of the Interactive Surface CSS documentation and demo experience.",
     ariaLabel: "Interactive Surface CSS documentation landing page preview",
+  },
+  layoutStyleSocialCard: {
+    id: "layout_style_social_card_img",
+    src: layoutStyleSocialCard,
+    alt: "Layout Style CSS documentation and demo preview",
+    title: "Layout Style CSS preview",
+    caption:
+      "Preview of the Layout Style CSS documentation and demo surface for responsive layout primitives.",
+    ariaLabel: "Layout Style CSS documentation and demo preview",
   },
   mernTemplateSocialCard: {
     id: "mern_template_social_card_img",

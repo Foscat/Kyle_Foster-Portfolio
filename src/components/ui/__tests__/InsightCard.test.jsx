@@ -17,7 +17,6 @@ import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { renderWithProviders } from "tests/renderWithProviders";
 import { InsightCard, CardGrid } from "../InsightCard";
-import { faLightbulb, faStar } from "@fortawesome/free-solid-svg-icons";
 
 // Mock RichText component
 vi.mock("components/renderers", async () => {

@@ -118,16 +118,82 @@ const decodeHtmlEntities = (value) =>
     .replaceAll("&nbsp;", " ")
     .replaceAll("&amp;", "&");
 
-const stripUnsafeBlocks = (value) => {
-  let current = value;
+const unsafeBlockTagNames = new Set(["script", "style"]);
 
-  while (true) {
-    const next = current.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/giu, "");
-    if (next === current) {
-      return next;
-    }
-    current = next;
+const findUnsafeTagEnd = (value, startIndex) => {
+  const tagEndIndex = value.indexOf(">", startIndex);
+  return tagEndIndex === -1 ? value.length : tagEndIndex + 1;
+};
+
+const readUnsafeTagAt = (value, startIndex) => {
+  if (value[startIndex] !== "<") return null;
+
+  let cursor = startIndex + 1;
+  while (/\s/u.test(value[cursor] || "")) cursor += 1;
+
+  const isClosing = value[cursor] === "/";
+  if (isClosing) {
+    cursor += 1;
+    while (/\s/u.test(value[cursor] || "")) cursor += 1;
   }
+
+  const tagStart = cursor;
+  while (/[a-z0-9-]/iu.test(value[cursor] || "")) cursor += 1;
+
+  const tagName = value.slice(tagStart, cursor).toLowerCase();
+  if (!unsafeBlockTagNames.has(tagName)) return null;
+
+  return {
+    endIndex: findUnsafeTagEnd(value, cursor),
+    isClosing,
+    name: tagName,
+    startIndex,
+  };
+};
+
+const findUnsafeTag = (value, fromIndex = 0, tagName = "") => {
+  let cursor = fromIndex;
+
+  while (cursor < value.length) {
+    const startIndex = value.indexOf("<", cursor);
+    if (startIndex === -1) return null;
+
+    const tag = readUnsafeTagAt(value, startIndex);
+    if (!tag || (tagName && tag.name !== tagName)) {
+      cursor = startIndex + 1;
+      continue;
+    }
+
+    return tag;
+  }
+
+  return null;
+};
+
+const stripUnsafeBlocksOnce = (value) => {
+  const openingTag = findUnsafeTag(value);
+  if (!openingTag) return value;
+
+  if (openingTag.isClosing) {
+    return `${value.slice(0, openingTag.startIndex)}${value.slice(openingTag.endIndex)}`;
+  }
+
+  const closingTag = findUnsafeTag(value, openingTag.endIndex, openingTag.name);
+  const removalEndIndex = closingTag?.isClosing ? closingTag.endIndex : value.length;
+
+  return `${value.slice(0, openingTag.startIndex)}${value.slice(removalEndIndex)}`;
+};
+
+const stripUnsafeBlocks = (value) => {
+  let current = String(value ?? "");
+  let next = stripUnsafeBlocksOnce(current);
+
+  while (next !== current) {
+    current = next;
+    next = stripUnsafeBlocksOnce(current);
+  }
+
+  return next;
 };
 
 const stripKnownHtmlTag = (fullMatch, tagName) => {

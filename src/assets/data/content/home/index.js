@@ -29,13 +29,11 @@ import {
   faPlug,
   faTrophy,
   faUniversalAccess,
-  faUserSecret,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCss3Alt, faGitSquare } from "@fortawesome/free-brands-svg-icons";
 import { BlockType, PageRoute } from "types/ui.types.js";
 import diagrams from "./diagrams.js";
 import sideProjectSocialCards from "assets/images/sideProjects/socialCards";
-import homeImgObjs from "assets/images/home";
 
 const homeSections = [
   {
@@ -171,7 +169,7 @@ const homeSections = [
   {
     id: "professional",
     slug: "professional-work",
-    title: "Professional Work",
+    title: "CodeStream Studios",
     subtitle: "Senior React / Frontend Engineer at CodeStream Studios LLC (2019-2025)",
     icon: faBuildingUser,
     isScroller: true,
@@ -187,7 +185,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "My professional work has centered on building a ",
+                text: "My CodeStream Studios work centered on building a ",
               },
               { type: "strong", text: "production education platform" },
               {
@@ -389,16 +387,16 @@ const homeSections = [
       },
       {
         id: "professional-learn-more",
-        title: "Professional Links",
+        title: "CodeStream Links",
         type: BlockType.LINKS,
         items: [
           {
             id: "pro-case-study",
-            title: "View Professional Case Study",
+            title: "View CodeStream Case Study",
             url: PageRoute.PROFESSIONAL,
             icon: faLayerGroup,
             size: "md",
-            ariaLabel: "View Professional Case Study",
+            ariaLabel: "View CodeStream Case Study",
             local: true,
           },
           {
@@ -663,7 +661,7 @@ const homeSections = [
             children: [
               {
                 type: "text",
-                text: "These builds range from Raspberry Pi greenhouse automation to encryption experiments and campaign tooling. Each moves from concept to deployment, with me owning tradeoffs, implementation, and iteration.",
+                text: "These builds range from Raspberry Pi greenhouse automation to reusable UI libraries and campaign tooling. Each moves from concept to deployment, with me owning tradeoffs, implementation, and iteration.",
               },
             ],
           },
@@ -995,21 +993,21 @@ const homeSections = [
             ],
           },
           {
-            id: "sp-enigma",
-            title: "Caesar's Enigma",
+            id: "sp-layout-style-css",
+            title: "Layout Style CSS",
             subtitle:
-              "Secure messaging application inspired by the Enigma machine and powered by a custom Caesar-style cipher.",
-            icon: faUserSecret,
-            url: `${PageRoute.SIDE_PROJECTS}/#enigma`,
+              "Layout layer for my UI bundle, providing reusable wrappers, grids, stacks, sidebars, and switchable spatial systems.",
+            icon: faLayerGroup,
+            url: `${PageRoute.SIDE_PROJECTS}/#layout-style-css`,
             isScroller: false,
-            previewImage: sideProjectSocialCards.enigma,
+            previewImage: sideProjectSocialCards.layoutStyle,
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "A secure messaging application inspired by the Enigma machine, using a custom Caesar-style cipher for encryption and decryption. The app allows users to send encrypted messages that can only be decrypted by recipients with the correct key, demonstrating cryptography in an accessible, product-oriented format.",
+                    text: "A framework-agnostic CSS package that gives apps a reusable layout layer. It keeps spatial structure in layout-style-css while ui-style-kit-css handles visual paint and interactive-surface-css handles interaction states.",
                   },
                 ],
               },
@@ -1021,7 +1019,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Custom implementation of the Caesar cipher for message encryption and decryption using a randomly generated key for each message.",
+                        text: "Reusable primitives for wrappers, sections, stacks, grids, sidebars, clusters, panes, and layout spacing.",
                       },
                     ],
                   },
@@ -1030,7 +1028,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "User-friendly interface for composing and reading encrypted messages. Built with accessibility in mind.",
+                        text: "Switchable layout personalities let the same content move between spatial systems without component rewrites.",
                       },
                     ],
                   },
@@ -1039,7 +1037,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Educational tool that demonstrates basic cryptographic principles in an approachable, interactive way.",
+                        text: "Published as layout-style-css@1.1.2 with documentation, demo coverage, and npm distribution.",
                       },
                     ],
                   },

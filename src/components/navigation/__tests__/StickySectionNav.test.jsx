@@ -4,7 +4,6 @@
  * @module src\components\navigation\StickySectionNav\StickySectionNav.test
  */
 
-import React from "react";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 

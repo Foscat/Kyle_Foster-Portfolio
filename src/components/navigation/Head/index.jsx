@@ -57,6 +57,13 @@ const ROUTE_SEO_CONFIG = Object.freeze({
     indexable: true,
     breadcrumbLabel: "Hackathon",
   },
+  [PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES]: {
+    meta: pageSummaryMetas.SandersonTechnologyEnterprises,
+    pageType: "WebPage",
+    ogType: "article",
+    indexable: true,
+    breadcrumbLabel: "Sanderson Technology Enterprises",
+  },
   [PageRoute.SIDE_PROJECTS]: {
     meta: pageSummaryMetas.SideProjects,
     pageType: "CollectionPage",

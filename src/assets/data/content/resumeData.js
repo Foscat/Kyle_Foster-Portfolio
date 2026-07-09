@@ -15,7 +15,7 @@ const resumeData = {
   linkedin: "linkedin.com/in/kylefoster-dev",
   footer: "Kyle Foster | Senior Developer | kyle-foster.com",
   summary:
-    "Senior Developer with 6+ years of experience building React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessible interfaces, and maintainable product delivery across education platforms, creator-focused systems, admin dashboards, and service-based web products.",
+    "Senior Developer with 7+ years of experience building React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessible interfaces, and maintainable product delivery across education platforms, custom business systems, admin dashboards, and service-based web products.",
 
   experience: [
     {
@@ -25,12 +25,12 @@ const resumeData = {
       location: "Remote",
       dates: "2025 - Present",
       summary:
-        "Develop custom web platforms, marketing sites, admin tools, and digital business systems for creator-focused brands and independent clients.",
+        "Develop custom web platforms, marketing sites, admin tools, and digital business systems for STE business needs and public-facing product work.",
       bullets: [
-        "Built the company's web presence as a clean, SEO-focused business site with service positioning, brand assets, responsive layouts, theme support, and static hosting support.",
-        "Plan and implement creator-owned platform concepts, including branded websites, private content systems, member-only areas, CMS workflows, admin dashboards, and storefront infrastructure.",
-        "Create reusable frontend patterns using HTML, CSS, JavaScript, React-compatible architecture, ui-style-kit-css, and interactive-surface-css.",
-        "Own technical scoping, information architecture, implementation planning, documentation, testing, and long-term maintenance strategy.",
+        "Built Sanderson Technology Enterprises' web presence as a clean, SEO-focused business site with service positioning, brand assets, responsive layouts, theme support, and static hosting support.",
+        "Plan and implement platform concepts, including branded websites, private content systems, member-only areas, CMS workflows, admin dashboards, and storefront infrastructure.",
+        "Create reusable frontend patterns using HTML, CSS, JavaScript, React-compatible architecture, layout-style-css, ui-style-kit-css, and interactive-surface-css.",
+        "Lead technical scoping, information architecture, implementation planning, documentation, testing, and long-term maintenance strategy.",
         "Translate business needs into clear technical requirements that balance brand control, scalability, performance, accessibility, and maintainability.",
       ],
     },
@@ -56,9 +56,9 @@ const resumeData = {
     {
       id: "css-library-systems",
       name: "CSS Library Systems",
-      subtitle: "Interactive Surface CSS / UI Style Kit CSS",
+      subtitle: "Layout Style CSS / UI Style Kit CSS / Interactive Surface CSS",
       bullets: [
-        "Published reusable CSS systems for accessible interactions, theme palettes, design tokens, and polished interface patterns across static sites and application UIs.",
+        "Published reusable CSS systems for responsive layout primitives, accessible interactions, theme palettes, design tokens, and polished interface patterns across static sites and application UIs.",
       ],
     },
     {
@@ -133,7 +133,7 @@ const resumeData = {
       program: "SMU Coding Bootcamp",
       school: "Southern Methodist University",
       location: "Dallas, TX",
-      dates: "2019",
+      dates: "August 2018 - February 2019",
     },
     {
       id: "tech-talent-south",

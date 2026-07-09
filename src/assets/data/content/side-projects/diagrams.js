@@ -218,6 +218,101 @@ const diagrams = {
     ],
   },
 
+  layoutStyleBundleFlow: {
+    id: "diagram-layout-style-bundle-flow",
+    type: "diagram",
+    title: "UI Bundle Layout Flow",
+    desktop: {
+      diagram: diagram(
+        diagramConfig.FLOWCHART_INIT,
+        `flowchart LR
+
+  Needs[App and Page Needs]
+  subgraph Layout["layout-style-css"]
+    Wrapper[".ly-wrapper"]
+    Section[".ly-section"]
+    Stack[".ly-stack"]
+    Grid[".ly-grid"]
+    Sidebar[".ly-sidebar-layout"]
+  end
+  Paint[ui-style-kit-css Theme Paint]
+  States[interactive-surface-css Interaction States]
+  Output[Responsive STE Interfaces]
+
+  Needs ==> Wrapper
+  Needs ==> Section
+  Wrapper ==> Stack
+  Section ==> Grid
+  Section ==> Sidebar
+  Stack ==> Paint
+  Grid ==> Paint
+  Sidebar ==> Paint
+  Paint ==> States
+  States ==> Output`
+      ),
+    },
+    mobile: {
+      diagram: diagram(
+        diagramConfig.MOBILE_FLOWCHART_INIT,
+        `flowchart TB
+
+  Needs[App and Page Needs]
+  Layout[layout-style-css Primitives]
+  Paint[ui-style-kit-css Paint]
+  States[interactive-surface-css States]
+  Output[Responsive STE Interfaces]
+
+  Needs ==> Layout ==> Paint ==> States ==> Output`
+      ),
+    },
+    description: [
+      {
+        type: "p",
+        children: [
+          {
+            type: "text",
+            text: "Layout Style CSS sits between page requirements and the visual system. It turns repeated responsive layout work into reusable structure before color and interaction styling are applied.",
+          },
+        ],
+      },
+      {
+        type: "ul",
+        children: [
+          {
+            type: "li",
+            children: [
+              { type: "strong", text: "Structure:" },
+              {
+                type: "text",
+                text: " layout-style-css owns wrappers, sections, stacks, grids, and sidebars.",
+              },
+            ],
+          },
+          {
+            type: "li",
+            children: [
+              { type: "strong", text: "Paint:" },
+              {
+                type: "text",
+                text: " ui-style-kit-css owns theme roles, palette expression, and visual surface treatment.",
+              },
+            ],
+          },
+          {
+            type: "li",
+            children: [
+              { type: "strong", text: "States:" },
+              {
+                type: "text",
+                text: " interactive-surface-css owns hover, focus-visible, active, pressed, and disabled behavior.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
   mernAuthLifecycle: {
     id: "diagram-mern-auth-lifecycle",
     type: "diagram",
@@ -638,207 +733,6 @@ end`
         ],
       },
     ],
-  },
-  encryptionFlow: {
-    id: "enigma-client-encrypt-flow",
-    type: "diagram",
-    title: "Encryption Pipeline",
-    desktop: {
-      diagram: diagram(
-        diagramConfig.FLOWCHART_INIT,
-        `flowchart LR
-
-subgraph Input[User Interaction]
-  Plain[Plaintext Input]
-  Trigger[Encrypt Action]
-  Mode[Mode Resolver]
-  Plain ==> Trigger ==> Mode
-end
-
-subgraph Config[Cipher Configuration]
-  Version[Alphabet Version v1-v9]
-  Magic[Random Magic Number]
-  Mode ==> Version
-  Mode ==> Magic
-end
-
-subgraph Transform[Transformation]
-  Rotate[Position-Aware Character Rotation]
-  Version ==> Rotate
-  Magic ==> Rotate
-end
-
-subgraph Output[Output]
-  Tag[Append Encryption Tag]
-  Cipher[Encrypted Output]
-  Rotate ==> Tag ==> Cipher
-end`
-      ),
-    },
-    mobile: {
-      diagram: diagram(
-        diagramConfig.MOBILE_FLOWCHART_INIT,
-        `flowchart TB
-
-Plain[Plaintext Input]
-Trigger[Encrypt Action]
-Mode[Mode Resolver]
-Version[Alphabet Version v1-v9]
-Magic[Random Magic Number]
-Rotate[Position-Aware Character Rotation]
-Tag[Append Encryption Tag]
-Cipher[Encrypted Output]
-
-Plain ==> Trigger ==> Mode
-Mode ==> Version
-Mode ==> Magic
-Version ==> Rotate
-Magic ==> Rotate
-Rotate ==> Tag ==> Cipher`
-      ),
-    },
-    description: [
-      {
-        type: "p",
-        children: [
-          { type: "text", text: "This diagram shows the " },
-          { type: "strong", children: [{ type: "text", text: "client-side encryption pipeline" }] },
-          {
-            type: "text",
-            text: ": plaintext input is routed through mode resolution, cipher configuration, predictable rotation, and metadata tagging before output is produced.",
-          },
-        ],
-      },
-      {
-        type: "p",
-        children: [
-          {
-            type: "text",
-            text: "All transformation occurs locally in the browser, so the original plaintext never needs to leave the device.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Mode resolution:" },
-              {
-                type: "text",
-                text: " The UI determines that the encryption path should execute and gathers the configuration required for that operation.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Cipher configuration:" },
-              {
-                type: "text",
-                text: " A versioned alphabet and magic number provide the inputs needed to make rotation predictable and reversible.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Self-describing output:" },
-              {
-                type: "text",
-                text: " The final tag carries enough metadata to support automatic decryption later without storing external keys or server-side session state.",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  decryptFlow: {
-    id: "diagram-enigma-decrypt-flow",
-    type: "diagram",
-    title: "Decryption Lifecycle",
-    mobile: {
-      diagram: diagram(
-        diagramConfig.MOBILE_FLOWCHART_INIT,
-        `flowchart TB
-
-Input[Encrypted Input]
-Detect{Detect Encryption Tag}
-Parse[Extract Version + Magic Number]
-Resolve[Resolve Alphabet Set]
-Reverse[Reverse Character Rotation]
-Output[Decrypted Output]
-
-Input ==> Detect ==> Parse ==> Resolve ==> Reverse ==> Output`
-      ),
-      description: [
-        {
-          type: "p",
-          children: [
-            { type: "text", text: "The mobile view focuses on the " },
-            { type: "strong", children: [{ type: "text", text: "decryption path" }] },
-            {
-              type: "text",
-              text: ": detect the tag, extract metadata, resolve the correct alphabet version, and reverse the rotation per character.",
-            },
-          ],
-        },
-      ],
-    },
-    desktop: {
-      diagram: diagram(
-        diagramConfig.SEQUENCE_INIT,
-        `sequenceDiagram
-participant User
-participant UI
-participant Parser
-participant Resolver
-participant Engine
-participant Output
-
-User ->> UI: Paste encrypted text
-UI ->> Parser: Detect encryption tag
-Parser ->> Resolver: Extract version + magic number
-Resolver ->> Engine: Resolve alphabet set
-Engine ->> Engine: Reverse character rotation
-Engine ->> Output: Produce decrypted text
-Output -->> User: Render result`
-      ),
-      description: [
-        {
-          type: "p",
-          children: [
-            { type: "text", text: "This sequence diagram shows how Enigma " },
-            {
-              type: "strong",
-              children: [
-                { type: "text", text: "automatically detects and reverses encrypted input" },
-              ],
-            },
-            {
-              type: "text",
-              text: " using the metadata embedded in the output tag.",
-            },
-          ],
-        },
-        {
-          type: "blockquote",
-          children: [
-            {
-              type: "p",
-              children: [
-                {
-                  type: "text",
-                  text: "Decryption is intentionally frictionless: users do not need to remember which alphabet version or magic number was used during encryption.",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
   },
   domainModel: {
     id: "diagram-domain-model",

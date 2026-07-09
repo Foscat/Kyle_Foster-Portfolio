@@ -4,7 +4,6 @@
  * @module src\pages\SideProjects\SideProjects.deferDiagrams.test
  */
 
-import React from "react";
 import { screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import renderWithProviders from "tests/renderWithProviders";

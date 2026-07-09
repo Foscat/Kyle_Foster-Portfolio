@@ -27,6 +27,9 @@ vi.mock("components/navigation", () => ({
 
 vi.mock("pages/Home", () => ({ default: () => <h1>Home Mock</h1> }));
 vi.mock("pages/CodeStream", () => ({ default: () => <h1>CodeStream Mock</h1> }));
+vi.mock("pages/SandersonTechnologyEnterprises", () => ({
+  default: () => <h1>STE Mock</h1>,
+}));
 vi.mock("pages/SideProjects", () => ({ default: () => <h1>Side Projects Mock</h1> }));
 vi.mock("pages/Hackathon", () => ({ default: () => <h1>Hackathon Mock</h1> }));
 vi.mock("pages/SMU", () => ({ default: () => <h1>SMU Mock</h1> }));
@@ -48,6 +51,15 @@ describe("App routes", () => {
     renderApp();
 
     expect(await screen.findByRole("heading", { name: "Contact Mock" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "NotFound Mock" })).not.toBeInTheDocument();
+  });
+
+  it("renders Sanderson Technology Enterprises for its route", async () => {
+    window.history.pushState({}, "", "/sanderson-technology-enterprises");
+
+    renderApp();
+
+    expect(await screen.findByRole("heading", { name: "STE Mock" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "NotFound Mock" })).not.toBeInTheDocument();
   });
 });

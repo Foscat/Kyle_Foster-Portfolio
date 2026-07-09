@@ -15,6 +15,11 @@ vi.mock("assets/data/pageSummaryMetas", () => ({
   default: {
     Home: { title: "Home Page", description: "Home description", url: "/" },
     Hackathon: { title: "Hackathon Page", description: "Hackathon description", url: "/hackathon" },
+    SandersonTechnologyEnterprises: {
+      title: "STE Page",
+      description: "STE description",
+      url: "/sanderson-technology-enterprises",
+    },
     Smu: { title: "SMU Page", description: "SMU description", url: "/smu" },
     SideProjects: {
       title: "Side Projects Page",
@@ -72,6 +77,14 @@ describe("Head", () => {
     renderHead("/hackathon");
     await waitFor(() => {
       expect(document.title).toBe("Hackathon Page");
+    });
+  });
+
+  it("uses Sanderson Technology Enterprises metadata for its route", async () => {
+    renderHead("/sanderson-technology-enterprises");
+    await waitFor(() => {
+      expect(document.title).toBe("STE Page");
+      expect(getMetaContent('meta[name="description"]')).toBe("STE description");
     });
   });
 

@@ -7,7 +7,6 @@
  * */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import React from "react";
 import { ResponsiveContext } from "./ResponsiveContext";
 import { resolveResponsiveTokensTheme } from "../../../theme/responsiveTokens.themes.js";
 

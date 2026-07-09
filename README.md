@@ -163,7 +163,7 @@ npm run docs:jsdoc:enforce
 - [RSuite 5](https://v5.rsuitejs.com)
 - [Font Awesome](https://fontawesome.com)
 - [Mermaid 11](https://mermaid-js.github.io/mermaid/#/)
-- [Interactive Surface CSS](https://github.com/kylefoster/interactive-surface-css)
+- [Interactive Surface CSS](https://github.com/Foscat/Interactive-Surface-CSS)
 - [ui-style-kit-css](https://www.npmjs.com/package/ui-style-kit-css)
 - [Vitest 4](https://vitest.dev) + [Testing Library](https://testing-library.com)
 - [Playwright](https://playwright.dev)

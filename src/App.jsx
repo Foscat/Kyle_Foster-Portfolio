@@ -14,6 +14,7 @@ import { useThemeFavicon } from "hooks/useThemeFavicon";
 
 const Home = lazy(() => import("pages/Home"));
 const CodeStream = lazy(() => import("pages/CodeStream"));
+const SandersonTechnologyEnterprises = lazy(() => import("pages/SandersonTechnologyEnterprises"));
 const SideProjects = lazy(() => import("pages/SideProjects"));
 const Hackathon = lazy(() => import("pages/Hackathon"));
 const Smu = lazy(() => import("pages/SMU"));
@@ -58,6 +59,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/codestream" element={<CodeStream />} />
+            <Route
+              path="/sanderson-technology-enterprises"
+              element={<SandersonTechnologyEnterprises />}
+            />
             <Route path="/side-projects" element={<SideProjects />} />
             <Route path="/hackathon" element={<Hackathon />} />
             <Route path="/smu" element={<Smu />} />

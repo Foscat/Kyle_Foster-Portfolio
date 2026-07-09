@@ -353,6 +353,164 @@ async function collectContrastFailures(page: Page) {
 }
 
 test.describe("Rendered color contrast", () => {
+  test("keeps dark-mode preference controls on a light foreground path", async ({ page }) => {
+    await page.setViewportSize({ width: 1366, height: 900 });
+    await prepareStyledPage(page, {
+      theme: "dark",
+      palette: "midnight-gold",
+      uiStyle: "cyberpunk",
+    });
+    await page.goto("/");
+    await stabilizePage(page, { theme: "dark" });
+    await syncStyleAttributes(page, "dark", "midnight-gold", "cyberpunk");
+
+    await page
+      .getByRole("button", { name: /open color settings/i })
+      .first()
+      .click();
+    await expect(page.getByRole("dialog", { name: /color settings/i })).toBeVisible();
+
+    const failures = await page.evaluate(
+      ({ palettes, uiStyles }) => {
+        const DARK_SURFACE_LUMINANCE_MAX = 0.35;
+        const LIGHT_FOREGROUND_LUMINANCE_MIN = 0.45;
+        const MIN_TEXT_CONTRAST = 4.5;
+
+        type Rgba = { r: number; g: number; b: number; a: number };
+
+        function parseColor(value: string | null): Rgba | null {
+          if (!value) return null;
+
+          const match = value.match(/^rgba?\(([^)]+)\)$/u);
+          if (!match) return null;
+
+          const [r, g, b, a = "1"] = match[1]
+            .replace(/\//gu, " ")
+            .split(/[,\s]+/u)
+            .filter(Boolean)
+            .map(Number.parseFloat);
+
+          if (![r, g, b].every(Number.isFinite)) return null;
+          return { r, g, b, a: Number.isFinite(a) ? a : 1 };
+        }
+
+        function blend(foreground: Rgba, background: Rgba): Rgba {
+          const alpha = Math.max(0, Math.min(1, foreground.a));
+          return {
+            r: foreground.r * alpha + background.r * (1 - alpha),
+            g: foreground.g * alpha + background.g * (1 - alpha),
+            b: foreground.b * alpha + background.b * (1 - alpha),
+            a: 1,
+          };
+        }
+
+        function linearize(channel: number) {
+          const normalized = channel / 255;
+          return normalized <= 0.04045
+            ? normalized / 12.92
+            : Math.pow((normalized + 0.055) / 1.055, 2.4);
+        }
+
+        function luminance(color: Rgba) {
+          return (
+            0.2126 * linearize(color.r) + 0.7152 * linearize(color.g) + 0.0722 * linearize(color.b)
+          );
+        }
+
+        function contrastRatio(foreground: Rgba, background: Rgba) {
+          const l1 = luminance(foreground);
+          const l2 = luminance(background);
+          return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+        }
+
+        function effectiveBackground(element: Element) {
+          let background: Rgba = { r: 255, g: 255, b: 255, a: 1 };
+          const chain: Element[] = [];
+          let current: Element | null = element;
+
+          while (current) {
+            chain.push(current);
+            current = current.parentElement;
+          }
+
+          for (const node of chain.reverse()) {
+            const color = parseColor(window.getComputedStyle(node).backgroundColor);
+            if (color && color.a > 0) {
+              background = blend(color, background);
+            }
+          }
+
+          return background;
+        }
+
+        function labelFor(element: Element) {
+          const text = (element.textContent || element.getAttribute("aria-label") || "")
+            .replace(/\s+/gu, " ")
+            .trim();
+          return text.slice(0, 80) || element.tagName.toLowerCase();
+        }
+
+        const failures = [];
+
+        for (const uiStyle of uiStyles) {
+          for (const palette of palettes) {
+            document.documentElement.dataset.theme = "dark";
+            document.documentElement.dataset.mode = "dark";
+            document.documentElement.dataset.ui = uiStyle;
+            document.documentElement.dataset.palette = palette;
+            document.body.dataset.mode = "dark";
+            document.body.dataset.ui = uiStyle;
+            document.body.dataset.theme = palette;
+
+            // Force style recalculation before sampling the active theme variables.
+            void document.body.offsetHeight;
+
+            const controls = Array.from(
+              document.querySelectorAll(
+                ".color-modal :is(select.interactive-surface, button.interactive-surface)"
+              )
+            );
+
+            for (const element of controls) {
+              const style = window.getComputedStyle(element);
+              const foreground = parseColor(style.color);
+              const background = effectiveBackground(element);
+              if (!foreground) continue;
+
+              const foregroundLuminance = luminance(blend(foreground, background));
+              const backgroundLuminance = luminance(background);
+              const contrast = contrastRatio(blend(foreground, background), background);
+
+              if (
+                backgroundLuminance < DARK_SURFACE_LUMINANCE_MAX &&
+                (foregroundLuminance < LIGHT_FOREGROUND_LUMINANCE_MIN ||
+                  contrast < MIN_TEXT_CONTRAST)
+              ) {
+                failures.push({
+                  palette,
+                  uiStyle,
+                  control: labelFor(element),
+                  foreground: style.color,
+                  background: `rgb(${Math.round(background.r)}, ${Math.round(
+                    background.g
+                  )}, ${Math.round(background.b)})`,
+                  foregroundLuminance: Number(foregroundLuminance.toFixed(3)),
+                  backgroundLuminance: Number(backgroundLuminance.toFixed(3)),
+                  contrast: Number(contrast.toFixed(2)),
+                });
+              }
+            }
+          }
+        }
+
+        return failures;
+      },
+      { palettes: PALETTE_IDS, uiStyles: UI_STYLES }
+    );
+
+    expect(failures, JSON.stringify(failures, null, 2)).toEqual([]);
+  });
+
   test("keeps semantic app surfaces and controls readable for every palette, UI style, and style-kit mode", async ({
     page,
   }) => {
