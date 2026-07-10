@@ -65,11 +65,11 @@ test.describe("Side Projects links", () => {
     );
     await expect(layoutSection.getByRole("link", { name: /documentation site/i })).toHaveAttribute(
       "href",
-      "https://foscat.github.io/layout-style-css/"
+      "https://foscat.github.io/Layout-Style-CSS/"
     );
     await expect(layoutSection.getByRole("link", { name: /demo site/i })).toHaveAttribute(
       "href",
-      "https://foscat.github.io/layout-style-css/"
+      "https://foscat.github.io/Layout-Style-CSS/"
     );
   });
 

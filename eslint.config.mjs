@@ -82,15 +82,16 @@ export default [
       "unused-imports": unusedImports,
     },
     rules: {
-      // 🔴 MUST be off — JSX usage breaks this rule
+      // JSX component usage is covered by React's JSX usage rule below.
       "no-unused-vars": "off",
 
-      // ✅ JSX-aware replacement
-      "unused-imports/no-unused-imports": "off",
+      // Keep source imports clean without enabling broad unused-variable churn.
+      "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": "off",
 
       // React correctness
       "react/jsx-key": "error",
+      "react/jsx-uses-vars": "error",
       "react/react-in-jsx-scope": "off",
 
       // Accessibility baseline (explicitly enforced in this repo)

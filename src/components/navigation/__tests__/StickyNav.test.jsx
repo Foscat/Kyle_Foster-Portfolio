@@ -102,7 +102,8 @@ describe("StickyNav", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.PROFESSIONAL} />);
 
     expect(screen.getByRole("link", { current: "page" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /professional work/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /codestream studios/i })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /professional work/i })).not.toBeInTheDocument();
   });
 
   // Test to verify that when the menu trigger is activated, the mobile navigation opens and displays the site navigation dialog, ensuring that the StickyNav component correctly handles user interactions to open the mobile navigation menu and provides access to the site navigation options.
@@ -168,6 +169,15 @@ describe("StickyNav", () => {
     resumeTriggers.forEach((trigger) => {
       expect(trigger).not.toHaveAttribute("data-pdf-href");
     });
+  });
+
+  it("includes the top-level STE work route", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    expect(screen.getByRole("link", { name: /ste work/i })).toHaveAttribute(
+      "href",
+      PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES
+    );
   });
 
   it("renders the mobile floating nav trigger in the nav-toggle-btn wrapper", () => {

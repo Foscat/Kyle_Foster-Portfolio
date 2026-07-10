@@ -16,7 +16,6 @@
  * @module tests/components/ErrorBoundary
  */
 
-import React from "react";
 import { screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import ErrorBoundary from "./index";

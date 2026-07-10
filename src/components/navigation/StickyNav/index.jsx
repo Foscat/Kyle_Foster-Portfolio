@@ -6,12 +6,12 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import React from "react";
 import { Nav, Drawer } from "rsuite";
 import { Link, useNavigate } from "react-router-dom";
 import {
   faHome,
   faBriefcase,
+  faBuildingUser,
   faGraduationCap,
   faTrophy,
   faFolderOpen,
@@ -56,8 +56,14 @@ const NAV_ITEMS = [
   {
     id: "ni-professional",
     route: PageRoute.PROFESSIONAL,
-    label: "Professional Work",
+    label: "CodeStream Studios",
     icon: faBriefcase,
+  },
+  {
+    id: "ni-ste-work",
+    route: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
+    label: "STE Work",
+    icon: faBuildingUser,
   },
   { id: "ni-education", route: PageRoute.EDUCATION, label: "Education", icon: faGraduationCap },
   { id: "ni-hackathon", route: PageRoute.HACKATHON, label: "Hackathon", icon: faTrophy },

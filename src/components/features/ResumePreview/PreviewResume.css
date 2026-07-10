@@ -211,6 +211,25 @@ html[data-theme="light"] .resume-preview__viewport {
   color: rgb(34 34 34);
 }
 
+/* Keep the printable resume isolated from app-level surface paint. */
+.resume-preview__paper .resume-document,
+.resume-preview__paper .resume-document__section,
+.resume-preview__paper .resume-document__section-body,
+.resume-preview__paper .resume-document__stack,
+.resume-preview__paper .resume-document__entry,
+.resume-preview__paper .resume-document__skill-group {
+  padding: 0 !important;
+  color: rgb(34 34 34);
+  text-shadow: none;
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
 .resume-document h1,
 .resume-document h2,
 .resume-document h3,

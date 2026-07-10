@@ -334,6 +334,24 @@ a:hover {
   background: transparent;
 }
 
+/* Preference controls sit on dark modal surfaces, so app readable tokens must win over package variant foregrounds. */
+html[data-theme="dark"] :is(.color-modal, .a11y-modal) select.interactive-surface {
+  color: var(--app-kit-control-fg, var(--app-surface-readable-fg)) !important;
+  background: var(--app-surface-control-bg, var(--app-surface-strong-bg)) !important;
+  border-color: var(--app-surface-border-color) !important;
+}
+
+html[data-theme="dark"] :is(.color-modal, .a11y-modal) select.interactive-surface option {
+  color: rgb(var(--primary-darkest-rgb));
+  background: rgb(var(--white-rgb));
+}
+
+html[data-theme="dark"]
+  :is(.color-modal, .a11y-modal)
+  .rs-btn.btn.interactive-surface:is(.secondary, .subtle, .btn-noBG, .noBG) {
+  color: var(--app-kit-control-fg, var(--app-surface-readable-fg)) !important;
+}
+
 section[id],
 .scroll-anchor {
   scroll-margin-top: 120px;

@@ -15,10 +15,9 @@ export const DIAGRAM_ENTRIES = [
   { id: "diagram-hands-free-repair-workflow", route: "/hackathon" },
   { id: "diagram-voice-command-lifecycle", route: "/hackathon" },
   // /side-projects
+  { id: "diagram-layout-style-bundle-flow", route: "/side-projects" },
   { id: "diagram-greenhouse-mental-model", route: "/side-projects" },
   { id: "diagram-greenhouse", route: "/side-projects" },
-  { id: "enigma-client-encrypt-flow", route: "/side-projects" },
-  { id: "diagram-enigma-decrypt-flow", route: "/side-projects" },
   { id: "diagram-domain-model", route: "/side-projects" },
   // /smu
   { id: "diagram-gif-freak-system-flow", route: "/smu" },

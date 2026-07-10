@@ -8,6 +8,7 @@ import codestreamSections from "./codestream";
 import contactSections from "./contact";
 import hackathonSections from "./hackathon";
 import homeSections from "./home";
+import sandersonTechnologyEnterprisesSections from "./sanderson-technology-enterprises";
 import sideProjectsSections from "./side-projects";
 import smuSections from "./smu";
 import docsSections from "./docs";
@@ -18,6 +19,7 @@ export {
   contactSections,
   hackathonSections,
   homeSections,
+  sandersonTechnologyEnterprisesSections,
   sideProjectsSections,
   smuSections,
   docsSections,

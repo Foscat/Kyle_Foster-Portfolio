@@ -5,7 +5,6 @@
  */
 
 import { lazy, Suspense } from "react";
-import React from "react";
 
 /**
  * @name LazyDisplay

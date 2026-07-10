@@ -41,14 +41,19 @@ describe("ui-style compatibility", () => {
     const packageManifest = JSON.parse(readProjectFile("package.json"));
     const packageLock = JSON.parse(readProjectFile("package-lock.json"));
 
-    expect(mainJs).toContain(
-      'import "layout-style-css/all-with-ui-kit-and-interactive-surface.css";'
-    );
-    expect(mainJs).not.toContain('import "interactive-surface-css/interactive-surface.css";');
-    expect(mainJs).not.toContain(
-      'import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";'
-    );
-    expect(mainJs).not.toContain('import "layout-style-css";');
+    const packageStyleImports = [
+      'import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";',
+      'import "interactive-surface-css/interactive-surface.css";',
+      'import "layout-style-css/min.css";',
+    ];
+
+    packageStyleImports.forEach((styleImport) => expect(mainJs).toContain(styleImport));
+    const importPositions = packageStyleImports.map((styleImport) => mainJs.indexOf(styleImport));
+    expect(importPositions).toEqual([...importPositions].sort((left, right) => left - right));
+    expect(mainJs).not.toContain("all-with-ui-kit-and-interactive-surface.css");
+    expect(appJs).not.toContain("ui-style-kit-css");
+    expect(appJs).not.toContain("interactive-surface-css");
+    expect(appJs).not.toContain("layout-style-css");
     expect(mainJs).toContain('import "./App.css";');
     expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "1.1.2");
     expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.0.2");
@@ -62,8 +67,6 @@ describe("ui-style compatibility", () => {
     expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("1.1.2");
     expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.0.2");
     expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.3.0");
-    expect(appJs).not.toContain("interactive-surface-css");
-    expect(appJs).not.toContain("layout-style-css");
     expect(appJs).not.toContain('import "./App.css"');
   });
 

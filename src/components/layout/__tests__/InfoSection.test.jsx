@@ -4,7 +4,6 @@
  * @module src\components\layout\InfoSection\InfoSection.test
  */
 
-import React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { screen } from "@testing-library/react";
 

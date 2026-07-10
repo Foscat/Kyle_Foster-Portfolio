@@ -4,7 +4,6 @@
  * @module src\components\renderers\blocks\RichTextBlock\RichTextBlock.test
  */
 
-import React from "react";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 

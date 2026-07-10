@@ -6,7 +6,6 @@
  */
 
 import { Tooltip, Whisper } from "rsuite";
-import React from "react";
 import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";

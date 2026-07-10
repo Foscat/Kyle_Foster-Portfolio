@@ -69,7 +69,24 @@ export const ROUTE_TEST_MAPPING = Object.freeze({
       },
     ],
     playwright: [
-      { file: "playwright/pages/side-projects.spec.ts", mustInclude: ['route: "/side-projects"'] },
+      {
+        file: "playwright/pages/side-projects.spec.ts",
+        mustInclude: ["route: SIDE_PROJECTS_ROUTE"],
+      },
+    ],
+  },
+  "/sanderson-technology-enterprises": {
+    vitest: [
+      {
+        file: "src/pages/SandersonTechnologyEnterprises/SandersonTechnologyEnterprises.test.jsx",
+        mustInclude: ["pageRoute: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES"],
+      },
+    ],
+    playwright: [
+      {
+        file: "playwright/pages/sanderson-technology-enterprises.spec.ts",
+        mustInclude: ["STE_ROUTE", "toUrl(STE_ROUTE)"],
+      },
     ],
   },
   "/hackathon": {
@@ -93,7 +110,7 @@ export const ROUTE_TEST_MAPPING = Object.freeze({
     vitest: [
       {
         file: "src/pages/__tests__/Contact.test.jsx",
-        mustInclude: ['initialEntries: ["/contact"]'],
+        mustInclude: ["initialEntries: [PageRoute.CONTACT]"],
       },
     ],
     playwright: [
@@ -111,7 +128,7 @@ export const ROUTE_TEST_MAPPING = Object.freeze({
   "/docs": {
     vitest: [{ file: "src/pages/Docs/Docs.test.jsx", mustInclude: ["pageRoute: PageRoute.DOCS"] }],
     playwright: [
-      { file: "playwright/pages/docs.spec.ts", mustInclude: ['route: "/docs"'] },
+      { file: "playwright/pages/docs.spec.ts", mustInclude: ["route: DOCS_ROUTE"] },
       {
         file: "playwright/dev-runtime.smoke.spec.ts",
         mustInclude: ['{ route: "/docs", label: "Docs" }'],

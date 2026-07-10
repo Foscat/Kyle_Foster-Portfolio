@@ -5,7 +5,6 @@
  */
 
 import { FlexboxGrid, Panel } from "rsuite";
-import React from "react";
 import "./styles.css";
 
 /**

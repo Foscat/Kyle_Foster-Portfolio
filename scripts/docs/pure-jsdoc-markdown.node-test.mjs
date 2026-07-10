@@ -24,6 +24,25 @@ test("htmlToMarkdownText converts common JSDoc HTML fragments to Markdown", () =
   assert.equal(containsHtmlElement(markdown), false);
 });
 
+test("htmlToMarkdownText removes unsafe script and style fragments", () => {
+  const payloads = [
+    '<script>alert("xss")</script>',
+    '<style>.hidden{display:none}</style>',
+    "<script",
+    '<script>alert("xss")</script',
+    '<scr<script>alert("xss")</script>ipt>',
+    "<sty<style>.hidden{display:none}</style>le>",
+  ];
+
+  for (const payload of payloads) {
+    const markdown = htmlToMarkdownText(`<p>Safe <strong>content</strong>.</p>${payload}`);
+
+    assert.equal(markdown, "Safe **content**.");
+    assert.doesNotMatch(markdown, /<\s*\/?\s*(script|style)\b/i);
+    assert.equal(containsHtmlElement(markdown), false);
+  }
+});
+
 test("createPureMarkdownFromTemplateData renders API doclets without HTML", () => {
   const markdown = createPureMarkdownFromTemplateData(
     [

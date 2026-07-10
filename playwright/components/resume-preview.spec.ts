@@ -19,6 +19,27 @@ test.describe("ResumePreview", () => {
     await expect(page.getByRole("button", { name: /close/i })).toBeVisible();
   });
 
+  test("keeps document entries readable against the paper surface", async ({ page }) => {
+    await page.goto("/contact");
+    await stabilizePage(page);
+
+    await page.getByRole("button", { name: /preview resume/i }).click();
+
+    const paper = page.locator(".resume-preview__paper");
+    const entry = paper.locator(".resume-document__entry").first();
+    const entryTitle = entry.locator(".resume-document__entry-title").first();
+
+    await expect(paper).toBeVisible();
+    await expect(paper).toHaveCSS("background-color", "rgb(255, 255, 255)");
+    await expect(paper).toHaveCSS("color", "rgb(34, 34, 34)");
+    await expect(entry).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    await expect(entry).toHaveCSS("background-image", "none");
+    await expect(entry).toHaveCSS("box-shadow", "none");
+    await expect(entry).toHaveCSS("border-radius", "0px");
+    await expect(entry).toHaveCSS("padding-top", "0px");
+    await expect(entryTitle).toHaveCSS("color", "rgb(31, 31, 31)");
+  });
+
   test("closes modal via Close button", async ({ page }) => {
     await page.goto("/contact");
     await stabilizePage(page);
