@@ -35,7 +35,8 @@ test("npm package pages are confirmed through the registry after anti-bot respon
   const requests = [];
   const fetchImpl = async (url, options) => {
     requests.push({ url, method: options.method });
-    return { status: url.includes("registry.npmjs.org") ? 200 : 403 };
+    const parsedUrl = new URL(url);
+    return { status: parsedUrl.hostname === "registry.npmjs.org" ? 200 : 403 };
   };
 
   assert.equal(
