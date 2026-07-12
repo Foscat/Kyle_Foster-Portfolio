@@ -1,13 +1,14 @@
 # Feature Components Reference
 
 - Aggregate reference: [components.md](../../../components.md)
-- Generated docs in this folder: 22
+- Generated docs in this folder: 23
 
 ## Modules
 
 - [indexComponent.md](./indexComponent.md) - `src/components/features/index.js`
 - [srcComponentsFeaturesAccessibilitymenuIndexComponent.md](./srcComponentsFeaturesAccessibilitymenuIndexComponent.md) - `src/components/features/AccessibilityMenu/index.jsx`
 - [srcComponentsFeaturesColormenuIndexComponent.md](./srcComponentsFeaturesColormenuIndexComponent.md) - `src/components/features/ColorMenu/index.jsx`
+- [srcComponentsFeaturesLayoutstyletoggleIndexComponent.md](./srcComponentsFeaturesLayoutstyletoggleIndexComponent.md) - `src/components/features/LayoutStyleToggle/index.jsx`
 - [srcComponentsFeaturesPalettetoggleIndexComponent.md](./srcComponentsFeaturesPalettetoggleIndexComponent.md) - `src/components/features/PaletteToggle/index.jsx`
 - [indexPreviewComponent.md](./indexPreviewComponent.md) - `src/components/features/ResumePreview/index-preview.jsx`
 - [srcComponentsFeaturesResumepreviewIndexComponent.md](./srcComponentsFeaturesResumepreviewIndexComponent.md) - `src/components/features/ResumePreview/index.jsx`

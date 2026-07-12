@@ -14,7 +14,11 @@ vi.mock("components/ui", async () => {
   const actual = await vi.importActual("components/ui");
   return {
     ...actual,
-    Btn: ({ href, text }) => <a href={href}>{text}</a>,
+    Btn: ({ href, text, target, rel }) => (
+      <a href={href} target={target} rel={rel}>
+        {text}
+      </a>
+    ),
   };
 });
 
@@ -87,6 +91,28 @@ describe("LinksBlock", () => {
       "href",
       "https://example.com"
     );
+  });
+
+  it("opens external links safely unless the content opts into the current tab", () => {
+    renderWithProviders(
+      <LinksBlock
+        items={[
+          { title: "External", url: "https://example.com" },
+          { title: "Same Tab", url: "https://example.org", target: "_self" },
+          { title: "Internal", url: "/contact", local: true },
+        ]}
+      />
+    );
+
+    expect(screen.getByRole("link", { name: "External" })).toHaveAttribute("target", "_blank");
+    expect(screen.getByRole("link", { name: "External" })).toHaveAttribute(
+      "rel",
+      "noopener noreferrer"
+    );
+    expect(screen.getByRole("link", { name: "Same Tab" })).toHaveAttribute("target", "_self");
+    expect(screen.getByRole("link", { name: "Same Tab" })).not.toHaveAttribute("rel");
+    expect(screen.getByRole("link", { name: "Internal" })).not.toHaveAttribute("target");
+    expect(screen.getByRole("link", { name: "Internal" })).not.toHaveAttribute("rel");
   });
 
   it("skips malformed link items without a URL", () => {
@@ -170,7 +196,9 @@ describe("LinksBlock", () => {
     const trigger = screen.getByTestId("resume-preview-trigger");
     expect(trigger).toHaveTextContent("View Resume");
     const downloadName = trigger.getAttribute("data-download-name") || "";
-    expect(downloadName).toMatch(/^Kyle-Foster-Senior-Developer-Resume-light-[a-z0-9-]+\.pdf$/);
+    expect(downloadName).toMatch(
+      /^Kyle-Foster-Senior-React-Frontend-Engineer-Resume-light-[a-z0-9-]+\.pdf$/
+    );
     expect(trigger).not.toHaveAttribute("data-pdf-href");
     expect(trigger).toHaveClass("links-block-item");
   });
@@ -192,7 +220,7 @@ describe("LinksBlock", () => {
     const trigger = screen.getByTestId("resume-preview-trigger");
     expect(trigger).not.toHaveAttribute("data-pdf-href");
     expect(trigger.getAttribute("data-download-name") || "").toMatch(
-      /^Kyle-Foster-Senior-Developer-Resume-dark-[a-z0-9-]+\.pdf$/
+      /^Kyle-Foster-Senior-React-Frontend-Engineer-Resume-dark-[a-z0-9-]+\.pdf$/
     );
   });
 });

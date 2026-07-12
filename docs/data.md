@@ -15,9 +15,67 @@ Lightweight page metadata used for SEO and page chrome.
 This file intentionally excludes heavy section payloads so it can be
 imported globally without pulling all route content into the initial bundle.
 
+### seoSummary()
+
+Reuse canonical SEO copy without coupling page chrome to build tooling.
+
+**Parameters**
+
+- `path` (`string`) - Registered application route.
+
+**Returns**
+
+- `Object` - Shared SEO summary.
+
 ## assets/data/projectMetas
 
 Static registry of project metadata for portfolio cards and detail surfaces.
+
+## assets/data/seoRouteRegistry
+
+Pure route-level SEO registry shared by React and build tooling.
+
+### SEO\_ROUTE\_REGISTRY
+
+Route metadata used by the runtime head manager, static HTML generator, and sitemap.
+The pathname key and the entry's `path` must remain identical.
+
+### normalizePathname()
+
+Normalize a route path so runtime and generated metadata use one canonical shape.
+
+**Parameters**
+
+- `pathname` (`string`) - Route path, optionally including a query or hash.
+
+**Returns**
+
+- `string` - Normalized absolute pathname.
+
+### resolveRouteSeo()
+
+Resolve complete metadata for a route and deployment origin.
+
+**Parameters**
+
+- `pathname` (`string`) - Requested route pathname.
+- `origin` (`string`) - Canonical site origin.
+
+**Returns**
+
+- `object` - Resolved metadata with canonical and asset URLs.
+
+### buildStructuredData()
+
+Build the JSON-LD graph shared by runtime and generated route shells.
+
+**Parameters**
+
+- `routeSeo` (`object`) - Metadata returned by {@link resolveRouteSeo}.
+
+**Returns**
+
+- `object` - Schema.org graph for the current route.
 
 ## src\\assets\\data\\content\\diagrams
 
@@ -143,6 +201,10 @@ Home-page diagram block definitions used by section data composition.
 ## src\\assets\\data\\content\\home\\index
 
 src\assets\data\content\home\index module.
+
+## assets/data/content/sanderson-technology-enterprises
+
+Public-safe case study content for Sanderson Technology Enterprises work.
 
 ## src\\assets\\data\\content\\side-projects\\diagrams
 

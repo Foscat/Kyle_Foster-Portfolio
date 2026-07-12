@@ -34,5 +34,32 @@ services:
         value: public, max-age=0, must-revalidate
     routes:
       - type: rewrite
-        source: /*
+        source: /
         destination: /index.html
+      - type: rewrite
+        source: /codestream
+        destination: /codestream/index.html
+      - type: rewrite
+        source: /sanderson-technology-enterprises
+        destination: /sanderson-technology-enterprises/index.html
+      - type: rewrite
+        source: /side-projects
+        destination: /side-projects/index.html
+      - type: rewrite
+        source: /hackathon
+        destination: /hackathon/index.html
+      - type: rewrite
+        source: /smu
+        destination: /smu/index.html
+      - type: rewrite
+        source: /contact
+        destination: /contact/index.html
+      - type: rewrite
+        source: /docs
+        destination: /docs/index.html
+      - type: rewrite
+        source: /health
+        destination: /health/index.html
+      - type: rewrite
+        source: /*
+        destination: /404.html

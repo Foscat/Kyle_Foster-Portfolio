@@ -542,7 +542,13 @@ const hackathonSections = [
         id: "focused-collaboration",
         type: BlockType.IMAGE_GALLERY,
         title: "Focused Collaboration",
-        items: [imageObjs.focused],
+        items: [
+          {
+            ...imageObjs.focused,
+            id: "hack_focused_collaboration_img",
+            caption: "Team Reinforce working through the voice-command integration together.",
+          },
+        ],
       },
       diagrams.voiceCommands,
       {
@@ -660,7 +666,7 @@ const hackathonSections = [
             children: [
               {
                 type: "text",
-                text: "I became the sole developer responsible for turning the proof of concept into a production-ready mobile application.",
+                text: "I became the sole developer responsible for developing the proof of concept into a mobile application designed for production constraints.",
               },
             ],
           },
@@ -959,7 +965,7 @@ const hackathonSections = [
         items: [imageObjs.taLogo],
       },
       {
-        id: "outcome-text",
+        id: "tech-assist-outcome-text",
         type: BlockType.RICH_TEXT,
         title: "Outcome",
         icon: faRoute,

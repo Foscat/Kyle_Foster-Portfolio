@@ -60,64 +60,9 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
       {
         type: "p",
         children: [
-          { type: "strong", text: "Architectural intent." },
           {
             type: "text",
-            text: " This hackathon prototype models a voice-driven repair assistant as a closed repair loop rather than a one-time speech demo.",
-          },
-        ],
-      },
-      {
-        type: "p",
-        children: [
-          { type: "strong", text: "Input abstraction layer." },
-          {
-            type: "text",
-            text: " Technician speech becomes the primary control surface, removing the need to touch a screen or keyboard in the middle of a repair task.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Speech is normalized into intent." },
-              {
-                type: "text",
-                text: " Audio is transcribed and interpreted through an NLP stage so free-form commands can map to structured repair actions.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Cloud logic holds repair state." },
-              {
-                type: "text",
-                text: " Lambda functions act as a lightweight orchestration layer that can evaluate prior step context before issuing the next instruction.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Guidance returns to the repair flow." },
-              {
-                type: "text",
-                text: " The system returns spoken instructions so the operator can continue working hands-free and immediately feed the next action back into the same loop.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "Even under hackathon time limits, the design hinted at a scalable event-driven repair assistant for industrial maintenance.",
+            text: "This system-level view shows the complete hands-free repair loop. Technician speech becomes structured intent, AWS Lambda coordinates the current repair state, and the resolver returns spoken guidance. Each physical action feeds the next command back into the same workflow.",
           },
         ],
       },
@@ -168,45 +113,9 @@ Audio -->> Tech: Spoken guidance`
       {
         type: "p",
         children: [
-          { type: "strong", text: "Lifecycle view." },
           {
             type: "text",
-            text: " This diagram isolates the command path itself: capture, transcription, intent extraction, orchestration, and spoken feedback.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Human input remains natural." },
-              {
-                type: "text",
-                text: " The technician never needs to convert repair intent into rigid command syntax up front.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Interpretation and execution are separated." },
-              {
-                type: "text",
-                text: " Speech-to-text and NLP stages handle understanding, while downstream logic focuses on repair-state resolution and response generation.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Output closes the loop." },
-              {
-                type: "text",
-                text: " Audio guidance is not the final step; it directly informs the next technician action and keeps the repair loop moving.",
-              },
-            ],
+            text: "This sequence-level view isolates one command. Voice capture sends audio through speech-to-text and NLP, Lambda requests the current repair step from the instruction engine, and audio output returns the next instruction to the technician.",
           },
         ],
       },

@@ -15,6 +15,7 @@ import {
   faFlagCheckered,
   faKey,
   faLaptopCode,
+  faLayerGroup,
   faLightbulb,
   faSeedling,
   faTowerObservation,
@@ -200,7 +201,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The result was deployable tooling plus reusable patterns that now reduce delivery risk and improve decision quality in production-oriented work.",
+                    text: "The result was working software and reusable patterns that strengthened later architecture and delivery decisions.",
                   },
                 ],
               },
@@ -215,7 +216,7 @@ const sideProjectSections = [
     id: "interactive-surface-css",
     slug: "interactive-surface-css",
     title: "Interactive Surface CSS",
-    icon: faBrush,
+    icon: faLayerGroup,
     isScroller: true,
     blocks: [
       {
@@ -229,7 +230,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Small interaction details are easy to underestimate, but they strongly affect how polished an interface feels. Buttons, cards, icon controls, and other click targets often drift into different hover, focus, and pressed behavior when styled independently.",
+                text: "Small interaction details strongly affect how coherent an interface feels. When buttons, cards, icon controls, and other click targets are styled independently, their hover, focus, pressed, and disabled states tend to drift as an application grows.",
               },
             ],
           },
@@ -238,7 +239,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "That inconsistency creates two problems: the product feels less cohesive, and the codebase is harder to maintain because the same interaction logic is reinvented across components.",
+                text: "That drift makes the product less predictable and forces developers to solve the same interaction problems in multiple components.",
               },
             ],
           },
@@ -275,6 +276,16 @@ const sideProjectSections = [
                   },
                 ],
               },
+              {
+                type: "li",
+                children: [
+                  { type: "strong", text: "Visual state representation:" },
+                  {
+                    type: "text",
+                    text: " each state communicates whether an element is available, focused, selected, pressed, or disabled.",
+                  },
+                ],
+              },
             ],
           },
           {
@@ -283,7 +294,7 @@ const sideProjectSections = [
               { type: "inlineIcon", icon: "🎯" },
               {
                 type: "text",
-                text: "The real problem was not styling one button well. It was creating a reusable interaction model that could scale across an entire interface.",
+                text: "The goal was not to perfect one button. It was to create a reusable interaction model that could remain consistent across an interface.",
               },
             ],
           },
@@ -303,7 +314,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Interactive Surface CSS is a framework-agnostic primitive for surfaces like buttons, cards, and icon controls. Instead of embedding interaction decisions in each component, the package centralizes them in a reusable layer.",
+                text: "Interactive Surface CSS packages the shared behavior of buttons, cards, and icon controls into one reusable primitive. Applications can apply that primitive across different components and products without rebuilding the state model each time.",
               },
             ],
           },
@@ -312,7 +323,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The library standardizes base, hover, focus-visible, active, pressed, toggled, and disabled behavior while staying themeable through CSS custom properties. That lets it adapt to different products without losing consistency.",
+                text: "The library standardizes base, hover, focus-visible, active, pressed, toggled, and disabled behavior while remaining configurable through CSS custom properties. Products can adapt its appearance without changing the underlying interaction contract.",
               },
             ],
           },
@@ -325,7 +336,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Framework agnostic:" },
                   {
                     type: "text",
-                    text: " it can be dropped into different frontend stacks without requiring a component library rewrite.",
+                    text: " Built so that it can be dropped into different frontend stacks without requiring a component library rewrite.",
                   },
                 ],
               },
@@ -335,7 +346,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Token-driven:" },
                   {
                     type: "text",
-                    text: " appearance, motion, focus ring, and depth are controlled through a structured token contract.",
+                    text: " All aspects of appearance, motion, focus ring, and depth are controlled through a structured token contract.",
                   },
                 ],
               },
@@ -345,7 +356,7 @@ const sideProjectSections = [
                   { type: "strong", text: "Accessibility-aware:" },
                   {
                     type: "text",
-                    text: " keyboard focus, reduced motion, high contrast, and icon target sizing were treated as first-class requirements.",
+                    text: " Keyboard focus, reduced motion, high contrast, and icon target sizing are treated as first-class requirements rather than an afterthought.",
                   },
                 ],
               },
@@ -1359,7 +1370,6 @@ const sideProjectSections = [
           },
         ],
       },
-      diagrams.greenhouseAutomation,
       {
         id: "greenhouse-takeaways",
         type: BlockType.CARD_GRID,

@@ -5,41 +5,17 @@
  * @module components/navigation/Head
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import Head from "../Head";
 import renderWithProviders from "tests/renderWithProviders";
-import { waitFor } from "@testing-library/react";
-
-// Mock lightweight page metadata so Head tests remain isolated from route content payloads.
-vi.mock("assets/data/pageSummaryMetas", () => ({
-  default: {
-    Home: { title: "Home Page", description: "Home description", url: "/" },
-    Hackathon: { title: "Hackathon Page", description: "Hackathon description", url: "/hackathon" },
-    SandersonTechnologyEnterprises: {
-      title: "STE Page",
-      description: "STE description",
-      url: "/sanderson-technology-enterprises",
-    },
-    Smu: { title: "SMU Page", description: "SMU description", url: "/smu" },
-    SideProjects: {
-      title: "Side Projects Page",
-      description: "Side projects description",
-      url: "/side-projects",
-    },
-    Codestream: {
-      title: "Codestream Page",
-      description: "Codestream description",
-      url: "/codestream",
-    },
-    Contact: { title: "Contact Page", description: "Contact description", url: "/contact" },
-    Docs: { title: "Docs Page", description: "Docs description", url: "/docs" },
-  },
-}));
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Link } from "react-router-dom";
+import { SEO_ROUTE_REGISTRY } from "assets/data/seoRouteRegistry.js";
 
 // Helper function to render the Head component with a specific route, allowing us to test how the component behaves when different paths are active by manipulating the browser's history state before rendering.
 const renderHead = (path = "/") => {
-  window.history.pushState({}, "", path);
-  return renderWithProviders(<Head />);
+  return renderWithProviders(<Head />, { initialEntries: [path] });
 };
 
 // eslint-disable-next-line testing-library/no-node-access -- <head> meta/JSON-LD has no ARIA role; direct DOM access is the only option
@@ -67,24 +43,30 @@ describe("Head", () => {
     renderHead("/");
 
     await waitFor(() => {
-      expect(document.title).toBe("Home Page");
-      expect(getMetaContent('meta[name="description"]')).toBe("Home description");
-      expect(getMetaContent('meta[property="og:description"]')).toBe("Home description");
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/"].title);
+      expect(getMetaContent('meta[name="description"]')).toBe(SEO_ROUTE_REGISTRY["/"].description);
+      expect(getMetaContent('meta[property="og:description"]')).toBe(
+        SEO_ROUTE_REGISTRY["/"].description
+      );
+      // eslint-disable-next-line testing-library/no-node-access -- direct head query is required for obsolete tag absence
+      expect(document.head.querySelector('meta[name="keywords"]')).toBeNull();
     });
   });
   // Test to verify that when the Head component is rendered with the "/hackathon" route, it sets the document title and Open Graph title meta tag according to the metadata defined for the Hackathon page, ensuring that the component correctly applies the expected metadata for this specific route.
   it("uses Hackathon metadata for /hackathon route", async () => {
     renderHead("/hackathon");
     await waitFor(() => {
-      expect(document.title).toBe("Hackathon Page");
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/hackathon"].title);
     });
   });
 
   it("uses Sanderson Technology Enterprises metadata for its route", async () => {
     renderHead("/sanderson-technology-enterprises");
     await waitFor(() => {
-      expect(document.title).toBe("STE Page");
-      expect(getMetaContent('meta[name="description"]')).toBe("STE description");
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/sanderson-technology-enterprises"].title);
+      expect(getMetaContent('meta[name="description"]')).toBe(
+        SEO_ROUTE_REGISTRY["/sanderson-technology-enterprises"].description
+      );
     });
   });
 
@@ -92,7 +74,7 @@ describe("Head", () => {
   it("uses SMU metadata for /smu route", async () => {
     renderHead("/smu");
     await waitFor(() => {
-      expect(document.title).toBe("SMU Page");
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/smu"].title);
     });
   });
 
@@ -100,7 +82,7 @@ describe("Head", () => {
   it("uses SideProjects metadata for /side-projects route", async () => {
     renderHead("/side-projects");
     await waitFor(() => {
-      expect(document.title).toBe("Side Projects Page");
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/side-projects"].title);
     });
   });
 
@@ -108,7 +90,7 @@ describe("Head", () => {
   it("uses Contact metadata for /contact route", async () => {
     renderHead("/contact");
     await waitFor(() => {
-      expect(document.title).toBe("Contact Page");
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/contact"].title);
     });
   });
 
@@ -164,6 +146,30 @@ describe("Head", () => {
       // eslint-disable-next-line testing-library/no-node-access -- direct head query is required for canonical link assertions
       const canonical = document.head.querySelector('link[rel="canonical"]');
       expect(canonical?.getAttribute("href")).toBe("http://localhost:3000/contact");
+    });
+  });
+
+  it("updates metadata after an in-app router transition without reloading", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(
+      <>
+        <Head />
+        <Link to="/contact">Contact route</Link>
+      </>,
+      { initialEntries: ["/"] }
+    );
+
+    await waitFor(() => {
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/"].title);
+    });
+    await user.click(screen.getByRole("link", { name: "Contact route" }));
+
+    await waitFor(() => {
+      expect(document.title).toBe(SEO_ROUTE_REGISTRY["/contact"].title);
+      // eslint-disable-next-line testing-library/no-node-access -- canonical metadata has no ARIA role
+      expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute("href")).toBe(
+        "http://localhost:3000/contact"
+      );
     });
   });
 });

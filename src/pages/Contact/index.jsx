@@ -100,7 +100,7 @@ export function buildContactRequestPayload(formValue = {}) {
  */
 export default function Contact() {
   const [statusMessage, setStatusMessage] = useState("");
-  const resumeDownloadName = `Kyle-Foster-Senior-Developer-Resume.pdf`;
+  const resumeDownloadName = `Kyle-Foster-Senior-React-Frontend-Engineer-Resume.pdf`;
   const handleContactSubmit = useCallback(async (formValue) => {
     setStatusMessage("Sending message...");
 

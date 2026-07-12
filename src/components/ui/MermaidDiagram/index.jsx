@@ -1279,8 +1279,11 @@ function MermaidDiagram(props) {
           </div>
         </Modal.Body>
       </Modal>
+      {/* Keep structured descriptions inside one stable styling and QA boundary. */}
       {finalDescription && (
-        <RichText className="mermaid-description" text={finalDescription} index={0} />
+        <div className="mermaid-description" role="note" aria-label="Diagram description">
+          <RichText text={finalDescription} index={0} />
+        </div>
       )}
     </Panel>
   );

@@ -329,7 +329,25 @@ const codestreamSections = [
         id: "kf-platform",
         type: BlockType.IMAGE_GALLERY,
         title: "CodeStream Online Studio Platform",
-        items: [imgObj.csos_home, imgObj.csos_profile, imgObj.classrooms],
+        items: [
+          {
+            ...imgObj.csos_home,
+            id: "kf_csos_home_ss",
+            caption:
+              "The platform home page introduces the primary classroom and coding workflows.",
+          },
+          {
+            ...imgObj.csos_profile,
+            id: "kf_csos_profile_ss",
+            caption:
+              "The profile surface gives learners a focused place to review account activity.",
+          },
+          {
+            ...imgObj.classrooms,
+            id: "kf_csos_classrooms_ss",
+            caption: "The classroom dashboard organizes teaching and enrollment responsibilities.",
+          },
+        ],
       },
       {
         id: "kf-pillars",
@@ -953,14 +971,14 @@ const codestreamSections = [
           {
             id: "org-o-flexible-org-model",
             title: "Flexible Organization Model",
-            subtitle: "Flexible organizational model that evolves without structural refactors.",
+            subtitle: "Organization rules can evolve without rewriting the platform hierarchy.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Designed a flexible organizational model capable of evolving without structural refactors.",
+                    text: "Shared organization boundaries kept new roles and program structures compatible with the existing data model.",
                   },
                 ],
               },
@@ -1389,15 +1407,14 @@ const codestreamSections = [
           {
             id: "vc-b-enhanced-learning-experience",
             title: "Enhanced Learning Experience",
-            subtitle:
-              "A consistent progression from lesson → project → feedback that reduces cognitive load.",
+            subtitle: "A predictable lesson-to-feedback path keeps students oriented.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Establishes a consistent progression from lesson → project → feedback.",
+                    text: "Students move from instructions to project work and evaluation without switching between disconnected tools.",
                   },
                 ],
               },
@@ -1794,7 +1811,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Grade updates propagate immediately across classroom views.",
+                    text: "Teachers and students saw saved grade changes reflected across the relevant classroom views.",
                   },
                 ],
               },
@@ -1827,7 +1844,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Students access assignment grades and aggregate performance metrics directly from the Classroom dashboard.",
+                    text: "The Classroom dashboard brings assignment results and overall progress into one student-facing view.",
                   },
                 ],
               },
@@ -1916,15 +1933,14 @@ const codestreamSections = [
           {
             id: "gr-c-classroom-reports",
             title: "Classroom-Level Aggregation",
-            subtitle:
-              "Packages performance and progress data across students and lessons into a unified classroom-level view.",
+            subtitle: "One classroom view summarizes progress across students and lessons.",
             content: [
               {
                 type: "p",
                 children: [
                   {
                     type: "text",
-                    text: "Aggregates performance data across students and lessons into a unified classroom-level view.",
+                    text: "Teachers can review completion, scores, and lesson-level patterns without assembling separate spreadsheets.",
                   },
                 ],
               },
@@ -2776,7 +2792,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Ensures all critical actions pass through traceable, role-enforced API boundaries.",
+                    text: "Critical administrative actions used the same permission checks and logging boundaries as the rest of the platform.",
                   },
                 ],
               },
@@ -2796,7 +2812,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Even the highest privilege operates within system rules.",
+                    text: "Privileged access stayed observable and bounded.",
                   },
                 ],
               },
@@ -2888,7 +2904,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Lifecycle changes should follow the same rules as user actions.",
+                    text: "Administrative lifecycle updates remained inside normal application controls.",
                   },
                 ],
               },
@@ -2968,7 +2984,7 @@ const codestreamSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Even the highest privilege operates within system rules.",
+                    text: "Administrative actions followed the same system rules as everyday workflows.",
                   },
                 ],
               },

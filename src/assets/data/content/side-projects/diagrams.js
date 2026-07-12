@@ -370,7 +370,7 @@ const diagrams = {
           { type: "strong", children: [{ type: "text", text: "refresh-based session path" }] },
           {
             type: "text",
-            text: ", which is a core architectural concept in the template.",
+            text: ", a core architectural concept in the template.",
           },
         ],
       },
@@ -568,167 +568,7 @@ Delay ==> Read`
         children: [
           {
             type: "text",
-            text: "This project treats a Raspberry Pi greenhouse controller as a ",
-          },
-          { type: "strong", text: "predictable closed-loop control system" },
-          {
-            type: "text",
-            text: ", not just a collection of GPIO scripts. Sensor input, policy evaluation, and relay state updates are modeled as explicit phases in a recurring cycle.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Sense." },
-              {
-                type: "text",
-                text: " The controller gathers environmental telemetry from the DHT11 sensor on a recurring interval.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Decide." },
-              {
-                type: "text",
-                text: " Readings are interpreted against a growth-mode configuration so thresholds remain data-driven rather than hardcoded into the loop.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Act." },
-              {
-                type: "text",
-                text: " Relay state is mutated only when the desired outcome differs from the current physical state, which reduces unnecessary switching and stabilizes the environment.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "The important architectural move is separating environmental policy from hardware control so new growing strategies can be added as configuration instead of rewrites.",
-          },
-        ],
-      },
-    ],
-  },
-  greenhouseAutomation: {
-    id: "diagram-greenhouse",
-    type: "diagram",
-    title: "Automation System",
-    mobile: {
-      diagram: diagram(
-        diagramConfig.MOBILE_FLOWCHART_INIT,
-        `flowchart TB
-
-Sensor[DHT11 Sensor] ==> Controller[Control Loop]
-Controller ==> Logic[Threshold Evaluator]
-Logic ==>|Too Hot| Cooling[Enable Cooling]
-Logic ==>|Too Cold| ReduceAir[Reduce Airflow]
-Logic ==>|Humidity Drift| Humidity[Adjust Humidity]
-Logic ==>|Stable| Maintain[Maintain Current State]
-Cooling ==> Sensor
-ReduceAir ==> Sensor
-Humidity ==> Sensor
-Maintain ==> Sensor`
-      ),
-    },
-    desktop: {
-      diagram: diagram(
-        diagramConfig.SEQUENCE_INIT,
-        `sequenceDiagram
-participant Sensor as DHT11 Sensor
-participant ControlLoop as Control Loop
-participant Logic as Threshold Evaluator
-participant Relays as GPIO Relay Board
-participant Devices as Fan / Vent / Humidity Devices
-
-loop Continuous control cycle
-  ControlLoop ->> Sensor: Poll temperature + humidity
-  Sensor -->> ControlLoop: Current readings
-  ControlLoop ->> Logic: Evaluate thresholds
-
-  alt Temperature above target
-    Logic -->> ControlLoop: Cooling required
-    ControlLoop ->> Relays: Enable cooling relays
-    Relays ->> Devices: Increase airflow / cooling
-  else Temperature below target
-    Logic -->> ControlLoop: Reduce airflow
-    ControlLoop ->> Relays: Disable cooling relays
-    Relays ->> Devices: Lower airflow
-  else Humidity outside range
-    Logic -->> ControlLoop: Correct humidity
-    ControlLoop ->> Relays: Toggle humidity device
-    Relays ->> Devices: Apply humidity correction
-  else Stable environment
-    Logic -->> ControlLoop: Hold state
-  end
-end`
-      ),
-    },
-    description: [
-      {
-        type: "p",
-        children: [
-          { type: "strong", text: "Autonomous environmental control." },
-          {
-            type: "text",
-            text: " The greenhouse automation system functions as a continuous regulation loop that senses, evaluates, and actuates without requiring manual intervention after configuration.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Sensing layer." },
-              {
-                type: "text",
-                text: " Temperature and humidity readings provide the raw environmental signal that drives every control decision.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Decision layer." },
-              {
-                type: "text",
-                text: " Threshold logic compares live telemetry to target bands and determines whether cooling, airflow reduction, humidity correction, or no action is appropriate.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Actuation layer." },
-              {
-                type: "text",
-                text: " GPIO-connected relays convert software state changes into physical device control over fans, vents, and humidity hardware.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "The key quality here is not just automation, but predictable automation: every device change is traceable back to the same threshold-evaluation cycle.",
+            text: "The Raspberry Pi runs a closed control loop: read DHT11 climate data, evaluate it against the selected growth-mode configuration, compare the desired and current relay states, apply only necessary hardware changes, then pause briefly before sampling again. Configuration stays separate from GPIO control so growth profiles can change without rewriting the loop.",
           },
         ],
       },
@@ -767,41 +607,7 @@ Encounter ==> Treasure`
         children: [
           {
             type: "text",
-            text: "The campaign system is modeled as a hierarchical domain with clearly bounded aggregates. Each level owns its structural scope while referencing the next narrative layer below it.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Storybook is the aggregate root." },
-              {
-                type: "text",
-                text: " It defines the top-level campaign boundary and coordinates the consistency of acts, rooms, and encounters beneath it.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Narrative layers scale downward cleanly." },
-              {
-                type: "text",
-                text: " Acts contain rooms, rooms contain encounters, and encounters attach tactical context like opponents and treasure without flattening the full story into one structure.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "This domain shape keeps branching narrative content extensible while still giving the data model a clear root and ownership chain.",
+            text: "Storybook is the campaign aggregate root. It contains Acts, which contain Rooms and Encounters; each Encounter references tactical context such as Opponents and Treasure. The hierarchy keeps ownership explicit while allowing a long-running narrative to grow without flattening every relationship into one record.",
           },
         ],
       },

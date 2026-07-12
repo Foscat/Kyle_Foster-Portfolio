@@ -75,10 +75,13 @@ describe("sanderson technology enterprises content", () => {
   });
 
   it("keeps STE metadata aligned with full-time-role positioning", () => {
-    const metadata = JSON.stringify(pageSummaryMetas.SandersonTechnologyEnterprises);
+    const metadata = pageSummaryMetas.SandersonTechnologyEnterprises;
 
-    expect(metadata).toContain("professional STE work");
-    expect(metadata).not.toMatch(/founder|co-founder|creator-owned platform development/iu);
+    expect(metadata.jobTitle).toBe("Senior Developer");
+    expect(metadata.description).toContain("for Sanderson Technology Enterprises");
+    expect(JSON.stringify(metadata)).not.toMatch(
+      /founder|co-founder|creator-owned platform development/iu
+    );
   });
 
   it("links only to public destinations", () => {

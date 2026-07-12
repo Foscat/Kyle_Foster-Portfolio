@@ -8,9 +8,10 @@ import { describe, expect, it } from "vitest";
 import resumeData from "./resumeData.js";
 
 describe("resume data", () => {
-  it("uses the July 2026 accurate developer experience claim", () => {
-    expect(resumeData.summary).toContain("7+ years of experience");
-    expect(resumeData.summary).not.toContain("6+ years of experience");
+  it("uses an evergreen developer experience claim", () => {
+    expect(resumeData.title).toBe("Senior React / Frontend Engineer");
+    expect(resumeData.summary).toContain("building software since 2018");
+    expect(resumeData.summary).not.toMatch(/\d+\+ years/u);
   });
 
   it("keeps the career timeline anchored to the August 2018 start", () => {
@@ -33,5 +34,11 @@ describe("resume data", () => {
     expect(cssLibraryProject?.subtitle).toContain("UI Style Kit CSS");
     expect(cssLibraryProject?.subtitle).toContain("Interactive Surface CSS");
     expect(resumeContent).not.toMatch(/founder|co-founder|my company|owner-operated/iu);
+    expect(
+      resumeData.experience.find(({ id }) => id === "sanderson-technology-enterprises")?.role
+    ).toBe("Senior Developer");
+    expect(resumeData.experience.find(({ id }) => id === "codestream-studios")?.role).toBe(
+      "Senior Frontend Engineer"
+    );
   });
 });
