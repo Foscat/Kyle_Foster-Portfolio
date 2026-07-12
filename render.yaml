@@ -60,6 +60,3 @@ services:
       - type: rewrite
         source: /health
         destination: /health/index.html
-      - type: rewrite
-        source: /*
-        destination: /404.html
