@@ -9,23 +9,32 @@ import { DIAGRAM_ENTRIES } from "./fixtures/diagrams";
 import { waitForMermaidRender } from "./utils/waitForMermaid";
 import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 
-const SAMPLE_ROUTES = ["/codestream", "/side-projects"] as const;
+const DIAGRAM_ROUTES = [...new Set(DIAGRAM_ENTRIES.map(({ route }) => route))];
 
 test.describe("Mermaid diagram theme smoke", () => {
   for (const theme of ["dark", "light"] as const) {
-    test(`sample diagrams render in ${theme} theme`, async ({ page }) => {
-      test.setTimeout(45_000);
+    test(`all diagrams and concise descriptions render in ${theme} theme`, async ({ page }) => {
+      test.setTimeout(120_000);
 
       await page.setViewportSize({ width: 1366, height: 900 });
       await preparePageForStableTests(page, { theme });
 
-      for (const route of SAMPLE_ROUTES) {
-        const entry = DIAGRAM_ENTRIES.find((diagram) => diagram.route === route);
-        expect(entry, `Expected a sample diagram on ${route}`).toBeTruthy();
-
+      for (const route of DIAGRAM_ROUTES) {
         await page.goto(route);
         await stabilizePage(page, { theme });
-        await waitForMermaidRender(page, entry!.id);
+
+        for (const entry of DIAGRAM_ENTRIES.filter((diagram) => diagram.route === route)) {
+          await waitForMermaidRender(page, entry.id);
+          const description = page.locator(`#${entry.id} .mermaid-description`);
+          await expect(description).toBeVisible();
+
+          const wordCount = ((await description.textContent()) || "")
+            .trim()
+            .split(/\s+/u)
+            .filter(Boolean).length;
+          expect(wordCount, `${entry.id} description word count`).toBeGreaterThanOrEqual(30);
+          expect(wordCount, `${entry.id} description word count`).toBeLessThanOrEqual(80);
+        }
       }
     });
   }

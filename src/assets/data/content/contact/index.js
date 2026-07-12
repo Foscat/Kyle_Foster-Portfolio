@@ -22,7 +22,7 @@ const contactSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Email: " },
+                  { type: "text", text: "Primary email: " },
                   {
                     type: "a",
                     text: "fosterkyle6456@gmail.com",
@@ -33,7 +33,7 @@ const contactSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Email: " },
+                  { type: "text", text: "Alternate email: " },
                   {
                     type: "a",
                     text: "foscat4o1k@outlook.com",

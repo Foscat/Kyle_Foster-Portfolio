@@ -8,7 +8,7 @@ Production-focused React portfolio application built around section-driven conte
 - Docs route: [https://kyle-foster.com/docs](https://kyle-foster.com/docs)
 - Health route: [https://kyle-foster.com/health](https://kyle-foster.com/health)
 
-## Current State (June 2026)
+## Current State (July 2026)
 
 - The Color menu now exposes palette, light/dark mode, high-contrast mode, and `ui-style-kit-css` visual style switching from one UI surface.
 - The app supports 10 color palettes and 11 UI styles: Minimal SaaS, Bento, Maximalist, Bauhaus, Tactile, Neumorphism, Retrofuturism, Brutalism, Cyberpunk, Y2K, and Retro Glass.
@@ -34,6 +34,7 @@ The app is organized around declarative page content modules and shared renderer
 - Route composition is centralized in `src/App.jsx`.
 - Runtime palette tokens live in `src/assets/themePalettes.js`; semantic surface/style tokens live in `src/styles/tokens.css`.
 - Generated technical docs are built into `docs/**`.
+- Route metadata and static HTML shells are generated from `src/assets/data/seoRouteRegistry.js`.
 
 Reference docs:
 
@@ -46,6 +47,7 @@ Reference docs:
 
 - `/` - Home
 - `/codestream` - CodeStream case study
+- `/sanderson-technology-enterprises` - Sanderson Technology Enterprises case study
 - `/side-projects` - Side projects overview
 - `/hackathon` - Hackathon projects overview
 - `/smu` - Southern Methodist University case study
@@ -93,6 +95,7 @@ Primary checks:
 npm run lint:all
 npm run quality:route-tests
 npm run quality:bundle-budgets
+npm run seo:check
 npm run test
 npm run quality:check
 ```
@@ -135,6 +138,14 @@ npm run test-ui:a11y
 npm run test-ui:route-budgets
 npm run quality:route-tests
 npm run quality:bundle-budgets
+npm run seo:test
+npm run links:test
+```
+
+Optional live verification (not a blocking CI requirement):
+
+```sh
+npm run links:check
 ```
 
 Diagrams:

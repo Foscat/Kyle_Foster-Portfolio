@@ -62,13 +62,13 @@ const LinksBlock = ({ items = [] }) => {
           if (link?.resumePreview) {
             const safeTheme = typeof theme === "string" ? theme : "auto";
             const safePalette = typeof palette === "string" ? palette : "ocean";
-            const downloadName = `Kyle-Foster-Senior-Developer-Resume-${safeTheme}-${safePalette}.pdf`;
+            const downloadName = `Kyle-Foster-Senior-React-Frontend-Engineer-Resume-${safeTheme}-${safePalette}.pdf`;
 
             return (
               <ResumePreviewTrigger
                 key={link.id || i}
                 buttonText={link.title || "View Resume"}
-                title={link.previewTitle || "Kyle Foster - Senior Developer Resume"}
+                title={link.previewTitle || "Kyle Foster - Senior React / Frontend Engineer Resume"}
                 subtitle={
                   link.previewSubtitle ||
                   "A compact resume preview with PDF-style spacing and download options."
@@ -93,6 +93,9 @@ const LinksBlock = ({ items = [] }) => {
 
           const isExternal = /^https?:\/\//.test(href);
           const isDownload = link?.download;
+          const target = isExternal ? link.target || "_blank" : undefined;
+          // New-tab destinations always receive opener isolation; `_self` is an explicit opt-out.
+          const rel = isExternal && target === "_blank" ? "noopener noreferrer" : undefined;
           return (
             <Btn
               key={link.id || `${href}-${i}`}
@@ -102,8 +105,8 @@ const LinksBlock = ({ items = [] }) => {
               icon={link.icon || faLink}
               size={link.size || Size.MD}
               variant={link.variant || Variant.SECONDARY}
-              target={isExternal ? link.target : undefined}
-              rel={isExternal ? link.rel : undefined}
+              target={target}
+              rel={rel}
               download={isDownload ? link.download : undefined}
               text={link.title || "Open Link"}
               tooltip={link.tooltip}

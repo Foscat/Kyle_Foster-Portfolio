@@ -45,42 +45,7 @@ State ==> Renderer`
         children: [
           {
             type: "text",
-            text: "GIF Freak models a reactive client that consumes a third-party API through an asynchronous request and render cycle.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "UI drives intent." },
-              {
-                type: "text",
-                text: " Search interaction updates client state instead of directly changing the view.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Network access is isolated." },
-              {
-                type: "text",
-                text: " API communication lives behind an async fetch layer, keeping transport concerns separate from rendering concerns.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Rendering is state-driven." },
-              {
-                type: "text",
-                text: " Once the response returns, the state manager becomes the single source of truth for what the interface renders next.",
-              },
-            ],
+            text: "Search Interface input updates the Client State Manager, which sends an Async Fetch Request to the Giphy API. The response returns through the same request layer, updates client state, and drives the Dynamic Render Engine. Read the arrows as one request-and-render cycle rather than direct UI-to-API coupling.",
           },
         ],
       },
@@ -141,42 +106,7 @@ MemeUI ==> Firebase`
         children: [
           {
             type: "text",
-            text: "Stock Memer combines external market data with user-generated content through a layered frontend architecture that separates presentation, state management, and persistence.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "External market data feeds application state." },
-              {
-                type: "text",
-                text: " Stock pricing and related inputs arrive from a third-party API and are normalized into the client state layer.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "State coordinates multiple UI surfaces." },
-              {
-                type: "text",
-                text: " The charting and meme-generation experiences share a common application model instead of each managing disconnected data pipelines.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Persistence is selective." },
-              {
-                type: "text",
-                text: " Firebase stores user-created artifacts and supports continuity between content creation and later retrieval.",
-              },
-            ],
+            text: "Stock Data API and Firebase Database feed the Central State Store, which supplies the Chart Interface. The Meme Generator writes user-created content to Firebase. The diagram separates external market data, application state, persistence, and presentation so each arrow shows which layer owns a read or write.",
           },
         ],
       },
@@ -215,42 +145,7 @@ Aggregate ==> Explanation`
         children: [
           {
             type: "text",
-            text: "The compatibility engine is framed as a staged scoring pipeline that transforms raw survey answers into ranked outcomes and explanatory output.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Normalization makes inputs comparable." },
-              {
-                type: "text",
-                text: " Survey responses are standardized before scoring so heterogeneous answers can participate in the same downstream model.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Feature modeling and weighting remain explicit." },
-              {
-                type: "text",
-                text: " The engine surfaces its scoring stages instead of collapsing them into a black-box function, which makes the logic easier to tune and explain.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Output is both ranked and interpretable." },
-              {
-                type: "text",
-                text: " A ranking resolver determines final ordering while a transparency layer provides reasoning context for the result.",
-              },
-            ],
+            text: "Survey Response Data moves through Normalization, Feature Vector, Weight Matrix, and Compatibility Aggregator stages. The aggregate then feeds both the Ranking Resolver and Transparency Module. Follow the pipeline left to right: inputs become comparable features, receive explicit weights, and produce both an ordered result and its explanation.",
           },
         ],
       },

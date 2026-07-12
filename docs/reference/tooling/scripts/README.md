@@ -1,7 +1,7 @@
 # Scripts Reference
 
 - Aggregate reference: [scripts.md](../../../scripts.md)
-- Generated docs in this folder: 21
+- Generated docs in this folder: 27
 
 ## Modules
 
@@ -24,5 +24,11 @@
 - [renderDiagramPngsScript.md](./renderDiagramPngsScript.md) - `scripts/diagrams/render-diagram-pngs.js`
 - [visualPassLightDiagramsScript.md](./visualPassLightDiagramsScript.md) - `scripts/diagrams/visual-pass-light-diagrams.mjs`
 - [checkBundleBudgetsScript.md](./checkBundleBudgetsScript.md) - `scripts/quality/check-bundle-budgets.mjs`
+- [checkContentLinksScript.md](./checkContentLinksScript.md) - `scripts/quality/check-content-links.mjs`
+- [checkContentLinksNodeTestScript.md](./checkContentLinksNodeTestScript.md) - `scripts/quality/check-content-links.node-test.mjs`
 - [checkRouteTestMappingScript.md](./checkRouteTestMappingScript.md) - `scripts/quality/check-route-test-mapping.mjs`
 - [routeTestMappingConfigScript.md](./routeTestMappingConfigScript.md) - `scripts/quality/route-test-mapping.config.mjs`
+- [checkStaticSeoScript.md](./checkStaticSeoScript.md) - `scripts/seo/check-static-seo.mjs`
+- [generateStaticSeoScript.md](./generateStaticSeoScript.md) - `scripts/seo/generate-static-seo.mjs`
+- [staticSeoScript.md](./staticSeoScript.md) - `scripts/seo/static-seo.mjs`
+- [staticSeoNodeTestScript.md](./staticSeoNodeTestScript.md) - `scripts/seo/static-seo.node-test.mjs`

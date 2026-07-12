@@ -470,7 +470,7 @@ Link item definition
 - `ariaLabel` (`string`, optional) - Screen-reader label.
 - `download` (`boolean`, optional, default: `false`) - Download flag.
 - `tooltip` (`string`, optional) - Hover tooltip text.
-- `target` (`string`, optional) - Anchor target attribute.
+- `target` (`string`, optional) - Anchor target. External links default to `_blank`; use `_self` to opt out.
 - `rel` (`string`, optional) - Relationship attribute.
 
 ### BulletItem

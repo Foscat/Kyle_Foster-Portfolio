@@ -9,6 +9,7 @@ import {
   codestreamSections,
   homeSections,
   hackathonSections,
+  sandersonTechnologyEnterprisesSections,
   sideProjectsSections,
   smuSections,
   contactSections,
@@ -28,6 +29,10 @@ const pageMetas = {
   Hackathon: {
     ...pageSummaryMetas.Hackathon,
     sections: hackathonSections,
+  },
+  SandersonTechnologyEnterprises: {
+    ...pageSummaryMetas.SandersonTechnologyEnterprises,
+    sections: sandersonTechnologyEnterprisesSections,
   },
   SideProjects: {
     ...pageSummaryMetas.SideProjects,

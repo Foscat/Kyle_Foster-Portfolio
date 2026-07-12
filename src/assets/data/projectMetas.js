@@ -35,8 +35,8 @@ export default {
     jobTitle: "Software Engineer",
     timespan: "1 hour",
     tech: ["Node.js", "Express.js", "Nodemailer", "Render"],
-    url: "https://email-microservice-grem.onrender.com",
-    repo: "https://github.com/Foscat/email-microservice",
+    url: "The public service endpoint is no longer available.",
+    repo: "The repository is no longer public.",
   },
   Freelance_2: {
     id: "menOfHan",
@@ -62,7 +62,7 @@ export default {
     id: "hvac",
     title: "Emergency Air Services",
     url: "The site is offline because hosting is no longer active.",
-    repo: "https://github.com/Foscat/HVAC_Site",
+    repo: "The repository is no longer public.",
     description:
       "A business website where customers could review services, browse job-site photos, and quickly find contact details, email links, and social media channels for Emergency Air Service.",
     jobTitle: "MERN Stack Developer",

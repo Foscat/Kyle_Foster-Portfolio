@@ -17,7 +17,6 @@ export const DIAGRAM_ENTRIES = [
   // /side-projects
   { id: "diagram-layout-style-bundle-flow", route: "/side-projects" },
   { id: "diagram-greenhouse-mental-model", route: "/side-projects" },
-  { id: "diagram-greenhouse", route: "/side-projects" },
   { id: "diagram-domain-model", route: "/side-projects" },
   // /smu
   { id: "diagram-gif-freak-system-flow", route: "/smu" },

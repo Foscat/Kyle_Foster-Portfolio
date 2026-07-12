@@ -418,7 +418,7 @@ export const RichTextNodeType = Object.freeze({
  * @property {string} [ariaLabel] - Screen-reader label.
  * @property {boolean} [download=false] - Download flag.
  * @property {string} [tooltip] - Hover tooltip text.
- * @property {string} [target] - Anchor target attribute.
+ * @property {string} [target] - Anchor target. External links default to `_blank`; use `_self` to opt out.
  * @property {string} [rel] - Relationship attribute.
  */
 

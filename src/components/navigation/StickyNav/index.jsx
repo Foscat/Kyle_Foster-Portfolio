@@ -176,8 +176,8 @@ const StickyNav = ({ activePage }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const safeTheme = typeof theme === "string" ? theme : "auto";
   const safePalette = typeof palette === "string" ? palette : "ocean";
-  const resumeDownloadName = `Kyle-Foster-Senior-Developer-Resume-${safeTheme}-${safePalette}.pdf`;
-  const resumePreviewTitle = "Kyle Foster - Senior Developer Resume";
+  const resumeDownloadName = `Kyle-Foster-Senior-React-Frontend-Engineer-Resume-${safeTheme}-${safePalette}.pdf`;
+  const resumePreviewTitle = "Kyle Foster - Senior React / Frontend Engineer Resume";
   const resumePreviewSubtitle =
     "A compact resume preview with PDF-style spacing and download options.";
 

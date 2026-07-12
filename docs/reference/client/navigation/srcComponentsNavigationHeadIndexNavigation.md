@@ -6,34 +6,14 @@
 
 ## components/navigation/Head
 
-Route-aware document metadata manager for SEO and social previews.
+Route-aware document metadata manager backed by the shared SEO registry.
 
 ### module.exports()
 
-**Returns**
-
-- `JSX.Element`
-
-## normalizePathname()
-
-Normalizes a pathname to avoid canonical duplicates caused by trailing slashes.
-
-**Parameters**
-
-- `pathname` (`string`)
+Render canonical, crawler, social, and structured metadata for the current route.
+Static build tooling uses the same registry and structured-data builder so raw HTML
+and hydrated React metadata remain identical.
 
 **Returns**
 
-- `string`
-
-## normalizeKeywords()
-
-Ensures every metadata keyword collection is normalized and stable.
-
-**Parameters**
-
-- `keywords` (`unknown`)
-
-**Returns**
-
-- `Array<string>`
+- `JSX.Element` - Helmet-managed route metadata.

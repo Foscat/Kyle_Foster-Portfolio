@@ -18,7 +18,7 @@ frosted-style panel.
 Displays a responsive image gallery as a collapsible frosted panel.
 
 Key behaviors:
-- Renders a grid of image thumbnails using RSuite FlexboxGrid
+- Renders thumbnails through the `layout-style-css` gallery primitive
 - Each image opens a ClickableImg modal viewer when activated
 - Uses stable React keys, preferring `image.id` when available
 

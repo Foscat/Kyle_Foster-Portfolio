@@ -1,7 +1,7 @@
 # Data and Content Reference
 
 - Aggregate reference: [data.md](../../../data.md)
-- Generated docs in this folder: 20
+- Generated docs in this folder: 22
 
 ## Modules
 
@@ -9,6 +9,7 @@
 - [pageMetasData.md](./pageMetasData.md) - `src/assets/data/pageMetas.js`
 - [pageSummaryMetasData.md](./pageSummaryMetasData.md) - `src/assets/data/pageSummaryMetas.js`
 - [projectMetasData.md](./projectMetasData.md) - `src/assets/data/projectMetas.js`
+- [seoRouteRegistryData.md](./seoRouteRegistryData.md) - `src/assets/data/seoRouteRegistry.js`
 - [diagramsData.md](./diagramsData.md) - `src/assets/data/content/diagrams.js`
 - [srcAssetsDataContentIndexData.md](./srcAssetsDataContentIndexData.md) - `src/assets/data/content/index.js`
 - [portfolioDocsData.md](./portfolioDocsData.md) - `src/assets/data/content/portfolioDocs.js`
@@ -21,6 +22,7 @@
 - [srcAssetsDataContentHackathonIndexData.md](./srcAssetsDataContentHackathonIndexData.md) - `src/assets/data/content/hackathon/index.js`
 - [srcAssetsDataContentHomeDiagramsData.md](./srcAssetsDataContentHomeDiagramsData.md) - `src/assets/data/content/home/diagrams.js`
 - [srcAssetsDataContentHomeIndexData.md](./srcAssetsDataContentHomeIndexData.md) - `src/assets/data/content/home/index.js`
+- [srcAssetsDataContentSandersonTechnologyEnterprisesIndexData.md](./srcAssetsDataContentSandersonTechnologyEnterprisesIndexData.md) - `src/assets/data/content/sanderson-technology-enterprises/index.js`
 - [srcAssetsDataContentSideProjectsDiagramsData.md](./srcAssetsDataContentSideProjectsDiagramsData.md) - `src/assets/data/content/side-projects/diagrams.js`
 - [srcAssetsDataContentSideProjectsIndexData.md](./srcAssetsDataContentSideProjectsIndexData.md) - `src/assets/data/content/side-projects/index.js`
 - [srcAssetsDataContentSmuDiagramsData.md](./srcAssetsDataContentSmuDiagramsData.md) - `src/assets/data/content/smu/diagrams.js`

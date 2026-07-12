@@ -394,4 +394,23 @@ describe("MermaidDiagram (unit)", () => {
     expect(within(dialog).queryByText(/fullscreen title/i)).not.toBeInTheDocument();
     expect(within(dialog).queryByText(/fullscreen description text/i)).not.toBeInTheDocument();
   });
+
+  it("keeps structured description content inside the diagram description boundary", () => {
+    renderWithProviders(
+      <MermaidDiagram
+        diagram="flowchart LR\nA --> B"
+        title="Structured Description"
+        description={[
+          {
+            type: "p",
+            children: [{ type: "text", text: "A concise structured description." }],
+          },
+        ]}
+      />
+    );
+
+    expect(screen.getByRole("note", { name: "Diagram description" })).toContainElement(
+      screen.getByText("A concise structured description.")
+    );
+  });
 });

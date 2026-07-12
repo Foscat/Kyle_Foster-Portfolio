@@ -6,16 +6,16 @@
 
 const resumeData = {
   name: "Kyle Foster",
-  title: "Senior Developer",
+  title: "Senior React / Frontend Engineer",
   location: "Wills Point, TX",
   email: "fosterkyle6456@gmail.com",
   phone: "(469) 410-5286",
   website: "kyle-foster.com",
   github: "github.com/Foscat",
   linkedin: "linkedin.com/in/kylefoster-dev",
-  footer: "Kyle Foster | Senior Developer | kyle-foster.com",
+  footer: "Kyle Foster | Senior React / Frontend Engineer | kyle-foster.com",
   summary:
-    "Senior Developer with 7+ years of experience building React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessible interfaces, and maintainable product delivery across education platforms, custom business systems, admin dashboards, and service-based web products.",
+    "Senior React / Frontend Engineer building software since 2018 across React applications, browser-based tools, role-based product systems, and custom web platforms. Strong in frontend architecture, reusable UI systems, responsive design, accessible interfaces, and maintainable product delivery for education platforms, custom business systems, admin dashboards, and service-based web products.",
 
   experience: [
     {

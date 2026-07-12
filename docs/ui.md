@@ -386,7 +386,7 @@ InsightCard and CardGrid components for displaying key insights in a visually en
 
 ### CardGrid
 
-A grid layout component for displaying multiple InsightCards. It uses CSS Grid to create a responsive layout based on the specified number of columns.
+A grid layout component for displaying multiple InsightCards. It uses the `layout-style-css` card-grid primitive with component-level sizing variables.
 
 **Parameters**
 
@@ -414,7 +414,7 @@ Accessibility:
 
 Design notes:
 - The `columns` prop allows for flexible layout configurations, enabling different numbers of cards per row based on design needs.
-- The grid uses consistent spacing and alignment to create a cohesive visual presentation of the insights.
+- The grid delegates layout behavior to `layout-style-css` while preserving card count and column sizing variables for app-specific tuning.
 ```
 
 ### InsightCard

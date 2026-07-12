@@ -66,6 +66,12 @@ Supported ui-style-kit-css visual systems.
 
 - Type: `"minimal-saas" | "bento" | "maximalist" | "bauhaus" | "tactile" | "neumorphism" | "retrofuturism" | "brutalism" | "cyberpunk" | "y2k" | "retro-glass"`
 
+### LayoutStyle
+
+Supported layout-style-css spatial systems.
+
+- Type: `"minimal-saas" | "bento" | "maximalist" | "bauhaus" | "tactile" | "neumorphism" | "retrofuturism" | "brutalism" | "cyberpunk" | "y2k" | "retro-glass" | "f-pattern" | "z-pattern" | "split-screen" | "mondrian" | "synthwave"`
+
 ### ThemeContextValue
 
 Context value exposed by the ThemeProvider.
@@ -85,3 +91,7 @@ Context value exposed by the ThemeProvider.
 - `setUiStyle` (`function`) - Explicitly set the visual system.
 - `toggleUiStyle` (`function`) - Cycle through available visual systems.
 - `uiStyles` (`Array<UiStyle>`) - Supported visual system identifiers.
+- `layoutStyle` (`LayoutStyle`) - Currently active layout-style-css spatial system.
+- `setLayoutStyle` (`function`) - Explicitly set the spatial system.
+- `toggleLayoutStyle` (`function`) - Cycle through available spatial systems.
+- `layoutStyles` (`Array<LayoutStyle>`) - Supported spatial system identifiers.

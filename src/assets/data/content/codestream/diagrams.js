@@ -80,64 +80,9 @@ Editor ==> Save`
       {
         type: "p",
         children: [
-          { type: "strong", text: "Purpose." },
           {
             type: "text",
-            text: " The editor acts as a browser-native instructional IDE that keeps lesson content, code writing, runtime output, and saving in one contained flow.",
-          },
-        ],
-      },
-      {
-        type: "p",
-        children: [
-          { type: "strong", text: "Authoring model." },
-          {
-            type: "text",
-            text: " Markdown-based lesson content is rendered alongside an Ace-powered editor so students can read, write, and test code without leaving the learning context.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Runtime is routed by project type." },
-              {
-                type: "text",
-                text: " Web projects run in a sandboxed iframe while Python exercises execute through an in-browser runtime, allowing the same workspace to support multiple instructional modes.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Feedback is immediate." },
-              {
-                type: "text",
-                text: " Rendered output and terminal feedback stay adjacent to the editor, reducing context switching and shortening the loop between attempt and correction.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Persistence is explicit." },
-              {
-                type: "text",
-                text: " Saving is treated as a clear user action and writes project state to S3 so work remains available across classrooms, devices, and grading flows.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "The design balances IDE-level capability with classroom needs by isolating runtime paths while preserving a single coherent teaching surface.",
+            text: "The editor keeps lesson content, code, runtime output, and saving in one browser workspace. Web projects run in a sandboxed iframe, Python exercises use an in-browser runtime, and explicit saves persist project state to S3. The split runtime paths support different lesson types without changing the student's core workflow.",
           },
         ],
       },
@@ -208,54 +153,9 @@ ClassroomShell ==> Students`
       {
         type: "p",
         children: [
-          { type: "strong", text: "Purpose." },
           {
             type: "text",
-            text: " The model separates user identity, personal ownership, and institutional access so multi-tenant rules do not mix individual project data.",
-          },
-        ],
-      },
-      {
-        type: "p",
-        children: [
-          { type: "strong", text: "Identity and ownership." },
-          {
-            type: "text",
-            text: " Users exist independently of organizations, which means they can retain personal projects even when their classroom or school access changes.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Licenses govern capability, not identity." },
-              {
-                type: "text",
-                text: " Organizational licenses determine whether classroom tooling is interactive, but they do not erase underlying user or project records.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Expiration degrades safely." },
-              {
-                type: "text",
-                text: " An expired subscription moves institutional work into read-only mode so historical work remains visible without allowing uncontrolled changes.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "Separating identity, ownership, and licensing created a scalable foundation for supporting multiple schools without entangling user data with subscription state.",
+            text: "The model separates user identity, personal projects, organization membership, and licensed classroom access. A license controls institutional capabilities without owning the user record. When access expires, classroom work becomes read-only while personal ownership and historical data remain intact.",
           },
         ],
       },
@@ -328,54 +228,9 @@ Resolver ==> Clone ==> Grade`
       {
         type: "p",
         children: [
-          { type: "strong", text: "Purpose." },
           {
             type: "text",
-            text: " This flow shows how classroom context turns into student project work while keeping behavior predictable for both teachers and students.",
-          },
-        ],
-      },
-      {
-        type: "p",
-        children: [
-          { type: "strong", text: "Role-aware entry." },
-          {
-            type: "text",
-            text: " Both user types enter through the same top-level classroom surface, then split into role-specific lists before converging at a shared dashboard model.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Project startup is predictable." },
-              {
-                type: "text",
-                text: " When a lesson is selected, the resolver either loads prior work or clones a fresh project from the lesson template using the same decision path every time.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Assessment metadata is created with the project." },
-              {
-                type: "text",
-                text: " New student work is initialized alongside grading context so instructional progress and evaluation remain attached from the start.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "The resolver removed friction between instruction and project work by making startup predictable regardless of user role or prior work state.",
+            text: "Teachers and students enter through role-specific classroom lists, then converge on the same dashboard and lesson model. Selecting a lesson sends the student project resolver down one of two paths: load existing work or clone a new template with its grading context attached.",
           },
         ],
       },
@@ -438,54 +293,9 @@ Course ==> Classroom`
       {
         type: "p",
         children: [
-          { type: "strong", text: "Composable curriculum architecture." },
           {
             type: "text",
-            text: " The system models curriculum as a strict hierarchy from organization to lesson, which keeps authoring structure stable while allowing classrooms to consume content without owning it.",
-          },
-        ],
-      },
-      {
-        type: "ul",
-        children: [
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Structure is centralized." },
-              {
-                type: "text",
-                text: " Organizations manage dashboards, courses, units, and lessons in one compositional chain rather than duplicating content into every classroom.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Classroom use is isolated." },
-              {
-                type: "text",
-                text: " Classrooms consume lesson outputs and templates while leaving the source curriculum graph intact, protecting active instruction from structural edits.",
-              },
-            ],
-          },
-          {
-            type: "li",
-            children: [
-              { type: "strong", text: "Templates keep reuse clear." },
-              {
-                type: "text",
-                text: " Lessons can evolve through stable template references and resource attachments instead of changing classroom copies directly.",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "blockquote",
-        children: [
-          {
-            type: "text",
-            text: "This composition model made curriculum reuse practical across organizations while preserving clear boundaries between authoring and live classroom delivery.",
+            text: "Curriculum follows an organization-to-course-to-unit-to-lesson hierarchy. Lessons reference reusable project templates and resources, while classrooms consume the published structure without owning duplicate copies. This keeps authoring centralized and classroom delivery isolated from structural edits.",
           },
         ],
       },
