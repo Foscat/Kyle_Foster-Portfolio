@@ -51,12 +51,16 @@ function getMermaidInstance() {
   return mermaidInstancePromise;
 }
 
-function recoverFromMermaidChunkFailure(error) {
-  const message = error instanceof Error ? error.message : String(error ?? "");
+let mermaidRecoveryRequested = false;
 
-  // Mermaid loads its renderer graph dynamically, so caught import failures must
-  // explicitly enter the same one-time recovery path as global chunk errors.
-  return tryRecoverFromChunkLoadFailure({ payload: { message } });
+function recoverFromMermaidChunkFailure(error) {
+  if (mermaidRecoveryRequested) return false;
+
+  const message = error instanceof Error ? error.message : String(error ?? "");
+  const didRecover = tryRecoverFromChunkLoadFailure({ payload: { message } });
+
+  if (didRecover) mermaidRecoveryRequested = true;
+  return didRecover;
 }
 
 function parseNumericDimension(value) {
