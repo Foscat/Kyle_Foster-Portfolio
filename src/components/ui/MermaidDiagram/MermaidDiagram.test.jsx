@@ -21,6 +21,7 @@ import MermaidDiagram from "components/ui/MermaidDiagram";
 import renderWithProviders from "tests/renderWithProviders";
 
 const mockToPng = vi.fn(() => Promise.resolve("data:image/png;base64,test"));
+const mockTryRecoverFromChunkLoadFailure = vi.fn();
 
 /* ------------------------------------------------------------------
  * Mocks
@@ -47,6 +48,10 @@ vi.mock("html-to-image", () => ({
   toPng: (...args) => mockToPng(...args),
 }));
 
+vi.mock("assets/chunkLoadRecovery.js", () => ({
+  tryRecoverFromChunkLoadFailure: (...args) => mockTryRecoverFromChunkLoadFailure(...args),
+}));
+
 // Canvas stubs - jsdom doesn't implement canvas rendering.
 const mockToDataURL = vi.fn(() => "data:image/png;base64,test");
 const mockFillRect = vi.fn();
@@ -67,6 +72,7 @@ beforeEach(() => {
   mockFillRect.mockClear();
   mockDrawImage.mockClear();
   mockScale.mockClear();
+  mockTryRecoverFromChunkLoadFailure.mockClear();
 
   // Stub HTMLCanvasElement for jsdom (no native canvas support).
   vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(mockContext);
@@ -91,6 +97,26 @@ describe("MermaidDiagram (unit)", () => {
     renderWithProviders(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Test Diagram" />);
 
     expect(screen.getByText("Test Diagram")).toBeInTheDocument();
+  });
+
+  it("requests chunk recovery when Mermaid rendering hits a dynamic module failure", async () => {
+    const moduleError = new TypeError(
+      "Failed to fetch dynamically imported module: https://example.com/assets/mermaid.core.js"
+    );
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    mermaid.render.mockRejectedValueOnce(moduleError);
+
+    try {
+      renderWithProviders(<MermaidDiagram diagram="flowchart LR\nA --> B" title="Recovery Test" />);
+
+      await waitFor(() => {
+        expect(mockTryRecoverFromChunkLoadFailure).toHaveBeenCalledWith({
+          payload: { message: moduleError.message },
+        });
+      });
+    } finally {
+      consoleError.mockRestore();
+    }
   });
 
   it("normalizes rendered svg dimensions without forcing inline upscaling", async () => {
@@ -395,7 +421,7 @@ describe("MermaidDiagram (unit)", () => {
     expect(within(dialog).queryByText(/fullscreen description text/i)).not.toBeInTheDocument();
   });
 
-  it("keeps structured description content inside the diagram description boundary", () => {
+  it("keeps structured description content inside the diagram description boundary", async () => {
     renderWithProviders(
       <MermaidDiagram
         diagram="flowchart LR\nA --> B"
@@ -409,8 +435,13 @@ describe("MermaidDiagram (unit)", () => {
       />
     );
 
-    expect(screen.getByRole("note", { name: "Diagram description" })).toContainElement(
-      screen.getByText("A concise structured description.")
+    // RichText is lazy-loaded, so assert after its suspense boundary resolves.
+    const description = await screen.findByText(
+      "A concise structured description.",
+      {},
+      { timeout: 5000 }
     );
+
+    expect(screen.getByRole("note", { name: "Diagram description" })).toContainElement(description);
   });
 });

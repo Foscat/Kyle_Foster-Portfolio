@@ -12,6 +12,7 @@ import { Size, Theme, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
 import { Btn } from "components/ui";
 import "./Mermaid.css";
+import { tryRecoverFromChunkLoadFailure } from "assets/chunkLoadRecovery.js";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { applyPaletteToDiagramSource } from "./paletteTransform";
@@ -48,6 +49,14 @@ function getMermaidInstance() {
   }
 
   return mermaidInstancePromise;
+}
+
+function recoverFromMermaidChunkFailure(error) {
+  const message = error instanceof Error ? error.message : String(error ?? "");
+
+  // Mermaid loads its renderer graph dynamically, so caught import failures must
+  // explicitly enter the same one-time recovery path as global chunk errors.
+  return tryRecoverFromChunkLoadFailure({ payload: { message } });
 }
 
 function parseNumericDimension(value) {
@@ -1029,7 +1038,9 @@ function MermaidDiagram(props) {
       mermaidInitialized = true;
     }
 
-    initializeMermaid();
+    initializeMermaid().catch((error) => {
+      if (!cancelled) recoverFromMermaidChunkFailure(error);
+    });
 
     return () => {
       cancelled = true;
@@ -1072,6 +1083,7 @@ function MermaidDiagram(props) {
         }, 180);
       } catch (error) {
         if (!cancelled) {
+          recoverFromMermaidChunkFailure(error);
           console.error("Mermaid render failed:", error);
           const pre = document.createElement("pre");
           pre.className = "mermaid-error";
@@ -1105,6 +1117,7 @@ function MermaidDiagram(props) {
         normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
       } catch (error) {
         if (!cancelled) {
+          recoverFromMermaidChunkFailure(error);
           console.error("Mermaid fullscreen render failed:", error);
           const pre = document.createElement("pre");
           pre.className = "mermaid-error";
