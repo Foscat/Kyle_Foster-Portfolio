@@ -12,6 +12,7 @@ import { Size, Theme, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
 import { Btn } from "components/ui";
 import "./Mermaid.css";
+import { tryRecoverFromChunkLoadFailure } from "assets/chunkLoadRecovery.js";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { applyPaletteToDiagramSource } from "./paletteTransform";
@@ -48,6 +49,18 @@ function getMermaidInstance() {
   }
 
   return mermaidInstancePromise;
+}
+
+let mermaidRecoveryRequested = false;
+
+function recoverFromMermaidChunkFailure(error) {
+  if (mermaidRecoveryRequested) return false;
+
+  const message = error instanceof Error ? error.message : String(error ?? "");
+  const didRecover = tryRecoverFromChunkLoadFailure({ payload: { message } });
+
+  if (didRecover) mermaidRecoveryRequested = true;
+  return didRecover;
 }
 
 function parseNumericDimension(value) {
@@ -1029,7 +1042,11 @@ function MermaidDiagram(props) {
       mermaidInitialized = true;
     }
 
-    initializeMermaid();
+    initializeMermaid().catch((error) => {
+      if (cancelled) return;
+      const didRecover = recoverFromMermaidChunkFailure(error);
+      if (!didRecover) console.error("Mermaid initialization failed:", error);
+    });
 
     return () => {
       cancelled = true;
@@ -1072,6 +1089,7 @@ function MermaidDiagram(props) {
         }, 180);
       } catch (error) {
         if (!cancelled) {
+          recoverFromMermaidChunkFailure(error);
           console.error("Mermaid render failed:", error);
           const pre = document.createElement("pre");
           pre.className = "mermaid-error";
@@ -1105,6 +1123,7 @@ function MermaidDiagram(props) {
         normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
       } catch (error) {
         if (!cancelled) {
+          recoverFromMermaidChunkFailure(error);
           console.error("Mermaid fullscreen render failed:", error);
           const pre = document.createElement("pre");
           pre.className = "mermaid-error";
