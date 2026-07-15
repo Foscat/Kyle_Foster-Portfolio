@@ -60,7 +60,3 @@ services:
       - type: rewrite
         source: /health
         destination: /health/index.html
-      # Keep the fallback last so known routes and immutable assets resolve first.
-      - type: rewrite
-        source: /*
-        destination: /404.html

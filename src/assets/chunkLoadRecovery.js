@@ -11,6 +11,7 @@ const DEFAULT_MAX_RELOADS = 2;
 
 const DYNAMIC_IMPORT_FAILURE_PATTERNS = [
   /Failed to fetch dynamically imported module/i,
+  /error loading dynamically imported module/i,
   /Importing a module script failed/i,
   /Loading chunk [\d]+ failed/i,
   /Unable to preload CSS for\s+\/assets\//i,

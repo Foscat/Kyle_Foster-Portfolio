@@ -65,6 +65,14 @@ describe("chunkLoadRecovery", () => {
     ).toBe(true);
   });
 
+  it("detects Firefox dynamic import failure messages", () => {
+    expect(
+      isLikelyChunkLoadFailure({
+        message: "error loading dynamically imported module: https://beta.example.com/assets/ui.js",
+      })
+    ).toBe(true);
+  });
+
   it("detects Vite CSS preload failures from lazy chunks", () => {
     expect(
       isLikelyChunkLoadFailure({

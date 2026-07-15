@@ -101,7 +101,7 @@ describe("MermaidDiagram (unit)", () => {
 
   it("requests chunk recovery when Mermaid rendering hits a dynamic module failure", async () => {
     const moduleError = new TypeError(
-      "Failed to fetch dynamically imported module: https://example.com/assets/mermaid.core.js"
+      "error loading dynamically imported module: https://example.com/assets/mermaid.core.js"
     );
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
     mermaid.render.mockRejectedValueOnce(moduleError);

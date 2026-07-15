@@ -68,7 +68,7 @@ test("source home metadata stays synchronized with the registry", async () => {
   assert.deepEqual(JSON.parse(sourceJsonLd[1]), buildStructuredData(home));
 });
 
-test("Render routes known paths to static shells and unknown paths to the 404 shell", async () => {
+test("Render routes known paths to static shells without rewriting unknown paths", async () => {
   const renderConfig = await readFile(path.resolve("render.yaml"), "utf8");
 
   assert.match(renderConfig, /source: \/\s+destination: \/index\.html/u);
@@ -77,7 +77,7 @@ test("Render routes known paths to static shells and unknown paths to the 404 sh
     assert.ok(renderConfig.includes(`source: ${route.path}`));
     assert.ok(renderConfig.includes(`destination: ${route.path}/index.html`));
   }
-  assert.match(renderConfig, /source: \/\*\s+destination: \/404\.html/u);
+  assert.doesNotMatch(renderConfig, /source: \/\*\s+destination: \/404\.html/u);
 });
 
 test("generateSeoArtifacts creates indexable, health, and noindex fallback shells", async () => {
