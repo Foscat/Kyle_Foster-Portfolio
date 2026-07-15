@@ -1043,7 +1043,9 @@ function MermaidDiagram(props) {
     }
 
     initializeMermaid().catch((error) => {
-      if (!cancelled) recoverFromMermaidChunkFailure(error);
+      if (cancelled) return;
+      const didRecover = recoverFromMermaidChunkFailure(error);
+      if (!didRecover) console.error("Mermaid initialization failed:", error);
     });
 
     return () => {
