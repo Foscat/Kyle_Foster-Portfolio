@@ -29,6 +29,9 @@ import "./styles/rsuite-shell.less";
 import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";
 import "interactive-surface-css/interactive-surface.css";
 import "layout-style-css/min.css";
+// The icon stylesheet and custom element complete the shared STE interface-system contract.
+import "ui-style-kit-icons/css.css";
+import "ui-style-kit-icons/element";
 // App styles compose package tokens into portfolio layout contracts.
 import "./styles/tokens.css";
 import "./App.css";

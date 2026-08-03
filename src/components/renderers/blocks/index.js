@@ -38,6 +38,11 @@ const ImageTextSplitBlock = withLazySuspense(
   "Loading profile highlight...",
   "ImageTextSplitBlock"
 );
+const VideoBlock = withLazySuspense(
+  () => import("./VideoBlock"),
+  "Loading product video...",
+  "VideoBlock"
+);
 const LinksBlock = withLazySuspense(() => import("./LinksBlock"), "Loading links...", "LinksBlock");
 const RichTextBlock = withLazySuspense(
   () => import("./RichTextBlock"),
@@ -55,6 +60,7 @@ const FormBlock = withLazySuspense(() => import("./FormBlock"), "Loading form...
 export {
   ImageGalleryBlock,
   ImageTextSplitBlock,
+  VideoBlock,
   LinksBlock,
   RichTextBlock,
   CardGridBlock,

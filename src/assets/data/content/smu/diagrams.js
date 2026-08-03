@@ -1,7 +1,7 @@
 /**
- * @file src\assets\data\content\smu\diagrams.js
- * @description src\assets\data\content\smu\diagrams module.
- * @module src\assets\data\content\smu\diagrams
+ * @file diagrams.js
+ * @description Product-story diagrams for projects completed through SMU.
+ * @module assets/data/content/smu/diagrams
  */
 
 import {
@@ -13,31 +13,39 @@ const diagrams = {
   gifSystemFlow: {
     id: "diagram-gif-freak-system-flow",
     type: "diagram",
-    title: "GIF Freak – Client/API Architecture",
+    title: "GIF Freak - Search and Render Lifecycle",
     diagram: diagram(
       diagramConfig.FLOWCHART_INIT,
       `flowchart LR
 
-subgraph Client[Client Layer]
-  UI[Search Interface]
-  State[Client State Manager]
-  Renderer[Dynamic Render Engine]
+subgraph Input[Search Input]
+  User([User])
+  Query[Search Query]
+  Valid{Query Valid?}
+  Prompt[Show Input Guidance]
 end
 
-subgraph Network[Network Layer]
+subgraph Request[Request + Transformation]
+  Loading[Set Loading State]
   Fetch[Async Fetch Request]
-end
-
-subgraph External[External Service]
   API[Giphy API]
+  Normalize[Normalize Response]
 end
 
-UI ==> State
-State ==> Fetch
-Fetch ==> API
-API ==> Fetch
-Fetch ==> State
-State ==> Renderer`
+subgraph Result[Result State]
+  Found{Results Found?}
+  Gallery[Render GIF Gallery]
+  Empty[Show Empty State]
+  Failure[Show Request Error]
+end
+
+User ==> Query ==> Valid
+Valid ==>|No| Prompt -. revise query .-> Query
+Valid ==>|Yes| Loading ==> Fetch ==> API
+API ==>|Success| Normalize ==> Found
+API ==>|Failure| Failure -. retry .-> Query
+Found ==>|Yes| Gallery
+Found ==>|No| Empty -. refine search .-> Query`
     ),
     description: [
       {
@@ -45,7 +53,7 @@ State ==> Renderer`
         children: [
           {
             type: "text",
-            text: "Search Interface input updates the Client State Manager, which sends an Async Fetch Request to the Giphy API. The response returns through the same request layer, updates client state, and drives the Dynamic Render Engine. Read the arrows as one request-and-render cycle rather than direct UI-to-API coupling.",
+            text: "GIF Freak treats search as a stateful lifecycle rather than a direct UI-to-API line. The client validates input, exposes loading state, normalizes a successful Giphy response, and gives empty or failed requests explicit recovery paths before rendering the gallery.",
           },
         ],
       },
@@ -54,22 +62,31 @@ State ==> Renderer`
   stockMemerFlow: {
     id: "diagram-stock-memer-architecture",
     type: "diagram",
-    title: "Stock Memer – Multi-Service Architecture",
+    title: "Stock Memer - Market and Meme Flow",
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
 
+User([User])
+Ticker[Stock Symbol Input]
 StockAPI[Stock Data API]
-Firebase[Firebase Database]
+Normalize[Normalize Market Response]
+Market{Market Data Available?}
 AppState[Central State Store]
-ChartUI[Chart Interface]
-MemeUI[Meme Generator]
+Chart[Chart Interface]
+Meme[Meme Composition]
+Valid{Meme Ready to Save?}
+Firebase[(Firebase Database)]
+Saved[Saved Meme Gallery]
+Recovery[Input or Request Guidance]
 
-StockAPI ==> AppState
-Firebase ==> AppState
-AppState ==> ChartUI
-MemeUI ==> Firebase`
+User ==> Ticker ==> StockAPI ==> Normalize ==> Market
+Market ==>|Yes| AppState ==> Chart ==> Meme ==> Valid
+Market ==>|No| Recovery -. retry .-> Ticker
+Valid ==>|Yes| Firebase ==> Saved
+Valid ==>|No| Meme
+Saved -. reopen .-> AppState`
       ),
     },
     desktop: {
@@ -77,27 +94,34 @@ MemeUI ==> Firebase`
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
 
-subgraph External[External Services]
-  StockAPI[Stock Data\n API]
+User([User])
+
+subgraph Market[Market Data]
+  Ticker[Stock Symbol Input]
+  StockAPI[Stock Data API]
+  Normalize[Normalize Market Response]
+  Available{Market Data Available?}
+  Recovery[Input or Request Guidance]
 end
 
-subgraph App[Application State]
-  AppState[Central State\n Store]
+subgraph Application[Application Experience]
+  AppState[Central State Store]
+  Chart[Chart Interface]
+  Meme[Meme Composition]
+  Valid{Meme Ready to Save?}
 end
 
-subgraph Persistence[Persistence]
-  Firebase[Firebase\n Database]
+subgraph Persistence[Saved Content]
+  Firebase[(Firebase Database)]
+  Saved[Saved Meme Gallery]
 end
 
-subgraph Presentation[Presentation Layer]
-  ChartUI[Chart\n Interface]
-  MemeUI[Meme\n Generator]
-end
-
-StockAPI ==> AppState
-Firebase ==> AppState
-AppState ==> ChartUI
-MemeUI ==> Firebase`
+User ==> Ticker ==> StockAPI ==> Normalize ==> Available
+Available ==>|Yes| AppState ==> Chart ==> Meme ==> Valid
+Available ==>|No| Recovery -. retry .-> Ticker
+Valid ==>|Yes| Firebase ==> Saved
+Valid ==>|No| Meme
+Saved -. reopen .-> AppState`
       ),
     },
     description: [
@@ -106,7 +130,7 @@ MemeUI ==> Firebase`
         children: [
           {
             type: "text",
-            text: "Stock Data API and Firebase Database feed the Central State Store, which supplies the Chart Interface. The Meme Generator writes user-created content to Firebase. The diagram separates external market data, application state, persistence, and presentation so each arrow shows which layer owns a read or write.",
+            text: "Stock Memer combines two related flows: market data is validated and normalized for the chart experience, while the resulting context feeds meme composition and persistence. Missing market data returns to the input path, and saved memes can be reopened through the central application state.",
           },
         ],
       },
@@ -120,24 +144,34 @@ MemeUI ==> Firebase`
       diagramConfig.FLOWCHART_INIT,
       `flowchart LR
 
-subgraph Input[Input Domain]
+subgraph Intake[Survey Intake]
   Survey[Survey Response Data]
+  Validate{Required Answers Present?}
+  Missing[Request Missing Answers]
 end
 
 subgraph Engine[Scoring Engine]
-  Normalize[Normalization\n Module]
-  Features[Feature\n Vector Model]
-  Weighting[Weight\n Matrix]
+  Normalize[Normalization Module]
+  Features[Feature Vector Model]
+  Weighting[Weight Matrix]
   Aggregate[Compatibility Aggregator]
+  Threshold{Meets Match Threshold?}
 end
 
-subgraph Output[Output Domain]
-  Ranking[Ranking\n Resolver]
-  Explanation[Transparency\n Module]
+subgraph Output[Transparent Results]
+  Ranking[Ranked Matches]
+  Explanation[Score Explanation]
+  Review[Human Review]
+  Refine[Refine Survey Inputs]
 end
 
-Survey ==> Normalize ==> Features ==> Weighting ==> Aggregate ==> Ranking
-Aggregate ==> Explanation`
+Survey ==> Validate
+Validate ==>|No| Missing -. complete survey .-> Survey
+Validate ==>|Yes| Normalize ==> Features ==> Weighting ==> Aggregate ==> Threshold
+Aggregate ==> Explanation
+Threshold ==>|Yes| Ranking ==> Review
+Threshold ==>|No| Review
+Review -. needs refinement .-> Refine -. update .-> Survey`
     ),
     description: [
       {
@@ -145,7 +179,7 @@ Aggregate ==> Explanation`
         children: [
           {
             type: "text",
-            text: "Survey Response Data moves through Normalization, Feature Vector, Weight Matrix, and Compatibility Aggregator stages. The aggregate then feeds both the Ranking Resolver and Transparency Module. Follow the pipeline left to right: inputs become comparable features, receive explicit weights, and produce both an ordered result and its explanation.",
+            text: "The compatibility engine validates survey completeness before normalizing responses into weighted features. Its aggregate produces both ranked candidates and an explanation, while threshold and human-review paths make weak matches visible and allow the underlying survey inputs to be refined.",
           },
         ],
       },

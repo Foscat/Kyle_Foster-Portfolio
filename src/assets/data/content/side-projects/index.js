@@ -213,6 +213,144 @@ const sideProjectSections = [
   },
 
   {
+    id: "interface-systems-lab",
+    slug: "interface-systems-lab",
+    title: "Interface Systems Lab",
+    icon: faLayerGroup,
+    isScroller: true,
+    blocks: [
+      {
+        id: "interface-systems-lab-text",
+        type: BlockType.RICH_TEXT,
+        icon: faTowerObservation,
+        title: "Combined-System Proof",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Interface Systems Lab is the canonical integration showcase for my three CSS libraries working together as one interface system.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "The lab keeps the libraries coordinated through a shared semantic contract: layout-style-css owns structure, ui-style-kit-css owns theme and visual paint, and interactive-surface-css owns interaction states.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Its interactive workbench demonstrates how shared markup can move through layout, palette, mode, and state changes while preserving each package as an independently useful library.",
+              },
+            ],
+          },
+          {
+            type: "blockquote",
+            children: [
+              {
+                type: "text",
+                text: "The individual package demos can stay library-specific; Interface Systems Lab is the combined-system proof.",
+              },
+            ],
+          },
+        ],
+      },
+      diagrams.interfaceSystemsLabContract,
+      {
+        id: "interface-systems-lab-responsibilities",
+        type: BlockType.CARD_GRID,
+        title: "Package Responsibilities",
+        subtitle: "One semantic contract, three independently useful libraries",
+        items: [
+          {
+            id: "interface-systems-lab-layout",
+            title: "Structure",
+            subtitle: "layout-style-css",
+            icon: faLayerGroup,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Provides the wrapper, section, grid, stack, and sidebar composition primitives used by the workbench.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "interface-systems-lab-paint",
+            title: "Visual Paint",
+            subtitle: "ui-style-kit-css",
+            icon: faBrush,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Provides palette roles, theme modes, and component paint without taking over layout responsibilities.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "interface-systems-lab-states",
+            title: "Interaction States",
+            subtitle: "interactive-surface-css",
+            icon: faArrowsToCircle,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "Provides repeatable hover, focus-visible, pressed, active, and disabled behavior for interactive surfaces.",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: BlockType.LINKS,
+        id: "interface-systems-lab-links",
+        items: [
+          {
+            id: "interface-systems-lab-link-live",
+            title: "View Live Lab",
+            url: "https://foscat.github.io/interface-systems-lab/",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faLaptopCode,
+            ariaLabel: "View Live Lab",
+          },
+          {
+            id: "interface-systems-lab-link-source",
+            title: "View Source Code",
+            url: "https://github.com/Foscat/interface-systems-lab",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faCodeBranch,
+            ariaLabel: "View Interface Systems Lab source code",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
     id: "interactive-surface-css",
     slug: "interactive-surface-css",
     title: "Interactive Surface CSS",
@@ -324,6 +462,15 @@ const sideProjectSections = [
               {
                 type: "text",
                 text: "The library standardizes base, hover, focus-visible, active, pressed, toggled, and disabled behavior while remaining configurable through CSS custom properties. Products can adapt its appearance without changing the underlying interaction contract.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "This section focuses on the standalone interaction library; Interface Systems Lab shows the same behavior composed with the structure and paint libraries.",
               },
             ],
           },
@@ -605,6 +752,15 @@ const sideProjectSections = [
             ],
           },
           {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "This section focuses on the standalone visual-paint library; Interface Systems Lab shows it resolving theme roles alongside the layout and interaction libraries.",
+              },
+            ],
+          },
+          {
             type: "ul",
             children: [
               {
@@ -632,6 +788,7 @@ const sideProjectSections = [
           },
         ],
       },
+      diagrams.uiStyleKitTokenFlow,
       {
         id: "ui-style-kit-gallery",
         type: BlockType.IMAGE_GALLERY,
@@ -763,7 +920,16 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Layout Style CSS packages shell-first layout primitives into layout-style-css@1.1.2. It gives apps reusable classes for wrappers, content regions, sidebars, grids, stacks, clusters, panes, spacing utilities, and layout personalities while leaving color and surface paint to the UI theme layer.",
+                text: "Layout Style CSS packages shell-first layout primitives into a focused npm library. It gives apps reusable classes for wrappers, content regions, sidebars, grids, stacks, clusters, panes, spacing utilities, and layout personalities while leaving color and surface paint to the UI theme layer.",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "This section focuses on the standalone layout library; Interface Systems Lab shows the layout layer composed with the visual-paint and interaction libraries.",
               },
             ],
           },
@@ -776,7 +942,7 @@ const sideProjectSections = [
                   { type: "text", text: "Layout primitives such as " },
                   { type: "strong", text: ".ly-wrapper, .ly-section, .ly-stack, .ly-grid" },
                   { type: "text", text: ", and " },
-                  { type: "strong", text: ".ly-sidebar-layout" },
+                  { type: "strong", text: ".ly-sidebar" },
                   { type: "text", text: " establish reusable page composition." },
                 ],
               },
@@ -933,7 +1099,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "When those pieces are rebuilt in a rush, teams often end up with fragile scaffolding that works for a prototype but fails to establish durable patterns.",
+                text: "I treated the starter as reusable product infrastructure rather than a demo scaffold: routing, API structure, auth lifecycle, build scripts, and deployment assumptions all needed to be present from the start.",
               },
             ],
           },
@@ -1005,7 +1171,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The result is a reusable foundation for dashboards, internal tools, admin systems, and early SaaS concepts where authentication and session behavior need to be present from day one.",
+                text: "The result is a practical foundation for dashboards, internal tools, admin systems, and early SaaS concepts where authentication and session behavior need to be present from day one.",
               },
             ],
           },
@@ -1297,7 +1463,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "An automated, sensor-driven climate control system was built around a Raspberry Pi Zero and Python.",
+                    text: "I built an automated, sensor-driven climate control system around a Raspberry Pi Zero and Python.",
                   },
                 ],
               },
@@ -1355,7 +1521,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Configurable operating profiles define target ranges for different plant growth stages, allowing the greenhouse to transition between vegetative and flowering cycles without manual retuning.",
+                text: "Configurable operating profiles define target ranges for different plant growth stages, keeping the operator role focused on configuration instead of constant manual retuning.",
               },
             ],
           },
@@ -1587,7 +1753,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "A campaign is not just text; it is a structured domain of story arcs, encounters, entities, rewards, and branching paths. Without a formal data model, narrative consistency becomes hard to maintain as complexity grows.",
+                text: "I approached the campaign as a structured domain of story arcs, encounters, entities, rewards, and branching paths. Without a formal data model, narrative consistency becomes hard to maintain as complexity grows.",
               },
             ],
           },
@@ -1865,5 +2031,23 @@ const sideProjectSections = [
     ],
   },
 ];
+
+const sideProjectSectionOrder = [
+  "overview",
+  "interface-systems-lab",
+  "layout-style-css",
+  "ui-style-kit-css",
+  "interactive-surface-css",
+  "mern-template",
+  "greenhouse",
+  "d20",
+];
+
+sideProjectSections.sort(
+  (firstSection, secondSection) =>
+    sideProjectSectionOrder.indexOf(firstSection.id) -
+    sideProjectSectionOrder.indexOf(secondSection.id)
+);
+
 Object.freeze(sideProjectSections);
 export default sideProjectSections;

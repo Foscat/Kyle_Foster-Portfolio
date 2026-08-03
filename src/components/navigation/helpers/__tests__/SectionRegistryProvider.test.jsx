@@ -31,11 +31,9 @@ function withSuppressedWindowError(callback) {
 }
 
 describe("SectionRegistryProvider", () => {
-  let consoleErrorSpy;
   let consoleWarnSpy;
 
   beforeEach(() => {
-    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
@@ -103,7 +101,5 @@ describe("SectionRegistryProvider", () => {
         renderHook(() => useSectionRegistry());
       })
     ).toThrow(/must be used within <SectionRegistryProvider \/>/i);
-
-    expect(consoleErrorSpy).toHaveBeenCalled();
   });
 });

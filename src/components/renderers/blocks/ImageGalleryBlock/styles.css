@@ -2,6 +2,12 @@
   --ly-gallery-min: clamp(14rem, 48%, 24rem);
 }
 
+/* Keep a single preview intrinsic instead of stretching its only grid track. */
+.image-gallery-block-grid[data-image-count="1"] {
+  grid-template-columns: minmax(0, min(100%, var(--ly-gallery-min)));
+  justify-content: center;
+}
+
 .image-gallery-block__item {
   min-width: 0;
 }

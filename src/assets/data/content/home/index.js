@@ -385,6 +385,7 @@ const homeSections = [
           },
         ],
       },
+      diagrams.platformDesign,
       {
         id: "professional-learn-more",
         title: "CodeStream Links",

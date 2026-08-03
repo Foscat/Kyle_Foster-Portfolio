@@ -49,7 +49,16 @@ describe("SEO route registry", () => {
         (route) => route.description.length >= 110 && route.description.length <= 160
       )
     ).toBe(true);
-    expect(indexableRoutes.every((route) => route.lastModified === "2026-07-12")).toBe(true);
+    expect(indexableRoutes.every((route) => route.lastModified === "2026-07-15")).toBe(true);
+    expect(SEO_ROUTE_REGISTRY[PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES].description).toContain(
+      "Content Creator Platform"
+    );
+    expect(SEO_ROUTE_REGISTRY[PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES].description).toContain(
+      "Scrap Yard System"
+    );
+    expect(SEO_ROUTE_REGISTRY[PageRoute.SIDE_PROJECTS].description).toContain(
+      "Interface Systems Lab"
+    );
   });
 
   it("resolves canonical and robots metadata before React renders", () => {

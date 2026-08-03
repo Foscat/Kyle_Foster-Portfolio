@@ -31,7 +31,7 @@ const SUPPORTED_UI_STYLES = Object.freeze([
 const DEFAULT_UI_STYLE = "retro-glass";
 const SUPPORTED_LAYOUT_STYLES = Object.freeze([
   ...SUPPORTED_UI_STYLES,
-  // layout-style-css 1.1.2 keeps spatial-only personalities independent from ui-style-kit-css paint.
+  // Layout Style CSS keeps spatial-only personalities independent from ui-style-kit-css paint.
   "f-pattern",
   "z-pattern",
   "split-screen",
@@ -337,12 +337,14 @@ export function ThemeProvider({ children }) {
     document.documentElement.dataset.palette = palette;
     document.documentElement.dataset.ui = uiStyle;
     document.documentElement.dataset.layout = layoutStyle;
+    document.documentElement.dataset.lyLayout = layoutStyle;
     document.documentElement.setAttribute("layout-style", layoutStyle);
     if (document.body) {
-      // layout-style-css scopes its spatial variables from ly-root and data-layout.
+      // Version 3 scopes personality tokens from ly-root and the data-ly-layout contract.
       document.body.classList.add("ly-root");
       document.body.dataset.ui = uiStyle;
       document.body.dataset.layout = layoutStyle;
+      document.body.dataset.lyLayout = layoutStyle;
       document.body.setAttribute("layout-style", layoutStyle);
       document.body.dataset.theme = palette;
       document.body.dataset.mode = effectiveMode;

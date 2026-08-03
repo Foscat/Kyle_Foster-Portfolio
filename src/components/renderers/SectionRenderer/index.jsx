@@ -17,6 +17,7 @@ import {
   createImageTextSplitBlock,
   createLinkListBlock,
   createRichTextBlock,
+  createVideoBlock,
 } from "types/ui.types";
 import InfoSection from "components/layout/InfoSection";
 import {
@@ -27,6 +28,7 @@ import {
   ImageTextSplitBlock,
   LinksBlock,
   RichTextBlock,
+  VideoBlock,
 } from "components/renderers/blocks";
 import { AccordionList, MermaidDiagram } from "components/ui";
 import "./styles.css";
@@ -522,6 +524,9 @@ const SectionRenderer = ({ section = {}, deferDiagrams = false }) => {
 
               case BlockType.IMAGE_TEXT_SPLIT:
                 return <ImageTextSplitBlock key={blockKey} {...createImageTextSplitBlock(block)} />;
+
+              case BlockType.VIDEO:
+                return <VideoBlock key={blockKey} {...createVideoBlock(block)} />;
 
               case BlockType.LINKS:
                 return <LinksBlock key={blockKey} {...createLinkListBlock(block)} />;

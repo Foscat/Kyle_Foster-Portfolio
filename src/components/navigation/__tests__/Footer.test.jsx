@@ -11,20 +11,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import Footer from "../Footer";
 import renderWithProviders from "tests/renderWithProviders";
 
-// Mock the Btn component from the UI library to simplify testing and focus on the Footer's functionality.
-vi.mock("components/ui", async () => {
-  const actual = await vi.importActual("components/ui");
-
-  return {
-    ...actual,
-    Btn: (props) => (
-      <a href={props.href} aria-label={props["aria-label"] || props.ariaLabel}>
-        {props["aria-label"] || props.ariaLabel}
-      </a>
-    ),
-  };
-});
-
 const copyMock = vi.fn();
 
 // Mock the useClipboard hook to control its behavior during tests, allowing us to verify that the copy function is called with the correct arguments when the phone number is clicked.
@@ -85,7 +71,11 @@ describe("Footer", () => {
 
     renderWithProviders(<Footer />);
 
-    await user.click(screen.getByText(/\(469\) 410-5286/i));
+    const phoneButton = screen.getByRole("button", {
+      name: /copy phone number to clipboard/i,
+    });
+    expect(phoneButton).toHaveTextContent("Contact me at (469) 410-5286");
+    await user.click(phoneButton);
 
     await waitFor(() => {
       expect(copyMock).toHaveBeenCalledWith("4694105286");

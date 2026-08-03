@@ -66,7 +66,8 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
   const navRef = useRef(null);
   const { width, spacing } = useResponsive();
   const SCROLL_OFFSET = parseInt(spacing.section, 10) + 80;
-  const DESKTOP_SECTION_NAV_MIN_WIDTH = 1024;
+  // Reserve the persistent rail for viewports that can support readable content and navigation.
+  const DESKTOP_SECTION_NAV_MIN_WIDTH = 1200;
   const shouldRenderDesktopNav = width >= DESKTOP_SECTION_NAV_MIN_WIDTH;
 
   /* ---------------------------------------------------------------------- */
@@ -475,12 +476,13 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
 
     if (!activeItem) return;
 
-    // Only scroll if the container is scrollable and the active item is out of view
+    // Center the active entry inside the nav itself. Element.scrollIntoView can also
+    // move the document, which causes route content to jump during concurrent renders.
     if (container.scrollHeight > container.clientHeight) {
-      activeItem.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+      const centeredScrollTop =
+        activeItem.offsetTop - container.clientHeight / 2 + activeItem.clientHeight / 2;
+      const maxScrollTop = container.scrollHeight - container.clientHeight;
+      container.scrollTop = Math.min(maxScrollTop, Math.max(0, centeredScrollTop));
     }
   }, [activeLeafId]);
 
@@ -517,19 +519,18 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                 >
                   <div className="section-nav-row">
                     {/* SECTION TITLE → SCROLL */}
-                    <button
+                    <Btn
                       type="button"
-                      className="section-nav-link interactive-surface"
-                      data-surface-variant={sectionActive ? "primary" : "subtle"}
-                      data-surface-level={sectionActive ? "2" : "1"}
-                      aria-current={sectionActive ? "location" : undefined}
+                      text={sectionNavLabel}
+                      className="section-nav-link"
+                      variant={Variant.SUBTLE}
+                      active={sectionActive}
+                      ariaCurrent={sectionActive ? "location" : undefined}
                       onClick={(e) => {
                         e.preventDefault();
                         handleNavigate(section.id);
                       }}
-                    >
-                      {sectionNavLabel}
-                    </button>
+                    />
 
                     {/* CARET → DROPDOWN */}
                     {hasBlocks && (
@@ -538,8 +539,7 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                         size={Size.XS}
                         variant={Variant.SUBTLE}
                         icon={expanded ? faCaretDown : faCaretRight}
-                        className="section-nav-caret interactive-surface"
-                        surfaceLevel="1"
+                        className="section-nav-caret"
                         as="button"
                         ariaExpanded={expanded}
                         ariaLabel={`Toggle ${sectionNavLabel} subsections`}
@@ -566,19 +566,19 @@ const StickySectionNav = ({ sections = [], mode = "desktop", pageUrl = "/", isOp
                             key={`block-${section.id}-${block.id}-${blockIndex}`}
                             data-nav-id={block.id}
                           >
-                            <button
+                            <Btn
                               type="button"
-                              aria-label={`Navigate to subsection ${block.title}`}
-                              className={`sub-section-nav-block interactive-surface ${blockActive ? "is-active" : ""}`}
-                              data-surface-variant={blockActive ? "primary" : "subtle"}
-                              data-surface-level={blockActive ? "2" : "1"}
+                              text={block.title}
+                              ariaLabel={`Navigate to subsection ${block.title}`}
+                              className="sub-section-nav-block"
+                              variant={Variant.SUBTLE}
+                              active={blockActive}
+                              size={Size.SM}
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleNavigate(block.id);
                               }}
-                            >
-                              {block.title}
-                            </button>
+                            />
                           </li>
                         );
                       })}

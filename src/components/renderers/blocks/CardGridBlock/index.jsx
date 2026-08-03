@@ -80,6 +80,7 @@ function CardGridBlock(props) {
             key={item.id}
             title={item.title}
             icon={item.icon}
+            iconName={item.iconName}
             subtitle={item.subtitle}
             variant={item.variant}
             content={item.content}

@@ -62,7 +62,12 @@ const ImageGalleryBlock = (block = {}) => {
       className="blue-tile block scroll-anchor"
       header={title ? <span className="block-header">{title}</span> : undefined}
     >
-      <div className="image-gallery-block-grid ly-gallery" role="list">
+      <div
+        className="image-gallery-block-grid ly-gallery"
+        data-ly-recipe="gallery"
+        data-image-count={validItems.length}
+        role="list"
+      >
         {validItems.map((img, i) => {
           // Prefer a stable image ID; fall back to index-based key.
           const key = img?.id ? `gallery-img-${img.id}` : `gallery-img-${i}`;

@@ -64,6 +64,9 @@ import "./styles.css";
  * @param {TechItem[]} [props.tech]
  *   List of technologies associated with the page or project.
  *
+ * @param {string} [props.techLabel]
+ *   Visible label for the optional technology or focus-area list.
+ *
  * @param {string} [props.className]
  *   Optional additional CSS class names.
  *
@@ -75,8 +78,12 @@ const PageHeader = ({
   timespan = "",
   subTitle = "",
   tech = [],
+  techLabel = "Tech Used",
   className = "",
 }) => {
+  const renderedTechLabel =
+    typeof techLabel === "string" && techLabel.trim() ? techLabel.trim() : "Tech Used";
+
   /**
    * Formats a list of technology items into a human-readable display.
    *
@@ -101,7 +108,11 @@ const PageHeader = ({
       );
     });
 
-    return <p className="tech-used">Tech Used: {techList}</p>;
+    return (
+      <p className="tech-used">
+        {renderedTechLabel}: {techList}
+      </p>
+    );
   };
 
   return (

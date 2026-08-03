@@ -50,12 +50,14 @@ describe("ThemeContext", () => {
     window.localStorage.clear();
     delete document.documentElement.dataset.ui;
     delete document.documentElement.dataset.layout;
+    delete document.documentElement.dataset.lyLayout;
     delete document.documentElement.dataset.theme;
     delete document.documentElement.dataset.mode;
     delete document.documentElement.dataset.palette;
     document.documentElement.removeAttribute("layout-style");
     delete document.body.dataset.ui;
     delete document.body.dataset.layout;
+    delete document.body.dataset.lyLayout;
     delete document.body.dataset.theme;
     delete document.body.dataset.mode;
     document.body.classList.remove("ly-root");
@@ -109,7 +111,9 @@ describe("ThemeContext", () => {
 
     expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
     expect(document.documentElement.dataset.layout).toBe("retro-glass");
+    expect(document.documentElement.dataset.lyLayout).toBe("retro-glass");
     expect(document.body.dataset.layout).toBe("retro-glass");
+    expect(document.body.dataset.lyLayout).toBe("retro-glass");
     expect(document.body.getAttribute("layout-style")).toBe("retro-glass");
     expect(document.body).toHaveClass("ly-root");
 
@@ -117,14 +121,16 @@ describe("ThemeContext", () => {
 
     expect(screen.getByTestId("layout-style-value")).toHaveTextContent("maximalist");
     expect(document.documentElement.dataset.layout).toBe("maximalist");
+    expect(document.documentElement.dataset.lyLayout).toBe("maximalist");
     expect(document.body.dataset.layout).toBe("maximalist");
+    expect(document.body.dataset.lyLayout).toBe("maximalist");
     expect(document.body.getAttribute("layout-style")).toBe("maximalist");
     await waitFor(() => {
       expect(window.localStorage.getItem("portfolio-layout-style")).toBe("maximalist");
     });
   });
 
-  test("exposes layout-style-css 1.1.2 layout styles", async () => {
+  test("exposes layout-style-css 3.0.0 layout styles", async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ThemeContextProbe />);
@@ -137,7 +143,9 @@ describe("ThemeContext", () => {
 
     expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
     expect(document.documentElement.dataset.layout).toBe("synthwave");
+    expect(document.documentElement.dataset.lyLayout).toBe("synthwave");
     expect(document.body.dataset.layout).toBe("synthwave");
+    expect(document.body.dataset.lyLayout).toBe("synthwave");
     expect(document.body.getAttribute("layout-style")).toBe("synthwave");
   });
 

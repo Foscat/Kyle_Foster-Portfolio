@@ -54,6 +54,9 @@ export function createPageTestSuite(config: PageTestConfig) {
       await page.goto(toUrl(config.route));
       await page.waitForLoadState("networkidle");
 
+      // React Router 8 may finish the concurrent initial route transition after network idle.
+      await expect(page.locator("main")).toBeVisible();
+
       await stabilizePage(page, { theme });
 
       await expect(page.locator('[role="banner"]')).toBeVisible();
@@ -85,14 +88,17 @@ export function createPageTestSuite(config: PageTestConfig) {
       await page.goto(toUrl(config.route));
       await page.waitForLoadState("networkidle");
 
+      // React Router 8 may finish the concurrent initial route transition after network idle.
+      await expect(page.locator("main")).toBeVisible();
+
       await stabilizePage(page, { theme });
 
-      const screenshot = await page.screenshot({
+      // The page matcher waits for two stable frames, avoiding transient blank captures
+      // while React finishes compositing long, lazy-rendered case-study routes.
+      await expect(page).toHaveScreenshot({
         animations: "disabled",
         timeout: 120000,
-        mask: [page.locator(".mermaid-container")],
-      });
-      await expect(screenshot).toMatchSnapshot({
+        mask: [page.locator(".mermaid-container:visible")],
         maxDiffPixelRatio: 0.045,
         threshold: 0.2,
       });

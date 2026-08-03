@@ -53,7 +53,9 @@ test.describe("Docs active cards", () => {
 
     const activeCard = block.locator('.markdown-docs-block__jump-button[aria-pressed="true"]');
     await expect(activeCard.first()).toBeVisible();
-    await expect(activeCard.first()).toHaveAttribute("data-surface-variant", "primary");
+    await expect(activeCard.first()).toHaveAttribute("data-surface-variant", "subtle");
+    await expect(activeCard.first()).toHaveClass(/\bis-active\b/u);
+    await expect(activeCard.first()).not.toHaveAttribute("data-surface-level", /.+/u);
 
     // Luminance guards against the screenshot regression where the active title resolved to black.
     const activeTitleColor = await activeCard

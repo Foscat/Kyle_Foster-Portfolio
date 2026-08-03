@@ -51,8 +51,8 @@ const Smu = () => {
           tech={smu.tech}
         />
         <StickyNav activePage={smu.url} />
-        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
-          <main className="page-content app-main ly-content" role="main">
+        <div className="page-layout ly-sidebar">
+          <main className="page-content app-main ly-sidebar__content" role="main">
             {smu.sections.map((sect, i) => {
               return (
                 <SectionRenderer
@@ -63,7 +63,7 @@ const Smu = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar">
+          <aside className="page-sidebar ly-sidebar__side">
             <StickySectionNav pageUrl={smu.url} sections={smu.sections} />
           </aside>
         </div>

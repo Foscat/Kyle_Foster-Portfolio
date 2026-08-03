@@ -202,6 +202,10 @@ Home-page diagram block definitions used by section data composition.
 
 src\assets\data\content\home\index module.
 
+## assets/data/content/sanderson-technology-enterprises/diagrams
+
+Mermaid diagram registry for the Sanderson Technology Enterprises case study.
+
 ## assets/data/content/sanderson-technology-enterprises
 
 Public-safe case study content for Sanderson Technology Enterprises work.

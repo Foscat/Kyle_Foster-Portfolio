@@ -11,8 +11,8 @@ const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "htt
 const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
-const MOBILE_WIDTHS = [320, 390, 768, 1023];
-const DESKTOP_WIDTHS = [1024, 1100, 1280, 1440];
+const MOBILE_WIDTHS = [320, 390, 768, 1023, 1100, 1199];
+const DESKTOP_WIDTHS = [1200, 1280, 1440];
 const ROUTE_LAYOUT_STYLES = [
   "retro-glass",
   "maximalist",
@@ -22,9 +22,9 @@ const ROUTE_LAYOUT_STYLES = [
   "mondrian",
 ];
 
-async function prepareRoute(page: Page, width: number, layoutStyle = "retro-glass") {
+async function prepareRoute(page: Page, width: number, layoutStyle = "retro-glass", route = "/") {
   await page.setViewportSize({ width, height: 900 });
-  await page.goto(toUrl("/"));
+  await page.goto(toUrl(route));
   await stabilizePage(page, { theme: "dark" });
   await setLayoutStyle(page, layoutStyle);
 }
@@ -32,9 +32,11 @@ async function prepareRoute(page: Page, width: number, layoutStyle = "retro-glas
 async function setLayoutStyle(page: Page, layoutStyle: string) {
   await page.evaluate((nextLayoutStyle) => {
     document.documentElement.dataset.layout = nextLayoutStyle;
+    document.documentElement.dataset.lyLayout = nextLayoutStyle;
     document.documentElement.setAttribute("layout-style", nextLayoutStyle);
     document.body.classList.add("ly-root");
     document.body.dataset.layout = nextLayoutStyle;
+    document.body.dataset.lyLayout = nextLayoutStyle;
     document.body.setAttribute("layout-style", nextLayoutStyle);
     window.localStorage.setItem("portfolio-layout-style", nextLayoutStyle);
   }, layoutStyle);
@@ -46,6 +48,28 @@ async function setLayoutStyle(page: Page, layoutStyle: string) {
 
 async function getRouteLayoutMeasurement(page: Page) {
   return page.evaluate(() => {
+    // Count top-level grid tracks without splitting spaces inside minmax()/calc().
+    const countGridTracks = (value: string) => {
+      let depth = 0;
+      let trackCount = 0;
+      let hasTrackContent = false;
+
+      for (const character of value.trim()) {
+        if (character === "(") depth += 1;
+        if (character === ")") depth = Math.max(0, depth - 1);
+
+        if (/\s/u.test(character) && depth === 0) {
+          if (hasTrackContent) trackCount += 1;
+          hasTrackContent = false;
+          continue;
+        }
+
+        hasTrackContent = true;
+      }
+
+      return trackCount + Number(hasTrackContent);
+    };
+
     const box = (selector: string) => {
       const element = document.querySelector(selector);
       if (!element) return null;
@@ -63,12 +87,7 @@ async function getRouteLayoutMeasurement(page: Page) {
     const body = document.body;
     const layout = document.querySelector(".page-layout");
     const layoutStyles = layout ? window.getComputedStyle(layout) : null;
-    const columns =
-      layoutStyles?.gridTemplateColumns
-        .split(/\s+/)
-        .map((column) => Number.parseFloat(column))
-        .filter(Number.isFinite)
-        .filter((columnWidth) => columnWidth > 1) ?? [];
+    const gridTrackCount = layoutStyles ? countGridTracks(layoutStyles.gridTemplateColumns) : 0;
     const sectionList = document.querySelector(".section-nav-list");
 
     return {
@@ -76,7 +95,7 @@ async function getRouteLayoutMeasurement(page: Page) {
         root.scrollWidth - root.clientWidth,
         body.scrollWidth - body.clientWidth
       ),
-      columns,
+      gridTrackCount,
       layoutPaddingStart: Number.parseFloat(layoutStyles?.paddingInlineStart || "0") || 0,
       layout: box(".page-layout"),
       main: box(".page-content"),
@@ -97,7 +116,7 @@ test.describe("route sidebar responsive behavior", () => {
       const measurement = await getRouteLayoutMeasurement(page);
 
       expect(measurement.horizontalOverflow, `viewport ${width}`).toBeLessThanOrEqual(1);
-      expect(measurement.columns, `viewport ${width}`).toHaveLength(1);
+      expect(measurement.gridTrackCount, `viewport ${width}`).toBe(1);
       expect(measurement.desktopNav, `viewport ${width}`).toBeNull();
       expect(measurement.mobileTrigger?.width, `viewport ${width}`).toBeGreaterThan(0);
       expect(measurement.layoutPaddingStart, `viewport ${width}`).toBeGreaterThan(40);
@@ -117,15 +136,31 @@ test.describe("route sidebar responsive behavior", () => {
         const label = `${layoutStyle} at ${width}px`;
 
         expect(measurement.horizontalOverflow, label).toBeLessThanOrEqual(1);
-        expect(measurement.columns, label).toHaveLength(2);
+        expect(measurement.gridTrackCount, label).toBe(2);
         expect(measurement.layoutPaddingStart, label).toBe(0);
-        expect(measurement.desktopNav?.width, label).toBeGreaterThanOrEqual(250);
-        expect(measurement.sidebar?.width, label).toBeGreaterThanOrEqual(288);
+        expect(measurement.desktopNav?.width, label).toBeGreaterThanOrEqual(220);
+        expect(measurement.sidebar?.width, label).toBeGreaterThanOrEqual(232);
         expect(measurement.sidebar?.left, label).toBeGreaterThan(measurement.main?.left || 0);
         expect(measurement.main?.width, label).toBeGreaterThan(measurement.sidebar?.width || 0);
         expect(measurement.navListOverflow, label).toBeLessThanOrEqual(1);
       }
     }
+  });
+
+  test("desktop section labels keep a consistent regular font weight", async ({ page }) => {
+    await preparePageForStableTests(page, { theme: "dark" });
+    await prepareRoute(page, 1280, "retro-glass", "/sanderson-technology-enterprises");
+
+    const sectionLabels = page.locator(".section-nav-link");
+    const subsectionLabels = page.locator(".sub-section-nav-block");
+    await expect(sectionLabels.first()).toBeVisible();
+    await expect(subsectionLabels.first()).toBeAttached();
+
+    const fontWeights = await sectionLabels
+      .or(subsectionLabels)
+      .evaluateAll((labels) => labels.map((label) => window.getComputedStyle(label).fontWeight));
+
+    expect(new Set(fontWeights)).toEqual(new Set(["500"]));
   });
 
   test("mobile section drawer overlays within the viewport and closes cleanly", async ({

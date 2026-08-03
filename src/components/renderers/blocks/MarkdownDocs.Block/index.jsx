@@ -7,6 +7,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Panel } from "rsuite";
 import MarkdownRenderer from "../../MarkdownRenderer";
+import Btn from "components/ui/Btn";
+import { Variant } from "types/ui.types";
 import {
   getPortfolioDocs,
   getPortfolioDocsByCriteria,
@@ -111,25 +113,23 @@ export default function MarkdownDocsBlock({ block }) {
       {showDocJumpList && docs.length > 1 ? (
         <nav className="markdown-docs-block__jump-list" aria-label="Documents">
           {docs.map((doc) => {
-            // interactive-surface-css 1.3 owns variant paint through data-surface-variant.
             const isActiveDoc = doc.slug === activeDocSlug;
-            const surfaceVariant = isActiveDoc ? "primary" : "subtle";
 
             return usesSingleDocMode ? (
-              <button
+              <Btn
                 key={doc.slug}
                 type="button"
                 aria-pressed={isActiveDoc}
-                className="markdown-docs-block__jump-link markdown-docs-block__jump-button interactive-surface"
-                data-surface-variant={surfaceVariant}
-                data-surface-level={isActiveDoc ? "2" : "1"}
+                active={isActiveDoc}
+                variant={Variant.SUBTLE}
+                className="markdown-docs-block__jump-link markdown-docs-block__jump-button"
                 onClick={() => setActiveDocSlug(doc.slug)}
               >
                 <span>{doc.title}</span>
                 {doc.category ? (
                   <small className="markdown-docs-block__jump-meta">{doc.category}</small>
                 ) : null}
-              </button>
+              </Btn>
             ) : (
               <a
                 key={doc.slug}

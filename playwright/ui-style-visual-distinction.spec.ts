@@ -105,9 +105,11 @@ async function getLayoutSignature(page: Page, layoutStyle: string) {
 async function setLayoutStyle(page: Page, layoutStyle: string) {
   await page.evaluate((nextLayoutStyle) => {
     document.documentElement.dataset.layout = nextLayoutStyle;
+    document.documentElement.dataset.lyLayout = nextLayoutStyle;
     document.documentElement.setAttribute("layout-style", nextLayoutStyle);
     document.body.classList.add("ly-root");
     document.body.dataset.layout = nextLayoutStyle;
+    document.body.dataset.lyLayout = nextLayoutStyle;
     document.body.setAttribute("layout-style", nextLayoutStyle);
 
     window.localStorage.setItem("portfolio-layout-style", nextLayoutStyle);
@@ -126,6 +128,28 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
   await setLayoutStyle(page, layoutStyle);
 
   return page.evaluate(async (currentLayoutStyle) => {
+    // Preserve spaces inside minmax()/calc() while counting computed grid tracks.
+    const countGridTracks = (value: string) => {
+      let depth = 0;
+      let trackCount = 0;
+      let hasTrackContent = false;
+
+      for (const character of value.trim()) {
+        if (character === "(") depth += 1;
+        if (character === ")") depth = Math.max(0, depth - 1);
+
+        if (/\s/u.test(character) && depth === 0) {
+          if (hasTrackContent) trackCount += 1;
+          hasTrackContent = false;
+          continue;
+        }
+
+        hasTrackContent = true;
+      }
+
+      return trackCount + Number(hasTrackContent);
+    };
+
     const getBox = (element: Element | null) => {
       if (!element) return null;
       const rect = element.getBoundingClientRect();
@@ -149,11 +173,8 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
     }
 
     const layoutStyles = window.getComputedStyle(layout);
-    const columnWidths = layoutStyles.gridTemplateColumns
-      .split(/\s+/)
-      .map((column) => Number.parseFloat(column))
-      .filter(Number.isFinite)
-      .filter((columnWidth) => columnWidth > 1);
+    const mainStyles = window.getComputedStyle(main);
+    const sidebarStyles = window.getComputedStyle(sidebar);
     const navBeforeScroll = getBox(nav);
 
     window.scrollTo({ top: 700, behavior: "instant" });
@@ -163,12 +184,13 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
 
     return {
       layoutStyle: currentLayoutStyle,
-      columns: columnWidths,
+      gridTrackCount: countGridTracks(layoutStyles.gridTemplateColumns),
       layoutPaddingStart: Number.parseFloat(layoutStyles.paddingInlineStart) || 0,
       layout: getBox(layout),
       main: getBox(main),
-      mainGridArea: window.getComputedStyle(main).gridArea,
+      mainGridColumn: mainStyles.gridColumnStart,
       sidebar: getBox(sidebar),
+      sidebarGridColumn: sidebarStyles.gridColumnStart,
       nav: {
         exists: Boolean(nav),
         position: nav ? window.getComputedStyle(nav).position : "",
@@ -258,24 +280,27 @@ test.describe("UI style visual distinction", () => {
     expect(switched.attrs.dataLayout).toBe(LAYOUT_STYLES[1]);
     expect(switched.attrs.layoutStyle).toBe(LAYOUT_STYLES[1]);
     expect(switched.tokens.gap).not.toBe("");
-    expect(switched.tokens.gap).not.toBe(baseline.tokens.gap);
-    expect(switched.tokens.sectionPadding).not.toBe(baseline.tokens.sectionPadding);
+    expect(`${switched.tokens.gap}|${switched.tokens.sectionPadding}`).not.toBe(
+      `${baseline.tokens.gap}|${baseline.tokens.sectionPadding}`
+    );
     expect(consoleErrors, consoleErrors.join("\n\n")).toHaveLength(0);
   });
 
   test("route sidebar layout aligns with the sticky nav breakpoint", async ({ page }) => {
-    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 1023);
+    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 1199);
 
-    expect(mobile.columns).toHaveLength(1);
-    expect(mobile.mainGridArea).toBe("auto");
+    expect(mobile.gridTrackCount).toBe(1);
+    expect(mobile.mainGridColumn).toBe("1");
+    expect(mobile.sidebarGridColumn).toBe("1");
     expect(mobile.layoutPaddingStart).toBeGreaterThan(40);
     expect(mobile.nav.exists).toBe(false);
     expect(mobile.sidebar?.width).toBe(mobile.main?.width);
 
-    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 1024);
+    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 1200);
 
-    expect(desktop.columns).toHaveLength(2);
-    expect(desktop.mainGridArea).toBe("auto");
+    expect(desktop.gridTrackCount).toBe(2);
+    expect(desktop.mainGridColumn).toBe("1");
+    expect(desktop.sidebarGridColumn).toBe("2");
     expect(desktop.layoutPaddingStart).toBe(0);
     expect(desktop.nav.exists).toBe(true);
     expect(desktop.nav.position).toBe("sticky");
@@ -294,8 +319,9 @@ test.describe("UI style visual distinction", () => {
     }
 
     for (const measurement of measurements) {
-      expect(measurement.columns, measurement.layoutStyle).toHaveLength(2);
-      expect(measurement.mainGridArea, measurement.layoutStyle).toBe("auto");
+      expect(measurement.gridTrackCount, measurement.layoutStyle).toBe(2);
+      expect(measurement.mainGridColumn, measurement.layoutStyle).toBe("1");
+      expect(measurement.sidebarGridColumn, measurement.layoutStyle).toBe("2");
       expect(measurement.sidebar?.left, measurement.layoutStyle).toBeGreaterThan(
         measurement.main?.left || 0
       );

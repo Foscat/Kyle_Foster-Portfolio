@@ -1,0 +1,27 @@
+/* Product media keeps application-specific framing while shared libraries own paint and state. */
+.video-block__figure {
+  display: grid;
+  gap: var(--ly-space-2, 0.5rem);
+  width: 100%;
+  margin: 0;
+}
+
+.video-block__media {
+  display: block;
+  width: 100%;
+  max-height: min(70dvh, 46rem);
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: var(--app-surface-control-bg, rgb(var(--black-rgb), 0.5));
+  border: var(--app-surface-border, 1px solid var(--surface-border-strong));
+  border-radius: var(--app-surface-radius-md, var(--radius-md));
+  box-shadow: var(--app-surface-shadow-soft, var(--shadow-soft));
+}
+
+.video-block__caption {
+  color: var(--text-secondary);
+  font-size: var(--font-xs);
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: pretty;
+}

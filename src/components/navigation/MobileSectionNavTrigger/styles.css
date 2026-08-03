@@ -97,7 +97,10 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: pretty;
   color: var(--section-drawer-item-fg);
 }
 
@@ -140,7 +143,9 @@
   border: none;
   text-align: left;
   cursor: pointer;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
   color: var(--section-drawer-item-fg);
 }
 

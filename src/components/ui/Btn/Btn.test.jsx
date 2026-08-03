@@ -61,7 +61,44 @@ describe("Btn", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(button).toHaveClass("interactive-surface");
     expect(button).toHaveAttribute("data-surface-variant", "primary");
-    expect(button).toHaveAttribute("data-surface-level", "2");
+    expect(button).not.toHaveAttribute("data-surface-level");
+  });
+
+  it("renders nested content supplied as children", () => {
+    renderWithProviders(
+      <Btn>
+        <span>Open image viewer</span>
+      </Btn>
+    );
+
+    expect(screen.getByRole("button", { name: "Open image viewer" })).toBeInTheDocument();
+  });
+
+  it("forwards native focus and descriptive attributes", () => {
+    renderWithProviders(
+      <Btn
+        text="Select document"
+        tabIndex={-1}
+        title="Select the generated document"
+        aria-controls="generated-document"
+        aria-pressed="true"
+      />
+    );
+
+    const button = screen.getByRole("button", { name: "Select document" });
+    expect(button).toHaveAttribute("tabindex", "-1");
+    expect(button).toHaveAttribute("title", "Select the generated document");
+    expect(button).toHaveAttribute("aria-controls", "generated-document");
+    expect(button).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("exposes active state without forcing a surface depth override", () => {
+    renderWithProviders(<Btn text="Current section" variant="subtle" active />);
+
+    const button = screen.getByRole("button", { name: "Current section" });
+    expect(button).toHaveClass("interactive-surface", "is-active", "subtle");
+    expect(button).toHaveAttribute("data-surface-variant", "subtle");
+    expect(button).not.toHaveAttribute("data-surface-level");
   });
 
   it("maps visual variants and explicit surface levels to bridge attributes", () => {

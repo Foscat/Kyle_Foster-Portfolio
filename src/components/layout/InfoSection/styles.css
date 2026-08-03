@@ -4,7 +4,7 @@
 
 .info-section {
   width: 100%;
-  margin: var(--ly-space-3, 10px) 0 var(--ly-space-6, 35px);
+  margin: var(--ly-space-2, 0.5rem) 0 var(--ly-space-4, 1rem);
   border-radius: var(--app-surface-radius-lg, var(--border-radius));
   box-shadow:
     var(--app-surface-ring, 0 0 0 0 transparent),
@@ -28,7 +28,7 @@ section.info-section.section-renderer .rs-panel {
 
 /* Title area */
 .info-header {
-  margin-bottom: 25px;
+  margin-bottom: var(--ly-space-4, 1rem);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -69,7 +69,10 @@ section.info-section.section-renderer .rs-panel {
   color: var(--heading-color);
   text-shadow: var(--shadow-dark);
   text-align: center;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
   transition:
     color 0.18s,
     filter 0.18s;
@@ -124,11 +127,11 @@ section.info-section.section-renderer .rs-panel {
 .info-section.ly-section {
   /* Compose library-owned section rhythm with portfolio surface padding. */
   padding-block: clamp(
-    var(--ly-space-4, 1rem),
-    calc(var(--ly-section-padding-block) * 0.45),
-    var(--ly-space-8, 4rem)
+    var(--ly-space-3, 0.75rem),
+    calc(var(--ly-section-padding-block) * 0.3),
+    var(--ly-space-6, 2rem)
   );
-  padding-inline: var(--ly-space-5, 1.5rem);
+  padding-inline: clamp(var(--ly-space-3, 0.75rem), 2vw, var(--ly-space-5, 1.25rem));
 }
 
 .info-section.section-renderer .rs-panel-header .rs-panel-btn .rs-icon.rs-panel-btn-icon {

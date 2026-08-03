@@ -13,6 +13,19 @@ src\components\ui\AccordionList\index module.
 Fully accessible, keyboard-navigable accordion and section
 navigation component with frosted-glass styling.
 
+### keepListItemVisible
+
+Keeps an active row visible without allowing Element.scrollIntoView
+to move the surrounding document during initial or observer-driven state changes.
+
+**Parameters**
+
+- `index` (`number | null`) - Active accordion row index.
+
+**Returns**
+
+- `void`
+
 ### AccordionList()
 
 **Parameters**

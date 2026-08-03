@@ -5,11 +5,10 @@
  * @module components/Footer
  */
 
-import { Tooltip, Whisper } from "rsuite";
 import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";
-import { useClipboard, useCoarsePointer } from "assets/hooks";
+import { useClipboard } from "assets/hooks";
 import { Btn } from "components/ui";
 import "./styles.css";
 
@@ -47,7 +46,6 @@ const Footer = () => {
    */
   const currentYear = new Date().getFullYear();
   const clipboard = useClipboard();
-  const isCoarsePointer = useCoarsePointer();
 
   return (
     <footer className="site-footer" role="contentinfo">
@@ -60,26 +58,18 @@ const Footer = () => {
         </div>
 
         {/* Center: Phone */}
-        <Whisper
-          speaker={
-            <Tooltip>{clipboard.copied ? "Phone number copied!" : "Copy phone number"}</Tooltip>
-          }
-          trigger={isCoarsePointer ? "none" : "hover"}
-          enterable={false}
-        >
-          <button
-            type="button"
-            aria-label="Copy phone number to clipboard"
-            className="site-footer_phone interactive-surface"
-            data-surface-variant="subtle"
-            data-surface-level="1"
-            onClick={() => {
-              clipboard.copy("4694105286");
-            }}
-          >
-            Contact me at (469) 410-5286
-          </button>
-        </Whisper>
+        <Btn
+          type="button"
+          text="Contact me at (469) 410-5286"
+          ariaLabel="Copy phone number to clipboard"
+          className="site-footer_phone"
+          variant={Variant.SUBTLE}
+          tooltip={clipboard.copied ? "Phone number copied!" : "Copy phone number"}
+          tooltipPlacement="top"
+          onClick={() => {
+            clipboard.copy("4694105286");
+          }}
+        />
 
         {/* ----------------------------------------------------
             Right: Social / Utility Actions

@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { act, fireEvent, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { renderWithProviders } from "tests/renderWithProviders";
 import StickySectionNav from "../StickySectionNav";
@@ -200,10 +200,14 @@ const sectionsWithNavItems = [
  * ------------------------------------------------------------------ */
 
 describe("StickySectionNav", () => {
+  let initialBodyChildren;
   let s1;
   let s2;
 
   beforeEach(() => {
+    // This suite intentionally mounts native scroll targets directly under body.
+    // eslint-disable-next-line testing-library/no-node-access
+    initialBodyChildren = new Set(document.body.children);
     markProgrammaticScroll.mockClear();
     scrollSpyState.activeLeafId = "section-1";
     scrollSpyState.activeChain = ["section-1"];
@@ -215,6 +219,11 @@ describe("StickySectionNav", () => {
     });
     Object.defineProperty(window, "pageYOffset", {
       value: 0,
+      writable: true,
+      configurable: true,
+    });
+    Object.defineProperty(window, "innerWidth", {
+      value: 1280,
       writable: true,
       configurable: true,
     });
@@ -231,9 +240,39 @@ describe("StickySectionNav", () => {
     document.body.appendChild(s2);
   });
 
+  it("uses a compact navigation label without changing the section title", () => {
+    renderWithProviders(
+      <StickySectionNav
+        sections={[
+          {
+            id: "section-1",
+            title: "Scrap Yard System Inventory and Commerce Platform",
+            navLabel: "Scrap Yard",
+          },
+        ]}
+        pageUrl="/page"
+      />
+    );
+
+    expect(screen.getByRole("button", { name: "Scrap Yard" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", {
+        name: "Scrap Yard System Inventory and Commerce Platform",
+      })
+    ).not.toBeInTheDocument();
+  });
+
   afterEach(() => {
-    s1?.remove();
-    s2?.remove();
+    cleanup();
+
+    // These navigation tests create real scroll targets outside React's render
+    // root. Remove every fixture added by the current test to prevent duplicate
+    // IDs from changing document.getElementById results in later assertions.
+    // eslint-disable-next-line testing-library/no-node-access
+    Array.from(document.body.children).forEach((child) => {
+      if (!initialBodyChildren.has(child)) child.remove();
+    });
+
     vi.restoreAllMocks();
   });
 
@@ -263,6 +302,59 @@ describe("StickySectionNav", () => {
     );
 
     expect(screen.getByRole("button", { name: "Details" })).not.toHaveAttribute("aria-current");
+  });
+
+  it("delegates active and inactive section presentation to the shared button state", () => {
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
+
+    const activeSection = screen.getByRole("button", { name: "Introduction" });
+    const inactiveSection = screen.getByRole("button", { name: "Details" });
+
+    expect(activeSection).toHaveClass("interactive-surface", "is-active");
+    expect(inactiveSection).toHaveClass("interactive-surface");
+    expect(inactiveSection).not.toHaveClass("is-active");
+    expect(activeSection).toHaveAttribute("data-surface-variant", "subtle");
+    expect(inactiveSection).toHaveAttribute("data-surface-variant", "subtle");
+    expect(activeSection).not.toHaveAttribute("data-surface-level");
+    expect(inactiveSection).not.toHaveAttribute("data-surface-level");
+  });
+
+  it("delegates active subsection presentation without caller-owned surface levels", () => {
+    scrollSpyState.activeLeafId = "section-1-block";
+    scrollSpyState.activeChain = ["section-1", "section-1-block"];
+
+    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
+    fireEvent.click(screen.getByRole("button", { name: "Toggle Introduction subsections" }));
+
+    const activeBlock = screen.getByRole("button", { name: "Navigate to subsection Overview" });
+    expect(activeBlock).toHaveClass("interactive-surface", "is-active");
+    expect(activeBlock).toHaveAttribute("data-surface-variant", "subtle");
+    expect(activeBlock).not.toHaveAttribute("data-surface-level");
+  });
+
+  it("keeps the active entry visible without scrolling the document", async () => {
+    scrollSpyState.activeLeafId = "section-2";
+    scrollSpyState.activeChain = ["section-2"];
+
+    vi.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockImplementation(function () {
+      return this.getAttribute("aria-label") === "Section navigation" ? 900 : 0;
+    });
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockImplementation(function () {
+      return this.getAttribute("aria-label") === "Section navigation" ? 300 : 40;
+    });
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function () {
+      return this.dataset.navId === "section-2" ? 700 : 0;
+    });
+    const scrollIntoView = vi
+      .spyOn(HTMLElement.prototype, "scrollIntoView")
+      .mockImplementation(() => {});
+
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
+
+    const nav = screen.getByRole("navigation", { name: /section navigation/i });
+    await waitFor(() => expect(nav.scrollTop).toBe(570));
+    expect(scrollIntoView).not.toHaveBeenCalled();
+    expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
   /* ------------------------------------------------------------
@@ -422,6 +514,9 @@ describe("StickySectionNav", () => {
     await waitFor(() => {
       expect(window.location.hash).toBe("#section-2-block");
       expect(markProgrammaticScroll).toHaveBeenCalled();
+      // Wait for the scheduled animation frame so it cannot leak a scroll
+      // callback into the following top-alignment test.
+      expect(window.scrollTo).toHaveBeenCalled();
     });
 
     s1Block.remove();

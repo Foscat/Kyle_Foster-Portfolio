@@ -1,7 +1,7 @@
 /**
- * @file src\assets\data\content\hackathon\diagrams.js
- * @description src\assets\data\content\hackathon\diagrams module.
- * @module src\assets\data\content\hackathon\diagrams
+ * @file diagrams.js
+ * @description Product-story diagrams for the hands-free repair hackathon project.
+ * @module assets/data/content/hackathon/diagrams
  */
 
 import {
@@ -20,15 +20,25 @@ const diagrams = {
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
 
-Tech[Technician\n Action]
-Command[Voice\n Command]
-STT[Speech-to-Text]
-Intent[NLP\n Intent Parser]
-Cloud[AWS Lambda\n Orchestration]
-Guide[Instruction\n Resolver]
-Audio[Audio\n Guidance]
+Tech[Technician + Current Repair]
+Capture[Voice Capture]
+Intent[NLP Intent Parser]
+Confidence{Intent Clear?}
+Clarify[Ask for Clarification]
+Context[Load Repair Context]
+Resolve[Resolve Current Step]
+Guide[Speak Guidance]
+Action[Perform Physical Action]
+Confirm{Step Confirmed?}
+Complete[Repair Complete]
+Next[Advance Workflow State]
 
-Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Guide ==> Audio ==> Tech`
+Tech ==> Capture ==> Intent ==> Confidence
+Confidence ==>|No| Clarify -. retry command .-> Tech
+Confidence ==>|Yes| Context ==> Resolve ==> Guide ==> Action ==> Confirm
+Confirm ==>|Yes + Final| Complete
+Confirm ==>|Yes + More Steps| Next -. next command .-> Tech
+Confirm ==>|No| Guide`
       ),
     },
     desktop: {
@@ -36,24 +46,33 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Guide ==> Audio ==> Tech`
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
 
-subgraph Input[Input\n Boundary]
-  Tech[Technician\n Action]
-  Command[Voice\n Command]
-  STT[Speech-to-Text]
+subgraph Input[Hands-Free Input]
+  Tech[Technician + Current Repair]
+  Capture[Voice Capture]
+  Intent[NLP Intent Parser]
+  Confidence{Intent Clear?}
+  Clarify[Ask for Clarification]
 end
 
-subgraph Logic[Intent + Workflow Logic]
-  Intent[NLP\n Intent Parser]
-  Cloud[AWS Lambda\n Orchestration]
-  Resolver[Repair-Step\n Resolver]
+subgraph Workflow[Repair-State Resolution]
+  Context[Load Repair Context]
+  Resolve[Resolve Current Step]
+  Next[Advance Workflow State]
 end
 
-subgraph Output[Guidance Output]
-  Audio[Audio\n Guidance]
-  Feedback[Next\n Physical Action]
+subgraph Guidance[Guidance + Confirmation]
+  Guide[Speak Guidance]
+  Action[Perform Physical Action]
+  Confirm{Step Confirmed?}
+  Complete[Repair Complete]
 end
 
-Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedback ==> Tech`
+Tech ==> Capture ==> Intent ==> Confidence
+Confidence ==>|No| Clarify -. retry command .-> Tech
+Confidence ==>|Yes| Context ==> Resolve ==> Guide ==> Action ==> Confirm
+Confirm ==>|Yes + Final| Complete
+Confirm ==>|Yes + More Steps| Next -. next command .-> Tech
+Confirm ==>|No| Guide`
       ),
     },
     description: [
@@ -62,7 +81,7 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
         children: [
           {
             type: "text",
-            text: "This system-level view shows the complete hands-free repair loop. Technician speech becomes structured intent, AWS Lambda coordinates the current repair state, and the resolver returns spoken guidance. Each physical action feeds the next command back into the same workflow.",
+            text: "The hands-free workflow now distinguishes recognition from repair-state resolution. Unclear intent prompts a clarification instead of advancing the repair, while confirmed physical work either completes the repair or updates the current step before the technician issues the next command.",
           },
         ],
       },
@@ -80,12 +99,21 @@ Tech ==> Command ==> STT ==> Intent ==> Cloud ==> Resolver ==> Audio ==> Feedbac
 Tech[Technician]
 Capture[Voice Capture]
 STT[Speech-to-Text]
-NLP[NLP Engine]
+Intent[NLP Intent]
+Clear{Confidence Sufficient?}
+Clarify[Clarification Prompt]
 Lambda[AWS Lambda]
 Engine[Instruction Engine]
-Audio[Audio Output]
+Step[Resolved Repair Step]
+Final{Repair Complete?}
+Audio[Spoken Guidance]
+Done[Completion Confirmation]
 
-Tech ==> Capture ==> STT ==> NLP ==> Lambda ==> Engine ==> Audio ==> Tech`
+Tech ==> Capture ==> STT ==> Intent ==> Clear
+Clear ==>|No| Clarify -. repeat .-> Tech
+Clear ==>|Yes| Lambda ==> Engine ==> Step ==> Final
+Final ==>|No| Audio -. next command .-> Tech
+Final ==>|Yes| Done`
       ),
     },
     desktop: {
@@ -102,11 +130,22 @@ participant Audio as Audio Output
 
 Tech ->> Mic: Speak repair command
 Mic ->> STT: Capture audio stream
-STT -->> NLP: Transcribed text
-NLP ->> Lambda: Structured intent
-Lambda ->> Engine: Resolve current repair step
-Engine -->> Audio: Next instruction
-Audio -->> Tech: Spoken guidance`
+STT -->> NLP: Return transcript
+alt Intent confidence is low
+  NLP -->> Audio: Request clarification
+  Audio -->> Tech: Ask technician to repeat
+else Intent is actionable
+  NLP ->> Lambda: Send structured intent
+  Lambda ->> Engine: Resolve current repair step
+  Engine -->> Lambda: Return step and completion state
+  alt Repair has more steps
+    Lambda -->> Audio: Send next instruction
+    Audio -->> Tech: Speak guidance
+  else Repair is complete
+    Lambda -->> Audio: Send completion confirmation
+    Audio -->> Tech: Confirm repair completion
+  end
+end`
       ),
     },
     description: [
@@ -115,7 +154,7 @@ Audio -->> Tech: Spoken guidance`
         children: [
           {
             type: "text",
-            text: "This sequence-level view isolates one command. Voice capture sends audio through speech-to-text and NLP, Lambda requests the current repair step from the instruction engine, and audio output returns the next instruction to the technician.",
+            text: "One command can now end in clarification, next-step guidance, or repair completion. Speech-to-text and NLP establish confidence before Lambda requests repair context, preventing an ambiguous transcript from silently advancing the workflow.",
           },
         ],
       },

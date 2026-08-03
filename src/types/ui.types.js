@@ -226,6 +226,8 @@ export const BlockType = Object.freeze({
   IMAGE_GALLERY: "imageGallery",
   /* Split layout with one image and rich text content */
   IMAGE_TEXT_SPLIT: "imageTextSplit",
+  /* Self-hosted video with native playback controls and an optional caption */
+  VIDEO: "video",
   /* Mermaid diagram with responsive desktop/mobile variant definitions */
   DIAGRAM: "diagram",
   /* Configurable form block with schema-driven fields */
@@ -279,6 +281,8 @@ export const blockSchemas = Object.freeze({
   imageGallery: ["images", "title"],
   /* Image text split requires: one image, rich content, and optional title */
   imageTextSplit: ["image", "content", "title"],
+  /* Video block requires: one media source and accessible title metadata */
+  video: ["src", "title"],
   /* Diagram block requires: desktop and mobile diagram definitions with title */
   diagram: ["desktopDiagram", "mobileDiagram", "title"],
   /* Bulleted list requires: bullet items, section title, and optional subtitle */
@@ -333,6 +337,7 @@ export const BLOCK_RENDERERS = Object.freeze({
   [BlockType.RICH_TEXT]: null,
   [BlockType.IMAGE_GALLERY]: null,
   [BlockType.IMAGE_TEXT_SPLIT]: null,
+  [BlockType.VIDEO]: null,
   [BlockType.DIAGRAM]: null,
   [BlockType.CARD_GRID]: null,
   [BlockType.BULLETED_LIST]: null,
@@ -543,7 +548,7 @@ export const RichTextNodeType = Object.freeze({
 
 /**
  * Union of all feature blocks
- * @typedef {RichTextBlock | ImageGalleryBlock | ImageTextSplitBlock | DiagramBlock | BulletListBlock | LinkListBlock | MarkdownDocsBlock} FeatureBlock
+ * @typedef {RichTextBlock | ImageGalleryBlock | ImageTextSplitBlock | VideoBlock | DiagramBlock | BulletListBlock | LinkListBlock | MarkdownDocsBlock} FeatureBlock
  */
 
 /**
@@ -622,6 +627,22 @@ export const createImageTextSplitBlock = (block) => ({
   imagePosition: block.imagePosition === "right" ? "right" : "left",
   showCaption: block.showCaption === true,
   content: block.content || [],
+});
+
+/**
+ * Create a normalized self-hosted video block.
+ * @param {Partial<VideoBlock>} block - Video block properties.
+ * @returns {VideoBlock}
+ */
+export const createVideoBlock = (block) => ({
+  ...block,
+  id: block.id || "",
+  type: BlockType.VIDEO,
+  title: block.title || "",
+  src: block.src || "",
+  mimeType: block.mimeType || "video/mp4",
+  caption: block.caption || "",
+  ariaLabel: block.ariaLabel || block.title || "Product demonstration video",
 });
 
 /**

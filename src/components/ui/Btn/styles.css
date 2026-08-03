@@ -37,7 +37,9 @@
   font-weight: 600;
   line-height: 1.2;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
   text-align: center;
   cursor: pointer;
   -moz-user-select: none;
@@ -98,7 +100,9 @@
   min-width: 0;
   line-height: 1.2;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 /* ------------------------------------------------------------
