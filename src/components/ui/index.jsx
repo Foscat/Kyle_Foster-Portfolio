@@ -7,9 +7,15 @@
  */
 
 import { lazy, Suspense } from "react";
-const withSuspense = (LazyComponent, fallback = "Loading component...") => {
+import Btn from "./Btn";
+
+const withSuspense = (
+  LazyComponent,
+  fallback = "Loading component...",
+  fallbackRole = "status"
+) => {
   const WrappedComponent = (props) => (
-    <Suspense fallback={<div role="status">{fallback}</div>}>
+    <Suspense fallback={<div role={fallbackRole}>{fallback}</div>}>
       <LazyComponent {...props} />
     </Suspense>
   );
@@ -21,10 +27,6 @@ const AccordionList = withSuspense(
   lazy(() => import("./AccordionList")),
   "Loading accordion..."
 );
-const Btn = withSuspense(
-  lazy(() => import("./Btn")),
-  "Loading button..."
-);
 const ClickableImg = withSuspense(
   lazy(() => import("./ClickableImg")),
   "Loading image..."
@@ -35,7 +37,9 @@ const FrostedIcon = withSuspense(
 );
 const InsightCard = withSuspense(
   lazy(() => import("./InsightCard").then((module) => ({ default: module.InsightCard }))),
-  "Loading insight card..."
+  "Loading insight card...",
+  // Insight cards render directly inside a role=list grid, so their placeholder must remain a listitem.
+  "listitem"
 );
 const CardGrid = withSuspense(
   lazy(() => import("./InsightCard").then((module) => ({ default: module.CardGrid }))),

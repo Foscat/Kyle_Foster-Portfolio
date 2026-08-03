@@ -31,10 +31,34 @@ describe("page summary metadata", () => {
     const ste = JSON.stringify(pageSummaryMetas.SandersonTechnologyEnterprises);
 
     expect(sideProjects).toContain("CSS systems");
+    expect(sideProjects).toContain("Interface Systems Lab");
+    expect(sideProjects).toContain("shared CSS libraries");
     expect(sideProjects).not.toMatch(/encryption|enigma/iu);
     expect(ste).toContain("Sanderson Technology Enterprises");
-    expect(ste).toContain("three-package UI system");
-    expect(ste).not.toMatch(/founder|co-founder|my company|owner-operated/iu);
+    expect(ste).toContain("Content Creator Platform");
+    expect(ste).toContain("Scrap Yard System");
+    expect(ste).toContain("Interface Systems Lab");
+    expect(ste).not.toMatch(/golden\s+goose|founder|co-founder|my company|owner-operated/iu);
     expect(pageSummaryMetas.SandersonTechnologyEnterprises.jobTitle).toBe("Senior Developer");
+  });
+
+  it("keeps the Sanderson Technology Enterprises header metadata concise", () => {
+    const { description, headerDescription, tech } =
+      pageSummaryMetas.SandersonTechnologyEnterprises;
+    const techLabels = tech.map(({ label }) => label);
+
+    expect(headerDescription).toBe(
+      "Public-safe case study for STE website delivery, early platform products, and a reusable interface system."
+    );
+    expect(headerDescription.length).toBeLessThan(description.length);
+    expect(pageSummaryMetas.SandersonTechnologyEnterprises.techLabel).toBe("Focus Areas");
+    expect(tech).toHaveLength(5);
+    expect(techLabels).toEqual([
+      "React Architecture",
+      "MERN Foundations",
+      "Content Creator Platform",
+      "Scrap Yard System",
+      "Interface Systems Lab",
+    ]);
   });
 });

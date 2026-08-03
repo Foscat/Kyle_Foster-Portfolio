@@ -17,7 +17,7 @@ export const INDEXABLE_ROBOTS =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 export const NOINDEX_ROBOTS = "noindex, nofollow, noarchive, nosnippet, noimageindex";
 
-const LAST_MODIFIED = "2026-07-12";
+const LAST_MODIFIED = "2026-07-15";
 
 /**
  * @description Route metadata used by the runtime head manager, static HTML generator, and sitemap.
@@ -61,7 +61,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
     title: "Sanderson Technology Enterprises | Kyle Foster",
     description:
-      "Review Kyle Foster's public website, reusable MERN foundations, and three-package UI system work for Sanderson Technology Enterprises.",
+      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site, and Interface System work for Sanderson Technology Enterprises.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -72,7 +72,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SIDE_PROJECTS,
     title: "React, IoT, and CSS Side Projects | Kyle Foster",
     description:
-      "Explore Kyle Foster's practical side projects in React, IoT automation, CSS systems, authentication tooling, and domain-focused software.",
+      "Explore Interface Systems Lab, shared CSS libraries, MERN auth tooling, IoT automation, and domain software from Kyle Foster.",
     indexable: true,
     ogType: "website",
     pageType: "CollectionPage",

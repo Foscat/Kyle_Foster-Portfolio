@@ -45,6 +45,8 @@ describe("ui-style compatibility", () => {
       'import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";',
       'import "interactive-surface-css/interactive-surface.css";',
       'import "layout-style-css/min.css";',
+      'import "ui-style-kit-icons/css.css";',
+      'import "ui-style-kit-icons/element";',
     ];
 
     packageStyleImports.forEach((styleImport) => expect(mainJs).toContain(styleImport));
@@ -55,18 +57,21 @@ describe("ui-style compatibility", () => {
     expect(appJs).not.toContain("interactive-surface-css");
     expect(appJs).not.toContain("layout-style-css");
     expect(mainJs).toContain('import "./App.css";');
-    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "1.1.2");
-    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.0.2");
-    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.3.0");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "1.1.2");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.0.2");
+    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.0");
+    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.1.0");
+    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
+    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.5.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.1.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty(
       "interactive-surface-css",
-      "1.3.0"
+      "1.5.0"
     );
-    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("1.1.2");
-    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.0.2");
-    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.3.0");
+    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.0");
+    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.1.0");
+    expect(packageLock.packages["node_modules/ui-style-kit-icons"].version).toBe("1.0.0");
+    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.5.0");
     expect(appJs).not.toContain('import "./App.css"');
   });
 
@@ -139,8 +144,10 @@ describe("ui-style compatibility", () => {
 
     expect(appShell).toContain("ly-page");
     expect(pageMarkup).toContain("ly-wrapper");
-    expect(pageMarkup).toContain("ly-sidebar-layout");
-    expect(pageMarkup).toContain("ly-sidebar-layout--right");
+    expect(pageMarkup).toContain('className="page-layout ly-sidebar"');
+    expect(pageMarkup).toContain("ly-sidebar__content");
+    expect(pageMarkup).toContain("ly-sidebar__side");
+    expect(pageMarkup).not.toContain("ly-sidebar-layout");
     expect(pageMarkup).not.toContain("ly-app-main");
     expect(pageMarkup).toContain("ly-sidebar");
     expect(pageMarkup).toContain("ly-section");
@@ -148,20 +155,26 @@ describe("ui-style compatibility", () => {
     expect(pageMarkup).toContain("ly-stack");
     expect(pageMarkup).toContain("ly-cluster");
     expect(pageMarkup).toContain("ly-card-grid");
+    expect(pageMarkup).toContain('data-ly-recipe="card-grid"');
     expect(pageMarkup).toContain("ly-gallery");
   });
 
   it("keeps the portfolio route sidebar contract local and breakpoint-aligned", () => {
     const css = readProjectFile("src/App.css");
+    const stickyNavCss = readProjectFile("src/components/navigation/StickySectionNav/styles.css");
+    const mobileNavCss = readProjectFile(
+      "src/components/navigation/MobileSectionNavTrigger/styles.css"
+    );
 
-    expect(css).toContain("@media (width < 1024px)");
-    expect(css).toContain("@media (width >= 1024px)");
-    expect(css).toContain(".page-layout.ly-sidebar-layout.ly-sidebar-layout--right");
+    expect(css).toContain("@media (width < 1200px)");
+    expect(css).toContain("@media (width >= 1200px)");
+    expect(css).toContain(".page-layout.ly-sidebar");
     expect(css).toContain("--portfolio-route-sidebar-width");
-    expect(css).toContain("--portfolio-route-sidebar-width: clamp(18rem");
-    expect(css).toContain("minmax(18rem, var(--portfolio-route-sidebar-width))");
-    expect(css).not.toContain("@media (width <=1024px)");
-    expect(css).not.toContain("@media (width >=1025px)");
+    expect(css).toContain("--portfolio-route-sidebar-width: clamp(14.5rem");
+    expect(css).toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(`${stickyNavCss}\n${mobileNavCss}`).not.toContain("overflow-wrap: anywhere");
+    expect(stickyNavCss).toContain("word-break: normal");
+    expect(stickyNavCss).toContain("hyphens: none");
   });
 
   it("keeps theme-menu select visuals delegated to shared component libraries", () => {

@@ -40,14 +40,18 @@ const SandersonTechnologyEnterprises = () => {
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
         <PageHeader
           title={sandersonTechnologyEnterprises.title}
-          subTitle={sandersonTechnologyEnterprises.description}
+          subTitle={
+            sandersonTechnologyEnterprises.headerDescription ||
+            sandersonTechnologyEnterprises.description
+          }
           jobTitle={sandersonTechnologyEnterprises.jobTitle}
           timespan={sandersonTechnologyEnterprises.timespan}
           tech={sandersonTechnologyEnterprises.tech}
+          techLabel={sandersonTechnologyEnterprises.techLabel}
         />
         <StickyNav activePage={sandersonTechnologyEnterprises.url} />
-        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
-          <main className="page-content app-main ly-content" role="main">
+        <div className="page-layout ly-sidebar">
+          <main className="page-content app-main ly-sidebar__content" role="main">
             {sandersonTechnologyEnterprises.sections.map((section) => (
               <SectionRenderer
                 section={section}
@@ -56,7 +60,7 @@ const SandersonTechnologyEnterprises = () => {
               />
             ))}
           </main>
-          <aside className="page-sidebar ly-sidebar">
+          <aside className="page-sidebar ly-sidebar__side">
             <StickySectionNav
               pageUrl={sandersonTechnologyEnterprises.url}
               sections={sandersonTechnologyEnterprises.sections}

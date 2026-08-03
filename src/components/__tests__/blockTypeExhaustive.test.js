@@ -24,6 +24,7 @@ describe("BlockType exhaustiveness", () => {
       BlockType.FORM,
       BlockType.HERO,
       BlockType.MARKDOWN_DOCS,
+      BlockType.VIDEO,
     ]);
 
     expect(new Set(Object.values(BlockType))).toEqual(supported);

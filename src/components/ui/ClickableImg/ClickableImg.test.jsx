@@ -90,9 +90,16 @@ describe("ClickableImg", () => {
   it("renders the thumbnail image", () => {
     renderClickableImg();
 
-    const thumbnail = screen.getByRole("img", { name: IMAGE_ALT });
+    const thumbnail = screen.getByAltText(IMAGE_ALT);
     expect(thumbnail).toBeInTheDocument();
     expect(thumbnail).toHaveAttribute("src", IMAGE_SRC);
+  });
+
+  it("uses the thumbnail image directly instead of wrapping it in a button surface", () => {
+    renderClickableImg();
+
+    const thumbnail = screen.getByLabelText(/clickable image, click to expand/i);
+    expect(thumbnail).toBeInstanceOf(HTMLImageElement);
   });
 
   it("renders the caption beneath the thumbnail when provided", () => {
@@ -252,7 +259,7 @@ describe("ClickableImg", () => {
    * Keyboard accessibility
    * ------------------------------------------------------------ */
 
-  it("opens the modal when the thumbnail button is keyboard-activated", async () => {
+  it("opens the modal when the thumbnail image is keyboard-activated", async () => {
     const user = userEvent.setup();
     renderClickableImg();
 
@@ -280,7 +287,7 @@ describe("ClickableImg", () => {
    * Accessibility
    * ------------------------------------------------------------ */
 
-  it("provides an accessible name for the thumbnail button", () => {
+  it("provides an accessible name for the thumbnail trigger", () => {
     renderClickableImg();
     expect(
       screen.getByRole("button", { name: /Clickable image, click to expand/i })

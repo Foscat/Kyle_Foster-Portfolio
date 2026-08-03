@@ -8,7 +8,7 @@
 import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import StickyNav from "../StickyNav/";
 import { PageRoute } from "types/navigation.types";

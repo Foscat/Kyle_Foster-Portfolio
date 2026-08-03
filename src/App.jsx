@@ -6,7 +6,7 @@
  */
 
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Head } from "components/navigation";
 import BackToTopButton from "components/navigation/BackToTopButton";
@@ -30,7 +30,7 @@ const NotFound = lazy(() => import("pages/NotFound"));
  * @description The root component of the portfolio application. Sets up global routing using React Router and defines the main layout structure. This component is responsible for rendering the appropriate page component based on the current URL path, as well as including the global `Head` component for consistent navigation and metadata across all pages.
  *
  * Features:
- * - Uses `BrowserRouter` for client-side routing with support for future React Router v7 features.
+ * - Uses React Router v8's `BrowserRouter` for client-side declarative routing.
  * - Defines routes for all main pages: Home, CodeStream, Side Projects, Hackathon, SMU, Contact, and a catch-all NotFound page.
  * - Includes a global `Head` component that renders the site header and navigation links on all pages.
  * - Applies global CSS styles from `App.css` and a custom click animation library for enhanced interactivity.
@@ -47,12 +47,7 @@ export default function App() {
   useThemeFavicon(theme, palette);
 
   return (
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
+    <BrowserRouter>
       <div className="app-shell ly-page">
         <Head />
         <Suspense fallback={<div aria-live="polite">Loading...</div>}>

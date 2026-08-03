@@ -14,7 +14,7 @@
  */
 
 import { Nav, Sidenav } from "rsuite";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { PageRoute } from "types/navigation.types";
 import "../../../styles/rsuite-section-anchor.less";
 import "./styles.css";

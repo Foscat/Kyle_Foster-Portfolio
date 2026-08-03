@@ -527,9 +527,11 @@ section[id],
 
 .page-layout {
   /* layout-style-css owns spacing rhythm; this app owns the route nav breakpoint and feasible rail width. */
-  --portfolio-route-sidebar-width: clamp(18rem, var(--ly-sidebar-width, 18rem), 20rem);
+  --portfolio-route-sidebar-width: clamp(14.5rem, var(--ly-sidebar-width, 15.5rem), 16rem);
+  --ly-sidebar-size: var(--portfolio-route-sidebar-width);
 
   align-items: start;
+  gap: clamp(1rem, 2vw, 1.5rem);
   width: 100%;
   margin: 0;
 }
@@ -767,9 +769,10 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-@media (width < 1024px) {
-  .page-layout.ly-sidebar-layout {
+@media (width < 1200px) {
+  .page-layout.ly-sidebar {
     /* Keep route content clear of the fixed mobile navigation rail. */
+    display: grid;
     grid-template-columns: minmax(0, 1fr);
     padding-inline: 5px;
     padding-inline-start: max(
@@ -780,15 +783,29 @@ footer {
       )
     );
   }
+
+  .page-layout > .ly-sidebar__content,
+  .page-layout > .ly-sidebar__side {
+    grid-column: 1;
+  }
 }
 
-@media (width >= 1024px) {
+@media (width >= 1200px) {
   .page-layout {
     padding-inline: 0;
   }
 
-  .page-layout.ly-sidebar-layout.ly-sidebar-layout--right {
-    grid-template-columns: minmax(0, 1fr) minmax(18rem, var(--portfolio-route-sidebar-width));
+  .page-layout.ly-sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14.5rem, var(--portfolio-route-sidebar-width));
+  }
+
+  .page-layout > .ly-sidebar__content {
+    grid-column: 1;
+  }
+
+  .page-layout > .ly-sidebar__side {
+    grid-column: 2;
   }
 
   .page-sidebar {
@@ -797,7 +814,7 @@ footer {
 
     /* establishes a stable context for sticky descendants */
     height: 100%;
-    padding: 0 15px;
+    padding: 0 0.5rem;
   }
 
   .block-header {

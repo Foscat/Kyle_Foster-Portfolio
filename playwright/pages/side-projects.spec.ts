@@ -7,6 +7,7 @@
 import { createPageTestSuite } from "../utils/pageTestTemplate.ts";
 import { expect, test } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "../utils/stabilizePage";
+import { waitForMermaidRender } from "../utils/waitForMermaid";
 
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";
 const SIDE_PROJECTS_ROUTE = "/side-projects";
@@ -19,7 +20,7 @@ createPageTestSuite({
 });
 
 test.describe("Side Projects links", () => {
-  test("section navigation targets and Layout Style CSS links resolve to the right positions", async ({
+  test("section navigation targets and ecosystem links resolve to the right positions", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
@@ -40,6 +41,29 @@ test.describe("Side Projects links", () => {
       });
 
     expect(missingTargets).toEqual([]);
+
+    await page
+      .getByRole("navigation", { name: /section navigation/i })
+      .getByRole("button", {
+        name: "Interface Systems Lab",
+        exact: true,
+      })
+      .click();
+
+    await expect.poll(() => new URL(page.url()).hash).toBe("#interface-systems-lab");
+    await expect(page.locator("#interface-systems-lab")).toBeVisible();
+
+    const labSection = page.locator("#interface-systems-lab");
+    await expect(
+      labSection.locator(".info-title", { hasText: "Interface Systems Lab" })
+    ).toBeVisible();
+    await expect(labSection.getByRole("link", { name: /view live lab/i })).toHaveAttribute(
+      "href",
+      "https://foscat.github.io/interface-systems-lab/"
+    );
+    await expect(
+      labSection.getByRole("link", { name: /interface systems lab source/i })
+    ).toHaveAttribute("href", "https://github.com/Foscat/interface-systems-lab");
 
     await page
       .getByRole("navigation", { name: /section navigation/i })
@@ -71,10 +95,38 @@ test.describe("Side Projects links", () => {
       "href",
       "https://foscat.github.io/Layout-Style-CSS/"
     );
+
+    await page
+      .getByRole("navigation", { name: /section navigation/i })
+      .getByRole("button", {
+        name: "Interactive Surface CSS",
+        exact: true,
+      })
+      .click();
+
+    await expect.poll(() => new URL(page.url()).hash).toBe("#interactive-surface-css");
+  });
+
+  test("renders new ecosystem Mermaid diagrams on desktop and mobile", async ({ page }) => {
+    test.setTimeout(120_000);
+
+    for (const viewport of [
+      { width: 1280, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await preparePageForStableTests(page, { theme: "dark" });
+      await page.goto(toUrl(SIDE_PROJECTS_ROUTE));
+      await page.waitForLoadState("networkidle");
+      await stabilizePage(page, { theme: "dark" });
+
+      await waitForMermaidRender(page, "diagram-interface-systems-lab-contract");
+      await waitForMermaidRender(page, "diagram-ui-style-kit-token-flow");
+    }
   });
 
   test("centers the Layout Style CSS insight-card orphan in a two-column row", async ({ page }) => {
-    await page.setViewportSize({ width: 1128, height: 960 });
+    await page.setViewportSize({ width: 1200, height: 960 });
     await preparePageForStableTests(page, { theme: "dark" });
 
     await page.goto(toUrl(SIDE_PROJECTS_ROUTE));

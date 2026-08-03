@@ -6,6 +6,7 @@
 
 import { expect, test } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "../utils/stabilizePage";
+import { waitForMermaidRender } from "../utils/waitForMermaid";
 
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";
 const STE_ROUTE = "/sanderson-technology-enterprises";
@@ -38,7 +39,12 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await expect(
       page
         .getByRole("navigation", { name: /section navigation/i })
-        .getByRole("button", { name: "Three-Package UI Bundle", exact: true })
+        .getByRole("button", { name: "Interface System", exact: true })
+    ).toBeVisible();
+    await expect(
+      page
+        .getByRole("navigation", { name: /section navigation/i })
+        .getByRole("button", { name: "Scrap Yard", exact: true })
     ).toBeVisible();
   });
 
@@ -61,12 +67,101 @@ test.describe("Sanderson Technology Enterprises content", () => {
       "href",
       "/side-projects#layout-style-css"
     );
+    await expect(
+      page.getByRole("link", { name: "View Interface Systems Lab", exact: true })
+    ).toHaveAttribute("href", "https://foscat.github.io/interface-systems-lab/");
+    await expect(
+      page.getByRole("link", { name: /content creator platform product page/i })
+    ).toHaveAttribute(
+      "href",
+      "https://sandersontechnologyenterprises.com/content-creator-platform.html"
+    );
+    await expect(
+      page.getByRole("link", { name: /scrap yard system product page/i })
+    ).toHaveAttribute("href", "https://sandersontechnologyenterprises.com/scrap-yard-system.html");
 
     const pageText = await page.locator("body").innerText();
-    expect(pageText).toContain("private/proprietary");
-    expect(pageText).toContain('mode = "auto" || "dark"');
-    expect(pageText).not.toMatch(/notion|docs\.notion|secret|token|private repo/iu);
+    expect(pageText).toContain("Content Creator Platform");
+    expect(pageText).toContain("Scrap Yard System");
+    expect(pageText).toContain("practical white-label architecture");
+    expect(pageText).toContain("internal inventory management system");
+    expect(pageText).toContain("client-facing e-commerce platform");
+    expect(pageText).toContain("early-stage");
+    expect(pageText).not.toMatch(/golden\s+goose|notion|docs\.notion|secret|token|private repo/iu);
     await expect(page.locator('a[href*="notion"]')).toHaveCount(0);
-    await expect(page.locator('a[href*="Golden-Goose"]')).toHaveCount(0);
+    await expect(page.locator('a[href*="Golden"]')).toHaveCount(0);
+  });
+
+  test("renders controlled local videos for both focused products", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await preparePageForStableTests(page, { theme: "dark" });
+
+    await page.goto(toUrl(STE_ROUTE));
+    await page.waitForLoadState("networkidle");
+    await stabilizePage(page, { theme: "dark" });
+
+    for (const label of [
+      "Content Creator Platform product demonstration",
+      "Scrap Yard System product demonstration",
+    ]) {
+      const video = page.getByLabel(label);
+      await expect(video).toBeVisible();
+      await expect(video).toHaveAttribute("controls", "");
+      await expect(video).not.toHaveAttribute("autoplay", "");
+      await expect(video.locator("source")).toHaveAttribute("src", /\.mp4$/u);
+    }
+  });
+
+  test("keeps the STE logo as a bounded image trigger without a button surface", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await preparePageForStableTests(page, { theme: "dark" });
+
+    await page.goto(toUrl(STE_ROUTE));
+    await page.waitForLoadState("networkidle");
+    await stabilizePage(page, { theme: "dark" });
+
+    const thumbnail = page.getByLabel("Sanderson Technology Enterprises logo preview");
+    await expect(thumbnail).toBeVisible();
+
+    const geometry = await thumbnail.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return {
+        tagName: element.tagName,
+        width: rect.width,
+        hasButtonAncestor: Boolean(element.closest("button")),
+      };
+    });
+
+    expect(geometry.tagName).toBe("IMG");
+    expect(geometry.hasButtonAncestor).toBe(false);
+    expect(geometry.width).toBeLessThanOrEqual(480);
+  });
+
+  test("renders the STE Mermaid diagrams on desktop and mobile", async ({ page }) => {
+    test.setTimeout(120_000);
+
+    const diagramIds = [
+      "diagram-ste-public-site-journey",
+      "diagram-ste-content-creator-platform-flow",
+      "diagram-ste-scrapyard-commerce-loop",
+      "diagram-ste-interface-system-flow",
+    ];
+
+    for (const viewport of [
+      { width: 1280, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await preparePageForStableTests(page, { theme: "dark" });
+      await page.goto(toUrl(STE_ROUTE));
+      await page.waitForLoadState("networkidle");
+      await stabilizePage(page, { theme: "dark" });
+
+      for (const diagramId of diagramIds) {
+        await waitForMermaidRender(page, diagramId);
+      }
+    }
   });
 });

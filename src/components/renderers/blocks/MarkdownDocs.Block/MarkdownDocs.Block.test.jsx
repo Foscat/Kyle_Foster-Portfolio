@@ -60,7 +60,7 @@ describe("MarkdownDocsBlock", () => {
     expect(getPortfolioDocsByCriteria).toHaveBeenCalledTimes(1);
   });
 
-  it("uses interactive-surface data variants for active and inactive document cards", async () => {
+  it("uses shared active-state semantics for selected document buttons", async () => {
     renderWithProviders(
       <MarkdownDocsBlock
         block={{
@@ -75,9 +75,14 @@ describe("MarkdownDocsBlock", () => {
     const activeCard = await screen.findByRole("button", { name: /Example Component/i });
     const inactiveCard = screen.getByRole("button", { name: /Second Component/i });
 
-    expect(activeCard).toHaveAttribute("data-surface-variant", "primary");
+    expect(activeCard).toHaveAttribute("aria-pressed", "true");
+    expect(inactiveCard).toHaveAttribute("aria-pressed", "false");
+    expect(activeCard).toHaveClass("interactive-surface", "is-active");
+    expect(inactiveCard).toHaveClass("interactive-surface");
+    expect(inactiveCard).not.toHaveClass("is-active");
+    expect(activeCard).toHaveAttribute("data-surface-variant", "subtle");
     expect(inactiveCard).toHaveAttribute("data-surface-variant", "subtle");
-    expect(activeCard).not.toHaveClass("variant-primary");
-    expect(inactiveCard).not.toHaveClass("variant-subtle");
+    expect(activeCard).not.toHaveAttribute("data-surface-level");
+    expect(inactiveCard).not.toHaveAttribute("data-surface-level");
   });
 });

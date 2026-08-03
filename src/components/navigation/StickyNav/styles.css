@@ -569,7 +569,7 @@ html[data-theme="light"]
 }
 
 /* Mobile + small tablet responsiveness */
-@media (width <=1024px) {
+@media (width < 1200px) {
   .desktop-menu {
     display: none;
   }

@@ -1,7 +1,7 @@
 # Data and Content Reference
 
 - Aggregate reference: [data.md](../../../data.md)
-- Generated docs in this folder: 22
+- Generated docs in this folder: 23
 
 ## Modules
 
@@ -22,6 +22,7 @@
 - [srcAssetsDataContentHackathonIndexData.md](./srcAssetsDataContentHackathonIndexData.md) - `src/assets/data/content/hackathon/index.js`
 - [srcAssetsDataContentHomeDiagramsData.md](./srcAssetsDataContentHomeDiagramsData.md) - `src/assets/data/content/home/diagrams.js`
 - [srcAssetsDataContentHomeIndexData.md](./srcAssetsDataContentHomeIndexData.md) - `src/assets/data/content/home/index.js`
+- [srcAssetsDataContentSandersonTechnologyEnterprisesDiagramsData.md](./srcAssetsDataContentSandersonTechnologyEnterprisesDiagramsData.md) - `src/assets/data/content/sanderson-technology-enterprises/diagrams.js`
 - [srcAssetsDataContentSandersonTechnologyEnterprisesIndexData.md](./srcAssetsDataContentSandersonTechnologyEnterprisesIndexData.md) - `src/assets/data/content/sanderson-technology-enterprises/index.js`
 - [srcAssetsDataContentSideProjectsDiagramsData.md](./srcAssetsDataContentSideProjectsDiagramsData.md) - `src/assets/data/content/side-projects/diagrams.js`
 - [srcAssetsDataContentSideProjectsIndexData.md](./srcAssetsDataContentSideProjectsIndexData.md) - `src/assets/data/content/side-projects/index.js`

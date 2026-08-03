@@ -6,9 +6,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Form, Panel } from "rsuite";
+import { Form, Panel } from "rsuite";
 import "../../../../styles/rsuite-form.less";
 import FIELD_TYPES from "types/field.types.js";
+import { Variant } from "types/ui.types";
+import Btn from "components/ui/Btn";
 import { buildInitialValues, normalizeField, renderFieldControl } from "./fieldRegestry.jsx";
 import "./styles.css";
 
@@ -237,27 +239,23 @@ const FormBlock = ({
         ))}
 
         <Form.Group className="form-block__actions">
-          <Button
+          <Btn
             appearance="primary"
             type="submit"
-            className="interactive-surface form-block__action-btn"
-            data-surface-variant="primary"
-            data-surface-level="2"
-          >
-            {schema.submitLabel || "Submit"}
-          </Button>
+            text={schema.submitLabel || "Submit"}
+            className="form-block__action-btn"
+            variant={Variant.PRIMARY}
+          />
 
           {schema.resetLabel ? (
-            <Button
+            <Btn
               appearance="subtle"
               type="button"
+              text={schema.resetLabel}
               onClick={handleReset}
-              className="interactive-surface form-block__action-btn"
-              data-surface-variant="subtle"
-              data-surface-level="1"
-            >
-              {schema.resetLabel}
-            </Button>
+              className="form-block__action-btn"
+              variant={Variant.SUBTLE}
+            />
           ) : null}
         </Form.Group>
       </Form>

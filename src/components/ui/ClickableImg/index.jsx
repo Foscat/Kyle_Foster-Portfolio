@@ -8,6 +8,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Image, Modal } from "rsuite";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
+import { Variant } from "types/ui.types";
+import Btn from "components/ui/Btn";
 import "./styles.css";
 
 const MIN_ZOOM = 1;
@@ -323,28 +325,32 @@ const ClickableImg = ({
 
   const thumbnailLabel = ariaLabel || `${alt}, open expanded image viewer`;
 
+  const handleThumbnailKeyDown = (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    event.preventDefault();
+    setOpen(true);
+  };
+
   return (
     <div id={id} className="frosted-tile clickable-img-container">
-      <button
-        type="button"
-        className="clickable-thumb-button interactive-surface"
-        data-surface-variant="subtle"
-        data-surface-level="2"
+      <Image
+        id={`${id}-img-${index + 1}`}
+        rounded
+        src={src}
+        alt={alt}
+        title={title || alt}
         aria-label={thumbnailLabel}
+        aria-haspopup="dialog"
+        role="button"
+        tabIndex={0}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
+        className={`clickable-thumb glass-outline ${className}`}
         onClick={() => setOpen(true)}
-      >
-        <Image
-          id={`${id}-img-${index + 1}`}
-          rounded
-          src={src}
-          alt={alt}
-          title={title || alt}
-          loading="lazy"
-          decoding="async"
-          fetchpriority="low"
-          className={`clickable-thumb glass-outline ${className}`}
-        />
-      </button>
+        onKeyDown={handleThumbnailKeyDown}
+      />
 
       {/* Optional caption beneath thumbnail */}
       {caption && <p className="img-caption text-center">{caption}</p>}
@@ -394,7 +400,7 @@ const ClickableImg = ({
                 title={title || alt}
                 loading="lazy"
                 decoding="async"
-                fetchpriority="low"
+                fetchPriority="low"
                 onLoad={handleModalImageLoad}
                 className={`glass-outline ${className} zoom-img`}
                 style={{
@@ -403,39 +409,33 @@ const ClickableImg = ({
               />
 
               <div className="modal-zoom-controls" role="toolbar" aria-label="Image zoom controls">
-                <button
+                <Btn
                   type="button"
-                  className="modal-zoom-btn interactive-surface"
-                  data-surface-variant="subtle"
-                  data-surface-level="2"
+                  text="-"
+                  className="modal-zoom-btn"
+                  variant={Variant.SUBTLE}
                   onClick={() => applyZoom(zoom - ZOOM_STEP)}
-                  aria-label="Zoom out image"
+                  ariaLabel="Zoom out image"
                   disabled={zoom <= MIN_ZOOM}
-                >
-                  -
-                </button>
-                <button
+                />
+                <Btn
                   type="button"
-                  className="modal-zoom-btn interactive-surface"
-                  data-surface-variant="secondary"
-                  data-surface-level="2"
+                  text={`${Math.round(zoom * 100)}%`}
+                  className="modal-zoom-btn"
+                  variant={Variant.SECONDARY}
                   onClick={resetView}
-                  aria-label="Reset image zoom"
+                  ariaLabel="Reset image zoom"
                   disabled={!isZoomed && pan.x === 0 && pan.y === 0}
-                >
-                  {Math.round(zoom * 100)}%
-                </button>
-                <button
+                />
+                <Btn
                   type="button"
-                  className="modal-zoom-btn interactive-surface"
-                  data-surface-variant="subtle"
-                  data-surface-level="2"
+                  text="+"
+                  className="modal-zoom-btn"
+                  variant={Variant.SUBTLE}
                   onClick={() => applyZoom(zoom + ZOOM_STEP)}
-                  aria-label="Zoom in image"
+                  ariaLabel="Zoom in image"
                   disabled={zoom >= MAX_ZOOM}
-                >
-                  +
-                </button>
+                />
               </div>
             </div>
 

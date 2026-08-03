@@ -108,8 +108,8 @@ const SideProjects = () => {
           tech={sidePro.tech}
         />
         <StickyNav activePage={sidePro.url} />
-        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
-          <main className="page-content app-main ly-content" role="main">
+        <div className="page-layout ly-sidebar">
+          <main className="page-content app-main ly-sidebar__content" role="main">
             {sidePro.sections.map((sect, sectionIndex) => {
               return (
                 <SectionRenderer
@@ -124,7 +124,7 @@ const SideProjects = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar">
+          <aside className="page-sidebar ly-sidebar__side">
             <StickySectionNav pageUrl={sidePro.url} sections={sidePro.sections} />
           </aside>
         </div>

@@ -44,6 +44,13 @@
   border-radius: 0;
 }
 
+.insight-card__icon usk-icon {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  color: currentColor;
+}
+
 .insight-card__title-group {
   min-width: 0;
   display: flex;

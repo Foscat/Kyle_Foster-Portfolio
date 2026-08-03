@@ -69,6 +69,7 @@ Accessibility:
 - `props.timespan` (`string`, optional) - Optional date range or duration string.
 - `props.subTitle` (`string`, optional) - Supporting descriptive text rendered beneath the title.
 - `props.tech` (`Array<TechItem>`, optional) - List of technologies associated with the page or project.
+- `props.techLabel` (`string`, optional) - Visible label for the optional technology or focus-area list.
 - `props.className` (`string`, optional) - Optional additional CSS class names.
 
 **Returns**

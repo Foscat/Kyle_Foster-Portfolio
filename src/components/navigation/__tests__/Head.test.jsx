@@ -10,7 +10,7 @@ import Head from "../Head";
 import renderWithProviders from "tests/renderWithProviders";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { SEO_ROUTE_REGISTRY } from "assets/data/seoRouteRegistry.js";
 
 // Helper function to render the Head component with a specific route, allowing us to test how the component behaves when different paths are active by manipulating the browser's history state before rendering.
@@ -100,6 +100,28 @@ describe("Head", () => {
       const schemaTypes = getJsonLdGraphTypes();
       expect(schemaTypes).toContain("Person");
       expect(schemaTypes).toContain("WebSite");
+    });
+  });
+
+  it("replaces build-time SEO tags when the client takes ownership", async () => {
+    document.head.innerHTML = `
+      <link rel="canonical" href="https://kyle-foster.com/" data-rh="true" />
+      <script type="application/ld+json" data-rh="true">{"@graph":[]}</script>
+    `;
+
+    renderHead("/contact");
+
+    await waitFor(() => {
+      // eslint-disable-next-line testing-library/no-node-access -- canonical metadata has no ARIA role
+      const canonicalLinks = document.head.querySelectorAll('link[rel="canonical"]');
+      // eslint-disable-next-line testing-library/no-node-access -- JSON-LD script tags have no ARIA role
+      const structuredDataScripts = document.head.querySelectorAll(
+        'script[type="application/ld+json"]'
+      );
+
+      expect(canonicalLinks).toHaveLength(1);
+      expect(canonicalLinks[0]).toHaveAttribute("href", "http://localhost:3000/contact");
+      expect(structuredDataScripts).toHaveLength(1);
     });
   });
 

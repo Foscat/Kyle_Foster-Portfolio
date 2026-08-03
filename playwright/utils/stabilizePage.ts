@@ -78,17 +78,27 @@ export async function stabilizePage(page: Page, opts: { theme?: "light" | "dark"
     await document.fonts?.ready;
   });
 
-  // Disable animations/transitions for snapshot stability
+  // Collapse motion without removing animations whose final keyframe establishes visibility.
   await page.addStyleTag({
     content: `
       *, *::before, *::after {
         transition: none !important;
-        animation: none !important;
+        animation-duration: 1ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
         caret-color: transparent !important;
       }
     `,
   });
+
+  // Let the collapsed animations commit their final styles before readiness checks continue.
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      })
+  );
 
   // Apply theme deterministically.
   await page.evaluate((t) => {

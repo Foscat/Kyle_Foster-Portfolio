@@ -1,7 +1,7 @@
 /**
- * @file src\assets\data\content\codestream\diagrams.js
- * @description src\assets\data\content\codestream\diagrams module.
- * @module src\assets\data\content\codestream\diagrams
+ * @file diagrams.js
+ * @description Product-story diagrams for the CodeStream Studios case study.
+ * @module assets/data/content/codestream/diagrams
  */
 
 import {
@@ -14,30 +14,33 @@ const diagrams = {
   panelEditor: {
     id: "diagram-3panel-editor",
     type: "diagram",
-    title: "3-Panel Editor – Delivery Architecture",
+    title: "3-Panel Editor - Delivery Architecture",
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
 
-Input[Lesson Markdown]
+Lesson[Lesson Markdown]
 Panel[Instruction Panel]
-Editor[Ace Editor\nHTML · CSS · JS · Python]
+Editor[Ace Editor]
+Action{Run or Save?}
 Router[Execution Router]
-Web[Sandboxed iframe Runtime]
-Py[In-Browser Python Runtime]
-Output[Rendered Output / Terminal]
+Web[Sandboxed Web Runtime]
+Python[In-Browser Python Runtime]
+Output[Rendered Output or Terminal]
+Diagnostics{Runtime Successful?}
+Fix[Edit from Diagnostics]
 Save[Explicit Save Action]
-Store[AWS S3 Project Storage]
+Store[(AWS S3 Project Storage)]
 Access[Teacher + Student Retrieval]
+Feedback[Teacher Feedback]
 
-Input ==> Panel
-Editor ==> Router
-Router ==>|Web| Web
-Router ==>|Python| Py
-Web ==> Output
-Py ==> Output
-Editor ==> Save ==> Store ==> Access`
+Lesson ==> Panel ==> Editor ==> Action
+Action ==>|Run Web| Router ==> Web ==> Output ==> Diagnostics
+Action ==>|Run Python| Router ==> Python ==> Output
+Diagnostics ==>|No| Fix -. revise .-> Editor
+Diagnostics ==>|Yes| Save ==> Store ==> Access ==> Feedback
+Feedback -. next revision .-> Editor`
       ),
     },
     desktop: {
@@ -48,32 +51,33 @@ Editor ==> Save ==> Store ==> Access`
 subgraph Authoring[Authoring Surface]
   Lesson[Lesson Markdown]
   Panel[Instruction Panel]
-  Editor[Ace Editor\nHTML · CSS · JS · Python]
-  Lesson ==> Panel
+  Editor[Ace Editor]
+  Action{Run or Save?}
 end
 
-subgraph Runtime[Execution Runtime]
+subgraph Runtime[Execution + Diagnostics]
   Router[Execution Router]
-  Web[Sandboxed iframe Runtime]
-  Py[In-Browser Python Runtime\nSkulpt]
-  Terminal[Terminal / Rendered Output]
-
-  Router ==>|Web| Web
-  Router ==>|Python| Py
-  Web ==> Terminal
-  Py ==> Terminal
+  Web[Sandboxed Web Runtime]
+  Python[In-Browser Python Runtime]
+  Output[Rendered Output or Terminal]
+  Diagnostics{Runtime Successful?}
+  Fix[Edit from Diagnostics]
 end
 
-subgraph Persistence[Persistence + Retrieval]
-  Save[Explicit Save Action\nCtrl + S]
-  Store[AWS S3 Project Storage]
+subgraph Persistence[Persistence + Review]
+  Save[Explicit Save Action]
+  Store[(AWS S3 Project Storage)]
   Access[Teacher + Student Retrieval]
-
-  Save ==> Store ==> Access
+  Feedback[Teacher Feedback]
 end
 
-Editor ==> Router
-Editor ==> Save`
+Lesson ==> Panel ==> Editor ==> Action
+Action ==>|Run Web| Router ==> Web ==> Output ==> Diagnostics
+Action ==>|Run Python| Router ==> Python ==> Output
+Diagnostics ==>|No| Fix -. revise .-> Editor
+Diagnostics ==>|Yes| Save ==> Store ==> Access ==> Feedback
+Action ==>|Save| Save
+Feedback -. next revision .-> Editor`
       ),
     },
     description: [
@@ -82,7 +86,7 @@ Editor ==> Save`
         children: [
           {
             type: "text",
-            text: "The editor keeps lesson content, code, runtime output, and saving in one browser workspace. Web projects run in a sandboxed iframe, Python exercises use an in-browser runtime, and explicit saves persist project state to S3. The split runtime paths support different lesson types without changing the student's core workflow.",
+            text: "The editor connects lesson context to a deliberate run-or-save decision. Web and Python work share an execution router but use separate browser runtimes; diagnostics return students to editing, while successful work can be saved to S3, retrieved in classroom context, and revised from teacher feedback.",
           },
         ],
       },
@@ -99,21 +103,27 @@ Editor ==> Save`
 
 User[User Identity]
 Personal[Personal Projects]
-Org[Organization Membership]
-License[Organization License]
-Gate[Access Gate]
-Classroom[Classroom Features]
-ReadOnly[Read-Only Project Access]
-Teachers[Teachers]
-Students[Students]
+Membership[Organization Membership]
+Role{Resolved Role?}
+License{License Active?}
+Gate[Institutional Access Gate]
+Permissions[Role Permissions]
+Classroom[Classroom Workspace]
+ReadOnly[Read-Only Continuity]
+Renewal[License Renewal]
+Teacher[Teacher Capabilities]
+Student[Student Capabilities]
 
 User ==> Personal
-User ==> Org
-Org ==> License ==> Gate
-Gate ==>|Valid| Classroom
-Gate ==>|Expired| ReadOnly
-Classroom ==> Teachers
-Classroom ==> Students`
+User ==> Membership ==> Role
+Role ==>|Teacher or Student| License
+Role ==>|No Membership| Personal
+License ==>|Active| Gate ==> Permissions
+Permissions ==> Teacher
+Permissions ==> Student
+Teacher ==> Classroom
+Student ==> Classroom
+License ==>|Expired| ReadOnly ==> Renewal -. restore .-> License`
       ),
     },
     desktop: {
@@ -126,27 +136,31 @@ User[User Identity]
 subgraph Ownership[Ownership Boundary]
   Personal[Personal Projects]
   Membership[Organization Membership]
+  Role{Resolved Role?}
 end
 
 subgraph Governance[License Governance]
-  License[Active / Expired License]
-  Gate[Access Gate]
+  License{License Active?}
+  Gate[Institutional Access Gate]
   ReadOnly[Read-Only Continuity]
+  Renewal[License Renewal]
 end
 
-subgraph Classroom[Institutional Usage]
-  ClassroomShell[Classroom Workspace]
-  Teachers[Teacher Access]
-  Students[Student Access]
+subgraph Institutional[Institutional Capabilities]
+  Permissions[Role Permissions]
+  Teacher[Teacher Capabilities]
+  Student[Student Capabilities]
+  Classroom[Classroom Workspace]
 end
 
 User ==> Personal
-User ==> Membership
-Membership ==> License ==> Gate
-Gate ==>|Valid| ClassroomShell
-Gate ==>|Expired| ReadOnly
-ClassroomShell ==> Teachers
-ClassroomShell ==> Students`
+User ==> Membership ==> Role
+Role ==>|Teacher or Student| License
+Role ==>|No Membership| Personal
+License ==>|Active| Gate ==> Permissions
+Permissions ==> Teacher ==> Classroom
+Permissions ==> Student ==> Classroom
+License ==>|Expired| ReadOnly ==> Renewal -. restore .-> License`
       ),
     },
     description: [
@@ -155,7 +169,7 @@ ClassroomShell ==> Students`
         children: [
           {
             type: "text",
-            text: "The model separates user identity, personal projects, organization membership, and licensed classroom access. A license controls institutional capabilities without owning the user record. When access expires, classroom work becomes read-only while personal ownership and historical data remain intact.",
+            text: "Identity and personal projects remain independent of organization membership. Membership resolves a classroom role, active licensing opens role-specific capabilities, and expiration preserves historical work as read-only until renewal restores institutional access.",
           },
         ],
       },
@@ -164,31 +178,37 @@ ClassroomShell ==> Students`
   classroomFlow: {
     id: "diagram-classroom-flow",
     type: "diagram",
-    title: "Classroom → Project Flow",
+    title: "Classroom to Project Flow",
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
 
-User[User]
+User[Authenticated User]
 Entry[Classrooms Page]
+Role{Teacher or Student?}
 Teacher[Teacher Classroom List]
 Student[Student Classroom List]
 Dashboard[Classroom Dashboard]
-Lessons[Lesson List]
-Resolver[Project Resolver]
-Existing[Open Existing Project]
+Allowed{Lesson Access Allowed?}
+Denied[Access Guidance]
+Lesson[Selected Lesson]
+Existing{Project Exists?}
+Open[Open Existing Project]
 Clone[Clone Lesson Template]
 Project[Student Project + Grade Record]
+Submit[Submit Work]
+Feedback[Grade + Feedback]
 
-User ==> Entry
-Entry ==>|Teacher| Teacher
-Entry ==>|Student| Student
-Teacher ==> Dashboard
-Student ==> Dashboard
-Dashboard ==> Lessons ==> Resolver
-Resolver ==> Existing
-Resolver ==> Clone ==> Project`
+User ==> Entry ==> Role
+Role ==>|Teacher| Teacher ==> Dashboard
+Role ==>|Student| Student ==> Dashboard
+Dashboard ==> Allowed
+Allowed ==>|No| Denied -. choose classroom .-> Entry
+Allowed ==>|Yes| Lesson ==> Existing
+Existing ==>|Yes| Open ==> Submit
+Existing ==>|No| Clone ==> Project ==> Submit
+Submit ==> Feedback -. revise .-> Open`
       ),
     },
     desktop: {
@@ -196,32 +216,40 @@ Resolver ==> Clone ==> Project`
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
 
-User[Authenticated \nUser] ==> Entry[Classrooms \nPage]
+User[Authenticated User]
 
-subgraph Routing[Role-Aware Routing]
-  Teacher[Teacher \nClassroom List]
-  Student[Student \nClassroom List]
+subgraph Routing[Role-Aware Entry]
+  Entry[Classrooms Page]
+  Role{Teacher or Student?}
+  Teacher[Teacher Classroom List]
+  Student[Student Classroom List]
 end
 
-subgraph Workspace[Shared \nClassroom Workspace]
-  Dashboard[Classroom \nDashboard]
-  Lessons[Lesson \nList]
-  Resolver[Project \nResolver]
+subgraph Workspace[Classroom Workspace]
+  Dashboard[Classroom Dashboard]
+  Allowed{Lesson Access Allowed?}
+  Denied[Access Guidance]
+  Lesson[Selected Lesson]
+  Existing{Project Exists?}
 end
 
-subgraph Outcome[Project Outcome]
-  Existing[Existing Work\nOpen Project]
-  Clone[No Prior Work\nClone Lesson Template]
-  Grade[Initialize Project \n+ \nGrade Record]
+subgraph Outcome[Project + Feedback]
+  Open[Open Existing Project]
+  Clone[Clone Lesson Template]
+  Project[Student Project + Grade Record]
+  Submit[Submit Work]
+  Feedback[Grade + Feedback]
 end
 
-Entry ==>|Teacher| Teacher
-Entry ==>|Student| Student
-Teacher ==> Dashboard
-Student ==> Dashboard
-Dashboard ==> Lessons ==> Resolver
-Resolver ==> Existing
-Resolver ==> Clone ==> Grade`
+User ==> Entry ==> Role
+Role ==>|Teacher| Teacher ==> Dashboard
+Role ==>|Student| Student ==> Dashboard
+Dashboard ==> Allowed
+Allowed ==>|No| Denied -. choose classroom .-> Entry
+Allowed ==>|Yes| Lesson ==> Existing
+Existing ==>|Yes| Open ==> Submit
+Existing ==>|No| Clone ==> Project ==> Submit
+Submit ==> Feedback -. revise .-> Open`
       ),
     },
     description: [
@@ -230,7 +258,7 @@ Resolver ==> Clone ==> Grade`
         children: [
           {
             type: "text",
-            text: "Teachers and students enter through role-specific classroom lists, then converge on the same dashboard and lesson model. Selecting a lesson sends the student project resolver down one of two paths: load existing work or clone a new template with its grading context attached.",
+            text: "Role-aware entry converges on one classroom dashboard, where lesson permissions are checked before project resolution. Existing work opens directly, first-time work clones the lesson template with a grade record, and submitted work returns through feedback for revision.",
           },
         ],
       },
@@ -249,15 +277,24 @@ Org[Organization]
 Dashboard[Curriculum Dashboard]
 Course[Course]
 Unit[Unit]
-Lesson[Lesson]
-Template[Lesson Template]
+Lesson[Lesson Draft]
+Validate{Ready to Publish?}
+Revision[Revise Structure or Content]
+Published[Published Lesson]
+Template[Reusable Project Template]
 Resources[Lesson Resources]
-Classroom[Classroom Usage]
+Classroom[Classroom Assignment]
+Project[Student Project Instance]
+Feedback[Delivery Feedback]
 
-Org ==> Dashboard ==> Course ==> Unit ==> Lesson
-Lesson ==> Template
-Lesson ==> Resources
-Course ==> Classroom`
+Org ==> Dashboard ==> Course ==> Unit ==> Lesson ==> Validate
+Validate ==>|No| Revision -. update .-> Lesson
+Validate ==>|Yes| Published
+Published ==> Template
+Published ==> Resources
+Course ==> Classroom ==> Published ==> Project
+Feedback -. future revision .-> Lesson
+Project ==> Feedback`
       ),
     },
     desktop: {
@@ -265,28 +302,35 @@ Course ==> Classroom`
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
 
-subgraph Structure[Structural Composition]
+subgraph Authoring[Central Authoring]
   Org[Organization]
   Dashboard[Curriculum Dashboard]
   Course[Course]
   Unit[Unit]
-  Lesson[Lesson]
-
-  Org ==> Dashboard ==> Course ==> Unit ==> Lesson
+  Lesson[Lesson Draft]
+  Validate{Ready to Publish?}
+  Revision[Revise Structure or Content]
+  Published[Published Lesson]
 end
 
-subgraph Execution[Execution Boundary]
-  Template[Lesson Template]
-  Classroom[Classroom Usage]
-end
-
-subgraph Extensibility[Extensibility Surface]
+subgraph Reuse[Reusable Lesson Assets]
+  Template[Project Template]
   Resources[Lesson Resources]
 end
 
-Lesson ==> Template
-Lesson ==> Resources
-Course ==> Classroom`
+subgraph Delivery[Isolated Classroom Delivery]
+  Classroom[Classroom Assignment]
+  Project[Student Project Instance]
+  Feedback[Delivery Feedback]
+end
+
+Org ==> Dashboard ==> Course ==> Unit ==> Lesson ==> Validate
+Validate ==>|No| Revision -. update .-> Lesson
+Validate ==>|Yes| Published
+Published ==> Template
+Published ==> Resources
+Course ==> Classroom ==> Published ==> Project ==> Feedback
+Feedback -. future revision .-> Lesson`
       ),
     },
     description: [
@@ -295,7 +339,7 @@ Course ==> Classroom`
         children: [
           {
             type: "text",
-            text: "Curriculum follows an organization-to-course-to-unit-to-lesson hierarchy. Lessons reference reusable project templates and resources, while classrooms consume the published structure without owning duplicate copies. This keeps authoring centralized and classroom delivery isolated from structural edits.",
+            text: "Curriculum remains centrally authored through course, unit, and lesson composition. Publication validates the draft before exposing reusable templates and resources; classrooms consume the published structure as assignments, while delivery feedback informs a future revision without rewriting existing student projects.",
           },
         ],
       },

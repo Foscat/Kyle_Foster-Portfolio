@@ -109,6 +109,20 @@ describe("PageHeader", () => {
     expect(screen.queryByText(/describes/i)).not.toBeInTheDocument();
   });
 
+  it("renders a custom technology label when provided", () => {
+    renderWithProviders(
+      <PageHeader
+        title="Project"
+        techLabel="Focus Areas"
+        tech={[{ label: "Interface Systems Lab", type: "front" }]}
+      />
+    );
+
+    expect(
+      screen.getByText((_, node) => node?.classList.contains("tech-used") === true)
+    ).toHaveTextContent("Focus Areas: Interface Systems Lab");
+  });
+
   /* ------------------------------------------------------------
    * Semantics & attributes
    * ------------------------------------------------------------ */

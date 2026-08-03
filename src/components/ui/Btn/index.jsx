@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Button, IconButton, Tooltip, Whisper } from "rsuite";
 import "./styles.css";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import FrostedIcon from "components/ui/FrostedIcon";
 import { Variant, Size, SurfaceLevel, TooltipPlacement, HoverAnimation } from "types/ui.types";
 import { useCoarsePointer } from "assets/hooks";
@@ -38,9 +38,9 @@ import { formatClassNames } from "assets/utils";
  * @property {string} [className] - Additional CSS class names.
  * @property {boolean} [noBG=false] - If true, disables the frosted background.
  * @property {Variant} [variant="primary"] - Visual style variant.
- * @property {SurfaceLevel} [surfaceLevel="2"] - Interactive Surface visual depth level.
+ * @property {SurfaceLevel} [surfaceLevel] - Optional Interactive Surface visual depth override.
  * @property {Size} [size="md"] - Size variant applied to both button and icon.
- * @property {string} [text] - Text label rendered inside the button.
+ * @property {React.ReactNode} [text] - Label rendered inside the button.
  * @property {"button"|"submit"|"reset"} [type="button"] - Native button type.
  * @property {string} [icon] - FontAwesome icon name. When provided, renders an IconButton.
  * @property {Function} [onClick] - Click handler. May return a Promise to enable async loading state.
@@ -103,14 +103,18 @@ import { formatClassNames } from "assets/utils";
  * @param {Variant} [props.variant="primary"]
  *   Visual style variant aligned with the frosted theme.
  *
- * @param {SurfaceLevel} [props.surfaceLevel="2"]
- *   Interactive Surface depth level consumed by ui-style-kit-css v2.
+ * @param {SurfaceLevel} [props.surfaceLevel]
+ *   Optional Interactive Surface depth override. When omitted, the library owns
+ *   its base and active/inactive level behavior.
  *
  * @param {Size} [props.size="md"]
  *   Size variant applied to both button and icon.
  *
  * @param {string} [props.text]
  *   Text label rendered inside the button.
+ *
+ * @param {React.ReactNode} [props.children]
+ *   Nested button content used when a simple text label is not sufficient.
  *
  * @param {"button"|"submit"|"reset"} [props.type="button"]
  *   Native button type forwarded to the underlying RSuite button.
@@ -187,9 +191,10 @@ import { formatClassNames } from "assets/utils";
  */
 const Btn = ({
   variant = Variant.PRIMARY,
-  surfaceLevel = SurfaceLevel.RAISED,
+  surfaceLevel = undefined,
   size = Size.MD,
   text = "",
+  children = undefined,
   type = "button",
   className = "",
   icon = undefined,
@@ -245,11 +250,12 @@ const Btn = ({
    */
   const [asyncLoading, setAsyncLoading] = useState(loading);
   const isCoarsePointer = useCoarsePointer();
+  const hasText = text !== undefined && text !== null && text !== "";
 
   /**
    * @description True when the button renders only an icon with no text label
    */
-  const isIconOnly = icon && !text;
+  const isIconOnly = Boolean(icon) && !hasText && !children;
 
   /**
    * @description Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
@@ -321,9 +327,10 @@ const Btn = ({
   const allowedVariants = Object.values(Variant);
   const allowedSurfaceLevels = Object.values(SurfaceLevel);
   const resolvedVariant = allowedVariants.includes(variant) ? variant : Variant.PRIMARY;
-  const resolvedSurfaceLevel = allowedSurfaceLevels.includes(String(surfaceLevel))
-    ? String(surfaceLevel)
-    : SurfaceLevel.RAISED;
+  const normalizedSurfaceLevel = surfaceLevel == null ? undefined : String(surfaceLevel);
+  const resolvedSurfaceLevel = allowedSurfaceLevels.includes(normalizedSurfaceLevel)
+    ? normalizedSurfaceLevel
+    : undefined;
   const surfaceSizeClass =
     size === Size.XS || size === Size.SM
       ? "size-sm"
@@ -332,7 +339,8 @@ const Btn = ({
         : "";
   const surfaceStateClass = active ? "is-active" : "";
 
-  // Interactive Surface 1.3 reads variant paint from data-surface-variant; the local variant class remains for app-only button rules.
+  // Variant intent remains explicit, while surface depth stays library-owned unless
+  // a consumer deliberately requests a level override.
   const classes = formatClassNames(`btn btn-${size} btn-${active ? "active" : "inactive"}
     ${clickable ? `interactive-surface ${surfaceSizeClass} ${surfaceStateClass}` : "not-clickable"}
     ${resolvedVariant}
@@ -352,6 +360,8 @@ const Btn = ({
       aria-disabled={disabled || loading || asyncLoading}
       data-surface-variant={clickable ? resolvedVariant : undefined}
       data-surface-level={clickable ? resolvedSurfaceLevel : undefined}
+      tabIndex={tabIndex}
+      title={title || undefined}
       className={classes}
       active={active}
       as={elementAs}
@@ -375,43 +385,45 @@ const Btn = ({
       loading={loading || asyncLoading}
       disabled={disabled}
       icon={
-        <FrostedIcon
-          size={size}
-          icon={loading ? faSpinner : icon}
-          variant={variant}
-          clickable={isIconOnly && clickable && !(disabled || loading || asyncLoading)}
-          spin={loading}
-          noBG={noBG}
-          className={
-            "btn-icon" +
-            (isIconOnly ? " icon-only" : "") +
-            (clickable && isIconOnly ? "" : " not-clickable")
-          }
-          ariaLabel="Button icon"
-          border={border}
-          mask={mask}
-          maskId={maskId}
-          inverse={inverse}
-          flip={flip}
-          pull={pull}
-          rotation={rotation}
-          rotateBy={rotateBy}
-          spinPulse={spinPulse}
-          spinReverse={spinReverse}
-          fade={fade}
-          beatFade={beatFade}
-          bounce={bounce}
-          shake={shake}
-          symbol={symbol}
-          title={title}
-          titleId={titleId}
-          transform={transform}
-          swapOpacity={swapOpacity}
-          widthAuto={widthAuto}
-        />
+        icon ? (
+          <FrostedIcon
+            size={size}
+            icon={loading ? faSpinner : icon}
+            variant={variant}
+            clickable={isIconOnly && clickable && !(disabled || loading || asyncLoading)}
+            spin={loading}
+            noBG={noBG}
+            className={
+              "btn-icon" +
+              (isIconOnly ? " icon-only" : "") +
+              (clickable && isIconOnly ? "" : " not-clickable")
+            }
+            ariaLabel="Button icon"
+            border={border}
+            mask={mask}
+            maskId={maskId}
+            inverse={inverse}
+            flip={flip}
+            pull={pull}
+            rotation={rotation}
+            rotateBy={rotateBy}
+            spinPulse={spinPulse}
+            spinReverse={spinReverse}
+            fade={fade}
+            beatFade={beatFade}
+            bounce={bounce}
+            shake={shake}
+            symbol={symbol}
+            title={title}
+            titleId={titleId}
+            transform={transform}
+            swapOpacity={swapOpacity}
+            widthAuto={widthAuto}
+          />
+        ) : undefined
       }
     >
-      {text ? <span className="btn-label">{text}</span> : null}
+      {hasText ? <span className="btn-label">{text}</span> : children}
     </Component>
   );
 

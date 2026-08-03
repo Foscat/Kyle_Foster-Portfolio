@@ -70,7 +70,7 @@ The app runs without custom `.env` values, but these variables are supported:
 
 Prerequisites:
 
-- Node.js `>=20.19.0 <21` or `>=22.12.0 <23`
+- Node.js `>=22.22.0 <23`
 - npm `>=10 <11`
 
 Install and run:

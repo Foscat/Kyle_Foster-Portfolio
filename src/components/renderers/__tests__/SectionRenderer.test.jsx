@@ -62,6 +62,7 @@ vi.mock("components/renderers/blocks", () => ({
   ImageTextSplitBlock: () => <div data-testid="image-text-split-block" />,
   LinksBlock: () => <div data-testid="links-block" />,
   CardGridBlock: () => <div data-testid="card-grid-block" />,
+  VideoBlock: () => <div data-testid="video-block" />,
   FormBlock: () => <div data-testid="form-block" />,
   HeroBlock: () => <div data-testid="hero-block" />,
 }));
@@ -86,6 +87,7 @@ vi.mock("types/ui.types", async () => {
     createLinkListBlock: vi.fn((b) => b),
     createBulletListBlock: vi.fn((b) => b),
     createDiagramBlock: vi.fn((b) => b),
+    createVideoBlock: vi.fn((b) => b),
   };
 });
 
@@ -141,6 +143,11 @@ const SECTION_FORM = {
 const SECTION_HERO = {
   ...SECTION,
   blocks: [{ type: BlockType.HERO }],
+};
+
+const SECTION_VIDEO = {
+  ...SECTION,
+  blocks: [{ type: BlockType.VIDEO }],
 };
 
 const SECTION_MARKDOWN_DOCS = {
@@ -410,6 +417,11 @@ describe("SectionRenderer", () => {
   it("renders a HeroBlock for HERO blocks", () => {
     renderWithProviders(<SectionRenderer section={SECTION_HERO} />);
     expect(screen.getByTestId("hero-block")).toBeInTheDocument();
+  });
+
+  it("renders a VideoBlock for VIDEO blocks", () => {
+    renderWithProviders(<SectionRenderer section={SECTION_VIDEO} />);
+    expect(screen.getByTestId("video-block")).toBeInTheDocument();
   });
 
   it("renders a MarkdownDocsBlock for MARKDOWN_DOCS blocks", async () => {

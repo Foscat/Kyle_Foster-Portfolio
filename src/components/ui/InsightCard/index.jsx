@@ -55,6 +55,7 @@ export function CardGrid({ columns = 3, children }) {
         "card-grid--center-orphan": shouldCenterOrphan,
       })}
       role="list"
+      data-ly-recipe="card-grid"
       data-card-count={cardCount}
       data-card-columns={normalizedColumns}
       style={{
@@ -75,6 +76,7 @@ export function CardGrid({ columns = 3, children }) {
  *
  * @param {string} title - The title of the insight card.
  * @param {object} [icon] - The FontAwesome icon to display in the card header.
+ * @param {string} [iconName] - Semantic UI Style Kit icon id used before Font Awesome fallback.
  * @param {string} [subtitle] - The subtitle of the insight card.
  * @param {Variant} [variant] - The accent color for the card (default is "primary").
  * @param {FeatureImage} [previewImage] - Optional expandable preview image shown above card details.
@@ -107,6 +109,7 @@ export function CardGrid({ columns = 3, children }) {
 export function InsightCard({
   title,
   icon,
+  iconName,
   subtitle,
   variant = Variant.PRIMARY,
   content,
@@ -133,9 +136,18 @@ export function InsightCard({
       role="listitem"
     >
       <div className="insight-card__header">
-        {icon && (
+        {(iconName || icon) && (
           <div className="insight-card__icon">
-            <FrostedIcon noBG clickable={false} icon={icon} />
+            {iconName ? (
+              <usk-icon
+                data-testid="insight-card-semantic-icon"
+                name={iconName}
+                frame="soft"
+                aria-hidden="true"
+              />
+            ) : (
+              <FrostedIcon noBG clickable={false} icon={icon} />
+            )}
           </div>
         )}
         <div className="insight-card__title-group">

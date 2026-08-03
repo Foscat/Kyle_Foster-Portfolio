@@ -46,13 +46,13 @@ const Home = () => {
           jobTitle={home.jobTitle}
         />
         <StickyNav activePage={home.url} />
-        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
-          <main className="page-content app-main ly-content" role="main">
+        <div className="page-layout ly-sidebar">
+          <main className="page-content app-main ly-sidebar__content" role="main">
             {home.sections.map((sect) => {
               return <SectionRenderer section={sect} deferDiagrams key={sect.id} />;
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar">
+          <aside className="page-sidebar ly-sidebar__side">
             <StickySectionNav pageUrl={home.url} sections={home.sections} />
           </aside>
         </div>

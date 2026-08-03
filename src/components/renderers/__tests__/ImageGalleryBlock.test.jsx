@@ -59,6 +59,6 @@ describe("ImageGalleryBlock", () => {
 
     expect(await screen.findByAltText("Image 1")).toBeInTheDocument();
     expect(await screen.findByAltText("Image 2")).toBeInTheDocument();
-    expect(screen.getByRole("list")).toHaveClass("ly-gallery");
+    expect(screen.getByRole("list")).toHaveAttribute("data-ly-recipe", "gallery");
   });
 });

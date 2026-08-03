@@ -42,13 +42,13 @@ const Hackathon = () => {
           tech={hack.tech}
         />
         <StickyNav activePage={hack.url} />
-        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
-          <main className="page-content app-main ly-content" role="main">
+        <div className="page-layout ly-sidebar">
+          <main className="page-content app-main ly-sidebar__content" role="main">
             {hack.sections.map((sect) => {
               return <SectionRenderer section={sect} key={sect.id} />;
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar">
+          <aside className="page-sidebar ly-sidebar__side">
             <StickySectionNav pageUrl={hack.url} sections={hack.sections} />
           </aside>
         </div>

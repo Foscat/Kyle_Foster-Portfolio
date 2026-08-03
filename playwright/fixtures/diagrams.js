@@ -6,6 +6,9 @@
  * Each entry maps a Mermaid diagram block ID to the page route where it renders.
  */
 export const DIAGRAM_ENTRIES = [
+  // /
+  { id: "hero-engineering-flow", route: "/" },
+  { id: "professional-platform-diagram", route: "/" },
   // /codestream
   { id: "diagram-3panel-editor", route: "/codestream" },
   { id: "diagram-organization-license-model", route: "/codestream" },
@@ -14,8 +17,22 @@ export const DIAGRAM_ENTRIES = [
   // /hackathon
   { id: "diagram-hands-free-repair-workflow", route: "/hackathon" },
   { id: "diagram-voice-command-lifecycle", route: "/hackathon" },
+  // /sanderson-technology-enterprises
+  { id: "diagram-ste-public-site-journey", route: "/sanderson-technology-enterprises" },
+  {
+    id: "diagram-ste-content-creator-platform-flow",
+    route: "/sanderson-technology-enterprises",
+  },
+  { id: "diagram-ste-scrapyard-commerce-loop", route: "/sanderson-technology-enterprises" },
+  { id: "diagram-ste-interface-system-flow", route: "/sanderson-technology-enterprises" },
   // /side-projects
+  { id: "diagram-interface-systems-lab-contract", route: "/side-projects" },
   { id: "diagram-layout-style-bundle-flow", route: "/side-projects" },
+  { id: "diagram-ui-style-kit-token-flow", route: "/side-projects" },
+  { id: "diagram-interactive-surface-state-model", route: "/side-projects" },
+  { id: "diagram-interactive-surface-token-flow", route: "/side-projects" },
+  { id: "diagram-mern-auth-lifecycle", route: "/side-projects" },
+  { id: "diagram-mern-deployment-flow", route: "/side-projects" },
   { id: "diagram-greenhouse-mental-model", route: "/side-projects" },
   { id: "diagram-domain-model", route: "/side-projects" },
   // /smu

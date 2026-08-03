@@ -64,8 +64,8 @@ const CodeStream = () => {
           tech={csos.tech}
         />
         <StickyNav activePage={csos.url} />
-        <div className="page-layout ly-sidebar-layout ly-sidebar-layout--right">
-          <main className="page-content app-main ly-content" role="main">
+        <div className="page-layout ly-sidebar">
+          <main className="page-content app-main ly-sidebar__content" role="main">
             {csos.sections.map((sect) => {
               return (
                 <SectionRenderer
@@ -76,7 +76,7 @@ const CodeStream = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar">
+          <aside className="page-sidebar ly-sidebar__side">
             <StickySectionNav pageUrl={csos.url} sections={csos.sections} />
           </aside>
         </div>

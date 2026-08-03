@@ -6,7 +6,7 @@
 
 import React from "react";
 import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { HelmetProvider } from "react-helmet-async";
 import { CustomProvider } from "rsuite";
 
@@ -38,12 +38,7 @@ export function renderWithProviders(ui, { initialEntries = ["/"], rsuiteTheme = 
       <ResponsiveProvider>
         <ThemeProvider>
           <CustomProvider theme={rsuiteTheme}>
-            <MemoryRouter
-              initialEntries={initialEntries}
-              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-            >
-              {ui}
-            </MemoryRouter>
+            <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
           </CustomProvider>
         </ThemeProvider>
       </ResponsiveProvider>

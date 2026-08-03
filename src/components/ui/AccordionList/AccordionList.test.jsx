@@ -87,6 +87,12 @@ describe("AccordionList", () => {
     });
   });
 
+  it("does not scroll the document while initializing the active item", () => {
+    renderAccordion();
+
+    expect(Element.prototype.scrollIntoView).not.toHaveBeenCalled();
+  });
+
   /* ------------------------------------------------------------
    * Keyboard interaction
    * ------------------------------------------------------------ */

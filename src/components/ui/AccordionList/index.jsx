@@ -4,7 +4,7 @@
  * @module src\components\ui\AccordionList\index
  */
 
-import { useState, useEffect, useRef } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import { Divider, Panel, PanelGroup } from "rsuite";
 import { faReadme } from "@fortawesome/free-brands-svg-icons";
 import { Size, Variant } from "types/ui.types";
@@ -165,6 +165,25 @@ const AccordionList = ({
   };
 
   /**
+   * @description Keeps an active row visible without allowing Element.scrollIntoView
+   * to move the surrounding document during initial or observer-driven state changes.
+   * @param {number | null} index - Active accordion row index.
+   * @returns {void}
+   */
+  const keepListItemVisible = useCallback((index) => {
+    const container = listRef.current;
+    if (!container || index === null || container.scrollHeight <= container.clientHeight) return;
+
+    const active = container.querySelector(`.fa-list-item:nth-child(${index + 1})`);
+    if (!active) return;
+
+    const centeredScrollTop =
+      active.offsetTop - container.clientHeight / 2 + active.clientHeight / 2;
+    const maxScrollTop = container.scrollHeight - container.clientHeight;
+    container.scrollTop = Math.min(maxScrollTop, Math.max(0, centeredScrollTop));
+  }, []);
+
+  /**
    * @description Auto-highlight based on viewport position for isScroller items
    */
   useEffect(() => {
@@ -208,31 +227,15 @@ const AccordionList = ({
    * @description Auto-scroll active item into view whenever openIndex changes
    */
   useEffect(() => {
-    if (!listRef.current || openIndex === null) return;
-
-    const active = listRef.current.querySelector(`.fa-list-item:nth-child(${openIndex + 1})`);
-    if (!active) return;
-
-    active.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  }, [openIndex]);
+    keepListItemVisible(openIndex);
+  }, [keepListItemVisible, openIndex]);
 
   /**
    * @description Also center scroll when focus changes via keyboard
    */
   useEffect(() => {
-    if (!listRef.current || focusedIndex === null) return;
-
-    const active = listRef.current.querySelector(`.fa-list-item:nth-child(${focusedIndex + 1})`);
-    if (!active) return;
-
-    active.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  }, [focusedIndex]);
+    keepListItemVisible(focusedIndex);
+  }, [focusedIndex, keepListItemVisible]);
 
   // Respond to section navigation events so keyboard navigation opens exactly one accordion item.
   useEffect(() => {

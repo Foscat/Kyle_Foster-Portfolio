@@ -4,7 +4,6 @@
  * @module assets/data/content/home/diagrams
  */
 
-import { BlockType } from "types/ui.types.js";
 import {
   diagramConfig,
   resolveDiagram,
@@ -15,36 +14,61 @@ const diagrams = {
   engineeringFlow: {
     id: "hero-engineering-flow",
     title: "Engineering Process",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
-    
-    Problem[Problem + Domain Context]
-    Model[Domain Rules + Limits]
-    Ux[UX + Interaction Design]
+
+    Context[Problem + Domain Context]
+    Constraints[Rules + Constraints]
+    Fit{Problem Framed Clearly?}
+    Reframe[Research + Reframe]
+    Ux[UX + Interaction Model]
     Build[Implementation + Integration]
-    Verify[Testing + Feedback]
+    Verify[Automated + Browser Testing]
+    Ready{Release Ready?}
     Deploy[Deploy + Observe]
-    
-    Problem ==> Model ==> Ux ==> Build ==> Verify ==> Deploy
-    Verify -. refine .-> Model
-    Deploy -. iterate .-> Ux`
+    Feedback[Production Feedback]
+
+    Context ==> Constraints ==> Fit
+    Fit ==>|No| Reframe -. clarify .-> Context
+    Fit ==>|Yes| Ux ==> Build ==> Verify ==> Ready
+    Ready ==>|No| Build
+    Ready ==>|Yes| Deploy ==> Feedback
+    Feedback -. next iteration .-> Ux`
       ),
     },
     desktop: {
       diagram: diagram(
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
-    
-    Problem[Problem + Domain Context] --> Model[Domain Rules + Limits]
-    Model --> Ux[UX + Interaction Design]
-    Ux --> Build[Implementation + Integration]
-    Build --> Verify[Testing + Feedback]
-    Verify --> Deploy[Deploy + Observe]
-    Verify -. refine .-> Model
-    Deploy -. iterate .-> Ux`
+
+    subgraph Discovery[Discovery + Alignment]
+      Context[Problem + Domain Context]
+      Constraints[Rules + Constraints]
+      Fit{Problem Framed Clearly?}
+      Reframe[Research + Reframe]
+    end
+
+    subgraph Delivery[Design + Delivery]
+      Ux[UX + Interaction Model]
+      Build[Implementation + Integration]
+      Verify[Automated + Browser Testing]
+      Ready{Release Ready?}
+    end
+
+    subgraph Learning[Release + Learning]
+      Deploy[Deploy + Observe]
+      Feedback[Production Feedback]
+    end
+
+    Context ==> Constraints ==> Fit
+    Fit ==>|No| Reframe -. clarify .-> Context
+    Fit ==>|Yes| Ux ==> Build ==> Verify ==> Ready
+    Ready ==>|No| Build
+    Ready ==>|Yes| Deploy ==> Feedback
+    Feedback -. next iteration .-> Ux`
       ),
     },
     description: [
@@ -54,7 +78,7 @@ const diagrams = {
           { type: "strong", text: "How I ship." },
           {
             type: "text",
-            text: " I start with domain clarity, translate that into usable interaction design, implement with system boundaries in mind, then loop through testing and production feedback to improve the next iteration.",
+            text: " I clarify the domain and constraints before committing to a solution, reframe weak assumptions, and then move through interaction design, implementation, and evidence-based release checks. Failed checks return to delivery work, while observed production feedback shapes the next iteration.",
           },
         ],
       },
@@ -63,42 +87,69 @@ const diagrams = {
   platformDesign: {
     id: "professional-platform-diagram",
     title: "Platform Architecture",
-    type: BlockType.DIAGRAM,
+    type: "diagram",
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
-    
-    subgraph Platform[CodeStream Studios Platform]
-      IDE[3-Panel Browser-Based IDE\nLesson · Editor · Output]
-      Classroom[Virtual Classroom & Grading\nAssignments · Feedback · Reports]
-      Org[Organizations & Licensing\nRoles · Seats · Access Gates]
-    end
-    
-    Student([Student]) --> IDE
-    Teacher([Teacher]) --> IDE
-    Teacher --> Classroom
-    Admin([Admin]) --> Org
-    Org --> Classroom`
+
+    Student([Student])
+    Teacher([Teacher])
+    Admin([Admin])
+    Gate{Licensed Access?}
+    Org[Organizations + Roles]
+    Content[Lesson Content]
+    IDE[3-Panel IDE]
+    Runtime[Web + Python Runtime]
+    Projects[(Project Storage)]
+    Classroom[Classroom Workspace]
+    Grading[Feedback + Reports]
+    Personal[Personal Project Access]
+
+    Admin ==> Org ==> Gate
+    Student ==> Gate
+    Teacher ==> Gate
+    Gate ==>|Licensed| Content ==> IDE ==> Runtime
+    IDE ==> Projects
+    Teacher ==> Classroom ==> Grading
+    Projects ==> Classroom
+    Gate ==>|No License| Personal ==> Projects`
       ),
     },
     desktop: {
       diagram: diagram(
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
-    
-    Student([Student]) --> IDE
-    Teacher([Teacher]) --> IDE
-    Teacher --> Classroom
-    Admin([Admin]) --> Org
-    
-    subgraph Platform[CodeStream Studios Platform]
-      IDE[3-Panel Browser-Based IDE]
-      Classroom[Virtual Classroom + Grading]
-      Org[Organizations + Licensing]
+
+    Student([Student])
+    Teacher([Teacher])
+    Admin([Admin])
+
+    subgraph Governance[Organization Governance]
+      Org[Organizations + Roles]
+      Gate{Licensed Access?}
+      Personal[Personal Project Access]
     end
-    
-    Org --> Classroom`
+
+    subgraph Learning[Learning Workspace]
+      Content[Lesson Content]
+      IDE[3-Panel Browser IDE]
+      Runtime[Web + Python Runtime]
+      Projects[(Project Storage)]
+    end
+
+    subgraph Instruction[Classroom Operations]
+      Classroom[Classroom Workspace]
+      Grading[Feedback + Reports]
+    end
+
+    Admin ==> Org ==> Gate
+    Student ==> Gate
+    Teacher ==> Gate
+    Gate ==>|Licensed| Content ==> IDE ==> Runtime
+    IDE ==> Projects ==> Classroom ==> Grading
+    Teacher ==> Classroom
+    Gate ==>|No License| Personal ==> Projects`
       ),
     },
     description: [
@@ -108,7 +159,7 @@ const diagrams = {
           { type: "strong", text: "Three connected systems." },
           {
             type: "text",
-            text: " The IDE delivers instruction and runs code. The classroom layer handles grading, feedback, and reporting. The organization layer governs roles, licensing, and seat access, all built and owned as the sole frontend engineer.",
+            text: " Organization roles and license state determine the institutional entry path without taking away personal project ownership. Lesson content moves through the browser IDE and its web or Python runtime, saved projects feed the classroom workspace, and teachers complete the loop through feedback and reporting.",
           },
         ],
       },

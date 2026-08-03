@@ -10,6 +10,84 @@ import {
 } from "../../../../components/features/CustomDiagram/core/index.js";
 
 const diagrams = {
+  interfaceSystemsLabContract: {
+    id: "diagram-interface-systems-lab-contract",
+    type: "diagram",
+    title: "Shared Interface Contract",
+    desktop: {
+      diagram: diagram(
+        diagramConfig.FLOWCHART_INIT,
+        `flowchart LR
+
+  Consumer([Consumer App])
+  Markup[Shared Semantic Markup]
+  Adoption{Adoption Mode?}
+  Layout[layout-style-css]
+  Paint[ui-style-kit-css]
+  States[interactive-surface-css]
+  Standalone[Standalone Package Use]
+  Workbench[Integrated Workbench]
+  Align{Contracts Align?}
+  Correct[Correct Markup or Tokens]
+  Proof[Unified System Proof]
+  Release[Package Release]
+
+  Consumer ==> Markup ==> Adoption
+  Adoption ==>|Standalone| Standalone ==> Proof
+  Adoption ==>|Integrated| Layout
+  Adoption ==> Paint
+  Adoption ==> States
+  Layout ==> Workbench
+  Paint ==> Workbench
+  States ==> Workbench ==> Align
+  Align ==>|No| Correct -. retest .-> Markup
+  Align ==>|Yes| Proof ==> Release`
+      ),
+    },
+    mobile: {
+      diagram: diagram(
+        diagramConfig.MOBILE_FLOWCHART_INIT,
+        `flowchart TB
+
+  Consumer([Consumer App])
+  Markup[Shared Semantic Markup]
+  Adoption{Adoption Mode?}
+  Layout[layout-style-css]
+  Paint[ui-style-kit-css]
+  States[interactive-surface-css]
+  Standalone[Standalone Package Use]
+  Workbench[Interactive Workbench]
+  Align{Contracts Align?}
+  Correct[Correct Markup or Tokens]
+  Proof[Unified System Proof]
+  Release[Package Release]
+
+  Consumer ==> Markup ==> Adoption
+  Adoption ==>|Standalone| Standalone ==> Proof
+  Adoption ==>|Integrated| Layout
+  Adoption ==> Paint
+  Adoption ==> States
+  Layout ==> Workbench
+  Paint ==> Workbench
+  States ==> Workbench
+  Workbench ==> Align
+  Align ==>|No| Correct -. retest .-> Markup
+  Align ==>|Yes| Proof ==> Release`
+      ),
+    },
+    description: [
+      {
+        type: "p",
+        children: [
+          {
+            type: "text",
+            text: "Interface Systems Lab keeps the libraries coordinated around shared semantic markup while preserving standalone adoption. Integrated use composes structure, paint, and interaction behavior in the workbench; contract failures return to markup or token correction before the packages become unified proof and a releasable version.",
+          },
+        ],
+      },
+    ],
+  },
+
   interactiveSurfaceStateModel: {
     id: "diagram-interactive-surface-state-model",
     type: "diagram",
@@ -18,46 +96,64 @@ const diagrams = {
       diagram: diagram(
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
-  
+
+  Input[Pointer or Keyboard Input]
+  Enabled{Surface Enabled?}
+  Disabled[Disabled + Inert]
   Base[Base Surface]
   Hover[Hover State]
   Focus[Focus Visible]
+  Pressed[Pressed State]
+  Toggle{Persistent Selection?}
   Active[Active or Toggled]
-  Pressed[Pressed]
-  Disabled[Disabled]
-  
-  Base ==> Hover
-  Base ==> Focus
-  Hover ==> Active
-  Focus ==> Active
-  Active ==> Pressed
-  Base ==> Disabled
-  Hover ==> Disabled
-  Focus ==> Disabled
-  Active ==> Disabled`
+  Release[Released State]
+  Motion{Reduced Motion?}
+  Settle[Stable Visual State]
+
+  Input ==> Enabled
+  Enabled ==>|No| Disabled
+  Enabled ==>|Yes| Base
+  Base ==>|Pointer| Hover ==> Pressed
+  Base ==>|Keyboard| Focus ==> Pressed
+  Pressed ==> Toggle
+  Toggle ==>|Yes| Active ==> Release
+  Toggle ==>|No| Release
+  Release ==> Motion
+  Motion ==>|Yes| Settle
+  Motion ==>|No| Settle
+  Settle -. next interaction .-> Input`
       ),
     },
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
-  
+
+  Input[Pointer or Keyboard]
+  Enabled{Surface Enabled?}
+  Disabled[Disabled + Inert]
   Base[Base Surface]
   Hover[Hover State]
   Focus[Focus Visible]
+  Pressed[Pressed State]
+  Toggle{Persistent Selection?}
   Active[Active or Toggled]
-  Pressed[Pressed]
-  Disabled[Disabled]
-  
-  Base ==> Hover
-  Base ==> Focus
-  Hover ==> Active
-  Focus ==> Active
-  Active ==> Pressed
-  Base ==> Disabled
-  Hover ==> Disabled
-  Focus ==> Disabled
-  Active ==> Disabled`
+  Release[Released State]
+  Motion{Reduced Motion?}
+  Settle[Stable Visual State]
+
+  Input ==> Enabled
+  Enabled ==>|No| Disabled
+  Enabled ==>|Yes| Base
+  Base ==>|Pointer| Hover ==> Pressed
+  Base ==>|Keyboard| Focus ==> Pressed
+  Pressed ==> Toggle
+  Toggle ==>|Yes| Active ==> Release
+  Toggle ==>|No| Release
+  Release ==> Motion
+  Motion ==>|Yes| Settle
+  Motion ==>|No| Settle
+  Settle -. next interaction .-> Input`
       ),
     },
     description: [
@@ -130,42 +226,64 @@ const diagrams = {
       diagram: diagram(
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
-  
+
+  Consumer[Consumer Theme Input]
   Preferred[Preferred Package Tokens]
   Legacy[Legacy Fallback Tokens]
   Semantic[Semantic App Tokens]
   Defaults[Safe Defaults]
+  Available{Preferred Value Available?}
   Resolved[Resolved Internal Values]
+  Valid{Resolved Value Valid?}
+  Recover[Use Next Fallback]
   Surface[Interactive Surface]
   States[Visual States]
-  
-  Preferred ==> Resolved
-  Legacy ==> Resolved
-  Semantic ==> Resolved
-  Defaults ==> Resolved
-  Resolved ==> Surface
-  Resolved ==> States`
+  Contrast{Contrast + State Check Pass?}
+  Adjust[Adjust Consumer Override]
+
+  Consumer ==> Preferred ==> Available
+  Available ==>|No| Legacy ==> Semantic ==> Defaults ==> Resolved
+  Available ==>|Yes| Resolved
+  Resolved ==> Valid
+  Valid ==>|No| Recover -. continue fallback chain .-> Legacy
+  Valid ==>|Yes| Surface
+  Resolved ==> States
+  Surface ==> Contrast
+  States ==> Contrast
+  Contrast ==>|No| Adjust -. revise tokens .-> Consumer
+  Contrast ==>|Yes| States`
       ),
     },
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
-  
+
+  Consumer[Consumer Theme Input]
   Preferred[Preferred Package Tokens]
   Legacy[Legacy Fallback Tokens]
   Semantic[Semantic App Tokens]
   Defaults[Safe Defaults]
+  Available{Preferred Value Available?}
   Resolved[Resolved Internal Values]
+  Valid{Resolved Value Valid?}
+  Recover[Use Next Fallback]
   Surface[Interactive Surface]
   States[Visual States]
-  
-  Preferred ==> Resolved
-  Legacy ==> Resolved
-  Semantic ==> Resolved
-  Defaults ==> Resolved
-  Resolved ==> Surface
-  Resolved ==> States`
+  Contrast{Contrast + State Check Pass?}
+  Adjust[Adjust Consumer Override]
+
+  Consumer ==> Preferred ==> Available
+  Available ==>|No| Legacy ==> Semantic ==> Defaults ==> Resolved
+  Available ==>|Yes| Resolved
+  Resolved ==> Valid
+  Valid ==>|No| Recover -. continue fallback .-> Legacy
+  Valid ==>|Yes| Surface
+  Resolved ==> States
+  Surface ==> Contrast
+  States ==> Contrast
+  Contrast ==>|No| Adjust -. revise tokens .-> Consumer
+  Contrast ==>|Yes| States`
       ),
     },
     description: [
@@ -176,7 +294,7 @@ const diagrams = {
           { type: "strong", children: [{ type: "text", text: "fallback-based token resolution" }] },
           {
             type: "text",
-            text: " so the primitive can be adopted in different environments without forcing one rigid theme system.",
+            text: " so the primitive can be adopted in different environments without forcing one rigid theme system. Resolved values are validated before use, and contrast or state failures return to consumer overrides instead of silently producing an unusable surface.",
           },
         ],
       },
@@ -218,6 +336,79 @@ const diagrams = {
     ],
   },
 
+  uiStyleKitTokenFlow: {
+    id: "diagram-ui-style-kit-token-flow",
+    type: "diagram",
+    title: "UI Style Kit Token Flow",
+    desktop: {
+      diagram: diagram(
+        diagramConfig.FLOWCHART_INIT,
+        `flowchart LR
+
+  Consumer[Consumer Theme Request]
+  Root[Root Configuration]
+  Tokens[Design Tokens]
+  Palette[Palette Roles]
+  Mode[Mode Rules]
+  Roles[Semantic Roles]
+  Components[Component Consumption]
+  Contrast{Contrast Passes?}
+  Adjust[Adjust Role or Token]
+  Paint[Published Component Paint]
+  Feedback[Consumer Feedback]
+
+  Consumer ==> Root ==> Tokens
+  Tokens ==> Palette
+  Tokens ==> Mode
+  Palette ==> Roles
+  Mode ==> Roles
+  Roles ==> Components ==> Contrast
+  Contrast ==>|No| Adjust -. resolve again .-> Tokens
+  Contrast ==>|Yes| Paint ==> Feedback
+  Feedback -. refine theme .-> Root`
+      ),
+    },
+    mobile: {
+      diagram: diagram(
+        diagramConfig.MOBILE_FLOWCHART_INIT,
+        `flowchart TB
+
+  Consumer[Consumer Theme Request]
+  Root[Root Configuration]
+  Tokens[Design Tokens]
+  Palette[Palette Roles]
+  Mode[Mode Rules]
+  Roles[Semantic Roles]
+  Components[Component Consumption]
+  Contrast{Contrast Passes?}
+  Adjust[Adjust Role or Token]
+  Paint[Published Component Paint]
+  Feedback[Consumer Feedback]
+
+  Consumer ==> Root ==> Tokens
+  Tokens ==> Palette
+  Tokens ==> Mode
+  Palette ==> Roles
+  Mode ==> Roles
+  Roles ==> Components ==> Contrast
+  Contrast ==>|No| Adjust -. resolve again .-> Tokens
+  Contrast ==>|Yes| Paint ==> Feedback
+  Feedback -. refine theme .-> Root`
+      ),
+    },
+    description: [
+      {
+        type: "p",
+        children: [
+          {
+            type: "text",
+            text: "UI Style Kit CSS resolves a consumer theme request through root configuration, palette and mode inputs, and semantic roles. Component contrast checks can return to token adjustment, while validated paint becomes a reusable output whose consumer feedback informs the next theme revision.",
+          },
+        ],
+      },
+    ],
+  },
+
   layoutStyleBundleFlow: {
     id: "diagram-layout-style-bundle-flow",
     type: "diagram",
@@ -233,11 +424,16 @@ const diagrams = {
     Section[".ly-section"]
     Stack[".ly-stack"]
     Grid[".ly-grid"]
-    Sidebar[".ly-sidebar-layout"]
+    Sidebar[".ly-sidebar"]
   end
   Paint[ui-style-kit-css Theme Paint]
   States[interactive-surface-css Interaction States]
+  Fit{Container Fits Content?}
+  Reflow[Intrinsic Reflow]
+  Access{Accessible + Usable?}
+  Correct[Correct Composition]
   Output[Responsive STE Interfaces]
+  Feedback[Consumer Feedback]
 
   Needs ==> Wrapper
   Needs ==> Section
@@ -247,8 +443,12 @@ const diagrams = {
   Stack ==> Paint
   Grid ==> Paint
   Sidebar ==> Paint
-  Paint ==> States
-  States ==> Output`
+  Paint ==> States ==> Fit
+  Fit ==>|No| Reflow -. recompute layout .-> Wrapper
+  Fit ==>|Yes| Access
+  Access ==>|No| Correct -. revise composition .-> Needs
+  Access ==>|Yes| Output ==> Feedback
+  Feedback -. new requirements .-> Needs`
       ),
     },
     mobile: {
@@ -257,12 +457,23 @@ const diagrams = {
         `flowchart TB
 
   Needs[App and Page Needs]
+  Wrapper[Responsive Wrapper]
   Layout[layout-style-css Primitives]
+  Reflow{Content Fits?}
+  Adjust[Intrinsic Reflow]
   Paint[ui-style-kit-css Paint]
   States[interactive-surface-css States]
+  Access{Accessible + Usable?}
+  Correct[Correct Composition]
   Output[Responsive STE Interfaces]
+  Feedback[Consumer Feedback]
 
-  Needs ==> Layout ==> Paint ==> States ==> Output`
+  Needs ==> Wrapper ==> Layout ==> Reflow
+  Reflow ==>|No| Adjust -. recompute .-> Layout
+  Reflow ==>|Yes| Paint ==> States ==> Access
+  Access ==>|No| Correct -. revise .-> Needs
+  Access ==>|Yes| Output ==> Feedback
+  Feedback -. new requirements .-> Needs`
       ),
     },
     description: [
@@ -271,7 +482,7 @@ const diagrams = {
         children: [
           {
             type: "text",
-            text: "Layout Style CSS sits between page requirements and the visual system. It turns repeated responsive layout work into reusable structure before color and interaction styling are applied.",
+            text: "Layout Style CSS turns page requirements into reusable wrappers, sections, stacks, grids, and sidebars before paint or interaction states are applied. Container-fit and accessibility decisions return weak compositions for intrinsic reflow or correction, while validated output feeds the next set of consumer requirements.",
           },
         ],
       },
@@ -329,16 +540,25 @@ const diagrams = {
   User ->> Client: Submit login form
   Client ->> API: POST /api/users/login
   API ->> DB: Validate credentials
-  DB -->> API: User found
-  API -->> Client: Access token + refresh cookie
-  
-  Client ->> API: Request protected resource
-  API -->> Client: 401 when token expires
-  
-  Client ->> API: POST /api/users/refresh
-  API -->> Client: New access token
-  Client ->> API: Retry queued requests
-  API -->> Client: Protected response`
+  alt Credentials are invalid
+    DB -->> API: User not found or password mismatch
+    API -->> Client: Authentication error
+    Client -->> User: Keep session signed out
+  else Credentials are valid
+    DB -->> API: User found
+    API -->> Client: Access token + refresh cookie
+    Client ->> API: Request protected resource
+    API -->> Client: 401 when access token expires
+    Client ->> API: POST /api/users/refresh
+    alt Refresh cookie is accepted
+      API -->> Client: New access token
+      Client ->> API: Retry queued requests
+      API -->> Client: Protected response
+    else Refresh cookie is rejected
+      API -->> Client: Session expired
+      Client -->> User: Clear session and request login
+    end
+  end`
       ),
     },
     mobile: {
@@ -347,16 +567,24 @@ const diagrams = {
         `flowchart TB
   
   Login[Login Request]
+  Credentials{Credentials Valid?}
+  Error[Authentication Error]
   Access[Access Token Issued]
   Cookie[Refresh Cookie Stored]
   Protected[Protected API Request]
   Expired{Access Token Expired?}
   Refresh[Refresh Endpoint]
+  RefreshValid{Refresh Accepted?}
   Retry[Retry Original Request]
   Success[Protected Response + Continue Session]
+  End[Clear Session + Request Login]
   
-  Login ==> Access ==> Cookie ==> Protected ==> Expired
-  Expired ==>|Yes| Refresh ==> Retry ==> Success
+  Login ==> Credentials
+  Credentials ==>|No| Error -. correct login .-> Login
+  Credentials ==>|Yes| Access ==> Cookie ==> Protected ==> Expired
+  Expired ==>|Yes| Refresh ==> RefreshValid
+  RefreshValid ==>|Yes| Retry ==> Success
+  RefreshValid ==>|No| End
   Expired ==>|No| Success`
       ),
     },
@@ -370,7 +598,7 @@ const diagrams = {
           { type: "strong", children: [{ type: "text", text: "refresh-based session path" }] },
           {
             type: "text",
-            text: ", a core architectural concept in the template.",
+            text: ", a core architectural concept in the template. Invalid logins stay signed out, accepted refresh retries queued requests, and rejected refresh clears the session.",
           },
         ],
       },
@@ -383,7 +611,7 @@ const diagrams = {
               { type: "strong", text: "Access token:" },
               {
                 type: "text",
-                text: " used for normal authenticated API requests.",
+                text: " used for authenticated API requests.",
               },
             ],
           },
@@ -393,7 +621,7 @@ const diagrams = {
               { type: "strong", text: "Refresh cookie:" },
               {
                 type: "text",
-                text: " supports session continuation without forcing constant re-login.",
+                text: " supports session continuation without forcing re-login.",
               },
             ],
           },
@@ -403,7 +631,7 @@ const diagrams = {
               { type: "strong", text: "Retry handling:" },
               {
                 type: "text",
-                text: " failed requests can resume after refresh instead of immediately breaking the user flow.",
+                text: " failed requests can resume after refresh instead of breaking the user flow.",
               },
             ],
           },
@@ -429,38 +657,65 @@ const diagrams = {
       diagram: diagram(
         diagramConfig.FLOWCHART_INIT,
         `flowchart LR
-  
-  Browser[Browser]
-  Client[React + Vite Client]
-  Server[Express Server]
-  Routes[API Routes]
-  Auth[JWT + Refresh Handling]
-  DB[MongoDB]
-  
-  Browser ==> Client
-  Client ==> Server
-  Server ==> Routes
-  Server ==> Client
-  Routes ==> Auth
-  Routes ==> DB`
+
+  Source[React + Express Source]
+
+  subgraph Build[Build + Configuration]
+    Vite[Vite Production Build]
+    Assets[(Static Client Assets)]
+    Env[Runtime Environment]
+  end
+
+  subgraph Service[Single Express Service]
+    Server[Express Server]
+    Request{Client or API Request?}
+    Static[Serve React Assets]
+    Routes[API Routes]
+    Auth[JWT + Refresh Handling]
+  end
+
+  subgraph Runtime[Runtime Dependencies]
+    DB[(MongoDB)]
+    Health{Service Healthy?}
+    Browser[Browser Response]
+    Recover[Log Error + Recover]
+  end
+
+  Source ==> Vite ==> Assets ==> Server
+  Env ==> Server ==> Request
+  Request ==>|Client Route| Static ==> Browser
+  Request ==>|API Route| Routes ==> Auth ==> DB ==> Browser
+  Server ==> Health
+  Health ==>|No| Recover -. restart or retry .-> Server
+  Health ==>|Yes| Browser`
       ),
     },
     mobile: {
       diagram: diagram(
         diagramConfig.MOBILE_FLOWCHART_INIT,
         `flowchart TB
-  
-  Browser[Browser]
-  Client[React Client]
-  Server[Express Server]
+
+  Source[React + Express Source]
+  Vite[Vite Production Build]
+  Assets[(Static Client Assets)]
+  Env[Runtime Environment]
+  Server[Single Express Service]
+  Request{Client or API Request?}
+  Static[Serve React Assets]
   API[API Routes]
   Auth[Auth Middleware]
-  DB[MongoDB]
-  
-  Browser ==> Client ==> Server
-  Server ==> API
-  API ==> Auth
-  API ==> DB`
+  DB[(MongoDB)]
+  Health{Service Healthy?}
+  Browser[Browser Response]
+  Recover[Log Error + Recover]
+
+  Source ==> Vite ==> Assets ==> Server
+  Env ==> Server ==> Request
+  Request ==>|Client Route| Static ==> Browser
+  Request ==>|API Route| API ==> Auth ==> DB ==> Browser
+  Server ==> Health
+  Health ==>|No| Recover -. retry .-> Server
+  Health ==>|Yes| Browser`
       ),
     },
     description: [
@@ -471,7 +726,7 @@ const diagrams = {
           { type: "strong", children: [{ type: "text", text: "practical deployment model" }] },
           {
             type: "text",
-            text: ": one server can host the API and serve the built client in production.",
+            text: ": one configured server can host the API and serve the built client. Request routing separates static navigation from authenticated API work, while health failure returns through logging and recovery before a browser response is served.",
           },
         ],
       },
@@ -524,23 +779,35 @@ const diagrams = {
 subgraph Sense[Sense]
   Sensor>DHT11 Sensor]
   Read[[Sensor Read Cycle]]
+  Valid{Reading Valid?}
+  Safe[Preserve Safe Relay State]
 end
 
 subgraph Decide[Decide]
   Config{{Growth Mode Configuration}}
   Engine[/"Deterministic Decision Engine"\\]
-  Compare{Desired State\nDiffers?}
+  Deadband{Outside Allowed Range?}
+  Compare{Desired State Differs?}
 end
 
 subgraph Act[Act]
   Apply[Apply Relay Update]
+  Verify{Relay State Confirmed?}
+  Recover[Retry Safe Relay Update]
+  Log[Log Cycle Outcome]
   Delay([Stability Delay])
 end
 
-Read==> Sensor==>|Send Values|Config ==> Engine ==> Compare
-Compare==>|No|Delay
-Compare==>|Yes|Apply ==> Delay
-Delay==>|After Wait|Sense`
+Read ==> Sensor ==> Valid
+Valid ==>|No| Safe ==> Log
+Valid ==>|Yes| Config ==> Engine ==> Deadband
+Deadband ==>|No| Log
+Deadband ==>|Yes| Compare
+Compare ==>|No Change| Log
+Compare ==>|Update| Apply ==> Verify
+Verify ==>|No| Recover -. retry .-> Apply
+Verify ==>|Yes| Log ==> Delay
+Delay -. next sample .-> Read`
       ),
     },
     mobile: {
@@ -550,16 +817,28 @@ Delay==>|After Wait|Sense`
 
 Sensor>DHT11 Sensor]
 Read[[Sensor Read Cycle]]
+Valid{Reading Valid?}
+Safe[Preserve Safe Relay State]
 Config{{Growth Mode Configuration}}
 Engine[/"Deterministic Decision Engine"\\]
+Deadband{Outside Allowed Range?}
 Compare{Desired State Differs?}
 Apply[\\Apply Relay Update\\]
+Verify{Relay State Confirmed?}
+Recover[Retry Safe Relay Update]
+Log[Log Cycle Outcome]
 Delay([Stability Delay])
 
-Read==>|Get climate\n readings|Sensor==>|Send Values|Config ==> Engine ==> Compare
-Compare ==>|No| Delay
-Compare ==>|Yes| Apply ==> Delay
-Delay ==> Read`
+Read ==> Sensor ==> Valid
+Valid ==>|No| Safe ==> Log
+Valid ==>|Yes| Config ==> Engine ==> Deadband
+Deadband ==>|No| Log
+Deadband ==>|Yes| Compare
+Compare ==>|No Change| Log
+Compare ==>|Update| Apply ==> Verify
+Verify ==>|No| Recover -. retry .-> Apply
+Verify ==>|Yes| Log ==> Delay
+Delay -. next sample .-> Read`
       ),
     },
     description: [
@@ -568,7 +847,7 @@ Delay ==> Read`
         children: [
           {
             type: "text",
-            text: "The Raspberry Pi runs a closed control loop: read DHT11 climate data, evaluate it against the selected growth-mode configuration, compare the desired and current relay states, apply only necessary hardware changes, then pause briefly before sampling again. Configuration stays separate from GPIO control so growth profiles can change without rewriting the loop.",
+            text: "The Raspberry Pi validates each DHT11 reading before comparing it with the configured growth range. Invalid readings preserve a safe relay state, acceptable readings avoid unnecessary switching, and required updates are verified before the cycle is logged and sampled again. Configuration remains separate from GPIO control so growth profiles can change without rewriting the loop.",
           },
         ],
       },
@@ -584,22 +863,40 @@ Delay ==> Read`
 
 subgraph Root[Aggregate Root]
   Storybook[(Storybook<br/>Campaign Root)]
+  Invariants{Aggregate Valid?}
+  Repair[Repair Narrative References]
 end
 
 subgraph Narrative[Narrative Layers]
   Act[(Act)]
   Room[(Room)]
   Encounter[(Encounter)]
+  Resolve[Resolve Encounter]
 end
 
 subgraph EncounterContext[Encounter Context]
   Opponent[Opponent]
   Treasure[Treasure]
+  Update[Update Campaign State]
 end
 
-Storybook ==> Act ==> Room ==> Encounter
+subgraph Progression[Progression + Persistence]
+  Continue{Act Complete?}
+  Next[Open Next Act]
+  Persist[(Persist Campaign)]
+end
+
+Storybook ==> Invariants
+Invariants ==>|No| Repair -. restore consistency .-> Storybook
+Invariants ==>|Yes| Act ==> Room ==> Encounter
 Encounter ==> Opponent
-Encounter ==> Treasure`
+Encounter ==> Treasure
+Opponent ==> Resolve
+Treasure ==> Resolve ==> Update ==> Continue
+Continue ==>|No| Room
+Continue ==>|Yes| Next
+Room ==> Persist
+Next ==> Persist -. reload campaign .-> Storybook`
     ),
     description: [
       {
@@ -607,7 +904,7 @@ Encounter ==> Treasure`
         children: [
           {
             type: "text",
-            text: "Storybook is the campaign aggregate root. It contains Acts, which contain Rooms and Encounters; each Encounter references tactical context such as Opponents and Treasure. The hierarchy keeps ownership explicit while allowing a long-running narrative to grow without flattening every relationship into one record.",
+            text: "Storybook is the campaign aggregate root and validates narrative references before progression. Acts contain Rooms and Encounters; resolving Opponents and Treasure updates campaign state, determines whether play continues in the current Act, and persists a consistent campaign that can be reloaded for the next session.",
           },
         ],
       },
