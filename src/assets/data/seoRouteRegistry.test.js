@@ -49,7 +49,7 @@ describe("SEO route registry", () => {
         (route) => route.description.length >= 110 && route.description.length <= 160
       )
     ).toBe(true);
-    expect(indexableRoutes.every((route) => route.lastModified === "2026-07-15")).toBe(true);
+    expect(indexableRoutes.every((route) => route.lastModified === "2026-08-10")).toBe(true);
     expect(SEO_ROUTE_REGISTRY[PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES].description).toContain(
       "Content Creator Platform"
     );

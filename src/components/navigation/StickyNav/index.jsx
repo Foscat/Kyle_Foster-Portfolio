@@ -1,7 +1,8 @@
 /**
  * @file index.jsx
  * @fileoverview Primary site navigation with synchronized desktop and mobile
- * layouts, active-route handling, and accessibility semantics.
+ * layouts, active-route handling, and accessibility semantics. Mobile utilities
+ * stay inside the drawer so small screens retain the full content width.
  * @module components/StickyNav
  */
 
@@ -17,7 +18,7 @@ import {
   faFolderOpen,
   faEnvelope,
   faBook,
-  faSignsPost,
+  faBars,
   faCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";
@@ -143,16 +144,8 @@ const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = 
  * - Uses the design-system `Btn` and `FrostedIcon` components
  *
  * Mobile layout:
- * - Fixed left-rail of floating icon buttons (nav toggle, color, a11y, resume,
- *   section-nav when available); button dimensions controlled by
- *   `--sticky-nav-mobile-trigger-size`
- * - Nav toggle, section-nav, a11y, and resume icons all use
- *   `--sticky-nav-mobile-trigger-utility-glyph-size` with `scale(1.45)` so
- *   every rail icon renders at consistent visual weight
- * - Color toggle uses the base `--sticky-nav-mobile-trigger-glyph-size` token
- * - Each floating rail button is wrapped in a `div.{role}-toggle-btn.mobile-only.nav-mobile-only`;
- *   test IDs: `mobile-nav-trigger-wrapper`, `mobile-color-trigger-wrapper`,
- *   `mobile-a11y-trigger-wrapper`, `mobile-resume-trigger-wrapper`
+ * - Compact brand header with one menu trigger
+ * - Theme, accessibility, and resume controls grouped inside the drawer
  * - Burger-triggered RSuite `Drawer` for primary page navigation
  * - Vertical, text-based navigation inside the Drawer
  * - Touch-friendly and hover-independent
@@ -226,6 +219,9 @@ const StickyNav = ({ activePage }) => {
          Icon-only, horizontal layout with hover tooltips.
          ============================================================ */}
       <Nav className="sticky-nav desktop-menu" role="navigation" aria-label="Primary navigation">
+        <Link className="sticky-nav-brand" to={PageRoute.HOME} aria-label="Kyle Foster home">
+          KF
+        </Link>
         <div className="sticky-nav-pages-group">
           {NAV_ITEMS.map(({ route, label, icon, id }) => {
             const isActive = activePage === route;
@@ -296,12 +292,19 @@ const StickyNav = ({ activePage }) => {
          ------------------------------------------------------------
          Burger button toggles Drawer-based navigation.
          ============================================================ */}
-      <div
-        className="nav-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--nav sticky-nav-mobile-trigger--scaled"
-        data-testid="mobile-nav-trigger-wrapper"
+      <header
+        className="mobile-site-header mobile-only nav-mobile-only"
+        data-testid="mobile-site-header"
       >
+        <Link
+          className="mobile-site-header__brand"
+          to={PageRoute.HOME}
+          aria-label="Kyle Foster home"
+        >
+          KF
+        </Link>
         <Btn
-          icon={faSignsPost}
+          icon={faBars}
           variant={Variant.ACCENT}
           size={Size.LG}
           noBG
@@ -312,40 +315,7 @@ const StickyNav = ({ activePage }) => {
             setMobileOpen(true);
           }}
         />
-      </div>
-
-      <div
-        className="color-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--color"
-        data-testid="mobile-color-trigger-wrapper"
-      >
-        <ColorMenu size={Size.LG} showTooltip={false} />
-      </div>
-
-      <div
-        className="a11y-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled"
-        data-testid="mobile-a11y-trigger-wrapper"
-      >
-        <AccessibilityMenu size={Size.LG} showTooltip={false} />
-      </div>
-
-      <div
-        className="resume-toggle-btn mobile-only nav-mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled"
-        data-testid="mobile-resume-trigger-wrapper"
-      >
-        <ResumePreviewTrigger
-          buttonText=""
-          title={resumePreviewTitle}
-          subtitle={resumePreviewSubtitle}
-          resume={resumeData}
-          downloadName={resumeDownloadName}
-          buttonClassName="sticky-nav-mobile-resume-trigger"
-          icon={faCircleDown}
-          ariaLabel="Open resume preview and download options"
-          size={Size.LG}
-          variant={Variant.SECONDARY}
-          noBG
-        />
-      </div>
+      </header>
 
       {/* ============================================================
          Mobile Navigation Drawer
@@ -397,7 +367,10 @@ const StickyNav = ({ activePage }) => {
               <div className="sticky-nav-mobile-a11y sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled">
                 <AccessibilityMenu size={Size.LG} showTooltip={false} />
               </div>
-              <div className="sticky-nav-mobile-resume sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled">
+              <div
+                className="sticky-nav-mobile-resume sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled"
+                data-testid="mobile-resume-trigger-wrapper"
+              >
                 <ResumePreviewTrigger
                   buttonText=""
                   title={resumePreviewTitle}

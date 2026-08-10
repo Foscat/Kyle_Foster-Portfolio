@@ -22,7 +22,12 @@ const ROUTE_LAYOUT_STYLES = [
   "mondrian",
 ];
 
-async function prepareRoute(page: Page, width: number, layoutStyle = "retro-glass", route = "/") {
+async function prepareRoute(
+  page: Page,
+  width: number,
+  layoutStyle = "retro-glass",
+  route = "/codestream"
+) {
   await page.setViewportSize({ width, height: 900 });
   await page.goto(toUrl(route));
   await stabilizePage(page, { theme: "dark" });

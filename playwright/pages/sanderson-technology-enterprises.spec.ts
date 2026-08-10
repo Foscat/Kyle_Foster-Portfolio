@@ -22,7 +22,10 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await page.waitForLoadState("networkidle");
     await stabilizePage(page, { theme: "dark" });
 
-    await expect(page.locator('[role="banner"]')).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Sanderson Technology Enterprises" })
+    ).toBeVisible();
+    await expect(page.getByRole("navigation", { name: /primary navigation/i })).toBeVisible();
     await expect(page.locator("main")).toBeVisible();
     await expect(page.locator("footer")).toBeVisible();
   });

@@ -28,7 +28,7 @@ const SUPPORTED_UI_STYLES = Object.freeze([
   "y2k",
   "retro-glass",
 ]);
-const DEFAULT_UI_STYLE = "retro-glass";
+const DEFAULT_UI_STYLE = "cyberpunk";
 const SUPPORTED_LAYOUT_STYLES = Object.freeze([
   ...SUPPORTED_UI_STYLES,
   // Layout Style CSS keeps spatial-only personalities independent from ui-style-kit-css paint.
@@ -38,9 +38,9 @@ const SUPPORTED_LAYOUT_STYLES = Object.freeze([
   "mondrian",
   "synthwave",
 ]);
-const DEFAULT_LAYOUT_STYLE = DEFAULT_UI_STYLE;
+const DEFAULT_LAYOUT_STYLE = "synthwave";
 const SUPPORTED_PALETTES = PALETTE_IDS;
-const DEFAULT_PALETTE = "ocean-steel";
+const DEFAULT_PALETTE = "arctic-indigo";
 const THEME_CYCLE_HOTKEY = "Alt+Shift+T";
 
 const isSupportedTheme = (value) => typeof value === "string" && SUPPORTED_THEMES.includes(value);

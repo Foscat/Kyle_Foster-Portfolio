@@ -12,7 +12,7 @@ const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
 const UI_STYLES = ["minimal-saas", "brutalism", "neumorphism", "y2k", "retro-glass"];
-const LAYOUT_STYLES = ["retro-glass", "synthwave"];
+const LAYOUT_STYLES = ["synthwave", "retro-glass"];
 const ROUTE_LAYOUT_STYLES = [
   "retro-glass",
   "maximalist",
@@ -123,7 +123,7 @@ async function setLayoutStyle(page: Page, layoutStyle: string) {
 async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width: number) {
   await page.setViewportSize({ width, height: 900 });
   await preparePageForStableTests(page, { theme: "dark" });
-  await page.goto(toUrl("/"));
+  await page.goto(toUrl("/codestream"));
   await stabilizePage(page, { theme: "dark" });
   await setLayoutStyle(page, layoutStyle);
 
@@ -207,7 +207,7 @@ test.describe("UI style visual distinction", () => {
 
     await page.setViewportSize({ width: 1280, height: 800 });
     await preparePageForStableTests(page, { theme: "dark" });
-    await page.goto(toUrl("/"));
+    await page.goto(toUrl("/codestream"));
     await stabilizePage(page, { theme: "dark" });
 
     const signatures = [];
@@ -258,7 +258,7 @@ test.describe("UI style visual distinction", () => {
 
     await page.setViewportSize({ width: 1280, height: 800 });
     await preparePageForStableTests(page, { theme: "dark" });
-    await page.goto(toUrl("/"));
+    await page.goto(toUrl("/codestream"));
     await stabilizePage(page, { theme: "dark" });
 
     const baseline = await getLayoutSignature(page, LAYOUT_STYLES[0]);

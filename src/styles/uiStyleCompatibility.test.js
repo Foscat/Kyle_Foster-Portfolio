@@ -42,9 +42,10 @@ describe("ui-style compatibility", () => {
     const packageLock = JSON.parse(readProjectFile("package-lock.json"));
 
     const packageStyleImports = [
-      'import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";',
-      'import "interactive-surface-css/interactive-surface.css";',
-      'import "layout-style-css/min.css";',
+      'import "ui-style-kit-css/visual.css";',
+      'import "ui-style-kit-css/interactive-surface-theme.css";',
+      'import "interactive-surface-css/state-core.css";',
+      'import "layout-style-css";',
       'import "ui-style-kit-icons/css.css";',
       'import "ui-style-kit-icons/element";',
     ];
@@ -53,25 +54,27 @@ describe("ui-style compatibility", () => {
     const importPositions = packageStyleImports.map((styleImport) => mainJs.indexOf(styleImport));
     expect(importPositions).toEqual([...importPositions].sort((left, right) => left - right));
     expect(mainJs).not.toContain("all-with-ui-kit-and-interactive-surface.css");
+    expect(mainJs).not.toContain("ui-style-kit.with-bridge");
+    expect(mainJs).not.toContain("interactive-surface-css/interactive-surface.css");
     expect(appJs).not.toContain("ui-style-kit-css");
     expect(appJs).not.toContain("interactive-surface-css");
     expect(appJs).not.toContain("layout-style-css");
     expect(mainJs).toContain('import "./App.css";');
-    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.0");
-    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.1.0");
+    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.1");
+    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.2.0");
     expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
-    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.5.0");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.0");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.1.0");
+    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.6.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.1");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.2.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty(
       "interactive-surface-css",
-      "1.5.0"
+      "1.6.0"
     );
-    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.0");
-    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.1.0");
+    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.1");
+    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.2.0");
     expect(packageLock.packages["node_modules/ui-style-kit-icons"].version).toBe("1.0.0");
-    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.5.0");
+    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.6.0");
     expect(appJs).not.toContain('import "./App.css"');
   });
 

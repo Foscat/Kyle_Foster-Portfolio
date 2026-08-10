@@ -41,9 +41,15 @@ vi.mock("rsuite", async () => {
 
   return {
     ...actual,
-    Panel: ({ children, className, role, header, as: Tag = "section" }) => (
+    Panel: ({ children, className, role, header, collapsible, as: Tag = "section" }) => (
       <Tag className={className} role={role}>
-        {header}
+        {collapsible ? (
+          <h2>
+            <button type="button">{header}</button>
+          </h2>
+        ) : (
+          header
+        )}
         {children}
       </Tag>
     ),
@@ -69,6 +75,16 @@ describe("InfoSection", () => {
     expect(screen.getByRole("heading", { name: /About/i })).toBeInTheDocument();
     expect(screen.getByText(/What I build/i)).toBeInTheDocument();
     expect(screen.getByText(/Readable content/i)).toBeInTheDocument();
+  });
+
+  it("lets the collapsible panel own the section heading without nesting another heading", () => {
+    renderWithProviders(
+      <InfoSection title="Accessible section title">
+        <p>Readable content</p>
+      </InfoSection>
+    );
+
+    expect(screen.getAllByRole("heading", { name: /Accessible section title/i })).toHaveLength(1);
   });
 
   // Verifies that the component does not create empty headings when title and subtitle are omitted, confirming that the component handles the absence of these props gracefully. This ensures that the component does not render unnecessary or empty elements when optional props are not provided, and that it still renders the child content correctly.

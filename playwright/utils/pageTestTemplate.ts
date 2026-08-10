@@ -24,6 +24,10 @@ export type PageTestConfig = {
   name: string;
   route: string;
   /**
+   * Whether the route includes long-form section navigation. Defaults to true.
+   */
+  hasStickySectionNavigation?: boolean;
+  /**
    * @description CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav.
    */
   stickyNavSelector?: string;
@@ -59,7 +63,8 @@ export function createPageTestSuite(config: PageTestConfig) {
 
       await stabilizePage(page, { theme });
 
-      await expect(page.locator('[role="banner"]')).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      await expect(page.getByRole("navigation", { name: /primary navigation/i })).toBeVisible();
       await expect(page.locator("main")).toBeVisible();
       await expect(page.locator("footer")).toBeVisible();
 
@@ -67,6 +72,11 @@ export function createPageTestSuite(config: PageTestConfig) {
     });
 
     test("renders sticky section navigation", async ({ page }) => {
+      test.skip(
+        config.hasStickySectionNavigation === false,
+        "The route uses a curated single-page flow without section navigation."
+      );
+
       await page.setViewportSize({ width: 1280, height: 720 });
       await preparePageForStableTests(page, { theme });
 

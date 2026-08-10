@@ -11,6 +11,17 @@
   z-index: 100;
 }
 
+.sticky-nav-brand,
+.mobile-site-header__brand {
+  color: var(--app-heading-color);
+  font-family: var(--app-heading-font-family);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-decoration: none;
+}
+
 svg:not(:root) {
   overflow: visible;
 }
@@ -77,6 +88,15 @@ svg:not(:root) {
   color: var(--text-secondary);
   transition: var(--easing-standard);
   transition-duration: var(--transition-speed);
+}
+
+.desktop-menu .sticky-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  align-self: stretch;
+  margin-right: 0.8rem;
+  padding: 0.4rem 0.7rem;
+  border-right: var(--app-surface-border);
 }
 
 .desktop-menu .rs-nav-item-active,
@@ -597,6 +617,50 @@ html[data-theme="light"]
     display: block;
   }
 
+  .mobile-site-header.mobile-only.nav-mobile-only {
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 4rem;
+    padding: 0.55rem clamp(1rem, 4vw, 1.5rem);
+    color: var(--app-surface-fg);
+    background: var(--app-surface-muted-bg);
+    border-bottom: var(--app-surface-border);
+    box-shadow: var(--app-surface-shadow-soft);
+    -webkit-backdrop-filter: var(--app-surface-backdrop-filter);
+    backdrop-filter: var(--app-surface-backdrop-filter);
+  }
+
+  .mobile-site-header .btn.icon-only {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    min-width: 3rem;
+    height: 3rem;
+    margin: 0;
+    padding: 0.65rem;
+    color: var(--app-heading-color);
+    background: transparent;
+    border: var(--app-surface-border);
+    border-radius: var(--app-surface-radius-sm);
+  }
+
+  .mobile-site-header .frosted-icon.btn-icon {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .nav-mobile-only,
   .sect-nav-toggle-btn.mobile-only {
     position: fixed;
@@ -768,6 +832,20 @@ html[data-theme="light"]
     right: 0;
     width: auto;
     padding: 3px;
+  }
+}
+
+@media (width < 720px) {
+  .mobile-site-header.mobile-only.nav-mobile-only {
+    min-height: 3.25rem;
+    padding-block: 0.25rem;
+  }
+
+  .mobile-site-header .btn.icon-only {
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.55rem;
   }
 }
 

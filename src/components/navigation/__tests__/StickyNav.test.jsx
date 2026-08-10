@@ -150,12 +150,22 @@ describe("StickyNav", () => {
     });
   });
 
-  it("renders the mobile color settings trigger", async () => {
+  it("keeps mobile utility controls inside the navigation drawer", async () => {
+    const user = userEvent.setup();
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
-    expect(screen.getAllByRole("button", { name: /open color settings/i }).length).toBeGreaterThan(
-      1
-    );
+    await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
+    const dialog = await screen.findByRole("dialog", { name: /site navigation/i });
+
+    expect(within(dialog).getByRole("button", { name: /open color settings/i })).toBeVisible();
+    expect(
+      within(dialog).getByRole("button", { name: /open accessibility settings/i })
+    ).toBeVisible();
+    expect(
+      within(dialog).getByRole("button", {
+        name: /open resume preview and download options/i,
+      })
+    ).toBeVisible();
   });
 
   it("renders resume quick actions in navigation controls", async () => {
@@ -180,45 +190,16 @@ describe("StickyNav", () => {
     );
   });
 
-  it("renders the mobile floating nav trigger in the nav-toggle-btn wrapper", () => {
+  it("renders a compact mobile site header with brand and navigation trigger", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
-    const wrapper = screen.getByTestId("mobile-nav-trigger-wrapper");
-    expect(wrapper).toBeInTheDocument();
+    const header = screen.getByTestId("mobile-site-header");
+    expect(within(header).getByRole("link", { name: /Kyle Foster home/i })).toHaveAttribute(
+      "href",
+      PageRoute.HOME
+    );
     expect(
-      within(wrapper).getByRole("button", { name: /open navigation menu/i })
-    ).toBeInTheDocument();
-  });
-
-  it("renders the mobile floating a11y trigger in the a11y-toggle-btn wrapper", () => {
-    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
-
-    const wrapper = screen.getByTestId("mobile-a11y-trigger-wrapper");
-    expect(wrapper).toBeInTheDocument();
-    expect(
-      within(wrapper).getByRole("button", { name: /open accessibility settings/i })
-    ).toBeInTheDocument();
-  });
-
-  it("renders the mobile floating resume trigger in the resume-toggle-btn wrapper", () => {
-    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
-
-    const wrapper = screen.getByTestId("mobile-resume-trigger-wrapper");
-    expect(wrapper).toBeInTheDocument();
-    expect(
-      within(wrapper).getByRole("button", {
-        name: /open resume preview and download options/i,
-      })
-    ).toBeInTheDocument();
-  });
-
-  it("renders the mobile floating color trigger in the color-toggle-btn wrapper", () => {
-    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
-
-    const wrapper = screen.getByTestId("mobile-color-trigger-wrapper");
-    expect(wrapper).toBeInTheDocument();
-    expect(
-      within(wrapper).getByRole("button", { name: /open color settings/i })
+      within(header).getByRole("button", { name: /open navigation menu/i })
     ).toBeInTheDocument();
   });
 
