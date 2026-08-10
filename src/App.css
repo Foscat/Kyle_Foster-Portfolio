@@ -200,6 +200,39 @@ body {
   overflow-x: clip;
 }
 
+/* Build-time route snapshots give crawlers and no-script visitors meaningful content. */
+.static-route-snapshot {
+  display: grid;
+  gap: 1rem;
+  width: min(100% - 2rem, 72rem);
+  margin: 2rem auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  color: var(--app-surface-fg, var(--text-primary));
+  background: var(--app-surface-bg, var(--bg-primary));
+  border: var(--app-surface-border, 1px solid currentcolor);
+  border-radius: var(--app-surface-radius-md, var(--radius-sm));
+}
+
+.static-route-snapshot__brand,
+.static-route-snapshot__eyebrow {
+  color: var(--app-heading-color, var(--heading-color));
+  font-weight: 700;
+}
+
+.static-route-snapshot h1,
+.static-route-snapshot p,
+.static-route-snapshot ul {
+  margin: 0;
+}
+
+.static-route-snapshot nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
 body.rs-drawer-open.rs-drawer-has-backdrop {
   background-color: var(--bg-primary);
 }
@@ -507,6 +540,33 @@ section[id],
 /* Main content wrapper (centers long pages) */
 .app-main {
   width: 100%;
+}
+
+/* Keyboard users can bypass persistent navigation without adding visual clutter. */
+.skip-link {
+  position: fixed;
+  top: var(--space-3, 0.75rem);
+  left: var(--space-3, 0.75rem);
+  z-index: 10000;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  color: var(--app-button-primary-fg, var(--text-primary));
+  background: var(--app-button-primary-bg, var(--surface-strong));
+  border: 2px solid var(--app-focus-ring, var(--accent));
+  border-radius: var(--border-radius, 0.5rem);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(calc(-100% - 2rem));
+  transition: transform 140ms ease-out;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.route-content:focus {
+  outline: none;
 }
 
 .page-shell {

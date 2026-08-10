@@ -54,6 +54,14 @@ describe("App routes", () => {
     expect(screen.queryByRole("heading", { name: "NotFound Mock" })).not.toBeInTheDocument();
   });
 
+  it("provides a keyboard skip link to the routed page content", async () => {
+    renderApp();
+
+    const skipLink = screen.getByRole("link", { name: "Skip to main content" });
+    expect(skipLink).toHaveAttribute("href", "#main-content");
+    expect(await screen.findByRole("heading", { name: "Home Mock" })).toBeInTheDocument();
+  });
+
   it("renders Sanderson Technology Enterprises for its route", async () => {
     window.history.pushState({}, "", "/sanderson-technology-enterprises");
 

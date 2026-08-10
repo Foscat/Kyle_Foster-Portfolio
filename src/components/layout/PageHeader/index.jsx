@@ -41,7 +41,7 @@ import "./styles.css";
  * - Fully responsive layout
  *
  * Accessibility:
- * - Uses `role="banner"` to denote page-level landmark
+ * - Uses a semantic `header` without creating a second page-wide banner landmark
  * - Content is readable and navigable via assistive technologies
  *
  * @public
@@ -116,7 +116,7 @@ const PageHeader = ({
   };
 
   return (
-    <Panel className={`page-header page-header--top blue-tile ${className}`} role="banner" expanded>
+    <Panel className={`page-header page-header--top blue-tile ${className}`} as="header" expanded>
       <FlexboxGrid justify="center" align="middle" className="page-header-inner">
         <FlexboxGrid.Item colspan={24} className="text-center">
           <h1 className="page-header-title">{title}</h1>

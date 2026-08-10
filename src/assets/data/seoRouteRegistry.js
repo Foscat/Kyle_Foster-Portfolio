@@ -17,7 +17,7 @@ export const INDEXABLE_ROBOTS =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 export const NOINDEX_ROBOTS = "noindex, nofollow, noarchive, nosnippet, noimageindex";
 
-const LAST_MODIFIED = "2026-07-15";
+const LAST_MODIFIED = "2026-08-10";
 
 /**
  * @description Route metadata used by the runtime head manager, static HTML generator, and sitemap.
@@ -33,6 +33,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "profile",
     pageType: "ProfilePage",
     breadcrumbLabel: "Home",
+    snapshotHeading: "Kyle Foster - Senior React / Frontend Engineer",
+    snapshotHighlights: Object.freeze([
+      "Frontend engineering since 2018",
+      "Learning platforms and browser-based development tools",
+      "Administrative interfaces and data-rich product workflows",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.PROFESSIONAL]: Object.freeze({
@@ -44,6 +50,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "article",
     pageType: "WebPage",
     breadcrumbLabel: "CodeStream Studios",
+    snapshotHeading: "CodeStream Studios frontend engineering case study",
+    snapshotHighlights: Object.freeze([
+      "Three-panel browser IDE for web and Python projects",
+      "Classroom, grading, reporting, and curriculum workflows",
+      "Organization roles, permissions, and administration",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.HACKATHON]: Object.freeze({
@@ -55,6 +67,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "article",
     pageType: "WebPage",
     breadcrumbLabel: "Daimler Hackathon",
+    snapshotHeading: "Daimler Hackathon winning repair-assistant prototype",
+    snapshotHighlights: Object.freeze([
+      "Technician-first workflow design",
+      "Voice-driven repair assistance",
+      "Rapid team delivery during the 2019 hackathon",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES]: Object.freeze({
@@ -66,6 +84,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "article",
     pageType: "WebPage",
     breadcrumbLabel: "Sanderson Technology Enterprises",
+    snapshotHeading: "Sanderson Technology Enterprises product work",
+    snapshotHighlights: Object.freeze([
+      "Public website delivery",
+      "Scrap Yard System and Content Creator Platform foundations",
+      "Reusable interface-system libraries and documentation",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.SIDE_PROJECTS]: Object.freeze({
@@ -77,6 +101,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "website",
     pageType: "CollectionPage",
     breadcrumbLabel: "Side Projects",
+    snapshotHeading: "React, CSS, MERN, and IoT side projects",
+    snapshotHighlights: Object.freeze([
+      "Interface Systems Lab and shared CSS libraries",
+      "MERN authentication and domain-software experiments",
+      "Raspberry Pi and Sense HAT automation projects",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.EDUCATION]: Object.freeze({
@@ -88,6 +118,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "article",
     pageType: "AboutPage",
     breadcrumbLabel: "SMU Coding Bootcamp",
+    snapshotHeading: "SMU Coding Bootcamp projects",
+    snapshotHighlights: Object.freeze([
+      "API-driven browser projects",
+      "Collaborative team applications",
+      "Early full-stack MERN development",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.CONTACT]: Object.freeze({
@@ -99,6 +135,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "website",
     pageType: "ContactPage",
     breadcrumbLabel: "Contact",
+    snapshotHeading: "Contact Kyle Foster",
+    snapshotHighlights: Object.freeze([
+      "Senior frontend and React engineering roles",
+      "Frontend architecture and product-interface work",
+      "Technical collaboration and consulting conversations",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.DOCS]: Object.freeze({
@@ -110,6 +152,12 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "article",
     pageType: "CollectionPage",
     breadcrumbLabel: "Technical Documentation",
+    snapshotHeading: "Portfolio technical documentation",
+    snapshotHighlights: Object.freeze([
+      "Application architecture and component references",
+      "Testing and rendering documentation",
+      "Automation and maintenance workflows",
+    ]),
     lastModified: LAST_MODIFIED,
   }),
   [PageRoute.HEALTH]: Object.freeze({
@@ -120,6 +168,8 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ogType: "website",
     pageType: "WebPage",
     breadcrumbLabel: "System Health",
+    snapshotHeading: "Portfolio system health",
+    snapshotHighlights: Object.freeze(["Runtime and build diagnostics"]),
     lastModified: LAST_MODIFIED,
   }),
 });
@@ -131,6 +181,10 @@ const NOT_FOUND_ROUTE = Object.freeze({
   ogType: "website",
   pageType: "WebPage",
   breadcrumbLabel: "Page Not Found",
+  snapshotHeading: "Page not found",
+  snapshotHighlights: Object.freeze([
+    "Use the portfolio navigation below to continue browsing Kyle Foster's work.",
+  ]),
   lastModified: LAST_MODIFIED,
 });
 
@@ -230,6 +284,13 @@ export function buildStructuredData(routeSeo) {
         description: homeDescription,
         email: "mailto:fosterkyle6456@gmail.com",
         sameAs: ["https://www.linkedin.com/in/kylefoster-dev", "https://github.com/Foscat"],
+        knowsAbout: [
+          "React",
+          "Frontend engineering",
+          "Design systems",
+          "Accessible web interfaces",
+          "Learning platforms",
+        ],
       },
       {
         "@type": routeSeo.pageType,
@@ -237,6 +298,7 @@ export function buildStructuredData(routeSeo) {
         url: routeSeo.canonicalUrl,
         name: routeSeo.title,
         description: routeSeo.description,
+        dateModified: routeSeo.lastModified,
         inLanguage: SITE_LANGUAGE,
         isPartOf: { "@id": websiteId },
         about: { "@id": personId },

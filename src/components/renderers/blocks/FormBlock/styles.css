@@ -26,3 +26,14 @@
 .form-block__input-group {
   width: 100%;
 }
+
+/* Keep stacked number steppers large enough for WCAG 2.2 pointer targeting. */
+.form-block .rs-input-number {
+  min-height: 3rem;
+}
+
+.form-block .rs-input-number-touchspin-up,
+.form-block .rs-input-number-touchspin-down {
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+}

@@ -49,26 +49,31 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="app-shell ly-page">
+        <a className="skip-link interactive-surface" href="#main-content">
+          Skip to main content
+        </a>
         <Head />
-        <Suspense fallback={<div aria-live="polite">Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/codestream" element={<CodeStream />} />
-            <Route
-              path="/sanderson-technology-enterprises"
-              element={<SandersonTechnologyEnterprises />}
-            />
-            <Route path="/side-projects" element={<SideProjects />} />
-            <Route path="/hackathon" element={<Hackathon />} />
-            <Route path="/smu" element={<Smu />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/docs" element={<Docs />} />
-            <Route path="/health" element={<Health />} />
+        <div id="main-content" className="route-content" tabIndex={-1}>
+          <Suspense fallback={<div aria-live="polite">Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/codestream" element={<CodeStream />} />
+              <Route
+                path="/sanderson-technology-enterprises"
+                element={<SandersonTechnologyEnterprises />}
+              />
+              <Route path="/side-projects" element={<SideProjects />} />
+              <Route path="/hackathon" element={<Hackathon />} />
+              <Route path="/smu" element={<Smu />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/docs" element={<Docs />} />
+              <Route path="/health" element={<Health />} />
 
-            {/* Catch-all */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+              {/* Unknown URLs render the noindex fallback route. */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </div>
         <BackToTopButton />
       </div>
     </BrowserRouter>

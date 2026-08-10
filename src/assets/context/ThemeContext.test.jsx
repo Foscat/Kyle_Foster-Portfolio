@@ -10,12 +10,21 @@ import { renderWithProviders } from "tests/renderWithProviders";
 import { useTheme } from "./ThemeContext";
 
 function ThemeContextProbe() {
-  const { theme, setTheme, uiStyle, setUiStyle, layoutStyle, setLayoutStyle, layoutStyles } =
-    useTheme();
+  const {
+    theme,
+    setTheme,
+    palette,
+    uiStyle,
+    setUiStyle,
+    layoutStyle,
+    setLayoutStyle,
+    layoutStyles,
+  } = useTheme();
 
   return (
     <div>
       <p data-testid="theme-value">{theme}</p>
+      <p data-testid="palette-value">{palette}</p>
       <p data-testid="ui-style-value">{uiStyle}</p>
       <p data-testid="layout-style-value">{layoutStyle}</p>
       <p data-testid="layout-style-options">{layoutStyles.join(",")}</p>
@@ -75,6 +84,17 @@ describe("ThemeContext", () => {
     expect(screen.getByTestId("theme-value")).toHaveTextContent("dark");
   });
 
+  test("starts with the selected cyberpunk, synthwave, and Arctic Indigo direction", () => {
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("palette-value")).toHaveTextContent("arctic-indigo");
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("cyberpunk");
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
+    expect(document.documentElement.dataset.palette).toBe("arctic-indigo");
+    expect(document.documentElement.dataset.ui).toBe("cyberpunk");
+    expect(document.documentElement.dataset.lyLayout).toBe("synthwave");
+  });
+
   test("ignores invalid theme updates", async () => {
     const user = userEvent.setup();
 
@@ -90,9 +110,9 @@ describe("ThemeContext", () => {
 
     renderWithProviders(<ThemeContextProbe />);
 
-    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
-    expect(document.documentElement.dataset.ui).toBe("retro-glass");
-    expect(document.body.dataset.ui).toBe("retro-glass");
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("cyberpunk");
+    expect(document.documentElement.dataset.ui).toBe("cyberpunk");
+    expect(document.body.dataset.ui).toBe("cyberpunk");
 
     await user.click(screen.getByRole("button", { name: /set cyberpunk ui style/i }));
 
@@ -109,12 +129,12 @@ describe("ThemeContext", () => {
 
     renderWithProviders(<ThemeContextProbe />);
 
-    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
-    expect(document.documentElement.dataset.layout).toBe("retro-glass");
-    expect(document.documentElement.dataset.lyLayout).toBe("retro-glass");
-    expect(document.body.dataset.layout).toBe("retro-glass");
-    expect(document.body.dataset.lyLayout).toBe("retro-glass");
-    expect(document.body.getAttribute("layout-style")).toBe("retro-glass");
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
+    expect(document.documentElement.dataset.layout).toBe("synthwave");
+    expect(document.documentElement.dataset.lyLayout).toBe("synthwave");
+    expect(document.body.dataset.layout).toBe("synthwave");
+    expect(document.body.dataset.lyLayout).toBe("synthwave");
+    expect(document.body.getAttribute("layout-style")).toBe("synthwave");
     expect(document.body).toHaveClass("ly-root");
 
     await user.click(screen.getByRole("button", { name: /set maximalist layout style/i }));
@@ -152,8 +172,8 @@ describe("ThemeContext", () => {
   test("uses package-owned palette roles instead of inline palette custom properties", async () => {
     renderWithProviders(<ThemeContextProbe />);
 
-    expect(document.documentElement.dataset.palette).toBe("ocean-steel");
-    expect(document.body.dataset.theme).toBe("ocean-steel");
+    expect(document.documentElement.dataset.palette).toBe("arctic-indigo");
+    expect(document.body.dataset.theme).toBe("arctic-indigo");
     expect(document.body.dataset.mode).toBe("dark");
     expect(document.documentElement.style.getPropertyValue("--bg")).toBe("");
     expect(document.documentElement.style.getPropertyValue("--bg-rgb")).toBe("");
@@ -166,9 +186,9 @@ describe("ThemeContext", () => {
 
     renderWithProviders(<ThemeContextProbe />);
 
-    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("cyberpunk");
     await user.click(screen.getByRole("button", { name: /set invalid ui style/i }));
-    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("retro-glass");
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("cyberpunk");
   });
 
   test("ignores invalid layout style updates", async () => {
@@ -176,9 +196,9 @@ describe("ThemeContext", () => {
 
     renderWithProviders(<ThemeContextProbe />);
 
-    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
     await user.click(screen.getByRole("button", { name: /set invalid layout style/i }));
-    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("retro-glass");
+    expect(screen.getByTestId("layout-style-value")).toHaveTextContent("synthwave");
   });
 
   test("applies theme changes even when storage writes fail", async () => {

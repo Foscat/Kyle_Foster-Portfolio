@@ -90,6 +90,9 @@ describe("Contact page", () => {
       initialEntries: [PageRoute.CONTACT],
     });
 
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Contact Kyle Foster" })
+    ).toBeInTheDocument();
     expect(screen.getByTestId("contact-nav")).toHaveAttribute(
       "data-active-page",
       PageRoute.CONTACT

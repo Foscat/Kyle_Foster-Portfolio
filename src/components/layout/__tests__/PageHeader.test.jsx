@@ -6,7 +6,7 @@
  * - Required title rendering
  * - Optional jobTitle + timespan row composition
  * - Optional subtitle rendering
- * - Semantic role (`banner`) for accessibility
+ * - Semantic page header without a nested banner landmark
  * - Root className passthrough
  *
  * Testing strategy:
@@ -35,10 +35,10 @@ vi.mock("rsuite", async () => {
 
   return {
     ...actual,
-    Panel: ({ children, className, role }) => (
-      <header className={className} role={role}>
+    Panel: ({ children, className, role, as: Tag = "div" }) => (
+      <Tag className={className} role={role}>
         {children}
-      </header>
+      </Tag>
     ),
     FlexboxGrid,
   };
@@ -127,10 +127,11 @@ describe("PageHeader", () => {
    * Semantics & attributes
    * ------------------------------------------------------------ */
 
-  it("renders with role='banner' for accessibility", () => {
+  it("renders a semantic header without declaring another page banner", () => {
     renderWithProviders(<PageHeader title="Home" />);
 
-    expect(screen.getByRole("banner")).toBeInTheDocument();
+    const header = screen.getByRole("banner");
+    expect(header).not.toHaveAttribute("role");
   });
 
   it("applies custom className to the root element", () => {

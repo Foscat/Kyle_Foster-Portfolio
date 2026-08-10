@@ -41,6 +41,11 @@ test("renderRouteHtml writes route-specific canonical and crawler metadata", () 
   assert.match(html, /<link rel="canonical" href="https:\/\/kyle-foster\.com\/contact"/u);
   assert.match(html, /<meta property="og:url" content="https:\/\/kyle-foster\.com\/contact"/u);
   assert.match(html, /<script type="application\/ld\+json"[^>]*>/u);
+  assert.match(html, /data-static-route-snapshot/u);
+  assert.match(html, /<h1>Contact Kyle Foster<\/h1>/u);
+  assert.match(html, /Contact Kyle Foster about senior frontend roles/u);
+  assert.match(html, /href="\/codestream"/u);
+  assert.doesNotMatch(html, /<div id="root"><\/div>/u);
   assert.doesNotMatch(html, /name="keywords"/u);
 });
 
@@ -48,7 +53,7 @@ test("createSitemapXml includes only indexable registry routes", () => {
   const sitemap = createSitemapXml(SEO_ROUTE_REGISTRY, SITE_ORIGIN);
 
   assert.match(sitemap, /<loc>https:\/\/kyle-foster\.com\/side-projects<\/loc>/u);
-  assert.match(sitemap, /<lastmod>2026-07-15<\/lastmod>/u);
+  assert.match(sitemap, /<lastmod>2026-08-10<\/lastmod>/u);
   assert.doesNotMatch(sitemap, /\/health/u);
 });
 
@@ -93,11 +98,15 @@ test("generateSeoArtifacts creates indexable, health, and noindex fallback shell
     const notFoundHtml = await readFile(path.join(distDir, "404.html"), "utf8");
 
     assert.match(homeHtml, /href="https:\/\/kyle-foster\.com\/"/u);
+    assert.match(homeHtml, /<h1>Kyle Foster - Senior React \/ Frontend Engineer<\/h1>/u);
+    assert.match(homeHtml, /Frontend engineering since 2018/u);
     assert.match(contactHtml, /href="https:\/\/kyle-foster\.com\/contact"/u);
     assert.match(contactHtml, /name="description"/u);
     assert.match(contactHtml, /"url":"https:\/\/kyle-foster\.com\/contact"/u);
+    assert.match(contactHtml, /data-static-route-snapshot/u);
     assert.match(healthHtml, /noindex, nofollow/u);
     assert.match(notFoundHtml, /Page Not Found/u);
+    assert.match(notFoundHtml, /<h1>Page not found<\/h1>/u);
     assert.match(notFoundHtml, /noindex, nofollow/u);
     await assert.doesNotReject(() => validateSeoArtifacts({ distDir, siteOrigin: SITE_ORIGIN }));
   } finally {

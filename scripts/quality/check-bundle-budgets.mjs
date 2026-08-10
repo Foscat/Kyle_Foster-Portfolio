@@ -26,15 +26,16 @@ const EXTENSION_TO_BUCKET = Object.freeze({
 
 const BUDGET_STAGES_KB = Object.freeze({
   1: Object.freeze({
-    // Stage 1 reflects the current public style picker: RSuite shell plus all supported UI, layout, and interaction CSS variants.
+    // Stage 1 reflects the public style picker, the responsive portfolio shell,
+    // and the current UI, layout, interaction, and icon library releases.
     total: Object.freeze({
       js: 6000,
-      css: 940,
+      css: 1000,
       image: 8000,
     }),
     maxAsset: Object.freeze({
       js: 650,
-      css: 560,
+      css: 600,
       image: 620,
     }),
   }),
