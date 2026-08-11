@@ -15,7 +15,7 @@ import { createPageTests } from "tests/helpers/createPageTests.jsx";
  *
  * Testing focus:
  * - Page renders without crashing
- * - Correct route association with StickyNav
+ * - Correct route association with UnifiedNavigation
  * - Correct section configuration for SectionRenderer
  * - Shared page guarantees enforced via `createPageTests`
  *
@@ -28,7 +28,7 @@ import { createPageTests } from "tests/helpers/createPageTests.jsx";
  * The Hackathon page follows the standard page composition pattern:
  * - PageHeader
  * - One or more SectionRenderer instances
- * - StickyNav + StickySectionNav
+ * - One UnifiedNavigation surface for primary and section controls
  *
  * This test file exists solely to bind the Hackathon page’s
  * section configuration and route to the shared test contract.

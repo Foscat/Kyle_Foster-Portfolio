@@ -9,7 +9,7 @@ import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import sandersonTechnologyEnterprisesSections from "assets/data/content/sanderson-technology-enterprises";
 import { PageHeader } from "components/layout";
-import { Footer, helpers, StickyNav, StickySectionNav } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
 const sandersonTechnologyEnterprises = {
@@ -38,7 +38,11 @@ const SandersonTechnologyEnterprises = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
-        <StickyNav activePage={sandersonTechnologyEnterprises.url} />
+        <UnifiedNavigation
+          activePage={sandersonTechnologyEnterprises.url}
+          pageUrl={sandersonTechnologyEnterprises.url}
+          sections={sandersonTechnologyEnterprises.sections}
+        />
         <PageHeader
           title={sandersonTechnologyEnterprises.title}
           subTitle={
@@ -50,8 +54,8 @@ const SandersonTechnologyEnterprises = () => {
           tech={sandersonTechnologyEnterprises.tech}
           techLabel={sandersonTechnologyEnterprises.techLabel}
         />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
             {sandersonTechnologyEnterprises.sections.map((section) => (
               <SectionRenderer
                 section={section}
@@ -60,12 +64,6 @@ const SandersonTechnologyEnterprises = () => {
               />
             ))}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav
-              pageUrl={sandersonTechnologyEnterprises.url}
-              sections={sandersonTechnologyEnterprises.sections}
-            />
-          </aside>
         </div>
         <Footer />
       </div>

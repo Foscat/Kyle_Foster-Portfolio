@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router";
-import { Footer, helpers, StickyNav, StickySectionNav } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { PageRoute } from "types/navigation.types";
 import "./styles.css";
 
@@ -89,7 +89,11 @@ const InterfaceSystem = () => {
 
   return (
     <div className="interface-page page-shell ly-wrapper ly-wrapper--wide ly-stack">
-      <StickyNav activePage={PageRoute.INTERFACE_SYSTEM} />
+      <UnifiedNavigation
+        activePage={PageRoute.INTERFACE_SYSTEM}
+        pageUrl={PageRoute.INTERFACE_SYSTEM}
+        sections={sections}
+      />
       <header className="interface-hero" id="system-overview">
         <div className="interface-hero__copy">
           <p className="interface-eyebrow">Open source / product infrastructure</p>
@@ -117,8 +121,8 @@ const InterfaceSystem = () => {
           </div>
         </dl>
       </header>
-      <div className="page-layout ly-sidebar">
-        <main className="interface-main page-content app-main ly-sidebar__content">
+      <div className="page-layout">
+        <main className="interface-main page-content app-main">
           <section
             id="published-packages"
             className="interface-section"
@@ -214,10 +218,6 @@ const InterfaceSystem = () => {
             </Link>
           </section>
         </main>
-
-        <aside className="page-sidebar ly-sidebar__side">
-          <StickySectionNav pageUrl={PageRoute.INTERFACE_SYSTEM} sections={sections} />
-        </aside>
       </div>
       <Footer />
     </div>

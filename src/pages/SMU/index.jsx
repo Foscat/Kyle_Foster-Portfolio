@@ -9,7 +9,7 @@ import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import smuSections from "assets/data/content/smu";
 import { PageHeader } from "components/layout";
-import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
 const smu = {
@@ -43,7 +43,7 @@ const Smu = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
-        <StickyNav activePage={smu.url} />
+        <UnifiedNavigation activePage={smu.url} pageUrl={smu.url} sections={smu.sections} />
         <PageHeader
           title={smu.title}
           subTitle={smu.description}
@@ -51,8 +51,8 @@ const Smu = () => {
           jobTitle={smu.jobTitle}
           tech={smu.tech}
         />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
             {smu.sections.map((sect, i) => {
               return (
                 <SectionRenderer
@@ -63,9 +63,6 @@ const Smu = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav pageUrl={smu.url} sections={smu.sections} />
-          </aside>
         </div>
         <Footer />
       </div>

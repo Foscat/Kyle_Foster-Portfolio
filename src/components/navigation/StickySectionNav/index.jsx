@@ -4,12 +4,13 @@
  * @module components/navigation/StickySectionNav
  */
 
-import { useMemo, useState } from "react";
-import { useResponsive } from "assets/context/responsive/ResponsiveContext";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { buildSectionTree, useScrollSpyWithHistory } from "assets/hooks";
 import { capFirstLetter } from "assets/utils";
 import MobileSectionNavTrigger from "../MobileSectionNavTrigger";
 import "./styles.css";
+
+const FALLBACK_NAVIGATION_HEIGHT = 80;
 
 /**
  * Convert a route pathname into a readable drawer heading.
@@ -37,9 +38,7 @@ const getPageLabel = (pageUrl) => {
  * @returns {JSX.Element} In-flow section navigator.
  */
 const StickySectionNav = ({ sections = [], pageUrl = "/" }) => {
-  const { spacing } = useResponsive();
-  const parsedSpacing = Number.parseInt(spacing.section, 10);
-  const scrollOffset = (Number.isFinite(parsedSpacing) ? parsedSpacing : 0) + 80;
+  const [scrollOffset, setScrollOffset] = useState(FALLBACK_NAVIGATION_HEIGHT);
   const [expandedByClick, setExpandedByClick] = useState({});
   // Keep the scroll-spy graph stable across state-only drawer updates.
   const { nodes, byId } = useMemo(() => buildSectionTree(sections), [sections]);
@@ -48,6 +47,38 @@ const StickySectionNav = ({ sections = [], pageUrl = "/" }) => {
     byId,
     scrollOffset
   );
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return undefined;
+
+    const navigationShell = document.querySelector('[data-testid="unified-navigation"]');
+    if (!navigationShell) return undefined;
+
+    // Scroll-spy thresholds and programmatic navigation must follow the
+    // rendered shell, including compact, landscape, and scaled-text heights.
+    const syncScrollOffset = () => {
+      const renderedHeight = Math.ceil(navigationShell.getBoundingClientRect().height || 0);
+      if (renderedHeight > 0) {
+        setScrollOffset((currentHeight) =>
+          currentHeight === renderedHeight ? currentHeight : renderedHeight
+        );
+      }
+    };
+
+    const resizeObserver =
+      typeof window.ResizeObserver === "function"
+        ? new window.ResizeObserver(syncScrollOffset)
+        : null;
+
+    resizeObserver?.observe(navigationShell);
+    window.addEventListener("resize", syncScrollOffset, { passive: true });
+    syncScrollOffset();
+
+    return () => {
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", syncScrollOffset);
+    };
+  }, []);
 
   const toggleSection = (sectionId) => {
     setExpandedByClick((current) => ({

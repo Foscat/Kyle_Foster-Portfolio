@@ -12,7 +12,7 @@ import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import codeStreamImages from "assets/images/codestream";
 import hackathonImages from "assets/images/hackathon";
 import steLogo from "assets/images/sideProjects/chris_sanderson_enterprises_logo.jpg";
-import { StickyNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { PageRoute } from "types/navigation.types";
 import "./styles.css";
 
@@ -153,7 +153,7 @@ const Home = () => {
 
   return (
     <div className="home-page page-shell ly-wrapper ly-wrapper--wide ly-stack">
-      <StickyNav activePage={home.url} />
+      <UnifiedNavigation activePage={home.url} />
       <main className="home-showcase app-main ly-stack">
         <section className="home-hero ly-section" aria-labelledby="home-title">
           <div className="home-hero__copy">

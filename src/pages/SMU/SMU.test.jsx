@@ -15,7 +15,7 @@ import { createPageTests } from "tests/helpers/createPageTests.jsx";
  *
  * Testing focus:
  * - Page renders without crashing
- * - Correct route association with StickyNav
+ * - Correct route association with UnifiedNavigation
  * - Correct section configuration for SectionRenderer
  * - Shared page guarantees enforced via `createPageTests`
  *
@@ -29,7 +29,7 @@ import { createPageTests } from "tests/helpers/createPageTests.jsx";
  * the rest of the site:
  * - PageHeader
  * - SectionRenderer instances driven by section data
- * - StickyNav + StickySectionNav for navigation
+ * - UnifiedNavigation for primary and section navigation
  *
  * This test file exists solely to bind SMU-specific
  * configuration (sections + route) to the shared page test contract.

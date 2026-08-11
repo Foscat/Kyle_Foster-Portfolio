@@ -82,6 +82,11 @@ vi.mock("components/features/ResumePreview/ResumePreviewTrigger", () => ({
 
 // The test suite for the StickyNav component, which includes tests to verify that the active route is marked correctly, that the mobile navigation opens when the menu trigger is activated, and that the mobile navigation closes after a destination is chosen, ensuring that the component behaves as expected in various scenarios.
 describe("StickyNav", () => {
+  const sections = [
+    { id: "system-overview", title: "System overview", blocks: [] },
+    { id: "published-packages", title: "Published packages", blocks: [] },
+  ];
+
   const StickyNavRouteHarness = () => {
     const location = useLocation();
 
@@ -95,6 +100,44 @@ describe("StickyNav", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("places primary and section navigation inside one page-level header", () => {
+    renderWithProviders(
+      <StickyNav
+        activePage={PageRoute.INTERFACE_SYSTEM}
+        pageUrl={PageRoute.INTERFACE_SYSTEM}
+        sections={sections}
+      />
+    );
+
+    const shell = screen.getByTestId("unified-navigation");
+    expect(screen.getAllByTestId("unified-navigation")).toHaveLength(1);
+    expect(within(shell).getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
+    expect(within(shell).getByRole("navigation", { name: "On this page" })).toBeVisible();
+  });
+
+  it("omits the section control when the route has no section model", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    const shell = screen.getByTestId("unified-navigation");
+    expect(within(shell).queryByRole("navigation", { name: "On this page" })).toBeNull();
+    expect(within(shell).getByRole("button", { name: "Open navigation menu" })).toBeVisible();
+  });
+
+  it("freezes the parent wrapper insets for an exact viewport breakout", async () => {
+    renderWithProviders(
+      <div style={{ paddingLeft: "12px", paddingRight: "12px" }}>
+        <StickyNav activePage={PageRoute.HOME} />
+      </div>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("unified-navigation")).toHaveStyle({
+        "--unified-navigation-breakout-start": "12px",
+        "--unified-navigation-breakout-end": "12px",
+      });
+    });
   });
 
   it("groups legacy case studies under the Work navigation destination", () => {
@@ -224,13 +267,17 @@ describe("StickyNav", () => {
     expect(screen.queryByRole("link", { name: /^docs$/i })).not.toBeInTheDocument();
   });
 
-  it("renders a compact mobile site header with brand and navigation trigger", () => {
+  it("renders one shared brand with the compact navigation trigger", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
+    const unifiedHeader = screen.getByTestId("unified-navigation");
     const header = screen.getByTestId("mobile-site-header");
-    expect(within(header).getByRole("link", { name: /Kyle Foster home/i })).toHaveAttribute(
+    expect(within(unifiedHeader).getByRole("link", { name: /Kyle Foster home/i })).toHaveAttribute(
       "href",
       PageRoute.HOME
+    );
+    expect(within(unifiedHeader).getAllByRole("link", { name: /Kyle Foster home/i })).toHaveLength(
+      1
     );
     expect(
       within(header).getByRole("button", { name: /open navigation menu/i })
