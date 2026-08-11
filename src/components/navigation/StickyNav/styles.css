@@ -535,6 +535,22 @@ html[data-theme="light"]
   font-size: var(--font-lg);
 }
 
+.mobile-nav-drawer .rs-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mobile-nav-drawer .mobile-nav-drawer__close.btn.icon-only {
+  position: static;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  color: var(--text-accent);
+}
+
 .mobile-nav-drawer .rs-drawer-header .rs-drawer-header-close {
   top: 23px;
   padding: 5px;
@@ -589,7 +605,7 @@ html[data-theme="light"]
 }
 
 /* Mobile + small tablet responsiveness */
-@media (width < 1200px) {
+@media (width < 900px) {
   .desktop-menu {
     display: none;
   }
@@ -832,6 +848,69 @@ html[data-theme="light"]
     right: 0;
     width: auto;
     padding: 3px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Portfolio remodel: labeled command bar
+   ------------------------------------------------------------------ */
+
+.desktop-menu .sticky-nav-pages-group {
+  gap: 0.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.desktop-menu .fi-desk-nav-item .nav-link {
+  width: auto;
+  min-width: auto;
+  min-height: 2.6rem;
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  color: var(--app-surface-muted-fg);
+  border: 1px solid transparent;
+  border-radius: var(--app-surface-radius-sm);
+  font-family: var(--app-control-font-family);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.desktop-menu .fi-desk-nav-item .nav-link:hover,
+.desktop-menu .fi-desk-nav-item .nav-link:focus-visible {
+  color: var(--app-surface-fg);
+  border-color: var(--app-surface-accent);
+}
+
+.desktop-menu .fi-desk-nav-item .nav-link.is-active,
+.desktop-menu .fi-desk-nav-item .nav-link[aria-current="page"] {
+  /* Active links use the semantic on-accent color across every UI palette. */
+  color: var(--app-surface-accent-fg) !important;
+  border-color: var(--app-surface-accent);
+  background: var(--app-surface-accent);
+}
+
+@media (width >= 900px) {
+  .desktop-menu {
+    justify-content: flex-start;
+    gap: clamp(0.65rem, 1.5vw, 1.25rem);
+    width: 100%;
+    margin-bottom: clamp(0.6rem, 1.5vw, 1.2rem);
+    padding: 0.45rem clamp(0.55rem, 1.25vw, 1rem);
+    border: var(--app-surface-border);
+    border-radius: var(--app-surface-radius-md);
+    background: var(--app-surface-strong-bg);
+  }
+
+  .desktop-menu .sticky-nav-brand {
+    margin-right: 0;
+  }
+
+  .desktop-menu .sticky-nav-tools-group {
+    margin-left: auto;
   }
 }
 

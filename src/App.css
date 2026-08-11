@@ -586,10 +586,7 @@ section[id],
 }
 
 .page-layout {
-  /* layout-style-css owns spacing rhythm; this app owns the route nav breakpoint and feasible rail width. */
-  --portfolio-route-sidebar-width: clamp(14.5rem, var(--ly-sidebar-width, 15.5rem), 16rem);
-  --ly-sidebar-size: var(--portfolio-route-sidebar-width);
-
+  /* layout-style-css owns spacing rhythm; the route navigator remains in normal flow. */
   align-items: start;
   gap: clamp(1rem, 2vw, 1.5rem);
   width: 100%;
@@ -829,52 +826,38 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-@media (width < 1200px) {
-  .page-layout.ly-sidebar {
-    /* Keep route content clear of the fixed mobile navigation rail. */
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    padding-inline: 5px;
-    padding-inline-start: max(
-      calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
-      calc(
-        var(--sticky-nav-mobile-trigger-left, 14px) + var(--sticky-nav-mobile-trigger-size, 42px) +
-          (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
-      )
-    );
-  }
-
-  .page-layout > .ly-sidebar__content,
-  .page-layout > .ly-sidebar__side {
-    grid-column: 1;
-  }
+/* Route navigation now occupies a compact row above content on every viewport. */
+.page-layout.ly-sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-inline: 0;
 }
 
-@media (width >= 1200px) {
-  .page-layout {
-    padding-inline: 0;
-  }
+.page-layout > .ly-sidebar__content,
+.page-layout > .ly-sidebar__side {
+  grid-column: 1;
+}
 
-  .page-layout.ly-sidebar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(14.5rem, var(--portfolio-route-sidebar-width));
-  }
+.page-layout > .ly-sidebar__content {
+  grid-row: 2;
+}
 
-  .page-layout > .ly-sidebar__content {
-    grid-column: 1;
-  }
+.page-layout > .ly-sidebar__side {
+  grid-row: 1;
+}
 
-  .page-layout > .ly-sidebar__side {
-    grid-column: 2;
-  }
+.page-sidebar {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 80;
+  width: 100%;
+  height: auto;
+  padding: 0;
+}
 
+@media (width >= 900px) {
   .page-sidebar {
-    position: relative;
-    width: 100%;
-
-    /* establishes a stable context for sticky descendants */
-    height: 100%;
-    padding: 0 0.5rem;
+    top: 4.75rem;
   }
 
   .block-header {

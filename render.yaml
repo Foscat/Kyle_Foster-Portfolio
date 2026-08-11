@@ -43,6 +43,9 @@ services:
         source: /sanderson-technology-enterprises
         destination: /sanderson-technology-enterprises/index.html
       - type: rewrite
+        source: /interface-system
+        destination: /interface-system/index.html
+      - type: rewrite
         source: /side-projects
         destination: /side-projects/index.html
       - type: rewrite

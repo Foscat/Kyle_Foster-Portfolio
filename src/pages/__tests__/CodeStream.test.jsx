@@ -41,4 +41,5 @@ createPageTests({
   sections: codeStreamSections,
   pageRoute: PageRoute.CODE_STREAM,
   pageName: "Code Stream",
+  primaryNavigationRoute: PageRoute.SIDE_PROJECTS,
 });

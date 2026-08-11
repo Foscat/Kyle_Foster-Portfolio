@@ -119,11 +119,12 @@ const PageHeader = ({
     <Panel className={`page-header page-header--top blue-tile ${className}`} as="header" expanded>
       <FlexboxGrid justify="center" align="middle" className="page-header-inner">
         <FlexboxGrid.Item colspan={24} className="text-center">
+          <p className="page-header-eyebrow">Portfolio / Kyle Foster</p>
           <h1 className="page-header-title">{title}</h1>
 
           {(jobTitle || timespan) && (
             <h2 className="page-header-subtitle">
-              {[jobTitle, timespan].filter(Boolean).join(" • ")}
+              {[jobTitle, timespan].filter(Boolean).join(" / ")}
             </h2>
           )}
 

@@ -5,7 +5,11 @@
  */
 
 import { PageRoute } from "types/navigation.types";
+import { screen, within } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { createElement } from "react";
 import { createPageTests } from "tests/helpers/createPageTests.jsx";
+import renderWithProviders from "tests/renderWithProviders";
 import SideProjects from "pages/SideProjects";
 import sideProjectsSections from "assets/data/content/side-projects";
 /**
@@ -40,4 +44,26 @@ createPageTests({
   sections: sideProjectsSections,
   pageRoute: PageRoute.SIDE_PROJECTS,
   pageName: "Side Projects",
+});
+
+describe("Work archive", () => {
+  it("keeps every legacy case study discoverable from the Work route", () => {
+    renderWithProviders(createElement(SideProjects));
+
+    const archive = screen.getByRole("navigation", { name: /explore the complete work archive/i });
+    const expectedRoutes = [
+      PageRoute.CODE_STREAM,
+      PageRoute.HACKATHON,
+      PageRoute.EDUCATION,
+      PageRoute.DOCS,
+    ];
+
+    for (const route of expectedRoutes) {
+      expect(
+        within(archive)
+          .getAllByRole("link")
+          .some((link) => link.getAttribute("href") === route)
+      ).toBe(true);
+    }
+  });
 });

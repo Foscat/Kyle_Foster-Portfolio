@@ -166,7 +166,7 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
     const layout = document.querySelector(".page-layout");
     const main = document.querySelector(".page-content");
     const sidebar = document.querySelector(".page-sidebar");
-    const nav = document.querySelector(".sticky-section-nav");
+    const nav = document.querySelector(".route-section-nav");
 
     if (!layout || !main || !sidebar) {
       throw new Error("Expected route layout, main content, and sidebar to be rendered");
@@ -191,6 +191,7 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
       mainGridColumn: mainStyles.gridColumnStart,
       sidebar: getBox(sidebar),
       sidebarGridColumn: sidebarStyles.gridColumnStart,
+      sidebarPosition: sidebarStyles.position,
       nav: {
         exists: Boolean(nav),
         position: nav ? window.getComputedStyle(nav).position : "",
@@ -286,32 +287,31 @@ test.describe("UI style visual distinction", () => {
     expect(consoleErrors, consoleErrors.join("\n\n")).toHaveLength(0);
   });
 
-  test("route sidebar layout aligns with the sticky nav breakpoint", async ({ page }) => {
-    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 1199);
+  test("route command bar stays aligned across the primary-nav breakpoint", async ({ page }) => {
+    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 899);
 
     expect(mobile.gridTrackCount).toBe(1);
     expect(mobile.mainGridColumn).toBe("1");
     expect(mobile.sidebarGridColumn).toBe("1");
-    expect(mobile.layoutPaddingStart).toBeGreaterThan(40);
-    expect(mobile.nav.exists).toBe(false);
+    expect(mobile.layoutPaddingStart).toBe(0);
+    expect(mobile.nav.exists).toBe(true);
     expect(mobile.sidebar?.width).toBe(mobile.main?.width);
 
-    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 1200);
+    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 900);
 
-    expect(desktop.gridTrackCount).toBe(2);
+    expect(desktop.gridTrackCount).toBe(1);
     expect(desktop.mainGridColumn).toBe("1");
-    expect(desktop.sidebarGridColumn).toBe("2");
+    expect(desktop.sidebarGridColumn).toBe("1");
     expect(desktop.layoutPaddingStart).toBe(0);
     expect(desktop.nav.exists).toBe(true);
-    expect(desktop.nav.position).toBe("sticky");
-    expect(desktop.sidebar?.left).toBeGreaterThan(desktop.main?.left || 0);
-    expect(desktop.sidebar?.width).toBeGreaterThanOrEqual(220);
-    expect(desktop.main?.width).toBeGreaterThan(desktop.sidebar?.width || 0);
+    expect(desktop.sidebarPosition).toBe("sticky");
+    expect(desktop.sidebar?.left).toBe(desktop.main?.left);
+    expect(desktop.sidebar?.width).toBe(desktop.main?.width);
     expect(desktop.nav.afterScroll?.top).toBeGreaterThanOrEqual(0);
     expect(desktop.nav.afterScroll?.top).toBeLessThan(900);
   });
 
-  test("layout styles keep route sidebars stable on the right", async ({ page }) => {
+  test("layout styles keep the route command bar stable above content", async ({ page }) => {
     const measurements = [];
 
     for (const layoutStyle of ROUTE_LAYOUT_STYLES) {
@@ -319,18 +319,13 @@ test.describe("UI style visual distinction", () => {
     }
 
     for (const measurement of measurements) {
-      expect(measurement.gridTrackCount, measurement.layoutStyle).toBe(2);
+      expect(measurement.gridTrackCount, measurement.layoutStyle).toBe(1);
       expect(measurement.mainGridColumn, measurement.layoutStyle).toBe("1");
-      expect(measurement.sidebarGridColumn, measurement.layoutStyle).toBe("2");
-      expect(measurement.sidebar?.left, measurement.layoutStyle).toBeGreaterThan(
-        measurement.main?.left || 0
-      );
-      expect(measurement.sidebar?.width, measurement.layoutStyle).toBeGreaterThanOrEqual(220);
-      expect(measurement.main?.width, measurement.layoutStyle).toBeGreaterThan(
-        measurement.sidebar?.width || 0
-      );
+      expect(measurement.sidebarGridColumn, measurement.layoutStyle).toBe("1");
+      expect(measurement.sidebar?.left, measurement.layoutStyle).toBe(measurement.main?.left);
+      expect(measurement.sidebar?.width, measurement.layoutStyle).toBe(measurement.main?.width);
       expect(measurement.nav.exists, measurement.layoutStyle).toBe(true);
-      expect(measurement.nav.position, measurement.layoutStyle).toBe("sticky");
+      expect(measurement.sidebarPosition, measurement.layoutStyle).toBe("sticky");
       expect(measurement.nav.afterScroll?.top, measurement.layoutStyle).toBeGreaterThanOrEqual(0);
       expect(measurement.nav.afterScroll?.top, measurement.layoutStyle).toBeLessThan(900);
     }

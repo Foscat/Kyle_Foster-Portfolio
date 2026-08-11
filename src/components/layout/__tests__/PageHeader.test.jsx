@@ -69,7 +69,7 @@ describe("PageHeader", () => {
     );
 
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Frontend Developer • 2021–2024"
+      "Frontend Developer / 2021–2024"
     );
   });
 

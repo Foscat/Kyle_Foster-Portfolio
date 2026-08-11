@@ -24,6 +24,7 @@ const ROUTE_CASES: RouteAccessibilityCase[] = [
   { route: "/", name: "Home" },
   { route: "/codestream", name: "CodeStream" },
   { route: "/sanderson-technology-enterprises", name: "STE Work" },
+  { route: "/interface-system", name: "Interface System" },
   { route: "/side-projects", name: "Side Projects" },
   { route: "/hackathon", name: "Hackathon" },
   { route: "/smu", name: "Education" },
@@ -47,6 +48,9 @@ async function runAxeScan(page: Page) {
 /**
  * Check WCAG 2.2 target dimensions for controls where the inline-text exception
  * does not apply. This complements axe while keeping prose links exempt.
+ *
+ * @param page - Active portfolio page to inspect.
+ * @returns Controls that do not meet the minimum target dimensions.
  */
 async function findUndersizedTargets(page: Page): Promise<UndersizedTarget[]> {
   return page

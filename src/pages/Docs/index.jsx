@@ -29,8 +29,8 @@ const Docs = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell docs-page ly-wrapper ly-wrapper--wide ly-stack">
-        <PageHeader title={docs.title} subTitle={docs.description} />
         <StickyNav activePage={docs.url} />
+        <PageHeader title={docs.title} subTitle={docs.description} />
         <div className="page-layout ly-sidebar">
           <main className="page-content app-main ly-sidebar__content" role="main">
             {docs.sections.map((sect) => (

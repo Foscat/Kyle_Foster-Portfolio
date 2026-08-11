@@ -41,4 +41,5 @@ createPageTests({
   sections: hackathonSections,
   pageRoute: PageRoute.HACKATHON,
   pageName: "Hackathon",
+  primaryNavigationRoute: PageRoute.SIDE_PROJECTS,
 });

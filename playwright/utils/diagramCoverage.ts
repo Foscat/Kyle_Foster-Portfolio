@@ -5,7 +5,7 @@
  */
 
 import { Page } from "@playwright/test";
-import { activateNextDeferredDiagram } from "./waitForMermaid";
+import { waitForMermaidRender } from "./waitForMermaid";
 
 export type DiagramCoverageResult = {
   rendered: string[];
@@ -20,13 +20,9 @@ export async function collectDiagramCoverage(
   const missing: string[] = [];
 
   for (const id of expectedIds) {
-    // Use .mermaid-svg-host to avoid matching icon SVGs inside the same panel.
-    const svg = page.locator(`#${id} .mermaid-svg-host svg`);
     try {
-      if ((await svg.count()) === 0) {
-        await activateNextDeferredDiagram(page);
-      }
-      await svg.waitFor({ state: "attached", timeout: 10000 });
+      // Reuse the production render waiter so lazy diagrams receive the same activation and error checks.
+      await waitForMermaidRender(page, id);
       rendered.push(id);
     } catch {
       missing.push(id);

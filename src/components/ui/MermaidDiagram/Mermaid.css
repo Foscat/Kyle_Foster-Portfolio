@@ -963,6 +963,10 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   overflow: hidden !important;
 }
 
+.mermaid-fullscreen-modal.rs-modal-full {
+  background: var(--app-kit-bg, var(--bg-primary)) !important;
+}
+
 .mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog {
   width: 100vw;
   max-width: none;
@@ -977,7 +981,8 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   border-radius: 0;
   overflow: hidden;
   border: 0;
-  background: transparent;
+  color: var(--app-surface-fg);
+  background: var(--app-kit-bg, var(--bg-primary));
   box-shadow: none;
 }
 
@@ -985,12 +990,43 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   position: fixed;
   top: 0;
   right: 0;
+  left: 0;
   z-index: 40;
-  min-height: 0;
-  padding: 0.72rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 3.75rem;
+  padding: 0.55rem 4rem 0.55rem 0.65rem;
+  border-bottom: var(--app-surface-border);
+  background: var(--app-surface-strong-bg);
+  pointer-events: auto;
+}
+
+.mermaid-explorer-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
   border: 0;
-  background: transparent;
-  pointer-events: none;
+}
+
+.mermaid-explorer-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.mermaid-explorer-toolbar .btn.icon-only {
+  width: 2.65rem;
+  min-width: 2.65rem;
+  height: 2.65rem;
+  color: var(--app-surface-fg);
+  border: 1px solid color-mix(in srgb, var(--app-surface-accent) 42%, transparent);
+  background: var(--app-surface-bg);
 }
 
 .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -1018,7 +1054,8 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   height: 100dvh;
   padding: 0;
   overflow: hidden;
-  background: var(--app-bg-layer, var(--mermaid-surface-bg)) !important;
+  padding-top: 3.75rem;
+  background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
 .mermaid-fullscreen-stage,
@@ -1028,32 +1065,37 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-stage {
-  overflow: auto;
+  overflow: hidden;
+  background: var(--app-kit-bg, var(--bg-primary));
 }
 
 .mermaid-fullscreen-stage .mermaid {
   min-height: 100%;
   padding: clamp(0.9rem, 1.8vw, 1.7rem);
   border-radius: 0;
-  background: transparent;
-  overflow: visible;
+  background: var(--app-kit-bg, var(--bg-primary));
+  overflow: hidden;
 }
 
 .mermaid-svg-host--fullscreen {
-  min-height: calc(100dvh - clamp(1.8rem, 3.6vw, 3.4rem));
+  min-height: calc(100dvh - 3.75rem);
+  height: calc(100dvh - 3.75rem);
   align-items: center;
-  overflow: visible;
+  overflow: hidden;
+  touch-action: none;
+  background: var(--app-kit-bg, var(--bg-primary));
 }
 
 .mermaid-fullscreen-stage .mermaid-svg-host--fullscreen svg {
-  width: max(100%, min(var(--mermaid-svg-width, 1400px), 1900px));
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   max-width: none;
   overflow: visible;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal__body {
-  background: var(--app-bg-layer, var(--mermaid-surface-bg)) !important;
+  background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -1073,7 +1115,8 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
   }
 
   .mermaid-fullscreen-modal__header {
-    padding: 0.55rem;
+    min-height: 3.35rem;
+    padding: 0.4rem 3.5rem 0.4rem 0.45rem;
   }
 
   .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -1082,7 +1125,22 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
   }
 
   .mermaid-fullscreen-stage .mermaid {
-    padding: 0.65rem;
+    padding: 0;
+  }
+
+  .mermaid-fullscreen-modal__body {
+    padding-top: 3.35rem;
+  }
+
+  .mermaid-svg-host--fullscreen {
+    min-height: calc(100dvh - 3.35rem);
+    height: calc(100dvh - 3.35rem);
+  }
+
+  .mermaid-explorer-toolbar .btn.icon-only {
+    width: 2.4rem;
+    min-width: 2.4rem;
+    height: 2.4rem;
   }
 }
 

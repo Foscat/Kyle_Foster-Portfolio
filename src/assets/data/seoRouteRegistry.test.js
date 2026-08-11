@@ -34,6 +34,7 @@ describe("SEO route registry", () => {
         PageRoute.HOME,
         PageRoute.PROFESSIONAL,
         PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
+        PageRoute.INTERFACE_SYSTEM,
         PageRoute.SIDE_PROJECTS,
         PageRoute.HACKATHON,
         PageRoute.EDUCATION,
@@ -58,6 +59,11 @@ describe("SEO route registry", () => {
     );
     expect(SEO_ROUTE_REGISTRY[PageRoute.SIDE_PROJECTS].description).toContain(
       "Interface Systems Lab"
+    );
+    expect(SEO_ROUTE_REGISTRY[PageRoute.HOME].title).toMatch(/^Kyle Foster \|/u);
+    expect(SEO_ROUTE_REGISTRY[PageRoute.HOME].description).toContain("Kyle Foster");
+    expect(SEO_ROUTE_REGISTRY[PageRoute.INTERFACE_SYSTEM].description).toContain(
+      "layout-style-css"
     );
   });
 
@@ -85,5 +91,7 @@ describe("SEO route registry", () => {
     expect(serialized).toContain("CollectionPage");
     expect(serialized).toContain("BreadcrumbList");
     expect(serialized).toContain("Person");
+    expect(serialized).toContain("Senior Frontend Engineer and Product Builder");
+    expect(serialized).toContain("Sanderson Technology Enterprises");
   });
 });

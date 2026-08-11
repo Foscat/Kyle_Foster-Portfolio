@@ -6,19 +6,25 @@
 
 ## pages/Home
 
-Home page composition that renders intro metadata, global navigation,
-section-driven content, and footer utilities.
+Portfolio landing page for hiring teams and STE product clients.
 
-### Home()
+### ProjectRow()
 
-Home Page
----------------------------------------------------------------------------
-A data-driven landing page that gives recruiters and hiring managers a
-high-level map of the portfolio and clear CTAs into deeper pages.
+Render one proof-rich project row with a single descriptive destination.
 
-Content is rendered from lightweight page metadata plus `assets/data/content/home` sections
-without touching layout code.
+**Parameters**
+
+- `props` (`object`) - Component properties.
+- `props.project` (`object`) - Curated project summary.
 
 **Returns**
 
-- `JSX.Element`
+- `JSX.Element` - Project article.
+
+### Home()
+
+Portfolio home page.
+
+**Returns**
+
+- `JSX.Element` - Dual-audience portfolio landing page.

@@ -34,6 +34,7 @@ const Hackathon = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
+        <StickyNav activePage={hack.url} />
         <PageHeader
           title={hack.title}
           jobTitle={hack.jobTitle}
@@ -41,7 +42,6 @@ const Hackathon = () => {
           timespan={hack.timespan}
           tech={hack.tech}
         />
-        <StickyNav activePage={hack.url} />
         <div className="page-layout ly-sidebar">
           <main className="page-content app-main ly-sidebar__content" role="main">
             {hack.sections.map((sect) => {

@@ -30,7 +30,7 @@ Features:
 - Fully responsive layout
 
 Accessibility:
-- Uses `role="banner"` to denote page-level landmark
+- Uses a semantic `header` without creating a second page-wide banner landmark
 - Content is readable and navigable via assistive technologies
 
 **Parameters**

@@ -11,8 +11,15 @@ const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "htt
 const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
-const MOBILE_WIDTHS = [320, 390, 768, 1023, 1100, 1199];
-const DESKTOP_WIDTHS = [1200, 1280, 1440];
+const RESPONSIVE_WIDTHS = [320, 390, 768, 899, 900, 1200, 1440];
+const WIDE_WIDTHS = [1200, 1280, 1440];
+const ORIENTATION_VIEWPORTS = [
+  { label: "phone portrait", width: 390, height: 844 },
+  { label: "phone landscape", width: 844, height: 390 },
+  { label: "tablet portrait", width: 768, height: 1024 },
+  { label: "tablet landscape", width: 1024, height: 768 },
+  { label: "short desktop", width: 1280, height: 650 },
+];
 const ROUTE_LAYOUT_STYLES = [
   "retro-glass",
   "maximalist",
@@ -93,7 +100,7 @@ async function getRouteLayoutMeasurement(page: Page) {
     const layout = document.querySelector(".page-layout");
     const layoutStyles = layout ? window.getComputedStyle(layout) : null;
     const gridTrackCount = layoutStyles ? countGridTracks(layoutStyles.gridTemplateColumns) : 0;
-    const sectionList = document.querySelector(".section-nav-list");
+    const routeSectionNav = document.querySelector(".route-section-nav");
 
     return {
       horizontalOverflow: Math.max(
@@ -105,65 +112,85 @@ async function getRouteLayoutMeasurement(page: Page) {
       layout: box(".page-layout"),
       main: box(".page-content"),
       sidebar: box(".page-sidebar"),
-      desktopNav: box(".sticky-section-nav"),
-      mobileTrigger: box("[data-testid='mobile-sect-nav-trigger-wrapper']"),
-      navListOverflow: sectionList ? sectionList.scrollWidth - sectionList.clientWidth : 0,
+      routeSectionNav: box(".route-section-nav"),
+      routeSectionNavPosition: routeSectionNav
+        ? window.getComputedStyle(routeSectionNav).position
+        : "",
     };
   });
 }
 
-test.describe("route sidebar responsive behavior", () => {
-  test("mobile widths use the gutter trigger without horizontal overflow", async ({ page }) => {
+test.describe("route section navigation responsive behavior", () => {
+  test("Interface System stays usable across orientation and short-height viewports", async ({
+    page,
+  }) => {
     await preparePageForStableTests(page, { theme: "dark" });
 
-    for (const width of MOBILE_WIDTHS) {
+    for (const viewport of ORIENTATION_VIEWPORTS) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto(toUrl("/interface-system"));
+      await stabilizePage(page, { theme: "dark" });
+
+      const measurement = await getRouteLayoutMeasurement(page);
+      expect(measurement.horizontalOverflow, viewport.label).toBeLessThanOrEqual(1);
+      expect(measurement.gridTrackCount, viewport.label).toBe(1);
+      expect(measurement.routeSectionNav?.width, viewport.label).toBeGreaterThan(0);
+      expect(measurement.main?.height, viewport.label).toBeGreaterThan(0);
+    }
+  });
+
+  test("the command bar remains in flow without horizontal overflow", async ({ page }) => {
+    test.setTimeout(60_000);
+    await preparePageForStableTests(page, { theme: "dark" });
+
+    for (const width of RESPONSIVE_WIDTHS) {
       await prepareRoute(page, width);
       const measurement = await getRouteLayoutMeasurement(page);
 
       expect(measurement.horizontalOverflow, `viewport ${width}`).toBeLessThanOrEqual(1);
       expect(measurement.gridTrackCount, `viewport ${width}`).toBe(1);
-      expect(measurement.desktopNav, `viewport ${width}`).toBeNull();
-      expect(measurement.mobileTrigger?.width, `viewport ${width}`).toBeGreaterThan(0);
-      expect(measurement.layoutPaddingStart, `viewport ${width}`).toBeGreaterThan(40);
+      expect(measurement.routeSectionNav?.width, `viewport ${width}`).toBeGreaterThan(0);
+      expect(measurement.layoutPaddingStart, `viewport ${width}`).toBe(0);
+      expect(measurement.sidebar?.width, `viewport ${width}`).toBe(measurement.main?.width);
     }
   });
 
-  test("desktop layout styles keep a readable right sidebar without nav overflow", async ({
+  test("wide layout styles keep the section command bar aligned above content", async ({
     page,
   }) => {
     test.setTimeout(90_000);
     await preparePageForStableTests(page, { theme: "dark" });
 
     for (const layoutStyle of ROUTE_LAYOUT_STYLES) {
-      for (const width of DESKTOP_WIDTHS) {
+      for (const width of WIDE_WIDTHS) {
         await prepareRoute(page, width, layoutStyle);
         const measurement = await getRouteLayoutMeasurement(page);
         const label = `${layoutStyle} at ${width}px`;
 
         expect(measurement.horizontalOverflow, label).toBeLessThanOrEqual(1);
-        expect(measurement.gridTrackCount, label).toBe(2);
+        expect(measurement.gridTrackCount, label).toBe(1);
         expect(measurement.layoutPaddingStart, label).toBe(0);
-        expect(measurement.desktopNav?.width, label).toBeGreaterThanOrEqual(220);
-        expect(measurement.sidebar?.width, label).toBeGreaterThanOrEqual(232);
-        expect(measurement.sidebar?.left, label).toBeGreaterThan(measurement.main?.left || 0);
-        expect(measurement.main?.width, label).toBeGreaterThan(measurement.sidebar?.width || 0);
-        expect(measurement.navListOverflow, label).toBeLessThanOrEqual(1);
+        expect(
+          Math.abs((measurement.routeSectionNav?.width || 0) - (measurement.sidebar?.width || 0)),
+          label
+        ).toBeLessThanOrEqual(2);
+        expect(measurement.sidebar?.left, label).toBe(measurement.main?.left);
+        expect(measurement.main?.width, label).toBe(measurement.sidebar?.width);
       }
     }
   });
 
-  test("desktop section labels keep a consistent regular font weight", async ({ page }) => {
+  test("drawer section labels keep a consistent regular font weight", async ({ page }) => {
     await preparePageForStableTests(page, { theme: "dark" });
     await prepareRoute(page, 1280, "retro-glass", "/sanderson-technology-enterprises");
 
-    const sectionLabels = page.locator(".section-nav-link");
-    const subsectionLabels = page.locator(".sub-section-nav-block");
+    await page.getByRole("button", { name: /open section navigation/i }).click();
+    const sectionLabels = page.getByRole("dialog").locator(".mobile-section-title");
     await expect(sectionLabels.first()).toBeVisible();
-    await expect(subsectionLabels.first()).toBeAttached();
 
-    const fontWeights = await sectionLabels
-      .or(subsectionLabels)
-      .evaluateAll((labels) => labels.map((label) => window.getComputedStyle(label).fontWeight));
+    const fontWeights = await sectionLabels.evaluateAll((labels) =>
+      labels.map((label) => window.getComputedStyle(label).fontWeight)
+    );
 
     expect(new Set(fontWeights)).toEqual(new Set(["500"]));
   });

@@ -9,18 +9,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Nav, Drawer } from "rsuite";
 import { Link, useNavigate } from "react-router";
-import {
-  faHome,
-  faBriefcase,
-  faBuildingUser,
-  faGraduationCap,
-  faTrophy,
-  faFolderOpen,
-  faEnvelope,
-  faBook,
-  faBars,
-  faCircleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCircleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Size, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
@@ -38,7 +27,7 @@ import { PageRoute } from "types/navigation.types";
  * @property {string} id - Unique identifier for the nav item.
  * @property {string} route - Route path used for navigation.
  * @property {string} label - Human-readable navigation label.
- * @property {*} icon - FontAwesome icon associated with the route.
+ * @property {string[]} [matches] - Additional routes grouped beneath the entry.
  */
 
 /*
@@ -53,30 +42,36 @@ import { PageRoute } from "types/navigation.types";
  *
  */
 const NAV_ITEMS = [
-  { id: "ni-home", route: PageRoute.HOME, label: "Home", icon: faHome },
+  { id: "ni-home", route: PageRoute.HOME, label: "Home" },
   {
-    id: "ni-professional",
-    route: PageRoute.PROFESSIONAL,
-    label: "CodeStream Studios",
-    icon: faBriefcase,
-  },
-  {
-    id: "ni-ste-work",
+    id: "ni-ste",
     route: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
-    label: "STE Work",
-    icon: faBuildingUser,
+    label: "STE",
   },
-  { id: "ni-education", route: PageRoute.EDUCATION, label: "Education", icon: faGraduationCap },
-  { id: "ni-hackathon", route: PageRoute.HACKATHON, label: "Hackathon", icon: faTrophy },
   {
-    id: "ni-projects",
-    route: PageRoute.SIDE_PROJECTS,
-    label: "Personal Projects",
-    icon: faFolderOpen,
+    id: "ni-interface-system",
+    route: PageRoute.INTERFACE_SYSTEM,
+    label: "Interface System",
   },
-  { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact", icon: faEnvelope },
-  { id: "ni-docs", route: PageRoute.DOCS, label: "Docs", icon: faBook },
+  {
+    id: "ni-work",
+    route: PageRoute.SIDE_PROJECTS,
+    label: "Work",
+    matches: [PageRoute.PROFESSIONAL, PageRoute.HACKATHON, PageRoute.EDUCATION, PageRoute.DOCS],
+  },
+  { id: "ni-contact", route: PageRoute.CONTACT, label: "Contact" },
 ];
+
+/**
+ * Keep legacy case studies discoverable without letting them dominate the
+ * primary information architecture.
+ *
+ * @param {string} activePage - Current route pathname.
+ * @param {object} item - Navigation destination and optional grouped routes.
+ * @returns {boolean} Whether the destination represents the current route.
+ */
+const isRouteActive = (activePage, item) =>
+  activePage === item.route || item.matches?.includes(activePage) === true;
 
 const isEditableTarget = (target) =>
   target instanceof HTMLElement &&
@@ -139,9 +134,9 @@ const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = 
  * Primary site navigation component with dual layouts:
  *
  * Desktop layout:
- * - Horizontal icon-based navigation
- * - Icon-only buttons with hover tooltips
- * - Uses the design-system `Btn` and `FrostedIcon` components
+ * - Compact, text-led command bar
+ * - Current-route styling across curated route groups
+ * - Design-system controls for utilities
  *
  * Mobile layout:
  * - Compact brand header with one menu trigger
@@ -216,35 +211,38 @@ const StickyNav = ({ activePage }) => {
       {/* ============================================================
          Desktop Navigation
          ------------------------------------------------------------
-         Icon-only, horizontal layout with hover tooltips.
+         Compact text-led command bar.
          ============================================================ */}
       <Nav className="sticky-nav desktop-menu" role="navigation" aria-label="Primary navigation">
         <Link className="sticky-nav-brand" to={PageRoute.HOME} aria-label="Kyle Foster home">
           KF
         </Link>
         <div className="sticky-nav-pages-group">
-          {NAV_ITEMS.map(({ route, label, icon, id }) => {
-            const isActive = activePage === route;
+          {NAV_ITEMS.map((item) => {
+            const { route, label, id } = item;
+            const isExactRoute = activePage === route;
+            const isGroupActive = isRouteActive(activePage, item);
 
             return (
               <Nav.Item
                 key={`${route}-${id}`}
                 as="div"
+                data-testid={`desktop-nav-${id}`}
                 className={`fi-desk-nav-item sticky-nav-desktop-trigger sticky-nav-desktop-trigger--page ${
-                  isActive ? "is-route-active" : ""
+                  isGroupActive ? "is-route-active" : ""
                 }`}
               >
                 <Btn
-                  icon={icon}
+                  key={item.id}
+                  text={label}
                   variant={Variant.PRIMARY}
-                  tooltip={label}
                   ariaLabel={label}
-                  ariaCurrent={isActive ? "page" : undefined}
+                  ariaCurrent={isExactRoute ? "page" : undefined}
                   href={route}
                   hrefLocal
                   clickable
-                  className={`nav-icon ${isActive ? "is-active" : ""}`}
-                  size={Size.LG}
+                  className={`nav-link ${isGroupActive ? "is-active" : ""}`}
+                  size={Size.MD}
                   noBG
                 />
               </Nav.Item>
@@ -286,7 +284,6 @@ const StickyNav = ({ activePage }) => {
           </Nav.Item>
         </div>
       </Nav>
-
       {/* ============================================================
          Mobile Navigation Trigger
          ------------------------------------------------------------
@@ -316,7 +313,6 @@ const StickyNav = ({ activePage }) => {
           }}
         />
       </header>
-
       {/* ============================================================
          Mobile Navigation Drawer
          ------------------------------------------------------------
@@ -327,15 +323,27 @@ const StickyNav = ({ activePage }) => {
         open={mobileOpen}
         onClose={closeMobileNav}
         className="mobile-nav-drawer"
+        closeButton={false}
       >
-        <Drawer.Header>
+        <Drawer.Header closeButton={false}>
           <Drawer.Title>Site Navigation</Drawer.Title>
+          <Btn
+            icon={faXmark}
+            variant={Variant.ACCENT}
+            size={Size.LG}
+            noBG
+            ariaLabel="Close site navigation"
+            className="mobile-nav-drawer__close"
+            onClick={closeMobileNav}
+          />
         </Drawer.Header>
 
         <Drawer.Body>
           <Nav vertical>
-            {NAV_ITEMS.map(({ route, label, id }) => {
-              const isActive = activePage === route;
+            {NAV_ITEMS.map((item) => {
+              const { route, label, id } = item;
+              const isExactRoute = activePage === route;
+              const isGroupActive = isRouteActive(activePage, item);
 
               return (
                 <Nav.Item
@@ -343,13 +351,13 @@ const StickyNav = ({ activePage }) => {
                   eventKey={route}
                   as={Link}
                   to={route}
-                  className={`interactive-surface ${isActive ? "is-route-active" : ""}`}
-                  data-surface-variant={isActive ? "primary" : "subtle"}
-                  data-surface-level={isActive ? "2" : "1"}
-                  aria-current={isActive ? "page" : undefined}
+                  className={`interactive-surface ${isGroupActive ? "is-route-active" : ""}`}
+                  data-surface-variant={isGroupActive ? "primary" : "subtle"}
+                  data-surface-level={isGroupActive ? "2" : "1"}
+                  aria-current={isExactRoute ? "page" : undefined}
                   onClick={(event) =>
                     handleNavClick(event, {
-                      isActive,
+                      isActive: isExactRoute,
                       route,
                       navigate,
                       onAfterNavigate: closeMobileNav,

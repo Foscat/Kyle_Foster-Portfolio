@@ -42,4 +42,5 @@ createPageTests({
   sections: smuSections,
   pageRoute: PageRoute.EDUCATION,
   pageName: "SMU",
+  primaryNavigationRoute: PageRoute.SIDE_PROJECTS,
 });

@@ -30,7 +30,7 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await expect(page.locator("footer")).toBeVisible();
   });
 
-  test("renders sticky section navigation", async ({ page }) => {
+  test("renders the in-flow section navigation and drawer entries", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await preparePageForStableTests(page, { theme: "dark" });
 
@@ -38,16 +38,16 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await page.waitForLoadState("networkidle");
     await stabilizePage(page, { theme: "dark" });
 
-    await expect(page.locator('nav[aria-label="Section navigation"]')).toBeVisible();
+    const sectionNavigation = page.getByRole("navigation", { name: /on this page/i });
+    await expect(sectionNavigation).toBeVisible();
+    await sectionNavigation.getByRole("button", { name: /open section navigation/i }).click();
+
+    const sectionDialog = page.getByRole("dialog");
     await expect(
-      page
-        .getByRole("navigation", { name: /section navigation/i })
-        .getByRole("button", { name: "Interface System", exact: true })
+      sectionDialog.getByRole("button", { name: "Interface System", exact: true })
     ).toBeVisible();
     await expect(
-      page
-        .getByRole("navigation", { name: /section navigation/i })
-        .getByRole("button", { name: "Scrap Yard", exact: true })
+      sectionDialog.getByRole("button", { name: "Scrap Yard", exact: true })
     ).toBeVisible();
   });
 

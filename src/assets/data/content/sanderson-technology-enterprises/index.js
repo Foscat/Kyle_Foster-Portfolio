@@ -30,7 +30,7 @@ const sandersonTechnologyEnterprisesSections = [
     id: "ste-overview",
     title: "STE Overview",
     navLabel: "Overview",
-    subtitle: "Public-safe summary of Sanderson Technology Enterprises work",
+    subtitle: "Flagship product engineering across STE platforms and interface infrastructure",
     icon: faBuildingUser,
     isScroller: true,
     blocks: [
@@ -64,7 +64,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "Public boundary: show the architecture story and product direction without exposing confidential implementation details.",
+                text: "Engineering boundary: public artifacts explain the product decisions and architecture while client-sensitive implementation details remain private.",
               },
             ],
           },
@@ -491,6 +491,14 @@ const sandersonTechnologyEnterprisesSections = [
             target: "_blank",
             icon: faLayerGroup,
             ariaLabel: "View Interface Systems Lab",
+          },
+          {
+            id: "ste-link-interface-system-case-study",
+            title: "Explore the Interface System Case Study",
+            url: PageRoute.INTERFACE_SYSTEM,
+            local: true,
+            icon: faArrowsToCircle,
+            ariaLabel: "Explore the Interface System case study",
           },
           {
             id: "ste-link-interface-systems-lab-source",

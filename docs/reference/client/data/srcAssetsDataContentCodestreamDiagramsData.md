@@ -4,6 +4,6 @@
 
 # srcAssetsDataContentCodestreamDiagramsData
 
-## src\\assets\\data\\content\\codestream\\diagrams
+## assets/data/content/codestream/diagrams
 
-src\assets\data\content\codestream\diagrams module.
+Product-story diagrams for the CodeStream Studios case study.

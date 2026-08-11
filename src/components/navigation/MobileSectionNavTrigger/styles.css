@@ -203,3 +203,85 @@
     font-size: var(--font-xs);
   }
 }
+
+/* ------------------------------------------------------------------
+   Portfolio remodel: in-flow route command bar
+   ------------------------------------------------------------------ */
+
+.route-section-nav {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 0.9rem);
+  width: 100%;
+  padding: 0.5rem clamp(0.65rem, 2vw, 1rem);
+  color: var(--app-surface-muted-fg);
+  border: var(--app-surface-border);
+  border-color: color-mix(in srgb, var(--app-surface-accent) 48%, transparent);
+  border-radius: var(--app-surface-radius-sm);
+  background: var(--app-surface-strong-bg);
+  box-shadow: 0 0.65rem 2rem rgb(var(--primary-darkest-rgb) / 0.2);
+}
+
+.route-section-nav__label,
+.route-section-nav__progress {
+  font-family: var(--app-control-font-family);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.route-section-nav__label {
+  color: var(--app-heading-color);
+}
+
+.section-nav-trigger.route-section-nav__trigger {
+  display: inline-flex;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.55rem;
+  color: var(--app-surface-fg);
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.route-section-nav__trigger .btn-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-section-nav-drawer .rs-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mobile-section-nav-drawer .mobile-section-nav-drawer__close.btn.icon-only {
+  position: static;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  color: var(--app-heading-color);
+}
+
+@media (max-width: 420px) {
+  .route-section-nav {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0.4rem 0.55rem;
+  }
+
+  .route-section-nav__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+}

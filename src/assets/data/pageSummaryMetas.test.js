@@ -48,7 +48,7 @@ describe("page summary metadata", () => {
     const techLabels = tech.map(({ label }) => label);
 
     expect(headerDescription).toBe(
-      "Public-safe case study for STE website delivery, early platform products, and a reusable interface system."
+      "Flagship product engineering across the Content Creator Platform, Scrap Yard System, public delivery, and a four-library Interface System."
     );
     expect(headerDescription.length).toBeLessThan(description.length);
     expect(pageSummaryMetas.SandersonTechnologyEnterprises.techLabel).toBe("Focus Areas");

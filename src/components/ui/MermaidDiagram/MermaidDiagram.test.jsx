@@ -22,6 +22,17 @@ import renderWithProviders from "tests/renderWithProviders";
 
 const mockToPng = vi.fn(() => Promise.resolve("data:image/png;base64,test"));
 const mockTryRecoverFromChunkLoadFailure = vi.fn();
+const mockPanBy = vi.fn();
+const mockPanZoomController = {
+  center: vi.fn(),
+  destroy: vi.fn(),
+  fit: vi.fn(),
+  panBy: mockPanBy,
+  resetZoom: vi.fn(),
+  resize: vi.fn(),
+  zoomIn: vi.fn(),
+  zoomOut: vi.fn(),
+};
 
 /* ------------------------------------------------------------------
  * Mocks
@@ -31,7 +42,11 @@ vi.mock("components/ui", async () => {
   const actual = await vi.importActual("components/ui");
   return {
     ...actual,
-    Btn: ({ text, onClick }) => <button onClick={onClick}>{text}</button>,
+    Btn: ({ text, onClick, ariaLabel }) => (
+      <button onClick={onClick} aria-label={ariaLabel}>
+        {text}
+      </button>
+    ),
     FrostedIcon: ({ label = "icon" }) => <span>{label}</span>,
   };
 });
@@ -46,6 +61,10 @@ vi.mock("mermaid", () => ({
 
 vi.mock("html-to-image", () => ({
   toPng: (...args) => mockToPng(...args),
+}));
+
+vi.mock("svg-pan-zoom", () => ({
+  default: vi.fn(() => mockPanZoomController),
 }));
 
 vi.mock("assets/chunkLoadRecovery.js", () => ({
@@ -73,6 +92,10 @@ beforeEach(() => {
   mockDrawImage.mockClear();
   mockScale.mockClear();
   mockTryRecoverFromChunkLoadFailure.mockClear();
+  mockPanBy.mockClear();
+  Object.values(mockPanZoomController).forEach((mock) => mock.mockClear());
+
+  SVGSVGElement.prototype.createSVGPoint = vi.fn(() => ({ x: 0, y: 0 }));
 
   // Stub HTMLCanvasElement for jsdom (no native canvas support).
   vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(mockContext);
@@ -410,15 +433,33 @@ describe("MermaidDiagram (unit)", () => {
 
     await userEvent.click(screen.getByText(/full screen/i));
 
-    const dialog = await screen.findByRole("dialog");
+    const dialog = await screen.findByRole("dialog", {
+      name: /fullscreen title diagram explorer/i,
+    });
     await waitFor(() => {
       expect(
         within(dialog).getByRole("img", { name: /mermaid diagram fullscreen view/i })
       ).toBeInTheDocument();
     });
 
-    expect(within(dialog).queryByText(/fullscreen title/i)).not.toBeInTheDocument();
+    expect(within(dialog).getByText(/fullscreen title diagram explorer/i)).toHaveClass(
+      "mermaid-explorer-title"
+    );
     expect(within(dialog).queryByText(/fullscreen description text/i)).not.toBeInTheDocument();
+    const explorerControls = within(dialog).getByRole("toolbar", {
+      name: /diagram explorer controls/i,
+    });
+    expect(within(explorerControls).getByRole("button", { name: /zoom in/i })).toBeVisible();
+    expect(within(explorerControls).getByRole("button", { name: /zoom out/i })).toBeVisible();
+    expect(within(explorerControls).getByRole("button", { name: /fit diagram/i })).toBeVisible();
+    expect(within(explorerControls).getByRole("button", { name: /reset diagram/i })).toBeVisible();
+
+    const fullscreenCanvas = within(dialog).getByRole("img", {
+      name: /use arrow keys to pan/i,
+    });
+    fullscreenCanvas.focus();
+    await userEvent.keyboard("{ArrowRight}");
+    expect(mockPanBy).toHaveBeenCalledWith({ x: -64, y: 0 });
   });
 
   it("keeps structured description content inside the diagram description boundary", async () => {
