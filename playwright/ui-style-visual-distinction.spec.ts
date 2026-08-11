@@ -155,6 +155,7 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
       const rect = element.getBoundingClientRect();
 
       return {
+        bottom: Math.round(rect.bottom),
         height: Math.round(rect.height),
         left: Math.round(rect.left),
         right: Math.round(rect.right),
@@ -165,16 +166,15 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
 
     const layout = document.querySelector(".page-layout");
     const main = document.querySelector(".page-content");
-    const sidebar = document.querySelector(".page-sidebar");
+    const navigationShell = document.querySelector('[data-testid="unified-navigation"]');
     const nav = document.querySelector(".route-section-nav");
 
-    if (!layout || !main || !sidebar) {
-      throw new Error("Expected route layout, main content, and sidebar to be rendered");
+    if (!layout || !main || !navigationShell || !nav) {
+      throw new Error("Expected route layout, main content, and unified navigation to be rendered");
     }
 
     const layoutStyles = window.getComputedStyle(layout);
-    const mainStyles = window.getComputedStyle(main);
-    const sidebarStyles = window.getComputedStyle(sidebar);
+    const navigationShellStyles = window.getComputedStyle(navigationShell);
     const navBeforeScroll = getBox(nav);
 
     window.scrollTo({ top: 700, behavior: "instant" });
@@ -188,10 +188,8 @@ async function getRouteLayoutMeasurement(page: Page, layoutStyle: string, width:
       layoutPaddingStart: Number.parseFloat(layoutStyles.paddingInlineStart) || 0,
       layout: getBox(layout),
       main: getBox(main),
-      mainGridColumn: mainStyles.gridColumnStart,
-      sidebar: getBox(sidebar),
-      sidebarGridColumn: sidebarStyles.gridColumnStart,
-      sidebarPosition: sidebarStyles.position,
+      navigationShell: getBox(navigationShell),
+      navigationShellPosition: navigationShellStyles.position,
       nav: {
         exists: Boolean(nav),
         position: nav ? window.getComputedStyle(nav).position : "",
@@ -287,31 +285,35 @@ test.describe("UI style visual distinction", () => {
     expect(consoleErrors, consoleErrors.join("\n\n")).toHaveLength(0);
   });
 
-  test("route command bar stays aligned across the primary-nav breakpoint", async ({ page }) => {
-    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 899);
+  test("route command bar stays contained across the primary-nav breakpoint", async ({ page }) => {
+    const mobile = await getRouteLayoutMeasurement(page, "retro-glass", 939);
 
     expect(mobile.gridTrackCount).toBe(1);
-    expect(mobile.mainGridColumn).toBe("1");
-    expect(mobile.sidebarGridColumn).toBe("1");
     expect(mobile.layoutPaddingStart).toBe(0);
     expect(mobile.nav.exists).toBe(true);
-    expect(mobile.sidebar?.width).toBe(mobile.main?.width);
+    expect(mobile.navigationShell?.width).toBeGreaterThan(mobile.main?.width || 0);
+    expect(mobile.nav.beforeScroll?.left).toBeGreaterThanOrEqual(mobile.navigationShell?.left || 0);
+    expect(mobile.nav.beforeScroll?.right).toBeLessThanOrEqual(mobile.navigationShell?.right || 0);
 
-    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 900);
+    const desktop = await getRouteLayoutMeasurement(page, "retro-glass", 940);
 
     expect(desktop.gridTrackCount).toBe(1);
-    expect(desktop.mainGridColumn).toBe("1");
-    expect(desktop.sidebarGridColumn).toBe("1");
     expect(desktop.layoutPaddingStart).toBe(0);
     expect(desktop.nav.exists).toBe(true);
-    expect(desktop.sidebarPosition).toBe("sticky");
-    expect(desktop.sidebar?.left).toBe(desktop.main?.left);
-    expect(desktop.sidebar?.width).toBe(desktop.main?.width);
+    expect(desktop.navigationShellPosition).toBe("sticky");
+    expect(desktop.nav.afterScroll?.left).toBeGreaterThanOrEqual(
+      desktop.navigationShell?.left || 0
+    );
+    expect(desktop.nav.afterScroll?.right).toBeLessThanOrEqual(desktop.navigationShell?.right || 0);
     expect(desktop.nav.afterScroll?.top).toBeGreaterThanOrEqual(0);
-    expect(desktop.nav.afterScroll?.top).toBeLessThan(900);
+    expect(desktop.nav.afterScroll?.bottom).toBeLessThanOrEqual(
+      desktop.navigationShell?.bottom || 0
+    );
   });
 
-  test("layout styles keep the route command bar stable above content", async ({ page }) => {
+  test("layout styles keep the route command bar stable inside the unified shell", async ({
+    page,
+  }) => {
     const measurements = [];
 
     for (const layoutStyle of ROUTE_LAYOUT_STYLES) {
@@ -320,14 +322,21 @@ test.describe("UI style visual distinction", () => {
 
     for (const measurement of measurements) {
       expect(measurement.gridTrackCount, measurement.layoutStyle).toBe(1);
-      expect(measurement.mainGridColumn, measurement.layoutStyle).toBe("1");
-      expect(measurement.sidebarGridColumn, measurement.layoutStyle).toBe("1");
-      expect(measurement.sidebar?.left, measurement.layoutStyle).toBe(measurement.main?.left);
-      expect(measurement.sidebar?.width, measurement.layoutStyle).toBe(measurement.main?.width);
+      expect(measurement.navigationShell?.width, measurement.layoutStyle).toBeGreaterThan(
+        measurement.main?.width || 0
+      );
       expect(measurement.nav.exists, measurement.layoutStyle).toBe(true);
-      expect(measurement.sidebarPosition, measurement.layoutStyle).toBe("sticky");
+      expect(measurement.navigationShellPosition, measurement.layoutStyle).toBe("sticky");
+      expect(measurement.nav.afterScroll?.left, measurement.layoutStyle).toBeGreaterThanOrEqual(
+        measurement.navigationShell?.left || 0
+      );
+      expect(measurement.nav.afterScroll?.right, measurement.layoutStyle).toBeLessThanOrEqual(
+        measurement.navigationShell?.right || 0
+      );
       expect(measurement.nav.afterScroll?.top, measurement.layoutStyle).toBeGreaterThanOrEqual(0);
-      expect(measurement.nav.afterScroll?.top, measurement.layoutStyle).toBeLessThan(900);
+      expect(measurement.nav.afterScroll?.bottom, measurement.layoutStyle).toBeLessThanOrEqual(
+        measurement.navigationShell?.bottom || 0
+      );
     }
   });
 });

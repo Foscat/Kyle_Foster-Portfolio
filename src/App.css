@@ -598,15 +598,6 @@ section[id],
   width: 100%;
 }
 
-.page-sidebar {
-  /* Sidebar behavior is *not* assumed on mobile.
-     The mobile layout treats navigation as in-flow content unless the
-     component chooses a mobile-specific affordance (drawer/sheet/etc.). */
-  position: static;
-  width: 100%;
-  height: auto;
-}
-
 /* Text alignment helpers */
 .text-center {
   text-align: center;
@@ -828,38 +819,9 @@ footer {
 
 /* Route navigation now occupies a compact row above content on every viewport. */
 :root {
-  /* Sticky route chrome uses this safe value until StickyNav publishes the
-     visible navigation variant's measured height. */
+  /* Anchor navigation uses this safe value until UnifiedNavigation publishes
+     the rendered header height. */
   --portfolio-primary-nav-height: 4.25rem;
-  --portfolio-nav-stack-gap: 0.5rem;
-}
-
-.page-layout.ly-sidebar {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  padding-inline: 0;
-}
-
-.page-layout > .ly-sidebar__content,
-.page-layout > .ly-sidebar__side {
-  grid-column: 1;
-}
-
-.page-layout > .ly-sidebar__content {
-  grid-row: 2;
-}
-
-.page-layout > .ly-sidebar__side {
-  grid-row: 1;
-}
-
-.page-sidebar {
-  position: sticky;
-  top: calc(var(--portfolio-primary-nav-height) + var(--portfolio-nav-stack-gap));
-  z-index: 80;
-  width: 100%;
-  height: auto;
-  padding: 0;
 }
 
 @media (width >= 900px) {

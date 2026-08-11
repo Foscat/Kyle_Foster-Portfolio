@@ -12,7 +12,7 @@ import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import sideProjectsSections from "assets/data/content/side-projects";
 import { PageHeader } from "components/layout";
-import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 import { PageRoute } from "types/navigation.types";
 import "./styles.css";
@@ -128,7 +128,11 @@ const SideProjects = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
-        <StickyNav activePage={sidePro.url} />
+        <UnifiedNavigation
+          activePage={sidePro.url}
+          pageUrl={sidePro.url}
+          sections={sidePro.sections}
+        />
         <PageHeader
           title={sidePro.title}
           subTitle={sidePro.description}
@@ -136,8 +140,8 @@ const SideProjects = () => {
           timespan={sidePro.timespan}
           tech={sidePro.tech}
         />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
             <nav className="work-archive" aria-labelledby="work-archive-title">
               <header className="work-archive__header">
                 <p>Case-study index</p>
@@ -175,9 +179,6 @@ const SideProjects = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav pageUrl={sidePro.url} sections={sidePro.sections} />
-          </aside>
         </div>
         <Footer />
       </div>

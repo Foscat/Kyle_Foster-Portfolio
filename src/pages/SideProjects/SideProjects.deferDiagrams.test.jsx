@@ -108,8 +108,12 @@ vi.mock("components/layout", () => ({
 }));
 
 vi.mock("components/navigation", () => ({
-  StickyNav: () => <nav aria-label="primary navigation" />,
-  StickySectionNav: () => <nav aria-label="section navigation" />,
+  UnifiedNavigation: () => (
+    <header data-testid="unified-navigation">
+      <nav aria-label="primary navigation" />
+      <nav aria-label="On this page" />
+    </header>
+  ),
   Footer: () => <footer>Footer</footer>,
   helpers: {
     restoreScrollPosition,

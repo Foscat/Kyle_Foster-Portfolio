@@ -154,7 +154,15 @@ const MobileSectionNavTrigger = ({
   return (
     <>
       <nav className="route-section-nav" aria-label="On this page">
-        <span className="route-section-nav__label">On this page</span>
+        <span className="route-section-nav__label route-section-nav__label--full">
+          On this page
+        </span>
+        <span
+          className="route-section-nav__label route-section-nav__label--compact"
+          aria-hidden="true"
+        >
+          Sections
+        </span>
         <Btn
           icon={faListUl}
           text={currentSectionLabel}
@@ -209,10 +217,10 @@ const MobileSectionNavTrigger = ({
                   className={`mobile-section-group ${sectionActive ? "is-active" : ""}`}
                 >
                   {/* SECTION ROW */}
-                  <div key={section.id} className="mobile-section-row">
+                  <div key={`${section.id}-row`} className="mobile-section-row">
                     {/* Title → Navigate */}
                     <Btn
-                      key={section.id}
+                      key={`${section.id}-title`}
                       type="button"
                       text={sectionNavLabel}
                       noBG
@@ -230,7 +238,7 @@ const MobileSectionNavTrigger = ({
                     {/* Caret → Toggle */}
                     {hasBlocks && (
                       <Btn
-                        key={section.id}
+                        key={`${section.id}-caret`}
                         type="button"
                         className="mobile-section-caret"
                         noBG
@@ -249,7 +257,7 @@ const MobileSectionNavTrigger = ({
                   </div>
                   {/* Subsections */}
                   {hasBlocks && expanded && (
-                    <div key={section.id} className="mobile-subsection-list">
+                    <div key={`${section.id}-subsections`} className="mobile-subsection-list">
                       {navigableBlocks.map((block, blockIndex) => {
                         const blockActive = activeLeafId === block.id;
                         const blockLabel = block.title;
