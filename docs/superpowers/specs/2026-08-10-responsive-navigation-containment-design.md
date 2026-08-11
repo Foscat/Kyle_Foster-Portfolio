@@ -10,6 +10,7 @@ Make every persistent navigation control occupy a predictable, non-overlapping r
 - The route section command bar uses fixed breakpoint offsets that do not match the rendered primary-navigation height.
 - At the 900px boundary, the desktop navigation wraps to a taller row while the section bar keeps the smaller offset.
 - The back-to-top control uses the same top-right region as the primary and route navigation.
+- The Mermaid full-screen modal retains RSuite padding and a viewport-sized body inside that padded box, causing its canvas to overflow and crop in phone orientations.
 - Existing responsive checks cover width and overflow but do not inspect persistent-layer intersections after scrolling.
 
 ## Responsive Contract
@@ -33,6 +34,13 @@ Make every persistent navigation control occupy a predictable, non-overlapping r
 - It remains keyboard accessible, touch-sized, and outside both sticky navigation tiers.
 - Safe-area environment insets are respected on supported mobile devices.
 
+### Mermaid explorer
+
+- The explorer uses the complete dynamic viewport with one intrinsic header row and one bounded canvas row.
+- RSuite modal padding is removed at the app-owned full-screen boundary.
+- The stage, host, and fitted diagram share the same visible bounds in phone portrait and landscape.
+- Zoom, fit, reset, export, keyboard pan, and close controls retain their existing behavior.
+
 ## Quality Sweep
 
 The shared contract must be exercised on CodeStream, Sanderson Technology Enterprises, Interface System, Side Projects, Hackathon, SMU, and Docs. Coverage includes:
@@ -46,7 +54,7 @@ The shared contract must be exercised on CodeStream, Sanderson Technology Enterp
 - 1280x500 short desktop
 - 1440x900 desktop
 
-For each representative scroll state, persistent rectangles must not intersect, the mobile menu trigger must remain edge-aligned, horizontal overflow must remain at or below one pixel, and drawers must remain contained within the viewport. The Mermaid explorer must retain its existing full-screen mobile viewing behavior.
+For each representative scroll state, persistent rectangles must not intersect, the mobile menu trigger must remain edge-aligned, horizontal overflow must remain at or below one pixel, and drawers must remain contained within the viewport. The Mermaid explorer must use the complete visible canvas and keep fitted content inside it.
 
 ## Ownership and Compatibility
 

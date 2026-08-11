@@ -827,6 +827,13 @@ footer {
    ------------------------------------------------------------ */
 
 /* Route navigation now occupies a compact row above content on every viewport. */
+:root {
+  /* Sticky route chrome uses this safe value until StickyNav publishes the
+     visible navigation variant's measured height. */
+  --portfolio-primary-nav-height: 4.25rem;
+  --portfolio-nav-stack-gap: 0.5rem;
+}
+
 .page-layout.ly-sidebar {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -848,7 +855,7 @@ footer {
 
 .page-sidebar {
   position: sticky;
-  top: 0.5rem;
+  top: calc(var(--portfolio-primary-nav-height) + var(--portfolio-nav-stack-gap));
   z-index: 80;
   width: 100%;
   height: auto;
@@ -856,10 +863,6 @@ footer {
 }
 
 @media (width >= 900px) {
-  .page-sidebar {
-    top: 4.75rem;
-  }
-
   .block-header {
     margin: 0 0 1rem;
   }

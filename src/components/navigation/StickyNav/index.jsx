@@ -6,7 +6,7 @@
  * @module components/StickyNav
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { Nav, Drawer } from "rsuite";
 import { Link, useNavigate } from "react-router";
 import { faBars, faCircleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -168,6 +168,46 @@ const StickyNav = ({ activePage }) => {
   const resumePreviewTitle = "Kyle Foster - Senior React / Frontend Engineer Resume";
   const resumePreviewSubtitle =
     "A compact resume preview with PDF-style spacing and download options.";
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return undefined;
+
+    const root = document.documentElement;
+    const navigationVariants = [
+      document.querySelector(".desktop-menu"),
+      document.querySelector(".mobile-site-header"),
+    ].filter(Boolean);
+
+    // Publish the rendered primary-navigation height so independently composed
+    // route shells can reserve the correct sticky offset at every text scale.
+    const syncPrimaryNavigationHeight = () => {
+      const visibleNavigation = navigationVariants.find((element) => {
+        const styles = window.getComputedStyle(element);
+        return styles.display !== "none" && element.getBoundingClientRect().height > 0;
+      });
+      const renderedHeight = Math.ceil(visibleNavigation?.getBoundingClientRect().height || 0);
+      if (renderedHeight <= 0) return;
+
+      const nextHeight = `${renderedHeight}px`;
+      if (root.style.getPropertyValue("--portfolio-primary-nav-height") !== nextHeight) {
+        root.style.setProperty("--portfolio-primary-nav-height", nextHeight);
+      }
+    };
+
+    const resizeObserver =
+      typeof window.ResizeObserver === "function"
+        ? new window.ResizeObserver(syncPrimaryNavigationHeight)
+        : null;
+
+    navigationVariants.forEach((element) => resizeObserver?.observe(element));
+    window.addEventListener("resize", syncPrimaryNavigationHeight, { passive: true });
+    syncPrimaryNavigationHeight();
+
+    return () => {
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", syncPrimaryNavigationHeight);
+    };
+  }, []);
 
   const closeMobileNav = useCallback(() => {
     setMobileOpen(false);

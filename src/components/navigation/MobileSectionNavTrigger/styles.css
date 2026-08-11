@@ -219,7 +219,9 @@
   border: var(--app-surface-border);
   border-color: color-mix(in srgb, var(--app-surface-accent) 48%, transparent);
   border-radius: var(--app-surface-radius-sm);
-  background: var(--app-surface-strong-bg);
+  /* Persistent chrome needs a near-opaque semantic surface so scrolling copy
+     remains visually separate from the command layer. */
+  background: rgb(var(--usk-surface-strong-rgb, 20 52 66) / 0.985);
   box-shadow: 0 0.65rem 2rem rgb(var(--primary-darkest-rgb) / 0.2);
 }
 

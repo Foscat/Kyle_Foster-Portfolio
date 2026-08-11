@@ -605,7 +605,7 @@ html[data-theme="light"]
 }
 
 /* Mobile + small tablet responsiveness */
-@media (width < 900px) {
+@media (width < 940px) {
   .desktop-menu {
     display: none;
   }
@@ -664,6 +664,12 @@ html[data-theme="light"]
     background: transparent;
     border: var(--app-surface-border);
     border-radius: var(--app-surface-radius-sm);
+  }
+
+  .mobile-site-header .rs-btn.btn.interactive-surface.icon-only {
+    /* The shared icon-button primitive centers standalone icons. The app
+       header owns edge alignment, so its menu control must opt out locally. */
+    margin: 0 0 0 auto;
   }
 
   .mobile-site-header .frosted-icon.btn-icon {
@@ -893,7 +899,7 @@ html[data-theme="light"]
   background: var(--app-surface-accent);
 }
 
-@media (width >= 900px) {
+@media (width >= 940px) {
   .desktop-menu {
     justify-content: flex-start;
     gap: clamp(0.65rem, 1.5vw, 1.25rem);

@@ -964,11 +964,15 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-modal.rs-modal-full {
+  width: 100dvw;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
   background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
 .mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog {
-  width: 100vw;
+  width: 100%;
   max-width: none;
   height: 100dvh;
   margin: 0;
@@ -976,8 +980,11 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-modal.rs-modal-full .rs-modal-content {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
   width: 100%;
   height: 100%;
+  padding: 0 !important;
   border-radius: 0;
   overflow: hidden;
   border: 0;
@@ -987,10 +994,7 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-modal__header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
+  position: relative;
   z-index: 40;
   display: flex;
   justify-content: flex-start;
@@ -1050,17 +1054,21 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-modal__body {
-  width: 100vw;
-  height: 100dvh;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
   padding: 0;
   overflow: hidden;
-  padding-top: 3.75rem;
   background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
 .mermaid-fullscreen-stage,
 .mermaid-fullscreen-canvas {
+  min-width: 0;
   width: 100%;
+  min-height: 0;
   height: 100%;
 }
 
@@ -1070,7 +1078,8 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-stage .mermaid {
-  min-height: 100%;
+  min-height: 0;
+  height: 100%;
   padding: clamp(0.9rem, 1.8vw, 1.7rem);
   border-radius: 0;
   background: var(--app-kit-bg, var(--bg-primary));
@@ -1078,8 +1087,8 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-svg-host--fullscreen {
-  min-height: calc(100dvh - 3.75rem);
-  height: calc(100dvh - 3.75rem);
+  min-height: 0;
+  height: 100%;
   align-items: center;
   overflow: hidden;
   touch-action: none;
@@ -1126,15 +1135,6 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
 
   .mermaid-fullscreen-stage .mermaid {
     padding: 0;
-  }
-
-  .mermaid-fullscreen-modal__body {
-    padding-top: 3.35rem;
-  }
-
-  .mermaid-svg-host--fullscreen {
-    min-height: calc(100dvh - 3.35rem);
-    height: calc(100dvh - 3.35rem);
   }
 
   .mermaid-explorer-toolbar .btn.icon-only {
