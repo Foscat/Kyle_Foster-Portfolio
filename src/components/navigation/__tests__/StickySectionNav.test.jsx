@@ -112,6 +112,25 @@ describe("StickySectionNav", () => {
     });
   });
 
+  it("lands section targets below the measured unified navigation", async () => {
+    const user = userEvent.setup();
+    const navigationShell = document.createElement("header");
+    navigationShell.dataset.testid = "unified-navigation";
+    navigationShell.getBoundingClientRect = vi.fn(() => ({ height: 96 }));
+    document.body.prepend(navigationShell);
+
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
+    await user.click(screen.getByRole("button", { name: "Open section navigation: Introduction" }));
+    const dialog = await screen.findByRole("dialog", { name: /page page/i });
+    await user.click(within(dialog).getByRole("button", { name: "Details" }));
+
+    await waitFor(() => {
+      expect(window.scrollTo).toHaveBeenCalledWith({ behavior: "smooth", top: 64 });
+    });
+
+    navigationShell.remove();
+  });
+
   it("prefers explicit nav items and excludes link-list blocks", async () => {
     const user = userEvent.setup();
     const docs = document.createElement("div");

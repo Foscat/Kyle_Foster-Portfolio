@@ -65,6 +65,12 @@ describe("MobileSectionNavTrigger", () => {
 
     const navigation = screen.getByRole("navigation", { name: /on this page/i });
     expect(navigation).toHaveClass("route-section-nav");
+    expect(within(navigation).getByText("On this page")).toHaveClass(
+      "route-section-nav__label--full"
+    );
+    expect(within(navigation).getByText("Sections")).toHaveClass(
+      "route-section-nav__label--compact"
+    );
     expect(
       within(navigation).getByRole("button", {
         name: /open section navigation: introduction/i,
@@ -105,6 +111,43 @@ describe("MobileSectionNavTrigger", () => {
     expect(within(dialog).getByText("Introduction")).toBeInTheDocument();
     expect(within(dialog).getByText("Features")).toBeInTheDocument();
     expect(within(dialog).getByText("Contact")).toBeInTheDocument();
+  });
+
+  it("renders section rows without duplicate React keys", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const user = userEvent.setup();
+
+    try {
+      renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
+      await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+      await screen.findByRole("dialog", { name: /portfolio page/i });
+
+      const errorOutput = consoleError.mock.calls.flat().join(" ");
+      expect(errorOutput).not.toContain("Encountered two children with the same key");
+    } finally {
+      consoleError.mockRestore();
+    }
+  });
+
+  it("renders expanded subsection groups without duplicate React keys", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const user = userEvent.setup();
+
+    try {
+      renderWithProviders(
+        <MobileSectionNavTrigger
+          {...defaultProps}
+          isExpanded={(sectionId) => sectionId === "features"}
+        />
+      );
+      await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+      await screen.findByRole("dialog", { name: /portfolio page/i });
+
+      const errorOutput = consoleError.mock.calls.flat().join(" ");
+      expect(errorOutput).not.toContain("Encountered two children with the same key");
+    } finally {
+      consoleError.mockRestore();
+    }
   });
 
   it("closes the drawer when Escape is pressed", async () => {

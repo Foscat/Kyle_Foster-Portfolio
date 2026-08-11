@@ -76,7 +76,7 @@ test.describe("Mobile Menu Stability", () => {
     await expect(page.locator(".mobile-icon-hint")).toHaveCount(0);
     await expect(page.getByRole("button", { name: /open section navigation/i })).toHaveCount(0);
 
-    const mobileHeaderBox = await page.getByTestId("mobile-site-header").boundingBox();
+    const mobileHeaderBox = await page.getByTestId("unified-navigation").boundingBox();
     const firstContactItemBox = await page.getByText(/Email: fosterkyle/i).boundingBox();
 
     expect(mobileHeaderBox).not.toBeNull();

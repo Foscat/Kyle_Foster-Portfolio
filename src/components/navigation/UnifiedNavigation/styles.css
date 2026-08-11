@@ -1,8 +1,7 @@
 /* 
   * @file styles.css
-  * @fileoverview CSS styles for the StickyNav component, including layout, theming,
-  * and responsive design for both desktop and mobile navigation variants.
-  * @module components/StickyNav/styles
+  * @fileoverview CSS styles for the unified primary and route-section navigation.
+  * @module components/navigation/UnifiedNavigation/styles
  */
 
 .sticky-nav {
@@ -934,4 +933,237 @@ html[data-theme="light"]
   }
 }
 
-/* Narrow mobile devices */
+/* ------------------------------------------------------------------
+   Unified full-width navigation surface
+   ------------------------------------------------------------------ */
+
+.unified-navigation {
+  --unified-navigation-breakout-start: max(clamp(1rem, 3vw, 3rem), env(safe-area-inset-left, 0px));
+  --unified-navigation-breakout-end: max(clamp(1rem, 3vw, 3rem), env(safe-area-inset-right, 0px));
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Resolve the breakout gutter in viewport space. The layout library's
+     container-relative custom property is intentionally not inherited here:
+     inherited cqi units would be recalculated against this nested container. */
+  width: calc(
+    100% + var(--unified-navigation-breakout-start) + var(--unified-navigation-breakout-end)
+  );
+  margin-left: calc(var(--unified-navigation-breakout-start) * -1);
+  margin-right: calc(var(--unified-navigation-breakout-end) * -1);
+  color: var(--app-surface-fg);
+  background: var(--app-surface-strong-bg);
+  border-block: 0 var(--app-surface-border);
+  border-radius: 0;
+  box-shadow: var(--app-surface-shadow-soft);
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter);
+  backdrop-filter: var(--app-surface-backdrop-filter);
+}
+
+.unified-navigation__inner {
+  display: grid;
+  align-items: center;
+  width: min(
+    var(--page-max-width),
+    calc(100% - var(--unified-navigation-breakout-start) - var(--unified-navigation-breakout-end))
+  );
+  min-width: 0;
+  min-height: 4rem;
+  margin-inline: auto;
+}
+
+.unified-navigation .sticky-nav {
+  position: static;
+  top: auto;
+  z-index: auto;
+}
+
+.unified-navigation .desktop-menu {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(12rem, 17rem) auto;
+  align-items: center;
+  gap: clamp(0.45rem, 1vw, 0.9rem);
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0.35rem 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.unified-navigation[data-has-sections="false"] .desktop-menu {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.unified-navigation .desktop-menu .sticky-nav-brand {
+  margin: 0;
+  padding: 0.65rem 0.45rem;
+  border: 0;
+}
+
+.unified-navigation .sticky-nav-pages-group,
+.unified-navigation .sticky-nav-tools-group,
+.unified-navigation__sections,
+.unified-navigation .route-section-nav,
+.unified-navigation .route-section-nav__trigger {
+  min-width: 0;
+}
+
+.unified-navigation .desktop-menu .sticky-nav-pages-group {
+  justify-content: flex-start;
+}
+
+.unified-navigation .sticky-nav-pages-group .nav-link.rs-btn.btn.interactive-surface .btn-label {
+  white-space: nowrap;
+}
+
+.unified-navigation .desktop-menu .sticky-nav-tools-group {
+  margin-left: 0;
+  padding-left: clamp(0.35rem, 0.8vw, 0.6rem);
+}
+
+.unified-navigation__sections {
+  width: 100%;
+}
+
+.unified-navigation .route-section-nav {
+  gap: clamp(0.25rem, 0.65vw, 0.5rem);
+  width: 100%;
+  margin: 0;
+  padding: 0.2rem 0.35rem;
+  /* Keep scrolling content visually separate while the shared UI token owns
+     the palette. Near-opaque alpha preserves the glass identity without
+     recreating the overlap seen in the reported failure. */
+  background: rgb(var(--usk-surface-strong-rgb, 20 52 66) / 0.985);
+  border-color: color-mix(in srgb, var(--app-surface-accent) 38%, transparent);
+  box-shadow: none;
+}
+
+.unified-navigation .route-section-nav__trigger.rs-btn.btn.interactive-surface {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.55rem;
+  line-height: 1.2;
+}
+
+.unified-navigation
+  .route-section-nav__trigger.rs-btn.btn.interactive-surface
+  > .frosted-icon.btn-icon {
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.unified-navigation .route-section-nav__trigger.rs-btn.btn.interactive-surface .btn-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.unified-navigation .route-section-nav__label--compact {
+  display: none;
+}
+
+@media (width < 940px) {
+  .unified-navigation__inner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(0.35rem, 2vw, 0.75rem);
+  }
+
+  .unified-navigation .desktop-menu {
+    display: contents;
+  }
+
+  .unified-navigation .desktop-menu .sticky-nav-brand {
+    grid-column: 1;
+    padding: 0.65rem 0.25rem;
+  }
+
+  .unified-navigation .desktop-menu .sticky-nav-pages-group,
+  .unified-navigation .desktop-menu .sticky-nav-tools-group {
+    display: none;
+  }
+
+  .unified-navigation__sections {
+    grid-column: 2;
+    width: 100%;
+  }
+
+  .unified-navigation .mobile-site-header.mobile-only.nav-mobile-only {
+    position: static;
+    display: contents;
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .unified-navigation .mobile-site-header .btn.icon-only,
+  .unified-navigation .mobile-site-header .rs-btn.btn.interactive-surface.icon-only {
+    grid-column: 3;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    padding: 0.55rem;
+  }
+
+  .unified-navigation[data-has-sections="false"] .mobile-site-header .btn.icon-only {
+    grid-column: 3;
+  }
+
+  .unified-navigation .route-section-nav {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+}
+
+@media (width <= 390px) {
+  .unified-navigation__inner {
+    gap: 0.3rem;
+  }
+
+  .unified-navigation .route-section-nav {
+    grid-template-columns: auto minmax(2.5rem, 1fr) auto;
+    gap: 0.2rem;
+    padding-inline: 0.25rem;
+  }
+
+  .unified-navigation .route-section-nav .route-section-nav__label--full {
+    display: none;
+  }
+
+  .unified-navigation .route-section-nav .route-section-nav__label--compact {
+    position: static;
+    display: inline;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+
+  .unified-navigation .route-section-nav__trigger.rs-btn.btn.interactive-surface .btn-label {
+    display: none;
+  }
+
+  .unified-navigation .route-section-nav__trigger {
+    justify-content: center;
+    width: 100%;
+    padding-inline: 0.25rem;
+  }
+
+  .unified-navigation .route-section-nav__progress {
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+  }
+}

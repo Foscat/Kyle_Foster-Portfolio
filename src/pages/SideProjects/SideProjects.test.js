@@ -18,7 +18,7 @@ import sideProjectsSections from "assets/data/content/side-projects";
  *
  * Testing focus:
  * - Page renders without crashing
- * - Correct route association with StickyNav
+ * - Correct route association with UnifiedNavigation
  * - Correct section configuration for SectionRenderer
  * - Shared page guarantees enforced via `createPageTests`
  *
@@ -31,7 +31,7 @@ import sideProjectsSections from "assets/data/content/side-projects";
  * The SideProjects page adheres to the standard page composition model:
  * - PageHeader
  * - SectionRenderer instances (driven by section data)
- * - StickyNav + StickySectionNav
+ * - One UnifiedNavigation surface for primary and section controls
  *
  * This test file exists solely to bind SideProjects-specific
  * configuration to the shared page test contract.

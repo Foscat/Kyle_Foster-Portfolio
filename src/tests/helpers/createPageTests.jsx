@@ -117,5 +117,24 @@ export function createPageTests({
       },
       PAGE_TEST_TIMEOUT_MS
     );
+
+    it(
+      "places route section controls inside the unified page header",
+      async () => {
+        const { container } = renderWithProviders(<PageComponent />);
+        const unifiedHeader = await screen.findByTestId("unified-navigation", undefined, {
+          timeout: PAGE_TEST_TIMEOUT_MS,
+        });
+
+        expect(
+          within(unifiedHeader).getByRole("navigation", { name: /primary navigation/i })
+        ).toBeVisible();
+        expect(
+          within(unifiedHeader).getByRole("navigation", { name: /on this page/i })
+        ).toBeVisible();
+        expect(container.querySelector(".page-sidebar")).toBeNull();
+      },
+      PAGE_TEST_TIMEOUT_MS
+    );
   });
 }

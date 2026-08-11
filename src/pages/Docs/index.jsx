@@ -3,7 +3,7 @@ import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import docsSections from "assets/data/content/docs";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import { PageHeader } from "components/layout";
-import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 import "./styles.css";
 
@@ -29,17 +29,14 @@ const Docs = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell docs-page ly-wrapper ly-wrapper--wide ly-stack">
-        <StickyNav activePage={docs.url} />
+        <UnifiedNavigation activePage={docs.url} pageUrl={docs.url} sections={docs.sections} />
         <PageHeader title={docs.title} subTitle={docs.description} />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
             {docs.sections.map((sect) => (
               <SectionRenderer section={sect} key={sect.id} />
             ))}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav pageUrl={docs.url} sections={docs.sections} />
-          </aside>
         </div>
         <Footer />
       </div>

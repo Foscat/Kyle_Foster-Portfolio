@@ -7,7 +7,7 @@
 import { FlexboxGrid, Panel } from "rsuite";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Btn } from "components/ui";
-import { Footer, StickyNav } from "components/navigation";
+import { Footer, UnifiedNavigation } from "components/navigation";
 import "./styles.css";
 
 /**
@@ -28,7 +28,7 @@ import "./styles.css";
 const NotFound = () => {
   return (
     <div className="notFound-page page-shell ly-wrapper ly-wrapper--wide ly-stack">
-      <StickyNav activePage="" />
+      <UnifiedNavigation activePage="" />
       <main>
         <FlexboxGrid justify="center" className="notFound-wrapper">
           <FlexboxGrid.Item colspan={20}>

@@ -1,7 +1,7 @@
 /**
  * @file playwright/route-sidebar-responsive.spec.ts
- * @description Responsive route-sidebar regressions for overflow-safe section navigation.
- * @module playwright/route-sidebar-responsive
+ * @description Responsive regressions for the unified primary and section navigation shell.
+ * @module playwright/unified-navigation-responsive
  */
 
 import { expect, test, type Page } from "@playwright/test";
@@ -46,6 +46,17 @@ const PERSISTENT_LAYER_VIEWPORTS = [
   { label: "tablet landscape", width: 1024, height: 768 },
   { label: "short desktop", width: 1280, height: 500 },
 ];
+const UNIFIED_NAVIGATION_VIEWPORTS = [
+  { label: "narrow phone portrait", width: 320, height: 568 },
+  { label: "phone portrait", width: 390, height: 844 },
+  { label: "phone landscape", width: 844, height: 390 },
+  { label: "compact tablet", width: 900, height: 650 },
+  { label: "final compact width", width: 939, height: 650 },
+  { label: "desktop content-fit boundary", width: 940, height: 650 },
+  { label: "tablet landscape", width: 1024, height: 768 },
+  { label: "short desktop", width: 1280, height: 500 },
+  { label: "wide desktop", width: 1440, height: 900 },
+];
 
 type LayerBox = {
   bottom: number;
@@ -62,6 +73,16 @@ const rectanglesOverlap = (first: LayerBox | null, second: LayerBox | null) =>
     second &&
     Math.max(first.left, second.left) < Math.min(first.right, second.right) &&
     Math.max(first.top, second.top) < Math.min(first.bottom, second.bottom)
+  );
+
+const rectangleContains = (outer: LayerBox | null, inner: LayerBox | null, tolerance = 1) =>
+  Boolean(
+    outer &&
+    inner &&
+    inner.left >= outer.left - tolerance &&
+    inner.right <= outer.right + tolerance &&
+    inner.top >= outer.top - tolerance &&
+    inner.bottom <= outer.bottom + tolerance
   );
 
 async function prepareRoute(
@@ -123,9 +144,11 @@ async function getRouteLayoutMeasurement(page: Page) {
 
       const rect = element.getBoundingClientRect();
       return {
+        bottom: Math.round(rect.bottom),
         height: Math.round(rect.height),
         left: Math.round(rect.left),
         right: Math.round(rect.right),
+        top: Math.round(rect.top),
         width: Math.round(rect.width),
       };
     };
@@ -146,7 +169,7 @@ async function getRouteLayoutMeasurement(page: Page) {
       layoutPaddingStart: Number.parseFloat(layoutStyles?.paddingInlineStart || "0") || 0,
       layout: box(".page-layout"),
       main: box(".page-content"),
-      sidebar: box(".page-sidebar"),
+      navigationShell: box('[data-testid="unified-navigation"]'),
       routeSectionNav: box(".route-section-nav"),
       routeSectionNavPosition: routeSectionNav
         ? window.getComputedStyle(routeSectionNav).position
@@ -185,15 +208,15 @@ async function getPersistentLayerMeasurement(page: Page) {
       };
     };
 
-    const desktopNavigation = document.querySelector(".desktop-menu");
-    const mobileNavigation = document.querySelector(".mobile-site-header");
+    const navigationShell = box(document.querySelector('[data-testid="unified-navigation"]'));
+    const desktopNavigation = document.querySelector(".sticky-nav-pages-group");
+    const mobileNavigation = document.querySelector(".mobile-site-header button");
     const desktopBox = box(desktopNavigation);
     const mobileBox = box(mobileNavigation);
-    const primaryNavigation = desktopBox || mobileBox;
-    const sectionNavigation = box(document.querySelector(".page-sidebar"));
+    const sectionNavigation = box(document.querySelector(".route-section-nav"));
     const backToTop = box(document.querySelector(".back-to-top.is-visible"));
-    const mobileMenuTrigger = box(document.querySelector(".mobile-site-header button"));
-    const mobileBrand = box(document.querySelector(".mobile-site-header__brand"));
+    const mobileMenuTrigger = mobileBox;
+    const mobileBrand = box(document.querySelector(".sticky-nav-brand"));
     const routeCommand = document.querySelector(".route-section-nav");
     const routeCommandBackground = routeCommand
       ? window.getComputedStyle(routeCommand).backgroundColor
@@ -217,12 +240,12 @@ async function getPersistentLayerMeasurement(page: Page) {
       ),
       mobileBrand,
       mobileMenuRightGap:
-        mobileBox && mobileMenuTrigger
-          ? Math.round(mobileBox.right - mobileMenuTrigger.right)
+        navigationShell && mobileMenuTrigger
+          ? Math.round(navigationShell.right - mobileMenuTrigger.right)
           : null,
       mobileMenuTrigger,
       mobileNavigation: mobileBox,
-      primaryNavigation,
+      navigationShell,
       routeCommandBackgroundAlpha,
       sectionNavigation,
     };
@@ -230,8 +253,91 @@ async function getPersistentLayerMeasurement(page: Page) {
 }
 
 test.describe("route section navigation responsive behavior", () => {
-  test.describe("persistent navigation layers", () => {
-    test("remain disjoint through the complete responsive boundary matrix", async ({ page }) => {
+  test("unified navigation spans the viewport and keeps every visible control on one row", async ({
+    page,
+  }) => {
+    test.setTimeout(90_000);
+    await preparePageForStableTests(page, { theme: "dark" });
+
+    for (const viewport of UNIFIED_NAVIGATION_VIEWPORTS) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto(toUrl("/interface-system"));
+      await stabilizePage(page, { theme: "dark" });
+
+      const measurement = await page.evaluate(() => {
+        const box = (element: Element | null) => {
+          if (!element) return null;
+
+          const styles = window.getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+          if (styles.display === "none" || rect.width <= 0 || rect.height <= 0) return null;
+
+          return {
+            bottom: Math.round(rect.bottom),
+            centerY: Math.round(rect.top + rect.height / 2),
+            left: Math.round(rect.left),
+            right: Math.round(rect.right),
+            top: Math.round(rect.top),
+          };
+        };
+
+        const root = document.documentElement;
+        const body = document.body;
+        const shellElement = document.querySelector('[data-testid="unified-navigation"]');
+        const shell = box(shellElement);
+        const controlSelectors = [
+          ".sticky-nav-brand",
+          ".sticky-nav-pages-group",
+          ".route-section-nav",
+          ".sticky-nav-tools-group",
+          ".mobile-site-header button",
+        ];
+        const controls = controlSelectors
+          .map((selector) => box(document.querySelector(selector)))
+          .filter((control): control is NonNullable<typeof control> => Boolean(control));
+
+        return {
+          controls,
+          horizontalOverflow: Math.max(
+            root.scrollWidth - root.clientWidth,
+            body.scrollWidth - body.clientWidth
+          ),
+          pageSidebarCount: document.querySelectorAll(".page-sidebar").length,
+          sectionNavigation: box(document.querySelector(".route-section-nav")),
+          shell,
+          shellCount: document.querySelectorAll('[data-testid="unified-navigation"]').length,
+          shellPosition: shellElement ? window.getComputedStyle(shellElement).position : "",
+          layoutViewportRight: Math.round(body.getBoundingClientRect().right),
+        };
+      });
+      const label = `${viewport.label} at ${viewport.width}x${viewport.height}`;
+      const centerValues = measurement.controls.map((control) => control.centerY);
+
+      expect(measurement.shellCount, label).toBe(1);
+      expect(measurement.pageSidebarCount, label).toBe(0);
+      expect(measurement.shellPosition, label).toBe("sticky");
+      expect(Math.abs(measurement.shell?.left || 0), label).toBeLessThanOrEqual(1);
+      expect(
+        Math.abs((measurement.shell?.right || 0) - measurement.layoutViewportRight),
+        label
+      ).toBeLessThanOrEqual(1);
+      expect(measurement.shell?.top, label).toBe(0);
+      expect(measurement.horizontalOverflow, label).toBeLessThanOrEqual(1);
+      expect(measurement.sectionNavigation, label).not.toBeNull();
+      expect(measurement.sectionNavigation?.top || 0, label).toBeGreaterThanOrEqual(
+        (measurement.shell?.top || 0) - 1
+      );
+      expect(measurement.sectionNavigation?.bottom || 0, label).toBeLessThanOrEqual(
+        (measurement.shell?.bottom || 0) + 1
+      );
+      expect(Math.max(...centerValues) - Math.min(...centerValues), label).toBeLessThanOrEqual(2);
+    }
+  });
+
+  test.describe("persistent unified navigation", () => {
+    test("contains the section command through the complete responsive boundary matrix", async ({
+      page,
+    }) => {
       test.setTimeout(90_000);
       await preparePageForStableTests(page, { theme: "dark" });
 
@@ -245,16 +351,16 @@ test.describe("route section navigation responsive behavior", () => {
         const label = `${viewport.label} at ${viewport.width}x${viewport.height}`;
 
         expect(measurement.horizontalOverflow, label).toBeLessThanOrEqual(1);
-        expect(measurement.primaryNavigation, label).not.toBeNull();
+        expect(measurement.navigationShell, label).not.toBeNull();
         expect(measurement.sectionNavigation, label).not.toBeNull();
         expect(measurement.backToTop, label).not.toBeNull();
         expect(
-          rectanglesOverlap(measurement.primaryNavigation, measurement.sectionNavigation),
-          `${label}: primary and section navigation`
-        ).toBe(false);
+          rectangleContains(measurement.navigationShell, measurement.sectionNavigation),
+          `${label}: section command belongs to the unified shell`
+        ).toBe(true);
         expect(
-          rectanglesOverlap(measurement.primaryNavigation, measurement.backToTop),
-          `${label}: primary navigation and back to top`
+          rectanglesOverlap(measurement.navigationShell, measurement.backToTop),
+          `${label}: unified navigation and back to top`
         ).toBe(false);
         expect(
           rectanglesOverlap(measurement.sectionNavigation, measurement.backToTop),
@@ -284,15 +390,18 @@ test.describe("route section navigation responsive behavior", () => {
             32
           );
           expect(measurement.mobileBrand?.right, `brand at ${width}px`).toBeLessThan(
+            measurement.sectionNavigation?.left || 0
+          );
+          expect(measurement.sectionNavigation?.right, `sections at ${width}px`).toBeLessThan(
             measurement.mobileMenuTrigger?.left || 0
           );
         } else {
           expect(measurement.desktopNavigation, `desktop navigation at ${width}px`).not.toBeNull();
           expect(measurement.mobileNavigation, `mobile navigation at ${width}px`).toBeNull();
           expect(
-            measurement.desktopNavigation?.height,
+            measurement.navigationShell?.height,
             `desktop row at ${width}px`
-          ).toBeLessThanOrEqual(72);
+          ).toBeLessThanOrEqual(104);
         }
       }
     });
@@ -316,12 +425,12 @@ test.describe("route section navigation responsive behavior", () => {
           const label = `${route} at ${viewport.width}x${viewport.height}`;
 
           expect(
-            rectanglesOverlap(measurement.primaryNavigation, measurement.sectionNavigation),
-            `${label}: primary and section navigation`
-          ).toBe(false);
+            rectangleContains(measurement.navigationShell, measurement.sectionNavigation),
+            `${label}: section command belongs to the unified shell`
+          ).toBe(true);
           expect(
-            rectanglesOverlap(measurement.primaryNavigation, measurement.backToTop),
-            `${label}: primary navigation and back to top`
+            rectanglesOverlap(measurement.navigationShell, measurement.backToTop),
+            `${label}: unified navigation and back to top`
           ).toBe(false);
           expect(
             rectanglesOverlap(measurement.sectionNavigation, measurement.backToTop),
@@ -363,13 +472,13 @@ test.describe("route section navigation responsive behavior", () => {
       expect(measurement.gridTrackCount, `viewport ${width}`).toBe(1);
       expect(measurement.routeSectionNav?.width, `viewport ${width}`).toBeGreaterThan(0);
       expect(measurement.layoutPaddingStart, `viewport ${width}`).toBe(0);
-      expect(measurement.sidebar?.width, `viewport ${width}`).toBe(measurement.main?.width);
+      expect(measurement.navigationShell?.width, `viewport ${width}`).toBeGreaterThan(
+        measurement.main?.width || 0
+      );
     }
   });
 
-  test("wide layout styles keep the section command bar aligned above content", async ({
-    page,
-  }) => {
+  test("wide layout styles keep the section command inside the unified shell", async ({ page }) => {
     test.setTimeout(90_000);
     await preparePageForStableTests(page, { theme: "dark" });
 
@@ -382,14 +491,47 @@ test.describe("route section navigation responsive behavior", () => {
         expect(measurement.horizontalOverflow, label).toBeLessThanOrEqual(1);
         expect(measurement.gridTrackCount, label).toBe(1);
         expect(measurement.layoutPaddingStart, label).toBe(0);
+        expect(measurement.navigationShell, label).not.toBeNull();
+        expect(measurement.routeSectionNav, label).not.toBeNull();
         expect(
-          Math.abs((measurement.routeSectionNav?.width || 0) - (measurement.sidebar?.width || 0)),
+          rectangleContains(measurement.navigationShell, measurement.routeSectionNav),
           label
-        ).toBeLessThanOrEqual(2);
-        expect(measurement.sidebar?.left, label).toBe(measurement.main?.left);
-        expect(measurement.main?.width, label).toBe(measurement.sidebar?.width);
+        ).toBe(true);
       }
     }
+  });
+
+  test("section selection lands below the measured unified header", async ({ page }) => {
+    await preparePageForStableTests(page, { theme: "dark" });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(toUrl("/interface-system"));
+    await stabilizePage(page, { theme: "dark" });
+
+    await page.getByRole("button", { name: /open section navigation/i }).click();
+    await page.getByRole("dialog").getByRole("button", { name: "Published packages" }).click();
+
+    await expect(page).toHaveURL(/#published-packages$/u);
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const shell = document
+            .querySelector('[data-testid="unified-navigation"]')
+            ?.getBoundingClientRect();
+          const target = document.querySelector("#published-packages")?.getBoundingClientRect();
+
+          return Math.abs(Math.round((target?.top || 0) - (shell?.bottom || 0)));
+        })
+      )
+      .toBeLessThanOrEqual(2);
+
+    const settledOffset = await page.evaluate(() => {
+      const shell = document
+        .querySelector('[data-testid="unified-navigation"]')
+        ?.getBoundingClientRect();
+      const target = document.querySelector("#published-packages")?.getBoundingClientRect();
+      return Math.round((target?.top || 0) - (shell?.bottom || 0));
+    });
+    expect(settledOffset).toBeGreaterThanOrEqual(-1);
   });
 
   test("drawer section labels keep a consistent regular font weight", async ({ page }) => {

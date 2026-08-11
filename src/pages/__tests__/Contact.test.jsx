@@ -13,7 +13,7 @@ import renderWithProviders from "tests/renderWithProviders";
 import { PageRoute } from "types/navigation.types";
 
 vi.mock("components/navigation", () => ({
-  StickyNav: ({ activePage }) => (
+  UnifiedNavigation: ({ activePage }) => (
     <nav aria-label="Contact navigation" data-testid="contact-nav" data-active-page={activePage} />
   ),
   Footer: () => <footer data-testid="contact-footer">Footer Mock</footer>,

@@ -6,7 +6,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider.jsx";
-import { StickyNav, Footer } from "components/navigation";
+import { Footer, UnifiedNavigation } from "components/navigation";
 import { PageHeader } from "components/layout";
 import { SectionRenderer } from "components/renderers";
 import resumeData from "assets/data/content/resumeData.js";
@@ -144,7 +144,7 @@ export default function Contact() {
   return (
     <SectionRegistryProvider>
       <div className="contact-page page-wrapper ly-wrapper ly-wrapper--wide ly-stack">
-        <StickyNav activePage={PageRoute.CONTACT} />
+        <UnifiedNavigation activePage={PageRoute.CONTACT} />
 
         <main className="contact-content app-main" role="main">
           <div className="contact-centered-stack ly-stack">
