@@ -98,8 +98,11 @@ test("generateSeoArtifacts creates indexable, health, and noindex fallback shell
     const notFoundHtml = await readFile(path.join(distDir, "404.html"), "utf8");
 
     assert.match(homeHtml, /href="https:\/\/kyle-foster\.com\/"/u);
-    assert.match(homeHtml, /<h1>Kyle Foster - Senior React \/ Frontend Engineer<\/h1>/u);
-    assert.match(homeHtml, /Frontend engineering since 2018/u);
+    assert.match(
+      homeHtml,
+      /<h1>Kyle Foster - Senior Frontend Engineer &amp; Product Builder<\/h1>/u
+    );
+    assert.match(homeHtml, /Sanderson Technology Enterprises product engineering/u);
     assert.match(contactHtml, /href="https:\/\/kyle-foster\.com\/contact"/u);
     assert.match(contactHtml, /name="description"/u);
     assert.match(contactHtml, /"url":"https:\/\/kyle-foster\.com\/contact"/u);

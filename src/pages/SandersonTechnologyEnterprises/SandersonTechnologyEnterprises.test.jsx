@@ -25,9 +25,7 @@ describe("Sanderson Technology Enterprises header", () => {
     renderWithProviders(<SandersonTechnologyEnterprises />);
 
     expect(
-      await screen.findByText(
-        "Public-safe case study for STE website delivery, early platform products, and a reusable interface system."
-      )
+      await screen.findByText(pageSummaryMetas.SandersonTechnologyEnterprises.headerDescription)
     ).toBeInTheDocument();
     expect(
       screen.queryByText(pageSummaryMetas.SandersonTechnologyEnterprises.description)

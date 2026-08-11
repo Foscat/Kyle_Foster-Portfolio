@@ -7,6 +7,7 @@
 import { FlexboxGrid, Panel } from "rsuite";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { Btn } from "components/ui";
+import { Footer, StickyNav } from "components/navigation";
 import "./styles.css";
 
 /**
@@ -26,38 +27,45 @@ import "./styles.css";
  */
 const NotFound = () => {
   return (
-    <FlexboxGrid justify="center" className="notFound-wrapper">
-      <FlexboxGrid.Item colspan={20}>
-        <Panel bordered className="notFound-glassBox glass-card fade-in text-center">
-          {/* Error Code */}
-          <div className="notFound-errorCode" aria-hidden="true">
-            404
-          </div>
+    <div className="notFound-page page-shell ly-wrapper ly-wrapper--wide ly-stack">
+      <StickyNav activePage="" />
+      <main>
+        <FlexboxGrid justify="center" className="notFound-wrapper">
+          <FlexboxGrid.Item colspan={20}>
+            <Panel bordered className="notFound-glassBox glass-card fade-in text-center">
+              {/* Error Code */}
+              <div className="notFound-errorCode" aria-hidden="true">
+                404
+              </div>
 
-          {/* Title */}
-          <h1 className="notFound-title">Page Not Found</h1>
+              {/* Title */}
+              <h1 className="notFound-title">Page Not Found</h1>
 
-          {/* Description */}
-          <p className="notFound-description">
-            The page you're looking for does not exist or may have moved.
-            <br />
-            Use the button below to return home.
-          </p>
+              {/* Description */}
+              <p className="notFound-description">
+                The page you're looking for does not exist or may have moved.
+                <br />
+                Use the button below to return home.
+              </p>
 
-          {/* Call to Action */}
-          <Btn
-            href="/"
-            ariaLabel="Return to homepage"
-            appearance="primary"
-            size="lg"
-            className="notFound-cta"
-            text="Home"
-            icon={faHome}
-            tooltip="Return to homepage"
-          ></Btn>
-        </Panel>
-      </FlexboxGrid.Item>
-    </FlexboxGrid>
+              {/* Call to Action */}
+              <Btn
+                href="/"
+                hrefLocal
+                ariaLabel="Return to homepage"
+                appearance="primary"
+                size="lg"
+                className="notFound-cta"
+                text="Home"
+                icon={faHome}
+                tooltip="Return to homepage"
+              />
+            </Panel>
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

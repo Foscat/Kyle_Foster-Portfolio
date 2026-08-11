@@ -169,12 +169,12 @@ describe("ui-style compatibility", () => {
       "src/components/navigation/MobileSectionNavTrigger/styles.css"
     );
 
-    expect(css).toContain("@media (width < 1200px)");
-    expect(css).toContain("@media (width >= 1200px)");
+    expect(css).toContain("@media (width >= 900px)");
     expect(css).toContain(".page-layout.ly-sidebar");
-    expect(css).toContain("--portfolio-route-sidebar-width");
-    expect(css).toContain("--portfolio-route-sidebar-width: clamp(14.5rem");
-    expect(css).toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(css).toContain("grid-template-columns: minmax(0, 1fr)");
+    expect(css).not.toContain("--portfolio-route-sidebar-width");
+    expect(css).not.toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(mobileNavCss).toContain(".route-section-nav");
     expect(`${stickyNavCss}\n${mobileNavCss}`).not.toContain("overflow-wrap: anywhere");
     expect(stickyNavCss).toContain("word-break: normal");
     expect(stickyNavCss).toContain("hyphens: none");

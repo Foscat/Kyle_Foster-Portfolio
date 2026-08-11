@@ -38,6 +38,7 @@ const SandersonTechnologyEnterprises = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
+        <StickyNav activePage={sandersonTechnologyEnterprises.url} />
         <PageHeader
           title={sandersonTechnologyEnterprises.title}
           subTitle={
@@ -49,7 +50,6 @@ const SandersonTechnologyEnterprises = () => {
           tech={sandersonTechnologyEnterprises.tech}
           techLabel={sandersonTechnologyEnterprises.techLabel}
         />
-        <StickyNav activePage={sandersonTechnologyEnterprises.url} />
         <div className="page-layout ly-sidebar">
           <main className="page-content app-main ly-sidebar__content" role="main">
             {sandersonTechnologyEnterprises.sections.map((section) => (

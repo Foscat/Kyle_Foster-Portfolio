@@ -1,127 +1,118 @@
-/* ============================================================
-   PageHeader
-   ============================================================
-   Purpose:
-   - Provide page context (title + metadata)
-   - Establish visual identity without dominating mobile screens
-   - Stay sticky-safe (no transforms, no containment, no overflow)
-
-   Mobile-first by default.
-   Desktop enhancements layered later.
-*/
-
-/* ------------------------------------------------------------
-   Root container
-   ------------------------------------------------------------ */
+/**
+ * @file styles.css
+ * @description Shared editorial case-study header for public portfolio routes.
+ * @module components/layout/PageHeader/styles
+ */
 
 .page-header {
   position: relative;
-
-  /* Mobile vertical rhythm: tight but breathable */
-  padding: clamp(0.75rem, 3vw, 1.25rem) 1rem;
-
-  /* Keep header visually distinct but lightweight on mobile */
-  color: var(--app-surface-fg, var(--text-primary));
-  background:
-    var(--app-surface-panel-texture, var(--app-surface-texture, none)),
-    var(--app-surface-panel-bg, var(--app-surface-strong-bg, var(--bg-gradient)));
-  border-bottom: var(--app-surface-border, var(--gb-BR));
-
-  /* Sticky-safe: do NOT add overflow, transform, or contain */
+  padding: clamp(1.5rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3.25rem);
+  overflow: hidden;
+  color: var(--app-surface-fg);
+  border: var(--app-surface-border);
+  border-color: color-mix(in srgb, var(--app-surface-accent) 42%, transparent);
+  border-radius: var(--app-surface-radius-md);
+  background: var(--app-surface-strong-bg);
 }
 
-/* ------------------------------------------------------------
-   Title
-   ------------------------------------------------------------ */
+.page-header::after {
+  position: absolute;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--app-surface-accent) 10%, transparent);
+  content: "";
+  filter: blur(4rem);
+  pointer-events: none;
+  right: -6rem;
+  top: -7rem;
+}
+
+.page-header-inner,
+.page-header-inner > .rs-flex-box-grid-item {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.page-header-inner > .text-center {
+  text-align: left;
+}
+
+.page-header-eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--app-heading-color);
+  font-family: var(--app-control-font-family);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
 
 .page-header-title {
+  max-width: 17ch;
   margin: 0;
-
-  /* Stronger title hierarchy across viewports */
-  font-size: var(--font-xxl);
-  font-weight: 600;
-  line-height: 1.05;
-  color: var(--app-heading-color, var(--heading-color));
-
-  /* Avoid text-shadow on mobile for clarity */
+  color: var(--app-surface-fg);
+  font-size: clamp(2.6rem, 1.65rem + 4vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  text-wrap: balance;
 }
-
-/* ------------------------------------------------------------
-   Subtitle / description
-   ------------------------------------------------------------ */
 
 .page-header-subtitle {
-  margin-top: 0.25rem;
-  font-size: var(--font-md);
+  margin: 1rem 0 0;
+  color: var(--app-heading-color);
+  font-family: var(--app-control-font-family);
+  font-size: clamp(0.78rem, 0.7rem + 0.3vw, 0.95rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
   line-height: 1.4;
-  color: var(--app-surface-muted-fg, var(--text-secondary));
+  text-transform: uppercase;
 }
 
-/* ------------------------------------------------------------
-   Metadata row (timespan, job title, tech, etc.)
-   ------------------------------------------------------------
-   On mobile, metadata is present but visually secondary.
-*/
+.page-header-description {
+  max-width: 65rem;
+  margin: 1rem 0 0;
+  color: var(--app-surface-muted-fg);
+  font-size: clamp(0.95rem, 0.88rem + 0.35vw, 1.12rem);
+  line-height: 1.7;
+}
 
-.page-header-meta {
-  margin-top: 0.5rem;
+.page-header .tech-used {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
-  font-size: var(--font-sm);
-  color: var(--app-surface-muted-fg, var(--text-secondary));
+  gap: 0.35rem;
+  max-width: 68rem;
+  margin: 1.25rem 0 0;
+  color: var(--app-surface-muted-fg);
+  font-family: var(--app-control-font-family);
+  font-size: 0.76rem;
+  line-height: 1.55;
 }
 
-/* Individual meta item */
-.page-header-meta-item {
-  white-space: nowrap;
+.page-header .tech-used span {
+  color: var(--app-surface-fg);
 }
 
-@media (width <= 1024px) {
-  .page-header.page-header--top {
-    margin-left: calc(var(--sticky-nav-mobile-trigger-size, 0px) + var(--page-gutter, 0px));
-    margin-right: 5px;
-  }
+.page-header .tech-used em {
+  color: var(--app-heading-color);
+  font-style: normal;
 }
 
-/* ------------------------------------------------------------
-   Desktop enhancement
-   ------------------------------------------------------------ */
-
-@media (width >= 900px) {
+@media (width < 600px) {
   .page-header {
-    padding: 2.5rem 2rem 2rem;
-
-    /* Desktop glass depth restored */
-    background:
-      var(--app-surface-panel-texture, var(--app-surface-texture, none)),
-      var(--app-surface-panel-bg, var(--app-surface-strong-bg, var(--primary-dark-bg)));
-    -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
-    backdrop-filter: var(--app-surface-backdrop-filter, var(--backdrop-blur));
-    border-bottom: var(--app-surface-border, var(--frost-border));
+    padding: 1.4rem 1rem;
   }
 
   .page-header-title {
-    font-size: clamp(3rem, 4vw, 4.5rem);
-    line-height: 1;
+    font-size: clamp(2.35rem, 12vw, 3.6rem);
   }
 
-  .page-header-subtitle {
-    font-size: var(--font-lg);
-  }
-
-  .page-header-meta {
-    margin-top: 0.75rem;
-    font-size: var(--font-sm);
+  .page-header-description {
+    font-size: 0.9rem;
   }
 }
-
-/* ------------------------------------------------------------
-   Reduced motion support
-   ------------------------------------------------------------
-   PageHeader intentionally avoids animation.
-   This section exists only to document intent.
-*/
 
 @media (prefers-reduced-motion: reduce) {
   .page-header {

@@ -4,6 +4,6 @@
 
 # srcAssetsDataContentSmuDiagramsData
 
-## src\\assets\\data\\content\\smu\\diagrams
+## assets/data/content/smu/diagrams
 
-src\assets\data\content\smu\diagrams module.
+Product-story diagrams for projects completed through SMU.

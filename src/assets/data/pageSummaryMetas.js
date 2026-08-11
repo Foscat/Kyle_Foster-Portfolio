@@ -73,7 +73,7 @@ const pageSummaryMetas = {
     title: "Sanderson Technology Enterprises",
     ...seoSummary(PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES),
     headerDescription:
-      "Public-safe case study for STE website delivery, early platform products, and a reusable interface system.",
+      "Flagship product engineering across the Content Creator Platform, Scrap Yard System, public delivery, and a four-library Interface System.",
     timespan: "2025 - Present",
     jobTitle: "Senior Developer",
     liveUrl: "https://sandersontechnologyenterprises.com/",
@@ -87,9 +87,16 @@ const pageSummaryMetas = {
       { label: "Interface Systems Lab", type: "front" },
     ],
   },
+  InterfaceSystem: {
+    url: PageRoute.INTERFACE_SYSTEM,
+    title: "The Interface System",
+    ...seoSummary(PageRoute.INTERFACE_SYSTEM),
+    timespan: "2025 - Present",
+    jobTitle: "Library Author and Frontend Engineer",
+  },
   SideProjects: {
     url: PageRoute.SIDE_PROJECTS,
-    title: "Side Projects",
+    title: "Work Archive",
     ...seoSummary(PageRoute.SIDE_PROJECTS),
     timespan: "August 2018 - Present",
     jobTitle: "Software Engineer",

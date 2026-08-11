@@ -4,6 +4,6 @@
 
 # srcAssetsDataContentHackathonDiagramsData
 
-## src\\assets\\data\\content\\hackathon\\diagrams
+## assets/data/content/hackathon/diagrams
 
-src\assets\data\content\hackathon\diagrams module.
+Product-story diagrams for the hands-free repair hackathon project.

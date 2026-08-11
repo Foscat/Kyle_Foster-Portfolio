@@ -279,3 +279,85 @@ section.info-section.section-renderer .rs-panel {
     backdrop-filter: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Portfolio remodel: editorial case-study rhythm
+   ------------------------------------------------------------------ */
+
+.page-content {
+  counter-reset: portfolio-section;
+}
+
+.page-content > .info-section.section-renderer {
+  counter-increment: portfolio-section;
+  margin: 0 0 clamp(1.25rem, 3vw, 2.25rem);
+  overflow: hidden;
+  border: var(--app-surface-border);
+  border-left: 3px solid color-mix(in srgb, var(--app-surface-accent) 72%, transparent);
+  border-radius: var(--app-surface-radius-md);
+  background: var(--app-surface-bg);
+  box-shadow: none;
+}
+
+.page-content > .info-section.section-renderer::before {
+  position: absolute;
+  z-index: 0;
+  color: color-mix(in srgb, var(--app-surface-accent) 16%, transparent);
+  content: counter(portfolio-section, decimal-leading-zero);
+  font-family: var(--app-heading-font-family);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 1;
+  pointer-events: none;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  top: 0.5rem;
+}
+
+.page-content > .info-section.section-renderer > .rs-panel-header,
+.page-content > .info-section.section-renderer > .rs-panel-body {
+  position: relative;
+  z-index: 1;
+}
+
+.info-section.section-renderer .title-wrapper {
+  justify-content: flex-start;
+}
+
+.info-section.section-renderer .info-title,
+.info-section.section-renderer .info-subtitle {
+  max-width: 56rem;
+  text-align: left;
+}
+
+.info-section.section-renderer .info-title {
+  color: var(--app-surface-fg);
+  font-size: clamp(1.65rem, 1.25rem + 1.4vw, 2.8rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.info-section.section-renderer .info-subtitle {
+  color: var(--app-surface-muted-fg);
+  line-height: 1.6;
+}
+
+.info-section-tag {
+  align-self: flex-start;
+  color: var(--app-heading-color);
+  border-color: color-mix(in srgb, var(--app-surface-accent) 34%, transparent);
+  background: var(--app-surface-muted-bg);
+}
+
+@media (width < 600px) {
+  .page-content > .info-section.section-renderer {
+    border-left-width: 2px;
+  }
+
+  .page-content > .info-section.section-renderer::before {
+    font-size: 3.5rem;
+    right: 0.5rem;
+  }
+
+  .info-section.section-renderer .title-wrapper {
+    align-items: flex-start;
+  }
+}

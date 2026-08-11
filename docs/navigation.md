@@ -108,13 +108,11 @@ or reloaded by resolving a target section and scrolling it into view.
 
 Restores the user's scroll position when a page is loaded or reloaded.
 
-Resolution order:
-1. URL hash (deep link or manual navigation)
-2. Persisted section state from a previous session
+Resolution rule:
+- Restore only an explicit URL hash (deep link or manual navigation).
 
 Behavior:
 - Reads the current location hash, if present
-- Falls back to the last saved section ID
 - Smoothly scrolls the resolved section into view
 
 Design notes:
@@ -176,7 +174,7 @@ across different pages within the application.
 
 ## components/MobileSectionNavTrigger
 
-Mobile drawer-based section navigation with collapsible subsections.
+In-flow route section command bar with a drawer-based explorer.
 
 Design:
 - Section title click → navigate to section
@@ -194,7 +192,7 @@ The parent component (e.g. SectionRenderer) is responsible for:
 
 ### MobileSectionNavTrigger
 
-Mobile drawer-based section navigation with collapsible subsections.
+Compact route section navigation with collapsible subsections.
 
 **Parameters**
 
@@ -234,6 +232,19 @@ navigate={(e, id) => console.log("Navigate to", id)}
 />
 ```
 ```
+
+## components/navigation/RouteScrollManager
+
+Restores the document start after client-side pathname navigation.
+
+### module.exports()
+
+Keeps routed pages from inheriting the scroll position of the previous page.
+Hash destinations are left to the browser so deep links retain native behavior.
+
+**Returns**
+
+- `null` - This behavior-only component does not render UI.
 
 ## components/SectionAnchorNav
 
@@ -279,55 +290,51 @@ Features:
 ## components/StickyNav
 
 Primary site navigation with synchronized desktop and mobile
-layouts, active-route handling, and accessibility semantics.
+layouts, active-route handling, and accessibility semantics. Mobile utilities
+stay inside the drawer so small screens retain the full content width.
 
-## components/StickySectionNav
+### isRouteActive()
 
-Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.
-
-### StickySectionNav
-
-Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.
-Designed for long-form portfolio pages with multiple sections and subsections
-(e.g. CodeStream, Hackathon, etc.).
-
-Features:
-- Sticky on desktop, collapsible drawer on mobile
-- Auto-syncs with scroll position via IntersectionObserver
-- Smooth scrolling, keyboard navigation, screen-reader friendly
-- Midnight Gold frosted UI styling
-- Data-driven from section/block metadata (no hardcoded IDs or structure)
+Keep legacy case studies discoverable without letting them dominate the
+primary information architecture.
 
 **Parameters**
 
-- `props` (`object`)
-- `props.sections` (`Array`) - List of sections with optional blocks for navigation.
-- `props.pageUrl` (`string`) - Base URL for the page (used for updating hash on navigation).
-- `props.mode` (`string`) - "desktop" or "mobile" to control styling and behavior.
-- `props.isOpen` (`boolean`) - For mobile mode, whether the drawer is open.
+- `activePage` (`string`) - Current route pathname.
+- `item` (`object`) - Navigation destination and optional grouped routes.
 
 **Returns**
 
-- `JSX.Element`
+- `boolean` - Whether the destination represents the current route.
 
-**Examples**
+## components/navigation/StickySectionNav
 
-```js
-```js
-<StickySectionNav
-sections={[
-    { id: "intro", title: "Introduction", blocks: [] },
-    { id: "features", title: "Features", blocks: [
-      { id: "feat1", title: "Feature 1" },
-      { id: "feat2", title: "Feature 2" },
-    ]
-  },
-]}
-pageUrl="/portfolio"
-mode="desktop"
-isOpen={true}
-/>
-```
-```
+In-flow route section navigation coordinated with scroll-spy state.
+
+### getPageLabel()
+
+Convert a route pathname into a readable drawer heading.
+
+**Parameters**
+
+- `pageUrl` (`string`) - Route pathname.
+
+**Returns**
+
+- `string` - Human-readable page label.
+
+### StickySectionNav()
+
+Render one consistent "On this page" command bar on every viewport.
+The drawer owns discovery while this coordinator owns scroll-spy state,
+URL hashes, and smooth document navigation.
+
+**Parameters**
+
+- `props` (`object`) - Component properties.
+- `props.sections` (`Array<object>`, optional, default: `[]`) - Route sections and optional subsections.
+- `props.pageUrl` (`string`, optional, default: `"/"`) - Canonical route path used for section hashes.
+
+**Returns**
+
+- `JSX.Element` - In-flow section navigator.

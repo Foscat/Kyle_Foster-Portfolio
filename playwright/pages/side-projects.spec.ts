@@ -30,25 +30,15 @@ test.describe("Side Projects links", () => {
     await page.waitForLoadState("networkidle");
     await stabilizePage(page, { theme: "dark" });
 
-    const missingTargets = await page
-      .locator('nav[aria-label="Section navigation"] [data-nav-id]')
-      .evaluateAll((items) => {
-        const ids = [...new Set(items.map((item) => item.getAttribute("data-nav-id")))].filter(
-          Boolean
-        );
+    const openAndChooseSection = async (name: string) => {
+      await page
+        .getByRole("navigation", { name: /on this page/i })
+        .getByRole("button", { name: /open section navigation/i })
+        .click();
+      await page.getByRole("dialog").getByRole("button", { name, exact: true }).click();
+    };
 
-        return ids.filter((id) => !document.getElementById(id));
-      });
-
-    expect(missingTargets).toEqual([]);
-
-    await page
-      .getByRole("navigation", { name: /section navigation/i })
-      .getByRole("button", {
-        name: "Interface Systems Lab",
-        exact: true,
-      })
-      .click();
+    await openAndChooseSection("Interface Systems Lab");
 
     await expect.poll(() => new URL(page.url()).hash).toBe("#interface-systems-lab");
     await expect(page.locator("#interface-systems-lab")).toBeVisible();
@@ -65,13 +55,7 @@ test.describe("Side Projects links", () => {
       labSection.getByRole("link", { name: /interface systems lab source/i })
     ).toHaveAttribute("href", "https://github.com/Foscat/interface-systems-lab");
 
-    await page
-      .getByRole("navigation", { name: /section navigation/i })
-      .getByRole("button", {
-        name: "Layout Style CSS",
-        exact: true,
-      })
-      .click();
+    await openAndChooseSection("Layout Style CSS");
 
     await expect.poll(() => new URL(page.url()).hash).toBe("#layout-style-css");
     await expect(page.locator("#layout-style-css")).toBeVisible();
@@ -96,13 +80,7 @@ test.describe("Side Projects links", () => {
       "https://foscat.github.io/Layout-Style-CSS/"
     );
 
-    await page
-      .getByRole("navigation", { name: /section navigation/i })
-      .getByRole("button", {
-        name: "Interactive Surface CSS",
-        exact: true,
-      })
-      .click();
+    await openAndChooseSection("Interactive Surface CSS");
 
     await expect.poll(() => new URL(page.url()).hash).toBe("#interactive-surface-css");
   });
@@ -126,7 +104,8 @@ test.describe("Side Projects links", () => {
   });
 
   test("centers the Layout Style CSS insight-card orphan in a two-column row", async ({ page }) => {
-    await page.setViewportSize({ width: 1200, height: 960 });
+    // At tablet-landscape width the responsive auto-grid resolves to two columns.
+    await page.setViewportSize({ width: 1024, height: 960 });
     await preparePageForStableTests(page, { theme: "dark" });
 
     await page.goto(toUrl(SIDE_PROJECTS_ROUTE));

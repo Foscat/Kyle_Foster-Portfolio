@@ -120,9 +120,10 @@ Accessibility:
 
 - `props` (`Object`) - Component props.
 - `props.variant` (`Variant`, optional, default: `"primary"`) - Visual style variant aligned with the frosted theme.
-- `props.surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface depth level consumed by ui-style-kit-css v2.
+- `props.surfaceLevel` (`SurfaceLevel`, optional) - Optional Interactive Surface depth override. When omitted, the library owns   its base and active/inactive level behavior.
 - `props.size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `props.text` (`string`, optional) - Text label rendered inside the button.
+- `props.children` (`React.ReactNode`, optional) - Nested button content used when a simple text label is not sufficient.
 - `props.type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type forwarded to the underlying RSuite button.
 - `props.icon` (`string`, optional) - FontAwesome icon name. When provided, renders an IconButton.
 - `props.onClick` (`function`, optional) - Click handler. May return a Promise to enable async loading state.
@@ -211,9 +212,9 @@ without re-exporting RSuite types.
 - `className` (`string`, optional) - Additional CSS class names.
 - `noBG` (`boolean`, optional, default: `false`) - If true, disables the frosted background.
 - `variant` (`Variant`, optional, default: `"primary"`) - Visual style variant.
-- `surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface visual depth level.
+- `surfaceLevel` (`SurfaceLevel`, optional) - Optional Interactive Surface visual depth override.
 - `size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
-- `text` (`string`, optional) - Text label rendered inside the button.
+- `text` (`React.ReactNode`, optional) - Label rendered inside the button.
 - `type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type.
 - `icon` (`string`, optional) - FontAwesome icon name. When provided, renders an IconButton.
 - `onClick` (`function`, optional) - Click handler. May return a Promise to enable async loading state.
@@ -438,6 +439,7 @@ A card component for displaying insights with a header and body. The header can 
 
 - `title` (`string`) - The title of the insight card.
 - `icon` (`object`, optional) - The FontAwesome icon to display in the card header.
+- `iconName` (`string`, optional) - Semantic UI Style Kit icon id used before Font Awesome fallback.
 - `subtitle` (`string`, optional) - The subtitle of the insight card.
 - `variant` (`Variant`, optional) - The accent color for the card (default is "primary").
 - `previewImage` (`FeatureImage`, optional) - Optional expandable preview image shown above card details.

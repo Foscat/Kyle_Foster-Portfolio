@@ -60,31 +60,27 @@ describe("MobileSectionNavTrigger", () => {
 
   /* ─── Structure contract ─────────────────────────────────────── */
 
-  it("renders the trigger inside the sect-nav-toggle-btn.mobile-only wrapper", () => {
+  it("renders an in-flow on-this-page command bar", () => {
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
-    const wrapper = screen.getByTestId("mobile-sect-nav-trigger-wrapper");
-    expect(wrapper).toBeInTheDocument();
+    const navigation = screen.getByRole("navigation", { name: /on this page/i });
+    expect(navigation).toHaveClass("route-section-nav");
     expect(
-      within(wrapper).getByRole("button", { name: /open section navigation/i })
+      within(navigation).getByRole("button", {
+        name: /open section navigation: introduction/i,
+      })
     ).toBeInTheDocument();
+    expect(within(navigation).getByText("1 / 3")).toBeVisible();
   });
 
-  it("keeps the floating trigger icon-only to avoid mobile content overlap", () => {
+  it("does not reserve a document-level mobile rail", () => {
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
-    const wrapper = screen.getByTestId("mobile-sect-nav-trigger-wrapper");
-    expect(within(wrapper).queryByText("Sections")).not.toBeInTheDocument();
+    expect(document.documentElement).not.toHaveAttribute("data-has-mobile-section-nav");
+    expect(screen.queryByTestId("mobile-sect-nav-trigger-wrapper")).not.toBeInTheDocument();
   });
 
   /* ─── data-has-mobile-section-nav attribute ──────────────────── */
-
-  it("sets data-has-mobile-section-nav on the document element while mounted", () => {
-    const { unmount } = renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
-    expect(document.documentElement).toHaveAttribute("data-has-mobile-section-nav", "true");
-    unmount();
-    expect(document.documentElement).not.toHaveAttribute("data-has-mobile-section-nav");
-  });
 
   /* ─── Drawer open / close ────────────────────────────────────── */
 
@@ -120,6 +116,22 @@ describe("MobileSectionNavTrigger", () => {
 
     fireEvent.keyDown(window, { key: "Escape" });
 
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: /portfolio page/i })).not.toBeInTheDocument();
+    });
+  });
+
+  it("provides a named close control inside the section drawer", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
+
+    await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+    const dialog = await screen.findByRole("dialog", { name: /portfolio page/i });
+    const closeButton = within(dialog).getByRole("button", {
+      name: /close section navigation/i,
+    });
+
+    await user.click(closeButton);
     await waitFor(() => {
       expect(screen.queryByRole("dialog", { name: /portfolio page/i })).not.toBeInTheDocument();
     });

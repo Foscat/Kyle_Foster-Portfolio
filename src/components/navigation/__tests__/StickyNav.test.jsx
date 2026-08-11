@@ -97,13 +97,14 @@ describe("StickyNav", () => {
     vi.clearAllMocks();
   });
 
-  // Test to ensure that the active route is marked with the aria-current attribute, verifying that the StickyNav component correctly identifies the active page and applies the appropriate accessibility attributes to indicate the current page to assistive technologies.
-  it("marks the active route with aria-current", () => {
+  it("groups legacy case studies under the Work navigation destination", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.PROFESSIONAL} />);
 
-    expect(screen.getByRole("link", { current: "page" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /codestream studios/i })).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /professional work/i })).not.toBeInTheDocument();
+    const workLink = screen.getByRole("link", { name: /^work$/i });
+    expect(workLink).toHaveAttribute("href", PageRoute.SIDE_PROJECTS);
+    expect(screen.getByTestId("desktop-nav-ni-work")).toHaveClass("is-route-active");
+    expect(workLink).not.toHaveAttribute("aria-current");
+    expect(screen.queryByRole("link", { name: /codestream studios/i })).not.toBeInTheDocument();
   });
 
   // Test to verify that when the menu trigger is activated, the mobile navigation opens and displays the site navigation dialog, ensuring that the StickyNav component correctly handles user interactions to open the mobile navigation menu and provides access to the site navigation options.
@@ -116,6 +117,24 @@ describe("StickyNav", () => {
 
     await waitFor(() => {
       expect(screen.getByRole("dialog", { name: /site navigation/i })).toBeInTheDocument();
+    });
+  });
+
+  it("provides an accessible close control in the mobile drawer", async () => {
+    const user = userEvent.setup();
+
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+    await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
+
+    const dialog = await screen.findByRole("dialog", { name: /site navigation/i });
+    const closeButton = within(dialog).getByRole("button", {
+      name: /close site navigation/i,
+    });
+    expect(closeButton).toBeVisible();
+
+    await user.click(closeButton);
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: /site navigation/i })).not.toBeInTheDocument();
     });
   });
 
@@ -181,13 +200,28 @@ describe("StickyNav", () => {
     });
   });
 
-  it("includes the top-level STE work route", () => {
+  it("includes the top-level STE route", () => {
     renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
 
-    expect(screen.getByRole("link", { name: /ste work/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /^ste$/i })).toHaveAttribute(
       "href",
       PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES
     );
+  });
+
+  it("includes the dedicated Interface System and curated Work destinations", () => {
+    renderWithProviders(<StickyNav activePage={PageRoute.HOME} />);
+
+    expect(screen.getByRole("link", { name: /^interface system$/i })).toHaveAttribute(
+      "href",
+      PageRoute.INTERFACE_SYSTEM
+    );
+    expect(screen.getByRole("link", { name: /^work$/i })).toHaveAttribute(
+      "href",
+      PageRoute.SIDE_PROJECTS
+    );
+    expect(screen.queryByRole("link", { name: /^education$/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /^docs$/i })).not.toBeInTheDocument();
   });
 
   it("renders a compact mobile site header with brand and navigation trigger", () => {
