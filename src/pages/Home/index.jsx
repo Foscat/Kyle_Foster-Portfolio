@@ -25,9 +25,9 @@ const selectedProjects = [
     title: "Sanderson Technology Enterprises",
     featuredLabel: "Flagship case study",
     description:
-      "Products, platforms, and an interface system built to turn specialized business needs into usable software.",
-    context: "Product company and applied engineering practice.",
-    role: "Senior developer, product designer, and frontend engineer.",
+      "Product platforms, public sites, and shared interface libraries built around specialized business workflows.",
+    context: "Applied product engineering for niche business operations.",
+    role: "Senior developer, product designer, and frontend engineer",
     image: {
       src: steLogo,
       alt: "Sanderson Technology Enterprises logo.",
@@ -40,9 +40,9 @@ const selectedProjects = [
     index: "02",
     title: "CodeStream Studios",
     description:
-      "Six years owning frontend architecture and delivery for a browser-based education platform.",
-    context: "Coding, classroom operations, grading, and reporting.",
-    role: "Sole frontend engineer from 2019 through 2025.",
+      "Six years leading frontend architecture for a browser-based education platform used in live classroom workflows.",
+    context: "Coding lessons, classroom operations, grading, and reporting.",
+    role: "Sole frontend engineer, 2019-2025",
     image: codeStreamImages.csos_home,
     route: PageRoute.PROFESSIONAL,
     linkLabel: "Explore the CodeStream Studios case study",
@@ -52,9 +52,9 @@ const selectedProjects = [
     index: "03",
     title: "Daimler Hackathon",
     description:
-      "A winning voice-guided repair assistant shaped around the real sequence of a technician's work.",
-    context: "Daimler Truck North America hackathon.",
-    role: "Voice-command interpretation and backend routing.",
+      "A winning voice-guided repair assistant shaped around the actual sequence of technician work.",
+    context: "Daimler Truck North America hackathon",
+    role: "Voice-command interpretation and backend routing",
     image: hackathonImages.check,
     route: PageRoute.HACKATHON,
     linkLabel: "Explore the Daimler Hackathon case study",
@@ -160,10 +160,10 @@ const Home = () => {
             <p className="home-eyebrow">Portfolio / 2026</p>
             <h1 id="home-title">Kyle Foster</h1>
             <p className="home-hero__role">Senior Frontend Engineer &amp; Product Builder</p>
-            <p className="home-hero__lead">Clear interfaces for ambitious products.</p>
+            <p className="home-hero__lead">Clear interfaces for complex product work.</p>
             <p className="home-hero__summary">
               I build accessible React products, reusable interface systems, and practical software
-              through Sanderson Technology Enterprises.
+              for teams that need complex workflows to feel understandable.
             </p>
 
             <div className="home-hero__actions" aria-label="Homepage actions">
@@ -230,7 +230,7 @@ const Home = () => {
               <h2 id="selected-work-title">Flagship work</h2>
             </div>
             <p>
-              Product ownership, sustained frontend delivery, and problem-solving under pressure.
+              Product ownership, sustained frontend delivery, and pressure-tested problem solving.
             </p>
           </header>
 
@@ -252,8 +252,8 @@ const Home = () => {
               <h2 id="interface-system-title">Open-source interface system</h2>
             </div>
             <p>
-              Four focused packages that separate layout, theme, icons, and interaction without
-              losing a cohesive product language.
+              Four focused packages that separate layout, theme, icons, and interaction while
+              keeping one product language.
             </p>
           </header>
 

@@ -1,6 +1,6 @@
 /**
  * @file index.jsx
- * @description In-flow route section navigation coordinated with scroll-spy state.
+ * @description Icon-triggered route section navigation coordinated with scroll-spy state.
  * @module components/navigation/StickySectionNav
  */
 
@@ -28,14 +28,14 @@ const getPageLabel = (pageUrl) => {
 };
 
 /**
- * Render one consistent "On this page" command bar on every viewport.
- * The drawer owns discovery while this coordinator owns scroll-spy state,
- * URL hashes, and smooth document navigation.
+ * Render one consistent section-navigation icon on every viewport. The right
+ * drawer owns discovery while this coordinator owns scroll-spy state, URL
+ * hashes, and smooth document navigation.
  *
  * @param {object} props - Component properties.
  * @param {Array<object>} [props.sections=[]] - Route sections and optional subsections.
  * @param {string} [props.pageUrl="/"] - Canonical route path used for section hashes.
- * @returns {JSX.Element} In-flow section navigator.
+ * @returns {JSX.Element} Icon-triggered section navigator.
  */
 const StickySectionNav = ({ sections = [], pageUrl = "/" }) => {
   const [scrollOffset, setScrollOffset] = useState(FALLBACK_NAVIGATION_HEIGHT);

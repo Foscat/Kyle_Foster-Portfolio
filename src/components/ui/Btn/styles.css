@@ -51,11 +51,13 @@
   text-decoration: none;
   text-shadow: none;
   transition:
-    background-color 0.18s ease,
-    border-color 0.18s ease,
-    color 0.18s ease,
-    box-shadow 0.18s ease,
-    filter 0.18s ease;
+    translate 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    outline-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    background-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    border-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    filter 140ms cubic-bezier(0.2, 0, 0.2, 1);
 }
 
 .rs-btn.btn.interactive-surface:hover:not(:disabled),
@@ -166,7 +168,7 @@
 .rs-btn.btn.interactive-surface.noBG {
   background: transparent;
   border-color: transparent;
-  border-width: 0;
+  border-width: var(--interactive-surface-border-width, 1px);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
@@ -200,7 +202,6 @@
 .rs-btn.btn.interactive-surface.noBG:focus-visible:not(:disabled) {
   background: color-mix(in srgb, currentColor 10%, transparent);
   border-color: color-mix(in srgb, currentColor 18%, transparent);
-  border-width: 1px;
 }
 
 /* ============================================================

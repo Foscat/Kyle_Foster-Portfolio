@@ -28,7 +28,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.HOME,
     title: "Kyle Foster | Frontend Engineer and Product Builder",
     description:
-      "Kyle Foster is a senior frontend engineer and product builder creating accessible React products, interface systems, and STE software since 2018.",
+      "Kyle Foster is a senior frontend engineer building accessible React products, reusable interface systems, and practical STE software since 2018.",
     indexable: true,
     ogType: "profile",
     pageType: "ProfilePage",
@@ -45,7 +45,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.PROFESSIONAL,
     title: "CodeStream Studios Case Study | Kyle Foster",
     description:
-      "See how Kyle Foster built CodeStream Studios' browser-based education platform for students, instructors, and school administrators.",
+      "See how Kyle Foster led frontend architecture for CodeStream Studios' browser-based education platform, including IDE, grading, and classroom workflows.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -62,7 +62,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.HACKATHON,
     title: "Daimler Hackathon Winner Case Study | Kyle Foster",
     description:
-      "Learn how Kyle Foster's team won Daimler's 2019 hackathon with a voice-driven repair assistant designed for hands-free technician workflows.",
+      "See how Kyle Foster's team won Daimler's 2019 hackathon with a hands-free repair assistant designed around technician workflows.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -79,7 +79,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
     title: "Sanderson Technology Enterprises | Kyle Foster",
     description:
-      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site, and Interface System work for Sanderson Technology Enterprises.",
+      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site work, and reusable interface libraries for specialized business workflows.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -96,7 +96,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.INTERFACE_SYSTEM,
     title: "Open-Source Interface System | Kyle Foster",
     description:
-      "Explore Kyle Foster's four published NPM packages: layout-style-css, ui-style-kit-css, ui-style-kit-icons, and interactive-surface-css.",
+      "Explore Kyle Foster's layout-style-css package and related interface libraries for theme, icons, and accessible interaction states.",
     indexable: true,
     ogType: "article",
     pageType: "TechArticle",
@@ -113,7 +113,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SIDE_PROJECTS,
     title: "Frontend & Product Work Archive | Kyle Foster",
     description:
-      "Explore Interface Systems Lab, shared CSS libraries, MERN auth tooling, IoT automation, and domain software from Kyle Foster.",
+      "Explore Interface Systems Lab, MERN tooling, IoT automation, and practical domain software from Kyle Foster's work archive.",
     indexable: true,
     ogType: "website",
     pageType: "CollectionPage",
@@ -130,7 +130,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.EDUCATION,
     title: "SMU Coding Bootcamp Projects | Kyle Foster",
     description:
-      "Explore the early API, team, and full-stack projects Kyle Foster built at SMU while establishing his software development foundation.",
+      "Explore the API, team, and full-stack projects Kyle Foster built while establishing his software development foundation at SMU.",
     indexable: true,
     ogType: "article",
     pageType: "AboutPage",

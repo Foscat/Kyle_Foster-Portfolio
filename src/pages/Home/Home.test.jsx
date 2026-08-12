@@ -5,6 +5,7 @@
  */
 
 import { screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Home from "pages/Home";
 import homeSections from "assets/data/content/home";
 import { PageRoute } from "types/navigation.types";
@@ -96,8 +97,15 @@ describe("Home dual-audience flow", () => {
   it(
     "marks Home as the active primary-navigation destination",
     async () => {
+      const user = userEvent.setup();
       renderWithProviders(<Home />);
 
+      const websiteTrigger = await screen.findByRole(
+        "button",
+        { name: "Open website navigation" },
+        { timeout: LAZY_NAVIGATION_TIMEOUT_MS }
+      );
+      await user.click(websiteTrigger);
       const primaryNavigation = await screen.findByRole(
         "navigation",
         { name: /primary navigation/i },

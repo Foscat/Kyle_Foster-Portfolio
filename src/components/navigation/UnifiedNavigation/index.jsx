@@ -9,7 +9,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { Nav, Drawer } from "rsuite";
 import { Link, useNavigate } from "react-router";
 import { faBars, faCircleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Size, Variant } from "types/ui.types";
+import { Size, SurfaceLevel, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
 import { AccessibilityMenu, ColorMenu } from "components/features";
@@ -131,19 +131,10 @@ const handleNavClick = (event, { isActive, route, navigate, onAfterNavigate } = 
 /*
  * UnifiedNavigation
  * ------------------------------------------------------------------
- * Primary site navigation component with dual layouts:
- *
- * Desktop layout:
- * - Compact, text-led command bar
- * - Current-route styling across curated route groups
- * - Design-system controls for utilities
- *
- * Mobile layout:
- * - Compact brand header with one menu trigger
- * - Theme, accessibility, and resume controls grouped inside the drawer
- * - Burger-triggered RSuite `Drawer` for primary page navigation
- * - Vertical, text-based navigation inside the Drawer
- * - Touch-friendly and hover-independent
+ * Primary site navigation with one viewport-independent header:
+ * - Left icon opens website destinations and utilities in a drawer
+ * - Centered brand links home
+ * - Optional right icon opens route-section navigation
  *
  * Shared behavior:
  * - Active route highlighting
@@ -164,7 +155,7 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
   const navigate = useNavigate();
   const { theme, palette } = useTheme();
   const navigationRef = useRef(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [siteNavigationOpen, setSiteNavigationOpen] = useState(false);
   const hasSections = Array.isArray(sections) && sections.length > 0;
   const safeTheme = typeof theme === "string" ? theme : "auto";
   const safePalette = typeof palette === "string" ? palette : "ocean";
@@ -245,8 +236,14 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
     };
   }, []);
 
-  const closeMobileNav = useCallback(() => {
-    setMobileOpen(false);
+  const openSiteNavigation = useCallback((event) => {
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    setSiteNavigationOpen(true);
+  }, []);
+
+  const closeSiteNavigation = useCallback(() => {
+    setSiteNavigationOpen(false);
     if (typeof document === "undefined") return;
     const activeElement = document.activeElement;
     if (activeElement instanceof HTMLElement) {
@@ -261,9 +258,9 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
       if (event.defaultPrevented) return;
       if (isEditableTarget(event.target)) return;
 
-      if (event.key === "Escape" && mobileOpen) {
+      if (event.key === "Escape" && siteNavigationOpen) {
         event.preventDefault();
-        closeMobileNav();
+        closeSiteNavigation();
         return;
       }
 
@@ -274,13 +271,13 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
         normalizedKey === "m" && hasPrimaryModifier && event.shiftKey && !event.altKey;
       if (isDrawerShortcut && !event.repeat) {
         event.preventDefault();
-        setMobileOpen(true);
+        setSiteNavigationOpen(true);
       }
     };
 
     window.addEventListener("keydown", handleGlobalNavKeys);
     return () => window.removeEventListener("keydown", handleGlobalNavKeys);
-  }, [closeMobileNav, mobileOpen]);
+  }, [closeSiteNavigation, siteNavigationOpen]);
 
   return (
     <>
@@ -291,135 +288,56 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
         data-has-sections={hasSections ? "true" : "false"}
       >
         <div className="unified-navigation__inner">
-          {/* Desktop navigation remains a distinct landmark inside the shared surface. */}
-          <Nav
-            className="sticky-nav desktop-menu unified-navigation__primary"
-            role="navigation"
-            aria-label="Primary navigation"
-          >
-            <Link className="sticky-nav-brand" to={PageRoute.HOME} aria-label="Kyle Foster home">
-              KF
-            </Link>
-            <div className="sticky-nav-pages-group">
-              {NAV_ITEMS.map((item) => {
-                const { route, label, id } = item;
-                const isExactRoute = activePage === route;
-                const isGroupActive = isRouteActive(activePage, item);
-
-                return (
-                  <Nav.Item
-                    key={`${route}-${id}`}
-                    as="div"
-                    data-testid={`desktop-nav-${id}`}
-                    className={`fi-desk-nav-item sticky-nav-desktop-trigger sticky-nav-desktop-trigger--page ${
-                      isGroupActive ? "is-route-active" : ""
-                    }`}
-                  >
-                    <Btn
-                      key={item.id}
-                      text={label}
-                      variant={Variant.PRIMARY}
-                      ariaLabel={label}
-                      ariaCurrent={isExactRoute ? "page" : undefined}
-                      href={route}
-                      hrefLocal
-                      clickable
-                      className={`nav-link ${isGroupActive ? "is-active" : ""}`}
-                      size={Size.MD}
-                      noBG
-                    />
-                  </Nav.Item>
-                );
-              })}
-            </div>
-
-            {hasSections ? (
-              <div className="unified-navigation__sections">
-                <StickySectionNav pageUrl={pageUrl} sections={sections} />
-              </div>
-            ) : null}
-
-            <div className="sticky-nav-tools-group">
-              <Nav.Item
-                as="div"
-                className="no-popup sticky-nav-resume-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--resume"
-              >
-                <ResumePreviewTrigger
-                  buttonText=""
-                  title={resumePreviewTitle}
-                  subtitle={resumePreviewSubtitle}
-                  resume={resumeData}
-                  downloadName={resumeDownloadName}
-                  buttonClassName="sticky-nav-resume-trigger"
-                  icon={faCircleDown}
-                  tooltip="Resume preview and download"
-                  ariaLabel="Open resume preview and download options"
-                  size={Size.LG}
-                  variant={Variant.SECONDARY}
-                  noBG
-                />
-              </Nav.Item>
-              <Nav.Item
-                as="div"
-                className="no-popup sticky-nav-color-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--color sticky-nav-desktop-trigger--round"
-              >
-                <ColorMenu size={Size.LG} />
-              </Nav.Item>
-              <Nav.Item
-                as="div"
-                className="no-popup sticky-nav-a11y-toggle sticky-nav-desktop-trigger sticky-nav-desktop-trigger--utility sticky-nav-desktop-trigger--a11y sticky-nav-desktop-trigger--round"
-              >
-                <AccessibilityMenu size={Size.LG} enableHotkey />
-              </Nav.Item>
-            </div>
-          </Nav>
-          {/* The compact row shares the outer header instead of creating a second bar. */}
-          <div
-            className="mobile-site-header mobile-only nav-mobile-only"
-            data-testid="mobile-site-header"
-          >
+          <div className="unified-navigation__site-trigger">
             <Btn
               icon={faBars}
               variant={Variant.ACCENT}
+              surfaceLevel={SurfaceLevel.RAISED}
               size={Size.LG}
-              noBG
-              ariaLabel="Open navigation menu"
-              onClick={(event) => {
-                event?.preventDefault?.();
-                event?.stopPropagation?.();
-                setMobileOpen(true);
-              }}
+              ariaLabel="Open website navigation"
+              ariaExpanded={siteNavigationOpen}
+              onClick={openSiteNavigation}
             />
           </div>
+          <Link
+            className="sticky-nav-brand unified-navigation__brand"
+            to={PageRoute.HOME}
+            aria-label="Kyle Foster home"
+          >
+            KF
+          </Link>
+          {hasSections ? (
+            <div className="unified-navigation__sections">
+              <StickySectionNav pageUrl={pageUrl} sections={sections} />
+            </div>
+          ) : (
+            <span className="unified-navigation__section-spacer" aria-hidden="true" />
+          )}
         </div>
       </header>
-      {/* ============================================================
-         Mobile Navigation Drawer
-         ------------------------------------------------------------
-         Vertical, text-based navigation optimized for touch.
-         ============================================================ */}
+      {/* Website destinations remain in one consistent drawer at every viewport. */}
       <Drawer
         placement="left"
-        open={mobileOpen}
-        onClose={closeMobileNav}
+        open={siteNavigationOpen}
+        onClose={closeSiteNavigation}
         className="mobile-nav-drawer"
         closeButton={false}
       >
         <Drawer.Header closeButton={false}>
-          <Drawer.Title>Site Navigation</Drawer.Title>
+          <Drawer.Title>Website Navigation</Drawer.Title>
           <Btn
             icon={faXmark}
             variant={Variant.ACCENT}
+            surfaceLevel={SurfaceLevel.RAISED}
             size={Size.LG}
-            noBG
-            ariaLabel="Close site navigation"
+            ariaLabel="Close website navigation"
             className="mobile-nav-drawer__close"
-            onClick={closeMobileNav}
+            onClick={closeSiteNavigation}
           />
         </Drawer.Header>
 
         <Drawer.Body>
-          <Nav vertical>
+          <Nav vertical role="navigation" aria-label="Primary navigation">
             {NAV_ITEMS.map((item) => {
               const { route, label, id } = item;
               const isExactRoute = activePage === route;
@@ -440,7 +358,7 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
                       isActive: isExactRoute,
                       route,
                       navigate,
-                      onAfterNavigate: closeMobileNav,
+                      onAfterNavigate: closeSiteNavigation,
                     })
                   }
                 >
@@ -470,7 +388,6 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
                   ariaLabel="Open resume preview and download options"
                   size={Size.LG}
                   variant={Variant.SECONDARY}
-                  noBG
                 />
               </div>
             </div>
