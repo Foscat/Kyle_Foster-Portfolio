@@ -50,7 +50,7 @@ describe("Work archive", () => {
   it("keeps every legacy case study discoverable from the Work route", () => {
     renderWithProviders(createElement(SideProjects));
 
-    const archive = screen.getByRole("navigation", { name: /explore the complete work archive/i });
+    const archive = screen.getByRole("navigation", { name: /explore the work archive/i });
     const expectedRoutes = [
       PageRoute.CODE_STREAM,
       PageRoute.HACKATHON,

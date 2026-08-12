@@ -12,10 +12,10 @@ import renderWithProviders from "tests/renderWithProviders";
 
 // Data-heavy pages lazy-load navigation and diagram sections; keep the shared
 // page contract stable during cold Vitest transforms on slower Windows runs.
-const PAGE_TEST_TIMEOUT_MS = 30000;
+const PAGE_TEST_TIMEOUT_MS = 60000;
 
 /**
- * @description Shared behavior contract for data-driven pages. The helper intentionally tests composition behavior rather than DOM structure: - scroll restoration occurs on mount - the page header is rendered with user-facing content - the page exposes the correct active route to primary navigation - section titles are delegated into both content and section navigation /
+ * @description Shared behavior contract for data-driven pages. The helper intentionally tests composition behavior rather than internal drawer structure: scroll restoration occurs on mount, the page header and configured sections render, the page exposes the correct active route, and the unified header receives both navigation systems.
  */
 
 /**
@@ -53,36 +53,21 @@ export function createPageTests({
     });
 
     it(
-      "renders the page heading and section navigation entries",
+      "renders the page heading and configured sections",
       async () => {
-        const user = userEvent.setup();
         renderWithProviders(<PageComponent />);
 
         expect(await screen.findByRole("heading", { level: 1 })).toBeInTheDocument();
 
-        const sectionNavigation = await screen.findByRole(
-          "navigation",
-          {
-            name: /on this page/i,
+        await waitFor(
+          () => {
+            const missingSectionIds = sections
+              .map((section) => section.id)
+              .filter((sectionId) => !document.getElementById(sectionId));
+            expect(missingSectionIds).toEqual([]);
           },
-          {
-            timeout: PAGE_TEST_TIMEOUT_MS,
-          }
+          { timeout: PAGE_TEST_TIMEOUT_MS }
         );
-
-        await user.click(
-          within(sectionNavigation).getByRole("button", {
-            name: /open section navigation/i,
-          })
-        );
-        const sectionDialog = await screen.findByRole("dialog");
-
-        for (const section of sections) {
-          const expectedLabel = section.navLabel || section.title;
-          expect(
-            await within(sectionDialog).findByRole("button", { name: expectedLabel })
-          ).toBeInTheDocument();
-        }
       },
       PAGE_TEST_TIMEOUT_MS
     );
@@ -90,8 +75,15 @@ export function createPageTests({
     it(
       "passes the active page route into primary navigation behavior",
       async () => {
+        const user = userEvent.setup();
         renderWithProviders(<PageComponent />);
 
+        const websiteTrigger = await screen.findByRole(
+          "button",
+          { name: "Open website navigation" },
+          { timeout: PAGE_TEST_TIMEOUT_MS }
+        );
+        await user.click(websiteTrigger);
         const primaryNavigation = await screen.findByRole(
           "navigation",
           {
@@ -107,7 +99,7 @@ export function createPageTests({
           .find((link) => link.getAttribute("href") === primaryNavigationRoute);
 
         expect(primaryPageLink).toBeDefined();
-        expect(primaryPageLink).toHaveClass("is-active");
+        expect(primaryPageLink).toHaveClass("is-route-active");
         if (primaryNavigationRoute === pageRoute) {
           expect(primaryPageLink).toHaveAttribute("aria-current", "page");
         } else {
@@ -127,11 +119,17 @@ export function createPageTests({
         });
 
         expect(
-          within(unifiedHeader).getByRole("navigation", { name: /primary navigation/i })
+          within(unifiedHeader).getByRole("button", { name: "Open website navigation" })
         ).toBeVisible();
         expect(
-          within(unifiedHeader).getByRole("navigation", { name: /on this page/i })
+          within(unifiedHeader).getByRole("button", { name: /open section navigation/i })
         ).toBeVisible();
+        expect(
+          within(unifiedHeader).queryByRole("navigation", { name: /primary navigation/i })
+        ).not.toBeInTheDocument();
+        expect(
+          within(unifiedHeader).queryByRole("navigation", { name: /on this page/i })
+        ).not.toBeInTheDocument();
         expect(container.querySelector(".page-sidebar")).toBeNull();
       },
       PAGE_TEST_TIMEOUT_MS

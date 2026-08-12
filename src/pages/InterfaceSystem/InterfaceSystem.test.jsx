@@ -5,6 +5,7 @@
  */
 
 import { screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import InterfaceSystem from "pages/InterfaceSystem";
 import { PageRoute } from "types/navigation.types";
 import renderWithProviders from "tests/renderWithProviders";
@@ -30,8 +31,15 @@ describe("InterfaceSystem", () => {
   it(
     "marks the dedicated route active and links to implementation proof",
     async () => {
+      const user = userEvent.setup();
       renderWithProviders(<InterfaceSystem />);
 
+      const websiteTrigger = await screen.findByRole(
+        "button",
+        { name: "Open website navigation" },
+        { timeout: LAZY_NAVIGATION_TIMEOUT_MS }
+      );
+      await user.click(websiteTrigger);
       expect(
         await screen.findByRole(
           "link",

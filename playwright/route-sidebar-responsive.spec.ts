@@ -209,22 +209,19 @@ async function getPersistentLayerMeasurement(page: Page) {
     };
 
     const navigationShell = box(document.querySelector('[data-testid="unified-navigation"]'));
-    const desktopNavigation = document.querySelector(".sticky-nav-pages-group");
-    const mobileNavigation = document.querySelector(".mobile-site-header button");
-    const desktopBox = box(desktopNavigation);
-    const mobileBox = box(mobileNavigation);
+    const desktopNavigation = box(document.querySelector(".sticky-nav-pages-group"));
+    const websiteTrigger = box(document.querySelector(".unified-navigation__site-trigger button"));
+    const brand = box(document.querySelector(".unified-navigation__brand"));
     const sectionNavigation = box(document.querySelector(".route-section-nav"));
     const backToTop = box(document.querySelector(".back-to-top.is-visible"));
-    const mobileMenuTrigger = mobileBox;
-    const mobileBrand = box(document.querySelector(".sticky-nav-brand"));
-    const routeCommand = document.querySelector(".route-section-nav");
-    const routeCommandBackground = routeCommand
-      ? window.getComputedStyle(routeCommand).backgroundColor
+    const navigationElement = document.querySelector('[data-testid="unified-navigation"]');
+    const navigationBackground = navigationElement
+      ? window.getComputedStyle(navigationElement).backgroundColor
       : "";
-    const alphaMatch = routeCommandBackground.match(
+    const alphaMatch = navigationBackground.match(
       /rgba?\([^)]*?[,/]\s*(0(?:\.\d+)?|1(?:\.0+)?)\s*\)$/u
     );
-    const routeCommandBackgroundAlpha = routeCommandBackground.startsWith("rgba")
+    const navigationBackgroundAlpha = navigationBackground.startsWith("rgba")
       ? Number.parseFloat(alphaMatch?.[1] || "0")
       : 1;
     const root = document.documentElement;
@@ -233,21 +230,20 @@ async function getPersistentLayerMeasurement(page: Page) {
     return {
       backToTop,
       backToTopBottomGap: backToTop ? Math.round(window.innerHeight - backToTop.bottom) : null,
-      desktopNavigation: desktopBox,
+      brand,
+      brandCenter: brand ? Math.round(brand.left + brand.width / 2) : null,
+      desktopNavigation,
       horizontalOverflow: Math.max(
         root.scrollWidth - root.clientWidth,
         body.scrollWidth - body.clientWidth
       ),
-      mobileBrand,
-      mobileMenuRightGap:
-        navigationShell && mobileMenuTrigger
-          ? Math.round(navigationShell.right - mobileMenuTrigger.right)
-          : null,
-      mobileMenuTrigger,
-      mobileNavigation: mobileBox,
+      navigationBackgroundAlpha,
       navigationShell,
-      routeCommandBackgroundAlpha,
       sectionNavigation,
+      shellCenter: navigationShell
+        ? Math.round(navigationShell.left + navigationShell.width / 2)
+        : null,
+      websiteTrigger,
     };
   });
 }
@@ -286,11 +282,9 @@ test.describe("route section navigation responsive behavior", () => {
         const shellElement = document.querySelector('[data-testid="unified-navigation"]');
         const shell = box(shellElement);
         const controlSelectors = [
-          ".sticky-nav-brand",
-          ".sticky-nav-pages-group",
-          ".route-section-nav",
-          ".sticky-nav-tools-group",
-          ".mobile-site-header button",
+          ".unified-navigation__site-trigger button",
+          ".unified-navigation__brand",
+          ".route-section-nav__trigger",
         ];
         const controls = controlSelectors
           .map((selector) => box(document.querySelector(selector)))
@@ -302,6 +296,8 @@ test.describe("route section navigation responsive behavior", () => {
             root.scrollWidth - root.clientWidth,
             body.scrollWidth - body.clientWidth
           ),
+          brand: box(document.querySelector(".unified-navigation__brand")),
+          desktopNavigation: box(document.querySelector(".sticky-nav-pages-group")),
           pageSidebarCount: document.querySelectorAll(".page-sidebar").length,
           sectionNavigation: box(document.querySelector(".route-section-nav")),
           shell,
@@ -323,6 +319,7 @@ test.describe("route section navigation responsive behavior", () => {
       ).toBeLessThanOrEqual(1);
       expect(measurement.shell?.top, label).toBe(0);
       expect(measurement.horizontalOverflow, label).toBeLessThanOrEqual(1);
+      expect(measurement.desktopNavigation, label).toBeNull();
       expect(measurement.sectionNavigation, label).not.toBeNull();
       expect(measurement.sectionNavigation?.top || 0, label).toBeGreaterThanOrEqual(
         (measurement.shell?.top || 0) - 1
@@ -331,6 +328,38 @@ test.describe("route section navigation responsive behavior", () => {
         (measurement.shell?.bottom || 0) + 1
       );
       expect(Math.max(...centerValues) - Math.min(...centerValues), label).toBeLessThanOrEqual(2);
+      const shellCenter = ((measurement.shell?.left || 0) + (measurement.shell?.right || 0)) / 2;
+      const brandCenter = ((measurement.brand?.left || 0) + (measurement.brand?.right || 0)) / 2;
+      expect(Math.abs(brandCenter - shellCenter), `${label}: centered brand`).toBeLessThanOrEqual(
+        1
+      );
+    }
+  });
+
+  test("keeps the home brand centered when a route has no sections", async ({ page }) => {
+    await preparePageForStableTests(page, { theme: "dark" });
+
+    for (const viewport of [
+      { width: 390, height: 844 },
+      { width: 1440, height: 900 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto(toUrl("/"));
+      await stabilizePage(page, { theme: "dark" });
+
+      await expect(page.getByRole("button", { name: "Open website navigation" })).toBeVisible();
+      await expect(page.getByRole("button", { name: /open section navigation/i })).toHaveCount(0);
+
+      const centerDelta = await page.evaluate(() => {
+        const shell = document
+          .querySelector('[data-testid="unified-navigation"]')
+          ?.getBoundingClientRect();
+        const brand = document.querySelector(".unified-navigation__brand")?.getBoundingClientRect();
+        if (!shell || !brand) return Number.POSITIVE_INFINITY;
+        return Math.abs(brand.left + brand.width / 2 - (shell.left + shell.width / 2));
+      });
+
+      expect(centerDelta, `centered home brand at ${viewport.width}px`).toBeLessThanOrEqual(1);
     }
   });
 
@@ -368,13 +397,11 @@ test.describe("route section navigation responsive behavior", () => {
         ).toBe(false);
         expect(measurement.backToTopBottomGap, label).toBeGreaterThanOrEqual(8);
         expect(measurement.backToTopBottomGap, label).toBeLessThanOrEqual(32);
-        expect(measurement.routeCommandBackgroundAlpha, label).toBeGreaterThanOrEqual(0.98);
+        expect(measurement.navigationBackgroundAlpha, label).toBeGreaterThanOrEqual(0.98);
       }
     });
 
-    test("uses edge-aligned mobile controls until the desktop command bar fits", async ({
-      page,
-    }) => {
+    test("keeps opposed icon triggers and the centered brand at every width", async ({ page }) => {
       await preparePageForStableTests(page, { theme: "dark" });
 
       for (const width of [390, 844, 900, 939, 940, 1024]) {
@@ -383,26 +410,22 @@ test.describe("route section navigation responsive behavior", () => {
         await stabilizePage(page, { theme: "dark" });
 
         const measurement = await getPersistentLayerMeasurement(page);
-        if (width < 940) {
-          expect(measurement.mobileNavigation, `mobile navigation at ${width}px`).not.toBeNull();
-          expect(measurement.desktopNavigation, `desktop navigation at ${width}px`).toBeNull();
-          expect(measurement.mobileMenuRightGap, `menu edge gap at ${width}px`).toBeLessThanOrEqual(
-            32
-          );
-          expect(measurement.mobileBrand?.right, `brand at ${width}px`).toBeLessThan(
-            measurement.sectionNavigation?.left || 0
-          );
-          expect(measurement.sectionNavigation?.right, `sections at ${width}px`).toBeLessThan(
-            measurement.mobileMenuTrigger?.left || 0
-          );
-        } else {
-          expect(measurement.desktopNavigation, `desktop navigation at ${width}px`).not.toBeNull();
-          expect(measurement.mobileNavigation, `mobile navigation at ${width}px`).toBeNull();
-          expect(
-            measurement.navigationShell?.height,
-            `desktop row at ${width}px`
-          ).toBeLessThanOrEqual(104);
-        }
+        expect(measurement.websiteTrigger, `website trigger at ${width}px`).not.toBeNull();
+        expect(measurement.desktopNavigation, `exposed destinations at ${width}px`).toBeNull();
+        expect(measurement.websiteTrigger?.right, `website trigger at ${width}px`).toBeLessThan(
+          measurement.brand?.left || 0
+        );
+        expect(
+          measurement.sectionNavigation?.left,
+          `section trigger at ${width}px`
+        ).toBeGreaterThan(measurement.brand?.right || 0);
+        expect(
+          Math.abs((measurement.brandCenter || 0) - (measurement.shellCenter || 0)),
+          `centered brand at ${width}px`
+        ).toBeLessThanOrEqual(1);
+        expect(measurement.navigationShell?.height, `header row at ${width}px`).toBeLessThanOrEqual(
+          104
+        );
       }
     });
 
@@ -460,7 +483,7 @@ test.describe("route section navigation responsive behavior", () => {
     }
   });
 
-  test("the command bar remains in flow without horizontal overflow", async ({ page }) => {
+  test("the section trigger remains in flow without horizontal overflow", async ({ page }) => {
     test.setTimeout(60_000);
     await preparePageForStableTests(page, { theme: "dark" });
 
@@ -549,9 +572,7 @@ test.describe("route section navigation responsive behavior", () => {
     expect(new Set(fontWeights)).toEqual(new Set(["500"]));
   });
 
-  test("mobile section drawer overlays within the viewport and closes cleanly", async ({
-    page,
-  }) => {
+  test("section drawer overlays within the viewport and closes cleanly", async ({ page }) => {
     await preparePageForStableTests(page, { theme: "dark" });
     await prepareRoute(page, 390);
 
@@ -585,5 +606,46 @@ test.describe("route section navigation responsive behavior", () => {
     await page.keyboard.press("Escape");
     await expect(drawer).toBeHidden();
     expect((await getRouteLayoutMeasurement(page)).horizontalOverflow).toBeLessThanOrEqual(1);
+  });
+
+  test("website and section drawers open from opposed viewport edges", async ({ page }) => {
+    await preparePageForStableTests(page, { theme: "dark" });
+
+    for (const viewport of [
+      { width: 390, height: 844 },
+      { width: 1280, height: 650 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto(toUrl("/interface-system"));
+      await stabilizePage(page, { theme: "dark" });
+
+      await page.getByRole("button", { name: "Open website navigation" }).click();
+      const websiteDrawer = page.locator(
+        ".mobile-nav-drawer:not(.mobile-section-nav-drawer) .rs-drawer-dialog"
+      );
+      await expect(websiteDrawer).toBeVisible();
+      const websiteBox = await websiteDrawer.boundingBox();
+      expect(Math.round(websiteBox?.x || 0), `website drawer at ${viewport.width}px`).toBe(0);
+      await page.getByRole("button", { name: "Close website navigation" }).click();
+      await expect(websiteDrawer).toBeHidden();
+
+      await page.getByRole("button", { name: /open section navigation/i }).click();
+      const sectionDrawer = page.locator(".mobile-section-nav-drawer .rs-drawer-dialog");
+      await expect(sectionDrawer).toBeVisible();
+      const sectionBox = await sectionDrawer.boundingBox();
+      const viewportBounds = await page.evaluate(() => ({
+        layoutRight: Math.round(document.body.getBoundingClientRect().right),
+        windowRight: Math.round(window.innerWidth),
+      }));
+      const sectionRight = Math.round((sectionBox?.x || 0) + (sectionBox?.width || 0));
+      expect(sectionRight, `section drawer at ${viewport.width}px`).toBeGreaterThanOrEqual(
+        viewportBounds.layoutRight
+      );
+      expect(sectionRight, `section drawer at ${viewport.width}px`).toBeLessThanOrEqual(
+        viewportBounds.windowRight
+      );
+      await page.keyboard.press("Escape");
+      await expect(sectionDrawer).toBeHidden();
+    }
   });
 });

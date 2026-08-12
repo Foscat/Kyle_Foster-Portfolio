@@ -57,23 +57,22 @@ describe("StickySectionNav", () => {
     }
   });
 
-  it("uses one in-flow on-this-page command bar at desktop widths", () => {
+  it("keeps section navigation behind an icon-only trigger at desktop widths", () => {
     Object.defineProperty(window, "innerWidth", { value: 1440, configurable: true });
 
     renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
 
-    const navigation = screen.getByRole("navigation", { name: "On this page" });
-    expect(navigation).toHaveClass("route-section-nav");
-    expect(
-      within(navigation).getByRole("button", {
-        name: "Open section navigation: Introduction",
-      })
-    ).toBeVisible();
-    expect(within(navigation).getByText("1 / 2")).toBeVisible();
+    const trigger = screen.getByRole("button", {
+      name: "Open section navigation: Introduction",
+    });
+    expect(trigger).toBeVisible();
+    expect(trigger).not.toHaveTextContent("Introduction");
+    expect(screen.queryByText("1 / 2")).not.toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "On this page" })).not.toBeInTheDocument();
     expect(document.documentElement).not.toHaveAttribute("data-has-mobile-section-nav");
   });
 
-  it("uses the compact nav label and scroll-spy progress", () => {
+  it("keeps the active section in the trigger's accessible name", () => {
     scrollSpyState.activeLeafId = "section-2";
     scrollSpyState.activeChain = ["section-2"];
 
@@ -91,10 +90,23 @@ describe("StickySectionNav", () => {
       />
     );
 
-    expect(
-      screen.getByRole("button", { name: "Open section navigation: Architecture" })
-    ).toBeVisible();
-    expect(screen.getByText("2 / 2")).toBeVisible();
+    const trigger = screen.getByRole("button", {
+      name: "Open section navigation: Architecture",
+    });
+    expect(trigger).toBeVisible();
+    expect(trigger).not.toHaveTextContent("Architecture");
+    expect(screen.queryByText("2 / 2")).not.toBeInTheDocument();
+  });
+
+  it("opens the section tree from a right-side drawer", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
+
+    await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+    const dialog = await screen.findByRole("dialog", { name: /page page/i });
+
+    expect(dialog).toHaveClass("rs-drawer-right");
+    expect(within(dialog).getByRole("navigation", { name: "On this page" })).toBeVisible();
   });
 
   it("navigates from the drawer and coordinates the URL and scroll spy", async () => {

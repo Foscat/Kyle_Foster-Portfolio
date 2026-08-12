@@ -25,22 +25,22 @@ const sidePro = {
 const workArchiveItems = [
   {
     label: "CodeStream",
-    description: "Enterprise React product engineering and learning-platform delivery.",
+    description: "Frontend architecture for a classroom learning platform.",
     route: PageRoute.CODE_STREAM,
   },
   {
     label: "Hackathon Work",
-    description: "Fast product experiments built under compressed delivery constraints.",
+    description: "Winning repair-workflow prototype built under a compressed timeline.",
     route: PageRoute.HACKATHON,
   },
   {
     label: "SMU Systems",
-    description: "Selected academic software, research, and systems work.",
+    description: "Early API, team, and full-stack projects from formal training.",
     route: PageRoute.EDUCATION,
   },
   {
     label: "Engineering Docs",
-    description: "Architecture notes, testing standards, and implementation references.",
+    description: "Architecture notes, test standards, and implementation references.",
     route: PageRoute.DOCS,
   },
 ];
@@ -145,7 +145,7 @@ const SideProjects = () => {
             <nav className="work-archive" aria-labelledby="work-archive-title">
               <header className="work-archive__header">
                 <p>Case-study index</p>
-                <h2 id="work-archive-title">Explore the complete work archive</h2>
+                <h2 id="work-archive-title">Explore the work archive</h2>
               </header>
               <div className="work-archive__grid">
                 {workArchiveItems.map((item) => (

@@ -16,14 +16,14 @@ vi.mock("components/ui", async () => {
 
   return {
     ...actual,
-    Btn: ({ onClick, ariaLabel, text, className, "aria-expanded": ariaExpanded }) => (
+    Btn: ({ onClick, ariaLabel, ariaExpanded, text, className }) => (
       <button
         onClick={onClick}
         aria-label={ariaLabel}
         className={className}
         aria-expanded={ariaExpanded}
       >
-        {text || ariaLabel}
+        {text}
       </button>
     ),
     FrostedIcon: ({ ariaLabel }) => <span>{ariaLabel}</span>,
@@ -60,23 +60,18 @@ describe("MobileSectionNavTrigger", () => {
 
   /* ─── Structure contract ─────────────────────────────────────── */
 
-  it("renders an in-flow on-this-page command bar", () => {
+  it("renders an icon-only section navigation trigger", () => {
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
-    const navigation = screen.getByRole("navigation", { name: /on this page/i });
-    expect(navigation).toHaveClass("route-section-nav");
-    expect(within(navigation).getByText("On this page")).toHaveClass(
-      "route-section-nav__label--full"
-    );
-    expect(within(navigation).getByText("Sections")).toHaveClass(
-      "route-section-nav__label--compact"
-    );
-    expect(
-      within(navigation).getByRole("button", {
-        name: /open section navigation: introduction/i,
-      })
-    ).toBeInTheDocument();
-    expect(within(navigation).getByText("1 / 3")).toBeVisible();
+    const trigger = screen.getByRole("button", {
+      name: /open section navigation: introduction/i,
+    });
+    expect(trigger).toHaveClass("section-nav-trigger");
+    expect(trigger).toBeEmptyDOMElement();
+    expect(screen.queryByText("On this page")).not.toBeInTheDocument();
+    expect(screen.queryByText("Sections")).not.toBeInTheDocument();
+    expect(screen.queryByText("1 / 3")).not.toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: /on this page/i })).not.toBeInTheDocument();
   });
 
   it("does not reserve a document-level mobile rail", () => {
@@ -90,15 +85,15 @@ describe("MobileSectionNavTrigger", () => {
 
   /* ─── Drawer open / close ────────────────────────────────────── */
 
-  it("opens the section navigation drawer on trigger click", async () => {
+  it("opens the section navigation from a right-side drawer", async () => {
     const user = userEvent.setup();
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
     await user.click(screen.getByRole("button", { name: /open section navigation/i }));
 
-    await waitFor(() => {
-      expect(screen.getByRole("dialog", { name: /portfolio page/i })).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("dialog", { name: /portfolio page/i });
+    expect(dialog).toHaveClass("rs-drawer-right");
+    expect(within(dialog).getByRole("navigation", { name: "On this page" })).toBeVisible();
   });
 
   it("lists all top-level sections inside the drawer", async () => {
