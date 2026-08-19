@@ -4,11 +4,11 @@ Start here for generated, low-scroll API references.
 
 ## Navigation
 
-- [Client Reference](./client/README.md) (120 granular module docs)
+- [Client Reference](./client/README.md) (121 granular module docs)
 - [Tooling Reference](./tooling/README.md) (28 granular module docs)
 
 ## Regeneration
 
 - `npm run docs:build`
 
-Total granular files: 148
+Total granular files: 149

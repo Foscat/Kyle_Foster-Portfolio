@@ -25,6 +25,8 @@ test.describe("Theme, UI Style, and Palette Stability", () => {
     await page.goto(toUrl("/"));
     await stabilizePage(page, { theme: "dark" });
 
+    await page.getByRole("button", { name: "Open website navigation" }).click();
+    await expect(page.getByRole("dialog", { name: "Website Navigation" })).toBeVisible();
     const colorSettingsTrigger = page.getByRole("button", { name: /open color settings/i }).first();
     await expect(colorSettingsTrigger).toBeVisible();
     await colorSettingsTrigger.click();

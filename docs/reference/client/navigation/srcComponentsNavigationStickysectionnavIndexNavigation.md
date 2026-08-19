@@ -6,7 +6,7 @@
 
 ## components/navigation/StickySectionNav
 
-In-flow route section navigation coordinated with scroll-spy state.
+Icon-triggered route section navigation coordinated with scroll-spy state.
 
 ### getPageLabel()
 
@@ -22,9 +22,9 @@ Convert a route pathname into a readable drawer heading.
 
 ### StickySectionNav()
 
-Render one consistent "On this page" command bar on every viewport.
-The drawer owns discovery while this coordinator owns scroll-spy state,
-URL hashes, and smooth document navigation.
+Render one consistent section-navigation icon on every viewport. The right
+drawer owns discovery while this coordinator owns scroll-spy state, URL
+hashes, and smooth document navigation.
 
 **Parameters**
 
@@ -34,4 +34,4 @@ URL hashes, and smooth document navigation.
 
 **Returns**
 
-- `JSX.Element` - In-flow section navigator.
+- `JSX.Element` - Icon-triggered section navigator.

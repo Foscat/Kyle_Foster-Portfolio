@@ -598,6 +598,33 @@ html[data-theme="light"]
   margin: 0;
 }
 
+/* Light Y2K accent fills need a neutral surface so icon-only drawer controls
+   retain readable contrast without changing the selected palette. */
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .mobile-nav-drawer__close.btn.icon-only,
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  color: var(--app-surface-readable-fg) !important;
+  background: var(--app-surface-bg) !important;
+}
+
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .mobile-nav-drawer__close.btn.icon-only
+  .frosted-icon,
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .sticky-nav-mobile-resume-trigger.btn.icon-only
+  .frosted-icon {
+  color: inherit !important;
+}
+
 /* Slide-down animation */
 @keyframes slideDown {
   from {

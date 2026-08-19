@@ -174,7 +174,7 @@ across different pages within the application.
 
 ## components/MobileSectionNavTrigger
 
-In-flow route section command bar with a drawer-based explorer.
+Icon-triggered route section drawer.
 
 Design:
 - Section title click → navigate to section
@@ -192,7 +192,7 @@ The parent component (e.g. SectionRenderer) is responsible for:
 
 ### MobileSectionNavTrigger
 
-Compact route section navigation with collapsible subsections.
+Viewport-independent route section navigation with collapsible subsections.
 
 **Parameters**
 
@@ -287,25 +287,22 @@ Features:
 - `isScroller` (`boolean`, optional, default: `false`) - If true, href will be `#id` for scroll behavior; otherwise, use `url`.
 - `url` (`string`, optional) - Optional URL for non-scrolling navigation.
 
-## components/StickyNav
+## components/navigation/StickyNav
 
-Primary website navigation with one viewport-independent header, active-route
-handling, and accessibility semantics. The left drawer contains every route and
-utility so the visible header remains icon-led at all widths.
+Compatibility entry point for the unified site navigation.
 
-### isRouteActive()
+### StickyNav()
 
-Keep legacy case studies discoverable without letting them dominate the
-primary information architecture.
+Preserve the former import boundary while route modules migrate to the
+unified page-level navigation component.
 
 **Parameters**
 
-- `activePage` (`string`) - Current route pathname.
-- `item` (`object`) - Navigation destination and optional grouped routes.
+- `props` (`object`) - Unified navigation properties.
 
 **Returns**
 
-- `boolean` - Whether the destination represents the current route.
+- `JSX.Element` - Unified page navigation.
 
 ## components/navigation/StickySectionNav
 
@@ -326,8 +323,8 @@ Convert a route pathname into a readable drawer heading.
 ### StickySectionNav()
 
 Render one consistent section-navigation icon on every viewport. The right
-drawer owns discovery while this coordinator owns scroll-spy state, URL hashes,
-and smooth document navigation.
+drawer owns discovery while this coordinator owns scroll-spy state, URL
+hashes, and smooth document navigation.
 
 **Parameters**
 
@@ -337,4 +334,23 @@ and smooth document navigation.
 
 **Returns**
 
-- `JSX.Element` - In-flow section navigator.
+- `JSX.Element` - Icon-triggered section navigator.
+
+## components/navigation/UnifiedNavigation
+
+Unified page navigation with one viewport-wide sticky surface,
+responsive primary navigation, and optional route-section navigation.
+
+### isRouteActive()
+
+Keep legacy case studies discoverable without letting them dominate the
+primary information architecture.
+
+**Parameters**
+
+- `activePage` (`string`) - Current route pathname.
+- `item` (`object`) - Navigation destination and optional grouped routes.
+
+**Returns**
+
+- `boolean` - Whether the destination represents the current route.

@@ -4,22 +4,19 @@
 
 # srcComponentsNavigationStickynavIndexNavigation
 
-## components/StickyNav
+## components/navigation/StickyNav
 
-Primary site navigation with synchronized desktop and mobile
-layouts, active-route handling, and accessibility semantics. Mobile utilities
-stay inside the drawer so small screens retain the full content width.
+Compatibility entry point for the unified site navigation.
 
-### isRouteActive()
+### StickyNav()
 
-Keep legacy case studies discoverable without letting them dominate the
-primary information architecture.
+Preserve the former import boundary while route modules migrate to the
+unified page-level navigation component.
 
 **Parameters**
 
-- `activePage` (`string`) - Current route pathname.
-- `item` (`object`) - Navigation destination and optional grouped routes.
+- `props` (`object`) - Unified navigation properties.
 
 **Returns**
 
-- `boolean` - Whether the destination represents the current route.
+- `JSX.Element` - Unified page navigation.

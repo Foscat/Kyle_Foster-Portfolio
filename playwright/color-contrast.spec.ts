@@ -364,6 +364,8 @@ test.describe("Rendered color contrast", () => {
     await stabilizePage(page, { theme: "dark" });
     await syncStyleAttributes(page, "dark", "midnight-gold", "cyberpunk");
 
+    await page.getByRole("button", { name: "Open website navigation" }).click();
+    await expect(page.getByRole("dialog", { name: "Website Navigation" })).toBeVisible();
     await page
       .getByRole("button", { name: /open color settings/i })
       .first()
@@ -822,6 +824,8 @@ test.describe("Rendered color contrast", () => {
       }
 
       if (auditCase.openColorMenu) {
+        await page.getByRole("button", { name: "Open website navigation" }).click();
+        await expect(page.getByRole("dialog", { name: "Website Navigation" })).toBeVisible();
         await page
           .getByRole("button", { name: /open color settings/i })
           .first()

@@ -25,7 +25,12 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: "Sanderson Technology Enterprises" })
     ).toBeVisible();
-    await expect(page.getByRole("navigation", { name: /primary navigation/i })).toBeVisible();
+    await page.getByRole("button", { name: "Open website navigation" }).click();
+    const websiteDialog = page.getByRole("dialog", { name: "Website Navigation" });
+    await expect(websiteDialog).toBeVisible();
+    await expect(
+      websiteDialog.getByRole("navigation", { name: /primary navigation/i })
+    ).toBeVisible();
     await expect(page.locator("main")).toBeVisible();
     await expect(page.locator("footer")).toBeVisible();
   });
@@ -38,11 +43,12 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await page.waitForLoadState("networkidle");
     await stabilizePage(page, { theme: "dark" });
 
-    const sectionNavigation = page.getByRole("navigation", { name: /on this page/i });
-    await expect(sectionNavigation).toBeVisible();
-    await sectionNavigation.getByRole("button", { name: /open section navigation/i }).click();
+    await page.getByRole("button", { name: /open section navigation/i }).click();
 
     const sectionDialog = page.getByRole("dialog");
+    await expect(
+      sectionDialog.getByRole("navigation", { name: /on this page/i })
+    ).toBeVisible();
     await expect(
       sectionDialog.getByRole("button", { name: "Interface System", exact: true })
     ).toBeVisible();
