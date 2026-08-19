@@ -6,7 +6,7 @@
 
 ## components/MobileSectionNavTrigger
 
-In-flow route section command bar with a drawer-based explorer.
+Icon-triggered route section drawer.
 
 Design:
 - Section title click → navigate to section
@@ -24,7 +24,7 @@ The parent component (e.g. SectionRenderer) is responsible for:
 
 ### MobileSectionNavTrigger
 
-Compact route section navigation with collapsible subsections.
+Viewport-independent route section navigation with collapsible subsections.
 
 **Parameters**
 

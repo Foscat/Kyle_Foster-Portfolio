@@ -262,6 +262,8 @@ test.describe("UI style visual distinction", () => {
 
     const baseline = await getLayoutSignature(page, LAYOUT_STYLES[0]);
 
+    await page.getByRole("button", { name: "Open website navigation" }).click();
+    await expect(page.getByRole("dialog", { name: "Website Navigation" })).toBeVisible();
     await page
       .getByRole("button", { name: /open color settings/i })
       .first()

@@ -79,7 +79,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
     title: "Sanderson Technology Enterprises | Kyle Foster",
     description:
-      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site work, and reusable interface libraries for specialized business workflows.",
+      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site, and reusable interface libraries for Sanderson Technology Enterprises.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",

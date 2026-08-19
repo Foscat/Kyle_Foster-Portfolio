@@ -31,10 +31,7 @@ test.describe("Side Projects links", () => {
     await stabilizePage(page, { theme: "dark" });
 
     const openAndChooseSection = async (name: string) => {
-      await page
-        .getByRole("navigation", { name: /on this page/i })
-        .getByRole("button", { name: /open section navigation/i })
-        .click();
+      await page.getByRole("button", { name: /open section navigation/i }).click();
       await page.getByRole("dialog").getByRole("button", { name, exact: true }).click();
     };
 

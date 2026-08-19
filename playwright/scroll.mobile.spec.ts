@@ -8,7 +8,6 @@ import { expect, test } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 
 const SIDE_PROJECTS_ROUTE = "/side-projects";
-const SECTION_NAV = 'nav[aria-label="On this page"]';
 
 test.describe("Mobile scroll regressions", () => {
   test("insight-card content supports programmatic vertical scroll", async ({ page }) => {
@@ -50,9 +49,6 @@ test.describe("Mobile scroll regressions", () => {
     await page.goto(SIDE_PROJECTS_ROUTE);
     await stabilizePage(page, { theme: "dark" });
 
-    const nav = page.locator(SECTION_NAV);
-    await expect(nav).toBeVisible();
-
     const sections = page.locator("main section[id]");
     const sectionCount = await sections.count();
     expect(sectionCount).toBeGreaterThan(2);
@@ -65,7 +61,8 @@ test.describe("Mobile scroll regressions", () => {
     expect(secondId).toBeTruthy();
     expect(thirdId).toBeTruthy();
 
-    const sectionTrigger = nav.getByRole("button", { name: /open section navigation/i });
+    const sectionTrigger = page.getByRole("button", { name: /open section navigation/i });
+    await expect(sectionTrigger).toBeVisible();
     const firstLabel = await sectionTrigger.getAttribute("aria-label");
 
     await sections.nth(0).scrollIntoViewIfNeeded();
