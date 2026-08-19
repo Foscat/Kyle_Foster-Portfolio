@@ -1,7 +1,7 @@
 # Navigation Components Reference
 
 - Aggregate reference: [navigation.md](../../../navigation.md)
-- Generated docs in this folder: 11
+- Generated docs in this folder: 13
 
 ## Modules
 
@@ -13,6 +13,8 @@
 - [restoreScrollPositionNavigation.md](./restoreScrollPositionNavigation.md) - `src/components/navigation/helpers/restoreScrollPosition.js`
 - [sectionPersistenceNavigation.md](./sectionPersistenceNavigation.md) - `src/components/navigation/helpers/sectionPersistence.js`
 - [srcComponentsNavigationMobilesectionnavtriggerIndexNavigation.md](./srcComponentsNavigationMobilesectionnavtriggerIndexNavigation.md) - `src/components/navigation/MobileSectionNavTrigger/index.jsx`
+- [srcComponentsNavigationRoutescrollmanagerIndexNavigation.md](./srcComponentsNavigationRoutescrollmanagerIndexNavigation.md) - `src/components/navigation/RouteScrollManager/index.jsx`
 - [srcComponentsNavigationSectionanchornavIndexNavigation.md](./srcComponentsNavigationSectionanchornavIndexNavigation.md) - `src/components/navigation/SectionAnchorNav/index.jsx`
 - [srcComponentsNavigationStickynavIndexNavigation.md](./srcComponentsNavigationStickynavIndexNavigation.md) - `src/components/navigation/StickyNav/index.jsx`
 - [srcComponentsNavigationStickysectionnavIndexNavigation.md](./srcComponentsNavigationStickysectionnavIndexNavigation.md) - `src/components/navigation/StickySectionNav/index.jsx`
+- [srcComponentsNavigationUnifiednavigationIndexNavigation.md](./srcComponentsNavigationUnifiednavigationIndexNavigation.md) - `src/components/navigation/UnifiedNavigation/index.jsx`

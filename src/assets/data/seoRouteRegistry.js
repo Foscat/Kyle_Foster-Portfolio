@@ -12,7 +12,12 @@ export const SITE_LANGUAGE = "en-US";
 export const SITE_LOCALE = "en_US";
 export const SITE_THEME_COLOR = "#1f2793";
 export const SOCIAL_IMAGE_PATH = "/social-share-card.png";
-export const PROFILE_IMAGE_PATH = "/portfolio-icon.jpg";
+
+/**
+ * @description Public square brand asset used for the Person structured-data image.
+ * @type {string}
+ */
+export const PROFILE_IMAGE_PATH = "/favicons/favicon-classic-dark.png";
 export const INDEXABLE_ROBOTS =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 export const NOINDEX_ROBOTS = "noindex, nofollow, noarchive, nosnippet, noimageindex";
@@ -26,18 +31,18 @@ const LAST_MODIFIED = "2026-08-10";
 export const SEO_ROUTE_REGISTRY = Object.freeze({
   [PageRoute.HOME]: Object.freeze({
     path: PageRoute.HOME,
-    title: "Kyle Foster | Senior React Frontend Engineer",
+    title: "Kyle Foster | Frontend Engineer and Product Builder",
     description:
-      "Senior React / Frontend Engineer building clear, scalable interfaces for learning platforms, admin tools, and data-rich product workflows since 2018.",
+      "Kyle Foster is a senior frontend engineer building accessible React products, reusable interface systems, and practical STE software since 2018.",
     indexable: true,
     ogType: "profile",
     pageType: "ProfilePage",
     breadcrumbLabel: "Home",
-    snapshotHeading: "Kyle Foster - Senior React / Frontend Engineer",
+    snapshotHeading: "Kyle Foster - Senior Frontend Engineer & Product Builder",
     snapshotHighlights: Object.freeze([
-      "Frontend engineering since 2018",
-      "Learning platforms and browser-based development tools",
-      "Administrative interfaces and data-rich product workflows",
+      "Sanderson Technology Enterprises product engineering",
+      "Six years of frontend ownership at CodeStream Studios",
+      "Four published interface-system packages on NPM",
     ]),
     lastModified: LAST_MODIFIED,
   }),
@@ -45,7 +50,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.PROFESSIONAL,
     title: "CodeStream Studios Case Study | Kyle Foster",
     description:
-      "See how Kyle Foster built CodeStream Studios' browser-based education platform for students, instructors, and school administrators.",
+      "See how Kyle Foster led frontend architecture for CodeStream Studios' browser-based education platform, including IDE, grading, and classroom workflows.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -62,7 +67,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.HACKATHON,
     title: "Daimler Hackathon Winner Case Study | Kyle Foster",
     description:
-      "Learn how Kyle Foster's team won Daimler's 2019 hackathon with a voice-driven repair assistant designed for hands-free technician workflows.",
+      "See how Kyle Foster's team won Daimler's 2019 hackathon with a hands-free repair assistant designed around technician workflows.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -79,7 +84,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
     title: "Sanderson Technology Enterprises | Kyle Foster",
     description:
-      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site, and Interface System work for Sanderson Technology Enterprises.",
+      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site, and reusable interface libraries for Sanderson Technology Enterprises.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -92,16 +97,33 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ]),
     lastModified: LAST_MODIFIED,
   }),
+  [PageRoute.INTERFACE_SYSTEM]: Object.freeze({
+    path: PageRoute.INTERFACE_SYSTEM,
+    title: "Open-Source Interface System | Kyle Foster",
+    description:
+      "Explore Kyle Foster's layout-style-css package and related interface libraries for theme, icons, and accessible interaction states.",
+    indexable: true,
+    ogType: "article",
+    pageType: "TechArticle",
+    breadcrumbLabel: "Interface System",
+    snapshotHeading: "Kyle Foster's open-source Interface System",
+    snapshotHighlights: Object.freeze([
+      "Responsive layout primitives through layout-style-css",
+      "Theme and icon language through ui-style-kit packages",
+      "Accessible interaction contracts through interactive-surface-css",
+    ]),
+    lastModified: LAST_MODIFIED,
+  }),
   [PageRoute.SIDE_PROJECTS]: Object.freeze({
     path: PageRoute.SIDE_PROJECTS,
-    title: "React, IoT, and CSS Side Projects | Kyle Foster",
+    title: "Frontend & Product Work Archive | Kyle Foster",
     description:
-      "Explore Interface Systems Lab, shared CSS libraries, MERN auth tooling, IoT automation, and domain software from Kyle Foster.",
+      "Explore Interface Systems Lab, MERN tooling, IoT automation, and practical domain software from Kyle Foster's work archive.",
     indexable: true,
     ogType: "website",
     pageType: "CollectionPage",
-    breadcrumbLabel: "Side Projects",
-    snapshotHeading: "React, CSS, MERN, and IoT side projects",
+    breadcrumbLabel: "Work Archive",
+    snapshotHeading: "Frontend, product, MERN, and IoT work archive",
     snapshotHighlights: Object.freeze([
       "Interface Systems Lab and shared CSS libraries",
       "MERN authentication and domain-software experiments",
@@ -113,7 +135,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.EDUCATION,
     title: "SMU Coding Bootcamp Projects | Kyle Foster",
     description:
-      "Explore the early API, team, and full-stack projects Kyle Foster built at SMU while establishing his software development foundation.",
+      "Explore the API, team, and full-stack projects Kyle Foster built while establishing his software development foundation at SMU.",
     indexable: true,
     ogType: "article",
     pageType: "AboutPage",
@@ -243,6 +265,7 @@ export function resolveRouteSeo(pathname, origin) {
 export function buildStructuredData(routeSeo) {
   const websiteId = `${routeSeo.homeUrl}#website`;
   const personId = `${routeSeo.homeUrl}#person`;
+  const organizationId = `${routeSeo.homeUrl}#ste`;
   const webPageId = `${routeSeo.canonicalUrl}#webpage`;
   const homeDescription = SEO_ROUTE_REGISTRY[PageRoute.HOME].description;
   const breadcrumbItems = [
@@ -273,24 +296,33 @@ export function buildStructuredData(routeSeo) {
         url: routeSeo.homeUrl,
         inLanguage: SITE_LANGUAGE,
         description: homeDescription,
+        publisher: { "@id": personId },
       },
       {
         "@type": "Person",
         "@id": personId,
         name: SITE_AUTHOR,
-        jobTitle: "Senior React / Frontend Engineer",
+        jobTitle: "Senior Frontend Engineer and Product Builder",
         url: routeSeo.homeUrl,
         image: routeSeo.profileImageUrl,
         description: homeDescription,
         email: "mailto:fosterkyle6456@gmail.com",
         sameAs: ["https://www.linkedin.com/in/kylefoster-dev", "https://github.com/Foscat"],
+        affiliation: { "@id": organizationId },
         knowsAbout: [
           "React",
           "Frontend engineering",
           "Design systems",
           "Accessible web interfaces",
           "Learning platforms",
+          "Product engineering",
         ],
+      },
+      {
+        "@type": "Organization",
+        "@id": organizationId,
+        name: "Sanderson Technology Enterprises",
+        url: "https://sandersontechnologyenterprises.com/",
       },
       {
         "@type": routeSeo.pageType,
@@ -301,7 +333,10 @@ export function buildStructuredData(routeSeo) {
         dateModified: routeSeo.lastModified,
         inLanguage: SITE_LANGUAGE,
         isPartOf: { "@id": websiteId },
-        about: { "@id": personId },
+        about:
+          routeSeo.path === PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES
+            ? [{ "@id": personId }, { "@id": organizationId }]
+            : { "@id": personId },
         primaryImageOfPage: {
           "@type": "ImageObject",
           url: routeSeo.socialImageUrl,

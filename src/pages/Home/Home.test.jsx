@@ -5,6 +5,7 @@
  */
 
 import { screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Home from "pages/Home";
 import homeSections from "assets/data/content/home";
 import { PageRoute } from "types/navigation.types";
@@ -12,6 +13,7 @@ import { BlockType } from "types/ui.types";
 import renderWithProviders from "tests/renderWithProviders";
 
 const homeRouteContract = Object.freeze({ pageRoute: PageRoute.HOME });
+const LAZY_NAVIGATION_TIMEOUT_MS = 10_000;
 
 /**
  * @file Home.test.jsx
@@ -36,28 +38,31 @@ const homeRouteContract = Object.freeze({ pageRoute: PageRoute.HOME });
  * @module tests/pages/Home
  */
 
-describe("Home hiring flow", () => {
-  it("leads with Kyle's role, selected work, and a direct contact path", async () => {
+describe("Home dual-audience flow", () => {
+  it("leads with Kyle's balanced role and distinct STE and hiring paths", async () => {
     renderWithProviders(<Home />);
 
     const main = screen.getByRole("main");
     expect(within(main).getByRole("heading", { level: 1, name: "Kyle Foster" })).toBeVisible();
-    expect(within(main).getByText("Senior React / Frontend Engineer")).toBeVisible();
-    expect(within(main).getByRole("link", { name: "View selected work" })).toHaveAttribute(
+    expect(within(main).getByText("Senior Frontend Engineer & Product Builder")).toBeVisible();
+    expect(within(main).getByRole("link", { name: "Explore STE work" })).toHaveAttribute(
       "href",
-      "#selected-work"
+      PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES
     );
-    expect(within(main).getAllByRole("link", { name: "Contact Kyle" })[0]).toHaveAttribute(
+    expect(within(main).getByRole("link", { name: "For hiring teams" })).toHaveAttribute(
       "href",
-      PageRoute.CONTACT
+      "#professional-experience"
     );
-    expect(within(main).getByText("Since 2018")).toBeVisible();
+    expect(within(main).getByRole("link", { name: "View NPM libraries" })).toHaveAttribute(
+      "href",
+      PageRoute.INTERFACE_SYSTEM
+    );
   });
 
-  it("keeps the homepage concise while exposing three evidence-backed case studies", () => {
+  it("makes STE the flagship while preserving CodeStream and Daimler as evidence", () => {
     renderWithProviders(<Home />);
 
-    const selectedWork = screen.getByRole("region", { name: "Selected work" });
+    const selectedWork = screen.getByRole("region", { name: "Flagship work" });
     const projectRows = within(selectedWork).getAllByRole("article");
 
     expect(within(selectedWork).getByRole("heading", { name: "CodeStream Studios" })).toBeVisible();
@@ -65,29 +70,54 @@ describe("Home hiring flow", () => {
     expect(
       within(selectedWork).getByRole("heading", { name: "Sanderson Technology Enterprises" })
     ).toBeVisible();
-    expect(
-      within(selectedWork).getByRole("img", { name: /CodeStream Online Studio home page/iu })
-    ).toBeVisible();
     expect(projectRows).toHaveLength(3);
-    expect(within(projectRows[0]).getByText("Featured case")).toBeVisible();
+    expect(
+      within(projectRows[0]).getByRole("heading", { name: "Sanderson Technology Enterprises" })
+    ).toBeVisible();
+    expect(within(projectRows[0]).getByText("Flagship case study")).toBeVisible();
     expect(within(selectedWork).getAllByRole("img")).toHaveLength(3);
-    expect(within(selectedWork).getAllByText("My role")).toHaveLength(3);
     expect(
       screen.queryByRole("navigation", { name: /section navigation/i })
     ).not.toBeInTheDocument();
   });
 
-  it("marks Home as the active primary-navigation destination", async () => {
+  it("features all four published interface-system packages", () => {
     renderWithProviders(<Home />);
 
-    const primaryNavigation = await screen.findByRole("navigation", {
-      name: /primary navigation/i,
-    });
-    expect(within(primaryNavigation).getByRole("link", { current: "page" })).toHaveAttribute(
-      "href",
-      homeRouteContract.pageRoute
-    );
+    const ecosystem = screen.getByRole("region", { name: "Open-source interface system" });
+    expect(within(ecosystem).getByText("layout-style-css")).toBeVisible();
+    expect(within(ecosystem).getByText("ui-style-kit-css")).toBeVisible();
+    expect(within(ecosystem).getByText("ui-style-kit-icons")).toBeVisible();
+    expect(within(ecosystem).getByText("interactive-surface-css")).toBeVisible();
+    expect(
+      within(ecosystem).getByRole("link", { name: "Explore the Interface System" })
+    ).toHaveAttribute("href", PageRoute.INTERFACE_SYSTEM);
   });
+
+  it(
+    "marks Home as the active primary-navigation destination",
+    async () => {
+      const user = userEvent.setup();
+      renderWithProviders(<Home />);
+
+      const websiteTrigger = await screen.findByRole(
+        "button",
+        { name: "Open website navigation" },
+        { timeout: LAZY_NAVIGATION_TIMEOUT_MS }
+      );
+      await user.click(websiteTrigger);
+      const primaryNavigation = await screen.findByRole(
+        "navigation",
+        { name: /primary navigation/i },
+        { timeout: LAZY_NAVIGATION_TIMEOUT_MS }
+      );
+      expect(within(primaryNavigation).getByRole("link", { current: "page" })).toHaveAttribute(
+        "href",
+        homeRouteContract.pageRoute
+      );
+    },
+    LAZY_NAVIGATION_TIMEOUT_MS + 5_000
+  );
 });
 
 const getProgramsOfNoteBlock = () =>

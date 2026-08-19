@@ -6,6 +6,7 @@
 
 import { describe, expect, it } from "vitest";
 import { BlockType } from "types/ui.types.js";
+import { PageRoute } from "types/navigation.types.js";
 import pageSummaryMetas from "../pageSummaryMetas.js";
 import projectMetas from "../projectMetas.js";
 import resumeData from "./resumeData.js";
@@ -139,6 +140,7 @@ describe("portfolio content quality", () => {
   });
 
   it("keeps every internal route and anchor destination valid", () => {
+    const registeredRoutes = new Set(Object.values(PageRoute));
     const routeIds = new Map(
       Object.entries(ROUTE_CONTENT).map(([route, sections]) => [
         route,
@@ -154,7 +156,9 @@ describe("portfolio content quality", () => {
         const normalizedPath = (rawPath || sourceRoute).replace(/\/+$/u, "") || "/";
         const ids = routeIds.get(normalizedPath);
 
-        if (!ids || (anchor && !ids.has(anchor))) invalidLinks.push(`${sourceRoute}: ${href}`);
+        if (!registeredRoutes.has(normalizedPath) || (anchor && (!ids || !ids.has(anchor)))) {
+          invalidLinks.push(`${sourceRoute}: ${href}`);
+        }
       }
     }
 

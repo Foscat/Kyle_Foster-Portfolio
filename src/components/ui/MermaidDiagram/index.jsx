@@ -6,7 +6,15 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Modal, Panel } from "rsuite";
-import { faExpand, faEye, faFileDownload } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCompress,
+  faExpand,
+  faEye,
+  faFileDownload,
+  faMagnifyingGlassMinus,
+  faMagnifyingGlassPlus,
+  faRotateLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { toPng } from "html-to-image";
 import { Size, Theme, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
@@ -23,6 +31,7 @@ const EXPORT_PADDING_PX = 24;
 const EXPORT_PIXEL_RATIO = 3;
 const EXPORT_EDGE_LABEL_FONT_SIZE = "14px";
 const INLINE_SVG_PADDING_PX = 12;
+const EXPLORER_KEYBOARD_PAN_PX = 64;
 
 function toExportFilename(title) {
   const cleanedTitle = String(title || "diagram")
@@ -993,6 +1002,7 @@ function MermaidDiagram(props) {
   // Refs and state for managing the diagram host element and toggling between mobile and desktop diagrams when both are available. The `forceAlt` state is used to allow users to manually switch between the mobile and desktop versions of the diagram, while the `isMobile` value from the responsive context determines which version is shown by default based on the current viewport size. The `hostRef` is used to directly manipulate the DOM element where Mermaid renders the SVG, enabling dynamic updates and export functionality.
   const hostRef = useRef(null);
   const fullscreenHostRef = useRef(null);
+  const panZoomRef = useRef(null);
   const [forceAlt, setForceAlt] = useState(false);
   const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
   const { isMobile } = useResponsive();
@@ -1121,6 +1131,36 @@ function MermaidDiagram(props) {
 
         host.innerHTML = svg;
         normalizeRenderedSvg(host, { theme: resolvedTheme, palette });
+
+        const renderedSvg = host.querySelector("svg");
+        if (!renderedSvg || typeof renderedSvg.createSVGPoint !== "function") return;
+
+        renderedSvg.style.width = "100%";
+        renderedSvg.style.height = "100%";
+        renderedSvg.style.maxWidth = "none";
+        renderedSvg.style.touchAction = "none";
+
+        // Load pan/zoom only when the explorer opens so inline diagrams stay lightweight.
+        const panZoomModule = await import("svg-pan-zoom");
+        if (cancelled) return;
+
+        const createPanZoom = panZoomModule.default || panZoomModule;
+        const controller = createPanZoom(renderedSvg, {
+          center: true,
+          controlIconsEnabled: false,
+          dblClickZoomEnabled: true,
+          fit: true,
+          maxZoom: 12,
+          minZoom: 0.25,
+          mouseWheelZoomEnabled: true,
+          panEnabled: true,
+          preventMouseEventsDefault: true,
+          zoomEnabled: true,
+        });
+        controller.resize();
+        controller.fit();
+        controller.center();
+        panZoomRef.current = controller;
       } catch (error) {
         if (!cancelled) {
           recoverFromMermaidChunkFailure(error);
@@ -1137,8 +1177,35 @@ function MermaidDiagram(props) {
 
     return () => {
       cancelled = true;
+      panZoomRef.current?.destroy?.();
+      panZoomRef.current = null;
     };
-  }, [isFullscreenOpen, finalDiagram, renderId]);
+  }, [finalDiagram, isFullscreenOpen, palette, renderId, resolvedTheme]);
+
+  const zoomIn = () => panZoomRef.current?.zoomIn?.();
+  const zoomOut = () => panZoomRef.current?.zoomOut?.();
+  const fitDiagram = () => {
+    panZoomRef.current?.resize?.();
+    panZoomRef.current?.fit?.();
+    panZoomRef.current?.center?.();
+  };
+  const resetDiagram = () => {
+    panZoomRef.current?.resetZoom?.();
+    panZoomRef.current?.center?.();
+  };
+  const handleExplorerKeyDown = (event) => {
+    const panByKey = {
+      ArrowDown: { x: 0, y: -EXPLORER_KEYBOARD_PAN_PX },
+      ArrowLeft: { x: EXPLORER_KEYBOARD_PAN_PX, y: 0 },
+      ArrowRight: { x: -EXPLORER_KEYBOARD_PAN_PX, y: 0 },
+      ArrowUp: { x: 0, y: EXPLORER_KEYBOARD_PAN_PX },
+    };
+    const delta = panByKey[event.key];
+    if (!delta || !panZoomRef.current?.panBy) return;
+
+    event.preventDefault();
+    panZoomRef.current.panBy(delta);
+  };
 
   /**
    * @function handleExport
@@ -1153,10 +1220,10 @@ function MermaidDiagram(props) {
    * @returns {Promise<void>} A promise that resolves when the export process is complete, allowing for asynchronous handling of the export operation.
    */
   async function handleExport() {
-    if (!hostRef.current) return;
+    const exportHost = isFullscreenOpen ? fullscreenHostRef.current : hostRef.current;
+    if (!exportHost) return;
 
     const filename = toExportFilename(title);
-    const exportHost = hostRef.current;
     const svg = exportHost.querySelector("svg");
     if (!svg) return;
 
@@ -1282,8 +1349,64 @@ function MermaidDiagram(props) {
         keyboard={true}
         className="mermaid-fullscreen-modal"
         size="full"
+        aria-labelledby={`${renderId}-explorer-title`}
       >
-        <Modal.Header className="mermaid-fullscreen-modal__header" />
+        <Modal.Header className="mermaid-fullscreen-modal__header">
+          <Modal.Title id={`${renderId}-explorer-title`} className="mermaid-explorer-title">
+            {title || "Mermaid diagram"} diagram explorer
+          </Modal.Title>
+          <div
+            className="mermaid-explorer-toolbar"
+            role="toolbar"
+            aria-label="Diagram explorer controls"
+          >
+            <Btn
+              size={Size.SM}
+              icon={faMagnifyingGlassPlus}
+              onClick={zoomIn}
+              tooltip="Zoom in"
+              ariaLabel="Zoom in"
+              variant={Variant.ACCENT}
+              noBG
+            />
+            <Btn
+              size={Size.SM}
+              icon={faMagnifyingGlassMinus}
+              onClick={zoomOut}
+              tooltip="Zoom out"
+              ariaLabel="Zoom out"
+              variant={Variant.ACCENT}
+              noBG
+            />
+            <Btn
+              size={Size.SM}
+              icon={faCompress}
+              onClick={fitDiagram}
+              tooltip="Fit diagram"
+              ariaLabel="Fit diagram"
+              variant={Variant.ACCENT}
+              noBG
+            />
+            <Btn
+              size={Size.SM}
+              icon={faRotateLeft}
+              onClick={resetDiagram}
+              tooltip="Reset diagram"
+              ariaLabel="Reset diagram"
+              variant={Variant.ACCENT}
+              noBG
+            />
+            <Btn
+              size={Size.SM}
+              icon={faFileDownload}
+              onClick={handleExport}
+              tooltip="Download diagram as PNG"
+              ariaLabel="Export diagram as PNG"
+              variant={Variant.ACCENT}
+              noBG
+            />
+          </div>
+        </Modal.Header>
         <Modal.Body className="mermaid-fullscreen-modal__body">
           <div className="mermaid-fullscreen-stage">
             <div className="mermaid mermaid-fullscreen-canvas">
@@ -1292,7 +1415,8 @@ function MermaidDiagram(props) {
                 className={`mermaid-svg-host mermaid-svg-host--fullscreen ${resolvedTheme}`}
                 tabIndex={0}
                 role="img"
-                aria-label="Mermaid diagram fullscreen view"
+                aria-label="Mermaid diagram fullscreen view. Use arrow keys to pan."
+                onKeyDown={handleExplorerKeyDown}
               />
             </div>
           </div>

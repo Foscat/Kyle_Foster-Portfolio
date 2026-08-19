@@ -1,8 +1,7 @@
 /* 
   * @file styles.css
-  * @fileoverview CSS styles for the StickyNav component, including layout, theming,
-  * and responsive design for both desktop and mobile navigation variants.
-  * @module components/StickyNav/styles
+  * @fileoverview CSS styles for the unified primary and route-section navigation.
+  * @module components/navigation/UnifiedNavigation/styles
  */
 
 .sticky-nav {
@@ -432,8 +431,27 @@ html[data-theme="dark"]
    ─────────────────────────────────────────────────────────────────────────── */
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface {
-  border: none;
+  display: flex;
+  width: 100%;
+  min-height: 3rem;
+  align-items: center;
+  padding: 0.65rem 0.85rem;
+  border-color: var(--app-surface-border-color);
+  border-radius: var(--app-surface-radius-sm);
+  background: var(--app-surface-bg);
+  color: var(--app-surface-readable-fg);
+  box-shadow: var(--app-surface-shadow-soft);
+  font-family: var(--app-control-font-family);
+  font-weight: 700;
   text-decoration: none;
+  transition:
+    translate 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    outline-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    background-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    border-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    color 140ms cubic-bezier(0.2, 0, 0.2, 1),
+    filter 140ms cubic-bezier(0.2, 0, 0.2, 1);
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface > a,
@@ -454,30 +472,14 @@ html[data-theme="dark"]
   .rs-nav.rs-nav-default
   .rs-nav-item.interactive-surface
   .rs-nav-item-content:active {
-  color: var(--text-primary) !important;
-}
-
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:hover,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface:focus,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.interactive-surface.rs-nav-item-focus {
-  background: var(--nav-drawer-item-hover-bg) !important;
-  color: var(--nav-drawer-item-hover-fg) !important;
+  color: inherit !important;
+  background: transparent !important;
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
   color: var(--nav-drawer-active-surface-fg);
   background: var(--nav-drawer-active-surface-bg);
-}
-
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:hover,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active:focus,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active.rs-nav-item-focus,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"]:hover,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"]:focus,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"].rs-nav-item-focus {
-  background: var(--nav-drawer-active-hover-bg) !important;
-  color: var(--nav-drawer-active-hover-fg) !important;
 }
 
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active .rs-nav-item-content,
@@ -488,7 +490,7 @@ html[data-theme="dark"]
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active > a:focus-visible,
 .mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] > a {
   color: inherit !important;
-  background: inherit !important;
+  background: transparent !important;
 }
 
 .mobile-only {
@@ -532,7 +534,28 @@ html[data-theme="light"]
 }
 
 .mobile-nav-drawer .rs-drawer-header .rs-drawer-title {
-  font-size: var(--font-lg);
+  min-width: 0;
+  overflow: visible;
+  font-size: clamp(1.2rem, 4.8vw, 1.45rem);
+  line-height: 1.2;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.mobile-nav-drawer .rs-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mobile-nav-drawer .mobile-nav-drawer__close.btn.icon-only {
+  position: static;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  color: var(--text-accent);
 }
 
 .mobile-nav-drawer .rs-drawer-header .rs-drawer-header-close {
@@ -575,6 +598,33 @@ html[data-theme="light"]
   margin: 0;
 }
 
+/* Light Y2K accent fills need a neutral surface so icon-only drawer controls
+   retain readable contrast without changing the selected palette. */
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .mobile-nav-drawer__close.btn.icon-only,
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .sticky-nav-mobile-resume-trigger.btn.icon-only {
+  color: var(--app-surface-readable-fg) !important;
+  background: var(--app-surface-bg) !important;
+}
+
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .mobile-nav-drawer__close.btn.icon-only
+  .frosted-icon,
+html[data-theme="light"]
+  body[data-ui="y2k"]
+  .mobile-nav-drawer
+  .sticky-nav-mobile-resume-trigger.btn.icon-only
+  .frosted-icon {
+  color: inherit !important;
+}
+
 /* Slide-down animation */
 @keyframes slideDown {
   from {
@@ -589,7 +639,7 @@ html[data-theme="light"]
 }
 
 /* Mobile + small tablet responsiveness */
-@media (width < 1200px) {
+@media (width < 940px) {
   .desktop-menu {
     display: none;
   }
@@ -648,6 +698,12 @@ html[data-theme="light"]
     background: transparent;
     border: var(--app-surface-border);
     border-radius: var(--app-surface-radius-sm);
+  }
+
+  .mobile-site-header .rs-btn.btn.interactive-surface.icon-only {
+    /* The shared icon-button primitive centers standalone icons. The app
+       header owns edge alignment, so its menu control must opt out locally. */
+    margin: 0 0 0 auto;
   }
 
   .mobile-site-header .frosted-icon.btn-icon {
@@ -828,10 +884,73 @@ html[data-theme="light"]
   }
 
   .rs-drawer-backdrop .mobile-section-nav-drawer {
-    left: auto;
+    left: 0;
     right: 0;
-    width: auto;
-    padding: 3px;
+    width: 100% !important;
+    padding: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Portfolio remodel: labeled command bar
+   ------------------------------------------------------------------ */
+
+.desktop-menu .sticky-nav-pages-group {
+  gap: 0.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.desktop-menu .fi-desk-nav-item .nav-link {
+  width: auto;
+  min-width: auto;
+  min-height: 2.6rem;
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  color: var(--app-surface-muted-fg);
+  border: 1px solid transparent;
+  border-radius: var(--app-surface-radius-sm);
+  font-family: var(--app-control-font-family);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.desktop-menu .fi-desk-nav-item .nav-link:hover,
+.desktop-menu .fi-desk-nav-item .nav-link:focus-visible {
+  color: var(--app-surface-fg);
+  border-color: var(--app-surface-accent);
+}
+
+.desktop-menu .fi-desk-nav-item .nav-link.is-active,
+.desktop-menu .fi-desk-nav-item .nav-link[aria-current="page"] {
+  /* Active links use the semantic on-accent color across every UI palette. */
+  color: var(--app-surface-accent-fg) !important;
+  border-color: var(--app-surface-accent);
+  background: var(--app-surface-accent);
+}
+
+@media (width >= 940px) {
+  .desktop-menu {
+    justify-content: flex-start;
+    gap: clamp(0.65rem, 1.5vw, 1.25rem);
+    width: 100%;
+    margin-bottom: clamp(0.6rem, 1.5vw, 1.2rem);
+    padding: 0.45rem clamp(0.55rem, 1.25vw, 1rem);
+    border: var(--app-surface-border);
+    border-radius: var(--app-surface-radius-md);
+    background: var(--app-surface-strong-bg);
+  }
+
+  .desktop-menu .sticky-nav-brand {
+    margin-right: 0;
+  }
+
+  .desktop-menu .sticky-nav-tools-group {
+    margin-left: auto;
   }
 }
 
@@ -849,4 +968,89 @@ html[data-theme="light"]
   }
 }
 
-/* Narrow mobile devices */
+/* ------------------------------------------------------------------
+   Unified full-width navigation surface
+   ------------------------------------------------------------------ */
+
+.unified-navigation {
+  --unified-navigation-breakout-start: max(clamp(1rem, 3vw, 3rem), env(safe-area-inset-left, 0px));
+  --unified-navigation-breakout-end: max(clamp(1rem, 3vw, 3rem), env(safe-area-inset-right, 0px));
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Resolve the breakout gutter in viewport space. The layout library's
+     container-relative custom property is intentionally not inherited here:
+     inherited cqi units would be recalculated against this nested container. */
+  width: calc(
+    100% + var(--unified-navigation-breakout-start) + var(--unified-navigation-breakout-end)
+  );
+  margin-left: calc(var(--unified-navigation-breakout-start) * -1);
+  margin-right: calc(var(--unified-navigation-breakout-end) * -1);
+  color: var(--app-surface-fg);
+  /* Persistent navigation stays nearly opaque so scrolling content never
+     competes with the icon controls. */
+  background: rgb(var(--usk-surface-strong-rgb, 20 52 66) / 0.985);
+  border-block: 0 var(--app-surface-border);
+  border-radius: 0;
+  box-shadow: var(--app-surface-shadow-soft);
+  -webkit-backdrop-filter: var(--app-surface-backdrop-filter);
+  backdrop-filter: var(--app-surface-backdrop-filter);
+}
+
+.unified-navigation__inner {
+  display: grid;
+  grid-template-columns: minmax(2.75rem, 1fr) auto minmax(2.75rem, 1fr);
+  grid-template-areas: "site brand sections";
+  align-items: center;
+  width: min(
+    var(--page-max-width),
+    calc(100% - var(--unified-navigation-breakout-start) - var(--unified-navigation-breakout-end))
+  );
+  min-width: 0;
+  min-height: 4rem;
+  margin-inline: auto;
+}
+
+.unified-navigation__site-trigger {
+  grid-area: site;
+  display: flex;
+  align-items: center;
+  justify-self: start;
+}
+
+.unified-navigation__brand {
+  grid-area: brand;
+  justify-self: center;
+  margin: 0;
+  padding: 0.65rem;
+  border: 0;
+}
+
+.unified-navigation__sections,
+.unified-navigation__section-spacer {
+  grid-area: sections;
+  justify-self: end;
+}
+
+.unified-navigation__sections {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.unified-navigation__section-spacer {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.unified-navigation__site-trigger .btn.icon-only,
+.unified-navigation__site-trigger .rs-btn.btn.interactive-surface.icon-only,
+.unified-navigation__sections .btn.icon-only,
+.unified-navigation__sections .rs-btn.btn.interactive-surface.icon-only {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0.55rem;
+}

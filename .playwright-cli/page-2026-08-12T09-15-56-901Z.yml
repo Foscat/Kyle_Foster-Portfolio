@@ -1,0 +1,129 @@
+- generic [ref=e1]:
+    - generic [ref=e3]:
+        - link "Skip to main content" [ref=e4] [cursor=pointer]:
+            - /url: "#main-content"
+        - generic [ref=e7]:
+            - banner [ref=e8]:
+                - generic [ref=e9]:
+                    - button "Open website navigation" [ref=e11] [cursor=pointer]
+                    - link "Kyle Foster home" [ref=e14] [cursor=pointer]:
+                        - /url: /
+                        - text: KF
+                    - 'button "Open section navigation: System overview" [expanded] [ref=e17] [cursor=pointer]'
+            - banner [ref=e20]:
+                - generic [ref=e21]:
+                    - paragraph [ref=e22]: Open source / product infrastructure
+                    - heading "The Interface System" [level=1] [ref=e23]
+                    - paragraph [ref=e24]: Four focused libraries. One coherent way to build responsive interfaces.
+                    - paragraph [ref=e25]: I separated structure, visual identity, icon language, and interaction behavior so teams can evolve one concern without destabilizing the others.
+                - generic "Interface system summary" [ref=e26]:
+                    - generic [ref=e27]:
+                        - term [ref=e28]: Published
+                        - definition [ref=e29]: 4 packages
+                    - generic [ref=e30]:
+                        - term [ref=e31]: Primary use
+                        - definition [ref=e32]: Responsive React products
+                    - generic [ref=e33]:
+                        - term [ref=e34]: Core standard
+                        - definition [ref=e35]: Accessible by default
+            - main [ref=e37]:
+                - region "Published packages" [ref=e38]:
+                    - generic [ref=e39]:
+                        - paragraph [ref=e40]: The package set
+                        - heading "Small responsibilities, clear boundaries" [level=2] [ref=e41]
+                        - paragraph [ref=e42]: Each package has one job. Together they form a portable foundation that remains understandable as a product grows.
+                    - generic [ref=e43]:
+                        - article [ref=e44]:
+                            - generic [ref=e45]:
+                                - generic [ref=e46]: "01"
+                                - generic [ref=e47]: Structure
+                            - heading "layout-style-css" [level=3] [ref=e48]
+                            - paragraph [ref=e49]: Responsive layout primitives, intrinsic sizing, shell topology, and orientation-aware behavior.
+                            - generic [ref=e50]:
+                                - generic [ref=e51]: v3.0.1
+                                - link "View on NPM" [ref=e52] [cursor=pointer]:
+                                    - /url: https://www.npmjs.com/package/layout-style-css
+                        - article [ref=e55]:
+                            - generic [ref=e56]:
+                                - generic [ref=e57]: "02"
+                                - generic [ref=e58]: Theme
+                            - heading "ui-style-kit-css" [level=3] [ref=e59]
+                            - paragraph [ref=e60]: Palette-aware design tokens, typography, surface treatments, and reusable visual language.
+                            - generic [ref=e61]:
+                                - generic [ref=e62]: v2.2.0
+                                - link "View on NPM" [ref=e63] [cursor=pointer]:
+                                    - /url: https://www.npmjs.com/package/ui-style-kit-css
+                        - article [ref=e66]:
+                            - generic [ref=e67]:
+                                - generic [ref=e68]: "03"
+                                - generic [ref=e69]: Icons
+                            - heading "ui-style-kit-icons" [level=3] [ref=e70]
+                            - paragraph [ref=e71]: A focused icon vocabulary that keeps meaning and visual weight consistent across products.
+                            - generic [ref=e72]:
+                                - generic [ref=e73]: v1.0.0
+                                - link "View on NPM" [ref=e74] [cursor=pointer]:
+                                    - /url: https://www.npmjs.com/package/ui-style-kit-icons
+                        - article [ref=e77]:
+                            - generic [ref=e78]:
+                                - generic [ref=e79]: "04"
+                                - generic [ref=e80]: Behavior
+                            - heading "interactive-surface-css" [level=3] [ref=e81]
+                            - paragraph [ref=e82]: Accessible interaction states, focus treatment, depth, and feedback for clickable surfaces.
+                            - generic [ref=e83]:
+                                - generic [ref=e84]: v1.6.0
+                                - link "View on NPM" [ref=e85] [cursor=pointer]:
+                                    - /url: https://www.npmjs.com/package/interactive-surface-css
+                - region [ref=e88]:
+                    - generic [ref=e89]:
+                        - paragraph [ref=e90]: Architecture
+                        - heading "A deliberate ownership model" [level=2] [ref=e91]
+                        - paragraph [ref=e92]: The system reduces style collisions by making each layer's responsibility explicit.
+                    - table "Library ownership model" [ref=e93]:
+                        - row [ref=e94]:
+                            - cell "Layout" [ref=e95]
+                            - cell "layout-style-css" [ref=e96]
+                            - cell "Where content sits, wraps, stacks, and responds" [ref=e97]
+                        - row [ref=e98]:
+                            - cell "Paint" [ref=e99]
+                            - cell "ui-style-kit-css" [ref=e100]
+                            - cell "How the product looks and how themes express identity" [ref=e101]
+                        - row [ref=e102]:
+                            - cell "Language" [ref=e103]
+                            - cell "ui-style-kit-icons" [ref=e104]
+                            - cell "How controls communicate meaning without extra copy" [ref=e105]
+                        - row [ref=e106]:
+                            - cell "Interaction" [ref=e107]
+                            - cell "interactive-surface-css" [ref=e108]
+                            - cell "How surfaces respond to focus, hover, press, and selection" [ref=e109]
+                - region [ref=e110]:
+                    - generic [ref=e111]:
+                        - paragraph [ref=e112]: Applied, not theoretical
+                        - heading "See the system inside real product work" [level=2] [ref=e113]
+                        - paragraph [ref=e114]: The portfolio and STE product interfaces exercise the same responsive, thematic, and interaction contracts the packages publish.
+                    - link "See the system in project work" [ref=e115] [cursor=pointer]:
+                        - /url: /side-projects#layout-style-css
+            - contentinfo [ref=e120]:
+                - generic [ref=e121]:
+                    - generic [ref=e122]: © 2026 Kyle Foster
+                    - button "Copy phone number to clipboard" [ref=e124] [cursor=pointer]:
+                        - generic [ref=e125]: Contact me at (469) 410-5286
+                    - generic [ref=e126]:
+                        - link "Visit GitHub profile" [ref=e127] [cursor=pointer]:
+                            - /url: https://github.com/Foscat
+                        - link "Visit LinkedIn profile" [ref=e130] [cursor=pointer]:
+                            - /url: https://linkedin.com/in/kylefoster-dev
+                        - link "Send email" [ref=e133] [cursor=pointer]:
+                            - /url: mailto:fosterkyle6456@gmail.com
+        - generic:
+            - button "Back to top"
+    - dialog [ref=e138]:
+        - document [ref=e139]:
+            - generic [ref=e140]:
+                - generic [ref=e141]:
+                    - heading "Interface system Page" [level=4] [ref=e142]
+                    - button "Close section navigation" [ref=e143] [cursor=pointer]
+                - navigation "On this page" [ref=e147]:
+                    - button "System overview" [ref=e150] [cursor=pointer]
+                    - button "Published packages" [ref=e154] [cursor=pointer]
+                    - button "Ownership model" [ref=e158] [cursor=pointer]
+                    - button "Implementation proof" [ref=e162] [cursor=pointer]

@@ -5,17 +5,45 @@
  */
 
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import sideProjectsSections from "assets/data/content/side-projects";
 import { PageHeader } from "components/layout";
-import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
+import { PageRoute } from "types/navigation.types";
+import "./styles.css";
 
 const sidePro = {
   ...pageSummaryMetas.SideProjects,
   sections: sideProjectsSections,
 };
+
+const workArchiveItems = [
+  {
+    label: "CodeStream",
+    description: "Frontend architecture for a classroom learning platform.",
+    route: PageRoute.CODE_STREAM,
+  },
+  {
+    label: "Hackathon Work",
+    description: "Winning repair-workflow prototype built under a compressed timeline.",
+    route: PageRoute.HACKATHON,
+  },
+  {
+    label: "SMU Systems",
+    description: "Early API, team, and full-stack projects from formal training.",
+    route: PageRoute.EDUCATION,
+  },
+  {
+    label: "Engineering Docs",
+    description: "Architecture notes, test standards, and implementation references.",
+    route: PageRoute.DOCS,
+  },
+];
 const DIAGRAM_DEFER_CONFIG = {
   rootMargin: "480px 0px",
   threshold: 0.01,
@@ -100,6 +128,11 @@ const SideProjects = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
+        <UnifiedNavigation
+          activePage={sidePro.url}
+          pageUrl={sidePro.url}
+          sections={sidePro.sections}
+        />
         <PageHeader
           title={sidePro.title}
           subTitle={sidePro.description}
@@ -107,9 +140,31 @@ const SideProjects = () => {
           timespan={sidePro.timespan}
           tech={sidePro.tech}
         />
-        <StickyNav activePage={sidePro.url} />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
+            <nav className="work-archive" aria-labelledby="work-archive-title">
+              <header className="work-archive__header">
+                <p>Case-study index</p>
+                <h2 id="work-archive-title">Explore the work archive</h2>
+              </header>
+              <div className="work-archive__grid">
+                {workArchiveItems.map((item) => (
+                  <Link
+                    className="work-archive__link interactive-surface"
+                    data-surface-variant="subtle"
+                    data-surface-level="1"
+                    key={item.route}
+                    to={item.route}
+                  >
+                    <span>
+                      <strong>{item.label}</strong>
+                      <small>{item.description}</small>
+                    </span>
+                    <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+            </nav>
             {sidePro.sections.map((sect, sectionIndex) => {
               return (
                 <SectionRenderer
@@ -124,9 +179,6 @@ const SideProjects = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav pageUrl={sidePro.url} sections={sidePro.sections} />
-          </aside>
         </div>
         <Footer />
       </div>

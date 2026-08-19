@@ -35,6 +35,12 @@ Static registry of project metadata for portfolio cards and detail surfaces.
 
 Pure route-level SEO registry shared by React and build tooling.
 
+### PROFILE\_IMAGE\_PATH
+
+Public square brand asset used for the Person structured-data image.
+
+- Type: `string`
+
 ### SEO\_ROUTE\_REGISTRY
 
 Route metadata used by the runtime head manager, static HTML generator, and sitemap.
@@ -166,9 +172,9 @@ Load hydrated portfolio docs for a category, including raw markdown `content`.
 
 Structured resume content used by the resume preview/export feature.
 
-## src\\assets\\data\\content\\codestream\\diagrams
+## assets/data/content/codestream/diagrams
 
-src\assets\data\content\codestream\diagrams module.
+Product-story diagrams for the CodeStream Studios case study.
 
 ## src\\assets\\data\\content\\codestream\\index
 
@@ -182,9 +188,9 @@ CodeStream Case Study Data -----------------------------------------------------
 
 Alternative contact page content module.
 
-## src\\assets\\data\\content\\hackathon\\diagrams
+## assets/data/content/hackathon/diagrams
 
-src\assets\data\content\hackathon\diagrams module.
+Product-story diagrams for the hands-free repair hackathon project.
 
 ## src\\assets\\data\\content\\hackathon\\index
 
@@ -218,9 +224,9 @@ src\assets\data\content\side-projects\diagrams module.
 
 src\assets\data\content\side-projects\index module.
 
-## src\\assets\\data\\content\\smu\\diagrams
+## assets/data/content/smu/diagrams
 
-src\assets\data\content\smu\diagrams module.
+Product-story diagrams for projects completed through SMU.
 
 ## src\\assets\\data\\content\\smu\\index
 

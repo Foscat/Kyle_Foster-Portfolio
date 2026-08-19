@@ -147,12 +147,13 @@ describe("ui-style compatibility", () => {
 
     expect(appShell).toContain("ly-page");
     expect(pageMarkup).toContain("ly-wrapper");
-    expect(pageMarkup).toContain('className="page-layout ly-sidebar"');
-    expect(pageMarkup).toContain("ly-sidebar__content");
-    expect(pageMarkup).toContain("ly-sidebar__side");
+    expect(pageMarkup).toContain('className="page-layout"');
+    expect(pageMarkup).toContain("UnifiedNavigation");
+    expect(pageMarkup).not.toContain("page-sidebar");
+    expect(pageMarkup).not.toContain("ly-sidebar__content");
+    expect(pageMarkup).not.toContain("ly-sidebar__side");
     expect(pageMarkup).not.toContain("ly-sidebar-layout");
     expect(pageMarkup).not.toContain("ly-app-main");
-    expect(pageMarkup).toContain("ly-sidebar");
     expect(pageMarkup).toContain("ly-section");
     expect(pageMarkup).toContain("ly-surface");
     expect(pageMarkup).toContain("ly-stack");
@@ -162,19 +163,22 @@ describe("ui-style compatibility", () => {
     expect(pageMarkup).toContain("ly-gallery");
   });
 
-  it("keeps the portfolio route sidebar contract local and breakpoint-aligned", () => {
+  it("keeps the unified route navigation contract local and breakpoint-aligned", () => {
     const css = readProjectFile("src/App.css");
     const stickyNavCss = readProjectFile("src/components/navigation/StickySectionNav/styles.css");
+    const unifiedNavCss = readProjectFile("src/components/navigation/UnifiedNavigation/styles.css");
     const mobileNavCss = readProjectFile(
       "src/components/navigation/MobileSectionNavTrigger/styles.css"
     );
 
-    expect(css).toContain("@media (width < 1200px)");
-    expect(css).toContain("@media (width >= 1200px)");
-    expect(css).toContain(".page-layout.ly-sidebar");
-    expect(css).toContain("--portfolio-route-sidebar-width");
-    expect(css).toContain("--portfolio-route-sidebar-width: clamp(14.5rem");
-    expect(css).toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(css).toContain("@media (width >= 900px)");
+    expect(css).toContain("--portfolio-primary-nav-height");
+    expect(css).not.toContain(".page-sidebar");
+    expect(unifiedNavCss).toContain(".unified-navigation");
+    expect(unifiedNavCss).toContain("@media (width < 940px)");
+    expect(css).not.toContain("--portfolio-route-sidebar-width");
+    expect(css).not.toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(mobileNavCss).toContain(".route-section-nav");
     expect(`${stickyNavCss}\n${mobileNavCss}`).not.toContain("overflow-wrap: anywhere");
     expect(stickyNavCss).toContain("word-break: normal");
     expect(stickyNavCss).toContain("hyphens: none");

@@ -40,10 +40,18 @@
   width: 100%;
 }
 
+.mobile-section-nav-drawer.rs-drawer {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100%;
+  padding: 0 !important;
+}
+
 .mobile-section-nav-drawer .rs-drawer-dialog {
   /* The drawer overlays the page, but its layout box must remain inside narrow mobile viewports. */
-  width: min(calc(100vw - 20px), 420px) !important;
-  max-width: calc(100vw - 20px);
+  width: min(100%, 420px) !important;
+  max-width: 100%;
   margin: 0 0 0 auto;
 }
 
@@ -88,13 +96,11 @@
 .mobile-section-title {
   flex: 1;
   width: 100%;
-  padding: 0.5rem 0.2rem;
+  padding: 0.55rem 0.7rem;
   min-height: 44px;
   font: inherit;
   font-size: var(--font-md);
   line-height: 1.25;
-  background: none;
-  border: none;
   text-align: left;
   cursor: pointer;
   overflow-wrap: normal;
@@ -106,6 +112,7 @@
 
 .mobile-section-title.rs-btn.btn.interactive-surface,
 .mobile-subsection.rs-btn.btn.interactive-surface {
+  justify-content: flex-start;
   font-family: var(--font-Golos);
   font-weight: 500;
 }
@@ -134,13 +141,11 @@
 }
 
 .mobile-subsection {
-  padding: 0.45rem 0.25rem;
+  padding: 0.5rem 0.65rem;
   min-height: 40px;
   font: inherit;
   font-size: var(--font-sm);
   line-height: 1.25;
-  background: none;
-  border: none;
   text-align: left;
   cursor: pointer;
   overflow-wrap: normal;
@@ -160,8 +165,8 @@
 
 .mobile-section-group.is-active .mobile-section-title,
 .mobile-subsection.is-active {
-  color: var(--section-drawer-active-text-color);
-  font-weight: 500;
+  color: var(--app-surface-readable-fg, var(--section-drawer-active-text-color)) !important;
+  font-weight: 700;
 }
 
 .mobile-section-group.is-active .mobile-section-title:hover,
@@ -175,8 +180,8 @@
 
 @media (max-width: 420px) {
   .mobile-section-nav-drawer .rs-drawer-dialog {
-    width: calc(100vw - 20px) !important;
-    max-width: calc(100vw - 20px);
+    width: 100vw !important;
+    max-width: 100vw;
   }
 
   .mobile-section-nav-drawer .rs-drawer-content {
@@ -202,4 +207,48 @@
   .mobile-subsection {
     font-size: var(--font-xs);
   }
+}
+
+/* ------------------------------------------------------------------
+   Viewport-independent section drawer trigger
+   ------------------------------------------------------------------ */
+
+.route-section-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.section-nav-trigger.route-section-nav__trigger {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0.55rem;
+  cursor: pointer;
+}
+
+.section-nav-trigger.route-section-nav__trigger > .frosted-icon.btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-section-nav-drawer .rs-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mobile-section-nav-drawer .mobile-section-nav-drawer__close.btn.icon-only {
+  position: static;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  color: var(--app-heading-color);
 }

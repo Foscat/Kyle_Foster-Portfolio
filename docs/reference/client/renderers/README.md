@@ -1,7 +1,7 @@
 # Renderer Components Reference
 
 - Aggregate reference: [renderers.md](../../../renderers.md)
-- Generated docs in this folder: 15
+- Generated docs in this folder: 16
 
 ## Modules
 
@@ -20,3 +20,4 @@
 - [srcComponentsRenderersBlocksLinksblockIndexRenderer.md](./srcComponentsRenderersBlocksLinksblockIndexRenderer.md) - `src/components/renderers/blocks/LinksBlock/index.jsx`
 - [srcComponentsRenderersBlocksMarkdowndocsBlockIndexRenderer.md](./srcComponentsRenderersBlocksMarkdowndocsBlockIndexRenderer.md) - `src/components/renderers/blocks/MarkdownDocs.Block/index.jsx`
 - [srcComponentsRenderersBlocksRichtextblockIndexRenderer.md](./srcComponentsRenderersBlocksRichtextblockIndexRenderer.md) - `src/components/renderers/blocks/RichTextBlock/index.jsx`
+- [srcComponentsRenderersBlocksVideoblockIndexRenderer.md](./srcComponentsRenderersBlocksVideoblockIndexRenderer.md) - `src/components/renderers/blocks/VideoBlock/index.jsx`

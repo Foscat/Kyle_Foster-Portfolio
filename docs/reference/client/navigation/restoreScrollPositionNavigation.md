@@ -17,13 +17,11 @@ or reloaded by resolving a target section and scrolling it into view.
 
 Restores the user's scroll position when a page is loaded or reloaded.
 
-Resolution order:
-1. URL hash (deep link or manual navigation)
-2. Persisted section state from a previous session
+Resolution rule:
+- Restore only an explicit URL hash (deep link or manual navigation).
 
 Behavior:
 - Reads the current location hash, if present
-- Falls back to the last saved section ID
 - Smoothly scrolls the resolved section into view
 
 Design notes:

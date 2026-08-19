@@ -4,53 +4,34 @@
 
 # srcComponentsNavigationStickysectionnavIndexNavigation
 
-## components/StickySectionNav
+## components/navigation/StickySectionNav
 
-Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.
+Icon-triggered route section navigation coordinated with scroll-spy state.
 
-### StickySectionNav
+### getPageLabel()
 
-Sticky, accessible intra-page section navigator with
-hierarchical scroll tracking and collapsible subsection groups.
-Designed for long-form portfolio pages with multiple sections and subsections
-(e.g. CodeStream, Hackathon, etc.).
-
-Features:
-- Sticky on desktop, collapsible drawer on mobile
-- Auto-syncs with scroll position via IntersectionObserver
-- Smooth scrolling, keyboard navigation, screen-reader friendly
-- Midnight Gold frosted UI styling
-- Data-driven from section/block metadata (no hardcoded IDs or structure)
+Convert a route pathname into a readable drawer heading.
 
 **Parameters**
 
-- `props` (`object`)
-- `props.sections` (`Array`) - List of sections with optional blocks for navigation.
-- `props.pageUrl` (`string`) - Base URL for the page (used for updating hash on navigation).
-- `props.mode` (`string`) - "desktop" or "mobile" to control styling and behavior.
-- `props.isOpen` (`boolean`) - For mobile mode, whether the drawer is open.
+- `pageUrl` (`string`) - Route pathname.
 
 **Returns**
 
-- `JSX.Element`
+- `string` - Human-readable page label.
 
-**Examples**
+### StickySectionNav()
 
-```js
-```js
-<StickySectionNav
-sections={[
-    { id: "intro", title: "Introduction", blocks: [] },
-    { id: "features", title: "Features", blocks: [
-      { id: "feat1", title: "Feature 1" },
-      { id: "feat2", title: "Feature 2" },
-    ]
-  },
-]}
-pageUrl="/portfolio"
-mode="desktop"
-isOpen={true}
-/>
-```
-```
+Render one consistent section-navigation icon on every viewport. The right
+drawer owns discovery while this coordinator owns scroll-spy state, URL
+hashes, and smooth document navigation.
+
+**Parameters**
+
+- `props` (`object`) - Component properties.
+- `props.sections` (`Array<object>`, optional, default: `[]`) - Route sections and optional subsections.
+- `props.pageUrl` (`string`, optional, default: `"/"`) - Canonical route path used for section hashes.
+
+**Returns**
+
+- `JSX.Element` - Icon-triggered section navigator.

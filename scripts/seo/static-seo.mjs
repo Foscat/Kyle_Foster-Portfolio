@@ -100,7 +100,7 @@ export function renderStaticRouteSnapshot(routeSeo) {
 
   return `    <main class="static-route-snapshot" data-static-route-snapshot data-route="${escapeHtml(routeSeo.path)}">
       <a class="static-route-snapshot__brand" href="/">Kyle Foster</a>
-      <p class="static-route-snapshot__eyebrow">Senior React / Frontend Engineer</p>
+      <p class="static-route-snapshot__eyebrow">Senior Frontend Engineer &amp; Product Builder</p>
       <h1>${escapeHtml(routeSeo.snapshotHeading || routeSeo.breadcrumbLabel)}</h1>
       <p>${escapeHtml(routeSeo.description)}</p>
       ${highlights ? `<ul>\n${highlights}\n      </ul>` : ""}

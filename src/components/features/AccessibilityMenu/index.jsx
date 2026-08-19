@@ -583,11 +583,11 @@ export default function AccessibilityMenu({
                     next/previous, closes the last open item).
                   </li>
                   <li>
-                    <kbd>Ctrl</kbd>: open site navigation.
+                    <kbd>Ctrl+Shift+M</kbd>: open website navigation.
                   </li>
                   <li>
                     <kbd>Esc</kbd>: close any open drawer or modal. <kbd>{HOTKEY_LABEL}</kbd>: open
-                    accessibility settings. Section navigation on mobile uses its on-screen button.
+                    accessibility settings. Section navigation uses its header button.
                   </li>
                   <li>
                     <kbd>{THEME_CYCLE_HOTKEY}</kbd>: cycle theme mode between light and dark.

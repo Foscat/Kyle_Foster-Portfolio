@@ -5,12 +5,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { PageRoute } from "../../src/types/navigation.types.js";
 import {
+  PROFILE_IMAGE_PATH,
   SEO_ROUTE_REGISTRY,
   buildStructuredData,
   resolveRouteSeo,
@@ -73,6 +74,18 @@ test("source home metadata stays synchronized with the registry", async () => {
   assert.deepEqual(JSON.parse(sourceJsonLd[1]), buildStructuredData(home));
 });
 
+test("structured profile image resolves to the shipped branded asset", async () => {
+  const expectedProfileImagePath = "/favicons/favicon-classic-dark.png";
+  const publicAssetPath = path.resolve("public", expectedProfileImagePath.slice(1));
+  const home = resolveRouteSeo(PageRoute.HOME, SITE_ORIGIN);
+  const structuredData = buildStructuredData(home);
+  const person = structuredData["@graph"].find((node) => node["@type"] === "Person");
+
+  assert.equal(PROFILE_IMAGE_PATH, expectedProfileImagePath);
+  assert.equal(person.image, `${SITE_ORIGIN}${expectedProfileImagePath}`);
+  await assert.doesNotReject(() => access(publicAssetPath));
+});
+
 test("Render routes known paths to static shells without rewriting unknown paths", async () => {
   const renderConfig = await readFile(path.resolve("render.yaml"), "utf8");
 
@@ -98,8 +111,11 @@ test("generateSeoArtifacts creates indexable, health, and noindex fallback shell
     const notFoundHtml = await readFile(path.join(distDir, "404.html"), "utf8");
 
     assert.match(homeHtml, /href="https:\/\/kyle-foster\.com\/"/u);
-    assert.match(homeHtml, /<h1>Kyle Foster - Senior React \/ Frontend Engineer<\/h1>/u);
-    assert.match(homeHtml, /Frontend engineering since 2018/u);
+    assert.match(
+      homeHtml,
+      /<h1>Kyle Foster - Senior Frontend Engineer &amp; Product Builder<\/h1>/u
+    );
+    assert.match(homeHtml, /Sanderson Technology Enterprises product engineering/u);
     assert.match(contactHtml, /href="https:\/\/kyle-foster\.com\/contact"/u);
     assert.match(contactHtml, /name="description"/u);
     assert.match(contactHtml, /"url":"https:\/\/kyle-foster\.com\/contact"/u);

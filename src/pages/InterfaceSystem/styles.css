@@ -1,0 +1,311 @@
+/**
+ * @file styles.css
+ * @description Responsive presentation for the Interface System case study.
+ * @module pages/InterfaceSystem/styles
+ */
+
+.interface-page {
+  --interface-accent: var(--app-surface-accent);
+
+  width: min(100%, 92rem);
+}
+
+.interface-eyebrow {
+  margin: 0;
+  color: var(--app-heading-color);
+  font-family: var(--app-control-font-family);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.interface-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.7fr);
+  align-items: end;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(2.5rem, 6vw, 6rem) clamp(0.25rem, 2vw, 2rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--interface-accent) 45%, transparent);
+  scroll-margin-top: 8rem;
+}
+
+.interface-hero__copy {
+  display: grid;
+  gap: 1rem;
+}
+
+.interface-hero h1 {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--app-surface-fg);
+  font-size: clamp(3.8rem, 2.25rem + 5.4vw, 7.6rem);
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+
+.interface-hero__lead {
+  max-width: 40rem;
+  margin: 1rem 0 0;
+  color: var(--app-surface-fg);
+  font-size: clamp(1.35rem, 1rem + 1vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.interface-hero__summary,
+.interface-section__header > p:last-child,
+.interface-proof p {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--app-surface-muted-fg);
+  line-height: 1.7;
+}
+
+.interface-hero__metrics {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border: var(--app-surface-border);
+  border-radius: var(--app-surface-radius-md);
+  background: var(--app-surface-strong-bg);
+}
+
+.interface-hero__metrics div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.7fr) 1fr;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+}
+
+.interface-hero__metrics div + div {
+  border-top: var(--app-surface-border);
+}
+
+.interface-hero__metrics dt {
+  color: var(--interface-accent);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.interface-hero__metrics dd {
+  margin: 0;
+  color: var(--app-surface-fg);
+  font-weight: 700;
+}
+
+.interface-main {
+  display: grid;
+  gap: clamp(4rem, 8vw, 8rem);
+}
+
+.interface-section,
+.interface-proof {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  scroll-margin-top: 9rem;
+}
+
+.interface-section__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr);
+  align-items: end;
+  gap: 0.6rem clamp(1.5rem, 4vw, 4rem);
+}
+
+.interface-section__header .interface-eyebrow {
+  grid-column: 1 / -1;
+}
+
+.interface-section h2,
+.interface-proof h2 {
+  margin: 0;
+  color: var(--app-surface-fg);
+  font-size: clamp(2rem, 1.45rem + 2vw, 3.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.interface-package-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  border: var(--app-surface-border);
+  border-radius: var(--app-surface-radius-md);
+}
+
+.interface-package {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  min-height: 19rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--app-surface-bg);
+}
+
+.interface-package:nth-child(even) {
+  border-left: var(--app-surface-border);
+}
+
+.interface-package:nth-child(n + 3) {
+  border-top: var(--app-surface-border);
+}
+
+.interface-package__meta,
+.interface-package footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.interface-package__meta {
+  color: var(--interface-accent);
+  font-family: var(--app-control-font-family);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.interface-package h3 {
+  margin: 1rem 0 0;
+  color: var(--app-surface-fg);
+  font-family: var(--app-control-font-family);
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.55rem);
+  overflow-wrap: anywhere;
+}
+
+.interface-package p {
+  margin: 0;
+  color: var(--app-surface-muted-fg);
+  line-height: 1.65;
+}
+
+.interface-package footer {
+  align-self: end;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: var(--app-surface-border);
+  color: var(--app-surface-muted-fg);
+  font-size: 0.78rem;
+}
+
+.interface-package footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--app-heading-color);
+  font-weight: 700;
+}
+
+.interface-ownership {
+  display: grid;
+  overflow: hidden;
+  border: var(--app-surface-border);
+  border-radius: var(--app-surface-radius-md);
+}
+
+.interface-ownership__row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.5fr) minmax(13rem, 0.8fr) minmax(18rem, 1.5fr);
+  gap: 1.25rem;
+  align-items: center;
+  min-height: 5rem;
+  padding: 1rem 1.25rem;
+  background: var(--app-surface-bg);
+}
+
+.interface-ownership__row + .interface-ownership__row {
+  border-top: var(--app-surface-border);
+}
+
+.interface-ownership__row strong {
+  color: var(--interface-accent);
+}
+
+.interface-ownership__row code {
+  color: var(--app-surface-fg);
+  overflow-wrap: anywhere;
+}
+
+.interface-ownership__row span {
+  color: var(--app-surface-muted-fg);
+}
+
+.interface-proof {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid color-mix(in srgb, var(--interface-accent) 50%, transparent);
+  border-radius: var(--app-surface-radius-md);
+  background: var(--app-surface-strong-bg);
+}
+
+.interface-proof > div {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.interface-proof__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 18rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 1rem;
+  /* Keep the proof CTA readable as palettes replace the accent color. */
+  color: var(--app-surface-accent-fg) !important;
+  border: 1px solid var(--interface-accent);
+  border-radius: var(--app-surface-radius-sm);
+  background: var(--interface-accent);
+  font-weight: 800;
+}
+
+@media (width < 820px) {
+  .interface-page {
+    width: 100%;
+    padding-inline: clamp(0.8rem, 3.5vw, 1.2rem);
+  }
+
+  .interface-hero,
+  .interface-section__header,
+  .interface-proof {
+    grid-template-columns: 1fr;
+  }
+
+  .interface-hero {
+    padding-inline: 0;
+  }
+
+  .interface-hero h1 {
+    font-size: clamp(3.45rem, 16vw, 5.5rem);
+  }
+
+  .interface-package-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .interface-package {
+    min-height: auto;
+  }
+
+  .interface-package:nth-child(even),
+  .interface-package:nth-child(n + 3) {
+    border-top: var(--app-surface-border);
+    border-left: 0;
+  }
+
+  .interface-ownership__row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .interface-proof__link {
+    width: 100%;
+    max-width: none;
+  }
+}

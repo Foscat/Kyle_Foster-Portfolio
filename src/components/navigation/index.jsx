@@ -96,6 +96,10 @@ const MobileSectionNavTrigger = withLazySuspense(
 const SectionAnchorNav = withLazySuspense(() => import("./SectionAnchorNav"), "SectionAnchorNav");
 const StickyNav = withLazySuspense(() => import("./StickyNav"), "StickyNav");
 const StickySectionNav = withLazySuspense(() => import("./StickySectionNav"), "StickySectionNav");
+const UnifiedNavigation = withLazySuspense(
+  () => import("./UnifiedNavigation"),
+  "UnifiedNavigation"
+);
 const Footer = (props) => (
   <DeferredViewportMount>
     <LazyFooter {...props} />
@@ -117,5 +121,6 @@ export {
   SectionAnchorNav,
   StickyNav,
   StickySectionNav,
+  UnifiedNavigation,
   helpers,
 };

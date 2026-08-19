@@ -16,14 +16,14 @@ vi.mock("components/ui", async () => {
 
   return {
     ...actual,
-    Btn: ({ onClick, ariaLabel, text, className, "aria-expanded": ariaExpanded }) => (
+    Btn: ({ onClick, ariaLabel, ariaExpanded, text, className }) => (
       <button
         onClick={onClick}
         aria-label={ariaLabel}
         className={className}
         aria-expanded={ariaExpanded}
       >
-        {text || ariaLabel}
+        {text}
       </button>
     ),
     FrostedIcon: ({ ariaLabel }) => <span>{ariaLabel}</span>,
@@ -60,43 +60,40 @@ describe("MobileSectionNavTrigger", () => {
 
   /* ─── Structure contract ─────────────────────────────────────── */
 
-  it("renders the trigger inside the sect-nav-toggle-btn.mobile-only wrapper", () => {
+  it("renders an icon-only section navigation trigger", () => {
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
-    const wrapper = screen.getByTestId("mobile-sect-nav-trigger-wrapper");
-    expect(wrapper).toBeInTheDocument();
-    expect(
-      within(wrapper).getByRole("button", { name: /open section navigation/i })
-    ).toBeInTheDocument();
+    const trigger = screen.getByRole("button", {
+      name: /open section navigation: introduction/i,
+    });
+    expect(trigger).toHaveClass("section-nav-trigger");
+    expect(trigger).toBeEmptyDOMElement();
+    expect(screen.queryByText("On this page")).not.toBeInTheDocument();
+    expect(screen.queryByText("Sections")).not.toBeInTheDocument();
+    expect(screen.queryByText("1 / 3")).not.toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: /on this page/i })).not.toBeInTheDocument();
   });
 
-  it("keeps the floating trigger icon-only to avoid mobile content overlap", () => {
+  it("does not reserve a document-level mobile rail", () => {
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
-    const wrapper = screen.getByTestId("mobile-sect-nav-trigger-wrapper");
-    expect(within(wrapper).queryByText("Sections")).not.toBeInTheDocument();
+    expect(document.documentElement).not.toHaveAttribute("data-has-mobile-section-nav");
+    expect(screen.queryByTestId("mobile-sect-nav-trigger-wrapper")).not.toBeInTheDocument();
   });
 
   /* ─── data-has-mobile-section-nav attribute ──────────────────── */
 
-  it("sets data-has-mobile-section-nav on the document element while mounted", () => {
-    const { unmount } = renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
-    expect(document.documentElement).toHaveAttribute("data-has-mobile-section-nav", "true");
-    unmount();
-    expect(document.documentElement).not.toHaveAttribute("data-has-mobile-section-nav");
-  });
-
   /* ─── Drawer open / close ────────────────────────────────────── */
 
-  it("opens the section navigation drawer on trigger click", async () => {
+  it("opens the section navigation from a right-side drawer", async () => {
     const user = userEvent.setup();
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
 
     await user.click(screen.getByRole("button", { name: /open section navigation/i }));
 
-    await waitFor(() => {
-      expect(screen.getByRole("dialog", { name: /portfolio page/i })).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("dialog", { name: /portfolio page/i });
+    expect(dialog).toHaveClass("rs-drawer-right");
+    expect(within(dialog).getByRole("navigation", { name: "On this page" })).toBeVisible();
   });
 
   it("lists all top-level sections inside the drawer", async () => {
@@ -111,6 +108,43 @@ describe("MobileSectionNavTrigger", () => {
     expect(within(dialog).getByText("Contact")).toBeInTheDocument();
   });
 
+  it("renders section rows without duplicate React keys", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const user = userEvent.setup();
+
+    try {
+      renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
+      await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+      await screen.findByRole("dialog", { name: /portfolio page/i });
+
+      const errorOutput = consoleError.mock.calls.flat().join(" ");
+      expect(errorOutput).not.toContain("Encountered two children with the same key");
+    } finally {
+      consoleError.mockRestore();
+    }
+  });
+
+  it("renders expanded subsection groups without duplicate React keys", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const user = userEvent.setup();
+
+    try {
+      renderWithProviders(
+        <MobileSectionNavTrigger
+          {...defaultProps}
+          isExpanded={(sectionId) => sectionId === "features"}
+        />
+      );
+      await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+      await screen.findByRole("dialog", { name: /portfolio page/i });
+
+      const errorOutput = consoleError.mock.calls.flat().join(" ");
+      expect(errorOutput).not.toContain("Encountered two children with the same key");
+    } finally {
+      consoleError.mockRestore();
+    }
+  });
+
   it("closes the drawer when Escape is pressed", async () => {
     const user = userEvent.setup();
     renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
@@ -120,6 +154,22 @@ describe("MobileSectionNavTrigger", () => {
 
     fireEvent.keyDown(window, { key: "Escape" });
 
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog", { name: /portfolio page/i })).not.toBeInTheDocument();
+    });
+  });
+
+  it("provides a named close control inside the section drawer", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<MobileSectionNavTrigger {...defaultProps} />);
+
+    await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+    const dialog = await screen.findByRole("dialog", { name: /portfolio page/i });
+    const closeButton = within(dialog).getByRole("button", {
+      name: /close section navigation/i,
+    });
+
+    await user.click(closeButton);
     await waitFor(() => {
       expect(screen.queryByRole("dialog", { name: /portfolio page/i })).not.toBeInTheDocument();
     });

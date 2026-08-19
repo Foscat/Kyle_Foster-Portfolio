@@ -278,6 +278,9 @@ body[data-ui][data-theme][data-mode] {
   --app-surface-shadow-hover: 0 22px 60px rgb(var(--usk-bg-rgb, 0 0 0) / 0.34);
   --app-surface-primary: rgb(var(--usk-primary-rgb, 54 196 221));
   --app-surface-accent: rgb(var(--usk-accent-rgb, 83 240 255));
+  /* App-owned aliases keep component styles independent from package token names. */
+  --app-surface-primary-fg: rgb(var(--usk-primary-text-rgb, 4 18 22));
+  --app-surface-accent-fg: rgb(var(--usk-accent-text-rgb, 0 0 0));
   --app-surface-backdrop-filter: var(--slight-blur);
   --app-surface-card-bg: var(--app-surface-bg);
   --app-surface-panel-bg: var(--app-surface-strong-bg);

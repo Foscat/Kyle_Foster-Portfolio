@@ -1,0 +1,6 @@
+- generic [ref=e3]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+        - /url: "#main-content"
+    - generic [ref=e5]: Loading...
+    - generic:
+        - button "Back to top"

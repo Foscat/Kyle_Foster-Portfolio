@@ -9,7 +9,7 @@ import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import hackathonSections from "assets/data/content/hackathon";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 import { PageHeader } from "components/layout";
-import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 
 const hack = {
@@ -34,6 +34,7 @@ const Hackathon = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
+        <UnifiedNavigation activePage={hack.url} pageUrl={hack.url} sections={hack.sections} />
         <PageHeader
           title={hack.title}
           jobTitle={hack.jobTitle}
@@ -41,16 +42,12 @@ const Hackathon = () => {
           timespan={hack.timespan}
           tech={hack.tech}
         />
-        <StickyNav activePage={hack.url} />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
             {hack.sections.map((sect) => {
               return <SectionRenderer section={sect} key={sect.id} />;
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav pageUrl={hack.url} sections={hack.sections} />
-          </aside>
         </div>
         <Footer />
       </div>

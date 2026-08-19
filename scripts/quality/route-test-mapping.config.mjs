@@ -89,6 +89,24 @@ export const ROUTE_TEST_MAPPING = Object.freeze({
       },
     ],
   },
+  "/interface-system": {
+    vitest: [
+      {
+        file: "src/pages/InterfaceSystem/InterfaceSystem.test.jsx",
+        mustInclude: ["PageRoute.INTERFACE_SYSTEM"],
+      },
+    ],
+    playwright: [
+      {
+        file: "playwright/pages/interface-system.spec.ts",
+        mustInclude: ["route: INTERFACE_SYSTEM_ROUTE"],
+      },
+      {
+        file: "playwright/accessibility.routes.spec.ts",
+        mustInclude: ['route: "/interface-system"', 'name: "Interface System"'],
+      },
+    ],
+  },
   "/hackathon": {
     vitest: [
       {
