@@ -35,6 +35,12 @@ Static registry of project metadata for portfolio cards and detail surfaces.
 
 Pure route-level SEO registry shared by React and build tooling.
 
+### PROFILE\_IMAGE\_PATH
+
+Public square brand asset used for the Person structured-data image.
+
+- Type: `string`
+
 ### SEO\_ROUTE\_REGISTRY
 
 Route metadata used by the runtime head manager, static HTML generator, and sitemap.

@@ -93,7 +93,7 @@ describe("favicon utilities", () => {
     const legacy = document.createElement("link");
     legacy.rel = "icon";
     legacy.type = "image/jpeg";
-    legacy.href = "/portfolio-icon.jpg";
+    legacy.href = "/legacy-favicon.jpg";
     document.head.appendChild(legacy);
 
     const shortcutLegacy = document.createElement("link");
