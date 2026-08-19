@@ -5,12 +5,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { PageRoute } from "../../src/types/navigation.types.js";
 import {
+  PROFILE_IMAGE_PATH,
   SEO_ROUTE_REGISTRY,
   buildStructuredData,
   resolveRouteSeo,
@@ -71,6 +72,18 @@ test("source home metadata stays synchronized with the registry", async () => {
   );
   assert.ok(sourceJsonLd);
   assert.deepEqual(JSON.parse(sourceJsonLd[1]), buildStructuredData(home));
+});
+
+test("structured profile image resolves to the shipped branded asset", async () => {
+  const expectedProfileImagePath = "/favicons/favicon-classic-dark.png";
+  const publicAssetPath = path.resolve("public", expectedProfileImagePath.slice(1));
+  const home = resolveRouteSeo(PageRoute.HOME, SITE_ORIGIN);
+  const structuredData = buildStructuredData(home);
+  const person = structuredData["@graph"].find((node) => node["@type"] === "Person");
+
+  assert.equal(PROFILE_IMAGE_PATH, expectedProfileImagePath);
+  assert.equal(person.image, `${SITE_ORIGIN}${expectedProfileImagePath}`);
+  await assert.doesNotReject(() => access(publicAssetPath));
 });
 
 test("Render routes known paths to static shells without rewriting unknown paths", async () => {

@@ -12,7 +12,12 @@ export const SITE_LANGUAGE = "en-US";
 export const SITE_LOCALE = "en_US";
 export const SITE_THEME_COLOR = "#1f2793";
 export const SOCIAL_IMAGE_PATH = "/social-share-card.png";
-export const PROFILE_IMAGE_PATH = "/portfolio-icon.jpg";
+
+/**
+ * @description Public square brand asset used for the Person structured-data image.
+ * @type {string}
+ */
+export const PROFILE_IMAGE_PATH = "/favicons/favicon-classic-dark.png";
 export const INDEXABLE_ROBOTS =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 export const NOINDEX_ROBOTS = "noindex, nofollow, noarchive, nosnippet, noimageindex";
