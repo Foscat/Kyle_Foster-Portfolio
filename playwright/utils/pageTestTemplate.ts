@@ -24,7 +24,11 @@ export type PageTestConfig = {
   name: string;
   route: string;
   /**
-   * @description CSS selector used to validate the presence of a sticky section nav on the page. Defaults to the Section navigation nav.
+   * @description Whether the route includes long-form section navigation. Defaults to true.
+   */
+  hasStickySectionNavigation?: boolean;
+  /**
+   * @description CSS selector used to validate the route's in-flow section navigation.
    */
   stickyNavSelector?: string;
   /**
@@ -59,14 +63,25 @@ export function createPageTestSuite(config: PageTestConfig) {
 
       await stabilizePage(page, { theme });
 
-      await expect(page.locator('[role="banner"]')).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      await page.getByRole("button", { name: "Open website navigation" }).click();
+      const websiteDialog = page.getByRole("dialog", { name: "Website Navigation" });
+      await expect(websiteDialog).toBeVisible();
+      await expect(
+        websiteDialog.getByRole("navigation", { name: /primary navigation/i })
+      ).toBeVisible();
       await expect(page.locator("main")).toBeVisible();
-      await expect(page.locator("footer")).toBeVisible();
+      await expect(page.getByRole("contentinfo")).toBeVisible();
 
       expect(errors, errors.join("\n\n")).toHaveLength(0);
     });
 
     test("renders sticky section navigation", async ({ page }) => {
+      test.skip(
+        config.hasStickySectionNavigation === false,
+        "The route uses a curated single-page flow without section navigation."
+      );
+
       await page.setViewportSize({ width: 1280, height: 720 });
       await preparePageForStableTests(page, { theme });
 
@@ -75,8 +90,9 @@ export function createPageTestSuite(config: PageTestConfig) {
 
       await stabilizePage(page, { theme });
 
-      const navSelector = config.stickyNavSelector ?? 'nav[aria-label="Section navigation"]';
-      const stickyNav = page.locator(navSelector);
+      await page.getByRole("button", { name: /open section navigation/i }).click();
+      const navSelector = config.stickyNavSelector ?? 'nav[aria-label="On this page"]';
+      const stickyNav = page.getByRole("dialog").locator(navSelector);
       await expect(stickyNav).toBeVisible();
     });
 

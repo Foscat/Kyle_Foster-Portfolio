@@ -32,7 +32,7 @@ const sideProjectSections = [
        ============================================================ */
   {
     id: "overview",
-    title: "Project Collection",
+    title: "Work Archive Overview",
     icon: faTowerObservation,
     isScroller: true,
     deferDiagrams: false,
@@ -40,7 +40,7 @@ const sideProjectSections = [
       {
         id: "overview-text",
         type: BlockType.RICH_TEXT,
-        title: "Exploring Practical Builds",
+        title: "Practical Builds, Tested End to End",
         icon: faTowerObservation,
         content: [
           {
@@ -51,7 +51,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Side projects are where I test ideas end to end before they ever reach client work.",
+                    text: "Side projects are where I test ideas end to end before they reach client work or larger product systems.",
                   },
                 ],
               },
@@ -62,7 +62,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Each project starts from a specific problem, such as unstable greenhouse climate signals, auth session edge cases, or campaign data that outgrows spreadsheets.",
+                text: "Each project starts from a concrete problem, such as unstable greenhouse climate signals, auth session edge cases, or campaign data that outgrows spreadsheets.",
               },
             ],
           },
@@ -71,7 +71,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Because these builds are self-directed, they require end-to-end ownership:",
+                text: "Because these builds are self-directed, they require ownership across the whole delivery path:",
               },
             ],
           },
@@ -101,7 +101,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Across hardware automation, security tooling, and full-stack applications, these projects show domain adaptability with a consistent engineering approach.",
+                text: "Across hardware automation, security tooling, and full-stack applications, these projects show range without losing engineering discipline.",
               },
             ],
           },
@@ -110,7 +110,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Principle: identify the problem, choose practical trade-offs, and iterate until behavior holds up outside ideal conditions.",
+                text: "Principle: identify the real constraint, choose practical trade-offs, and iterate until the behavior holds up outside ideal conditions.",
               },
             ],
           },
@@ -120,12 +120,12 @@ const sideProjectSections = [
         id: "overview-why-it-mattered",
         type: BlockType.CARD_GRID,
         title: "Why It Mattered",
-        subtitle: "Who it served, the problem, the solution, ownership, and impact.",
+        subtitle: "Who it served, what was difficult, what I owned, and what changed.",
         items: [
           {
             id: "side-projects-who-it-served",
             title: "Who It Served",
-            subtitle: "Real users in practical domains",
+            subtitle: "Practical users and specific domains",
             icon: faSeedling,
             content: [
               {
@@ -133,7 +133,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "These builds served concrete use cases across automation, security tooling, and creator tasks where generic products were not a good fit.",
+                    text: "These builds served practical use cases across automation, security tooling, and creator workflows where generic products were not enough.",
                   },
                 ],
               },
@@ -142,7 +142,7 @@ const sideProjectSections = [
           {
             id: "side-projects-problem-solved",
             title: "Main Challenge",
-            subtitle: "Practical problems lacked clean off-the-shelf solutions",
+            subtitle: "Useful solutions required custom trade-offs",
             icon: faExclamationTriangle,
             content: [
               {
@@ -150,7 +150,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "Each project started from a specific operational problem that required custom trade-offs in UX, architecture, or hardware/software behavior.",
+                    text: "Each project started from an operational problem that required custom choices in UX, architecture, or hardware and software behavior.",
                   },
                 ],
               },
@@ -159,7 +159,7 @@ const sideProjectSections = [
           {
             id: "side-projects-solution",
             title: "Custom Software Response",
-            subtitle: "Problem-first system design and iteration",
+            subtitle: "Problem-first design and iteration",
             icon: faLightbulb,
             content: [
               {
@@ -167,7 +167,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I turned practical problems into working architectures, then iterated from real use and failure points instead of stopping at prototype-level demos.",
+                    text: "I turned practical problems into working systems, then iterated from real use and failure points instead of stopping at prototype-level demos.",
                   },
                 ],
               },
@@ -176,7 +176,7 @@ const sideProjectSections = [
           {
             id: "side-projects-what-i-owned",
             title: "What I Owned",
-            subtitle: "End-to-end product and engineering decisions",
+            subtitle: "Product and engineering decisions",
             icon: faLaptopCode,
             content: [
               {
@@ -184,7 +184,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "I owned architecture, implementation, iteration, and long-term maintenance, including frontend, backend, hardware integration, and deployment trade-offs.",
+                    text: "I owned architecture, implementation, iteration, and maintenance, including frontend, backend, hardware integration, and deployment trade-offs.",
                   },
                 ],
               },
@@ -193,7 +193,7 @@ const sideProjectSections = [
           {
             id: "side-projects-what-changed",
             title: "What Changed",
-            subtitle: "Reusable patterns and stronger delivery range",
+            subtitle: "Reusable patterns and stronger delivery judgment",
             icon: faFlagCheckered,
             content: [
               {
@@ -201,7 +201,7 @@ const sideProjectSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The result was working software and reusable patterns that strengthened later architecture and delivery decisions.",
+                    text: "The result was working software and reusable patterns that shaped later architecture and delivery decisions.",
                   },
                 ],
               },

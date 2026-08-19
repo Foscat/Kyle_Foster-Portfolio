@@ -42,9 +42,10 @@ describe("ui-style compatibility", () => {
     const packageLock = JSON.parse(readProjectFile("package-lock.json"));
 
     const packageStyleImports = [
-      'import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";',
-      'import "interactive-surface-css/interactive-surface.css";',
-      'import "layout-style-css/min.css";',
+      'import "ui-style-kit-css/visual.css";',
+      'import "ui-style-kit-css/interactive-surface-theme.css";',
+      'import "interactive-surface-css/state-core.css";',
+      'import "layout-style-css";',
       'import "ui-style-kit-icons/css.css";',
       'import "ui-style-kit-icons/element";',
     ];
@@ -53,25 +54,27 @@ describe("ui-style compatibility", () => {
     const importPositions = packageStyleImports.map((styleImport) => mainJs.indexOf(styleImport));
     expect(importPositions).toEqual([...importPositions].sort((left, right) => left - right));
     expect(mainJs).not.toContain("all-with-ui-kit-and-interactive-surface.css");
+    expect(mainJs).not.toContain("ui-style-kit.with-bridge");
+    expect(mainJs).not.toContain("interactive-surface-css/interactive-surface.css");
     expect(appJs).not.toContain("ui-style-kit-css");
     expect(appJs).not.toContain("interactive-surface-css");
     expect(appJs).not.toContain("layout-style-css");
     expect(mainJs).toContain('import "./App.css";');
-    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.0");
-    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.1.0");
+    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.1");
+    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.2.0");
     expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
-    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.5.0");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.0");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.1.0");
+    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.6.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.1");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.2.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty(
       "interactive-surface-css",
-      "1.5.0"
+      "1.6.0"
     );
-    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.0");
-    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.1.0");
+    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.1");
+    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.2.0");
     expect(packageLock.packages["node_modules/ui-style-kit-icons"].version).toBe("1.0.0");
-    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.5.0");
+    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.6.0");
     expect(appJs).not.toContain('import "./App.css"');
   });
 
@@ -144,12 +147,13 @@ describe("ui-style compatibility", () => {
 
     expect(appShell).toContain("ly-page");
     expect(pageMarkup).toContain("ly-wrapper");
-    expect(pageMarkup).toContain('className="page-layout ly-sidebar"');
-    expect(pageMarkup).toContain("ly-sidebar__content");
-    expect(pageMarkup).toContain("ly-sidebar__side");
+    expect(pageMarkup).toContain('className="page-layout"');
+    expect(pageMarkup).toContain("UnifiedNavigation");
+    expect(pageMarkup).not.toContain("page-sidebar");
+    expect(pageMarkup).not.toContain("ly-sidebar__content");
+    expect(pageMarkup).not.toContain("ly-sidebar__side");
     expect(pageMarkup).not.toContain("ly-sidebar-layout");
     expect(pageMarkup).not.toContain("ly-app-main");
-    expect(pageMarkup).toContain("ly-sidebar");
     expect(pageMarkup).toContain("ly-section");
     expect(pageMarkup).toContain("ly-surface");
     expect(pageMarkup).toContain("ly-stack");
@@ -159,19 +163,22 @@ describe("ui-style compatibility", () => {
     expect(pageMarkup).toContain("ly-gallery");
   });
 
-  it("keeps the portfolio route sidebar contract local and breakpoint-aligned", () => {
+  it("keeps the unified route navigation contract local and breakpoint-aligned", () => {
     const css = readProjectFile("src/App.css");
     const stickyNavCss = readProjectFile("src/components/navigation/StickySectionNav/styles.css");
+    const unifiedNavCss = readProjectFile("src/components/navigation/UnifiedNavigation/styles.css");
     const mobileNavCss = readProjectFile(
       "src/components/navigation/MobileSectionNavTrigger/styles.css"
     );
 
-    expect(css).toContain("@media (width < 1200px)");
-    expect(css).toContain("@media (width >= 1200px)");
-    expect(css).toContain(".page-layout.ly-sidebar");
-    expect(css).toContain("--portfolio-route-sidebar-width");
-    expect(css).toContain("--portfolio-route-sidebar-width: clamp(14.5rem");
-    expect(css).toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(css).toContain("@media (width >= 900px)");
+    expect(css).toContain("--portfolio-primary-nav-height");
+    expect(css).not.toContain(".page-sidebar");
+    expect(unifiedNavCss).toContain(".unified-navigation");
+    expect(unifiedNavCss).toContain("@media (width < 940px)");
+    expect(css).not.toContain("--portfolio-route-sidebar-width");
+    expect(css).not.toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
+    expect(mobileNavCss).toContain(".route-section-nav");
     expect(`${stickyNavCss}\n${mobileNavCss}`).not.toContain("overflow-wrap: anywhere");
     expect(stickyNavCss).toContain("word-break: normal");
     expect(stickyNavCss).toContain("hyphens: none");

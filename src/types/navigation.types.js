@@ -58,6 +58,7 @@ export const PageRoute = Object.freeze({
   CODE_STREAM: "/codestream",
   HACKATHON: "/hackathon",
   SANDERSON_TECHNOLOGY_ENTERPRISES: "/sanderson-technology-enterprises",
+  INTERFACE_SYSTEM: "/interface-system",
   SIDE_PROJECTS: "/side-projects",
   EDUCATION: "/smu",
   DOCS: "/docs",

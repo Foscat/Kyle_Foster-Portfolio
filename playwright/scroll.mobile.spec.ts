@@ -8,7 +8,6 @@ import { expect, test } from "@playwright/test";
 import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 
 const SIDE_PROJECTS_ROUTE = "/side-projects";
-const SECTION_NAV = 'nav[aria-label="Section navigation"]';
 
 test.describe("Mobile scroll regressions", () => {
   test("insight-card content supports programmatic vertical scroll", async ({ page }) => {
@@ -50,9 +49,6 @@ test.describe("Mobile scroll regressions", () => {
     await page.goto(SIDE_PROJECTS_ROUTE);
     await stabilizePage(page, { theme: "dark" });
 
-    const nav = page.locator(SECTION_NAV);
-    await expect(nav).toBeVisible();
-
     const sections = page.locator("main section[id]");
     const sectionCount = await sections.count();
     expect(sectionCount).toBeGreaterThan(2);
@@ -65,18 +61,18 @@ test.describe("Mobile scroll regressions", () => {
     expect(secondId).toBeTruthy();
     expect(thirdId).toBeTruthy();
 
-    const activeLocator = nav.locator("[data-nav-id].is-active").first();
+    const sectionTrigger = page.getByRole("button", { name: /open section navigation/i });
+    await expect(sectionTrigger).toBeVisible();
+    const firstLabel = await sectionTrigger.getAttribute("aria-label");
 
     await sections.nth(0).scrollIntoViewIfNeeded();
-    await expect
-      .poll(async () => activeLocator.getAttribute("data-nav-id"), { timeout: 3000 })
-      .toBeTruthy();
+    await expect(sectionTrigger).toHaveAttribute("aria-label", /open section navigation/i);
 
     await page.evaluate(() =>
       window.scrollTo({ top: document.body.scrollHeight, behavior: "auto" })
     );
     await expect
-      .poll(async () => activeLocator.getAttribute("data-nav-id"), { timeout: 3000 })
-      .toBeTruthy();
+      .poll(async () => sectionTrigger.getAttribute("aria-label"), { timeout: 3000 })
+      .not.toBe(firstLabel);
   });
 });

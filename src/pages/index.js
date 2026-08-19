@@ -8,6 +8,7 @@ import CodeStream from "./CodeStream";
 import Contact from "./Contact";
 import Hackathon from "./Hackathon";
 import Home from "./Home";
+import InterfaceSystem from "./InterfaceSystem";
 import SandersonTechnologyEnterprises from "./SandersonTechnologyEnterprises";
 import SideProjects from "./SideProjects";
 import Smu from "./SMU";
@@ -20,6 +21,7 @@ export {
   Contact,
   Hackathon,
   Home,
+  InterfaceSystem,
   SandersonTechnologyEnterprises,
   SideProjects,
   Smu,

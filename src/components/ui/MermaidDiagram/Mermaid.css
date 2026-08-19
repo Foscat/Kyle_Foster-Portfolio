@@ -963,8 +963,16 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   overflow: hidden !important;
 }
 
+.mermaid-fullscreen-modal.rs-modal-full {
+  width: 100dvw;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
+  background: var(--app-kit-bg, var(--bg-primary)) !important;
+}
+
 .mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog {
-  width: 100vw;
+  width: 100%;
   max-width: none;
   height: 100dvh;
   margin: 0;
@@ -972,25 +980,57 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-modal.rs-modal-full .rs-modal-content {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
   width: 100%;
   height: 100%;
+  padding: 0 !important;
   border-radius: 0;
   overflow: hidden;
   border: 0;
-  background: transparent;
+  color: var(--app-surface-fg);
+  background: var(--app-kit-bg, var(--bg-primary));
   box-shadow: none;
 }
 
 .mermaid-fullscreen-modal__header {
-  position: fixed;
-  top: 0;
-  right: 0;
+  position: relative;
   z-index: 40;
-  min-height: 0;
-  padding: 0.72rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 3.75rem;
+  padding: 0.55rem 4rem 0.55rem 0.65rem;
+  border-bottom: var(--app-surface-border);
+  background: var(--app-surface-strong-bg);
+  pointer-events: auto;
+}
+
+.mermaid-explorer-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
   border: 0;
-  background: transparent;
-  pointer-events: none;
+}
+
+.mermaid-explorer-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.mermaid-explorer-toolbar .btn.icon-only {
+  width: 2.65rem;
+  min-width: 2.65rem;
+  height: 2.65rem;
+  color: var(--app-surface-fg);
+  border: 1px solid color-mix(in srgb, var(--app-surface-accent) 42%, transparent);
+  background: var(--app-surface-bg);
 }
 
 .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -1014,46 +1054,57 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
 }
 
 .mermaid-fullscreen-modal__body {
-  width: 100vw;
-  height: 100dvh;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
   padding: 0;
   overflow: hidden;
-  background: var(--app-bg-layer, var(--mermaid-surface-bg)) !important;
+  background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
 .mermaid-fullscreen-stage,
 .mermaid-fullscreen-canvas {
+  min-width: 0;
   width: 100%;
+  min-height: 0;
   height: 100%;
 }
 
 .mermaid-fullscreen-stage {
-  overflow: auto;
+  overflow: hidden;
+  background: var(--app-kit-bg, var(--bg-primary));
 }
 
 .mermaid-fullscreen-stage .mermaid {
-  min-height: 100%;
+  min-height: 0;
+  height: 100%;
   padding: clamp(0.9rem, 1.8vw, 1.7rem);
   border-radius: 0;
-  background: transparent;
-  overflow: visible;
+  background: var(--app-kit-bg, var(--bg-primary));
+  overflow: hidden;
 }
 
 .mermaid-svg-host--fullscreen {
-  min-height: calc(100dvh - clamp(1.8rem, 3.6vw, 3.4rem));
+  min-height: 0;
+  height: 100%;
   align-items: center;
-  overflow: visible;
+  overflow: hidden;
+  touch-action: none;
+  background: var(--app-kit-bg, var(--bg-primary));
 }
 
 .mermaid-fullscreen-stage .mermaid-svg-host--fullscreen svg {
-  width: max(100%, min(var(--mermaid-svg-width, 1400px), 1900px));
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   max-width: none;
   overflow: visible;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal__body {
-  background: var(--app-bg-layer, var(--mermaid-surface-bg)) !important;
+  background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
 html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -1073,7 +1124,8 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
   }
 
   .mermaid-fullscreen-modal__header {
-    padding: 0.55rem;
+    min-height: 3.35rem;
+    padding: 0.4rem 3.5rem 0.4rem 0.45rem;
   }
 
   .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
@@ -1082,7 +1134,13 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
   }
 
   .mermaid-fullscreen-stage .mermaid {
-    padding: 0.65rem;
+    padding: 0;
+  }
+
+  .mermaid-explorer-toolbar .btn.icon-only {
+    width: 2.4rem;
+    min-width: 2.4rem;
+    height: 2.4rem;
   }
 }
 

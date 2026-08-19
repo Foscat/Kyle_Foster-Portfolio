@@ -5,11 +5,12 @@
 
 .back-to-top {
   position: fixed;
-  top: max(0.75rem, calc(20px + 0.5rem));
+  top: auto;
   right: clamp(0.75rem, 1.6vw, 1.35rem);
+  bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.75rem));
   z-index: 210;
   opacity: 0;
-  transform: translateY(-10px) scale(0.92);
+  transform: translateY(10px) scale(0.92);
   pointer-events: none;
   transition:
     opacity 700ms var(--easing-standard),

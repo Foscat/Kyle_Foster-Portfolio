@@ -20,8 +20,10 @@ const THEMES = ["dark", "light"] as const;
 const PAGES = [
   { name: "Home", path: "/" },
   { name: "Hackathon", path: "/hackathon" },
-  { name: "CodeStream SMU", path: "/codestream-smu" },
+  { name: "CodeStream", path: "/codestream" },
+  { name: "SMU", path: "/smu" },
   { name: "Side Projects", path: "/side-projects" },
+  { name: "Interface System", path: "/interface-system" },
 ];
 
 test.describe("Page layout snapshots", () => {

@@ -6,9 +6,6 @@
  * Each entry maps a Mermaid diagram block ID to the page route where it renders.
  */
 export const DIAGRAM_ENTRIES = [
-  // /
-  { id: "hero-engineering-flow", route: "/" },
-  { id: "professional-platform-diagram", route: "/" },
   // /codestream
   { id: "diagram-3panel-editor", route: "/codestream" },
   { id: "diagram-organization-license-model", route: "/codestream" },

@@ -87,7 +87,12 @@ describe("Portfolio diagram product-story quality", () => {
   });
 
   it("maps every diagram into rendered browser coverage", () => {
-    const registryIds = diagramEntries.map(({ diagramBlock }) => diagramBlock.id).sort();
+    // The curated homepage no longer renders the legacy home diagrams. Keep
+    // browser coverage aligned to the case-study routes that still mount them.
+    const registryIds = diagramEntries
+      .filter(({ route }) => route !== "home")
+      .map(({ diagramBlock }) => diagramBlock.id)
+      .sort();
     const browserCoverageIds = DIAGRAM_ENTRIES.map(({ id }) => id).sort();
 
     expect(browserCoverageIds).toEqual(registryIds);

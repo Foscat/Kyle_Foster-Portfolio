@@ -6,7 +6,8 @@
 
 import { useCallback, useMemo, useState } from "react";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider.jsx";
-import { StickyNav, Footer } from "components/navigation";
+import { Footer, UnifiedNavigation } from "components/navigation";
+import { PageHeader } from "components/layout";
 import { SectionRenderer } from "components/renderers";
 import resumeData from "assets/data/content/resumeData.js";
 import { PageRoute } from "types/navigation.types";
@@ -143,10 +144,15 @@ export default function Contact() {
   return (
     <SectionRegistryProvider>
       <div className="contact-page page-wrapper ly-wrapper ly-wrapper--wide ly-stack">
-        <StickyNav activePage={PageRoute.CONTACT} />
+        <UnifiedNavigation activePage={PageRoute.CONTACT} />
 
         <main className="contact-content app-main" role="main">
           <div className="contact-centered-stack ly-stack">
+            <PageHeader
+              className="contact-page-header"
+              title="Contact Kyle Foster"
+              subTitle="Have a React or frontend role, product challenge, or collaboration in mind? Tell me what you are building and where you need help."
+            />
             <SectionRenderer section={contactSections[0]} />
             <div className="contact-resume-actions">
               <ResumePreviewTrigger

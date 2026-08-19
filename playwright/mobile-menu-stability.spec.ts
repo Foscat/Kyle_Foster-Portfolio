@@ -1,6 +1,6 @@
 /**
  * @file playwright/mobile-menu-stability.spec.ts
- * @description Regression coverage for mobile menu/drawer interactions.
+ * @description Regression coverage for website drawer interactions on compact viewports.
  * @module playwright/mobile-menu-stability
  */
 
@@ -11,10 +11,8 @@ const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "htt
 const toUrl = (path: string) =>
   path.startsWith("http") ? path : new URL(path, BASE_URL).toString();
 
-test.describe("Mobile Menu Stability", () => {
-  test("opens navigation, section, color, and accessibility menus without page reloads", async ({
-    page,
-  }) => {
+test.describe("Website Navigation Drawer Stability", () => {
+  test("opens website navigation and drawer utilities without page reloads", async ({ page }) => {
     const runtimeErrors: string[] = [];
     let postStabilizeLoadEvents = 0;
 
@@ -29,24 +27,23 @@ test.describe("Mobile Menu Stability", () => {
       postStabilizeLoadEvents += 1;
     });
 
-    const navTrigger = page.getByRole("button", { name: /open navigation menu/i }).first();
+    const navTrigger = page.getByRole("button", { name: "Open website navigation" }).first();
     await expect(navTrigger).toBeVisible();
     await navTrigger.click();
-    await expect(page.getByRole("heading", { name: /site navigation/i })).toBeVisible();
-    await page.keyboard.press("Escape");
-
-    const sectionTrigger = page.getByRole("button", { name: /open section navigation/i }).first();
-    await expect(sectionTrigger).toBeVisible();
-    await sectionTrigger.click();
-    await expect(page.getByRole("heading", { name: /home page/i })).toBeVisible();
-    await page.keyboard.press("Escape");
+    await expect(page.getByRole("heading", { name: "Website Navigation" })).toBeVisible();
+    await expect(page.getByTestId("mobile-resume-trigger-wrapper")).toBeVisible();
 
     const colorTrigger = page.getByRole("button", { name: /open color settings/i }).first();
     await expect(colorTrigger).toBeVisible();
     await colorTrigger.click();
-    await expect(page.getByRole("dialog", { name: /color settings/i })).toBeVisible();
+    const colorDialog = page.getByRole("dialog", { name: /color settings/i });
+    await expect(colorDialog).toBeVisible();
     await page.keyboard.press("Escape");
+    await expect(colorDialog).toBeHidden();
 
+    if (!(await page.getByRole("heading", { name: "Website Navigation" }).isVisible())) {
+      await navTrigger.click();
+    }
     const a11yTrigger = page.getByRole("button", { name: /open accessibility settings/i }).first();
     await expect(a11yTrigger).toBeVisible();
     await a11yTrigger.click();
@@ -61,7 +58,7 @@ test.describe("Mobile Menu Stability", () => {
     expect(runtimeErrors, runtimeErrors.join("\n\n")).toHaveLength(0);
   });
 
-  test("contact page mobile icon triggers stay on-page without reloads", async ({ page }) => {
+  test("contact page website controls stay on-page without reloads", async ({ page }) => {
     const runtimeErrors: string[] = [];
     let postStabilizeLoadEvents = 0;
 
@@ -79,25 +76,30 @@ test.describe("Mobile Menu Stability", () => {
     await expect(page.locator(".mobile-icon-hint")).toHaveCount(0);
     await expect(page.getByRole("button", { name: /open section navigation/i })).toHaveCount(0);
 
-    const resumeTriggerBox = await page.getByTestId("mobile-resume-trigger-wrapper").boundingBox();
+    const mobileHeaderBox = await page.getByTestId("unified-navigation").boundingBox();
     const firstContactItemBox = await page.getByText(/Email: fosterkyle/i).boundingBox();
 
-    expect(resumeTriggerBox).not.toBeNull();
+    expect(mobileHeaderBox).not.toBeNull();
     expect(firstContactItemBox).not.toBeNull();
-    expect(firstContactItemBox!.y).toBeGreaterThan(resumeTriggerBox!.y + resumeTriggerBox!.height);
+    expect(firstContactItemBox!.y).toBeGreaterThan(mobileHeaderBox!.y + mobileHeaderBox!.height);
 
-    const navTrigger = page.getByRole("button", { name: /open navigation menu/i }).first();
+    const navTrigger = page.getByRole("button", { name: "Open website navigation" }).first();
     await expect(navTrigger).toBeVisible();
     await navTrigger.click();
-    await expect(page.getByRole("heading", { name: /site navigation/i })).toBeVisible();
-    await page.keyboard.press("Escape");
+    await expect(page.getByRole("heading", { name: "Website Navigation" })).toBeVisible();
+    await expect(page.getByTestId("mobile-resume-trigger-wrapper")).toBeVisible();
 
     const colorTrigger = page.getByRole("button", { name: /open color settings/i }).first();
     await expect(colorTrigger).toBeVisible();
     await colorTrigger.click();
-    await expect(page.getByRole("dialog", { name: /color settings/i })).toBeVisible();
+    const colorDialog = page.getByRole("dialog", { name: /color settings/i });
+    await expect(colorDialog).toBeVisible();
     await page.keyboard.press("Escape");
+    await expect(colorDialog).toBeHidden();
 
+    if (!(await page.getByRole("heading", { name: "Website Navigation" }).isVisible())) {
+      await navTrigger.click();
+    }
     const a11yTrigger = page.getByRole("button", { name: /open accessibility settings/i }).first();
     await expect(a11yTrigger).toBeVisible();
     await a11yTrigger.click();

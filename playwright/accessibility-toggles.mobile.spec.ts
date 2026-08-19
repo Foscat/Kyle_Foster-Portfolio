@@ -20,6 +20,9 @@ test.describe("Accessibility Toggles (mobile)", () => {
     await page.goto(toUrl("/"));
     await stabilizePage(page, { theme: "dark" });
 
+    await page.getByRole("button", { name: "Open website navigation" }).click();
+    await expect(page.getByRole("dialog", { name: "Website Navigation" })).toBeVisible();
+
     const a11yTrigger = page.getByRole("button", { name: /open accessibility settings/i }).first();
     await expect(a11yTrigger).toBeVisible();
     await a11yTrigger.click();

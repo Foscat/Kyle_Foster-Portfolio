@@ -14,7 +14,18 @@
 .contact-page {
   position: relative;
   min-height: 100vh;
+  width: min(100%, 92rem);
   color: var(--text-primary);
+}
+
+.contact-content,
+.contact-centered-stack {
+  width: 100%;
+  min-width: 0;
+}
+
+.contact-centered-stack {
+  gap: clamp(1rem, 2.5vw, 2rem);
 }
 
 .contact-grid {
@@ -152,15 +163,11 @@
 
 @media (width <= 1024px) {
   .contact-content {
-    /* Clear the fixed mobile nav rail before the first contact card starts. */
-    padding-top: calc(
-      var(--sticky-nav-mobile-trigger-size, 42px) + var(--sticky-nav-mobile-trigger-gap, 10px)
-    );
+    padding-top: 0;
   }
 
   .contact-grid {
-    padding: 0 0 0
-      calc(var(--sticky-nav-mobile-trigger-left, 0px) + var(--sticky-nav-mobile-trigger-size) + 4px);
+    padding: 0;
   }
 
   .contact-grid .contact-grid-item {

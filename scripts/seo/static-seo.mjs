@@ -19,6 +19,7 @@ import {
 
 const SEO_START_MARKER = "<!-- seo:managed-start -->";
 const SEO_END_MARKER = "<!-- seo:managed-end -->";
+const ROOT_CONTAINER_PATTERN = /<div id="root">\s*<\/div>/u;
 
 const escapeHtml = (value) =>
   String(value)
@@ -77,6 +78,42 @@ export function renderManagedSeoHead(routeSeo) {
 }
 
 /**
+ * Build meaningful route content that remains available before React executes.
+ * The runtime replaces this snapshot with the interactive application.
+ *
+ * @param {object} routeSeo - Metadata returned by resolveRouteSeo.
+ * @returns {string} Semantic route snapshot for the root container.
+ */
+export function renderStaticRouteSnapshot(routeSeo) {
+  const highlights = Array.isArray(routeSeo.snapshotHighlights)
+    ? routeSeo.snapshotHighlights
+        .map((highlight) => `        <li>${escapeHtml(highlight)}</li>`)
+        .join("\n")
+    : "";
+  const navigationItems = Object.values(SEO_ROUTE_REGISTRY)
+    .filter((route) => route.indexable)
+    .map(
+      (route) =>
+        `        <li><a href="${escapeHtml(route.path)}">${escapeHtml(route.breadcrumbLabel)}</a></li>`
+    )
+    .join("\n");
+
+  return `    <main class="static-route-snapshot" data-static-route-snapshot data-route="${escapeHtml(routeSeo.path)}">
+      <a class="static-route-snapshot__brand" href="/">Kyle Foster</a>
+      <p class="static-route-snapshot__eyebrow">Senior Frontend Engineer &amp; Product Builder</p>
+      <h1>${escapeHtml(routeSeo.snapshotHeading || routeSeo.breadcrumbLabel)}</h1>
+      <p>${escapeHtml(routeSeo.description)}</p>
+      ${highlights ? `<ul>\n${highlights}\n      </ul>` : ""}
+      <nav aria-label="Portfolio pages">
+        <ul>
+${navigationItems}
+        </ul>
+      </nav>
+      <noscript>This route remains readable without JavaScript. Enable JavaScript for the interactive portfolio experience.</noscript>
+    </main>`;
+}
+
+/**
  * Replace the managed SEO region in a built Vite HTML shell.
  *
  * @param {string} template - Built index HTML containing SEO markers.
@@ -92,7 +129,16 @@ export function renderRouteHtml(template, routeSeo) {
   }
 
   const afterMarker = end + SEO_END_MARKER.length;
-  return `${template.slice(0, start)}${renderManagedSeoHead(routeSeo)}${template.slice(afterMarker)}`;
+  const withManagedHead = `${template.slice(0, start)}${renderManagedSeoHead(routeSeo)}${template.slice(afterMarker)}`;
+
+  if (!ROOT_CONTAINER_PATTERN.test(withManagedHead)) {
+    throw new Error("Static SEO template is missing the empty #root container.");
+  }
+
+  return withManagedHead.replace(
+    ROOT_CONTAINER_PATTERN,
+    `<div id="root">\n${renderStaticRouteSnapshot(routeSeo)}\n  </div>`
+  );
 }
 
 /**
@@ -181,6 +227,15 @@ export async function validateSeoArtifacts({ distDir, siteOrigin }) {
     }
     if (!html.includes(`"url":"${routeSeo.canonicalUrl}"`)) {
       errors.push(`${route.path}: incorrect structured-data URL`);
+    }
+    if (!html.includes("data-static-route-snapshot")) {
+      errors.push(`${route.path}: missing static route snapshot`);
+    }
+    if (!html.includes(`<h1>${escapeHtml(routeSeo.snapshotHeading)}</h1>`)) {
+      errors.push(`${route.path}: missing static route heading`);
+    }
+    if (!html.includes(`>${escapeHtml(routeSeo.description)}</p>`)) {
+      errors.push(`${route.path}: missing static route summary`);
     }
   }
 

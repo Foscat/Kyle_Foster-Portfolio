@@ -69,29 +69,33 @@ const InfoSection = ({
   id = "",
   children,
 }) => {
+  const hasHeader = Boolean(title || subtitle || sectionTag || icon);
+
   return (
     <Panel
-      collapsible
+      collapsible={hasHeader}
       defaultExpanded
       id={id}
       header={
-        <div
-          className="info-header interactive-surface"
-          data-surface-variant="subtle"
-          data-surface-level="1"
-        >
-          {sectionTag ? <span className="info-section-tag">{sectionTag}</span> : null}
-          <div className="title-wrapper">
-            {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}
-            {title && <h2 className="info-title">{title}</h2>}
+        hasHeader ? (
+          <div
+            className="info-header interactive-surface"
+            data-surface-variant="subtle"
+            data-surface-level="1"
+          >
+            {sectionTag ? <span className="info-section-tag">{sectionTag}</span> : null}
+            <div className="title-wrapper">
+              {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}
+              {title && <span className="info-title">{title}</span>}
+            </div>
+            {subtitle && <p className="info-subtitle">{subtitle}</p>}
           </div>
-          {subtitle && <p className="info-subtitle">{subtitle}</p>}
-        </div>
+        ) : null
       }
       className={`info-section glass-card ly-section ly-surface ${className}`.trim()}
       as="section"
     >
-      {/* CONTENT AREA */}
+      {/* The panel body remains available when a section intentionally has no heading. */}
       <div className="info-content ly-stack ly-gap-4">{children}</div>
     </Panel>
   );

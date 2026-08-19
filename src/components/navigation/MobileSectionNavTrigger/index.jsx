@@ -1,6 +1,6 @@
 /**
  * @file MobileSectionNavTrigger.jsx
- * @fileoverview Mobile drawer-based section navigation with collapsible subsections.
+ * @fileoverview Icon-triggered route section drawer.
  *
  * Design:
  * - Section title click → navigate to section
@@ -20,9 +20,9 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { faCaretDown, faCaretRight, faListUl } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretRight, faListUl, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Drawer } from "rsuite";
-import { Size, Variant } from "types/ui.types";
+import { BlockType, Size, SurfaceLevel, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
 
@@ -31,7 +31,7 @@ import "./styles.css";
  * @component
  * @name MobileSectionNavTrigger
  *
- * @description Mobile drawer-based section navigation with collapsible subsections.
+ * @description Viewport-independent route section navigation with collapsible subsections.
  *
  * @param {object} props
  * @param {string} props.title - Title displayed in the drawer header.
@@ -44,11 +44,8 @@ import "./styles.css";
  * @param {function} props.navigate - Callback to handle navigation when a section or block is clicked.
  *
  * @remarks
- * Renders a fixed floating trigger button inside a `.sect-nav-toggle-btn.mobile-only` wrapper
- * (`data-testid="mobile-sect-nav-trigger-wrapper"`); the StickyNav stylesheet sizes and positions
- * this wrapper on the mobile rail.
- * Sets `data-has-mobile-section-nav="true"` on `document.documentElement` while mounted so the
- * CSS rail layout can reserve the extra slot position; the attribute is removed on unmount.
+ * The icon trigger stays in the shared header and never reserves a document-level
+ * rail or reduces content width.
  * @returns {JSX.Element}
  *
  * @example
@@ -83,14 +80,6 @@ const MobileSectionNavTrigger = ({
 }) => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (typeof document === "undefined") return undefined;
-    document.documentElement.setAttribute("data-has-mobile-section-nav", "true");
-    return () => {
-      document.documentElement.removeAttribute("data-has-mobile-section-nav");
-    };
-  }, []);
-
   const closeDrawer = useCallback(() => {
     setOpen(false);
     if (typeof document === "undefined") return;
@@ -98,6 +87,12 @@ const MobileSectionNavTrigger = ({
     if (activeElement instanceof HTMLElement) {
       activeElement.blur();
     }
+  }, []);
+
+  const openSectionNavigation = useCallback((event) => {
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    setOpen(true);
   }, []);
 
   useEffect(() => {
@@ -137,28 +132,36 @@ const MobileSectionNavTrigger = ({
 
     return section.blocks.filter(
       (block) =>
-        block && typeof block.id === "string" && block.id.trim() !== "" && Boolean(block.title)
+        block &&
+        typeof block.id === "string" &&
+        block.id.trim() !== "" &&
+        Boolean(block.title) &&
+        block.type !== BlockType.LINKS
     );
   };
 
+  const navigableSections = sections.filter(
+    (section) =>
+      section &&
+      typeof section.id === "string" &&
+      section.id.trim() !== "" &&
+      Boolean(section.navLabel || section.title)
+  );
+  const currentSection =
+    navigableSections.find((section) => activeChain.includes(section.id)) || navigableSections[0];
+  const currentSectionLabel = currentSection?.navLabel || currentSection?.title || title;
+
   return (
     <>
-      {/* Trigger Button */}
-      <div
-        className="sect-nav-toggle-btn mobile-only sticky-nav-mobile-trigger sticky-nav-mobile-trigger--rail sticky-nav-mobile-trigger--nav sticky-nav-mobile-trigger--scaled"
-        data-testid="mobile-sect-nav-trigger-wrapper"
-      >
+      <div className="route-section-nav">
         <Btn
           icon={faListUl}
           size={Size.LG}
-          noBG
-          onClick={(event) => {
-            event?.preventDefault?.();
-            event?.stopPropagation?.();
-            setOpen(true);
-          }}
-          className="section-nav-trigger"
-          ariaLabel="Open section navigation"
+          surfaceLevel={SurfaceLevel.RAISED}
+          onClick={openSectionNavigation}
+          className="section-nav-trigger route-section-nav__trigger"
+          ariaLabel={`Open section navigation: ${currentSectionLabel}`}
+          ariaExpanded={open}
           variant={Variant.ACCENT}
         />
       </div>
@@ -167,14 +170,24 @@ const MobileSectionNavTrigger = ({
         open={open}
         onClose={closeDrawer}
         className="mobile-nav-drawer mobile-section-nav-drawer"
+        closeButton={false}
       >
-        <Drawer.Header closeButton>
+        <Drawer.Header closeButton={false}>
           <Drawer.Title>{title} Page</Drawer.Title>
+          <Btn
+            icon={faXmark}
+            size={Size.LG}
+            surfaceLevel={SurfaceLevel.RAISED}
+            className="mobile-section-nav-drawer__close"
+            ariaLabel="Close section navigation"
+            variant={Variant.ACCENT}
+            onClick={closeDrawer}
+          />
         </Drawer.Header>
 
         <Drawer.Body>
-          <div className="mobile-section-list">
-            {sections.map((section, sectionIndex) => {
+          <nav className="mobile-section-list" aria-label="On this page">
+            {navigableSections.map((section, sectionIndex) => {
               const expanded = isExpanded(section.id);
               const sectionActive = activeChain.includes(section.id);
               const navigableBlocks = getNavigableBlocks(section);
@@ -187,14 +200,15 @@ const MobileSectionNavTrigger = ({
                   className={`mobile-section-group ${sectionActive ? "is-active" : ""}`}
                 >
                   {/* SECTION ROW */}
-                  <div className="mobile-section-row">
+                  <div key={`${section.id}-row`} className="mobile-section-row">
                     {/* Title → Navigate */}
                     <Btn
+                      key={`${section.id}-title`}
                       type="button"
                       text={sectionNavLabel}
-                      noBG
                       size={Size.MD}
                       variant={Variant.SUBTLE}
+                      surfaceLevel={sectionActive ? SurfaceLevel.RAISED : SurfaceLevel.QUIET}
                       className="mobile-section-title"
                       ariaCurrent={sectionActive ? "location" : undefined}
                       onClick={(e) => {
@@ -207,11 +221,12 @@ const MobileSectionNavTrigger = ({
                     {/* Caret → Toggle */}
                     {hasBlocks && (
                       <Btn
+                        key={`${section.id}-caret`}
                         type="button"
                         className="mobile-section-caret"
-                        noBG
                         size={Size.SM}
                         variant={Variant.SUBTLE}
+                        surfaceLevel={SurfaceLevel.QUIET}
                         icon={expanded ? faCaretDown : faCaretRight}
                         ariaLabel={`Toggle ${sectionNavLabel} subsections`}
                         aria-expanded={expanded}
@@ -225,7 +240,7 @@ const MobileSectionNavTrigger = ({
                   </div>
                   {/* Subsections */}
                   {hasBlocks && expanded && (
-                    <div className="mobile-subsection-list">
+                    <div key={`${section.id}-subsections`} className="mobile-subsection-list">
                       {navigableBlocks.map((block, blockIndex) => {
                         const blockActive = activeLeafId === block.id;
                         const blockLabel = block.title;
@@ -234,9 +249,9 @@ const MobileSectionNavTrigger = ({
                           <Btn
                             key={`mobile-block-${section.id}-${block.id}-${blockIndex}`}
                             text={blockLabel}
-                            noBG
                             size={Size.SM}
                             variant={Variant.SUBTLE}
+                            surfaceLevel={blockActive ? SurfaceLevel.RAISED : SurfaceLevel.QUIET}
                             type="button"
                             className={`mobile-subsection ${blockActive ? "is-active" : ""}`}
                             onClick={(e) => {
@@ -252,7 +267,7 @@ const MobileSectionNavTrigger = ({
                 </div>
               );
             })}
-          </div>
+          </nav>
         </Drawer.Body>
       </Drawer>
     </>

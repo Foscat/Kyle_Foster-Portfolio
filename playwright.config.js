@@ -1,6 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
 const PLAYWRIGHT_RESULTS_ROOT = "./playwright/test-results";
+const PLAYWRIGHT_SNAPSHOT_ROOT = "./playwright/snapshots";
 const PLAYWRIGHT_BASE_URL =
   process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";
 const PLAYWRIGHT_PORT =
@@ -18,7 +19,8 @@ export default defineConfig({
     ["list"],
   ],
   outputDir: `${PLAYWRIGHT_RESULTS_ROOT}/artifacts`,
-  snapshotPathTemplate: `${PLAYWRIGHT_RESULTS_ROOT}/snapshots{/projectName}/{testFilePath}/{arg}{ext}`,
+  // Visual baselines are versioned separately from disposable run artifacts.
+  snapshotPathTemplate: `${PLAYWRIGHT_SNAPSHOT_ROOT}{/projectName}/{testFilePath}/{arg}{ext}`,
   expect: {
     // Global visual diff tolerances
     toHaveScreenshot: {

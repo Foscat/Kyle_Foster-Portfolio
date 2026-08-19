@@ -77,6 +77,18 @@ Create a default ImageTextSplitBlock
 
 - `ImageTextSplitBlock`
 
+### createVideoBlock
+
+Create a normalized self-hosted video block.
+
+**Parameters**
+
+- `block` (`Partial<VideoBlock>`) - Video block properties.
+
+**Returns**
+
+- `VideoBlock`
+
 ### createRichTextBlock
 
 Create a default RichTextBlock
@@ -644,7 +656,7 @@ Markdown documentation block
 
 Union of all feature blocks
 
-- Type: `RichTextBlock | ImageGalleryBlock | ImageTextSplitBlock | DiagramBlock | BulletListBlock | LinkListBlock | MarkdownDocsBlock`
+- Type: `RichTextBlock | ImageGalleryBlock | ImageTextSplitBlock | VideoBlock | DiagramBlock | BulletListBlock | LinkListBlock | MarkdownDocsBlock`
 
 ### FeatureSection
 

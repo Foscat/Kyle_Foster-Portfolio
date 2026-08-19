@@ -5,12 +5,13 @@
  */
 
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { PageRoute } from "../../src/types/navigation.types.js";
 import {
+  PROFILE_IMAGE_PATH,
   SEO_ROUTE_REGISTRY,
   buildStructuredData,
   resolveRouteSeo,
@@ -41,6 +42,11 @@ test("renderRouteHtml writes route-specific canonical and crawler metadata", () 
   assert.match(html, /<link rel="canonical" href="https:\/\/kyle-foster\.com\/contact"/u);
   assert.match(html, /<meta property="og:url" content="https:\/\/kyle-foster\.com\/contact"/u);
   assert.match(html, /<script type="application\/ld\+json"[^>]*>/u);
+  assert.match(html, /data-static-route-snapshot/u);
+  assert.match(html, /<h1>Contact Kyle Foster<\/h1>/u);
+  assert.match(html, /Contact Kyle Foster about senior frontend roles/u);
+  assert.match(html, /href="\/codestream"/u);
+  assert.doesNotMatch(html, /<div id="root"><\/div>/u);
   assert.doesNotMatch(html, /name="keywords"/u);
 });
 
@@ -48,7 +54,7 @@ test("createSitemapXml includes only indexable registry routes", () => {
   const sitemap = createSitemapXml(SEO_ROUTE_REGISTRY, SITE_ORIGIN);
 
   assert.match(sitemap, /<loc>https:\/\/kyle-foster\.com\/side-projects<\/loc>/u);
-  assert.match(sitemap, /<lastmod>2026-07-15<\/lastmod>/u);
+  assert.match(sitemap, /<lastmod>2026-08-10<\/lastmod>/u);
   assert.doesNotMatch(sitemap, /\/health/u);
 });
 
@@ -66,6 +72,18 @@ test("source home metadata stays synchronized with the registry", async () => {
   );
   assert.ok(sourceJsonLd);
   assert.deepEqual(JSON.parse(sourceJsonLd[1]), buildStructuredData(home));
+});
+
+test("structured profile image resolves to the shipped branded asset", async () => {
+  const expectedProfileImagePath = "/favicons/favicon-classic-dark.png";
+  const publicAssetPath = path.resolve("public", expectedProfileImagePath.slice(1));
+  const home = resolveRouteSeo(PageRoute.HOME, SITE_ORIGIN);
+  const structuredData = buildStructuredData(home);
+  const person = structuredData["@graph"].find((node) => node["@type"] === "Person");
+
+  assert.equal(PROFILE_IMAGE_PATH, expectedProfileImagePath);
+  assert.equal(person.image, `${SITE_ORIGIN}${expectedProfileImagePath}`);
+  await assert.doesNotReject(() => access(publicAssetPath));
 });
 
 test("Render routes known paths to static shells without rewriting unknown paths", async () => {
@@ -93,11 +111,18 @@ test("generateSeoArtifacts creates indexable, health, and noindex fallback shell
     const notFoundHtml = await readFile(path.join(distDir, "404.html"), "utf8");
 
     assert.match(homeHtml, /href="https:\/\/kyle-foster\.com\/"/u);
+    assert.match(
+      homeHtml,
+      /<h1>Kyle Foster - Senior Frontend Engineer &amp; Product Builder<\/h1>/u
+    );
+    assert.match(homeHtml, /Sanderson Technology Enterprises product engineering/u);
     assert.match(contactHtml, /href="https:\/\/kyle-foster\.com\/contact"/u);
     assert.match(contactHtml, /name="description"/u);
     assert.match(contactHtml, /"url":"https:\/\/kyle-foster\.com\/contact"/u);
+    assert.match(contactHtml, /data-static-route-snapshot/u);
     assert.match(healthHtml, /noindex, nofollow/u);
     assert.match(notFoundHtml, /Page Not Found/u);
+    assert.match(notFoundHtml, /<h1>Page not found<\/h1>/u);
     assert.match(notFoundHtml, /noindex, nofollow/u);
     await assert.doesNotReject(() => validateSeoArtifacts({ distDir, siteOrigin: SITE_ORIGIN }));
   } finally {

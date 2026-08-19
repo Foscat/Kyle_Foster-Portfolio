@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import codestreamSections from "assets/data/content/codestream";
 import { PageHeader } from "components/layout";
-import { StickyNav, StickySectionNav, Footer, helpers } from "components/navigation";
+import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { SectionRenderer } from "components/renderers";
 import SectionRegistryProvider from "assets/context/SectionRegistryProvider";
 
@@ -56,6 +56,7 @@ const CodeStream = () => {
   return (
     <SectionRegistryProvider>
       <div className="page-shell ly-wrapper ly-wrapper--wide ly-stack">
+        <UnifiedNavigation activePage={csos.url} pageUrl={csos.url} sections={csos.sections} />
         <PageHeader
           title={csos.title}
           subTitle={csos.description}
@@ -63,9 +64,8 @@ const CodeStream = () => {
           timespan={csos.timespan}
           tech={csos.tech}
         />
-        <StickyNav activePage={csos.url} />
-        <div className="page-layout ly-sidebar">
-          <main className="page-content app-main ly-sidebar__content" role="main">
+        <div className="page-layout">
+          <main className="page-content app-main" role="main">
             {csos.sections.map((sect) => {
               return (
                 <SectionRenderer
@@ -76,9 +76,6 @@ const CodeStream = () => {
               );
             })}
           </main>
-          <aside className="page-sidebar ly-sidebar__side">
-            <StickySectionNav pageUrl={csos.url} sections={csos.sections} />
-          </aside>
         </div>
         <Footer />
       </div>

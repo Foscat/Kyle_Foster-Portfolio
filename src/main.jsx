@@ -25,10 +25,11 @@ import App from "./App.jsx";
 import "./index.css";
 // RSuite shell styles
 import "./styles/rsuite-shell.less";
-// Minified package entrypoints keep the library cascade order while reducing emitted global CSS.
-import "ui-style-kit-css/dist/ui-style-kit.with-bridge.min.css";
-import "interactive-surface-css/interactive-surface.css";
-import "layout-style-css/min.css";
+// Keep library ownership explicit: visual paint, interaction theme, state behavior, then layout.
+import "ui-style-kit-css/visual.css";
+import "ui-style-kit-css/interactive-surface-theme.css";
+import "interactive-surface-css/state-core.css";
+import "layout-style-css";
 // The icon stylesheet and custom element complete the shared STE interface-system contract.
 import "ui-style-kit-icons/css.css";
 import "ui-style-kit-icons/element";

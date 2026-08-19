@@ -13,7 +13,7 @@ import renderWithProviders from "tests/renderWithProviders";
 import { PageRoute } from "types/navigation.types";
 
 vi.mock("components/navigation", () => ({
-  StickyNav: ({ activePage }) => (
+  UnifiedNavigation: ({ activePage }) => (
     <nav aria-label="Contact navigation" data-testid="contact-nav" data-active-page={activePage} />
   ),
   Footer: () => <footer data-testid="contact-footer">Footer Mock</footer>,
@@ -90,6 +90,9 @@ describe("Contact page", () => {
       initialEntries: [PageRoute.CONTACT],
     });
 
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Contact Kyle Foster" })
+    ).toBeInTheDocument();
     expect(screen.getByTestId("contact-nav")).toHaveAttribute(
       "data-active-page",
       PageRoute.CONTACT

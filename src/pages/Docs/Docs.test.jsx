@@ -23,4 +23,5 @@ createPageTests({
   sections: docsSections,
   pageRoute: PageRoute.DOCS,
   pageName: "Docs",
+  primaryNavigationRoute: PageRoute.SIDE_PROJECTS,
 });

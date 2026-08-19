@@ -5,6 +5,8 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { readFileSync, readdirSync } from "node:fs";
+import { resolve } from "node:path";
 import {
   getFaviconPath,
   getSystemTheme,
@@ -14,6 +16,12 @@ import {
   subscribeToSystemThemeChanges,
   updateFavicon,
 } from "./favicon";
+
+/**
+ * Browser-measured text baseline that optically centers the KF mark in its 512px frame.
+ * @constant {string}
+ */
+const FAVICON_OPTICAL_CENTER_BASELINE = "330.84";
 
 describe("favicon utilities", () => {
   const originalMatchMedia = window.matchMedia;
@@ -85,7 +93,7 @@ describe("favicon utilities", () => {
     const legacy = document.createElement("link");
     legacy.rel = "icon";
     legacy.type = "image/jpeg";
-    legacy.href = "/portfolio-icon.jpg";
+    legacy.href = "/legacy-favicon.jpg";
     document.head.appendChild(legacy);
 
     const shortcutLegacy = document.createElement("link");
@@ -162,5 +170,16 @@ describe("favicon utilities", () => {
     expect(resolvePalette("unknown")).toBe("ocean-steel");
     expect(getFaviconPath("dark", "unknown")).toBe("/favicons/favicon-ocean-steel-dark.png");
     expect(getFaviconPath("light", "unknown")).toBe("/favicons/favicon-ocean-steel-light.png");
+  });
+
+  it("keeps every SVG favicon on the measured optical-center baseline", () => {
+    const faviconDirectory = resolve(process.cwd(), "public", "favicons");
+    const svgFiles = readdirSync(faviconDirectory).filter((fileName) => fileName.endsWith(".svg"));
+
+    expect(svgFiles).toHaveLength(22);
+    svgFiles.forEach((fileName) => {
+      const svg = readFileSync(resolve(faviconDirectory, fileName), "utf8");
+      expect(svg).toContain(`x="256.0" y="${FAVICON_OPTICAL_CENTER_BASELINE}"`);
+    });
   });
 });

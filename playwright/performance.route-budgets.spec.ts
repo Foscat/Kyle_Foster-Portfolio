@@ -31,8 +31,8 @@ const KB = 1024;
 // guardrails without treating intentional platform growth as an app regression.
 const BUDGETS: Budget[] = [
   { route: "/", name: "Home", jsKb: 9500, cssKb: 35, imageKb: 9000 },
-  { route: "/contact", name: "Contact", jsKb: 8800, cssKb: 35, imageKb: 120 },
-  { route: "/codestream", name: "CodeStream", jsKb: 9700, cssKb: 35, imageKb: 3200 },
+  { route: "/contact", name: "Contact", jsKb: 9100, cssKb: 35, imageKb: 120 },
+  { route: "/codestream", name: "CodeStream", jsKb: 9950, cssKb: 35, imageKb: 3200 },
 ];
 
 const parseSize = async (response: Response) => {

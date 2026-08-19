@@ -1,48 +1,16 @@
 /**
- * @file src\components\navigation\StickySectionNav\StickySectionNav.test.jsx
- * @description src\components\navigation\StickySectionNav\StickySectionNav.test module.
- * @module src\components\navigation\StickySectionNav\StickySectionNav.test
+ * @file StickySectionNav.test.jsx
+ * @description Contracts for the in-flow route section navigator.
+ * @module components/navigation/StickySectionNav.test
  */
 
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { act, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
-
-import { renderWithProviders } from "tests/renderWithProviders";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import StickySectionNav from "../StickySectionNav";
 import { BlockType } from "types/ui.types";
+import renderWithProviders from "tests/renderWithProviders";
 
-/**
- * @file StickySectionNav.test.js
- * @description Unit tests for the StickySectionNav component.
- *
- * Test coverage:
- * - Rendering of section navigation links
- * - Active section highlighting via `aria-current="location"`
- * - History hash updates on navigation
- * - Programmatic scroll coordination with scroll-spy logic
- *
- * Testing strategy:
- * - Mocks `useScrollSpyWithHistory` to control active section state
- * - Mocks `window.scrollTo` to prevent actual scrolling
- * - Uses real DOM nodes to simulate anchor targets
- *
- * Architectural intent:
- * StickySectionNav is an **intra-page navigation controller**.
- * Tests focus on:
- * - Accessibility semantics
- * - Navigation side effects (history + scroll)
- * - Integration boundaries with the scroll-spy hook
- *
- * @module tests/components/StickySectionNav
- */
-
-/* ------------------------------------------------------------------
- * Mocks
- * ------------------------------------------------------------------ */
-
-/**
- * @description Mock scroll-spy hook to control active section state and observe programmatic scroll suppression behavior. /
- */
 const markProgrammaticScroll = vi.fn(() => Promise.resolve(true));
 const scrollSpyState = {
   activeLeafId: "section-1",
@@ -50,102 +18,17 @@ const scrollSpyState = {
 };
 
 vi.mock("assets/hooks/useScrollSpy", () => ({
-  buildSectionTree: (sections) => ({
-    nodes: sections.flatMap((section) => {
-      if (!section?.id) return [];
+  buildSectionTree: (sections) => {
+    const nodes = sections.flatMap((section) => {
+      const children = (section.navItems || section.blocks || [])
+        .filter((item) => item?.id)
+        .map((item) => ({ id: item.id, parentId: section.id, type: "block" }));
 
-      const sectionNode = {
-        id: section.id,
-        type: "section",
-        parentId: null,
-      };
+      return [{ id: section.id, parentId: null, type: "section" }, ...children];
+    });
 
-      const navNodes = Array.isArray(section.navItems)
-        ? section.navItems
-            .filter((item) => item?.id)
-            .map((item) => ({
-              id: item.id,
-              type: "block",
-              parentId: section.id,
-            }))
-        : [];
-
-      const blockNodes = Array.isArray(section.blocks)
-        ? section.blocks
-            .filter((block) => block?.id)
-            .flatMap((block) => {
-              const baseBlock = {
-                id: block.id,
-                type: "block",
-                parentId: section.id,
-              };
-
-              const childItems = Array.isArray(block.items)
-                ? block.items
-                    .filter((item) => item?.id)
-                    .map((item) => ({
-                      id: item.id,
-                      type: "block",
-                      parentId: block.id,
-                    }))
-                : [];
-
-              return [baseBlock, ...childItems];
-            })
-        : [];
-
-      return [sectionNode, ...(navNodes.length ? navNodes : blockNodes)];
-    }),
-    byId: new Map(
-      sections
-        .flatMap((section) => {
-          if (!section?.id) return [];
-
-          const sectionNode = {
-            id: section.id,
-            type: "section",
-            parentId: null,
-          };
-
-          const navNodes = Array.isArray(section.navItems)
-            ? section.navItems
-                .filter((item) => item?.id)
-                .map((item) => ({
-                  id: item.id,
-                  type: "block",
-                  parentId: section.id,
-                }))
-            : [];
-
-          const blockNodes = Array.isArray(section.blocks)
-            ? section.blocks
-                .filter((block) => block?.id)
-                .flatMap((block) => {
-                  const baseBlock = {
-                    id: block.id,
-                    type: "block",
-                    parentId: section.id,
-                  };
-
-                  const childItems = Array.isArray(block.items)
-                    ? block.items
-                        .filter((item) => item?.id)
-                        .map((item) => ({
-                          id: item.id,
-                          type: "block",
-                          parentId: block.id,
-                        }))
-                    : [];
-
-                  return [baseBlock, ...childItems];
-                })
-            : [];
-
-          return [sectionNode, ...(navNodes.length ? navNodes : blockNodes)];
-        })
-        .map((node) => [node.id, node])
-    ),
-  }),
+    return { nodes, byId: new Map(nodes.map((node) => [node.id, node])) };
+  },
   useScrollSpyWithHistory: () => ({
     activeLeafId: scrollSpyState.activeLeafId,
     activeChain: scrollSpyState.activeChain,
@@ -153,886 +36,157 @@ vi.mock("assets/hooks/useScrollSpy", () => ({
   }),
 }));
 
-/* ------------------------------------------------------------------
- * Fixtures
- * ------------------------------------------------------------------ */
-
 const sections = [
   { id: "section-1", title: "Introduction" },
   { id: "section-2", title: "Details" },
 ];
 
-const sectionsWithBlocks = [
-  {
-    id: "section-1",
-    title: "Introduction",
-    blocks: [{ id: "section-1-block", title: "Overview" }],
-  },
-  {
-    id: "section-2",
-    title: "Details",
-    blocks: [{ id: "section-2-block", title: "Deep Dive" }],
-  },
-];
-
-const sectionsWithNonNavigableChild = [
-  {
-    id: "section-1",
-    title: "Introduction",
-    blocks: [
-      { id: "section-1-block", title: "Overview" },
-      { id: "section-1-links", title: "Resource Links", type: BlockType.LINKS },
-    ],
-  },
-];
-
-const sectionsWithNavItems = [
-  {
-    id: "docs",
-    title: "Docs",
-    navItems: [{ id: "doc-components", title: "Components" }],
-    blocks: [{ id: "docs-block", title: "Legacy Block" }],
-  },
-];
-
-/* ------------------------------------------------------------------
- * Test Suite
- * ------------------------------------------------------------------ */
-
 describe("StickySectionNav", () => {
-  let initialBodyChildren;
-  let s1;
-  let s2;
-
   beforeEach(() => {
-    // This suite intentionally mounts native scroll targets directly under body.
-    // eslint-disable-next-line testing-library/no-node-access
-    initialBodyChildren = new Set(document.body.children);
-    markProgrammaticScroll.mockClear();
     scrollSpyState.activeLeafId = "section-1";
     scrollSpyState.activeChain = ["section-1"];
+    markProgrammaticScroll.mockClear();
     vi.spyOn(window, "scrollTo").mockImplementation(() => {});
-    Object.defineProperty(window, "scrollY", {
-      value: 0,
-      writable: true,
-      configurable: true,
-    });
-    Object.defineProperty(window, "pageYOffset", {
-      value: 0,
-      writable: true,
-      configurable: true,
-    });
-    Object.defineProperty(window, "innerWidth", {
-      value: 1280,
-      writable: true,
-      configurable: true,
-    });
+    window.history.pushState(null, "", "/page");
 
-    /**
-     * @description Ensure target section elements exist in the DOM so scroll and offset calculations can resolve correctly. /
-     */
-    s1 = document.createElement("div");
-    s1.id = "section-1";
-    document.body.appendChild(s1);
-
-    s2 = document.createElement("div");
-    s2.id = "section-2";
-    document.body.appendChild(s2);
+    for (const section of sections) {
+      const target = document.createElement("div");
+      target.id = section.id;
+      target.getBoundingClientRect = vi.fn(() => ({ top: 160 }));
+      document.body.appendChild(target);
+    }
   });
 
-  it("uses a compact navigation label without changing the section title", () => {
+  it("keeps section navigation behind an icon-only trigger at desktop widths", () => {
+    Object.defineProperty(window, "innerWidth", { value: 1440, configurable: true });
+
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
+
+    const trigger = screen.getByRole("button", {
+      name: "Open section navigation: Introduction",
+    });
+    expect(trigger).toBeVisible();
+    expect(trigger).not.toHaveTextContent("Introduction");
+    expect(screen.queryByText("1 / 2")).not.toBeInTheDocument();
+    expect(screen.queryByRole("navigation", { name: "On this page" })).not.toBeInTheDocument();
+    expect(document.documentElement).not.toHaveAttribute("data-has-mobile-section-nav");
+  });
+
+  it("keeps the active section in the trigger's accessible name", () => {
+    scrollSpyState.activeLeafId = "section-2";
+    scrollSpyState.activeChain = ["section-2"];
+
     renderWithProviders(
       <StickySectionNav
         sections={[
+          sections[0],
           {
-            id: "section-1",
-            title: "Scrap Yard System Inventory and Commerce Platform",
-            navLabel: "Scrap Yard",
+            ...sections[1],
+            title: "Detailed product architecture",
+            navLabel: "Architecture",
           },
         ]}
         pageUrl="/page"
       />
     );
 
-    expect(screen.getByRole("button", { name: "Scrap Yard" })).toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", {
-        name: "Scrap Yard System Inventory and Commerce Platform",
-      })
-    ).not.toBeInTheDocument();
-  });
-
-  afterEach(() => {
-    cleanup();
-
-    // These navigation tests create real scroll targets outside React's render
-    // root. Remove every fixture added by the current test to prevent duplicate
-    // IDs from changing document.getElementById results in later assertions.
-    // eslint-disable-next-line testing-library/no-node-access
-    Array.from(document.body.children).forEach((child) => {
-      if (!initialBodyChildren.has(child)) child.remove();
+    const trigger = screen.getByRole("button", {
+      name: "Open section navigation: Architecture",
     });
-
-    vi.restoreAllMocks();
+    expect(trigger).toBeVisible();
+    expect(trigger).not.toHaveTextContent("Architecture");
+    expect(screen.queryByText("2 / 2")).not.toBeInTheDocument();
   });
 
-  /* ------------------------------------------------------------
-   * Rendering
-   * ------------------------------------------------------------ */
-
-  it("renders a list of section buttons", () => {
+  it("opens the section tree from a right-side drawer", async () => {
+    const user = userEvent.setup();
     renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
 
-    expect(screen.getByRole("navigation", { name: /section navigation/i })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /open section navigation/i }));
+    const dialog = await screen.findByRole("dialog", { name: /page page/i });
 
-    expect(screen.getByRole("button", { name: "Introduction" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Details" })).toBeInTheDocument();
+    expect(dialog).toHaveClass("rs-drawer-right");
+    expect(within(dialog).getByRole("navigation", { name: "On this page" })).toBeVisible();
   });
 
-  /* ------------------------------------------------------------
-   * Active section state
-   * ------------------------------------------------------------ */
-
-  it("marks the active section via aria-current", () => {
+  it("navigates from the drawer and coordinates the URL and scroll spy", async () => {
+    const user = userEvent.setup();
     renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
 
-    expect(screen.getByRole("button", { name: "Introduction" })).toHaveAttribute(
-      "aria-current",
-      "location"
-    );
+    await user.click(screen.getByRole("button", { name: "Open section navigation: Introduction" }));
+    const dialog = await screen.findByRole("dialog", { name: /page page/i });
+    await user.click(within(dialog).getByRole("button", { name: "Details" }));
 
-    expect(screen.getByRole("button", { name: "Details" })).not.toHaveAttribute("aria-current");
-  });
-
-  it("delegates active and inactive section presentation to the shared button state", () => {
-    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
-
-    const activeSection = screen.getByRole("button", { name: "Introduction" });
-    const inactiveSection = screen.getByRole("button", { name: "Details" });
-
-    expect(activeSection).toHaveClass("interactive-surface", "is-active");
-    expect(inactiveSection).toHaveClass("interactive-surface");
-    expect(inactiveSection).not.toHaveClass("is-active");
-    expect(activeSection).toHaveAttribute("data-surface-variant", "subtle");
-    expect(inactiveSection).toHaveAttribute("data-surface-variant", "subtle");
-    expect(activeSection).not.toHaveAttribute("data-surface-level");
-    expect(inactiveSection).not.toHaveAttribute("data-surface-level");
-  });
-
-  it("delegates active subsection presentation without caller-owned surface levels", () => {
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-    fireEvent.click(screen.getByRole("button", { name: "Toggle Introduction subsections" }));
-
-    const activeBlock = screen.getByRole("button", { name: "Navigate to subsection Overview" });
-    expect(activeBlock).toHaveClass("interactive-surface", "is-active");
-    expect(activeBlock).toHaveAttribute("data-surface-variant", "subtle");
-    expect(activeBlock).not.toHaveAttribute("data-surface-level");
-  });
-
-  it("keeps the active entry visible without scrolling the document", async () => {
-    scrollSpyState.activeLeafId = "section-2";
-    scrollSpyState.activeChain = ["section-2"];
-
-    vi.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockImplementation(function () {
-      return this.getAttribute("aria-label") === "Section navigation" ? 900 : 0;
-    });
-    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockImplementation(function () {
-      return this.getAttribute("aria-label") === "Section navigation" ? 300 : 40;
-    });
-    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockImplementation(function () {
-      return this.dataset.navId === "section-2" ? 700 : 0;
-    });
-    const scrollIntoView = vi
-      .spyOn(HTMLElement.prototype, "scrollIntoView")
-      .mockImplementation(() => {});
-
-    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
-
-    const nav = screen.getByRole("navigation", { name: /section navigation/i });
-    await waitFor(() => expect(nav.scrollTop).toBe(570));
-    expect(scrollIntoView).not.toHaveBeenCalled();
-    expect(window.scrollTo).not.toHaveBeenCalled();
-  });
-
-  /* ------------------------------------------------------------
-   * Navigation behavior
-   * ------------------------------------------------------------ */
-
-  it("updates history and performs a programmatic scroll on button click", async () => {
-    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
-
-    const details = screen.getByRole("button", { name: "Details" });
-
-    fireEvent.click(details);
-
-    /**
-     * @description Ensures the scroll-spy hook is informed that the upcoming scroll is programmatic (not user-driven). /
-     */
-    expect(markProgrammaticScroll).toHaveBeenCalledTimes(1);
-
-    /**
-     * @description Verifies that the URL hash is updated without a full navigation. /
-     */
-    expect(window.location.hash).toBe("#section-2");
-
-    /**
-     * @description Confirms that smooth scrolling was triggered. /
-     */
     await waitFor(() => {
+      expect(window.location.hash).toBe("#section-2");
+      expect(markProgrammaticScroll).toHaveBeenCalledWith("section-2");
       expect(window.scrollTo).toHaveBeenCalled();
     });
   });
 
-  it("keeps subsection lists collapsed by default when only a parent section is active", () => {
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
+  it("lands section targets below the measured unified navigation", async () => {
+    const user = userEvent.setup();
+    const navigationShell = document.createElement("header");
+    navigationShell.dataset.testid = "unified-navigation";
+    navigationShell.getBoundingClientRect = vi.fn(() => ({ height: 96 }));
+    document.body.prepend(navigationShell);
 
-    expect(screen.queryByRole("button", { name: "Overview" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Deep Dive" })).not.toBeInTheDocument();
-  });
-
-  it("keeps subsection lists closed by default even when an active descendant exists", () => {
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
-    expect(
-      screen.queryByRole("button", { name: /navigate to subsection overview/i })
-    ).not.toBeInTheDocument();
-  });
-
-  it("stays collapsed on initial render even when page starts scrolled", () => {
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    Object.defineProperty(window, "scrollY", {
-      value: 240,
-      writable: true,
-      configurable: true,
-    });
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
-    expect(
-      screen.queryByRole("button", { name: /navigate to subsection overview/i })
-    ).not.toBeInTheDocument();
-  });
-
-  it("opens the section on scroll updates when an active descendant exists", async () => {
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
-    expect(
-      screen.queryByRole("button", { name: /navigate to subsection overview/i })
-    ).not.toBeInTheDocument();
-
-    act(() => {
-      window.scrollY = 120;
-      fireEvent.scroll(window);
-    });
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
+    await user.click(screen.getByRole("button", { name: "Open section navigation: Introduction" }));
+    const dialog = await screen.findByRole("dialog", { name: /page page/i });
+    await user.click(within(dialog).getByRole("button", { name: "Details" }));
 
     await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: /navigate to subsection overview/i })
-      ).toBeInTheDocument();
+      expect(window.scrollTo).toHaveBeenCalledWith({ behavior: "smooth", top: 64 });
     });
+
+    navigationShell.remove();
   });
 
-  it("keeps scroll-driven section expansion when active leaf is a non-navigable descendant", async () => {
-    scrollSpyState.activeLeafId = "section-1-links";
-    scrollSpyState.activeChain = ["section-1", "section-1-links"];
-
-    renderWithProviders(
-      <StickySectionNav sections={sectionsWithNonNavigableChild} pageUrl="/page" />
-    );
-
-    expect(
-      screen.queryByRole("button", { name: /navigate to subsection overview/i })
-    ).not.toBeInTheDocument();
-
-    act(() => {
-      window.scrollY = 120;
-      fireEvent.scroll(window);
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", { name: /navigate to subsection overview/i })
-      ).toBeInTheDocument();
-    });
-  });
-
-  it("renders subsection items from navItems when provided", () => {
+  it("prefers explicit nav items and excludes link-list blocks", async () => {
+    const user = userEvent.setup();
     const docs = document.createElement("div");
     docs.id = "docs";
     document.body.appendChild(docs);
+    const components = document.createElement("div");
+    components.id = "doc-components";
+    document.body.appendChild(components);
 
-    const docComponents = document.createElement("div");
-    docComponents.id = "doc-components";
-    document.body.appendChild(docComponents);
+    renderWithProviders(
+      <StickySectionNav
+        pageUrl="/docs"
+        sections={[
+          {
+            id: "docs",
+            title: "Docs",
+            navItems: [{ id: "doc-components", title: "Components" }],
+            blocks: [
+              { id: "legacy-block", title: "Legacy block" },
+              { id: "resource-links", title: "Resources", type: BlockType.LINKS },
+            ],
+          },
+        ]}
+      />
+    );
 
-    renderWithProviders(<StickySectionNav sections={sectionsWithNavItems} pageUrl="/docs" />);
+    await user.click(screen.getByRole("button", { name: "Open section navigation: Docs" }));
+    await user.click(screen.getByRole("button", { name: "Toggle Docs subsections" }));
 
-    expect(
-      screen.getByRole("button", { name: /navigate to subsection components/i, hidden: true })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("button", {
-        name: /navigate to subsection legacy block/i,
-        hidden: true,
-      })
-    ).not.toBeInTheDocument();
-
-    docs.remove();
-    docComponents.remove();
+    expect(screen.getByRole("button", { name: "Components" })).toBeVisible();
+    expect(screen.queryByRole("button", { name: "Legacy block" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Resources" })).not.toBeInTheDocument();
   });
 
-  it("moves to the next section block when Tab is pressed", async () => {
-    const s1Block = document.createElement("div");
-    s1Block.id = "section-1-block";
-    document.body.appendChild(s1Block);
-
-    const s2Block = document.createElement("div");
-    s2Block.id = "section-2-block";
-    document.body.appendChild(s2Block);
-
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Introduction" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "Tab" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-2-block");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-      // Wait for the scheduled animation frame so it cannot leak a scroll
-      // callback into the following top-alignment test.
-      expect(window.scrollTo).toHaveBeenCalled();
-    });
-
-    s1Block.remove();
-    s2Block.remove();
-  });
-
-  it("top-aligns the owning section when Tab advances into another section", async () => {
-    const s1Block = document.createElement("div");
-    s1Block.id = "section-1-block";
-    document.body.appendChild(s1Block);
-
-    const s2Block = document.createElement("div");
-    s2Block.id = "section-2-block";
-    document.body.appendChild(s2Block);
-
-    const makeRect = (top) => ({
-      top,
-      bottom: top + 120,
-      left: 0,
-      right: 120,
-      width: 120,
-      height: 120,
-      x: 0,
-      y: top,
-      toJSON: () => ({}),
-    });
-
-    Object.defineProperty(window, "pageYOffset", {
-      value: 100,
-      writable: true,
-      configurable: true,
-    });
-
-    const scrollHeightSpy = vi
-      .spyOn(document.documentElement, "scrollHeight", "get")
-      .mockReturnValue(3000);
-    const clientHeightSpy = vi
-      .spyOn(document.documentElement, "clientHeight", "get")
-      .mockReturnValue(900);
-
-    s2.getBoundingClientRect = vi.fn(() => makeRect(420));
-    s2Block.getBoundingClientRect = vi.fn(() => makeRect(760));
-
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Introduction" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "Tab" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-2-block");
-      expect(window.scrollTo).toHaveBeenCalled();
-    });
-
-    const lastScrollCall = window.scrollTo.mock.calls.at(-1)?.[0];
-    expect(lastScrollCall).toMatchObject({
-      top: 520,
-      behavior: "smooth",
-    });
-
-    scrollHeightSpy.mockRestore();
-    clientHeightSpy.mockRestore();
-    s1Block.remove();
-    s2Block.remove();
-  });
-
-  it("moves to the previous section block when Alt+Enter is pressed", async () => {
-    const s1Block = document.createElement("div");
-    s1Block.id = "section-1-block";
-    document.body.appendChild(s1Block);
-
-    const s2Block = document.createElement("div");
-    s2Block.id = "section-2-block";
-    document.body.appendChild(s2Block);
-
-    scrollSpyState.activeLeafId = "section-2-block";
-    scrollSpyState.activeChain = ["section-2", "section-2-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Details" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "Enter", altKey: true });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-block");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-    });
-
-    s1Block.remove();
-    s2Block.remove();
-  });
-
-  it("ignores section keyboard shortcuts when focus is outside the section nav", async () => {
-    const s1Block = document.createElement("div");
-    s1Block.id = "section-1-block";
-    document.body.appendChild(s1Block);
-
-    const s2Block = document.createElement("div");
-    s2Block.id = "section-2-block";
-    document.body.appendChild(s2Block);
-
-    scrollSpyState.activeLeafId = "section-2-block";
-    scrollSpyState.activeChain = ["section-2", "section-2-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithBlocks} pageUrl="/page" />);
-
+  it("does not hijack Tab when focus is outside the route navigator", () => {
+    renderWithProviders(<StickySectionNav sections={sections} pageUrl="/page" />);
     const outsideButton = document.createElement("button");
-    outsideButton.textContent = "outside";
+    outsideButton.textContent = "Outside";
     document.body.appendChild(outsideButton);
     outsideButton.focus();
-    const initialHash = window.location.hash;
 
-    fireEvent.keyDown(outsideButton, { key: "Enter", altKey: true });
+    fireEvent.keyDown(outsideButton, { key: "Tab" });
 
-    await waitFor(() => {
-      expect(markProgrammaticScroll).not.toHaveBeenCalled();
-    });
-    expect(window.location.hash).toBe(initialHash);
-
-    outsideButton.remove();
-    s1Block.remove();
-    s2Block.remove();
-  });
-
-  it("uses active chain parent block when active leaf is an accordion child", async () => {
-    const s1Block = document.createElement("div");
-    s1Block.id = "section-1-block";
-    document.body.appendChild(s1Block);
-
-    const s1BlockTwo = document.createElement("div");
-    s1BlockTwo.id = "section-1-block-two";
-    document.body.appendChild(s1BlockTwo);
-
-    const s2Block = document.createElement("div");
-    s2Block.id = "section-2-block";
-    document.body.appendChild(s2Block);
-
-    const sectionsWithSiblingBlocks = [
-      {
-        id: "section-1",
-        title: "Introduction",
-        blocks: [
-          { id: "section-1-block", title: "Overview" },
-          { id: "section-1-block-two", title: "Details" },
-        ],
-      },
-      {
-        id: "section-2",
-        title: "Next",
-        blocks: [{ id: "section-2-block", title: "Next Overview" }],
-      },
-    ];
-
-    scrollSpyState.activeLeafId = "section-1-accordion-item-1";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithSiblingBlocks} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Introduction" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "Tab" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-block-two");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-    });
-
-    s1Block.remove();
-    s1BlockTwo.remove();
-    s2Block.remove();
-  });
-
-  it("moves to next accordion item on ArrowDown when active block is bulleted list", async () => {
-    const section = document.createElement("div");
-    section.id = "section-1";
-    document.body.appendChild(section);
-
-    const block = document.createElement("div");
-    block.id = "section-1-block";
-    document.body.appendChild(block);
-
-    const itemOne = document.createElement("div");
-    itemOne.id = "section-1-item-1";
-    document.body.appendChild(itemOne);
-
-    const itemTwo = document.createElement("div");
-    itemTwo.id = "section-1-item-2";
-    document.body.appendChild(itemTwo);
-
-    const sectionsWithAccordionBlock = [
-      {
-        id: "section-1",
-        title: "Intro",
-        blocks: [
-          {
-            id: "section-1-block",
-            type: BlockType.BULLETED_LIST,
-            title: "Accordion",
-            items: [
-              { id: "section-1-item-1", title: "Item 1" },
-              { id: "section-1-item-2", title: "Item 2" },
-            ],
-          },
-        ],
-      },
-    ];
-
-    scrollSpyState.activeLeafId = "section-1-item-1";
-    scrollSpyState.activeChain = ["section-1", "section-1-block", "section-1-item-1"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-item-2");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-    });
-
-    section.remove();
-    block.remove();
-    itemOne.remove();
-    itemTwo.remove();
-  });
-
-  it("moves to previous accordion item on ArrowUp when possible", async () => {
-    const section = document.createElement("div");
-    section.id = "section-1";
-    document.body.appendChild(section);
-
-    const block = document.createElement("div");
-    block.id = "section-1-block";
-    document.body.appendChild(block);
-
-    const itemOne = document.createElement("div");
-    itemOne.id = "section-1-item-1";
-    document.body.appendChild(itemOne);
-
-    const itemTwo = document.createElement("div");
-    itemTwo.id = "section-1-item-2";
-    document.body.appendChild(itemTwo);
-
-    const sectionsWithAccordionBlock = [
-      {
-        id: "section-1",
-        title: "Intro",
-        blocks: [
-          {
-            id: "section-1-block",
-            type: BlockType.BULLETED_LIST,
-            title: "Accordion",
-            items: [
-              { id: "section-1-item-1", title: "Item 1" },
-              { id: "section-1-item-2", title: "Item 2" },
-            ],
-          },
-        ],
-      },
-    ];
-
-    scrollSpyState.activeLeafId = "section-1-item-2";
-    scrollSpyState.activeChain = ["section-1", "section-1-block", "section-1-item-2"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "ArrowUp" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-item-1");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-    });
-
-    section.remove();
-    block.remove();
-    itemOne.remove();
-    itemTwo.remove();
-  });
-
-  it("keeps middle-item progression when active leaf resolves to accordion block", async () => {
-    const section = document.createElement("div");
-    section.id = "section-1";
-    document.body.appendChild(section);
-
-    const block = document.createElement("div");
-    block.id = "section-1-block";
-    document.body.appendChild(block);
-
-    const itemOne = document.createElement("div");
-    itemOne.id = "section-1-item-1";
-    document.body.appendChild(itemOne);
-
-    const itemTwo = document.createElement("div");
-    itemTwo.id = "section-1-item-2";
-    document.body.appendChild(itemTwo);
-
-    const itemThree = document.createElement("div");
-    itemThree.id = "section-1-item-3";
-    document.body.appendChild(itemThree);
-
-    const sectionsWithAccordionBlock = [
-      {
-        id: "section-1",
-        title: "Intro",
-        blocks: [
-          {
-            id: "section-1-block",
-            type: BlockType.BULLETED_LIST,
-            title: "Accordion",
-            items: [
-              { id: "section-1-item-1", title: "Item 1" },
-              { id: "section-1-item-2", title: "Item 2" },
-              { id: "section-1-item-3", title: "Item 3" },
-            ],
-          },
-        ],
-      },
-    ];
-
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block", "section-1-item-2"];
-    window.history.pushState(null, "", "/page#section-1-item-2");
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-item-3");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-    });
-
-    section.remove();
-    block.remove();
-    itemOne.remove();
-    itemTwo.remove();
-    itemThree.remove();
-  });
-
-  it("starts at first accordion item when entering block even if hash points to last item", async () => {
-    const section = document.createElement("div");
-    section.id = "section-1";
-    document.body.appendChild(section);
-
-    const block = document.createElement("div");
-    block.id = "section-1-block";
-    document.body.appendChild(block);
-
-    const itemOne = document.createElement("div");
-    itemOne.id = "section-1-item-1";
-    document.body.appendChild(itemOne);
-
-    const itemTwo = document.createElement("div");
-    itemTwo.id = "section-1-item-2";
-    document.body.appendChild(itemTwo);
-
-    const itemThree = document.createElement("div");
-    itemThree.id = "section-1-item-3";
-    document.body.appendChild(itemThree);
-
-    const sectionsWithAccordionBlock = [
-      {
-        id: "section-1",
-        title: "Intro",
-        blocks: [
-          {
-            id: "section-1-block",
-            type: BlockType.BULLETED_LIST,
-            title: "Accordion",
-            items: [
-              { id: "section-1-item-1", title: "Item 1" },
-              { id: "section-1-item-2", title: "Item 2" },
-              { id: "section-1-item-3", title: "Item 3" },
-            ],
-          },
-        ],
-      },
-    ];
-
-    window.history.pushState(null, "", "/page#section-1-item-3");
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-item-1");
-      expect(markProgrammaticScroll).toHaveBeenCalled();
-    });
-
-    section.remove();
-    block.remove();
-    itemOne.remove();
-    itemTwo.remove();
-    itemThree.remove();
-  });
-
-  it("prevents default ArrowDown scrolling when accordion block is active", async () => {
-    const section = document.createElement("div");
-    section.id = "section-1";
-    document.body.appendChild(section);
-
-    const block = document.createElement("div");
-    block.id = "section-1-block";
-    document.body.appendChild(block);
-
-    const itemOne = document.createElement("div");
-    itemOne.id = "section-1-item-1";
-    document.body.appendChild(itemOne);
-
-    const sectionsWithAccordionBlock = [
-      {
-        id: "section-1",
-        title: "Intro",
-        blocks: [
-          {
-            id: "section-1-block",
-            type: BlockType.BULLETED_LIST,
-            title: "Accordion",
-            items: [{ id: "section-1-item-1", title: "Item 1" }],
-          },
-        ],
-      },
-    ];
-
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
-    sectionNavButton.focus();
-    const event = new KeyboardEvent("keydown", {
-      key: "ArrowDown",
-      bubbles: true,
-      cancelable: true,
-    });
-
-    const prevented = !sectionNavButton.dispatchEvent(event);
-    expect(prevented).toBe(true);
-
-    section.remove();
-    block.remove();
-    itemOne.remove();
-  });
-
-  it("advances from currently open accordion row one item per ArrowDown", async () => {
-    const section = document.createElement("div");
-    section.id = "section-1";
-    document.body.appendChild(section);
-
-    const block = document.createElement("div");
-    block.id = "section-1-block";
-    block.className = "accordion-root";
-    document.body.appendChild(block);
-
-    const openRow = document.createElement("div");
-    openRow.id = "section-1-item-1";
-    openRow.className = "fa-list-item open";
-    block.appendChild(openRow);
-
-    const itemOne = document.createElement("div");
-    itemOne.id = "section-1-item-1";
-    document.body.appendChild(itemOne);
-
-    const itemTwo = document.createElement("div");
-    itemTwo.id = "section-1-item-2";
-    document.body.appendChild(itemTwo);
-
-    const sectionsWithAccordionBlock = [
-      {
-        id: "section-1",
-        title: "Intro",
-        blocks: [
-          {
-            id: "section-1-block",
-            type: BlockType.BULLETED_LIST,
-            title: "Accordion",
-            items: [
-              { id: "section-1-item-1", title: "Item 1" },
-              { id: "section-1-item-2", title: "Item 2" },
-            ],
-          },
-        ],
-      },
-    ];
-
-    scrollSpyState.activeLeafId = "section-1-block";
-    scrollSpyState.activeChain = ["section-1", "section-1-block"];
-
-    renderWithProviders(<StickySectionNav sections={sectionsWithAccordionBlock} pageUrl="/page" />);
-
-    const sectionNavButton = screen.getByRole("button", { name: "Intro" });
-    sectionNavButton.focus();
-    fireEvent.keyDown(sectionNavButton, { key: "ArrowDown" });
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe("#section-1-item-2");
-    });
-
-    section.remove();
-    block.remove();
-    itemOne.remove();
-    itemTwo.remove();
+    expect(markProgrammaticScroll).not.toHaveBeenCalled();
+    expect(window.location.hash).not.toBe("#section-2");
   });
 });

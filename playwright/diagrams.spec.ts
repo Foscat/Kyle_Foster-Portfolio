@@ -5,6 +5,7 @@
  */
 
 import { test, expect } from "@playwright/test";
+import { preparePageForStableTests, stabilizePage } from "./utils/stabilizePage";
 
 /**
  * @description Mermaid diagram smoke test.
@@ -77,4 +78,106 @@ test("Mermaid diagram page loads without app-owned console errors", async ({ pag
   await expect(page.locator(".mermaid").first()).toBeVisible();
 
   expect(runtimeErrors, `App-owned runtime errors:\n${runtimeErrors.join("\n")}`).toEqual([]);
+});
+
+test("fullscreen diagram explorer contains fitted content in phone orientations", async ({
+  page,
+}) => {
+  test.setTimeout(60_000);
+  await preparePageForStableTests(page, { theme: "dark" });
+
+  for (const viewport of [
+    { label: "phone portrait", width: 390, height: 844 },
+    { label: "phone landscape", width: 844, height: 390 },
+  ]) {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.goto(toUrl("/sanderson-technology-enterprises"));
+    await stabilizePage(page, { theme: "dark" });
+
+    const fullscreenTrigger = page
+      .getByRole("button", {
+        name: "View diagram full screen",
+      })
+      .first();
+    await fullscreenTrigger.scrollIntoViewIfNeeded();
+    await fullscreenTrigger.click();
+
+    const modal = page.locator(".mermaid-fullscreen-modal");
+    await expect(modal).toBeVisible();
+    await expect(modal.locator(".mermaid-svg-host--fullscreen svg")).toBeVisible();
+    await modal.getByRole("button", { name: "Fit diagram" }).click();
+
+    const measurement = await modal.evaluate((modalElement) => {
+      const box = (selector: string) => {
+        const element = modalElement.querySelector(selector);
+        if (!element) return null;
+
+        const rect = element.getBoundingClientRect();
+        return {
+          bottom: Math.round(rect.bottom),
+          height: Math.round(rect.height),
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          top: Math.round(rect.top),
+          width: Math.round(rect.width),
+        };
+      };
+
+      const diagramElements = Array.from(
+        modalElement.querySelectorAll(
+          ".mermaid-svg-host--fullscreen .node, .mermaid-svg-host--fullscreen .cluster"
+        )
+      );
+      const diagramRects = diagramElements
+        .map((element) => element.getBoundingClientRect())
+        .filter((rect) => rect.width > 0 && rect.height > 0);
+      const diagramBounds = diagramRects.length
+        ? {
+            bottom: Math.round(Math.max(...diagramRects.map((rect) => rect.bottom))),
+            left: Math.round(Math.min(...diagramRects.map((rect) => rect.left))),
+            right: Math.round(Math.max(...diagramRects.map((rect) => rect.right))),
+            top: Math.round(Math.min(...diagramRects.map((rect) => rect.top))),
+          }
+        : null;
+      const content = modalElement.querySelector(".rs-modal-content");
+
+      return {
+        contentPadding: content ? window.getComputedStyle(content).padding : "",
+        diagramBounds,
+        host: box(".mermaid-svg-host--fullscreen"),
+        stage: box(".mermaid-fullscreen-stage"),
+        viewport: {
+          clientWidth: document.documentElement.clientWidth,
+          height: window.innerHeight,
+          width: window.innerWidth,
+        },
+      };
+    });
+
+    expect(measurement.contentPadding, viewport.label).toBe("0px");
+    expect(measurement.stage?.left, viewport.label).toBeGreaterThanOrEqual(0);
+    expect(measurement.stage?.right, viewport.label).toBeLessThanOrEqual(
+      measurement.viewport.clientWidth
+    );
+    expect(measurement.stage?.width, viewport.label).toBeGreaterThanOrEqual(
+      measurement.viewport.clientWidth - 1
+    );
+    expect(measurement.host?.top, viewport.label).toBe(measurement.stage?.top);
+    expect(measurement.host?.bottom, viewport.label).toBe(measurement.stage?.bottom);
+    expect(measurement.diagramBounds?.left, viewport.label).toBeGreaterThanOrEqual(
+      measurement.stage?.left || 0
+    );
+    expect(measurement.diagramBounds?.right, viewport.label).toBeLessThanOrEqual(
+      measurement.stage?.right || viewport.width
+    );
+    expect(measurement.diagramBounds?.top, viewport.label).toBeGreaterThanOrEqual(
+      measurement.stage?.top || 0
+    );
+    expect(measurement.diagramBounds?.bottom, viewport.label).toBeLessThanOrEqual(
+      measurement.stage?.bottom || viewport.height
+    );
+
+    await modal.getByRole("button", { name: "Close" }).click();
+    await expect(modal).toBeHidden();
+  }
 });

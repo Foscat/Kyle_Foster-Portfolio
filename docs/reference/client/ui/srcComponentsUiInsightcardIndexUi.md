@@ -53,6 +53,7 @@ A card component for displaying insights with a header and body. The header can 
 
 - `title` (`string`) - The title of the insight card.
 - `icon` (`object`, optional) - The FontAwesome icon to display in the card header.
+- `iconName` (`string`, optional) - Semantic UI Style Kit icon id used before Font Awesome fallback.
 - `subtitle` (`string`, optional) - The subtitle of the insight card.
 - `variant` (`Variant`, optional) - The accent color for the card (default is "primary").
 - `previewImage` (`FeatureImage`, optional) - Optional expandable preview image shown above card details.

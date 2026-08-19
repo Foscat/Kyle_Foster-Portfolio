@@ -200,6 +200,39 @@ body {
   overflow-x: clip;
 }
 
+/* Build-time route snapshots give crawlers and no-script visitors meaningful content. */
+.static-route-snapshot {
+  display: grid;
+  gap: 1rem;
+  width: min(100% - 2rem, 72rem);
+  margin: 2rem auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  color: var(--app-surface-fg, var(--text-primary));
+  background: var(--app-surface-bg, var(--bg-primary));
+  border: var(--app-surface-border, 1px solid currentcolor);
+  border-radius: var(--app-surface-radius-md, var(--radius-sm));
+}
+
+.static-route-snapshot__brand,
+.static-route-snapshot__eyebrow {
+  color: var(--app-heading-color, var(--heading-color));
+  font-weight: 700;
+}
+
+.static-route-snapshot h1,
+.static-route-snapshot p,
+.static-route-snapshot ul {
+  margin: 0;
+}
+
+.static-route-snapshot nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
 body.rs-drawer-open.rs-drawer-has-backdrop {
   background-color: var(--bg-primary);
 }
@@ -509,6 +542,33 @@ section[id],
   width: 100%;
 }
 
+/* Keyboard users can bypass persistent navigation without adding visual clutter. */
+.skip-link {
+  position: fixed;
+  top: var(--space-3, 0.75rem);
+  left: var(--space-3, 0.75rem);
+  z-index: 10000;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  color: var(--app-button-primary-fg, var(--text-primary));
+  background: var(--app-button-primary-bg, var(--surface-strong));
+  border: 2px solid var(--app-focus-ring, var(--accent));
+  border-radius: var(--border-radius, 0.5rem);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(calc(-100% - 2rem));
+  transition: transform 140ms ease-out;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.route-content:focus {
+  outline: none;
+}
+
 .page-shell {
   min-width: 0;
 }
@@ -526,10 +586,7 @@ section[id],
 }
 
 .page-layout {
-  /* layout-style-css owns spacing rhythm; this app owns the route nav breakpoint and feasible rail width. */
-  --portfolio-route-sidebar-width: clamp(14.5rem, var(--ly-sidebar-width, 15.5rem), 16rem);
-  --ly-sidebar-size: var(--portfolio-route-sidebar-width);
-
+  /* layout-style-css owns spacing rhythm; the route navigator remains in normal flow. */
   align-items: start;
   gap: clamp(1rem, 2vw, 1.5rem);
   width: 100%;
@@ -539,15 +596,6 @@ section[id],
 .page-content {
   min-width: 0;
   width: 100%;
-}
-
-.page-sidebar {
-  /* Sidebar behavior is *not* assumed on mobile.
-     The mobile layout treats navigation as in-flow content unless the
-     component chooses a mobile-specific affordance (drawer/sheet/etc.). */
-  position: static;
-  width: 100%;
-  height: auto;
 }
 
 /* Text alignment helpers */
@@ -769,54 +817,14 @@ footer {
    Responsive adjustments
    ------------------------------------------------------------ */
 
-@media (width < 1200px) {
-  .page-layout.ly-sidebar {
-    /* Keep route content clear of the fixed mobile navigation rail. */
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    padding-inline: 5px;
-    padding-inline-start: max(
-      calc(var(--sticky-nav-mobile-trigger-size, 42px) + var(--page-gutter, 0px)),
-      calc(
-        var(--sticky-nav-mobile-trigger-left, 14px) + var(--sticky-nav-mobile-trigger-size, 42px) +
-          (var(--sticky-nav-mobile-trigger-gutter, 8px) * 2)
-      )
-    );
-  }
-
-  .page-layout > .ly-sidebar__content,
-  .page-layout > .ly-sidebar__side {
-    grid-column: 1;
-  }
+/* Route navigation now occupies a compact row above content on every viewport. */
+:root {
+  /* Anchor navigation uses this safe value until UnifiedNavigation publishes
+     the rendered header height. */
+  --portfolio-primary-nav-height: 4.25rem;
 }
 
-@media (width >= 1200px) {
-  .page-layout {
-    padding-inline: 0;
-  }
-
-  .page-layout.ly-sidebar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(14.5rem, var(--portfolio-route-sidebar-width));
-  }
-
-  .page-layout > .ly-sidebar__content {
-    grid-column: 1;
-  }
-
-  .page-layout > .ly-sidebar__side {
-    grid-column: 2;
-  }
-
-  .page-sidebar {
-    position: relative;
-    width: 100%;
-
-    /* establishes a stable context for sticky descendants */
-    height: 100%;
-    padding: 0 0.5rem;
-  }
-
+@media (width >= 900px) {
   .block-header {
     margin: 0 0 1rem;
   }
