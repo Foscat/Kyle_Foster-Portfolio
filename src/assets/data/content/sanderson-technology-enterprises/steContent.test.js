@@ -43,9 +43,8 @@ describe("sanderson technology enterprises content", () => {
     ]);
     expect(content).toContain("Sanderson Technology Enterprises");
     expect(content).toContain("Content Creator Platform");
-    expect(content).toContain("Scrap Yard System");
-    expect(content).toContain("early-stage");
-    expect(content).toContain("actively developed");
+    expect(content).toContain("Salvage Yard System");
+    expect(content).toContain("complete v1");
     expect(content).toContain("MERN-App-Template+Auth");
     expect(content).not.toContain("White-Label Product Platform");
     expect(content).not.toMatch(
@@ -53,7 +52,7 @@ describe("sanderson technology enterprises content", () => {
     );
   });
 
-  it("describes the scrapyard platform as inventory management joined to commerce", () => {
+  it("describes the salvage-yard v1 as inventory management joined to commerce", () => {
     const scrapyardSection = getSection("ste-scrap-yard-system");
     const content = JSON.stringify(scrapyardSection);
 
@@ -61,10 +60,20 @@ describe("sanderson technology enterprises content", () => {
     expect(content).toContain("client-facing e-commerce platform");
     expect(content).toContain("web-based solution");
     expect(content).toContain("template");
-    expect(content).toContain("scrapyards");
+    expect(content).toContain("salvage yards");
     expect(content).toContain("clean inventory management");
     expect(content).toContain("user-friendly");
-    expect(content).not.toMatch(/finished|launched|proven market|market-leading/iu);
+  });
+
+  it("records the repository-backed path from owner conversation to first client launch", () => {
+    const content = JSON.stringify(getSection("ste-scrap-yard-system"));
+
+    expect(content).toContain("July 15, 2026");
+    expect(content).toContain("six weeks");
+    expect(content).toContain("yard owner");
+    expect(content).toContain("first managed client");
+    expect(content).toContain("September 5, 2026");
+    expect(content).not.toMatch(/already launched|production launch completed/iu);
   });
 
   it("shows one controlled local promo for each focused STE product", () => {
@@ -80,9 +89,9 @@ describe("sanderson technology enterprises content", () => {
     expect(contentCreatorVideos[0].src).toContain("content-creator-platform-promo.mp4");
     expect(scrapYardVideos).toHaveLength(1);
     expect(scrapYardVideos[0]).toMatchObject({
-      title: "Scrap Yard System Demonstration",
+      title: "Salvage Yard System Demonstration",
       mimeType: "video/mp4",
-      ariaLabel: "Scrap Yard System product demonstration",
+      ariaLabel: "Salvage Yard System product demonstration",
     });
     expect(scrapYardVideos[0].src).toContain("salvage-yard-system-promo.mp4");
   });
@@ -95,9 +104,16 @@ describe("sanderson technology enterprises content", () => {
     expect(content).toContain("ui-style-kit-css");
     expect(content).toContain("ui-style-kit-icons");
     expect(content).toContain("interactive-surface-css");
-    expect(content).toContain("https://foscat.github.io/ui-style-kit-css-icons/");
-    expect(content).toContain("https://foscat.github.io/interface-systems-lab/");
-    expect(content).toContain("https://github.com/Foscat/interface-systems-lab");
+    expect(content).toContain("Component Atlas");
+    expect(content).toContain("20 UI styles");
+    expect(content).toContain("20 color schemes");
+    expect(content).toContain("https://www.npmjs.com/package/ui-style-kit-icons");
+    expect(content).toContain(
+      "https://sanderson-technology-enterprises.github.io/interface-systems-lab/"
+    );
+    expect(content).toContain(
+      "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab"
+    );
 
     const interfaceCards = (getSection("ste-interface-system")?.blocks ?? [])
       .filter((block) => block?.type === BlockType.CARD_GRID)
@@ -122,6 +138,12 @@ describe("sanderson technology enterprises content", () => {
     for (const [sectionId, diagramId] of diagramContract) {
       expect(getDiagramIds(sectionId), sectionId).toContain(diagramId);
     }
+
+    expect(
+      (getSection("ste-scrap-yard-system")?.blocks ?? []).find(
+        (block) => block.id === "diagram-ste-scrapyard-commerce-loop"
+      )?.title
+    ).toBe("Salvage Yard Inventory and Commerce Loop");
   });
 
   it("frames STE as professional work without founder positioning", () => {
@@ -151,7 +173,7 @@ describe("sanderson technology enterprises content", () => {
     expect(metadata.jobTitle).toBe("Senior Developer");
     expect(metadata.description).toContain("for Sanderson Technology Enterprises");
     expect(JSON.stringify(metadata)).toContain("Content Creator Platform");
-    expect(JSON.stringify(metadata)).toContain("Scrap Yard System");
+    expect(JSON.stringify(metadata)).toContain("Salvage Yard System");
     expect(JSON.stringify(metadata)).not.toMatch(
       /golden\s+goose|founder|co-founder|creator-owned platform development/iu
     );
@@ -164,17 +186,17 @@ describe("sanderson technology enterprises content", () => {
     expect(urlsByTitle.get("Visit STE Website")).toBe(
       "https://sandersontechnologyenterprises.com/"
     );
-    expect(urlsByTitle.get("View Scrap Yard System")).toBe(
+    expect(urlsByTitle.get("View Salvage Yard System")).toBe(
       "https://sandersontechnologyenterprises.com/scrap-yard-system.html"
     );
     expect(urlsByTitle.get("View Content Creator Platform")).toBe(
       "https://sandersontechnologyenterprises.com/content-creator-platform.html"
     );
     expect(urlsByTitle.get("View Interface Systems Lab")).toBe(
-      "https://foscat.github.io/interface-systems-lab/"
+      "https://sanderson-technology-enterprises.github.io/interface-systems-lab/"
     );
     expect(urlsByTitle.get("View Interface Systems Lab Source")).toBe(
-      "https://github.com/Foscat/interface-systems-lab"
+      "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab"
     );
     expect(urlsByTitle.get("View Layout Style CSS")).toBe("/side-projects#layout-style-css");
     expect(urlsByTitle.get("View MERN Template")).toBe("/side-projects#mern-template");

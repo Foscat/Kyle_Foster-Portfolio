@@ -3,11 +3,11 @@
  * @file fieldSchema.js
  * @description Defines the schema and related types for form fields used in FormBlock.
  * This file is focused on the data structure and types for field configuration, independent of the registry logic.
- * It also includes a simple shim component to avoid importing RSuite's Form.Control directly in the registry file.
+ * Field definitions map directly to native controls in the form registry.
  * @author Foscat
  */
 
-/// Simple shim component to avoid importing RSuite's Form.Control directly in the registry file, which can cause circular dependencies
+/// Stable field names keep CMS content independent from the rendering layer.
 const FIELD_TYPES = {
   TEXT: "text",
   TEXTAREA: "textarea",
@@ -55,8 +55,8 @@ export default FIELD_TYPES;
  * @property {boolean} [readOnly=false] - Whether the field is read-only.
  * @property {boolean} [hidden=false] - Whether the field is hidden.
  * @property {boolean} [block=true] - Whether picker-like controls should span full width.
- * @property {Object} [componentProps] - Props forwarded to the underlying RSuite control.
- * @property {Object} [rule] - Optional RSuite field-level validation rule.
+ * @property {Object} [componentProps] - Props forwarded to the underlying native control.
+ * @property {Object} [rule] - Optional field-level validation metadata.
  * @property {string} [errorPlacement="bottomStart"] - Error placement for Form.Control.
  * @property {boolean} [shouldResetWithUnmount=false] - Clear value if field unmounts conditionally.
  * @property {InputGroupConfig} [inputGroup] - Prefix/suffix config for inputGroupText fields.

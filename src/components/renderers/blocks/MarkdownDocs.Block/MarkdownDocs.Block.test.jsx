@@ -82,7 +82,7 @@ describe("MarkdownDocsBlock", () => {
     expect(inactiveCard).not.toHaveClass("is-active");
     expect(activeCard).toHaveAttribute("data-surface-variant", "subtle");
     expect(inactiveCard).toHaveAttribute("data-surface-variant", "subtle");
-    expect(activeCard).not.toHaveAttribute("data-surface-level");
-    expect(inactiveCard).not.toHaveAttribute("data-surface-level");
+    expect(activeCard).toHaveAttribute("data-surface-level", "2");
+    expect(inactiveCard).toHaveAttribute("data-surface-level", "2");
   });
 });

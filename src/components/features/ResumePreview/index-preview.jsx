@@ -5,7 +5,6 @@
  */
 
 import { Btn } from "components/ui";
-import { ButtonToolbar } from "rsuite";
 import { Variant } from "types/ui.types";
 
 /**
@@ -18,11 +17,11 @@ import { Variant } from "types/ui.types";
  * - Keeps the preview and PDF export aligned with the shared resume data source
  *
  * Technical notes:
- * - Uses RSuite's ButtonToolbar for action buttons
+ * - Uses a native toolbar for action buttons
  * - The component is styled to fit within the overall design system and maintain readability of the PDF content
  *
  * Accessibility:
- * - RSuite Modal provides focus trapping and ESC-to-close behavior
+ * - The native dialog provides focus trapping and Escape-to-close behavior
  * - Buttons include descriptive aria-labels and tooltips
  *
  * @public
@@ -49,7 +48,7 @@ const PreviewResume = ({
           {subtitle ? <p className="resume-preview__subtitle">{subtitle}</p> : null}
         </div>
 
-        <ButtonToolbar className="resume-preview__actions">
+        <div className="resume-preview__actions ly-cluster" role="toolbar" aria-label="Resume actions">
           {onDownloadPdf ? (
             <Btn
               text={isDownloadPending ? "Building PDF..." : "Download PDF"}
@@ -75,7 +74,7 @@ const PreviewResume = ({
             onClick={onClose}
             variant={Variant.SUBTLE}
           />
-        </ButtonToolbar>
+        </div>
       </div>
 
       <div className="resume-preview__viewport">

@@ -4,100 +4,56 @@
 
 # srcComponentsRenderersBlocksFormblockIndexRenderer
 
-## components/blocks/FormBlock
+## components/renderers/blocks/FormBlock
 
-Main FormBlock component that renders a dynamic form based on a provided schema. It uses RSuite's Form components under the hood and supports various field types, validation, and conditional rendering. The component is designed to be flexible and extensible, allowing for custom field types and complex form logic.
+Schema-driven native form block styled by the shared STE CSS libraries.
 
-### FormBlock
+### FormBlock()
 
-Renders a dynamic form based on a provided schema. The schema defines the fields, their types, labels, validation rules, and other configuration options. FormBlock manages form state internally and exposes onChange and onSubmit callbacks for external handling.
+Render a controlled native form from CMS-compatible field definitions.
 
 **Parameters**
 
-- `props` (`Object`) - Component props.
-- `props.className` (`string`, optional) - Additional wrapper class names.
-- `props.schema` (`Object`) - Form schema object from CMS/data files.
-- `props.model` (`Object`, optional) - Optional RSuite schema model for validation.
-- `props.fluid` (`boolean`, optional, default: `true`) - Whether the form fills the available width.
-- `props.layout` (`"vertical" | "horizontal" | "inline"`, optional, default: `"vertical"`) - RSuite form layout.
-- `props.disabled` (`boolean`, optional, default: `false`) - Global disabled state.
-- `props.readOnly` (`boolean`, optional, default: `false`) - Global read-only state.
-- `props.onChange` (`function`, optional) - Called whenever form values change.
-- `props.onSubmit` (`function`, optional) - Called with the final formValue on submit.
+- `props` (`Object`) - Form block configuration.
+- `props.className` (`string`, optional, default: `""`) - Additional wrapper classes.
+- `props.schema` (`Object`) - Form title, labels, fields, and initial values.
+- `props.fluid` (`boolean`, optional, default: `true`) - Enables the full-width form layout.
+- `props.layout` (`"vertical" | "horizontal" | "inline"`, optional, default: `"vertical"`) - Layout variant.
+- `props.disabled` (`boolean`, optional, default: `false`) - Disables all controls.
+- `props.readOnly` (`boolean`, optional, default: `false`) - Makes all compatible controls read-only.
+- `props.onChange` (`function`, optional) - Receives the complete value map after changes.
+- `props.onSubmit` (`function`, optional) - Receives the complete value map on submit.
 
 **Returns**
 
-- `JSX.Element | null`
+- `JSX.Element | null` - Native schema form or null for an empty schema.
 
-**Examples**
+### handleFieldChange()
 
-```js
-```js
-const contactFormSchema = {
-id: "contact-form",
-title: "Send Me a Message",
-fields: [
-  {
-    name: "fullName",
-    type: "text",
-    label: "Full Name",
-    placeholder: "Enter your name",
-    required: true,
-    defaultValue: "",
-    helpText: "Use your preferred name."
+Update one controlled field and publish the complete value map.
 
-  },
-  {
-    name: "email",
-    type: "text",
-    label: "Email",
-    placeholder: "",
-    required: true,
-    defaultValue: "",
-    rule: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  },
-  {
-    name: "reason",
-    type: "select",
-    label: "Reason",
-    placeholder: "Choose one",
-    defaultValue: null,
-    options: [
-      {
-        label: "Freelance Project",
-         value: "freelance" },
-      {
-        label: "Job Opportunity",
-         value: "job" },
-      {
-         label: "General Question",
-        value: "general" }
-    ]
-  },
-  {
-    name: "message",
-    type: "textarea",
-    label: "Message",
-    placeholder: "Tell me about your project",
-    defaultValue: "",
-    componentProps: {
-      rows: 6
-    }
-  },
-  {
-    name: "contactMethods",
-    type: "checkboxGroup",
-    label: "Preferred Contact",
-    defaultValue: [],
-    options: [
-      { label: "Email", value: "email" },
-      { label: "Phone", value: "phone" },
-      { label: "Text", value: "text" }
-    ]
-  }
-],
-onSubmit: (formValue) => sendMessage(formValue),
-}
-<FormBlock schema={contactFormSchema} />
-```
-```
+**Parameters**
+
+- `name` (`string`) - Field name.
+- `value` (`any`) - Normalized native control value.
+- `event` (`React.ChangeEvent`) - Native change event.
+
+**Returns**
+
+- `void`
+
+### handleSubmit()
+
+Prevent document navigation and submit the current controlled values.
+
+**Parameters**
+
+- `event` (`React.FormEvent<HTMLFormElement>`) - Native submit event.
+
+**Returns**
+
+- `void`
+
+### handleReset()
+
+Reset the controlled form to its schema-derived initial values.

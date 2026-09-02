@@ -28,7 +28,7 @@ Displayed information:
 - React version
 - Current Vite environment mode
 - Build tool identification
-- RSuite availability
+- Shared STE interface-library availability
 
 Notes:
 - This component is informational only

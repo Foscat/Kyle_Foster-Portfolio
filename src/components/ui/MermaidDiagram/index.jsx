@@ -5,7 +5,8 @@
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Modal, Panel } from "rsuite";
+import Dialog from "components/ui/Dialog";
+import Surface from "components/ui/Surface";
 import {
   faCompress,
   faExpand,
@@ -1283,7 +1284,7 @@ function MermaidDiagram(props) {
 
   // Render the Mermaid diagram within a styled panel, including optional title and description, while providing buttons for exporting the diagram and toggling between mobile and desktop versions if both are available.
   return (
-    <Panel
+    <Surface
       id={id}
       defaultExpanded
       collapsible
@@ -1341,7 +1342,7 @@ function MermaidDiagram(props) {
           />
         ) : null}
       </div>
-      <Modal
+      <Dialog
         open={isFullscreenOpen}
         onClose={() => setIsFullscreenOpen(false)}
         overflow={false}
@@ -1351,10 +1352,10 @@ function MermaidDiagram(props) {
         size="full"
         aria-labelledby={`${renderId}-explorer-title`}
       >
-        <Modal.Header className="mermaid-fullscreen-modal__header">
-          <Modal.Title id={`${renderId}-explorer-title`} className="mermaid-explorer-title">
+        <Dialog.Header className="mermaid-fullscreen-modal__header">
+          <Dialog.Title id={`${renderId}-explorer-title`} className="mermaid-explorer-title">
             {title || "Mermaid diagram"} diagram explorer
-          </Modal.Title>
+          </Dialog.Title>
           <div
             className="mermaid-explorer-toolbar"
             role="toolbar"
@@ -1406,8 +1407,8 @@ function MermaidDiagram(props) {
               noBG
             />
           </div>
-        </Modal.Header>
-        <Modal.Body className="mermaid-fullscreen-modal__body">
+        </Dialog.Header>
+        <Dialog.Body className="mermaid-fullscreen-modal__body">
           <div className="mermaid-fullscreen-stage">
             <div className="mermaid mermaid-fullscreen-canvas">
               <div
@@ -1420,15 +1421,15 @@ function MermaidDiagram(props) {
               />
             </div>
           </div>
-        </Modal.Body>
-      </Modal>
+        </Dialog.Body>
+      </Dialog>
       {/* Keep structured descriptions inside one stable styling and QA boundary. */}
       {finalDescription && (
         <div className="mermaid-description" role="note" aria-label="Diagram description">
           <RichText text={finalDescription} index={0} />
         </div>
       )}
-    </Panel>
+    </Surface>
   );
 }
 

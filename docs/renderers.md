@@ -221,205 +221,114 @@ const blockData = {
 ```
 ```
 
-## src\\components\\renderers\\blocks\\FormBlock\\fieldRegestry
+## components/renderers/blocks/FormBlock/fieldRegestry
 
-src\components\renderers\blocks\FormBlock\fieldRegestry module.
-
-## components/renderers/blocks/FormBlock/fieldRegistry
-
-Centralized registry and utilities for form field definitions in FormBlock.
-This module defines standard accepters for various field types, normalization of field configs, and rendering logic to map field definitions to actual form controls.
-The registry supports both simple field types that map directly to a single accepter component, as well as more complex types that require custom rendering logic (e.g., select fields with options, input groups with addons).
-The normalization function allows for legacy field definitions to be used without breaking changes, while the initial values builder helps construct the default form state based on field configurations.
-
-### SIMPLE\_ACCEPTORS
-
-Mapping of simple field types to their default accepter components.
-This is used for fields that don't require special handling beyond rendering the appropriate input type.
-
-### TextareaAccepter()
-
-Custom accepter for textarea fields. This is necessary because the default Input accepter from rsuite does not support multiline input, and we want to ensure that textarea fields render correctly with the appropriate styles and behavior.
-
-The TextareaAccepter is a simple wrapper around the HTML <textarea> element, styled to fit within the form block. It accepts standard props like value and onChange, as well as additional props for rows and className to allow for customization.
-
-**Parameters**
-
-- `props` (`Object`)
-- `props.value` (`string`) - The current value of the textarea, passed by Form.Control.
-- `props.onChange` (`function`) - Change handler to call when the textarea value changes, passed by Form.Control.
-- `props.className` (`string`, optional) - Optional additional class name(s) to apply to the textarea for custom styling.
-- `props.rows` (`number`, optional, default: `5`) - Optional number of rows to display in the textarea. Defaults to 5 if not provided.
-
-**Returns**
-
-- `React.ReactNode`
-
-### registerField()
-
-Custom accepter for input groups with prefix/suffix addons. This is a common enough pattern that it warrants a built-in accepter to avoid boilerplate in field definitions.
-
-The `inputGroup` prop on a field can be used to pass `prefix` and `suffix` values, which will be rendered as addons around the input.
-
-**Parameters**
-
-- `props` (`Object`)
-- `props.value` (`string`) - The current value of the input, passed by Form.Control.
-- `props.onChange` (`function`) - Change handler to call when the input value changes, passed by Form.Control.
-- `props.prefix` (`string`, optional) - Optional text to display as a prefix addon.
-- `props.suffix` (`string`, optional) - Optional text to display as a suffix addon.
-
-**Returns**
-
-- `React.ReactNode`
-
-**Examples**
-
-```js
-{
-  name: "price",
- type: FIELD_TYPES.INPUT_GROUP_TEXT,
- inputGroup: {
-   prefix: "$",
-  suffix: "USD"
-}
-}
-```
+Native form-field registry for schema-driven portfolio forms.
 
 ### normalizeField()
 
-Normalize legacy CMS field keys into the current schema.
-This lets older content continue working while the schema evolves.
+Normalize legacy CMS field keys into the native form schema.
 
 **Parameters**
 
-- `field` (`Object`)
+- `field` (`Object`) - Raw field definition.
 
 **Returns**
 
-- `Object`
+- `Object` - Normalized field definition.
 
 ### buildInitialValues()
 
-Build initial form values from field defaults.
+Build initial values for every supported native field type.
 
 **Parameters**
 
-- `fields` (`Array<Object>`)
+- `fields` (`Array<Object>`) - Normalized or raw field definitions.
 
 **Returns**
 
-- `Object`
+- `Object` - Form value map keyed by field name.
 
-### registerField()
+### renderFieldControl()
 
-Registers a field in the registry. If a field with the same name already exists, it will be overwritten and a development-only warning will be emitted.
+Render a schema field as a native form control styled by ui-style-kit-css.
 
 **Parameters**
 
-- `field` (`Object`)
+- `field` (`Object`) - Normalized field definition.
+- `value` (`any`) - Current controlled value.
+- `onChange` (`function`) - Receives the next value and native change event.
 
 **Returns**
 
-- `React.ReactNode`
+- `React.ReactNode` - Native form control.
 
-## components/blocks/FormBlock
+### readNativeValue()
 
-Main FormBlock component that renders a dynamic form based on a provided schema. It uses RSuite's Form components under the hood and supports various field types, validation, and conditional rendering. The component is designed to be flexible and extensible, allowing for custom field types and complex form logic.
-
-### FormBlock
-
-Renders a dynamic form based on a provided schema. The schema defines the fields, their types, labels, validation rules, and other configuration options. FormBlock manages form state internally and exposes onChange and onSubmit callbacks for external handling.
+Normalize a native input event into the value expected by FormBlock.
 
 **Parameters**
 
-- `props` (`Object`) - Component props.
-- `props.className` (`string`, optional) - Additional wrapper class names.
-- `props.schema` (`Object`) - Form schema object from CMS/data files.
-- `props.model` (`Object`, optional) - Optional RSuite schema model for validation.
-- `props.fluid` (`boolean`, optional, default: `true`) - Whether the form fills the available width.
-- `props.layout` (`"vertical" | "horizontal" | "inline"`, optional, default: `"vertical"`) - RSuite form layout.
-- `props.disabled` (`boolean`, optional, default: `false`) - Global disabled state.
-- `props.readOnly` (`boolean`, optional, default: `false`) - Global read-only state.
-- `props.onChange` (`function`, optional) - Called whenever form values change.
-- `props.onSubmit` (`function`, optional) - Called with the final formValue on submit.
+- `event` (`React.ChangeEvent<(HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement)>`) - Native change event.
+- `fieldType` (`string`) - Schema field type.
 
 **Returns**
 
-- `JSX.Element | null`
+- `string | number | null` - Normalized field value.
 
-**Examples**
+## components/renderers/blocks/FormBlock
 
-```js
-```js
-const contactFormSchema = {
-id: "contact-form",
-title: "Send Me a Message",
-fields: [
-  {
-    name: "fullName",
-    type: "text",
-    label: "Full Name",
-    placeholder: "Enter your name",
-    required: true,
-    defaultValue: "",
-    helpText: "Use your preferred name."
+Schema-driven native form block styled by the shared STE CSS libraries.
 
-  },
-  {
-    name: "email",
-    type: "text",
-    label: "Email",
-    placeholder: "",
-    required: true,
-    defaultValue: "",
-    rule: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  },
-  {
-    name: "reason",
-    type: "select",
-    label: "Reason",
-    placeholder: "Choose one",
-    defaultValue: null,
-    options: [
-      {
-        label: "Freelance Project",
-         value: "freelance" },
-      {
-        label: "Job Opportunity",
-         value: "job" },
-      {
-         label: "General Question",
-        value: "general" }
-    ]
-  },
-  {
-    name: "message",
-    type: "textarea",
-    label: "Message",
-    placeholder: "Tell me about your project",
-    defaultValue: "",
-    componentProps: {
-      rows: 6
-    }
-  },
-  {
-    name: "contactMethods",
-    type: "checkboxGroup",
-    label: "Preferred Contact",
-    defaultValue: [],
-    options: [
-      { label: "Email", value: "email" },
-      { label: "Phone", value: "phone" },
-      { label: "Text", value: "text" }
-    ]
-  }
-],
-onSubmit: (formValue) => sendMessage(formValue),
-}
-<FormBlock schema={contactFormSchema} />
-```
-```
+### FormBlock()
+
+Render a controlled native form from CMS-compatible field definitions.
+
+**Parameters**
+
+- `props` (`Object`) - Form block configuration.
+- `props.className` (`string`, optional, default: `""`) - Additional wrapper classes.
+- `props.schema` (`Object`) - Form title, labels, fields, and initial values.
+- `props.fluid` (`boolean`, optional, default: `true`) - Enables the full-width form layout.
+- `props.layout` (`"vertical" | "horizontal" | "inline"`, optional, default: `"vertical"`) - Layout variant.
+- `props.disabled` (`boolean`, optional, default: `false`) - Disables all controls.
+- `props.readOnly` (`boolean`, optional, default: `false`) - Makes all compatible controls read-only.
+- `props.onChange` (`function`, optional) - Receives the complete value map after changes.
+- `props.onSubmit` (`function`, optional) - Receives the complete value map on submit.
+
+**Returns**
+
+- `JSX.Element | null` - Native schema form or null for an empty schema.
+
+### handleFieldChange()
+
+Update one controlled field and publish the complete value map.
+
+**Parameters**
+
+- `name` (`string`) - Field name.
+- `value` (`any`) - Normalized native control value.
+- `event` (`React.ChangeEvent`) - Native change event.
+
+**Returns**
+
+- `void`
+
+### handleSubmit()
+
+Prevent document navigation and submit the current controlled values.
+
+**Parameters**
+
+- `event` (`React.FormEvent<HTMLFormElement>`) - Native submit event.
+
+**Returns**
+
+- `void`
+
+### handleReset()
+
+Reset the controlled form to its schema-derived initial values.
 
 ## src\\components\\renderers\\blocks\\HeroBlock\\index
 

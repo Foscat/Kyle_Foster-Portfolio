@@ -22,7 +22,7 @@
   border-bottom: var(--gb-BR);
 }
 
-section.info-section.section-renderer .rs-panel {
+section.info-section.section-renderer.surface {
   margin: 5px 0;
 }
 
@@ -96,7 +96,7 @@ section.info-section.section-renderer .rs-panel {
   line-height: 1.6;
 }
 
-.info-content > .rs-panel-group > .rs-panel {
+.info-content > .surface {
   border: 1px solid var(--frost-border);
 }
 
@@ -132,38 +132,6 @@ section.info-section.section-renderer .rs-panel {
     var(--ly-space-6, 2rem)
   );
   padding-inline: clamp(var(--ly-space-3, 0.75rem), 2vw, var(--ly-space-5, 1.25rem));
-}
-
-.info-section.section-renderer .rs-panel-header .rs-panel-btn .rs-icon.rs-panel-btn-icon {
-  font-size: var(--icon-sm);
-  color: var(--heading-color);
-}
-
-.info-section.section-renderer .rs-panel-header .rs-panel-btn {
-  color: var(--heading-color);
-}
-
-.info-section.section-renderer .rs-panel-header .rs-panel-btn .info-title,
-.info-section.section-renderer .rs-panel-header .rs-panel-btn .info-header {
-  color: var(--heading-color);
-  filter: none;
-}
-
-.info-section.section-renderer .rs-panel-header .rs-panel-btn:hover .info-title,
-.info-section.section-renderer .rs-panel-header .rs-panel-btn:focus-visible .info-title,
-.info-section.section-renderer .rs-panel-header .rs-panel-btn:active .info-title {
-  color: var(--heading-color);
-  filter: brightness(1.06);
-}
-
-.info-section.section-renderer .rs-panel-header .rs-panel-btn:hover .rs-icon.rs-panel-btn-icon,
-.info-section.section-renderer
-  .rs-panel-header
-  .rs-panel-btn:focus-visible
-  .rs-icon.rs-panel-btn-icon,
-.info-section.section-renderer .rs-panel-header .rs-panel-btn:active .rs-icon.rs-panel-btn-icon {
-  color: var(--heading-color);
-  filter: brightness(1.1);
 }
 
 /* ------------------------------------------------------------
@@ -220,7 +188,7 @@ section.info-section.section-renderer .rs-panel {
     padding-inline: var(--ly-space-2, 0.5rem);
   }
 
-  .rs-panel.info-section .rs-panel-body {
+  .surface.info-section .surface__body {
     padding: 10px 2px;
   }
 
@@ -312,8 +280,8 @@ section.info-section.section-renderer .rs-panel {
   top: 0.5rem;
 }
 
-.page-content > .info-section.section-renderer > .rs-panel-header,
-.page-content > .info-section.section-renderer > .rs-panel-body {
+.page-content > .info-section.section-renderer > .surface__heading,
+.page-content > .info-section.section-renderer > .surface__body {
   position: relative;
   z-index: 1;
 }

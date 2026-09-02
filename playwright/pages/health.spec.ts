@@ -5,6 +5,7 @@
  */
 
 import { test, expect } from "@playwright/test";
+import { version as reactVersion } from "react";
 
 const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || process.env.BASE_URL || "http://localhost:5173";
 const toUrl = (path: string) =>
@@ -16,6 +17,6 @@ test.describe("Health page", () => {
     await page.waitForLoadState("networkidle");
 
     await expect(page.getByText(/system health/i)).toBeVisible();
-    await expect(page.getByText(/react: 18\.2\.0/i)).toBeVisible();
+    await expect(page.getByText(`React: ${reactVersion}`, { exact: true })).toBeVisible();
   });
 });

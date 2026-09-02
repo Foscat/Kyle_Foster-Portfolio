@@ -19,7 +19,7 @@ test.describe("AccordionList keyboard smoke", () => {
     const accordion = page.locator(".frosted-accordion .fa-list").first();
     await expect(accordion).toBeVisible();
 
-    const headers = accordion.locator(".fa-list-item .rs-panel-header .rs-panel-btn");
+    const headers = accordion.locator(".fa-list-item .fa-list-item__toggle");
     await expect(headers.first()).toBeVisible();
 
     const count = await headers.count();

@@ -19,17 +19,6 @@
   text-underline-offset: 2px;
 }
 
-.block-link.interactive-surface {
-  color: var(--text-accent);
-}
-
-.block-link.interactive-surface:hover,
-.block-link.interactive-surface:focus,
-.block-link.interactive-surface:active,
-.block-link.interactive-surface:focus-visible {
-  color: var(--link-hover);
-}
-
 .inline-icon {
   display: inline-block;
   margin: 0 0.25em;

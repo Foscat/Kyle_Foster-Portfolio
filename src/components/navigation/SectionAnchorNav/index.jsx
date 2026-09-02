@@ -13,10 +13,8 @@
  * @module components/SectionAnchorNav
  */
 
-import { Nav, Sidenav } from "rsuite";
 import { Link } from "react-router";
 import { PageRoute } from "types/navigation.types";
-import "../../../styles/rsuite-section-anchor.less";
 import "./styles.css";
 
 const isLocalRoute = (url = "") => /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(String(url).trim());
@@ -51,18 +49,17 @@ const isLocalRoute = (url = "") => /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(String(u
 const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.HOME }) => {
   return (
     <aside className="san-container">
-      <Sidenav className="san-accordion">
-        <Sidenav.Header>{title || "Sections"}</Sidenav.Header>
-        <Sidenav.Body>
-          <Nav>
+      <nav className="san-accordion ly-stack" aria-label={title || "Sections"}>
+        <h2 className="san-header">{title || "Sections"}</h2>
+        <div className="san-body ly-stack ly-gap-2">
             {sections.map((sect, i) => {
               const href = sect.isScroller ? `${page}#${sect.id}` : sect.url;
               const useRouterLink = isLocalRoute(href);
+              const Anchor = useRouterLink ? Link : "a";
 
               return (
-                <Nav.Item
+                <Anchor
                   key={"section-" + i}
-                  as={useRouterLink ? Link : undefined}
                   to={useRouterLink ? href : undefined}
                   href={useRouterLink ? undefined : href}
                   className="san-nav-item interactive-surface"
@@ -70,12 +67,11 @@ const SectionAnchorNav = ({ title = "Contents", sections = [], page = PageRoute.
                   data-surface-level="1"
                 >
                   {sect.title}
-                </Nav.Item>
+                </Anchor>
               );
             })}
-          </Nav>
-        </Sidenav.Body>
-      </Sidenav>
+        </div>
+      </nav>
     </aside>
   );
 };

@@ -10,6 +10,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import React from "react";
 import restoreScrollPosition from "./helpers/restoreScrollPosition";
 import { saveLastSection, loadLastSection } from "./helpers/sectionPersistence";
+import UnifiedNavigation from "./UnifiedNavigation";
 
 /**
  * @function withLazySuspense
@@ -86,7 +87,8 @@ const DeferredViewportMount = ({
   );
 };
 
-// Lazy-loaded navigation components wrapped with Suspense for performance optimization.
+// Secondary navigation components remain lazy; the primary navigation is eager so
+// every route exposes its landmark and controls during the first render.
 const LazyFooter = withLazySuspense(() => import("./Footer"), "Footer");
 const Head = withLazySuspense(() => import("./Head"), "Head");
 const MobileSectionNavTrigger = withLazySuspense(
@@ -96,10 +98,6 @@ const MobileSectionNavTrigger = withLazySuspense(
 const SectionAnchorNav = withLazySuspense(() => import("./SectionAnchorNav"), "SectionAnchorNav");
 const StickyNav = withLazySuspense(() => import("./StickyNav"), "StickyNav");
 const StickySectionNav = withLazySuspense(() => import("./StickySectionNav"), "StickySectionNav");
-const UnifiedNavigation = withLazySuspense(
-  () => import("./UnifiedNavigation"),
-  "UnifiedNavigation"
-);
 const Footer = (props) => (
   <DeferredViewportMount>
     <LazyFooter {...props} />

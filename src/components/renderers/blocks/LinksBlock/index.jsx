@@ -5,7 +5,7 @@
  */
 
 import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import { Btn } from "components/ui";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
 import resumeData from "assets/data/content/resumeData.js";
@@ -56,7 +56,7 @@ const LinksBlock = ({ items = [] }) => {
   if (!Array.isArray(items) || items.length === 0) return null;
 
   return (
-    <Panel collapsible defaultExpanded className="block mt-2">
+    <Surface collapsible defaultExpanded className="block mt-2">
       <div className="links-block-list ly-cluster ly-gap-3">
         {items.map((link, i) => {
           if (link?.resumePreview) {
@@ -115,7 +115,7 @@ const LinksBlock = ({ items = [] }) => {
           );
         })}
       </div>
-    </Panel>
+    </Surface>
   );
 };
 

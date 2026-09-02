@@ -256,6 +256,8 @@ html[data-palette][data-theme] {
 }
 
 body[data-ui][data-theme][data-mode] {
+  /* Configure the public state-core timing hook once for calm hover feedback. */
+  --interactive-surface-motion-default: 220ms;
   --app-kit-bg: rgb(var(--usk-bg-rgb, 6 22 29));
   --app-kit-control-fg: rgb(var(--usk-text-rgb, 233 251 255));
   --app-kit-control-muted-fg: rgb(var(--usk-text-muted-rgb, 167 192 201));
@@ -1336,11 +1338,6 @@ html[data-theme="light"][data-palette="arctic-indigo"] {
   html[data-theme="auto"] {
     --divider-color: rgba(var(--deep-black-rgb), var(--divider-opacity));
   }
-
-  html[data-theme="auto"] .btn-tooltip {
-    --rs-tooltip-bg: rgba(var(--white-rgb), 0.98);
-    --rs-tooltip-text: rgba(var(--primary-darkest-rgb), 0.96);
-  }
 }
 
 html[data-theme="light"][data-palette] {
@@ -1471,16 +1468,6 @@ html[data-theme="light"] .modal-zoom-btn {
   color: rgba(var(--primary-darkest-rgb), 0.9);
 }
 
-.btn-tooltip {
-  --rs-tooltip-bg: rgba(var(--primary-darkest-rgb), 0.94);
-  --rs-tooltip-text: rgba(var(--white-rgb), 0.96);
-}
-
-html[data-theme="light"] .btn-tooltip {
-  --rs-tooltip-bg: rgba(var(--white-rgb), 0.98);
-  --rs-tooltip-text: rgba(var(--primary-darkest-rgb), 0.96);
-}
-
 .markdown-renderer__toc-link {
   border-color: transparent;
   background: transparent;
@@ -1499,23 +1486,6 @@ html[data-theme="dark"] .markdown-renderer__link {
 
 html[data-theme="dark"] .markdown-renderer__toc-link {
   color: rgba(var(--white-rgb), 0.75);
-}
-
-.back-to-top__button {
-  border: var(--app-surface-border, 1px solid rgba(var(--white-rgb), 0.22));
-  border-radius: var(--app-surface-radius-md, 14px);
-  background: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
-  color: var(--app-surface-readable-fg, var(--app-surface-fg));
-  box-shadow: var(--app-surface-shadow-soft, var(--glass-shadow));
-  -webkit-backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
-  backdrop-filter: var(--app-surface-backdrop-filter, var(--glass-blur));
-}
-
-.back-to-top__button:hover,
-.back-to-top__button:focus-visible {
-  border-color: var(--app-surface-accent, rgba(var(--accent-rgb), 0.5));
-  background: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.12));
-  color: var(--app-surface-readable-fg, var(--app-surface-fg));
 }
 
 .mermaid .mermaid-svg-host {
@@ -1717,8 +1687,8 @@ body[data-ui][data-theme][data-mode] {
   );
 }
 
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item.rs-nav-item-active,
-.mobile-nav-drawer .rs-nav.rs-nav-default .rs-nav-item[aria-current="page"] {
+.mobile-nav-drawer .mobile-nav-list .is-route-active,
+.mobile-nav-drawer .mobile-nav-list [aria-current="page"] {
   border-color: var(--nav-drawer-active-surface-border-color);
   background: var(--nav-drawer-active-surface-bg);
   color: var(--nav-drawer-active-surface-fg);
@@ -1735,12 +1705,6 @@ body[data-ui][data-theme][data-mode] {
     --sticky-nav-mobile-circle-glyph-size: calc(var(--sticky-nav-mobile-trigger-glyph-size) - 2px);
     --sticky-nav-mobile-trigger-section-glyph-size: var(--sticky-nav-mobile-trigger-glyph-size);
   }
-}
-
-.block-link.interactive-surface {
-  border: 0;
-  background: transparent;
-  color: var(--text-accent);
 }
 
 .resume-preview__paper {

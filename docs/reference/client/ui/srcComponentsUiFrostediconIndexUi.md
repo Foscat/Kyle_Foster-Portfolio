@@ -17,8 +17,8 @@ Midnight Gold + Frosted UI system.
 Core responsibilities:
 - Applies frosted-glass theming and size variants
 - Manages loading and animation states
-- Provides optional click interaction
-- Exposes tooltip support via RSuite Whisper
+- Uses a native button when click interaction is requested
+- Exposes dependency-free native tooltip text
 - Forwards supported FontAwesome props directly to the SVG renderer
 
 Accessibility:

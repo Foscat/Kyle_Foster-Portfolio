@@ -46,14 +46,12 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await page.getByRole("button", { name: /open section navigation/i }).click();
 
     const sectionDialog = page.getByRole("dialog");
-    await expect(
-      sectionDialog.getByRole("navigation", { name: /on this page/i })
-    ).toBeVisible();
+    await expect(sectionDialog.getByRole("navigation", { name: /on this page/i })).toBeVisible();
     await expect(
       sectionDialog.getByRole("button", { name: "Interface System", exact: true })
     ).toBeVisible();
     await expect(
-      sectionDialog.getByRole("button", { name: "Scrap Yard", exact: true })
+      sectionDialog.getByRole("button", { name: "Salvage Yard", exact: true })
     ).toBeVisible();
   });
 
@@ -78,7 +76,16 @@ test.describe("Sanderson Technology Enterprises content", () => {
     );
     await expect(
       page.getByRole("link", { name: "View Interface Systems Lab", exact: true })
-    ).toHaveAttribute("href", "https://foscat.github.io/interface-systems-lab/");
+    ).toHaveAttribute(
+      "href",
+      "https://sanderson-technology-enterprises.github.io/interface-systems-lab/"
+    );
+    await expect(
+      page.getByRole("link", { name: /view interface systems lab source/i })
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab"
+    );
     await expect(
       page.getByRole("link", { name: /content creator platform product page/i })
     ).toHaveAttribute(
@@ -86,16 +93,18 @@ test.describe("Sanderson Technology Enterprises content", () => {
       "https://sandersontechnologyenterprises.com/content-creator-platform.html"
     );
     await expect(
-      page.getByRole("link", { name: /scrap yard system product page/i })
+      page.getByRole("link", { name: /salvage yard system product page/i })
     ).toHaveAttribute("href", "https://sandersontechnologyenterprises.com/scrap-yard-system.html");
 
     const pageText = await page.locator("body").innerText();
     expect(pageText).toContain("Content Creator Platform");
-    expect(pageText).toContain("Scrap Yard System");
+    expect(pageText).toContain("Salvage Yard System");
     expect(pageText).toContain("practical white-label architecture");
     expect(pageText).toContain("internal inventory management system");
     expect(pageText).toContain("client-facing e-commerce platform");
-    expect(pageText).toContain("early-stage");
+    expect(pageText).toContain("complete v1");
+    expect(pageText).toContain("first managed client");
+    expect(pageText).toContain("September 5, 2026");
     expect(pageText).not.toMatch(/golden\s+goose|notion|docs\.notion|secret|token|private repo/iu);
     await expect(page.locator('a[href*="notion"]')).toHaveCount(0);
     await expect(page.locator('a[href*="Golden"]')).toHaveCount(0);
@@ -111,7 +120,7 @@ test.describe("Sanderson Technology Enterprises content", () => {
 
     for (const label of [
       "Content Creator Platform product demonstration",
-      "Scrap Yard System product demonstration",
+      "Salvage Yard System product demonstration",
     ]) {
       const video = page.getByLabel(label);
       await expect(video).toBeVisible();
@@ -121,9 +130,7 @@ test.describe("Sanderson Technology Enterprises content", () => {
     }
   });
 
-  test("keeps the STE logo as a bounded image trigger without a button surface", async ({
-    page,
-  }) => {
+  test("keeps the STE logo inside a bounded native button surface", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await preparePageForStableTests(page, { theme: "dark" });
 
@@ -131,8 +138,12 @@ test.describe("Sanderson Technology Enterprises content", () => {
     await page.waitForLoadState("networkidle");
     await stabilizePage(page, { theme: "dark" });
 
-    const thumbnail = page.getByLabel("Sanderson Technology Enterprises logo preview");
-    await expect(thumbnail).toBeVisible();
+    const trigger = page.getByRole("button", {
+      name: "Sanderson Technology Enterprises logo preview",
+    });
+    const thumbnail = trigger.getByRole("img");
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toHaveClass(/interactive-surface/u);
 
     const geometry = await thumbnail.evaluate((element) => {
       const rect = element.getBoundingClientRect();
@@ -144,7 +155,7 @@ test.describe("Sanderson Technology Enterprises content", () => {
     });
 
     expect(geometry.tagName).toBe("IMG");
-    expect(geometry.hasButtonAncestor).toBe(false);
+    expect(geometry.hasButtonAncestor).toBe(true);
     expect(geometry.width).toBeLessThanOrEqual(480);
   });
 

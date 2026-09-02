@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useState, useEffect, useRef } from "react";
-import { Divider, Panel, PanelGroup } from "rsuite";
+import Surface from "components/ui/Surface";
 import { faReadme } from "@fortawesome/free-brands-svg-icons";
 import { Size, Variant } from "types/ui.types";
 import { RichText } from "components/renderers";
@@ -67,7 +67,7 @@ import "./styles.css";
  *   Additional CSS class names applied to the wrapper.
  *
  * @param {boolean} [props.bordered=false]
- *   Whether the outer panel displays RSuite borders.
+ *   Whether the outer native surface displays its border treatment.
  *
  * @returns {JSX.Element}
  * A fully accessible accordion and section navigation component.
@@ -101,7 +101,7 @@ import "./styles.css";
  * • Designed to integrate with Sticky Section Nav for a unified navigation system
  * • Automatically syncs open item with page scroll position
  * • Accessible to screen readers and keyboard-only users
- * • Uses RSuite's <Accordion> but replaces all header behavior with custom ARIA logic
+ * • Uses native buttons and regions for disclosure behavior
  *
  */
 
@@ -129,7 +129,7 @@ const AccordionList = ({
     }
 
     headerRefs.current = Array.from(
-      listRef.current.querySelectorAll(".fa-list-item .rs-panel-header .rs-panel-btn")
+      listRef.current.querySelectorAll(".fa-list-item .fa-list-item__toggle")
     );
   };
 
@@ -380,7 +380,7 @@ const AccordionList = ({
   const resolvePanelIndexFromKeyboardEvent = (eventTarget) => {
     if (!(eventTarget instanceof Element) || !listRef.current) return -1;
 
-    const headerButton = eventTarget.closest(".rs-panel-btn");
+    const headerButton = eventTarget.closest(".fa-list-item__toggle");
     if (!headerButton || !listRef.current.contains(headerButton)) return -1;
 
     const panelNode = headerButton.closest(".fa-list-item");
@@ -413,87 +413,85 @@ const AccordionList = ({
   };
 
   return (
-    <Panel
-      collapsible
-      expanded
-      bordered={bordered}
+    <Surface
+      id={id}
       header={
-        <div id={id} className="flex-column">
-          {title && <span className="block-header">{title}</span>}
-          {subtitle && <span className="block-subtitle">{subtitle}</span>}
+        <div className="flex-column">
+          {title ? <span className="block-header">{title}</span> : null}
+          {subtitle ? <span className="block-subtitle">{subtitle}</span> : null}
         </div>
       }
       className={`frosted-accordion blue-tile block ${variant} ${className}`}
+      data-bordered={bordered || undefined}
     >
-      {/* Screen reader live region */}
       <div className="sr-only" aria-live="polite">
         {srMessage}
       </div>
-      <PanelGroup
-        id={id}
+      <div
         className="fa-list"
         ref={listRef}
         aria-label={title || "Section navigation"}
-        accordion={accordion}
-        activeKey={openIndex === null ? null : String(openIndex)}
-        onSelect={handlePanelGroupSelect}
         onKeyDownCapture={handlePanelGroupKeyDownCapture}
       >
-        {items.map((item, i) => {
-          const panelIndex = i;
-          const headerId = `-${item.id || panelIndex}`;
+        {items.map((item, panelIndex) => {
+          const headerId = `ac-header-${item.id || panelIndex}`;
           const panelId = `ac-panel-${item.id || panelIndex}`;
+          const isOpen = openIndex === panelIndex;
 
           return (
-            <Panel
-              collapsible
-              bordered={true}
+            <article
               id={item.id || undefined}
-              eventKey={String(panelIndex)}
               key={`${id}-${item.id || panelIndex}`}
-              className={`fa-list-item ${openIndex === panelIndex ? "open" : ""}`}
-              header={
-                <div key={item.id} className="flex-column">
-                  <span className="block-key" key={`${headerId}_${panelIndex}`}>
-                    {item.title}
-                  </span>
-                  <span className="block-subkey" key={`${headerId}_subtitle${panelIndex}`}>
-                    {item.subtitle}
-                  </span>
-                </div>
-              }
+              className={`fa-list-item ${isOpen ? "open" : ""}`}
             >
-              {openIndex === panelIndex && <Divider key={`${panelId}-divider`} />}
-              {item.content && (
-                <RichText
-                  key={panelId}
+              <button
+                type="button"
+                id={headerId}
+                className="fa-list-item__toggle interactive-surface"
+                data-surface-variant="subtle"
+                data-surface-level={isOpen ? "2" : "1"}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => handlePanelGroupSelect(String(panelIndex))}
+              >
+                <span className="flex-column">
+                  <span className="block-key">{item.title}</span>
+                  <span className="block-subkey">{item.subtitle}</span>
+                </span>
+                <span className="surface__indicator" aria-hidden="true">
+                  {isOpen ? "−" : "+"}
+                </span>
+              </button>
+              {isOpen ? (
+                <div
                   id={panelId}
-                  role="group"
-                  className="mt-1 mb-1"
+                  className="fa-list-item__body"
+                  role="region"
                   aria-labelledby={headerId}
-                  text={item.content}
-                />
-              )}
-              {item.url && (
-                <div key={panelId + "-btnWrap"} className="center-v mt-2">
-                  <Btn
-                    key={panelId + "-btn"}
-                    text="Learn More"
-                    icon={faReadme}
-                    href={item.url}
-                    hrefLocal={item.local}
-                    size={Size.MD}
-                    variant={Variant.ACCENT}
-                    ariaLabel={`Learn more about ${item.title.toLowerCase()}`}
-                    tooltip={`Get more info about ${item.title.toLowerCase()}`}
-                  />
+                >
+                  <hr />
+                  {item.content ? <RichText className="mt-1 mb-1" text={item.content} /> : null}
+                  {item.url ? (
+                    <div className="center-v mt-2">
+                      <Btn
+                        text="Learn More"
+                        icon={faReadme}
+                        href={item.url}
+                        hrefLocal={item.local}
+                        size={Size.MD}
+                        variant={Variant.ACCENT}
+                        ariaLabel={`Learn more about ${item.title.toLowerCase()}`}
+                        tooltip={`Get more info about ${item.title.toLowerCase()}`}
+                      />
+                    </div>
+                  ) : null}
                 </div>
-              )}
-            </Panel>
+              ) : null}
+            </article>
           );
         })}
-      </PanelGroup>
-    </Panel>
+      </div>
+    </Surface>
   );
 };
 

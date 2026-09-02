@@ -5,7 +5,7 @@
  */
 
 import { CardGrid, InsightCard } from "components/ui";
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 
 /**
  * @file index.jsx
@@ -67,7 +67,7 @@ function CardGridBlock(props) {
   }
 
   return (
-    <Panel
+    <Surface
       id={id}
       collapsible
       defaultExpanded
@@ -95,7 +95,7 @@ function CardGridBlock(props) {
           />
         ))}
       </CardGrid>
-    </Panel>
+    </Surface>
   );
 }
 

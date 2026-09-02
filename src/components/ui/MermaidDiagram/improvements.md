@@ -70,7 +70,7 @@ C. Theme-aware Diagram component
 src/components/DiagramBlock/index.jsx
 import React, { useEffect, useRef } from "react";
 import mermaid from "mermaid";
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import { useTheme } from "../../theme/ThemeContext";
 import { getMermaidTheme } from "../../diagrams/mermaidTheme";
 import "./styles.css";
@@ -107,12 +107,12 @@ startOnLoad: false,
 }, [code, finalTheme]);
 
 return (
-<Panel bordered className="diagram-panel frosted">
+<Surface bordered className="diagram-panel frosted">
 {title && <h4 className="diagram-title">{title}</h4>}
 {description && <p className="diagram-description">{description}</p>}
 
       <div ref={ref} className="diagram-canvas" />
-    </Panel>
+    </Surface>
 
 );
 };

@@ -28,7 +28,8 @@ describe("renderNode", () => {
     const link = screen.getByRole("link", { name: "Docs" });
 
     expect(link).toHaveAttribute("href", "/docs");
-    expect(link).toHaveClass("interactive-surface");
+    expect(link).toHaveClass("block-link");
+    expect(link).not.toHaveClass("interactive-surface");
   });
 
   // Test that the renderNode function correctly renders unordered list nodes with the appropriate structure and content, ensuring that lists are rendered as unordered list elements with the correct list items when provided in the node data. This verifies that the renderNode function handles list nodes properly and produces the expected output in the DOM for list elements.

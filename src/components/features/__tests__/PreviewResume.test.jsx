@@ -8,7 +8,7 @@
  * - Modal closes when the close button is clicked
  *
  * Testing strategy:
- * - Mocks external dependencies (Btn and rsuite Modal components) to isolate testing to ResumePreview's behavior
+ * - Mocks the shared Btn dependency to isolate ResumePreview behavior
  * - Uses user-facing queries to verify the presence of interactive elements and content
  * - Simulates user interactions (clicks) to test modal open/close behavior
  * - Asserts the presence or absence of the modal and its content based on user actions
@@ -30,25 +30,6 @@ vi.mock("components/ui", async () => {
         {text}
       </button>
     ),
-  };
-});
-
-// Mock the rsuite Modal components to avoid testing their internal behavior and focus on ResumePreview's logic.
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-  const Modal = ({ open, children }) => (open ? <div role="dialog">{children}</div> : null);
-  Modal.Header = ({ children }) => <div>{children}</div>;
-  Modal.Title = ({ children }) => <h2>{children}</h2>;
-  Modal.Body = ({ children }) => <div>{children}</div>;
-  Modal.Footer = ({ children }) => <div>{children}</div>;
-  Modal.Header.displayName = "ModalHeader";
-  Modal.Title.displayName = "ModalTitle";
-  Modal.Body.displayName = "ModalBody";
-  Modal.Footer.displayName = "ModalFooter";
-
-  return {
-    ...actual,
-    Modal,
   };
 });
 

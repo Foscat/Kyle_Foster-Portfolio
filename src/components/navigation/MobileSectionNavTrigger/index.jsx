@@ -21,7 +21,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { faCaretDown, faCaretRight, faListUl, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Drawer } from "rsuite";
+import Dialog from "components/ui/Dialog";
 import { BlockType, Size, SurfaceLevel, Variant } from "types/ui.types";
 import { Btn } from "components/ui";
 import "./styles.css";
@@ -165,15 +165,15 @@ const MobileSectionNavTrigger = ({
           variant={Variant.ACCENT}
         />
       </div>
-      <Drawer
+      <Dialog
         placement="right"
         open={open}
         onClose={closeDrawer}
         className="mobile-nav-drawer mobile-section-nav-drawer"
-        closeButton={false}
+        ariaLabel={`${title} page navigation`}
       >
-        <Drawer.Header closeButton={false}>
-          <Drawer.Title>{title} Page</Drawer.Title>
+        <Dialog.Header closeButton={false}>
+          <Dialog.Title>{title} Page</Dialog.Title>
           <Btn
             icon={faXmark}
             size={Size.LG}
@@ -183,9 +183,9 @@ const MobileSectionNavTrigger = ({
             variant={Variant.ACCENT}
             onClick={closeDrawer}
           />
-        </Drawer.Header>
+        </Dialog.Header>
 
-        <Drawer.Body>
+        <Dialog.Body>
           <nav className="mobile-section-list" aria-label="On this page">
             {navigableSections.map((section, sectionIndex) => {
               const expanded = isExpanded(section.id);
@@ -268,8 +268,8 @@ const MobileSectionNavTrigger = ({
               );
             })}
           </nav>
-        </Drawer.Body>
-      </Drawer>
+        </Dialog.Body>
+      </Dialog>
     </>
   );
 };

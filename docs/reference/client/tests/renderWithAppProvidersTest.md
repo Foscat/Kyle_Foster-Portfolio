@@ -15,8 +15,6 @@ Renders a component tree with app-level providers, excluding router wrappers.
 **Parameters**
 
 - `ui` (`React.ReactElement`) - Component under test.
-- `options` (`object`, optional)
-- `options.rsuiteTheme` (`"light" | "dark"`, optional, default: `"dark"`) - RSuite theme.
 
 **Returns**
 

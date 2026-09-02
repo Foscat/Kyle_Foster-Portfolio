@@ -14,24 +14,6 @@ import StickyNav from "../StickyNav/";
 import { PageRoute } from "types/navigation.types";
 import renderWithProviders from "tests/renderWithProviders";
 
-// Mock the Nav and Drawer components from the rsuite library to prevent issues with their implementation during testing, allowing us to focus on the StickyNav's functionality without worrying about the complexities of these components.
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-
-  const FlexboxGrid = ({ children }) => <div>{children}</div>;
-  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
-
-  return {
-    ...actual,
-    Panel: ({ children, className, role }) => (
-      <header className={className} role={role}>
-        {children}
-      </header>
-    ),
-    FlexboxGrid,
-  };
-});
-
 // Mock the Btn component from the UI library to simplify testing and focus on the StickyNav's functionality.
 vi.mock("components/ui", async () => {
   const actual = await vi.importActual("components/ui");
@@ -170,7 +152,7 @@ describe("StickyNav", () => {
     await user.click(screen.getByRole("button", { name: "Open website navigation" }));
 
     const dialog = await screen.findByRole("dialog", { name: "Website Navigation" });
-    expect(dialog).toHaveClass("rs-drawer-left");
+    expect(dialog).toHaveAttribute("data-dialog-placement", "left");
     expect(within(dialog).getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
   });
 

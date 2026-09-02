@@ -13,7 +13,7 @@ import renderWithProviders from "tests/renderWithProviders";
 const LAZY_NAVIGATION_TIMEOUT_MS = 10_000;
 
 describe("InterfaceSystem", () => {
-  it("presents the four published packages as one coordinated system", () => {
+  it("presents three CSS libraries, native elements, and the icon package as one system", () => {
     renderWithProviders(<InterfaceSystem />);
 
     expect(screen.getByRole("heading", { level: 1, name: "The Interface System" })).toBeVisible();
@@ -24,6 +24,8 @@ describe("InterfaceSystem", () => {
     expect(packageCards).toHaveLength(4);
     expect(within(packageRegion).getByText("layout-style-css")).toBeVisible();
     expect(within(packageRegion).getByText("ui-style-kit-css")).toBeVisible();
+    expect(within(packageRegion).getByText("v2.3.0")).toBeVisible();
+    expect(within(packageRegion).getByText(/Twenty UI styles and twenty color schemes/iu)).toBeVisible();
     expect(within(packageRegion).getByText("ui-style-kit-icons")).toBeVisible();
     expect(within(packageRegion).getByText("interactive-surface-css")).toBeVisible();
   });

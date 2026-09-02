@@ -23,8 +23,6 @@ import { installChunkLoadRecovery } from "assets/chunkLoadRecovery.js";
 import App from "./App.jsx";
 // Reset
 import "./index.css";
-// RSuite shell styles
-import "./styles/rsuite-shell.less";
 // Keep library ownership explicit: visual paint, interaction theme, state behavior, then layout.
 import "ui-style-kit-css/visual.css";
 import "ui-style-kit-css/interactive-surface-theme.css";

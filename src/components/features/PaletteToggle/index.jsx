@@ -21,6 +21,16 @@ const PALETTE_LABELS = Object.freeze({
   "rose-quartz": "Rose Quartz",
   "cyber-lime": "Cyber Lime",
   "arctic-indigo": "Arctic Indigo",
+  "chrome-navy": "Chrome Navy",
+  "recycled-emerald": "Recycled Emerald",
+  "industrial-orange": "Industrial Orange",
+  "performance-red": "Performance Red",
+  "heritage-brass": "Heritage Brass",
+  "service-blue-red": "Service Blue / Red",
+  "newsprint-crimson": "Newsprint Crimson",
+  "foundry-amber": "Foundry Amber",
+  "soft-orchid": "Soft Orchid",
+  "electric-noir": "Electric Noir",
 });
 
 const SIZE_CLASS_BY_SIZE = Object.freeze({

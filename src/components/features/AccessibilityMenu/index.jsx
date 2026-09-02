@@ -6,7 +6,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { Modal } from "rsuite";
+import Dialog from "components/ui/Dialog";
 import { faArrowsRotate, faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { THEME_CYCLE_HOTKEY } from "assets/context/ThemeContext";
@@ -540,18 +540,18 @@ export default function AccessibilityMenu({
         onClick={openMenu}
       />
 
-      <Modal
+      <Dialog
         open={open}
         onClose={closeMenu}
         overflow={false}
         size="sm"
         className="a11y-modal modal-glass"
       >
-        <Modal.Header>
-          <Modal.Title>Accessibility Settings</Modal.Title>
-        </Modal.Header>
+        <Dialog.Header>
+          <Dialog.Title>Accessibility Settings</Dialog.Title>
+        </Dialog.Header>
 
-        <Modal.Body className="a11y-modal__body modal-body-pad">
+        <Dialog.Body className="a11y-modal__body modal-body-pad">
           <p className="a11y-modal__intro">
             Adjust readability, motion, and contrast settings. Preferences are saved on this device.
           </p>
@@ -643,9 +643,9 @@ export default function AccessibilityMenu({
               disabled={isApplying}
             />
           </div>
-        </Modal.Body>
+        </Dialog.Body>
 
-        <Modal.Footer className="a11y-modal__footer feature-settings-modal__footer">
+        <Dialog.Footer className="a11y-modal__footer feature-settings-modal__footer">
           <Btn
             text="Reset changes"
             icon={faArrowsRotate}
@@ -672,8 +672,8 @@ export default function AccessibilityMenu({
             disabled={isApplying || !hasPendingChanges}
             onClick={applyDraft}
           />
-        </Modal.Footer>
-      </Modal>
+        </Dialog.Footer>
+      </Dialog>
     </>
   );
 }

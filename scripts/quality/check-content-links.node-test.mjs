@@ -31,6 +31,19 @@ test("probeExternalUrl falls back from HEAD to GET", async () => {
   assert.deepEqual(methods, ["HEAD", "GET"]);
 });
 
+test("probeExternalUrl verifies a HEAD-only 404 with GET", async () => {
+  const methods = [];
+  const fetchImpl = async (_url, options) => {
+    methods.push(options.method);
+    return { status: options.method === "HEAD" ? 404 : 200 };
+  };
+
+  const result = await probeExternalUrl("https://example.com/render-service", { fetchImpl });
+
+  assert.equal(result.outcome, "ok");
+  assert.deepEqual(methods, ["HEAD", "GET"]);
+});
+
 test("npm package pages are confirmed through the registry after anti-bot responses", async () => {
   const requests = [];
   const fetchImpl = async (url, options) => {

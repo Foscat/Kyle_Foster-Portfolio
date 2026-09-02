@@ -18,11 +18,11 @@ Core responsibilities:
 - Keeps the preview and PDF export aligned with the shared resume data source
 
 Technical notes:
-- Uses RSuite's ButtonToolbar for action buttons
+- Uses a native toolbar for action buttons
 - The component is styled to fit within the overall design system and maintain readability of the PDF content
 
 Accessibility:
-- RSuite Modal provides focus trapping and ESC-to-close behavior
+- The native dialog provides focus trapping and Escape-to-close behavior
 - Buttons include descriptive aria-labels and tooltips
 
 **Returns**

@@ -8,7 +8,7 @@ import { pathToFileURL } from "node:url";
 
 const SUCCESS_MIN = 200;
 const SUCCESS_MAX = 399;
-const FALLBACK_STATUSES = new Set([403, 405, 501]);
+const FALLBACK_STATUSES = new Set([403, 404, 405, 501]);
 const ANTI_BOT_STATUSES = new Set([401, 403, 429, 999]);
 const URL_KEYS = new Set(["href", "liveUrl", "repo", "repoUrl", "url"]);
 

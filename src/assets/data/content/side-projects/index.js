@@ -213,6 +213,112 @@ const sideProjectSections = [
   },
 
   {
+    id: "enigma",
+    slug: "enigma",
+    title: "Enigma",
+    icon: faUserShield,
+    isScroller: true,
+    blocks: [
+      {
+        id: "enigma-problem-text",
+        type: BlockType.RICH_TEXT,
+        icon: faExclamationTriangle,
+        title: "Challenge: Private Messages Without Stored History",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "Most messaging tools keep accounts, message history, analytics, or other durable records. Enigma explores a narrower question: how can two people transform a message without giving the application plaintext to retain?",
+              },
+            ],
+          },
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "The repository began on March 22, 2024. I rebuilt the original experiment in 2026 as a private, zero-storage full-stack application with a clearer boundary between browser cryptography and server processing.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "enigma-solution-text",
+        type: BlockType.RICH_TEXT,
+        icon: faKey,
+        title: "Solution: Layered Message Encryption",
+        content: [
+          {
+            type: "p",
+            children: [
+              {
+                type: "text",
+                text: "A substantial message encryption pipeline runs before anything becomes shareable. Passphrase-based authenticated encryption happens in the browser, then the server adds a private, versioned wrapping transformation without receiving the plaintext or passphrase.",
+              },
+            ],
+          },
+          {
+            type: "ul",
+            children: [
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "Plaintext and passphrases remain in browser memory",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "The application stores no messages, credentials, or usage history",
+                  },
+                ],
+              },
+              {
+                type: "li",
+                children: [
+                  {
+                    type: "text",
+                    text: "The same-origin Express service receives encrypted envelope fields only",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "enigma-gallery",
+        type: BlockType.IMAGE_GALLERY,
+        title: "Live Application Preview",
+        items: [imgObjs.enigmaLive],
+      },
+      {
+        id: "enigma-links",
+        type: BlockType.LINKS,
+        items: [
+          {
+            id: "enigma-link-live",
+            title: "Open Enigma",
+            url: "https://enigma-2zvo.onrender.com",
+            rel: "noopener noreferrer",
+            target: "_blank",
+            icon: faLaptopCode,
+            ariaLabel: "Open the deployed Enigma message-encryption application",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
     id: "interface-systems-lab",
     slug: "interface-systems-lab",
     title: "Interface Systems Lab",
@@ -230,7 +336,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Interface Systems Lab is the canonical integration showcase for my three CSS libraries working together as one interface system.",
+                text: "Interface Systems Lab is the canonical integration showcase for three coordinated CSS libraries working together as one interface system under Sanderson Technology Enterprises.",
               },
             ],
           },
@@ -248,7 +354,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Its interactive workbench demonstrates how shared markup can move through layout, palette, mode, and state changes while preserving each package as an independently useful library.",
+                text: "Its interactive workbench exercises 20 UI styles and 20 color schemes across layout, mode, and state changes. The Component Atlas documents reusable markup and implementation guidance for the shared component system.",
               },
             ],
           },
@@ -257,7 +363,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "The individual package demos can stay library-specific; Interface Systems Lab is the combined-system proof.",
+                text: "The individual package demos remain library-specific; the workbench and Component Atlas provide the combined-system proof.",
               },
             ],
           },
@@ -330,7 +436,7 @@ const sideProjectSections = [
           {
             id: "interface-systems-lab-link-live",
             title: "View Live Lab",
-            url: "https://foscat.github.io/interface-systems-lab/",
+            url: "https://sanderson-technology-enterprises.github.io/interface-systems-lab/",
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faLaptopCode,
@@ -339,7 +445,7 @@ const sideProjectSections = [
           {
             id: "interface-systems-lab-link-source",
             title: "View Source Code",
-            url: "https://github.com/Foscat/interface-systems-lab",
+            url: "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab",
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faCodeBranch,
@@ -740,14 +846,14 @@ const sideProjectSections = [
         id: "ui-style-kit-solution-text",
         type: BlockType.RICH_TEXT,
         icon: faLightbulb,
-        title: "Solution: Reusable Styling Utility Layer",
+        title: "Solution: Twenty Styles and Twenty Color Schemes",
         content: [
           {
             type: "p",
             children: [
               {
                 type: "text",
-                text: "ui-style-kit-css packages practical, reusable styling utilities into a focused npm library. It is designed for quick drop-in adoption so teams can ship consistent UI behavior with less setup overhead.",
+                text: "ui-style-kit-css packages 20 UI styles and 20 color schemes into a focused npm library. Teams can change an interface's visual character and palette while keeping the same semantic markup and component structure.",
               },
             ],
           },
@@ -756,7 +862,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "This section focuses on the standalone visual-paint library; Interface Systems Lab shows it resolving theme roles alongside the layout and interaction libraries.",
+                text: "I started the repository on May 24, 2026. This section focuses on the standalone visual-paint library; Interface Systems Lab shows it resolving theme roles alongside the layout and interaction libraries.",
               },
             ],
           },
@@ -766,13 +872,13 @@ const sideProjectSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Reusable style primitives for faster UI delivery" },
+                  { type: "text", text: "20 UI styles for distinct visual personalities" },
                 ],
               },
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "Consistent interaction styling across components" },
+                  { type: "text", text: "20 color schemes built on shared semantic roles" },
                 ],
               },
               {
@@ -2034,6 +2140,7 @@ const sideProjectSections = [
 
 const sideProjectSectionOrder = [
   "overview",
+  "enigma",
   "interface-systems-lab",
   "layout-style-css",
   "ui-style-kit-css",

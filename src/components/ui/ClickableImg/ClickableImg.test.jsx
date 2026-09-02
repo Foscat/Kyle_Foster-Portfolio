@@ -12,7 +12,7 @@
  *
  * Testing strategy:
  * - Uses `@testing-library/user-event` to simulate real user interactions
- * - Verifies RSuite Modal behavior via `role="dialog"`
+ * - Verifies native dialog behavior via `role="dialog"`
  * - Avoids snapshots in favor of semantic queries
  *
  * @module tests/components/ClickableImg
@@ -23,33 +23,6 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import ClickableImg from "./index";
 import renderWithProviders from "tests/renderWithProviders";
-
-vi.mock("rsuite", async () => {
-  const React = await vi.importActual("react");
-  const actual = await vi.importActual("rsuite");
-  const Modal = ({ open, children, onClose, keyboard = true }) => {
-    React.useEffect(() => {
-      if (!open || !keyboard) return undefined;
-      const handleKeyDown = (event) => {
-        if (event.key === "Escape") onClose?.();
-      };
-
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [open, keyboard, onClose]);
-
-    return open ? <div role="dialog">{children}</div> : null;
-  };
-  Modal.Header = ({ children }) => <div>{children}</div>;
-  Modal.Title = ({ children }) => <h2>{children}</h2>;
-  Modal.Body = ({ children }) => <div>{children}</div>;
-  Modal.Footer = ({ children }) => <div>{children}</div>;
-
-  return {
-    ...actual,
-    Modal,
-  };
-});
 
 /* ------------------------------------------------------------------
  * Test data
@@ -95,11 +68,14 @@ describe("ClickableImg", () => {
     expect(thumbnail).toHaveAttribute("src", IMAGE_SRC);
   });
 
-  it("uses the thumbnail image directly instead of wrapping it in a button surface", () => {
+  it("uses a native button surface as the thumbnail trigger", () => {
     renderClickableImg();
 
-    const thumbnail = screen.getByLabelText(/clickable image, click to expand/i);
-    expect(thumbnail).toBeInstanceOf(HTMLImageElement);
+    const trigger = screen.getByRole("button", {
+      name: /clickable image, click to expand/i,
+    });
+    expect(trigger).toHaveClass("interactive-surface");
+    expect(within(trigger).getByRole("img", { name: IMAGE_ALT })).toBeInTheDocument();
   });
 
   it("renders the caption beneath the thumbnail when provided", () => {

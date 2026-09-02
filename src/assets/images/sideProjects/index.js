@@ -5,6 +5,7 @@
  */
 
 import d20Dash from "./d20-dashboard.png";
+import enigmaLive from "./enigma-live.png";
 import oppEdit from "./d20-opp-editor.png";
 import greCon from "./greenhouse-controls.jpg";
 import greHook from "./greenhouse-hooked-up.jpg";
@@ -15,6 +16,7 @@ import uiStyleKitSocialCard from "./ui-style-kit-social-card.webp";
 
 export {
   d20Dash,
+  enigmaLive,
   oppEdit,
   greCon,
   greHook,
@@ -32,6 +34,15 @@ const imgObjs = {
     title: "Landing Page",
     caption: "Dashboard landing page for D20, a digital tabletop RPG assistant application.",
     ariaLabel: "Screenshot of D20 dashboard landing page",
+  },
+  enigmaLive: {
+    id: "enigma_live_img",
+    src: enigmaLive,
+    alt: "Enigma message-encryption workspace with message, encrypted output, and passphrase controls",
+    title: "Enigma message-encryption workspace",
+    caption:
+      "The deployed Enigma workspace keeps message, encrypted output, and passphrase controls together in one zero-storage interface.",
+    ariaLabel: "Screenshot of the deployed Enigma message-encryption workspace",
   },
   opponentEditor: {
     id: "d20_opp_editor_img",

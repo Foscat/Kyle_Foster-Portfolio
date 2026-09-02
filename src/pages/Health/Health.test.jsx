@@ -15,8 +15,8 @@ describe("Health page", () => {
     renderWithProviders(<Health />);
 
     expect(screen.getByText(/system health/i)).toBeInTheDocument();
-    expect(screen.getByText(/react: 18\.2\.0/i)).toBeInTheDocument();
+    expect(screen.getByText(/react: 19\.2\.8/i)).toBeInTheDocument();
     expect(screen.getByText(/build tool: vite/i)).toBeInTheDocument();
-    expect(screen.getByText(/rsuite: loaded/i)).toBeInTheDocument();
+    expect(screen.getByText(/ste interface libraries: loaded/i)).toBeInTheDocument();
   });
 });

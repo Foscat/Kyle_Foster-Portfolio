@@ -14,8 +14,11 @@ function ThemeContextProbe() {
     theme,
     setTheme,
     palette,
+    setPalette,
+    palettes,
     uiStyle,
     setUiStyle,
+    uiStyles,
     layoutStyle,
     setLayoutStyle,
     layoutStyles,
@@ -25,7 +28,9 @@ function ThemeContextProbe() {
     <div>
       <p data-testid="theme-value">{theme}</p>
       <p data-testid="palette-value">{palette}</p>
+      <p data-testid="palette-options">{palettes.join(",")}</p>
       <p data-testid="ui-style-value">{uiStyle}</p>
+      <p data-testid="ui-style-options">{uiStyles.join(",")}</p>
       <p data-testid="layout-style-value">{layoutStyle}</p>
       <p data-testid="layout-style-options">{layoutStyles.join(",")}</p>
       <button type="button" onClick={() => setTheme("light")}>
@@ -36,6 +41,12 @@ function ThemeContextProbe() {
       </button>
       <button type="button" onClick={() => setUiStyle("cyberpunk")}>
         Set cyberpunk UI style
+      </button>
+      <button type="button" onClick={() => setUiStyle("neo-noir")}>
+        Set Neo-Noir UI style
+      </button>
+      <button type="button" onClick={() => setPalette("electric-noir")}>
+        Set Electric Noir palette
       </button>
       <button type="button" onClick={() => setUiStyle("invalid-style")}>
         Set invalid UI style
@@ -95,6 +106,17 @@ describe("ThemeContext", () => {
     expect(document.documentElement.dataset.lyLayout).toBe("synthwave");
   });
 
+  test("exposes every ui-style-kit-css 2.3.0 style and palette", () => {
+    renderWithProviders(<ThemeContextProbe />);
+
+    expect(screen.getByTestId("ui-style-options")).toHaveTextContent(
+      "minimal-saas,bento,maximalist,bauhaus,tactile,neumorphism,retrofuturism,brutalism,cyberpunk,y2k,retro-glass,editorial-luxe,organic-modern,industrial-utility,technical-blueprint,art-deco,clay,data-terminal,paper-editorial,neo-noir"
+    );
+    expect(screen.getByTestId("palette-options")).toHaveTextContent(
+      "midnight-gold,ocean-steel,forest-moss,sunset-ember,royal-plum,graphite-cyan,desert-sage,rose-quartz,cyber-lime,arctic-indigo,chrome-navy,recycled-emerald,industrial-orange,performance-red,heritage-brass,service-blue-red,newsprint-crimson,foundry-amber,soft-orchid,electric-noir"
+    );
+  });
+
   test("ignores invalid theme updates", async () => {
     const user = userEvent.setup();
 
@@ -105,7 +127,7 @@ describe("ThemeContext", () => {
     expect(screen.getByTestId("theme-value")).toHaveTextContent("dark");
   });
 
-  test("applies supported UI style changes to the style-kit attribute", async () => {
+  test("applies a 2.3.0 UI style and palette to package-owned data attributes", async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ThemeContextProbe />);
@@ -114,13 +136,18 @@ describe("ThemeContext", () => {
     expect(document.documentElement.dataset.ui).toBe("cyberpunk");
     expect(document.body.dataset.ui).toBe("cyberpunk");
 
-    await user.click(screen.getByRole("button", { name: /set cyberpunk ui style/i }));
+    await user.click(screen.getByRole("button", { name: /set neo-noir ui style/i }));
+    await user.click(screen.getByRole("button", { name: /set electric noir palette/i }));
 
-    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("cyberpunk");
-    expect(document.documentElement.dataset.ui).toBe("cyberpunk");
-    expect(document.body.dataset.ui).toBe("cyberpunk");
+    expect(screen.getByTestId("ui-style-value")).toHaveTextContent("neo-noir");
+    expect(screen.getByTestId("palette-value")).toHaveTextContent("electric-noir");
+    expect(document.documentElement.dataset.ui).toBe("neo-noir");
+    expect(document.documentElement.dataset.palette).toBe("electric-noir");
+    expect(document.body.dataset.ui).toBe("neo-noir");
+    expect(document.body.dataset.theme).toBe("electric-noir");
     await waitFor(() => {
-      expect(window.localStorage.getItem("portfolio-ui-style")).toBe("cyberpunk");
+      expect(window.localStorage.getItem("portfolio-ui-style")).toBe("neo-noir");
+      expect(window.localStorage.getItem("portfolio-palette")).toBe("electric-noir");
     });
   });
 
@@ -150,13 +177,13 @@ describe("ThemeContext", () => {
     });
   });
 
-  test("exposes layout-style-css 3.0.0 layout styles", async () => {
+  test("exposes layout-style-css 3.0.1 layout styles", async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ThemeContextProbe />);
 
     expect(screen.getByTestId("layout-style-options")).toHaveTextContent(
-      "f-pattern,z-pattern,split-screen,mondrian,synthwave"
+      "minimal-saas,bento,maximalist,bauhaus,tactile,neumorphism,retrofuturism,brutalism,cyberpunk,y2k,retro-glass,f-pattern,z-pattern,split-screen,mondrian,synthwave"
     );
 
     await user.click(screen.getByRole("button", { name: /set synthwave layout style/i }));

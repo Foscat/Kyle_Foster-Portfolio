@@ -68,8 +68,7 @@ html[data-a11y-reduced-transparency="true"] .blue-tile,
 html[data-a11y-reduced-transparency="true"] .glass-card,
 html[data-a11y-reduced-transparency="true"] .frosted-icon,
 html[data-a11y-reduced-transparency="true"] .desktop-menu,
-html[data-a11y-reduced-transparency="true"] .rs-modal-content,
-html[data-a11y-reduced-transparency="true"] .rs-drawer-content,
+html[data-a11y-reduced-transparency="true"] .native-dialog,
 html[data-a11y-reduced-transparency="true"] .btn,
 html[data-a11y-reduced-transparency="true"] .interactive-surface {
   -webkit-backdrop-filter: none !important;
@@ -82,8 +81,7 @@ html[data-a11y-high-contrast="true"] .frosted,
 html[data-a11y-high-contrast="true"] .blue-tile,
 html[data-a11y-high-contrast="true"] .glass-card,
 html[data-a11y-high-contrast="true"] .desktop-menu,
-html[data-a11y-high-contrast="true"] .rs-modal-content,
-html[data-a11y-high-contrast="true"] .rs-drawer-content {
+html[data-a11y-high-contrast="true"] .native-dialog {
   box-shadow: none !important;
 }
 
@@ -91,8 +89,7 @@ html[data-theme="dark"][data-a11y-high-contrast="true"] .frosted,
 html[data-theme="dark"][data-a11y-high-contrast="true"] .blue-tile,
 html[data-theme="dark"][data-a11y-high-contrast="true"] .glass-card,
 html[data-theme="dark"][data-a11y-high-contrast="true"] .desktop-menu,
-html[data-theme="dark"][data-a11y-high-contrast="true"] .rs-modal-content,
-html[data-theme="dark"][data-a11y-high-contrast="true"] .rs-drawer-content {
+html[data-theme="dark"][data-a11y-high-contrast="true"] .native-dialog {
   background: rgba(var(--deep-black-rgb), 0.96) !important;
   border: 2px solid rgba(var(--white-rgb), 0.86) !important;
 }
@@ -101,8 +98,7 @@ html[data-theme="light"][data-a11y-high-contrast="true"] .frosted,
 html[data-theme="light"][data-a11y-high-contrast="true"] .blue-tile,
 html[data-theme="light"][data-a11y-high-contrast="true"] .glass-card,
 html[data-theme="light"][data-a11y-high-contrast="true"] .desktop-menu,
-html[data-theme="light"][data-a11y-high-contrast="true"] .rs-modal-content,
-html[data-theme="light"][data-a11y-high-contrast="true"] .rs-drawer-content {
+html[data-theme="light"][data-a11y-high-contrast="true"] .native-dialog {
   background: rgba(var(--white-rgb), 0.98) !important;
   border: 2px solid rgba(var(--black-rgb), 0.82) !important;
 }
@@ -233,10 +229,6 @@ body {
   list-style: none;
 }
 
-body.rs-drawer-open.rs-drawer-has-backdrop {
-  background-color: var(--bg-primary);
-}
-
 /* Background layers: blue depth + gold accent + soft vignette */
 body::before {
   position: fixed;
@@ -344,7 +336,6 @@ a:hover {
 }
 
 /* Shared renderer link-surface reset: keep text links clickable without tile backgrounds. */
-.block-link.interactive-surface,
 .markdown-renderer__link.interactive-surface,
 .markdown-renderer__toc-link.interactive-surface {
   background: transparent;
@@ -352,8 +343,6 @@ a:hover {
   box-shadow: none;
 }
 
-.block-link.interactive-surface::before,
-.block-link.interactive-surface::after,
 .markdown-renderer__link.interactive-surface::before,
 .markdown-renderer__link.interactive-surface::after,
 .markdown-renderer__toc-link.interactive-surface::before,
@@ -365,24 +354,6 @@ a:hover {
 
 .block-list-item {
   background: transparent;
-}
-
-/* Preference controls sit on dark modal surfaces, so app readable tokens must win over package variant foregrounds. */
-html[data-theme="dark"] :is(.color-modal, .a11y-modal) select.interactive-surface {
-  color: var(--app-kit-control-fg, var(--app-surface-readable-fg)) !important;
-  background: var(--app-surface-control-bg, var(--app-surface-strong-bg)) !important;
-  border-color: var(--app-surface-border-color) !important;
-}
-
-html[data-theme="dark"] :is(.color-modal, .a11y-modal) select.interactive-surface option {
-  color: rgb(var(--primary-darkest-rgb));
-  background: rgb(var(--white-rgb));
-}
-
-html[data-theme="dark"]
-  :is(.color-modal, .a11y-modal)
-  .rs-btn.btn.interactive-surface:is(.secondary, .subtle, .btn-noBG, .noBG) {
-  color: var(--app-kit-control-fg, var(--app-surface-readable-fg)) !important;
 }
 
 section[id],
@@ -440,7 +411,7 @@ section[id],
   box-shadow: var(--app-surface-ring, 0 0 0 0 transparent), var(--app-surface-shadow, none);
 }
 
-.blue-tile.rs-panel {
+.blue-tile.surface {
   border-radius: var(--app-surface-radius-lg, var(--radius-lg));
 }
 
@@ -452,24 +423,12 @@ section[id],
   text-align: left;
 }
 
-.info-content .rs-panel-collapsible > .rs-panel-header {
+.info-content .surface__heading {
   padding: 0;
 }
 
-.rs-panel-header.rs-heading,
-.rs-panel .rs-panel-header,
-.rs-panel .rs-panel-title {
+.surface__header {
   color: var(--heading-color);
-}
-
-.rs-panel .rs-panel-header .rs-panel-btn:hover,
-.rs-panel .rs-panel-header .rs-panel-btn:hover .block-header,
-.rs-panel .rs-panel-header .rs-panel-btn:active,
-.rs-panel .rs-panel-header .rs-panel-btn:focus,
-.fa-list .fa-list-item .rs-panel-btn:focus,
-.rs-panel-header .rs-panel-title.block-header:active {
-  color: inherit;
-  background-color: transparent;
 }
 
 .block-subtitle {
@@ -486,20 +445,8 @@ section[id],
   border: none;
 }
 
-/* ------------------------------------------------------------
-   RSuite Modal - Frosted Utilities (shared)
-   ------------------------------------------------------------ */
-
-/* Apply to <Modal className="modal-glass"> */
-.rs-modal-dialog .modal-glass {
-  -webkit-backdrop-filter: var(--slight-blur);
-  backdrop-filter: var(--slight-blur);
-  background: rgba(var(--primary-darkest-rgb), 0.35);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-xl);
-}
-
-.rs-modal-dialog .frosted.rs-modal-body {
+/* Full-height dialog body utility for embedded content. */
+.native-dialog__body.frosted {
   height: 75dvh;
 }
 
@@ -784,14 +731,6 @@ section[id],
   gap: 0.75rem;
 }
 
-/* RSuite Overides */
-.rs-panel-btn,
-.rs-panel-btn:hover,
-.rs-panel-btn:focus,
-.rs-panel-btn:active {
-  background-color: transparent;
-}
-
 /* ------------------------------------------------------------
    Footer / navigation baseline
    ------------------------------------------------------------ */
@@ -829,7 +768,7 @@ footer {
     margin: 0 0 1rem;
   }
 
-  .info-content .rs-panel-collapsible > .rs-panel-header {
+  .info-content .surface__heading {
     padding: 10px;
   }
 }

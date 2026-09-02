@@ -84,14 +84,14 @@ export const Palette = Object.freeze({
 export { PageRoute };
 
 /* ============================================================================
-   RSuite Constants
+   Shared UI Constants
    ========================================================================= */
 
 /**
  * @constant {Object} TooltipPlacement
- * @description Standardized tooltip placement options for RSuite components.
+ * @description Standardized tooltip placement options for portfolio components.
  * This enum provides a centralized reference for all tooltip placements used across the application, ensuring consistency and ease of maintenance.
- * Each value corresponds to a valid placement option accepted by RSuite's tooltip components, allowing developers to use descriptive keys instead of hardcoding strings throughout the codebase.
+ * Each value provides a stable placement vocabulary without coupling consumers to a component library.
  * For example, instead of using "bottomStart" directly in a component, developers can use `TooltipPlacement.BOTTOM_START`, which improves readability and reduces the risk of typos.
  * When adding new placements, simply include them in this enum to maintain a single source of truth for tooltip positioning.
  * @readonly

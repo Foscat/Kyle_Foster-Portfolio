@@ -5,11 +5,9 @@
  * @module components/FrostedIcon
  */
 
-import { Tooltip, Whisper } from "rsuite";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Size } from "types/ui.types";
-import { useCoarsePointer } from "assets/hooks";
 import "./styles.css";
 
 /**
@@ -51,8 +49,8 @@ import "./styles.css";
  * Core responsibilities:
  * - Applies frosted-glass theming and size variants
  * - Manages loading and animation states
- * - Provides optional click interaction
- * - Exposes tooltip support via RSuite Whisper
+ * - Uses a native button when click interaction is requested
+ * - Exposes dependency-free native tooltip text
  * - Forwards supported FontAwesome props directly to the SVG renderer
  *
  * Accessibility:
@@ -122,8 +120,8 @@ const FrostedIcon = ({
   className = "",
   loading = false,
   tooltip = "",
-  followCursor,
-  tooltipPlacement,
+  followCursor: _followCursor,
+  tooltipPlacement: _tooltipPlacement,
   ariaLabel = "",
   noBG = false,
   // FontAwesomeIcon specific props
@@ -148,76 +146,62 @@ const FrostedIcon = ({
   swapOpacity = false,
   widthAuto = false,
 }) => {
-  const isCoarsePointer = useCoarsePointer();
-  const hasInteractiveClass = className.includes("interactive-surface");
   const isEmbeddedInBtn = className.includes("btn-icon");
   const isInteractive = clickable && !isEmbeddedInBtn;
-  const interactiveClass = isInteractive && !hasInteractiveClass ? "interactive-surface" : "";
-  const hasTooltip = typeof tooltip === "string" && tooltip.trim().length > 0;
-  const tooltipTrigger = hasTooltip && !isCoarsePointer ? "hover" : "none";
-
-  return (
-    <Whisper
-      delay={250}
-      trigger={tooltipTrigger}
-      followCursor={followCursor}
-      placement={tooltipPlacement}
-      enterable={false}
-      speaker={<Tooltip>{tooltip}</Tooltip>}
-    >
-      <FontAwesomeIcon
-        onClick={(e) => {
-          if (isInteractive) {
-            onClick(e);
-
-            if (isCoarsePointer && e?.currentTarget instanceof HTMLElement) {
-              window.requestAnimationFrame(() => {
-                e.currentTarget.blur();
-              });
-            }
-          }
-        }}
-        role={isInteractive ? "button" : "img"}
-        aria-label={isEmbeddedInBtn ? undefined : ariaLabel || undefined}
-        aria-hidden={isEmbeddedInBtn ? true : undefined}
-        aria-busy={loading}
-        tabIndex={isInteractive ? 0 : undefined}
-        data-surface-variant={isInteractive ? variant : undefined}
-        data-surface-level={isInteractive ? "2" : undefined}
-        className={`
+  const iconElement = (
+    <FontAwesomeIcon
+      role="img"
+      aria-label={isEmbeddedInBtn || isInteractive ? undefined : ariaLabel || undefined}
+      aria-hidden={isEmbeddedInBtn || isInteractive ? true : undefined}
+      aria-busy={loading}
+      className={`
             frosted-icon
             fi-size-${size}
             fi-variant-${variant}
             ${noBG ? "fi-no-bg" : ""}
-            ${isInteractive ? "fi-clickable" : ""}
-            ${interactiveClass}
             ${className}
           `}
-        size={Size.SM}
-        spin={loading || spin}
-        icon={loading ? faSpinner : icon}
-        border={border}
-        mask={mask}
-        maskId={maskId}
-        inverse={inverse}
-        flip={flip}
-        pull={pull}
-        rotation={rotation}
-        rotateBy={rotateBy}
-        spinPulse={spinPulse}
-        spinReverse={spinReverse}
-        fade={fade}
-        beatFade={beatFade}
-        bounce={bounce}
-        shake={shake}
-        symbol={symbol}
-        title={title}
-        titleId={titleId}
-        transform={transform}
-        swapOpacity={swapOpacity}
-        widthAuto={widthAuto}
-      />
-    </Whisper>
+      size={Size.SM}
+      spin={loading || spin}
+      icon={loading ? faSpinner : icon}
+      border={border}
+      mask={mask}
+      maskId={maskId}
+      inverse={inverse}
+      flip={flip}
+      pull={pull}
+      rotation={rotation}
+      rotateBy={rotateBy}
+      spinPulse={spinPulse}
+      spinReverse={spinReverse}
+      fade={fade}
+      beatFade={beatFade}
+      bounce={bounce}
+      shake={shake}
+      symbol={symbol}
+      title={title}
+      titleId={titleId}
+      transform={transform}
+      swapOpacity={swapOpacity}
+      widthAuto={widthAuto}
+    />
+  );
+
+  if (!isInteractive) return iconElement;
+
+  return (
+    <button
+      type="button"
+      className="frosted-icon-button interactive-surface"
+      data-surface-variant={variant}
+      data-surface-level="2"
+      aria-label={ariaLabel || undefined}
+      aria-busy={loading}
+      title={tooltip || title || undefined}
+      onClick={onClick}
+    >
+      {iconElement}
+    </button>
   );
 };
 

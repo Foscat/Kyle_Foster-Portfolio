@@ -8,7 +8,7 @@
 
 Unified frosted-glass button component implementing the
 Midnight Gold UI system with accessibility, animation, async handling,
-and controlled prop passthrough to RSuite and FontAwesome.
+and controlled prop passthrough to native elements and FontAwesome.
 
 ### Btn
 
@@ -16,11 +16,11 @@ A unified, accessible, animated button component that conforms to the
 Midnight Gold + Frosted UI system.
 
 Core responsibilities:
-- Normalizes RSuite `` and `<IconButton>` behavior
-- Automatically switches to IconButton when an icon is present
+- Normalizes native button, anchor, and React Router link behavior
+- Keeps icon and label composition consistent across element types
 - Enforces accessibility for icon-only buttons
 - Supports async click handlers with visual feedback
-- Provides tooltip support via RSuite Whisper
+- Provides dependency-free native tooltip text
 - Can render as:
   - Native button
   - React Router link
@@ -35,11 +35,11 @@ Accessibility:
 
 - `props` (`Object`) - Component props.
 - `props.variant` (`Variant`, optional, default: `"primary"`) - Visual style variant aligned with the frosted theme.
-- `props.surfaceLevel` (`SurfaceLevel`, optional) - Optional Interactive Surface depth override. When omitted, the library owns   its base and active/inactive level behavior.
+- `props.surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface depth. Buttons default to the raised library surface so   variant foreground and background tokens remain paired for readable contrast.
 - `props.size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `props.text` (`string`, optional) - Text label rendered inside the button.
 - `props.children` (`React.ReactNode`, optional) - Nested button content used when a simple text label is not sufficient.
-- `props.type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type forwarded to the underlying RSuite button.
+- `props.type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type forwarded to the underlying element.
 - `props.icon` (`string`, optional) - FontAwesome icon name. When provided, renders an IconButton.
 - `props.onClick` (`function`, optional) - Click handler. May return a Promise to enable async loading state.
 - `props.clickable` (`boolean`, optional, default: `true`) - Indicates whether the button/icon is clickable or not.
@@ -57,7 +57,7 @@ Accessibility:
 - `props.rel` (`string`, optional) - Anchor `rel` attribute.
 - `props.className` (`string`, optional) - Additional CSS class names.
 - `props.noBG` (`boolean`, optional, default: `false`) - Disables the frosted background treatment.
-- `props.*` (`RSuiteButtonProps`, optional) - Any supported RSuite Button/IconButton props are forwarded directly.
+- `props.*` (`NativeButtonProps`, optional) - Supported native element props are forwarded directly.
 - `props.*` (`FontAwesomeButtonIconProps`, optional) - FontAwesome-related props forwarded to the internal `FrostedIcon`.
 
 **Returns**
@@ -89,6 +89,16 @@ True when the button renders only an icon with no text label
 
 Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
 
+### resolvedSurfaceVariant
+
+Transparent controls use the shared subtle foreground token because their
+final background comes from the surrounding surface rather than variant paint.
+
+### classes
+
+Variant intent remains explicit for existing component hooks while the shared
+libraries own the rendered paint, depth, and interaction states.
+
 ### handleClick()
 
 Async-aware click handler.
@@ -102,11 +112,9 @@ Automatically manages loading state when a Promise is returned.
 
 - `void`
 
-### RSuiteButtonProps
+### NativeButtonProps
 
-Subset of props forwarded directly to RSuite `` / `<IconButton>`.
-These are documented explicitly to make passthrough behavior clear
-without re-exporting RSuite types.
+Native element and compatibility props accepted by the shared button.
 
 - Type: `Object`
 
@@ -115,7 +123,6 @@ without re-exporting RSuite types.
 - `active` (`boolean`, optional, default: `true`) - Whether the button is in an active state.
 - `as` (`string | React.ElementType`, optional, default: `"button"`) - Render element type.
 - `block` (`boolean`, optional, default: `false`) - Makes the button full-width.
-- `classPrefix` (`string`, optional, default: `"btn"`) - RSuite CSS class prefix.
 - `disabled` (`boolean`, optional, default: `false`) - Disables the button.
 - `startIcon` (`React.ReactNode`, optional) - Icon rendered before content.
 - `endIcon` (`React.ReactNode`, optional) - Icon rendered after content.
@@ -127,7 +134,7 @@ without re-exporting RSuite types.
 - `className` (`string`, optional) - Additional CSS class names.
 - `noBG` (`boolean`, optional, default: `false`) - If true, disables the frosted background.
 - `variant` (`Variant`, optional, default: `"primary"`) - Visual style variant.
-- `surfaceLevel` (`SurfaceLevel`, optional) - Optional Interactive Surface visual depth override.
+- `surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface visual depth.
 - `size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `text` (`React.ReactNode`, optional) - Label rendered inside the button.
 - `type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type.

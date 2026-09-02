@@ -33,10 +33,11 @@ describe("page summary metadata", () => {
     expect(sideProjects).toContain("CSS systems");
     expect(sideProjects).toContain("Interface Systems Lab");
     expect(sideProjects).toContain("shared CSS libraries");
-    expect(sideProjects).not.toMatch(/encryption|enigma/iu);
+    expect(sideProjects).toContain("Enigma");
+    expect(sideProjects).toMatch(/message encryption/iu);
     expect(ste).toContain("Sanderson Technology Enterprises");
     expect(ste).toContain("Content Creator Platform");
-    expect(ste).toContain("Scrap Yard System");
+    expect(ste).toContain("Salvage Yard System");
     expect(ste).toContain("Interface Systems Lab");
     expect(ste).not.toMatch(/golden\s+goose|founder|co-founder|my company|owner-operated/iu);
     expect(pageSummaryMetas.SandersonTechnologyEnterprises.jobTitle).toBe("Senior Developer");
@@ -48,7 +49,7 @@ describe("page summary metadata", () => {
     const techLabels = tech.map(({ label }) => label);
 
     expect(headerDescription).toBe(
-      "Flagship product engineering across the Content Creator Platform, Scrap Yard System, public delivery, and a four-library Interface System."
+      "Flagship product engineering across the Content Creator Platform, Salvage Yard System, public delivery, and a three-library Interface System."
     );
     expect(headerDescription.length).toBeLessThan(description.length);
     expect(pageSummaryMetas.SandersonTechnologyEnterprises.techLabel).toBe("Focus Areas");
@@ -57,7 +58,7 @@ describe("page summary metadata", () => {
       "React Architecture",
       "MERN Foundations",
       "Content Creator Platform",
-      "Scrap Yard System",
+      "Salvage Yard System",
       "Interface Systems Lab",
     ]);
   });

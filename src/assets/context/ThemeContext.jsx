@@ -27,11 +27,30 @@ const SUPPORTED_UI_STYLES = Object.freeze([
   "cyberpunk",
   "y2k",
   "retro-glass",
+  "editorial-luxe",
+  "organic-modern",
+  "industrial-utility",
+  "technical-blueprint",
+  "art-deco",
+  "clay",
+  "data-terminal",
+  "paper-editorial",
+  "neo-noir",
 ]);
 const DEFAULT_UI_STYLE = "cyberpunk";
 const SUPPORTED_LAYOUT_STYLES = Object.freeze([
-  ...SUPPORTED_UI_STYLES,
-  // Layout Style CSS keeps spatial-only personalities independent from ui-style-kit-css paint.
+  // Layout Style CSS retains its own supported spatial systems independently of UI Style Kit.
+  "minimal-saas",
+  "bento",
+  "maximalist",
+  "bauhaus",
+  "tactile",
+  "neumorphism",
+  "retrofuturism",
+  "brutalism",
+  "cyberpunk",
+  "y2k",
+  "retro-glass",
   "f-pattern",
   "z-pattern",
   "split-screen",
@@ -145,7 +164,17 @@ function getInitialLayoutStyle() {
  *   "desert-sage"|
  *   "rose-quartz"|
  *   "cyber-lime"|
- *   "arctic-indigo"
+ *   "arctic-indigo"|
+ *   "chrome-navy"|
+ *   "recycled-emerald"|
+ *   "industrial-orange"|
+ *   "performance-red"|
+ *   "heritage-brass"|
+ *   "service-blue-red"|
+ *   "newsprint-crimson"|
+ *   "foundry-amber"|
+ *   "soft-orchid"|
+ *   "electric-noir"
  * } Palette
  */
 
@@ -163,7 +192,16 @@ function getInitialLayoutStyle() {
  *   "brutalism"|
  *   "cyberpunk"|
  *   "y2k"|
- *   "retro-glass"
+ *   "retro-glass"|
+ *   "editorial-luxe"|
+ *   "organic-modern"|
+ *   "industrial-utility"|
+ *   "technical-blueprint"|
+ *   "art-deco"|
+ *   "clay"|
+ *   "data-terminal"|
+ *   "paper-editorial"|
+ *   "neo-noir"
  * } UiStyle
  */
 

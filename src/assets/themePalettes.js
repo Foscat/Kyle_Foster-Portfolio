@@ -5,7 +5,7 @@
  */
 
 /**
- * Palette ids exposed by ui-style-kit-css v2.0.2.
+ * Palette ids exposed by ui-style-kit-css v2.3.0.
  *
  * The CSS package owns the actual theme role values through `--usk-*` tokens;
  * the app keeps this list only for validation, persistence, and controls.
@@ -23,4 +23,14 @@ export const PALETTE_IDS = Object.freeze([
   "rose-quartz",
   "cyber-lime",
   "arctic-indigo",
+  "chrome-navy",
+  "recycled-emerald",
+  "industrial-orange",
+  "performance-red",
+  "heritage-brass",
+  "service-blue-red",
+  "newsprint-crimson",
+  "foundry-amber",
+  "soft-orchid",
+  "electric-noir",
 ]);

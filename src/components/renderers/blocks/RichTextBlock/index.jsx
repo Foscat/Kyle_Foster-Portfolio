@@ -4,7 +4,7 @@
  * @module src\components\renderers\blocks\RichTextBlock\index
  */
 
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import { RichText } from "components/renderers";
 
 /**
@@ -51,7 +51,7 @@ const RichTextBlock = ({ id, title, content }) => {
   }
 
   return (
-    <Panel
+    <Surface
       id={id}
       collapsible
       defaultExpanded
@@ -69,7 +69,7 @@ const RichTextBlock = ({ id, title, content }) => {
       {content.map((text, index) => {
         return <RichText key={`rt-${id}-${index}`} text={text} index={index} />;
       })}
-    </Panel>
+    </Surface>
   );
 };
 

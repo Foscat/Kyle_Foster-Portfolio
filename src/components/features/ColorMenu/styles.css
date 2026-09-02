@@ -1,4 +1,4 @@
-.color-modal .rs-modal-content {
+.color-modal {
   color: var(--app-surface-fg, var(--text-primary));
   border: var(--app-surface-border, 1px solid rgba(var(--accent-rgb), 0.32));
   border-radius: var(--app-surface-radius-xl, var(--radius-xl));
@@ -8,16 +8,16 @@
   backdrop-filter: var(--app-surface-backdrop-filter, var(--slight-blur));
 }
 
-.color-modal .rs-modal-header,
-.color-modal .rs-modal-footer {
+.color-modal .native-dialog__header,
+.color-modal .native-dialog__footer {
   border-color: var(--app-surface-border-color, rgba(var(--white-rgb), 0.12));
 }
 
-.color-modal .rs-modal-title {
+.color-modal .native-dialog__title {
   color: var(--app-heading-color, var(--text-accent));
 }
 
-.color-modal .rs-modal-header-close {
+.color-modal .native-dialog__close {
   color: var(--app-surface-muted-fg, var(--text-secondary));
 }
 
@@ -81,22 +81,22 @@
   font-size: var(--font-xxs);
 }
 
-html[data-theme="light"] .color-modal .rs-modal-content {
+html[data-theme="light"] .color-modal {
   border-color: var(--app-surface-border-color, rgba(var(--primary-dark-rgb), 0.28));
   background: var(--app-surface-strong-bg, var(--surface-overlay-strong));
   box-shadow: var(--app-surface-shadow, 0 12px 36px rgba(var(--primary-dark-rgb), 0.14));
 }
 
-html[data-theme="light"] .color-modal .rs-modal-header,
-html[data-theme="light"] .color-modal .rs-modal-footer {
+html[data-theme="light"] .color-modal .native-dialog__header,
+html[data-theme="light"] .color-modal .native-dialog__footer {
   border-color: var(--app-surface-border-color, rgba(var(--primary-dark-rgb), 0.2));
 }
 
-html[data-theme="light"] .color-modal .rs-modal-title {
+html[data-theme="light"] .color-modal .native-dialog__title {
   color: var(--app-heading-color, rgba(var(--primary-darkest-rgb), 0.95));
 }
 
-html[data-theme="light"] .color-modal .rs-modal-header-close,
+html[data-theme="light"] .color-modal .native-dialog__close,
 html[data-theme="light"] .color-modal__intro {
   color: var(--app-surface-muted-fg, rgba(var(--primary-dark-rgb), 0.92));
 }

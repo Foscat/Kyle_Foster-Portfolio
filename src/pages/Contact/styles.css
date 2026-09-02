@@ -63,45 +63,6 @@
 }
 
 /* =======================
-   Input Fields
-   ======================= */
-.contact-form .rs-form-control-label {
-  font-size: var(--font-md);
-}
-
-.frosted-input {
-  height: 3.5rem;
-  color: var(--text-primary);
-  caret-color: var(--text-primary);
-  background: rgba(var(--white-rgb), 0.14);
-  border: 1px solid rgba(var(--white-rgb), 0.12);
-  border-radius: var(--border-radius);
-  -webkit-backdrop-filter: var(--slight-blur);
-  backdrop-filter: var(--slight-blur);
-}
-
-.frosted-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
-}
-
-.rs-form-group .rs-input.frosted-input {
-  display: inline-block;
-  font-size: var(--font-md);
-}
-
-.contact-form .rs-input.frosted-input::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.92;
-}
-
-.contact-form textarea.rs-input.frosted-input {
-  min-height: 9rem;
-  line-height: 1.45;
-  resize: vertical;
-}
-
-/* =======================
    Contact Info List
    ======================= */
 .contact-info {

@@ -21,7 +21,7 @@ import { Theme } from "types/ui.types";
  *
  * Testing philosophy:
  * - Verifies observable behavior only
- * - Avoids asserting internal DOM structure or RSuite implementation details
+ * - Avoids asserting internal DOM structure or library implementation details
  * - Treats theme state as a global side effect via `data-theme`
  *
  * @module tests/components/ThemeToggle

@@ -1,0 +1,36 @@
+/**
+ * Native surface structural adapter. Shared STE libraries own layout rhythm,
+ * paint, focus, hover, and active states.
+ */
+
+.surface,
+.surface__body,
+.surface__header {
+  min-width: 0;
+}
+
+.surface__toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ly-space-3, 0.75rem);
+  padding: var(--ly-space-3, 0.75rem) var(--ly-space-4, 1rem);
+  font: inherit;
+  text-align: left;
+}
+
+.surface__header {
+  flex: 1 1 auto;
+}
+
+.surface__heading {
+  margin: 0;
+  font: inherit;
+}
+
+.surface__indicator {
+  flex: 0 0 auto;
+  font-size: 1.25em;
+  line-height: 1;
+}

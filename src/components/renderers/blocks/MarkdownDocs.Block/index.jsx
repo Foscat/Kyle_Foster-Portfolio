@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import MarkdownRenderer from "../../MarkdownRenderer";
 import Btn from "components/ui/Btn";
 import { Variant } from "types/ui.types";
@@ -152,7 +152,7 @@ export default function MarkdownDocsBlock({ block }) {
       ) : (
         <div className="markdown-docs-block__stack">
           {visibleDocs.map((doc) => (
-            <Panel key={doc.slug} bordered className="markdown-docs-block__panel">
+            <Surface key={doc.slug} className="markdown-docs-block__panel">
               <MarkdownRenderer
                 key={doc.id}
                 articleId={`doc-${doc.slug}`}
@@ -162,7 +162,7 @@ export default function MarkdownDocsBlock({ block }) {
                 showToc={showToc}
                 headingLevelOffset={1}
               />
-            </Panel>
+            </Surface>
           ))}
         </div>
       )}

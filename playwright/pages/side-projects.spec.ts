@@ -46,11 +46,14 @@ test.describe("Side Projects links", () => {
     ).toBeVisible();
     await expect(labSection.getByRole("link", { name: /view live lab/i })).toHaveAttribute(
       "href",
-      "https://foscat.github.io/interface-systems-lab/"
+      "https://sanderson-technology-enterprises.github.io/interface-systems-lab/"
     );
     await expect(
       labSection.getByRole("link", { name: /interface systems lab source/i })
-    ).toHaveAttribute("href", "https://github.com/Foscat/interface-systems-lab");
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab"
+    );
 
     await openAndChooseSection("Layout Style CSS");
 

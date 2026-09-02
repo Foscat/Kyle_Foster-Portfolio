@@ -73,7 +73,7 @@ const pageSummaryMetas = {
     title: "Sanderson Technology Enterprises",
     ...seoSummary(PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES),
     headerDescription:
-      "Flagship product engineering across the Content Creator Platform, Scrap Yard System, public delivery, and a four-library Interface System.",
+      "Flagship product engineering across the Content Creator Platform, Salvage Yard System, public delivery, and a three-library Interface System.",
     timespan: "2025 - Present",
     jobTitle: "Senior Developer",
     liveUrl: "https://sandersontechnologyenterprises.com/",
@@ -83,7 +83,7 @@ const pageSummaryMetas = {
       { label: "React Architecture", type: "front" },
       { label: "MERN Foundations", type: "back" },
       { label: "Content Creator Platform", type: "tool" },
-      { label: "Scrap Yard System", type: "tool" },
+      { label: "Salvage Yard System", type: "tool" },
       { label: "Interface Systems Lab", type: "front" },
     ],
   },
@@ -101,6 +101,7 @@ const pageSummaryMetas = {
     timespan: "August 2018 - Present",
     jobTitle: "Software Engineer",
     tech: [
+      { label: "Enigma message encryption", type: "back" },
       { label: "Interface Systems Lab", type: "front" },
       { label: "CSS systems", type: "front" },
       { label: "shared CSS libraries", type: "front" },

@@ -14,7 +14,7 @@ modal viewer while preserving aspect ratio and accessibility.
 A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.
 
 Key behaviors:
-- Renders a responsive image thumbnail using RSuite's Image component
+- Renders a responsive native image thumbnail
 - Clicking the thumbnail opens a modal viewer with a larger version of the image
 - The modal can be closed with the close button or pressing the ESC key
 - The expanded image supports zoom controls and drag-to-pan interaction

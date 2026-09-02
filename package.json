@@ -5,7 +5,7 @@
   "type": "module",
   "engines": {
     "node": ">=22.22.0 <23",
-    "npm": ">=10 <11"
+    "npm": ">=10 <12"
   },
   "scripts": {
     "build": "vite build && npm run seo:generate",
@@ -72,7 +72,6 @@
     "@fortawesome/free-regular-svg-icons": "7.1.0",
     "@fortawesome/free-solid-svg-icons": "7.1.0",
     "@fortawesome/react-fontawesome": "3.1.1",
-    "@rsuite/icons": "1.4.0",
     "@testing-library/jest-dom": "^6.9.1",
     "html-to-image": "1.11.13",
     "interactive-surface-css": "1.6.0",
@@ -87,10 +86,9 @@
     "react-router": "8.3.0",
     "rehype-raw": "~7.0.0",
     "remark-gfm": "~4.0.1",
-    "rsuite": "5.83.3",
     "stylelint-config-recess-order": "~7.6.1",
     "svg-pan-zoom": "3.6.2",
-    "ui-style-kit-css": "2.2.0",
+    "ui-style-kit-css": "2.3.0",
     "ui-style-kit-icons": "1.0.0",
     "web-vitals": "~5.2.0"
   },
@@ -134,7 +132,6 @@
     "jsdoc": "4.0.5",
     "jsdoc-to-markdown": "9.1.3",
     "jsdom": "27.4.0",
-    "less": "~4.6.4",
     "lint-staged": "16.2.7",
     "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",

@@ -22,8 +22,10 @@ import diagrams from "./diagrams.js";
 const PUBLIC_STE_URL = "https://sandersontechnologyenterprises.com/";
 const SCRAP_YARD_SYSTEM_URL = `${PUBLIC_STE_URL}scrap-yard-system.html`;
 const CONTENT_CREATOR_PLATFORM_URL = `${PUBLIC_STE_URL}content-creator-platform.html`;
-const INTERFACE_SYSTEMS_LAB_URL = "https://foscat.github.io/interface-systems-lab/";
-const INTERFACE_SYSTEMS_LAB_REPO = "https://github.com/Foscat/interface-systems-lab";
+const INTERFACE_SYSTEMS_LAB_URL =
+  "https://sanderson-technology-enterprises.github.io/interface-systems-lab/";
+const INTERFACE_SYSTEMS_LAB_REPO =
+  "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab";
 
 const sandersonTechnologyEnterprisesSections = [
   {
@@ -55,7 +57,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "This public case study presents a professional engagement: the company website, reusable white-label architecture, the Content Creator Platform, the Scrap Yard System, and the shared interface system that ties the work together.",
+                text: "This public case study presents a professional engagement: the company website, reusable white-label architecture, the Content Creator Platform, the Salvage Yard System, and the shared interface system that ties the work together.",
               },
             ],
           },
@@ -211,9 +213,9 @@ const sandersonTechnologyEnterprisesSections = [
   },
   {
     id: "ste-scrap-yard-system",
-    title: "Scrap Yard System",
-    navLabel: "Scrap Yard",
-    subtitle: "Early-stage inventory management and storefront product for scrapyards",
+    title: "Salvage Yard System",
+    navLabel: "Salvage Yard",
+    subtitle: "Complete v1 inventory, commerce, and operations platform for salvage yards",
     icon: faLayerGroup,
     isScroller: true,
     blocks: [
@@ -227,7 +229,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "I am building the Scrap Yard System as an internal inventory management system with a client-facing e-commerce platform. It is actively developed and remains in the early-stage product phase.",
+                text: "The Salvage Yard System is now a complete v1 internal inventory management system with a client-facing e-commerce platform. It connects vehicle and parts inventory, yard operations, customer discovery, and ordering in one web-based solution.",
               },
             ],
           },
@@ -236,7 +238,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "The planned product joins clean inventory management with a user-friendly, hassle-free storefront so scrapyard staff can manage parts and vehicles internally while customers can browse and buy through a clearer public commerce path.",
+                text: "What began as a conversation with a yard owner became a working v1 in about six weeks. Repository development started July 15, 2026, and moved from that first conversation through product architecture, operations tooling, storefront work, and managed-client delivery.",
               },
             ],
           },
@@ -245,7 +247,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "I also plan to make a template out of this platform, allowing STE to target scrapyards as a niche clientele that could benefit from a web-based solution connecting operations and commerce in one system.",
+                text: "That yard owner became STE's first managed client. Their site-specific production release is scheduled for no later than September 5, 2026, while the reusable platform provides a managed template for other salvage yards that need clean inventory management and a user-friendly customer experience.",
               },
             ],
           },
@@ -254,17 +256,17 @@ const sandersonTechnologyEnterprisesSections = [
       diagrams.scrapyardCommerceLoop,
       {
         id: "ste-scrap-yard-system-video",
-        title: "Scrap Yard System Demonstration",
+        title: "Salvage Yard System Demonstration",
         type: BlockType.VIDEO,
         src: scrapYardSystemPromo,
         mimeType: "video/mp4",
         caption:
           "See the industry-focused foundation for searchable inventory, customer ordering, worker queues, and connected yard operations.",
-        ariaLabel: "Scrap Yard System product demonstration",
+        ariaLabel: "Salvage Yard System product demonstration",
       },
       {
         id: "ste-scrap-yard-system-focus",
-        title: "Template Direction",
+        title: "Reusable Product Direction",
         type: BlockType.CARD_GRID,
         items: [
           {
@@ -278,7 +280,7 @@ const sandersonTechnologyEnterprisesSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The internal side is intended to make stock status, listings, and operational updates easier to manage through a web-based workflow.",
+                    text: "The internal side makes stock status, listings, and operational updates easier to manage through a web-based workflow.",
                   },
                 ],
               },
@@ -295,7 +297,7 @@ const sandersonTechnologyEnterprisesSections = [
                 children: [
                   {
                     type: "text",
-                    text: "The customer side is intended to expose available inventory through a user-friendly storefront instead of forcing buyers through ad hoc calls or disconnected listings.",
+                    text: "The customer side exposes available inventory through a user-friendly storefront instead of forcing buyers through ad hoc calls or disconnected listings.",
                   },
                 ],
               },
@@ -305,17 +307,17 @@ const sandersonTechnologyEnterprisesSections = [
       },
       {
         id: "ste-scrap-yard-system-link",
-        title: "Scrap Yard System Product Page",
+        title: "Salvage Yard System Product Page",
         type: BlockType.LINKS,
         items: [
           {
             id: "ste-link-scrap-yard-system",
-            title: "View Scrap Yard System",
+            title: "View Salvage Yard System",
             url: SCRAP_YARD_SYSTEM_URL,
             rel: "noopener noreferrer",
             target: "_blank",
             icon: faDesktop,
-            ariaLabel: "View the public Scrap Yard System product page",
+            ariaLabel: "View the public Salvage Yard System product page",
           },
         ],
       },
@@ -348,7 +350,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "Interface Systems Lab is the public integration showcase for the four libraries working together through one shared semantic contract. Each library keeps a clear responsibility while the lab demonstrates the combined system.",
+                text: "Interface Systems Lab is the public integration showcase for the three CSS libraries. Its interactive workbench exercises 20 UI styles and 20 color schemes through shared semantic markup, while the Component Atlas documents reusable component patterns and implementation guidance.",
               },
             ],
           },
@@ -418,11 +420,11 @@ const sandersonTechnologyEnterprisesSections = [
             title: "UI Style Kit Icons",
             subtitle: "Semantic iconography",
             iconName: "module",
-            url: "https://foscat.github.io/ui-style-kit-css-icons/",
+            url: "https://www.npmjs.com/package/ui-style-kit-icons",
             target: "_blank",
             rel: "noopener noreferrer",
             ctaText: "Open Library",
-            ariaLabel: "Open the UI Style Kit Icons demonstration",
+            ariaLabel: "Open the UI Style Kit Icons npm package",
             content: [
               {
                 type: "p",
