@@ -10,6 +10,8 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import React from "react";
 import restoreScrollPosition from "./helpers/restoreScrollPosition";
 import { saveLastSection, loadLastSection } from "./helpers/sectionPersistence";
+import MobileSectionNavTrigger from "./MobileSectionNavTrigger";
+import StickySectionNav from "./StickySectionNav";
 import UnifiedNavigation from "./UnifiedNavigation";
 
 /**
@@ -87,17 +89,12 @@ const DeferredViewportMount = ({
   );
 };
 
-// Secondary navigation components remain lazy; the primary navigation is eager so
-// every route exposes its landmark and controls during the first render.
+// Independent navigation surfaces remain lazy. Components in the primary navigation
+// dependency chain stay eager because they are already part of the initial bundle.
 const LazyFooter = withLazySuspense(() => import("./Footer"), "Footer");
 const Head = withLazySuspense(() => import("./Head"), "Head");
-const MobileSectionNavTrigger = withLazySuspense(
-  () => import("./MobileSectionNavTrigger"),
-  "MobileSectionNavTrigger"
-);
 const SectionAnchorNav = withLazySuspense(() => import("./SectionAnchorNav"), "SectionAnchorNav");
 const StickyNav = withLazySuspense(() => import("./StickyNav"), "StickyNav");
-const StickySectionNav = withLazySuspense(() => import("./StickySectionNav"), "StickySectionNav");
 const Footer = (props) => (
   <DeferredViewportMount>
     <LazyFooter {...props} />
