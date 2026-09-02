@@ -118,9 +118,7 @@ const renderNode = (node, key) => {
         <a
           key={key}
           href={node.href}
-          className="block-link interactive-surface"
-          data-surface-variant="subtle"
-          data-surface-level="1"
+          className="block-link"
         >
           {node.text}
         </a>

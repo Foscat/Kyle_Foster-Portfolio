@@ -6,7 +6,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { Modal } from "rsuite";
+import Dialog from "components/ui/Dialog";
 import { faArrowsRotate, faPalette } from "@fortawesome/free-solid-svg-icons";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import Btn from "components/ui/Btn";
@@ -245,18 +245,18 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
         onClick={openMenu}
       />
 
-      <Modal
+      <Dialog
         open={open}
         onClose={closeMenu}
         overflow={false}
         size="sm"
         className="color-modal modal-glass"
       >
-        <Modal.Header>
-          <Modal.Title>Color Settings</Modal.Title>
-        </Modal.Header>
+        <Dialog.Header>
+          <Dialog.Title>Color Settings</Dialog.Title>
+        </Dialog.Header>
 
-        <Modal.Body className="color-modal__body modal-body-pad">
+        <Dialog.Body className="color-modal__body modal-body-pad">
           <p className="color-modal__intro">
             Choose UI style, layout style, theme, and color palette for this device. Changes apply
             immediately.
@@ -293,9 +293,9 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
             systemValue={systemHighContrast}
             disabled={isApplying}
           />
-        </Modal.Body>
+        </Dialog.Body>
 
-        <Modal.Footer className="color-modal__footer feature-settings-modal__footer">
+        <Dialog.Footer className="color-modal__footer feature-settings-modal__footer">
           <Btn
             text="Reset changes"
             icon={faArrowsRotate}
@@ -322,8 +322,8 @@ export default function ColorMenu({ size = Size.SM, showTooltip = true }) {
             disabled={isApplying || !hasPendingChanges}
             onClick={applyDraft}
           />
-        </Modal.Footer>
-      </Modal>
+        </Dialog.Footer>
+      </Dialog>
     </>
   );
 }

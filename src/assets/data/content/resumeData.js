@@ -83,7 +83,17 @@ const resumeData = {
     {
       id: "frontend",
       label: "Frontend",
-      items: ["React", "JavaScript (ES6+)", "HTML5", "CSS3", "responsive UI", "RSuite", "Vite"],
+      items: [
+        "React",
+        "JavaScript (ES6+)",
+        "HTML5",
+        "CSS3",
+        "responsive UI",
+        "UI Style Kit CSS",
+        "Layout Style CSS",
+        "Interactive Surface CSS",
+        "Vite",
+      ],
     },
     {
       id: "ui-architecture",

@@ -187,7 +187,7 @@ const diagrams = {
   scrapyardCommerceLoop: {
     id: "diagram-ste-scrapyard-commerce-loop",
     type: "diagram",
-    title: "Scrapyard Inventory and Commerce Loop",
+    title: "Salvage Yard Inventory and Commerce Loop",
     desktop: {
       diagram: diagram(
         diagramConfig.FLOWCHART_INIT,

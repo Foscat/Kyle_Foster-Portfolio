@@ -41,8 +41,8 @@
 - `readOnly` (`boolean`, optional, default: `false`) - Whether the field is read-only.
 - `hidden` (`boolean`, optional, default: `false`) - Whether the field is hidden.
 - `block` (`boolean`, optional, default: `true`) - Whether picker-like controls should span full width.
-- `componentProps` (`Object`, optional) - Props forwarded to the underlying RSuite control.
-- `rule` (`Object`, optional) - Optional RSuite field-level validation rule.
+- `componentProps` (`Object`, optional) - Props forwarded to the underlying native control.
+- `rule` (`Object`, optional) - Optional field-level validation metadata.
 - `errorPlacement` (`string`, optional, default: `"bottomStart"`) - Error placement for Form.Control.
 - `shouldResetWithUnmount` (`boolean`, optional, default: `false`) - Clear value if field unmounts conditionally.
 - `inputGroup` (`InputGroupConfig`, optional) - Prefix/suffix config for inputGroupText fields.

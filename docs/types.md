@@ -345,9 +345,9 @@ Shadow emphasis without movement. Use when layout stability is critical.
 
 ### TooltipPlacement
 
-Standardized tooltip placement options for RSuite components.
+Standardized tooltip placement options for portfolio components.
 This enum provides a centralized reference for all tooltip placements used across the application, ensuring consistency and ease of maintenance.
-Each value corresponds to a valid placement option accepted by RSuite's tooltip components, allowing developers to use descriptive keys instead of hardcoding strings throughout the codebase.
+Each value provides a stable placement vocabulary without coupling consumers to a component library.
 For example, instead of using "bottomStart" directly in a component, developers can use `TooltipPlacement.BOTTOM_START`, which improves readability and reduces the risk of typos.
 When adding new placements, simply include them in this enum to maintain a single source of truth for tooltip positioning.
 
@@ -802,8 +802,8 @@ Describes an icon configuration used by icon-based components.
 - `readOnly` (`boolean`, optional, default: `false`) - Whether the field is read-only.
 - `hidden` (`boolean`, optional, default: `false`) - Whether the field is hidden.
 - `block` (`boolean`, optional, default: `true`) - Whether picker-like controls should span full width.
-- `componentProps` (`Object`, optional) - Props forwarded to the underlying RSuite control.
-- `rule` (`Object`, optional) - Optional RSuite field-level validation rule.
+- `componentProps` (`Object`, optional) - Props forwarded to the underlying native control.
+- `rule` (`Object`, optional) - Optional field-level validation metadata.
 - `errorPlacement` (`string`, optional, default: `"bottomStart"`) - Error placement for Form.Control.
 - `shouldResetWithUnmount` (`boolean`, optional, default: `false`) - Clear value if field unmounts conditionally.
 - `inputGroup` (`InputGroupConfig`, optional) - Prefix/suffix config for inputGroupText fields.

@@ -92,7 +92,7 @@ describe("MobileSectionNavTrigger", () => {
     await user.click(screen.getByRole("button", { name: /open section navigation/i }));
 
     const dialog = await screen.findByRole("dialog", { name: /portfolio page/i });
-    expect(dialog).toHaveClass("rs-drawer-right");
+    expect(dialog).toHaveAttribute("data-dialog-placement", "right");
     expect(within(dialog).getByRole("navigation", { name: "On this page" })).toBeVisible();
   });
 

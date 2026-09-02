@@ -4,7 +4,8 @@
  * @module src\pages\Health\index
  */
 
-import { Panel } from "rsuite";
+import { version as reactVersion } from "react";
+import Surface from "components/ui/Surface";
 
 /**
  * @file index.jsx
@@ -27,7 +28,7 @@ import { Panel } from "rsuite";
  * - React version
  * - Current Vite environment mode
  * - Build tool identification
- * - RSuite availability
+ * - Shared STE interface-library availability
  *
  * Notes:
  * - This component is informational only
@@ -39,14 +40,14 @@ import { Panel } from "rsuite";
  */
 const Health = () => {
   return (
-    <Panel bordered header="System Health">
+    <Surface header="System Health">
       <ul>
-        <li>React: 18.2.0</li>
+        <li>React: {reactVersion}</li>
         <li>Environment: {import.meta.env.MODE}</li>
         <li>Build Tool: Vite</li>
-        <li>RSuite: Loaded</li>
+        <li>STE Interface Libraries: Loaded</li>
       </ul>
-    </Panel>
+    </Surface>
   );
 };
 

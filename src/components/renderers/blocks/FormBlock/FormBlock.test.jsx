@@ -3,25 +3,12 @@
  * @description Verifies FormBlock schema rendering and submit behavior.
  * @module components/renderers/blocks/FormBlock/FormBlock.test
  */
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { screen } from "@testing-library/react";
 
 import FIELD_TYPES from "types/field.types.js";
 import FormBlock from "./index.jsx";
 import renderWithProviders from "tests/renderWithProviders";
-
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-  return {
-    ...actual,
-    Panel: ({ children, header }) => (
-      <section>
-        {header ? <h2>{header}</h2> : null}
-        {children}
-      </section>
-    ),
-  };
-});
 
 describe("FormBlock", () => {
   it("forwards required schema fields to rendered controls", () => {

@@ -54,7 +54,7 @@ test("createSitemapXml includes only indexable registry routes", () => {
   const sitemap = createSitemapXml(SEO_ROUTE_REGISTRY, SITE_ORIGIN);
 
   assert.match(sitemap, /<loc>https:\/\/kyle-foster\.com\/side-projects<\/loc>/u);
-  assert.match(sitemap, /<lastmod>2026-08-10<\/lastmod>/u);
+  assert.match(sitemap, /<lastmod>2026-09-02<\/lastmod>/u);
   assert.doesNotMatch(sitemap, /\/health/u);
 });
 

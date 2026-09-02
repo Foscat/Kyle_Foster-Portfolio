@@ -4,7 +4,7 @@
  * @module src\components\renderers\blocks\ImageGalleryBlock\index
  */
 
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import { ClickableImg } from "components/ui";
 import "./styles.css";
 
@@ -55,7 +55,7 @@ const ImageGalleryBlock = (block = {}) => {
   if (validItems.length === 0) return null;
 
   return (
-    <Panel
+    <Surface
       id={id}
       collapsible
       defaultExpanded
@@ -85,7 +85,7 @@ const ImageGalleryBlock = (block = {}) => {
           );
         })}
       </div>
-    </Panel>
+    </Surface>
   );
 };
 

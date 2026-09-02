@@ -4,8 +4,7 @@
  * @module src\tests\helpers\createPageTests
  */
 
-import { screen, waitFor, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import renderWithProviders from "tests/renderWithProviders";
@@ -75,7 +74,6 @@ export function createPageTests({
     it(
       "passes the active page route into primary navigation behavior",
       async () => {
-        const user = userEvent.setup();
         renderWithProviders(<PageComponent />);
 
         const websiteTrigger = await screen.findByRole(
@@ -83,7 +81,7 @@ export function createPageTests({
           { name: "Open website navigation" },
           { timeout: PAGE_TEST_TIMEOUT_MS }
         );
-        await user.click(websiteTrigger);
+        fireEvent.click(websiteTrigger);
         const primaryNavigation = await screen.findByRole(
           "navigation",
           {

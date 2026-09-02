@@ -50,16 +50,17 @@ describe("SEO route registry", () => {
         (route) => route.description.length >= 110 && route.description.length <= 160
       )
     ).toBe(true);
-    expect(indexableRoutes.every((route) => route.lastModified === "2026-08-10")).toBe(true);
+    expect(indexableRoutes.every((route) => route.lastModified === "2026-09-02")).toBe(true);
     expect(SEO_ROUTE_REGISTRY[PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES].description).toContain(
       "Content Creator Platform"
     );
     expect(SEO_ROUTE_REGISTRY[PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES].description).toContain(
-      "Scrap Yard System"
+      "Salvage Yard System"
     );
     expect(SEO_ROUTE_REGISTRY[PageRoute.SIDE_PROJECTS].description).toContain(
       "Interface Systems Lab"
     );
+    expect(SEO_ROUTE_REGISTRY[PageRoute.SIDE_PROJECTS].description).toContain("Enigma");
     expect(SEO_ROUTE_REGISTRY[PageRoute.HOME].title).toMatch(/^Kyle Foster \|/u);
     expect(SEO_ROUTE_REGISTRY[PageRoute.HOME].description).toContain("Kyle Foster");
     expect(SEO_ROUTE_REGISTRY[PageRoute.INTERFACE_SYSTEM].description).toContain(

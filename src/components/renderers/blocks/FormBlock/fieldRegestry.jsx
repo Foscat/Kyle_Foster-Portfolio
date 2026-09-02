@@ -1,152 +1,21 @@
 /**
- * @file src\components\renderers\blocks\FormBlock\fieldRegestry.jsx
- * @description src\components\renderers\blocks\FormBlock\fieldRegestry module.
- * @module src\components\renderers\blocks\FormBlock\fieldRegestry
+ * @file fieldRegestry.jsx
+ * @description Native form-field registry for schema-driven portfolio forms.
+ * @module components/renderers/blocks/FormBlock/fieldRegestry
  */
 
-import React from "react";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Checkbox,
-  CheckboxGroup,
-  Slider,
-  SelectPicker,
-  InputGroup,
-  Radio,
-  RadioGroup,
-  RangeSlider,
-  DateInput,
-  DatePicker,
-  DateRangeInput,
-  DateRangePicker,
-} from "rsuite";
 import FIELD_TYPES from "types/field.types.js";
 
 /**
- * @file fieldRegistry.js
- * @description
- * Centralized registry and utilities for form field definitions in FormBlock.
- * This module defines standard accepters for various field types, normalization of field configs, and rendering logic to map field definitions to actual form controls.
- * The registry supports both simple field types that map directly to a single accepter component, as well as more complex types that require custom rendering logic (e.g., select fields with options, input groups with addons).
- * The normalization function allows for legacy field definitions to be used without breaking changes, while the initial values builder helps construct the default form state based on field configurations.
+ * Normalize legacy CMS field keys into the native form schema.
  *
- * @module components/renderers/blocks/FormBlock/fieldRegistry
- * @author Foscat
- * @see FIELD_TYPES for the list of supported field types.
- */
-
-/**
- * @public
- * @function TextareaAccepter
- * @description
- * Custom accepter for textarea fields. This is necessary because the default Input accepter from rsuite does not support multiline input, and we want to ensure that textarea fields render correctly with the appropriate styles and behavior.
- *
- * The TextareaAccepter is a simple wrapper around the HTML <textarea> element, styled to fit within the form block. It accepts standard props like value and onChange, as well as additional props for rows and className to allow for customization.
- * @param {Object} props
- * @param {string} props.value - The current value of the textarea, passed by Form.Control.
- * @param {function} props.onChange - Change handler to call when the textarea value changes, passed by Form.Control.
- * @param {string} [props.className] - Optional additional class name(s) to apply to the textarea for custom styling.
- * @param {number} [props.rows=5] - Optional number of rows to display in the textarea. Defaults to 5 if not provided.
- * @return {React.ReactNode}
- *
- * @summary
- * This component is designed to be used as a custom accepter in the form field registry. It renders a textarea element with appropriate styling and behavior for multiline input. The value and onChange props are passed through to allow it to work seamlessly with Form.Control, while additional props like className and rows provide flexibility for different use cases.
- */
-export const TextareaAccepter = React.forwardRef(function TextareaAccepter(
-  { value, onChange, rows = 5, className = "", ...rest },
-  ref
-) {
-  return (
-    <textarea
-      ref={ref}
-      className={`rs-input form-block__textarea ${className}`.trim()}
-      rows={rows}
-      value={value ?? ""}
-      onChange={(event) => onChange?.(event.target.value, event)}
-      {...rest}
-    />
-  );
-});
-
-/**
- * @public
- * @function registerField
- * @description
- * Custom accepter for input groups with prefix/suffix addons. This is a common enough pattern that it warrants a built-in accepter to avoid boilerplate in field definitions.
- *
- * The `inputGroup` prop on a field can be used to pass `prefix` and `suffix` values, which will be rendered as addons around the input.
- *
- * @example
- * {
- *   name: "price",
- *  type: FIELD_TYPES.INPUT_GROUP_TEXT,
- *  inputGroup: {
- *    prefix: "$",
- *   suffix: "USD"
- * }
- * }
- * @param {Object} props
- * @param {string} props.value - The current value of the input, passed by Form.Control.
- * @param {function} props.onChange - Change handler to call when the input value changes, passed by Form.Control.
- * @param {string} [props.prefix] - Optional text to display as a prefix addon.
- * @param {string} [props.suffix] - Optional text to display as a suffix addon.
- * @returns {React.ReactNode}
- *
- * @summary
- * This component is designed to be used as a custom accepter in the form field registry. It renders an Input wrapped in an InputGroup, with optional prefix and suffix addons. The value and onChange props are passed through to the Input, allowing it to work seamlessly with Form.Control.
- *
- * @see FIELD_TYPES.INPUT_GROUP_TEXT
- */
-export const InputGroupTextAccepter = React.forwardRef(function InputGroupTextAccepter(
-  { value, onChange, prefix, suffix, ...rest },
-  ref
-) {
-  return (
-    <InputGroup inside className="form-block__input-group">
-      {prefix ? <InputGroup.Addon>{prefix}</InputGroup.Addon> : null}
-      <Input ref={ref} value={value ?? ""} onChange={onChange} {...rest} />
-      {suffix ? <InputGroup.Addon>{suffix}</InputGroup.Addon> : null}
-    </InputGroup>
-  );
-});
-
-/**
- * @public
- * @constant SIMPLE_ACCEPTORS
- * @description
- * Mapping of simple field types to their default accepter components.
- * This is used for fields that don't require special handling beyond rendering the appropriate input type.
- */
-export const SIMPLE_ACCEPTORS = {
-  [FIELD_TYPES.TEXT]: Input,
-  [FIELD_TYPES.NUMBER]: InputNumber,
-  [FIELD_TYPES.SLIDER]: Slider,
-  [FIELD_TYPES.RANGE_SLIDER]: RangeSlider,
-  [FIELD_TYPES.DATE]: DatePicker,
-  [FIELD_TYPES.DATE_RANGE]: DateRangePicker,
-  [FIELD_TYPES.DATE_INPUT]: DateInput,
-  [FIELD_TYPES.DATE_RANGE_INPUT]: DateRangeInput,
-  [FIELD_TYPES.TEXTAREA]: TextareaAccepter,
-};
-
-/**
- * @public
- * @function normalizeField
- * @description
- * Normalize legacy CMS field keys into the current schema.
- * This lets older content continue working while the schema evolves.
- *
- * @param {Object} field
- * @returns {Object}
+ * @param {Object} field - Raw field definition.
+ * @returns {Object} Normalized field definition.
  */
 export function normalizeField(field = {}) {
-  const normalizedType = field.type || field.inputType || FIELD_TYPES.TEXT;
-
   return {
     name: field.name || "",
-    type: normalizedType,
+    type: field.type || field.inputType || FIELD_TYPES.TEXT,
     label: field.label || "",
     helpText: field.helpText || "",
     placeholder: field.placeholder || "",
@@ -156,11 +25,7 @@ export function normalizeField(field = {}) {
     disabled: Boolean(field.disabled),
     readOnly: Boolean(field.readOnly),
     hidden: Boolean(field.hidden),
-    block: field.block !== false,
     componentProps: field.componentProps || {},
-    rule: field.rule,
-    errorPlacement: field.errorPlacement || "bottomStart",
-    shouldResetWithUnmount: Boolean(field.shouldResetWithUnmount),
     inputGroup: field.inputGroup || {},
     renderWhen: typeof field.renderWhen === "function" ? field.renderWhen : null,
     checkboxLabel: field.checkboxLabel,
@@ -169,13 +34,10 @@ export function normalizeField(field = {}) {
 }
 
 /**
- * @public
- * @function buildInitialValues
- * @description
- * Build initial form values from field defaults.
+ * Build initial values for every supported native field type.
  *
- * @param {Array<Object>} fields
- * @returns {Object}
+ * @param {Array<Object>} fields - Normalized or raw field definitions.
+ * @returns {Object} Form value map keyed by field name.
  */
 export function buildInitialValues(fields = []) {
   const fallbackByType = {
@@ -188,196 +50,212 @@ export function buildInitialValues(fields = []) {
     [FIELD_TYPES.RADIO_GROUP]: null,
     [FIELD_TYPES.SLIDER]: 0,
     [FIELD_TYPES.RANGE_SLIDER]: [0, 100],
-    [FIELD_TYPES.DATE]: null,
-    [FIELD_TYPES.DATE_RANGE]: null,
-    [FIELD_TYPES.DATE_INPUT]: null,
-    [FIELD_TYPES.DATE_RANGE_INPUT]: null,
+    [FIELD_TYPES.DATE]: "",
+    [FIELD_TYPES.DATE_RANGE]: ["", ""],
+    [FIELD_TYPES.DATE_INPUT]: "",
+    [FIELD_TYPES.DATE_RANGE_INPUT]: ["", ""],
     [FIELD_TYPES.INPUT_GROUP_TEXT]: "",
   };
 
-  // Reduce fields into an object of initial values, using defaults or type-based fallbacks.
-  return fields.reduce((accumulator, rawField) => {
+  return fields.reduce((values, rawField) => {
     const field = normalizeField(rawField);
-    accumulator[field.name] =
+    values[field.name] =
       field.defaultValue !== undefined ? field.defaultValue : (fallbackByType[field.type] ?? null);
-
-    return accumulator;
+    return values;
   }, {});
 }
 
 /**
- * @public
- * @function registerField
- * @description
- * Registers a field in the registry. If a field with the same name already exists, it will be overwritten and a development-only warning will be emitted.
+ * Normalize a native input event into the value expected by FormBlock.
  *
- * @param {Object} field
- * @returns {React.ReactNode}
+ * @param {React.ChangeEvent<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>} event - Native change event.
+ * @param {string} fieldType - Schema field type.
+ * @returns {string|number|null} Normalized field value.
  */
-export function renderFieldControl(field) {
+function readNativeValue(event, fieldType) {
+  const { value } = event.target;
+  if (fieldType === FIELD_TYPES.NUMBER || fieldType === FIELD_TYPES.SLIDER) {
+    return value === "" ? null : Number(value);
+  }
+  if (fieldType === FIELD_TYPES.SELECT) return value === "" ? null : value;
+  return value;
+}
+
+/**
+ * Render a schema field as a native form control styled by ui-style-kit-css.
+ *
+ * @param {Object} field - Normalized field definition.
+ * @param {*} value - Current controlled value.
+ * @param {Function} onChange - Receives the next value and native change event.
+ * @returns {React.ReactNode} Native form control.
+ */
+export function renderFieldControl(field, value, onChange) {
   const {
     name,
+    id = name,
     type,
     label,
     placeholder,
     options,
     componentProps,
-    block,
     disabled,
     readOnly,
     required,
-    rule,
-    errorPlacement,
-    shouldResetWithUnmount,
     inputGroup,
   } = field;
+  const sharedProps = {
+    id,
+    name,
+    disabled,
+    required,
+    "aria-required": required || undefined,
+  };
 
   if (type === FIELD_TYPES.SELECT) {
     return (
-      <FormControlShim
-        name={name}
-        accepter={SelectPicker}
-        placeholder={placeholder}
-        data={options}
-        block={block}
-        cleanable
-        searchable
-        disabled={disabled}
-        readOnly={readOnly}
-        required={required}
-        aria-required={required || undefined}
-        rule={rule}
-        errorPlacement={errorPlacement}
-        shouldResetWithUnmount={shouldResetWithUnmount}
+      <select
+        {...sharedProps}
+        value={value ?? ""}
+        disabled={disabled || readOnly}
+        onChange={(event) => onChange(readNativeValue(event, type), event)}
         {...componentProps}
-      />
+      >
+        <option value="">{placeholder || "Select an option"}</option>
+        {options.map((option) => (
+          <option key={`${name}-${String(option.value)}`} value={option.value} disabled={option.disabled}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     );
   }
 
   if (type === FIELD_TYPES.CHECKBOX) {
     return (
-      <FormControlShim
-        name={name}
-        accepter={Checkbox}
-        disabled={disabled}
-        readOnly={readOnly}
-        required={required}
-        aria-required={required || undefined}
-        rule={rule}
-        errorPlacement={errorPlacement}
-        shouldResetWithUnmount={shouldResetWithUnmount}
-        {...componentProps}
-      >
-        {field.checkboxLabel || label}
-      </FormControlShim>
+      <label className="form-block__choice" htmlFor={id}>
+        <input
+          {...sharedProps}
+          type="checkbox"
+          checked={Boolean(value)}
+          disabled={disabled || readOnly}
+          onChange={(event) => onChange(event.target.checked, event)}
+          {...componentProps}
+        />
+        <span>{field.checkboxLabel || label}</span>
+      </label>
     );
   }
 
   if (type === FIELD_TYPES.CHECKBOX_GROUP) {
+    const selectedValues = Array.isArray(value) ? value : [];
     return (
-      <FormControlShim
-        name={name}
-        accepter={CheckboxGroup}
-        disabled={disabled}
-        readOnly={readOnly}
-        required={required}
-        aria-required={required || undefined}
-        rule={rule}
-        errorPlacement={errorPlacement}
-        shouldResetWithUnmount={shouldResetWithUnmount}
-        {...componentProps}
-      >
-        {options.map((option) => (
-          <Checkbox
-            key={`${name}-${String(option.value)}`}
-            value={option.value}
-            disabled={option.disabled}
-          >
-            {option.label}
-          </Checkbox>
-        ))}
-      </FormControlShim>
+      <div className="form-block__choices">
+        {options.map((option) => {
+          const optionId = `${id}-${String(option.value)}`;
+          return (
+            <label className="form-block__choice" htmlFor={optionId} key={optionId}>
+              <input
+                id={optionId}
+                name={name}
+                type="checkbox"
+                value={option.value}
+                checked={selectedValues.includes(option.value)}
+                disabled={disabled || readOnly || option.disabled}
+                onChange={(event) => {
+                  const nextValues = event.target.checked
+                    ? [...selectedValues, option.value]
+                    : selectedValues.filter((selected) => selected !== option.value);
+                  onChange(nextValues, event);
+                }}
+              />
+              <span>{option.label}</span>
+            </label>
+          );
+        })}
+      </div>
     );
   }
 
   if (type === FIELD_TYPES.RADIO_GROUP) {
     return (
-      <FormControlShim
-        name={name}
-        accepter={RadioGroup}
-        disabled={disabled}
-        readOnly={readOnly}
-        required={required}
-        aria-required={required || undefined}
-        rule={rule}
-        errorPlacement={errorPlacement}
-        shouldResetWithUnmount={shouldResetWithUnmount}
-        {...componentProps}
-      >
-        {options.map((option) => (
-          <Radio
-            key={`${name}-${String(option.value)}`}
-            value={option.value}
-            disabled={option.disabled}
-          >
-            {option.label}
-          </Radio>
-        ))}
-      </FormControlShim>
+      <div className="form-block__choices">
+        {options.map((option) => {
+          const optionId = `${id}-${String(option.value)}`;
+          return (
+            <label className="form-block__choice" htmlFor={optionId} key={optionId}>
+              <input
+                id={optionId}
+                name={name}
+                type="radio"
+                value={option.value}
+                checked={value === option.value}
+                disabled={disabled || readOnly || option.disabled}
+                required={required}
+                onChange={(event) => onChange(event.target.value, event)}
+              />
+              <span>{option.label}</span>
+            </label>
+          );
+        })}
+      </div>
     );
   }
 
-  if (type === FIELD_TYPES.INPUT_GROUP_TEXT) {
+  if (type === FIELD_TYPES.RANGE_SLIDER || type === FIELD_TYPES.DATE_RANGE || type === FIELD_TYPES.DATE_RANGE_INPUT) {
+    const isRangeSlider = type === FIELD_TYPES.RANGE_SLIDER;
+    const rangeValue = Array.isArray(value) ? value : isRangeSlider ? [0, 100] : ["", ""];
+    const inputType = isRangeSlider ? "range" : "date";
     return (
-      <FormControlShim
-        name={name}
-        accepter={InputGroupTextAccepter}
-        placeholder={placeholder}
-        prefix={inputGroup?.prefix}
-        suffix={inputGroup?.suffix}
-        disabled={disabled}
-        readOnly={readOnly}
-        required={required}
-        aria-required={required || undefined}
-        rule={rule}
-        errorPlacement={errorPlacement}
-        shouldResetWithUnmount={shouldResetWithUnmount}
-        {...componentProps}
-      />
+      <div className="form-block__range">
+        {[0, 1].map((rangeIndex) => (
+          <input
+            key={`${id}-${rangeIndex}`}
+            {...sharedProps}
+            id={`${id}-${rangeIndex}`}
+            name={`${name}-${rangeIndex}`}
+            type={inputType}
+            value={rangeValue[rangeIndex] ?? ""}
+            readOnly={readOnly}
+            onChange={(event) => {
+              const nextValue = [...rangeValue];
+              nextValue[rangeIndex] = isRangeSlider ? Number(event.target.value) : event.target.value;
+              onChange(nextValue, event);
+            }}
+            {...componentProps}
+          />
+        ))}
+      </div>
     );
   }
 
-  const accepter = SIMPLE_ACCEPTORS[type] || Input;
-
-  return (
-    <FormControlShim
-      name={name}
-      accepter={accepter}
+  const nativeType =
+    type === FIELD_TYPES.NUMBER
+      ? "number"
+      : type === FIELD_TYPES.SLIDER
+        ? "range"
+        : type === FIELD_TYPES.DATE || type === FIELD_TYPES.DATE_INPUT
+          ? "date"
+          : componentProps.type || "text";
+  const Control = type === FIELD_TYPES.TEXTAREA ? "textarea" : "input";
+  const control = (
+    <Control
+      {...sharedProps}
+      type={Control === "input" ? nativeType : undefined}
+      value={value ?? ""}
       placeholder={placeholder}
-      disabled={disabled}
       readOnly={readOnly}
-      required={required}
-      aria-required={required || undefined}
-      rule={rule}
-      errorPlacement={errorPlacement}
-      shouldResetWithUnmount={shouldResetWithUnmount}
+      onChange={(event) => onChange(readNativeValue(event, type), event)}
       {...componentProps}
     />
   );
-}
 
-/**
- * @private
- * @function FormControlShim
- * @description
- * Small shim so the registry file can stay focused on field config
- * instead of importing the full Form namespace everywhere.
- *
- * This component simply forwards all props to Form.Control, allowing us to specify custom accepters and other props without having to import Form.Control directly in the registry file.
- *
- * @param {Object} props - Props to pass to Form.Control.
- * @returns {React.ReactNode}
- */
-function FormControlShim(props) {
-  return <Form.Control {...props} />;
+  if (type !== FIELD_TYPES.INPUT_GROUP_TEXT) return control;
+
+  return (
+    <span className="form-block__input-group">
+      {inputGroup?.prefix ? <span className="form-block__addon">{inputGroup.prefix}</span> : null}
+      {control}
+      {inputGroup?.suffix ? <span className="form-block__addon">{inputGroup.suffix}</span> : null}
+    </span>
+  );
 }

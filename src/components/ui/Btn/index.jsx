@@ -2,12 +2,11 @@
  * @file index.jsx
  * @fileoverview Unified frosted-glass button component implementing the
  * Midnight Gold UI system with accessibility, animation, async handling,
- * and controlled prop passthrough to RSuite and FontAwesome.
+ * and controlled prop passthrough to native elements and FontAwesome.
  * @module components/Btn
  */
 
 import { useState } from "react";
-import { Button, IconButton, Tooltip, Whisper } from "rsuite";
 import "./styles.css";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router";
@@ -17,16 +16,11 @@ import { useCoarsePointer } from "assets/hooks";
 import { formatClassNames } from "assets/utils";
 
 /**
- * @typedef {Object} RSuiteButtonProps
- * @description Subset of props forwarded directly to RSuite `<Button>` / `<IconButton>`.
- * These are documented explicitly to make passthrough behavior clear
- * without re-exporting RSuite types.
- *
- * @typedef {Object} RSuiteButtonProps
+ * @typedef {Object} NativeButtonProps
+ * @description Native element and compatibility props accepted by the shared button.
  * @property {boolean} [active=true] - Whether the button is in an active state.
  * @property {string|React.ElementType} [as="button"] - Render element type.
  * @property {boolean} [block=false] - Makes the button full-width.
- * @property {string} [classPrefix="btn"] - RSuite CSS class prefix.
  * @property {boolean} [disabled=false] - Disables the button.
  * @property {React.ReactNode} [startIcon] - Icon rendered before content.
  * @property {React.ReactNode} [endIcon] - Icon rendered after content.
@@ -38,7 +32,7 @@ import { formatClassNames } from "assets/utils";
  * @property {string} [className] - Additional CSS class names.
  * @property {boolean} [noBG=false] - If true, disables the frosted background.
  * @property {Variant} [variant="primary"] - Visual style variant.
- * @property {SurfaceLevel} [surfaceLevel] - Optional Interactive Surface visual depth override.
+ * @property {SurfaceLevel} [surfaceLevel="2"] - Interactive Surface visual depth.
  * @property {Size} [size="md"] - Size variant applied to both button and icon.
  * @property {React.ReactNode} [text] - Label rendered inside the button.
  * @property {"button"|"submit"|"reset"} [type="button"] - Native button type.
@@ -82,11 +76,11 @@ import { formatClassNames } from "assets/utils";
  * Midnight Gold + Frosted UI system.
  *
  * Core responsibilities:
- * - Normalizes RSuite `<Button>` and `<IconButton>` behavior
- * - Automatically switches to IconButton when an icon is present
+ * - Normalizes native button, anchor, and React Router link behavior
+ * - Keeps icon and label composition consistent across element types
  * - Enforces accessibility for icon-only buttons
  * - Supports async click handlers with visual feedback
- * - Provides tooltip support via RSuite Whisper
+ * - Provides dependency-free native tooltip text
  * - Can render as:
  *   - Native button
  *   - React Router link
@@ -103,9 +97,9 @@ import { formatClassNames } from "assets/utils";
  * @param {Variant} [props.variant="primary"]
  *   Visual style variant aligned with the frosted theme.
  *
- * @param {SurfaceLevel} [props.surfaceLevel]
- *   Optional Interactive Surface depth override. When omitted, the library owns
- *   its base and active/inactive level behavior.
+ * @param {SurfaceLevel} [props.surfaceLevel="2"]
+ *   Interactive Surface depth. Buttons default to the raised library surface so
+ *   variant foreground and background tokens remain paired for readable contrast.
  *
  * @param {Size} [props.size="md"]
  *   Size variant applied to both button and icon.
@@ -117,7 +111,7 @@ import { formatClassNames } from "assets/utils";
  *   Nested button content used when a simple text label is not sufficient.
  *
  * @param {"button"|"submit"|"reset"} [props.type="button"]
- *   Native button type forwarded to the underlying RSuite button.
+ *   Native button type forwarded to the underlying element.
  *
  * @param {string} [props.icon]
  *   FontAwesome icon name. When provided, renders an IconButton.
@@ -167,8 +161,8 @@ import { formatClassNames } from "assets/utils";
  * @param {boolean} [props.noBG=false]
  *   Disables the frosted background treatment.
  *
- * @param {RSuiteButtonProps} [props.*]
- *   Any supported RSuite Button/IconButton props are forwarded directly.
+ * @param {NativeButtonProps} [props.*]
+ *   Supported native element props are forwarded directly.
  *
  * @param {FontAwesomeButtonIconProps} [props.*]
  *   FontAwesome-related props forwarded to the internal `FrostedIcon`.
@@ -191,7 +185,7 @@ import { formatClassNames } from "assets/utils";
  */
 const Btn = ({
   variant = Variant.PRIMARY,
-  surfaceLevel = undefined,
+  surfaceLevel = SurfaceLevel.RAISED,
   size = Size.MD,
   text = "",
   children = undefined,
@@ -209,19 +203,19 @@ const Btn = ({
   tabIndex = undefined,
   rel = undefined,
   tooltip = "",
-  tooltipFollowCursor = false,
-  tooltipPlacement = TooltipPlacement.BOTTOM,
+  tooltipFollowCursor: _tooltipFollowCursor = false,
+  tooltipPlacement: _tooltipPlacement = TooltipPlacement.BOTTOM,
   download = undefined,
   noBG = false,
-  // RSuite Btn props
   active = false,
   as = "button",
   block = false,
-  classPrefix = "btn",
+  classPrefix: _classPrefix = "btn",
   disabled = false,
   endIcon = undefined,
   loading = false,
   startIcon = undefined,
+  appearance: _appearance = undefined,
   // FontAwesomeIcon specific props
   border = false,
   mask = void 0,
@@ -267,8 +261,6 @@ const Btn = ({
     (typeof tooltip === "string" ? tooltip : undefined) ||
     (isIconOnly && typeof icon === "string" ? icon.replace(/[-_]/g, " ") : undefined);
   const tooltipMessage = disabled ? "Button is disabled" : tooltip || "";
-  const hasTooltipMessage = typeof tooltipMessage === "string" && tooltipMessage.trim().length > 0;
-  const tooltipTrigger = hasTooltipMessage && !isCoarsePointer ? "hover" : "none";
   const hrefValue = typeof href === "string" ? href.trim() : "";
   const hasHref = hrefValue.length > 0;
   const isLocalHref = /^(\/(?!\/)|#(?!\/)|\.{1,2}\/)/.test(hrefValue);
@@ -295,7 +287,7 @@ const Btn = ({
    * @returns {void}
    */
   const handleClick = async (e) => {
-    if (disabled || loading || asyncLoading) {
+    if (!clickable || disabled || loading || asyncLoading) {
       e?.preventDefault?.();
       e?.stopPropagation?.();
       return;
@@ -321,16 +313,19 @@ const Btn = ({
     }
   };
 
-  // Choose Button or IconButton depending on icon presence
-  const Component = icon ? IconButton : Button;
-  const elementAs = isLinkMode ? (shouldUseRouterLink ? Link : "a") : as;
+  const Component = isLinkMode ? (shouldUseRouterLink ? Link : "a") : as;
   const allowedVariants = Object.values(Variant);
   const allowedSurfaceLevels = Object.values(SurfaceLevel);
   const resolvedVariant = allowedVariants.includes(variant) ? variant : Variant.PRIMARY;
   const normalizedSurfaceLevel = surfaceLevel == null ? undefined : String(surfaceLevel);
   const resolvedSurfaceLevel = allowedSurfaceLevels.includes(normalizedSurfaceLevel)
     ? normalizedSurfaceLevel
-    : undefined;
+    : SurfaceLevel.RAISED;
+  /**
+   * @description Transparent controls use the shared subtle foreground token because their
+   * final background comes from the surrounding surface rather than variant paint.
+   */
+  const resolvedSurfaceVariant = noBG ? Variant.SUBTLE : resolvedVariant;
   const surfaceSizeClass =
     size === Size.XS || size === Size.SM
       ? "size-sm"
@@ -339,18 +334,56 @@ const Btn = ({
         : "";
   const surfaceStateClass = active ? "is-active" : "";
 
-  // Variant intent remains explicit, while surface depth stays library-owned unless
-  // a consumer deliberately requests a level override.
+  /**
+   * @description Variant intent remains explicit for existing component hooks while the shared
+   * libraries own the rendered paint, depth, and interaction states.
+   */
   const classes = formatClassNames(`btn btn-${size} btn-${active ? "active" : "inactive"}
     ${clickable ? `interactive-surface ${surfaceSizeClass} ${surfaceStateClass}` : "not-clickable"}
     ${resolvedVariant}
     ${noBG ? "btn-noBG" : ""} ${isIconOnly ? "icon-only" : ""} 
-    ${loading || asyncLoading ? "loading" : ""} ${className}`);
+    ${loading || asyncLoading ? "loading" : ""} ${block ? "is-block" : ""} ${className}`);
 
-  const button = (
+  const iconNode = icon ? (
+    <FrostedIcon
+      size={size}
+      icon={loading || asyncLoading ? faSpinner : icon}
+      variant={variant}
+      clickable={isIconOnly && clickable && !(disabled || loading || asyncLoading)}
+      spin={loading || asyncLoading}
+      noBG={noBG}
+      className={
+        "btn-icon" +
+        (isIconOnly ? " icon-only" : "") +
+        (clickable && isIconOnly ? "" : " not-clickable")
+      }
+      ariaLabel="Button icon"
+      border={border}
+      mask={mask}
+      maskId={maskId}
+      inverse={inverse}
+      flip={flip}
+      pull={pull}
+      rotation={rotation}
+      rotateBy={rotateBy}
+      spinPulse={spinPulse}
+      spinReverse={spinReverse}
+      fade={fade}
+      beatFade={beatFade}
+      bounce={bounce}
+      shake={shake}
+      symbol={symbol}
+      title={title}
+      titleId={titleId}
+      transform={transform}
+      swapOpacity={swapOpacity}
+      widthAuto={widthAuto}
+    />
+  ) : null;
+
+  return (
     <Component
       {...passthroughProps}
-      role={isLinkMode ? "link" : "button"}
       onClick={handleClick}
       type={isLinkMode ? undefined : type}
       aria-label={resolvedAriaLabel}
@@ -358,13 +391,11 @@ const Btn = ({
       aria-current={resolvedAriaCurrent}
       aria-busy={loading || asyncLoading}
       aria-disabled={disabled || loading || asyncLoading}
-      data-surface-variant={clickable ? resolvedVariant : undefined}
+      data-surface-variant={clickable ? resolvedSurfaceVariant : undefined}
       data-surface-level={clickable ? resolvedSurfaceLevel : undefined}
       tabIndex={tabIndex}
-      title={title || undefined}
+      title={title || tooltipMessage || undefined}
       className={classes}
-      active={active}
-      as={elementAs}
       to={shouldUseRouterLink ? href : undefined}
       href={!shouldUseRouterLink ? href : undefined}
       rel={
@@ -378,66 +409,13 @@ const Btn = ({
           : undefined
       }
       download={isLinkMode && !shouldUseRouterLink ? download || undefined : undefined}
-      block={block}
-      classPrefix={classPrefix}
-      endIcon={endIcon}
-      startIcon={startIcon}
-      loading={loading || asyncLoading}
-      disabled={disabled}
-      icon={
-        icon ? (
-          <FrostedIcon
-            size={size}
-            icon={loading ? faSpinner : icon}
-            variant={variant}
-            clickable={isIconOnly && clickable && !(disabled || loading || asyncLoading)}
-            spin={loading}
-            noBG={noBG}
-            className={
-              "btn-icon" +
-              (isIconOnly ? " icon-only" : "") +
-              (clickable && isIconOnly ? "" : " not-clickable")
-            }
-            ariaLabel="Button icon"
-            border={border}
-            mask={mask}
-            maskId={maskId}
-            inverse={inverse}
-            flip={flip}
-            pull={pull}
-            rotation={rotation}
-            rotateBy={rotateBy}
-            spinPulse={spinPulse}
-            spinReverse={spinReverse}
-            fade={fade}
-            beatFade={beatFade}
-            bounce={bounce}
-            shake={shake}
-            symbol={symbol}
-            title={title}
-            titleId={titleId}
-            transform={transform}
-            swapOpacity={swapOpacity}
-            widthAuto={widthAuto}
-          />
-        ) : undefined
-      }
+      disabled={!isLinkMode ? disabled || !clickable || loading || asyncLoading : undefined}
     >
+      {startIcon}
+      {iconNode}
       {hasText ? <span className="btn-label">{text}</span> : children}
+      {endIcon}
     </Component>
-  );
-
-  return (
-    <Whisper
-      delay={250}
-      trigger={tooltipTrigger}
-      followCursor={tooltipFollowCursor}
-      placement={tooltipPlacement}
-      enterable={false}
-      speaker={<Tooltip className="btn-tooltip">{tooltipMessage}</Tooltip>}
-    >
-      {button}
-    </Whisper>
   );
 };
 

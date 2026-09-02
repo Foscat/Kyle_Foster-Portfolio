@@ -29,7 +29,7 @@
 }
 
 .page-header-inner,
-.page-header-inner > .rs-flex-box-grid-item {
+.page-header-inner > .text-center {
   position: relative;
   z-index: 1;
   width: 100%;

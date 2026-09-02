@@ -4,7 +4,7 @@
  * @module src\components\layout\PageHeader\index
  */
 
-import { FlexboxGrid, Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import "./styles.css";
 
 /**
@@ -32,7 +32,7 @@ import "./styles.css";
  * major section with clear hierarchy and frosted-glass presentation.
  *
  * Features:
- * - Frosted RSuite Panel container
+ * - Native semantic surface container
  * - Primary title (required)
  * - Optional job title and timespan row
  * - Optional descriptive subtitle
@@ -116,9 +116,9 @@ const PageHeader = ({
   };
 
   return (
-    <Panel className={`page-header page-header--top blue-tile ${className}`} as="header" expanded>
-      <FlexboxGrid justify="center" align="middle" className="page-header-inner">
-        <FlexboxGrid.Item colspan={24} className="text-center">
+    <Surface className={`page-header page-header--top blue-tile ${className}`} as="header">
+      <div className="page-header-inner ly-cluster ly-justify-center ly-items-center">
+        <div className="text-center">
           <p className="page-header-eyebrow">Portfolio / Kyle Foster</p>
           <h1 className="page-header-title">{title}</h1>
 
@@ -130,9 +130,9 @@ const PageHeader = ({
 
           {subTitle && <p className="page-header-description">{subTitle}</p>}
           {tech.length > 0 && renderTechUsedString(tech)}
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
-    </Panel>
+        </div>
+      </div>
+    </Surface>
   );
 };
 

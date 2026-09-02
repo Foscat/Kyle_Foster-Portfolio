@@ -29,12 +29,6 @@ export default defineConfig({
             return "framework-react";
           }
 
-          // Let RSuite be auto-split by usage so route-level lazy chunks
-          // don't inherit a single oversized vendor bundle.
-          if (normalizedId.includes("/node_modules/rsuite/")) {
-            return;
-          }
-
           // Allow Vite/Rolldown to auto-split remaining dependencies by usage.
           return;
         },

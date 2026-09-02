@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useRef, useState } from "react";
-import { Modal } from "rsuite";
+import Dialog from "components/ui/Dialog";
 import PreviewResume from "./index-preview.jsx";
 import { downloadResumePdf } from "./resumePdfExport.js";
 import "./PreviewResume.css";
@@ -167,14 +167,15 @@ const PreviewResumeModal = ({ open, onClose, title, subtitle, downloadName, chil
   }, [title]);
 
   return (
-    <Modal
+    <Dialog
       open={open}
       onClose={onClose}
       size="full"
       className="resume-preview-modal"
+      ariaLabel="Resume preview"
       overflow={false}
     >
-      <Modal.Body className="resume-preview-modal__body">
+      <Dialog.Body className="resume-preview-modal__body">
         <div ref={printableRef}>
           <PreviewResume
             title={title}
@@ -188,8 +189,8 @@ const PreviewResumeModal = ({ open, onClose, title, subtitle, downloadName, chil
             {children}
           </PreviewResume>
         </div>
-      </Modal.Body>
-    </Modal>
+      </Dialog.Body>
+    </Dialog>
   );
 };
 

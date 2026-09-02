@@ -25,6 +25,9 @@ describe("PaletteToggle", () => {
     expect(within(selector).getByRole("option", { name: /rose quartz/i })).toBeInTheDocument();
     expect(within(selector).getByRole("option", { name: /cyber lime/i })).toBeInTheDocument();
     expect(within(selector).getByRole("option", { name: /arctic indigo/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /chrome navy/i })).toBeInTheDocument();
+    expect(within(selector).getByRole("option", { name: /electric noir/i })).toBeInTheDocument();
+    expect(within(selector).getAllByRole("option")).toHaveLength(20);
   });
 
   test("updates the active palette when a new option is selected", async () => {
@@ -33,10 +36,10 @@ describe("PaletteToggle", () => {
     renderWithProviders(<PaletteToggle />);
 
     const selector = await screen.findByRole("combobox", { name: /color palette selector/i });
-    await user.selectOptions(selector, "forest-moss");
+    await user.selectOptions(selector, "electric-noir");
 
     await waitFor(() => {
-      expect(document.documentElement.dataset.palette).toBe("forest-moss");
+      expect(document.documentElement.dataset.palette).toBe("electric-noir");
     });
   });
 });

@@ -1,243 +1,85 @@
 /* ============================================================
-   Frosted Glass Button — Core Styles
+   Native Button Adapter
+
+   UI Style Kit CSS owns paint and contrast. Interactive Surface
+   CSS owns hover, focus, active, disabled, and reduced motion.
+   This file contains only content geometry.
    ============================================================ */
 
-.rs-btn.btn.interactive-surface,
-.rs-panel-btn.interactive-surface {
-  --btn-surface-bg: var(
-    --interactive-surface-bg,
-    var(--app-surface-strong-bg, var(--surface-raised))
-  );
-  --btn-surface-fg: var(
-    --interactive-surface-fg,
-    var(--app-surface-readable-fg, var(--text-primary))
-  );
-  --btn-surface-border-color: var(--interactive-surface-border-color, rgba(var(--white-rgb), 0.2));
-  --btn-surface-shadow-base: var(
-    --interactive-surface-shadow-base,
-    var(--app-surface-shadow-soft, none)
-  );
-
+.btn.interactive-surface {
   box-sizing: border-box;
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--mobile-gap);
   min-width: 0;
   min-height: 2.5rem;
   height: auto;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mobile-gap);
   padding: 0.625rem 0.875rem;
-  border-width: var(--interactive-surface-border-width, 1px);
-  border-style: var(--interactive-surface-border-style, solid);
-  border-color: var(--btn-surface-border-color);
-  border-radius: var(--interactive-surface-radius, var(--border-radius));
-  background: var(--btn-surface-bg);
-  box-shadow: var(--btn-surface-shadow-base);
-  color: var(--btn-surface-fg);
   font-weight: 600;
   line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
   white-space: normal;
   overflow-wrap: normal;
   word-break: normal;
-  hyphens: none;
-  text-align: center;
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
-  -webkit-backdrop-filter: var(--interactive-surface-backdrop-filter, var(--glass-blur));
-  backdrop-filter: var(--interactive-surface-backdrop-filter, var(--glass-blur));
-  text-decoration: none;
-  text-shadow: none;
-  transition:
-    translate 140ms cubic-bezier(0.2, 0, 0.2, 1),
-    box-shadow 140ms cubic-bezier(0.2, 0, 0.2, 1),
-    outline-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
-    background-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
-    border-color 140ms cubic-bezier(0.2, 0, 0.2, 1),
-    color 140ms cubic-bezier(0.2, 0, 0.2, 1),
-    filter 140ms cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-.rs-btn.btn.interactive-surface:hover:not(:disabled),
-.rs-btn.btn.interactive-surface:focus-visible:not(:disabled),
-.rs-panel-btn.interactive-surface:hover:not(:disabled),
-.rs-panel-btn.interactive-surface:focus-visible:not(:disabled) {
-  color: var(--btn-surface-fg);
-  border-color: var(--btn-surface-border-color);
-  background: var(--btn-surface-bg);
+.btn.interactive-surface.is-block {
+  width: 100%;
 }
 
-.rs-btn.btn.interactive-surface:active:not(:disabled),
-.rs-panel-btn.interactive-surface:active:not(:disabled) {
-  color: var(--btn-surface-fg);
-  border-color: var(--btn-surface-border-color);
+.btn.interactive-surface .btn-icon,
+.btn.interactive-surface .btn-icon svg,
+.btn.interactive-surface .btn-icon path,
+.btn.interactive-surface .btn-icon .svg-inline--fa,
+.btn.interactive-surface .frosted-icon.btn-icon {
+  color: inherit !important;
+  fill: currentcolor;
 }
 
-/* ------------------------------------------------------------
-   RSuite IconButton Normalization
------------------------------------------------------------- */
-.rs-btn.btn.interactive-surface > .rs-btn-icon,
-.rs-btn.btn.interactive-surface > .rs-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  justify-self: center;
-}
-
-/* Button icons should always inherit the resolved button foreground. */
-.rs-btn.btn.interactive-surface .btn-icon,
-.rs-btn.btn.interactive-surface .btn-icon svg,
-.rs-btn.btn.interactive-surface .btn-icon path,
-.rs-btn.btn.interactive-surface .btn-icon .svg-inline--fa,
-.rs-btn.btn.interactive-surface .frosted-icon.btn-icon {
-  color: currentColor !important;
-  fill: currentColor;
-}
-
-.rs-btn.btn.interactive-surface .btn-label {
+.btn.interactive-surface .btn-label {
   display: block;
   min-width: 0;
   line-height: 1.2;
   white-space: normal;
   overflow-wrap: normal;
   word-break: normal;
-  hyphens: none;
 }
 
-/* ------------------------------------------------------------
-   Icon-only Mode
------------------------------------------------------------- */
-.rs-btn.btn.interactive-surface.icon-only {
+.btn.interactive-surface.icon-only {
   margin: 0 auto;
-  padding: 1px 5px;
-  min-height: 0;
+  padding: 0.5rem;
 }
 
-.rs-btn.btn.interactive-surface.icon-only .frosted-icon {
+.btn.interactive-surface.icon-only .frosted-icon {
   margin: 0;
 }
 
-.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
-  padding: 6px 10px 6px 8px;
-  align-items: center;
-}
-
-.rs-btn.btn.interactive-surface > .rs-btn-icon {
-  flex-shrink: 0;
-}
-
-/* ------------------------------------------------------------
-   Size Variants
------------------------------------------------------------- */
-.rs-btn.btn.btn-xs.interactive-surface {
+.btn.btn-xs.interactive-surface {
   font-size: var(--font-xs);
 }
 
-.rs-btn.btn.btn-sm.interactive-surface {
+.btn.btn-sm.interactive-surface {
   font-size: var(--font-sm);
 }
 
-.rs-btn.btn.btn-md.interactive-surface {
+.btn.btn-md.interactive-surface {
   font-size: var(--font-md);
 }
 
-.rs-btn.btn.btn-lg.interactive-surface {
+.btn.btn-lg.interactive-surface {
   font-size: var(--font-lg);
 }
 
-.rs-btn.btn.btn-xl.interactive-surface {
+.btn.btn-xl.interactive-surface {
   font-size: var(--font-xl);
 }
 
-/* ------------------------------------------------------------
-   Disabled
------------------------------------------------------------- */
-.rs-btn.btn.interactive-surface:disabled,
-.icon.disabled {
-  opacity: 0.58;
-  cursor: not-allowed;
-  pointer-events: none;
-  filter: grayscale(18%);
-}
-
-/* Ghost / no-background buttons need readable foreground tokens instead of filled-button text colors. */
-.rs-btn.btn.interactive-surface.btn-noBG,
-.rs-btn.btn.interactive-surface.noBG {
+/* Transparent buttons retain only the geometry exception; shared tokens own the foreground. */
+.btn.interactive-surface.btn-noBG {
   background: transparent;
   border-color: transparent;
-  border-width: var(--interactive-surface-border-width, 1px);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
   box-shadow: none;
-}
-
-.rs-btn.btn.interactive-surface.primary.btn-noBG,
-.rs-btn.btn.interactive-surface.primary.noBG,
-.rs-btn.btn.interactive-surface.accent.btn-noBG,
-.rs-btn.btn.interactive-surface.accent.noBG {
-  color: var(--app-surface-readable-fg, var(--text-accent-readable, var(--link, var(--accent))));
-}
-
-.rs-btn.btn.interactive-surface.secondary.btn-noBG,
-.rs-btn.btn.interactive-surface.secondary.noBG {
-  color: var(--app-surface-readable-fg, var(--text-primary));
-}
-
-.rs-btn.btn.interactive-surface.subtle.btn-noBG,
-.rs-btn.btn.interactive-surface.subtle.noBG {
-  color: var(--app-surface-readable-muted-fg, var(--text-secondary));
-}
-
-.rs-btn.btn.interactive-surface.danger.btn-noBG,
-.rs-btn.btn.interactive-surface.danger.noBG {
-  color: var(--danger);
-}
-
-.rs-btn.btn.interactive-surface.btn-noBG:hover:not(:disabled),
-.rs-btn.btn.interactive-surface.btn-noBG:focus-visible:not(:disabled),
-.rs-btn.btn.interactive-surface.noBG:hover:not(:disabled),
-.rs-btn.btn.interactive-surface.noBG:focus-visible:not(:disabled) {
-  background: color-mix(in srgb, currentColor 10%, transparent);
-  border-color: color-mix(in srgb, currentColor 18%, transparent);
-}
-
-/* ============================================================
-   Loading
-   ============================================================ */
-
-.rs-btn.btn.interactive-surface.loading {
-  pointer-events: none;
-  opacity: 0.75;
-}
-
-/* ============================================================
-   Tooltip Overrides
-   ============================================================ */
-
-.btn-tooltip {
-  padding: 4px 8px;
-  font-size: var(--font-sm);
-  border-radius: 4px;
-  line-height: 1.35;
-}
-
-html[data-theme="light"] .btn-tooltip {
-  border: 1px solid rgba(var(--primary-dark-rgb), 0.22);
-}
-
-@media (prefers-color-scheme: light) {
-  html[data-theme="auto"] .btn-tooltip {
-    border: 1px solid rgba(var(--primary-dark-rgb), 0.22);
-  }
-}
-
-/* Keep text decoration stable while letting interactive-surface own motion. */
-.rs-btn.btn.interactive-surface,
-.rs-btn.btn.interactive-surface:hover,
-.rs-btn.btn.interactive-surface:focus-visible,
-.rs-btn.btn.interactive-surface:active {
-  text-decoration: none;
 }

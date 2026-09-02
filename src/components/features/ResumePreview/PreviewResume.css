@@ -3,19 +3,19 @@
   Styles for the resume preview modal and its contents.
 */
 
-.resume-preview-modal .rs-modal-dialog {
+.resume-preview-modal {
   width: 98dvw;
   margin: 0.75rem auto;
 }
 
-.resume-preview-modal .rs-modal-content {
+.resume-preview-modal {
   background: linear-gradient(180deg, rgba(var(--black-rgb), 0.92), rgba(var(--black-rgb), 0.82));
   border: 1px solid rgba(var(--white-rgb), 0.08);
   box-shadow: 0 24px 64px rgba(var(--deep-black-rgb), 0.34);
   overflow: hidden;
 }
 
-.resume-preview-modal .rs-modal-body {
+.resume-preview-modal .native-dialog__body {
   padding: 0;
 }
 
@@ -26,7 +26,7 @@
   backdrop-filter: var(--backdrop-blur);
 }
 
-html[data-theme="light"] .resume-preview-modal .rs-modal-content {
+html[data-theme="light"] .resume-preview-modal {
   background: linear-gradient(180deg, rgba(var(--white-rgb), 0.98), rgba(var(--white-rgb), 0.94));
   border: 1px solid rgba(var(--primary-dark-rgb), 0.16);
   box-shadow: 0 20px 52px rgba(var(--primary-dark-rgb), 0.2);
@@ -121,53 +121,8 @@ html[data-theme="light"] .resume-preview__subtitle {
   gap: 0.65rem;
 }
 
-.resume-preview__action.rs-btn {
+.resume-preview__action.btn {
   min-width: 7rem;
-  padding: 0.62rem 1rem;
-  border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    rgba(var(--primary-dark-rgb), 0.3),
-    rgba(var(--white-rgb), 0.04)
-  );
-  border: 1px solid rgba(var(--white-rgb), 0.12);
-  color: var(--text-primary);
-  box-shadow: none;
-  transition:
-    background-color 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    color 160ms ease;
-}
-
-.resume-preview__action.rs-btn:hover,
-.resume-preview__action.rs-btn:focus-visible {
-  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.34), rgba(var(--white-rgb), 0.08));
-  border-color: rgba(var(--accent-rgb), 0.32);
-  color: rgba(var(--white-rgb), 0.96);
-  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.08);
-}
-
-.resume-preview__action--download.rs-btn {
-  background: linear-gradient(
-    180deg,
-    rgba(var(--accent-rgb), 0.24),
-    rgba(var(--primary-dark-rgb), 0.18)
-  );
-  border-color: rgba(var(--accent-rgb), 0.22);
-}
-
-.resume-preview__action--open.rs-btn,
-.resume-preview__action--close.rs-btn {
-  background: linear-gradient(
-    180deg,
-    rgba(var(--primary-dark-rgb), 0.24),
-    rgba(var(--white-rgb), 0.04)
-  );
-}
-
-.resume-preview__action--close.rs-btn {
-  border-color: rgba(var(--white-rgb), 0.14);
 }
 
 .resume-preview__viewport {
@@ -412,7 +367,7 @@ html[data-theme="light"] .resume-preview__viewport {
   box-shadow: none;
 }
 
-.resume-preview-trigger.rs-btn {
+.resume-preview-trigger.btn {
   border-radius: 999px;
 }
 
@@ -452,7 +407,7 @@ html[data-theme="light"] .resume-preview__viewport {
 }
 
 @media (max-width: 640px) {
-  .resume-preview-modal .rs-modal-dialog {
+  .resume-preview-modal {
     width: 98dvw;
     margin: auto;
   }

@@ -49,7 +49,7 @@ Standardized page-level header component designed to introduce a page or
 major section with clear hierarchy and frosted-glass presentation.
 
 Features:
-- Frosted RSuite Panel container
+- Native semantic surface container
 - Primary title (required)
 - Optional job title and timespan row
 - Optional descriptive subtitle

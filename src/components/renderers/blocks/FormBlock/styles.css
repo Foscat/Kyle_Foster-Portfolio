@@ -1,39 +1,50 @@
-﻿.form-block {
+/* Native form structure; ui-style-kit-css owns all field and control paint. */
+
+.form-block,
+.form-block__form,
+.form-block__field {
   width: 100%;
+  min-width: 0;
 }
 
-.form-block .rs-panel-header {
-  font-weight: 700;
+.form-block__form,
+.form-block__field,
+.form-block__choices {
+  display: grid;
+  gap: var(--ly-space-2, 0.5rem);
 }
 
-.form-block__actions {
+.form-block__form--horizontal {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.form-block__form--inline {
   display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  align-items: end;
 }
 
-.form-block__action-btn.rs-btn {
-  border-radius: var(--radius-sm);
-}
-
-.form-block__textarea {
+.form-block__input-group {
+  display: flex;
   width: 100%;
+  align-items: stretch;
+}
+
+.form-block__input-group input {
+  min-width: 0;
+}
+
+.form-block__addon {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--ly-space-3, 0.75rem);
+}
+
+.form-block textarea {
   min-height: 7rem;
   resize: vertical;
 }
 
-.form-block__input-group {
-  width: 100%;
-}
-
-/* Keep stacked number steppers large enough for WCAG 2.2 pointer targeting. */
-.form-block .rs-input-number {
-  min-height: 3rem;
-}
-
-.form-block .rs-input-number-touchspin-up,
-.form-block .rs-input-number-touchspin-down {
-  min-width: 1.5rem;
-  min-height: 1.5rem;
+.form-block__actions {
+  margin-top: var(--ly-space-4, 1rem);
 }

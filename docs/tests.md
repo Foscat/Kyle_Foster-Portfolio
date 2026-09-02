@@ -11,8 +11,6 @@ Renders a component tree with app-level providers, excluding router wrappers.
 **Parameters**
 
 - `ui` (`React.ReactElement`) - Component under test.
-- `options` (`object`, optional)
-- `options.rsuiteTheme` (`"light" | "dark"`, optional, default: `"dark"`) - RSuite theme.
 
 **Returns**
 
@@ -29,7 +27,7 @@ behavior-driven component tests.
 
 Why this exists:
 - Many components depend on router context.
-- Theme-aware components require ThemeProvider + RSuite CustomProvider.
+- Theme-aware components require ThemeProvider.
 - Responsive logic depends on ResponsiveProvider being present.
 - Helmet-managed document metadata requires HelmetProvider.
 
@@ -41,7 +39,6 @@ under test consumes application context.
 - `ui` (`React.ReactElement`) - Component under test.
 - `options` (`object`, optional)
 - `options.initialEntries` (`Array<string>`, optional, default: `["/"]`) - Initial router entries.
-- `options.rsuiteTheme` (`"light" | "dark"`, optional, default: `"dark"`) - RSuite theme.
 
 **Returns**
 
@@ -62,6 +59,23 @@ Testing rules applied:
 - The IntersectionObserver and ResizeObserver mocks provide basic implementations that allow components using these APIs to function in tests without throwing errors, while also allowing for more complex behavior to be tested by replacing the mock implementations in specific test files as needed.
 Design intent:
 The goal of this setup file is to provide a consistent and reliable testing environment for all tests in the codebase by ensuring that commonly used browser APIs are available and behave in a predictable manner. This allows tests to focus on the behavior of the components being tested rather than dealing with issues related to missing or inconsistent API implementations in the jsdom environment. By centralizing these shims, we also avoid the need for individual test files to implement their own mocks for these APIs, reducing duplication and ensuring consistency across tests.
+
+### value()
+
+Mirror the observable open state without jsdom's expensive
+modal-tree bookkeeping, which is not relevant to component unit tests.
+
+**Returns**
+
+- `void`
+
+### value()
+
+Close the test dialog using the same open-attribute contract.
+
+**Returns**
+
+- `void`
 
 ### \_\_setMatches()
 

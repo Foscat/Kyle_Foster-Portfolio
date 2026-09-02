@@ -59,7 +59,7 @@ describe("Home dual-audience flow", () => {
     );
   });
 
-  it("makes STE the flagship while preserving CodeStream and Daimler as evidence", () => {
+  it("makes STE the flagship while preserving CodeStream, Daimler, and Enigma as evidence", () => {
     renderWithProviders(<Home />);
 
     const selectedWork = screen.getByRole("region", { name: "Flagship work" });
@@ -67,15 +67,16 @@ describe("Home dual-audience flow", () => {
 
     expect(within(selectedWork).getByRole("heading", { name: "CodeStream Studios" })).toBeVisible();
     expect(within(selectedWork).getByRole("heading", { name: "Daimler Hackathon" })).toBeVisible();
+    expect(within(selectedWork).getByRole("heading", { name: "Enigma" })).toBeVisible();
     expect(
       within(selectedWork).getByRole("heading", { name: "Sanderson Technology Enterprises" })
     ).toBeVisible();
-    expect(projectRows).toHaveLength(3);
+    expect(projectRows).toHaveLength(4);
     expect(
       within(projectRows[0]).getByRole("heading", { name: "Sanderson Technology Enterprises" })
     ).toBeVisible();
     expect(within(projectRows[0]).getByText("Flagship case study")).toBeVisible();
-    expect(within(selectedWork).getAllByRole("img")).toHaveLength(3);
+    expect(within(selectedWork).getAllByRole("img")).toHaveLength(4);
     expect(
       screen.queryByRole("navigation", { name: /section navigation/i })
     ).not.toBeInTheDocument();
@@ -87,6 +88,7 @@ describe("Home dual-audience flow", () => {
     const ecosystem = screen.getByRole("region", { name: "Open-source interface system" });
     expect(within(ecosystem).getByText("layout-style-css")).toBeVisible();
     expect(within(ecosystem).getByText("ui-style-kit-css")).toBeVisible();
+    expect(within(ecosystem).getByText(/20 UI styles and 20 color schemes/iu)).toBeVisible();
     expect(within(ecosystem).getByText("ui-style-kit-icons")).toBeVisible();
     expect(within(ecosystem).getByText("interactive-surface-css")).toBeVisible();
     expect(
@@ -147,19 +149,37 @@ describe("Home CodeStream showcase", () => {
 });
 
 describe("Home side-project highlights", () => {
-  it("replaces the Enigma highlight with Layout Style CSS", () => {
+  it("features the current Enigma application without the retired Caesar branding", () => {
     const programsOfNote = getProgramsOfNoteBlock();
     const items = programsOfNote?.items ?? [];
-    const layoutStyleItem = items.find((item) => item.id === "sp-layout-style-css");
+    const enigmaItem = items.find((item) => item.id === "sp-enigma");
 
-    expect(items.map((item) => item.id)).not.toContain("sp-enigma");
     expect(items.map((item) => item.title)).not.toContain("Caesar's Enigma");
-    expect(layoutStyleItem).toMatchObject({
-      title: "Layout Style CSS",
-      url: `${PageRoute.SIDE_PROJECTS}/#layout-style-css`,
+    expect(enigmaItem).toMatchObject({
+      title: "Enigma",
+      url: `${PageRoute.SIDE_PROJECTS}/#enigma`,
     });
-    expect(JSON.stringify(layoutStyleItem)).toContain("layout layer");
-    expect(JSON.stringify(layoutStyleItem)).toContain("ui-style-kit-css");
-    expect(JSON.stringify(layoutStyleItem)).toContain("interactive-surface-css");
+    expect(JSON.stringify(enigmaItem)).toContain("zero-storage");
+  });
+
+  it("names the Salvage Yard System in the STE product map", () => {
+    renderWithProviders(<Home />);
+
+    const productMap = screen.getByRole("complementary", {
+      name: "STE product system overview",
+    });
+    expect(within(productMap).getByText("Salvage Yard System")).toBeVisible();
+    expect(within(productMap).queryByText("Scrap Yard System")).not.toBeInTheDocument();
+  });
+
+  it("quantifies the current UI Style Kit CSS design range", () => {
+    const programsOfNote = getProgramsOfNoteBlock();
+    const uiStyleKitItem = (programsOfNote?.items ?? []).find(
+      (item) => item.id === "sp-ui-style-kit-css"
+    );
+    const content = JSON.stringify(uiStyleKitItem);
+
+    expect(content).toContain("20 UI styles");
+    expect(content).toContain("20 color schemes");
   });
 });

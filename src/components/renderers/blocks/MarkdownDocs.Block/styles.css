@@ -44,6 +44,10 @@
 }
 
 .markdown-docs-block__jump-button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  justify-items: start;
   cursor: pointer;
 }
 
@@ -68,19 +72,19 @@
   gap: 1rem;
 }
 
-.markdown-docs-block__panel.rs-panel {
+.markdown-docs-block__panel.surface {
   background: var(--glass-bg-strong);
   border: var(--glass-border);
   border-radius: 24px;
   overflow: hidden;
 }
 
-.markdown-docs-block__panel .rs-panel-body {
+.markdown-docs-block__panel .surface__body {
   padding: 1rem;
 }
 
 @media (max-width: 640px) {
-  .markdown-docs-block__panel .rs-panel-body {
+  .markdown-docs-block__panel .surface__body {
     padding: 0.75rem;
   }
 }

@@ -202,13 +202,13 @@ Supported application themes.
 
 Supported application palettes.
 
-- Type: `"midnight-gold" | "ocean-steel" | "forest-moss" | "sunset-ember" | "royal-plum" | "graphite-cyan" | "desert-sage" | "rose-quartz" | "cyber-lime" | "arctic-indigo"`
+- Type: `"midnight-gold" | "ocean-steel" | "forest-moss" | "sunset-ember" | "royal-plum" | "graphite-cyan" | "desert-sage" | "rose-quartz" | "cyber-lime" | "arctic-indigo" | "chrome-navy" | "recycled-emerald" | "industrial-orange" | "performance-red" | "heritage-brass" | "service-blue-red" | "newsprint-crimson" | "foundry-amber" | "soft-orchid" | "electric-noir"`
 
 ### UiStyle
 
 Supported ui-style-kit-css visual systems.
 
-- Type: `"minimal-saas" | "bento" | "maximalist" | "bauhaus" | "tactile" | "neumorphism" | "retrofuturism" | "brutalism" | "cyberpunk" | "y2k" | "retro-glass"`
+- Type: `"minimal-saas" | "bento" | "maximalist" | "bauhaus" | "tactile" | "neumorphism" | "retrofuturism" | "brutalism" | "cyberpunk" | "y2k" | "retro-glass" | "editorial-luxe" | "organic-modern" | "industrial-utility" | "technical-blueprint" | "art-deco" | "clay" | "data-terminal" | "paper-editorial" | "neo-noir"`
 
 ### LayoutStyle
 

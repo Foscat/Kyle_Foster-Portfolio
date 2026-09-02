@@ -1,25 +1,23 @@
-﻿/* ============================================================
-   FrostedIcon
-   ============================================================ */
+/* FrostedIcon keeps only glyph geometry; shared libraries own all visual states. */
 
 .frosted-icon {
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  line-height: 0;
-  border-radius: var(--border-radius);
-  background-color: var(--frost-bg);
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: inherit;
+  line-height: 0;
 }
 
-.frosted-icon.btn-icon {
-  background-color: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+.frosted-icon-button {
+  display: inline-grid;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  place-items: center;
 }
 
-/* Size variants */
 .fi-size-xs {
   width: var(--icon-xs);
   height: var(--icon-xs);
@@ -45,60 +43,7 @@
   height: var(--icon-xl);
 }
 
-/* Color variants */
-.frosted-icon.fi-variant-primary,
-.rs-nav-item .fi-variant-primary {
-  color: var(--icon-color-strong);
-}
-
-.frosted-icon.fi-variant-secondary,
-.rs-nav-item .fi-variant-secondary {
-  color: var(--text-primary);
-}
-
-.frosted-icon.fi-variant-accent,
-.rs-nav-item .fi-variant-accent {
-  color: var(--icon-color-strong);
-}
-
-.frosted-icon.fi-variant-subtle,
-.rs-nav-item .fi-variant-subtle {
-  color: var(--gray-300);
-}
-
-.frosted-icon.fi-variant-danger,
-.rs-nav-item .fi-variant-danger {
-  color: var(--error);
-}
-
-.fi-no-bg {
-  background-color: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-.fi-clickable {
-  cursor: pointer;
-}
-
 .frosted-icon.infoSect-icon,
 .frosted-icon.icon-only {
   overflow: visible;
-}
-
-/* Theme hooks */
-.theme-light .frosted-icon {
-  color: var(--icon-color-strong);
-}
-
-.theme-dark .frosted-icon,
-.theme-auto .frosted-icon {
-  color: var(--icon-color-strong);
-}
-
-html[data-theme="dark"] .frosted-icon.fi-variant-accent,
-html[data-theme="dark"] .rs-nav-item .fi-variant-accent,
-html[data-theme="dark"] .frosted-icon.fi-no-bg.fi-variant-accent,
-html[data-theme="dark"] .frosted-icon.btn-icon.fi-variant-accent {
-  color: var(--icon-color-strong);
 }

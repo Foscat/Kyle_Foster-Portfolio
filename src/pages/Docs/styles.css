@@ -30,7 +30,7 @@
   border: 1px solid rgba(var(--white-rgb), 0.1);
 }
 
-.docs-page .markdown-docs-block__panel.rs-panel {
+.docs-page .markdown-docs-block__panel.surface {
   background: rgba(var(--white-rgb), 0.08);
   border: 1px solid rgba(var(--white-rgb), 0.1);
   box-shadow: 0 10px 28px rgba(var(--deep-black-rgb), 0.14);
@@ -63,7 +63,7 @@ html[data-theme="light"] .docs-page .markdown-docs-block__jump-link {
     linear-gradient(180deg, rgba(var(--primary-lighter-rgb), 0.62), rgba(var(--white-rgb), 0.76));
 }
 
-html[data-theme="light"] .docs-page .markdown-docs-block__panel.rs-panel {
+html[data-theme="light"] .docs-page .markdown-docs-block__panel.surface {
   background: rgba(var(--white-rgb), 0.62);
   border-color: rgba(var(--primary-dark-rgb), 0.12);
 }

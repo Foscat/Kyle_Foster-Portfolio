@@ -20,6 +20,23 @@ Testing rules applied:
 Design intent:
 The goal of this setup file is to provide a consistent and reliable testing environment for all tests in the codebase by ensuring that commonly used browser APIs are available and behave in a predictable manner. This allows tests to focus on the behavior of the components being tested rather than dealing with issues related to missing or inconsistent API implementations in the jsdom environment. By centralizing these shims, we also avoid the need for individual test files to implement their own mocks for these APIs, reducing duplication and ensuring consistency across tests.
 
+### value()
+
+Mirror the observable open state without jsdom's expensive
+modal-tree bookkeeping, which is not relevant to component unit tests.
+
+**Returns**
+
+- `void`
+
+### value()
+
+Close the test dialog using the same open-attribute contract.
+
+**Returns**
+
+- `void`
+
 ### \_\_setMatches()
 
 Test-only helper used by explicit matchMedia overrides when needed. Kept here so unsupported environments still expose a stable shape. /

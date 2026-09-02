@@ -11,6 +11,7 @@ import { Link } from "react-router";
 import pageSummaryMetas from "assets/data/pageSummaryMetas";
 import codeStreamImages from "assets/images/codestream";
 import hackathonImages from "assets/images/hackathon";
+import { enigmaLive } from "assets/images/sideProjects";
 import steLogo from "assets/images/sideProjects/chris_sanderson_enterprises_logo.jpg";
 import { Footer, helpers, UnifiedNavigation } from "components/navigation";
 import { PageRoute } from "types/navigation.types";
@@ -59,6 +60,21 @@ const selectedProjects = [
     route: PageRoute.HACKATHON,
     linkLabel: "Explore the Daimler Hackathon case study",
   },
+  {
+    id: "enigma",
+    index: "04",
+    title: "Enigma",
+    description:
+      "A private, zero-storage message-encryption app with significant client-side encryption and an additional server transformation.",
+    context: "Secure-message experimentation without stored accounts or history.",
+    role: "Full-stack product engineer",
+    image: {
+      src: enigmaLive,
+      alt: "Enigma private message-encryption workspace.",
+    },
+    route: `${PageRoute.SIDE_PROJECTS}/#enigma`,
+    linkLabel: "Explore the Enigma case study",
+  },
 ];
 
 const interfacePackages = [
@@ -69,7 +85,7 @@ const interfacePackages = [
   },
   {
     name: "ui-style-kit-css",
-    responsibility: "Theme tokens, surfaces, typography, and visual identity",
+    responsibility: "20 UI styles and 20 color schemes for theme-ready visual identity",
     accent: "THEME",
   },
   {
@@ -207,13 +223,13 @@ const Home = () => {
             <div className="home-system-map__product">
               <span className="home-system-map__number">02</span>
               <div>
-                <strong>Scrap Yard System</strong>
-                <span>Operational tooling for inventory and customer workflows</span>
+                <strong>Salvage Yard System</strong>
+                <span>Complete v1 tooling for inventory, commerce, and client operations</span>
               </div>
             </div>
             <div className="home-system-map__packages">
               <span>Interface foundation</span>
-              <strong>4 published NPM libraries</strong>
+              <strong>3 CSS libraries + native UI</strong>
             </div>
           </aside>
         </section>
@@ -252,8 +268,8 @@ const Home = () => {
               <h2 id="interface-system-title">Open-source interface system</h2>
             </div>
             <p>
-              Four focused packages that separate layout, theme, icons, and interaction while
-              keeping one product language.
+              Three CSS libraries handle layout, visual identity, and interaction around native
+              elements, with a companion icon package completing one product language.
             </p>
           </header>
 

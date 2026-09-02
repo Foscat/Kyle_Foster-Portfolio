@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import FrostedIcon from "components/ui/FrostedIcon";
 import "./styles.css";
 import { Size } from "types/ui.types";
@@ -34,7 +34,7 @@ import { Size } from "types/ui.types";
  * - Arbitrary child content
  *
  * Design notes:
- * - Uses RSuite `Panel` for consistent layout behavior
+ * - Uses the portfolio's native `Surface` disclosure primitive
  * - Applies shared frosted and tile styles via CSS
  * - Intended for use with section-based navigation and scroll targeting
  *
@@ -72,17 +72,13 @@ const InfoSection = ({
   const hasHeader = Boolean(title || subtitle || sectionTag || icon);
 
   return (
-    <Panel
+    <Surface
       collapsible={hasHeader}
       defaultExpanded
       id={id}
       header={
         hasHeader ? (
-          <div
-            className="info-header interactive-surface"
-            data-surface-variant="subtle"
-            data-surface-level="1"
-          >
+          <div className="info-header">
             {sectionTag ? <span className="info-section-tag">{sectionTag}</span> : null}
             <div className="title-wrapper">
               {icon && <FrostedIcon className="infoSect-icon" noBG size={Size.XL} icon={icon} />}
@@ -97,7 +93,7 @@ const InfoSection = ({
     >
       {/* The panel body remains available when a section intentionally has no heading. */}
       <div className="info-content ly-stack ly-gap-4">{children}</div>
-    </Panel>
+    </Surface>
   );
 };
 

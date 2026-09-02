@@ -15,7 +15,7 @@ behavior-driven component tests.
 
 Why this exists:
 - Many components depend on router context.
-- Theme-aware components require ThemeProvider + RSuite CustomProvider.
+- Theme-aware components require ThemeProvider.
 - Responsive logic depends on ResponsiveProvider being present.
 - Helmet-managed document metadata requires HelmetProvider.
 
@@ -27,7 +27,6 @@ under test consumes application context.
 - `ui` (`React.ReactElement`) - Component under test.
 - `options` (`object`, optional)
 - `options.initialEntries` (`Array<string>`, optional, default: `["/"]`) - Initial router entries.
-- `options.rsuiteTheme` (`"light" | "dark"`, optional, default: `"dark"`) - RSuite theme.
 
 **Returns**
 

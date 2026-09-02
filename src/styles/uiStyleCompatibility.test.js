@@ -61,18 +61,18 @@ describe("ui-style compatibility", () => {
     expect(appJs).not.toContain("layout-style-css");
     expect(mainJs).toContain('import "./App.css";');
     expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.1");
-    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.2.0");
+    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.3.0");
     expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
     expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.6.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.1");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.2.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.3.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty(
       "interactive-surface-css",
       "1.6.0"
     );
     expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.1");
-    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.2.0");
+    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.3.0");
     expect(packageLock.packages["node_modules/ui-style-kit-icons"].version).toBe("1.0.0");
     expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.6.0");
     expect(appJs).not.toContain('import "./App.css"');
@@ -175,7 +175,8 @@ describe("ui-style compatibility", () => {
     expect(css).toContain("--portfolio-primary-nav-height");
     expect(css).not.toContain(".page-sidebar");
     expect(unifiedNavCss).toContain(".unified-navigation");
-    expect(unifiedNavCss).toContain("@media (width < 940px)");
+    expect(unifiedNavCss).toContain("@media (width <= 480px)");
+    expect(unifiedNavCss).toContain('.mobile-nav-drawer[data-dialog-placement="right"]');
     expect(css).not.toContain("--portfolio-route-sidebar-width");
     expect(css).not.toContain("minmax(14.5rem, var(--portfolio-route-sidebar-width))");
     expect(mobileNavCss).toContain(".route-section-nav");

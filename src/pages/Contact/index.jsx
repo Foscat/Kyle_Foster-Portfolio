@@ -13,7 +13,6 @@ import resumeData from "assets/data/content/resumeData.js";
 import { PageRoute } from "types/navigation.types";
 import ResumePreviewTrigger from "components/features/ResumePreview/ResumePreviewTrigger";
 import "./styles.css";
-import "../../styles/rsuite-form.less";
 import { contactSections } from "@/assets/data";
 import contactForm from "@/assets/data/content/contact/contactForm.js";
 import { BlockType, Size, Variant } from "types/ui.types";

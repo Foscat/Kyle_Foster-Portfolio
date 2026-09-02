@@ -22,7 +22,7 @@ export const INDEXABLE_ROBOTS =
   "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 export const NOINDEX_ROBOTS = "noindex, nofollow, noarchive, nosnippet, noimageindex";
 
-const LAST_MODIFIED = "2026-08-10";
+const LAST_MODIFIED = "2026-09-02";
 
 /**
  * @description Route metadata used by the runtime head manager, static HTML generator, and sitemap.
@@ -84,7 +84,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES,
     title: "Sanderson Technology Enterprises | Kyle Foster",
     description:
-      "Explore Kyle Foster's Content Creator Platform, Scrap Yard System, public site, and reusable interface libraries for Sanderson Technology Enterprises.",
+      "Explore Kyle Foster's Content Creator Platform, Salvage Yard System, public site, and reusable interface libraries for Sanderson Technology Enterprises.",
     indexable: true,
     ogType: "article",
     pageType: "WebPage",
@@ -92,7 +92,7 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     snapshotHeading: "Sanderson Technology Enterprises product work",
     snapshotHighlights: Object.freeze([
       "Public website delivery",
-      "Scrap Yard System and Content Creator Platform foundations",
+      "Salvage Yard System v1 and Content Creator Platform foundations",
       "Reusable interface-system libraries and documentation",
     ]),
     lastModified: LAST_MODIFIED,
@@ -118,13 +118,14 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     path: PageRoute.SIDE_PROJECTS,
     title: "Frontend & Product Work Archive | Kyle Foster",
     description:
-      "Explore Interface Systems Lab, MERN tooling, IoT automation, and practical domain software from Kyle Foster's work archive.",
+      "Explore Enigma message encryption, Interface Systems Lab, MERN tooling, and IoT automation in Kyle Foster's product work archive.",
     indexable: true,
     ogType: "website",
     pageType: "CollectionPage",
     breadcrumbLabel: "Work Archive",
-    snapshotHeading: "Frontend, product, MERN, and IoT work archive",
+    snapshotHeading: "Encryption, frontend, product, MERN, and IoT work archive",
     snapshotHighlights: Object.freeze([
+      "Enigma zero-storage message encryption",
       "Interface Systems Lab and shared CSS libraries",
       "MERN authentication and domain-software experiments",
       "Raspberry Pi and Sense HAT automation projects",

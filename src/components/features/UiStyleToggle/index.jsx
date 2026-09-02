@@ -21,6 +21,15 @@ const UI_STYLE_LABELS = Object.freeze({
   cyberpunk: "Cyberpunk",
   y2k: "Y2K",
   "retro-glass": "Retro Glass",
+  "editorial-luxe": "Editorial Luxe",
+  "organic-modern": "Organic Modern",
+  "industrial-utility": "Industrial Utility",
+  "technical-blueprint": "Technical Blueprint",
+  "art-deco": "Art Deco",
+  clay: "Clay",
+  "data-terminal": "Data Terminal",
+  "paper-editorial": "Paper Editorial",
+  "neo-noir": "Neo-Noir",
 });
 
 const SIZE_CLASS_BY_SIZE = Object.freeze({

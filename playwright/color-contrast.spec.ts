@@ -353,7 +353,7 @@ async function collectContrastFailures(page: Page) {
 }
 
 test.describe("Rendered color contrast", () => {
-  test("keeps dark-mode preference controls on a light foreground path", async ({ page }) => {
+  test("keeps dark-mode preference controls at readable contrast", async ({ page }) => {
     await page.setViewportSize({ width: 1366, height: 900 });
     await prepareStyledPage(page, {
       theme: "dark",
@@ -374,8 +374,6 @@ test.describe("Rendered color contrast", () => {
 
     const failures = await page.evaluate(
       ({ palettes, uiStyles }) => {
-        const DARK_SURFACE_LUMINANCE_MAX = 0.35;
-        const LIGHT_FOREGROUND_LUMINANCE_MIN = 0.45;
         const MIN_TEXT_CONTRAST = 4.5;
 
         type Rgba = { r: number; g: number; b: number; a: number };
@@ -474,6 +472,15 @@ test.describe("Rendered color contrast", () => {
             );
 
             for (const element of controls) {
+              // Disabled controls are exempt from WCAG contrast requirements and
+              // intentionally receive the shared state layer's reduced emphasis.
+              if (
+                element.matches(":disabled") ||
+                element.getAttribute("aria-disabled") === "true"
+              ) {
+                continue;
+              }
+
               const style = window.getComputedStyle(element);
               const foreground = parseColor(style.color);
               const background = effectiveBackground(element);
@@ -483,11 +490,7 @@ test.describe("Rendered color contrast", () => {
               const backgroundLuminance = luminance(background);
               const contrast = contrastRatio(blend(foreground, background), background);
 
-              if (
-                backgroundLuminance < DARK_SURFACE_LUMINANCE_MAX &&
-                (foregroundLuminance < LIGHT_FOREGROUND_LUMINANCE_MIN ||
-                  contrast < MIN_TEXT_CONTRAST)
-              ) {
+              if (contrast < MIN_TEXT_CONTRAST) {
                 failures.push({
                   palette,
                   uiStyle,
@@ -511,6 +514,62 @@ test.describe("Rendered color contrast", () => {
     );
 
     expect(failures, JSON.stringify(failures, null, 2)).toEqual([]);
+  });
+
+  test("delegates button hover feedback to the shared state layer", async ({ page }) => {
+    await prepareStyledPage(page, {
+      theme: "dark",
+      palette: "midnight-gold",
+      uiStyle: "minimal-saas",
+    });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await syncStyleAttributes(page, "dark", "midnight-gold", "minimal-saas");
+
+    const probe = page.locator('[data-testid="shared-button-motion-probe"]');
+    await page.evaluate(() => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Shared button probe";
+      button.className = "btn interactive-surface";
+      button.dataset.surfaceVariant = "primary";
+      button.dataset.surfaceLevel = "2";
+      button.dataset.testid = "shared-button-motion-probe";
+      button.style.inset = "6rem auto auto 6rem";
+      button.style.position = "fixed";
+      button.style.zIndex = "9999";
+      document.body.append(button);
+    });
+
+    const beforeHover = await probe.evaluate((element) => {
+      const buttonStyle = window.getComputedStyle(element);
+      const stateLayerStyle = window.getComputedStyle(element, "::before");
+
+      return {
+        backgroundColor: buttonStyle.backgroundColor,
+        stateLayerOpacity: Number.parseFloat(stateLayerStyle.opacity),
+        stateLayerTransitionDuration: stateLayerStyle.transitionDuration,
+        transitionDuration: buttonStyle.transitionDuration,
+        transitionProperty: buttonStyle.transitionProperty,
+      };
+    });
+
+    expect(beforeHover.transitionProperty).toBe("translate, box-shadow, outline-color");
+    expect(beforeHover.transitionDuration.split(", ")).toEqual(["0.22s"]);
+    expect(beforeHover.stateLayerTransitionDuration).toBe("0.22s");
+    expect(beforeHover.stateLayerOpacity).toBe(0);
+
+    await probe.hover();
+    await page.waitForTimeout(250);
+    await expect.poll(() => probe.evaluate((element) => element.matches(":hover"))).toBe(true);
+
+    const afterHover = await probe.evaluate((element) => ({
+      backgroundColor: window.getComputedStyle(element).backgroundColor,
+      stateLayerOpacity: Number.parseFloat(window.getComputedStyle(element, "::before").opacity),
+    }));
+
+    expect(afterHover.backgroundColor).toBe(beforeHover.backgroundColor);
+    expect(afterHover.stateLayerOpacity).toBeGreaterThan(0);
   });
 
   test("keeps semantic app surfaces and controls readable for every palette, UI style, and style-kit mode", async ({

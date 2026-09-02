@@ -4,7 +4,7 @@
  * @module src\components\renderers\blocks\ImageTextSplitBlock\index
  */
 
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import { RichText } from "components/renderers";
 import "./styles.css";
 
@@ -38,7 +38,7 @@ const ImageTextSplitBlock = (props = {}) => {
   const imageAlt = image.alt || image.title || "Profile photo";
 
   return (
-    <Panel
+    <Surface
       id={id}
       collapsible
       defaultExpanded
@@ -58,7 +58,7 @@ const ImageTextSplitBlock = (props = {}) => {
           <RichText key={`split-${id || "block"}-${index}`} text={node} index={index} />
         ))}
       </div>
-    </Panel>
+    </Surface>
   );
 };
 

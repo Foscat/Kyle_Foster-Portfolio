@@ -30,10 +30,10 @@ const packages = [
   },
   {
     name: "ui-style-kit-css",
-    version: "2.2.0",
+    version: "2.3.0",
     layer: "Theme",
     description:
-      "Palette-aware design tokens, typography, surface treatments, and reusable visual language.",
+      "Twenty UI styles and twenty color schemes for theme-ready surfaces, typography, and visual identity.",
     npmUrl: "https://www.npmjs.com/package/ui-style-kit-css",
   },
   {
@@ -99,11 +99,12 @@ const InterfaceSystem = () => {
           <p className="interface-eyebrow">Open source / product infrastructure</p>
           <h1>The Interface System</h1>
           <p className="interface-hero__lead">
-            Four focused libraries. One coherent way to build responsive interfaces.
+            Three CSS libraries, native HTML, and one companion icon package.
           </p>
           <p className="interface-hero__summary">
-            I separated structure, visual identity, icon language, and interaction behavior so teams
-            can evolve one concern without destabilizing the others.
+            I start with semantic native elements, then separate structure, visual identity, icon
+            language, and interaction behavior so one concern can evolve without destabilizing the
+            others.
           </p>
         </div>
         <dl className="interface-hero__metrics" aria-label="Interface system summary">

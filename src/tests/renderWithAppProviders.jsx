@@ -7,7 +7,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
-import { CustomProvider } from "rsuite";
 
 import { ThemeProvider } from "assets/context/ThemeContext";
 import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider";
@@ -16,16 +15,14 @@ import { ResponsiveProvider } from "assets/context/responsive/ResponsiveProvider
  * Renders a component tree with app-level providers, excluding router wrappers.
  *
  * @param {React.ReactElement} ui - Component under test.
- * @param {object} [options]
- * @param {"light"|"dark"} [options.rsuiteTheme="dark"] - RSuite theme.
  * @returns {object} Testing Library render result.
  */
-export default function renderWithAppProviders(ui, { rsuiteTheme = "dark" } = {}) {
+export default function renderWithAppProviders(ui) {
   return render(
     <HelmetProvider>
       <ResponsiveProvider>
         <ThemeProvider>
-          <CustomProvider theme={rsuiteTheme}>{ui}</CustomProvider>
+          {ui}
         </ThemeProvider>
       </ResponsiveProvider>
     </HelmetProvider>

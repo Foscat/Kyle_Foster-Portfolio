@@ -1,25 +1,23 @@
+.clickable-thumb-trigger {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
 .clickable-thumb {
+  display: block;
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  cursor: pointer;
-}
-
-.clickable-thumb:focus-visible {
-  outline: 3px solid var(--text-accent);
-  outline-offset: 4px;
 }
 
 /* Full-screen modal shell */
-.frosted-modal.rs-modal-full,
-.frosted-modal.rs-modal-full .rs-modal-wrapper,
-.frosted-modal.rs-modal-full .rs-modal-dialog,
-.frosted-modal.rs-modal-full .rs-modal-content,
-.frosted-modal.rs-modal-full .rs-modal-body {
+.frosted-modal,
+.frosted-modal .native-dialog__body {
   overflow-x: hidden !important;
 }
 
-.frosted-modal.rs-modal-full .rs-modal-dialog {
+.frosted-modal {
   width: 100%;
   max-width: none;
   height: 100dvh;
@@ -27,7 +25,7 @@
   padding: 0;
 }
 
-.frosted-modal.rs-modal-full .rs-modal-content {
+.frosted-modal {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   width: 100%;
@@ -60,13 +58,13 @@
   );
 }
 
-.frosted-modal-header .rs-modal-title {
+.frosted-modal-header .native-dialog__title {
   margin: 0;
   font-size: var(--font-md);
   color: var(--text-accent);
 }
 
-.frosted-modal .rs-modal-header-close.rs-btn-close {
+.frosted-modal .native-dialog__close {
   width: 42px;
   height: 42px;
   margin: 0;
@@ -74,13 +72,6 @@
   border: 1px solid rgba(var(--white-rgb), 0.2);
   background: rgba(var(--white-rgb), 0.08);
   color: var(--text-primary);
-}
-
-.frosted-modal .rs-modal-header-close.rs-btn-close:hover,
-.frosted-modal .rs-modal-header-close.rs-btn-close:focus-visible {
-  border-color: rgba(var(--accent-rgb), 0.5);
-  background: rgba(var(--accent-rgb), 0.2);
-  color: var(--text-accent);
 }
 
 .frosted-modal-body {
@@ -208,7 +199,7 @@
   text-wrap: pretty;
 }
 
-html[data-theme="light"] .frosted-modal.rs-modal-full .rs-modal-content {
+html[data-theme="light"] .frosted-modal {
   background:
     radial-gradient(circle at 82% 8%, rgba(var(--accent-rgb), 0.15), transparent 30%),
     linear-gradient(180deg, rgba(var(--white-rgb), 0.98), rgba(var(--primary-lighter-rgb), 0.74));
@@ -225,11 +216,11 @@ html[data-theme="light"] .frosted-modal-header {
   );
 }
 
-html[data-theme="light"] .frosted-modal-header .rs-modal-title {
+html[data-theme="light"] .frosted-modal-header .native-dialog__title {
   color: rgba(var(--primary-darkest-rgb), 0.96);
 }
 
-html[data-theme="light"] .frosted-modal .rs-modal-header-close.rs-btn-close {
+html[data-theme="light"] .frosted-modal .native-dialog__close {
   border-color: rgba(var(--primary-dark-rgb), 0.24);
   background: rgba(var(--white-rgb), 0.9);
   color: rgba(var(--primary-darkest-rgb), 0.94);

@@ -5,8 +5,7 @@
  * @module components/navigation/UnifiedNavigation
  */
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Nav, Drawer } from "rsuite";
+import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { faBars, faCircleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Size, SurfaceLevel, Variant } from "types/ui.types";
@@ -18,6 +17,7 @@ import resumeData from "assets/data/content/resumeData.js";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { PageRoute } from "types/navigation.types";
 import StickySectionNav from "../StickySectionNav";
+import Dialog from "components/ui/Dialog";
 
 /*
  * @typedef {Object} NavItem
@@ -97,14 +97,14 @@ const isEditableTarget = (target) =>
  *
  * @example
  * ```js
- * <Nav.Item
+ * <Link
  *    href="/home"
  *    active={activePage === "/home"}
  *    aria-current={activePage === "/home" ? "page" : undefined}
  *    onClick={(e) => handleNavClick(e, activePage === "/home")}
  * >
  *    Home
- * </Nav.Item>
+ * </Link>
  * ```
  */
 const isPrimaryNavigationEvent = (event) => {
@@ -316,84 +316,86 @@ const UnifiedNavigation = ({ activePage, pageUrl = activePage, sections = [] }) 
         </div>
       </header>
       {/* Website destinations remain in one consistent drawer at every viewport. */}
-      <Drawer
-        placement="left"
-        open={siteNavigationOpen}
-        onClose={closeSiteNavigation}
-        className="mobile-nav-drawer"
-        closeButton={false}
-      >
-        <Drawer.Header closeButton={false}>
-          <Drawer.Title>Website Navigation</Drawer.Title>
-          <Btn
-            icon={faXmark}
-            variant={Variant.ACCENT}
-            surfaceLevel={SurfaceLevel.RAISED}
-            size={Size.LG}
-            ariaLabel="Close website navigation"
-            className="mobile-nav-drawer__close"
-            onClick={closeSiteNavigation}
-          />
-        </Drawer.Header>
+      {siteNavigationOpen ? (
+        <Dialog
+          placement="left"
+          open={siteNavigationOpen}
+          onClose={closeSiteNavigation}
+          className="mobile-nav-drawer"
+          ariaLabel="Website Navigation"
+        >
+          <Dialog.Header closeButton={false}>
+            <Dialog.Title>Website Navigation</Dialog.Title>
+            <Btn
+              icon={faXmark}
+              variant={Variant.ACCENT}
+              surfaceLevel={SurfaceLevel.RAISED}
+              size={Size.LG}
+              ariaLabel="Close website navigation"
+              className="mobile-nav-drawer__close"
+              onClick={closeSiteNavigation}
+            />
+          </Dialog.Header>
 
-        <Drawer.Body>
-          <Nav vertical role="navigation" aria-label="Primary navigation">
-            {NAV_ITEMS.map((item) => {
-              const { route, label, id } = item;
-              const isExactRoute = activePage === route;
-              const isGroupActive = isRouteActive(activePage, item);
+          <Dialog.Body>
+            <nav className="mobile-nav-list" aria-label="Primary navigation">
+              {NAV_ITEMS.map((item) => {
+                const { route, label, id } = item;
+                const isExactRoute = activePage === route;
+                const isGroupActive = isRouteActive(activePage, item);
 
-              return (
-                <Nav.Item
-                  key={`${route}-${id}`}
-                  eventKey={route}
-                  as={Link}
-                  to={route}
-                  className={`interactive-surface ${isGroupActive ? "is-route-active" : ""}`}
-                  data-surface-variant={isGroupActive ? "primary" : "subtle"}
-                  data-surface-level={isGroupActive ? "2" : "1"}
-                  aria-current={isExactRoute ? "page" : undefined}
-                  onClick={(event) =>
-                    handleNavClick(event, {
-                      isActive: isExactRoute,
-                      route,
-                      navigate,
-                      onAfterNavigate: closeSiteNavigation,
-                    })
-                  }
+                return (
+                  <Link
+                    key={`${route}-${id}`}
+                    to={route}
+                    className={`interactive-surface ${isGroupActive ? "is-route-active" : ""}`}
+                    data-surface-variant={isGroupActive ? "primary" : "subtle"}
+                    data-surface-level={isGroupActive ? "2" : "1"}
+                    aria-current={isExactRoute ? "page" : undefined}
+                    onClick={(event) =>
+                      handleNavClick(event, {
+                        isActive: isExactRoute,
+                        route,
+                        navigate,
+                        onAfterNavigate: closeSiteNavigation,
+                      })
+                    }
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+              <div className="sticky-nav-mobile-utilities">
+                <Suspense fallback={<span role="status">Loading interface controls...</span>}>
+                  <div className="sticky-nav-mobile-color sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--color">
+                    <ColorMenu size={Size.LG} showTooltip={false} />
+                  </div>
+                  <div className="sticky-nav-mobile-a11y sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled">
+                    <AccessibilityMenu size={Size.LG} showTooltip={false} />
+                  </div>
+                </Suspense>
+                <div
+                  className="sticky-nav-mobile-resume sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled"
+                  data-testid="mobile-resume-trigger-wrapper"
                 >
-                  {label}
-                </Nav.Item>
-              );
-            })}
-            <div className="sticky-nav-mobile-utilities">
-              <div className="sticky-nav-mobile-color sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--color">
-                <ColorMenu size={Size.LG} showTooltip={false} />
+                  <ResumePreviewTrigger
+                    buttonText=""
+                    title={resumePreviewTitle}
+                    subtitle={resumePreviewSubtitle}
+                    resume={resumeData}
+                    downloadName={resumeDownloadName}
+                    buttonClassName="sticky-nav-mobile-resume-trigger"
+                    icon={faCircleDown}
+                    ariaLabel="Open resume preview and download options"
+                    size={Size.LG}
+                    variant={Variant.SECONDARY}
+                  />
+                </div>
               </div>
-              <div className="sticky-nav-mobile-a11y sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--a11y sticky-nav-mobile-trigger--scaled">
-                <AccessibilityMenu size={Size.LG} showTooltip={false} />
-              </div>
-              <div
-                className="sticky-nav-mobile-resume sticky-nav-mobile-trigger sticky-nav-mobile-trigger--utility sticky-nav-mobile-trigger--resume sticky-nav-mobile-trigger--scaled"
-                data-testid="mobile-resume-trigger-wrapper"
-              >
-                <ResumePreviewTrigger
-                  buttonText=""
-                  title={resumePreviewTitle}
-                  subtitle={resumePreviewSubtitle}
-                  resume={resumeData}
-                  downloadName={resumeDownloadName}
-                  buttonClassName="sticky-nav-mobile-resume-trigger"
-                  icon={faCircleDown}
-                  ariaLabel="Open resume preview and download options"
-                  size={Size.LG}
-                  variant={Variant.SECONDARY}
-                />
-              </div>
-            </div>
-          </Nav>
-        </Drawer.Body>
-      </Drawer>
+            </nav>
+          </Dialog.Body>
+        </Dialog>
+      ) : null}
     </>
   );
 };

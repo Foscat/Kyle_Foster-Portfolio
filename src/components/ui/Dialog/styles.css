@@ -1,0 +1,69 @@
+/**
+ * Native dialog structural adapter. ui-style-kit-css paints the dialog and
+ * interactive-surface-css owns all interactive states.
+ */
+
+.native-dialog {
+  box-sizing: border-box;
+  width: min(calc(100% - 2rem), 42rem);
+  max-height: min(90vh, 56rem);
+  padding: 0;
+  overflow: hidden;
+}
+
+.native-dialog[data-dialog-size="sm"] {
+  width: min(calc(100% - 2rem), 34rem);
+}
+
+.native-dialog[data-dialog-size="lg"] {
+  width: min(calc(100% - 2rem), 64rem);
+}
+
+.native-dialog[data-dialog-size="full"] {
+  width: calc(100% - 2rem);
+  max-width: none;
+  height: calc(100% - 2rem);
+  max-height: none;
+}
+
+.native-dialog__header,
+.native-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ly-space-3, 0.75rem);
+  padding: var(--ly-space-4, 1rem);
+}
+
+.native-dialog__title {
+  margin: 0;
+}
+
+.native-dialog__close {
+  display: grid;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  place-items: center;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.native-dialog__body {
+  min-width: 0;
+  max-height: inherit;
+  padding: var(--ly-space-4, 1rem);
+  overflow: auto;
+}
+
+.native-dialog__footer {
+  justify-content: flex-end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .native-dialog {
+    scroll-behavior: auto;
+  }
+}

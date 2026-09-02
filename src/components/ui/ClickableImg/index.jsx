@@ -6,7 +6,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Image, Modal } from "rsuite";
+import Dialog from "components/ui/Dialog";
 import { useResponsive } from "assets/context/responsive/ResponsiveContext";
 import { Variant } from "types/ui.types";
 import Btn from "components/ui/Btn";
@@ -45,7 +45,7 @@ function getContainedSize(containerWidth, containerHeight, imageWidth, imageHeig
  * @description A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.
  *
  * Key behaviors:
- * - Renders a responsive image thumbnail using RSuite's Image component
+ * - Renders a responsive native image thumbnail
  * - Clicking the thumbnail opens a modal viewer with a larger version of the image
  * - The modal can be closed with the close button or pressing the ESC key
  * - The expanded image supports zoom controls and drag-to-pan interaction
@@ -325,39 +325,35 @@ const ClickableImg = ({
 
   const thumbnailLabel = ariaLabel || `${alt}, open expanded image viewer`;
 
-  const handleThumbnailKeyDown = (event) => {
-    if (event.key !== "Enter" && event.key !== " ") return;
-
-    event.preventDefault();
-    setOpen(true);
-  };
-
   return (
     <div id={id} className="frosted-tile clickable-img-container">
-      <Image
-        id={`${id}-img-${index + 1}`}
-        rounded
-        src={src}
-        alt={alt}
-        title={title || alt}
+      <button
+        type="button"
         aria-label={thumbnailLabel}
         aria-haspopup="dialog"
-        role="button"
-        tabIndex={0}
-        loading="lazy"
-        decoding="async"
-        fetchPriority="low"
-        className={`clickable-thumb glass-outline ${className}`}
+        className="clickable-thumb-trigger interactive-surface"
+        data-surface-variant="subtle"
+        data-surface-level="1"
         onClick={() => setOpen(true)}
-        onKeyDown={handleThumbnailKeyDown}
-      />
+      >
+        <img
+          id={`${id}-img-${index + 1}`}
+          src={src}
+          alt={alt}
+          title={title || alt}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          className={`clickable-thumb glass-outline ${className}`}
+        />
+      </button>
 
       {/* Optional caption beneath thumbnail */}
       {caption && <p className="img-caption text-center">{caption}</p>}
 
       {/* Modal viewer */}
       {open ? (
-        <Modal
+        <Dialog
           open={open}
           onClose={() => setOpen(false)}
           overflow={false}
@@ -365,14 +361,15 @@ const ClickableImg = ({
           keyboard={true}
           className="frosted-modal"
           size="full"
+          ariaLabel={title || `${alt} image viewer`}
         >
           {/* Modal header */}
-          <Modal.Header className="frosted-modal-header flex-between">
-            {showMetadata && title ? <Modal.Title>{title}</Modal.Title> : <div />}
-          </Modal.Header>
+          <Dialog.Header className="frosted-modal-header flex-between">
+            {showMetadata && title ? <Dialog.Title>{title}</Dialog.Title> : <div />}
+          </Dialog.Header>
 
           {/* Modal body */}
-          <Modal.Body className="frosted-modal-body text-center">
+          <Dialog.Body className="frosted-modal-body text-center">
             <div
               ref={stageRef}
               className={`modal-img-wrapper ${isZoomed ? "is-zoomed" : ""}`}
@@ -457,8 +454,8 @@ const ClickableImg = ({
                 Zoom mode active. Drag to pan. Reset zoom to show details.
               </p>
             ) : null}
-          </Modal.Body>
-        </Modal>
+          </Dialog.Body>
+        </Dialog>
       ) : null}
     </div>
   );

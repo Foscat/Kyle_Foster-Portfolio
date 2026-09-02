@@ -25,19 +25,8 @@ import renderWithProviders from "tests/renderWithProviders";
  *
  * @module tests/components/ui/Btn
  *
- * Note: The rsuite Button and IconButton components are mocked to simplify testing and focus on Btn's behavior rather than the underlying library implementation.
  * The FrostedIcon component is also mocked to provide a simple representation for testing purposes.
  */
-
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-  return {
-    ...actual,
-    Whisper: ({ children }) => <>{children}</>,
-    Tooltip: ({ children }) => <>{children}</>,
-    Loader: () => <span role="status">Loading button...</span>,
-  };
-});
 
 vi.mock("components/ui/FrostedIcon", () => ({
   default: ({ ariaLabel }) => <span aria-hidden="true">{ariaLabel || "icon"}</span>,
@@ -61,7 +50,7 @@ describe("Btn", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(button).toHaveClass("interactive-surface");
     expect(button).toHaveAttribute("data-surface-variant", "primary");
-    expect(button).not.toHaveAttribute("data-surface-level");
+    expect(button).toHaveAttribute("data-surface-level", "2");
   });
 
   it("renders nested content supplied as children", () => {
@@ -92,13 +81,22 @@ describe("Btn", () => {
     expect(button).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("exposes active state without forcing a surface depth override", () => {
+  it("exposes active state on the readable raised surface default", () => {
     renderWithProviders(<Btn text="Current section" variant="subtle" active />);
 
     const button = screen.getByRole("button", { name: "Current section" });
     expect(button).toHaveClass("interactive-surface", "is-active", "subtle");
     expect(button).toHaveAttribute("data-surface-variant", "subtle");
-    expect(button).not.toHaveAttribute("data-surface-level");
+    expect(button).toHaveAttribute("data-surface-level", "2");
+  });
+
+  it("uses the shared subtle foreground contract for transparent buttons", () => {
+    renderWithProviders(<Btn text="Close" variant="accent" noBG />);
+
+    const button = screen.getByRole("button", { name: /close/i });
+    expect(button).toHaveClass("interactive-surface", "btn-noBG");
+    expect(button).toHaveAttribute("data-surface-variant", "subtle");
+    expect(button).toHaveAttribute("data-surface-level", "2");
   });
 
   it("maps visual variants and explicit surface levels to bridge attributes", () => {

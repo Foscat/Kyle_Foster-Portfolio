@@ -4,12 +4,21 @@
  * @module src\assets\images\sideProjects\socialCards
  */
 
+import enigmaLive from "./enigma-live.png";
 import interactiveSurfaceSocialCard from "./interactive-surface-social-card.webp";
 import layoutStyleSocialCard from "./layout-style-social-card.jpg";
 import mernTemplateSocialCard from "./mern-template-social-card.webp";
 import uiStyleKitSocialCard from "./ui-style-kit-social-card.webp";
 
 const sideProjectSocialCards = {
+  enigma: {
+    id: "enigma_live_img",
+    src: enigmaLive,
+    alt: "Enigma private message-encryption workspace",
+    title: "Enigma",
+    caption: "Preview of the deployed zero-storage Enigma message-encryption application.",
+    ariaLabel: "Enigma private message-encryption workspace preview",
+  },
   interactiveSurface: {
     id: "interactive_surface_social_card_img",
     src: interactiveSurfaceSocialCard,

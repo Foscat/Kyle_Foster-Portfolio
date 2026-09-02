@@ -10,39 +10,16 @@
  * - Root className passthrough
  *
  * Testing strategy:
- * - Mocks RSuite Panel and FlexboxGrid as minimal layout primitives
  * - Focuses on semantic output and composition logic
- * - Avoids coupling to RSuite layout implementation details
+ * - Avoids coupling to presentational CSS details
  *
  * @module tests/components/PageHeader
  */
 
 import { screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import PageHeader from "../PageHeader";
 import renderWithProviders from "tests/renderWithProviders";
-
-/* ------------------------------------------------------------------
- * Mocks
- * ------------------------------------------------------------------ */
-
-// Mock RSuite components to simple semantic wrappers
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-
-  const FlexboxGrid = ({ children }) => <div>{children}</div>;
-  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
-
-  return {
-    ...actual,
-    Panel: ({ children, className, role, as: Tag = "div" }) => (
-      <Tag className={className} role={role}>
-        {children}
-      </Tag>
-    ),
-    FlexboxGrid,
-  };
-});
 
 /* ------------------------------------------------------------------
  * Test Suite

@@ -23,23 +23,6 @@ vi.mock("assets/hooks", () => ({
   useCoarsePointer: () => false,
 }));
 
-// Mock the Tooltip and Whisper components from the rsuite library to prevent issues with their implementation during testing, allowing us to focus on the Footer's functionality without worrying about the complexities of these components.
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-
-  const FlexboxGrid = ({ children }) => <div>{children}</div>;
-  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
-
-  return {
-    ...actual,
-    Panel: ({ children, className, role }) => (
-      <header className={className} role={role}>
-        {children}
-      </header>
-    ),
-    FlexboxGrid,
-  };
-});
 // The test suite for the Footer component, which includes tests to verify that the current year and secondary profile actions are rendered correctly, and that the phone number is copied to the clipboard when the corresponding action is activated.
 describe("Footer", () => {
   beforeEach(() => {

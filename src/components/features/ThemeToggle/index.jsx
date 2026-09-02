@@ -6,7 +6,6 @@
  */
 
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { ButtonGroup } from "rsuite";
 import { useTheme } from "assets/context/ThemeContext.jsx";
 import { Size, Theme, Variant } from "types/ui.types";
 import Btn from "components/ui/Btn";
@@ -50,7 +49,8 @@ const ThemeToggle = ({ size = Size.MD }) => {
 
   return (
     <div className="theme-toggle-wrap" aria-label="Theme selector">
-      <ButtonGroup className="theme-toggle" aria-label="Theme selector">
+      <fieldset className="theme-toggle ly-cluster">
+        <legend className="ly-visually-hidden">Theme selector</legend>
         {/* Light theme selector */}
         <Btn
           ariaLabel="Light theme"
@@ -80,7 +80,7 @@ const ThemeToggle = ({ size = Size.MD }) => {
             else setTheme(Theme.DARK);
           }}
         />
-      </ButtonGroup>
+      </fieldset>
     </div>
   );
 };

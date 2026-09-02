@@ -167,6 +167,37 @@ if (typeof SVGElement !== "undefined") {
 }
 
 // -----------------------------------------------------------------------------
+// Native dialog
+// -----------------------------------------------------------------------------
+if (typeof HTMLDialogElement !== "undefined") {
+  Object.defineProperties(HTMLDialogElement.prototype, {
+    showModal: {
+      configurable: true,
+      writable: true,
+      /**
+       * @description Mirror the observable open state without jsdom's expensive
+       * modal-tree bookkeeping, which is not relevant to component unit tests.
+       * @returns {void}
+       */
+      value() {
+        this.setAttribute("open", "");
+      },
+    },
+    close: {
+      configurable: true,
+      writable: true,
+      /**
+       * @description Close the test dialog using the same open-attribute contract.
+       * @returns {void}
+       */
+      value() {
+        this.removeAttribute("open");
+      },
+    },
+  });
+}
+
+// -----------------------------------------------------------------------------
 // JSDOM navigation noise
 // -----------------------------------------------------------------------------
 // JSDOM fires "Not implemented: navigation to another Document" directly to

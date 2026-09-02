@@ -41,11 +41,11 @@ to move the surrounding document during initial or observer-driven state changes
 - `props.accordion` (`boolean`, optional, default: `true`) - Enables collapsible accordion behavior.   When false, acts as a navigational list only.
 - `props.variant` (`"dark" | "light"`, optional, default: `"dark"`) - Visual theme variant applied to the wrapper.
 - `props.className` (`string`, optional) - Additional CSS class names applied to the wrapper.
-- `props.bordered` (`boolean`, optional, default: `false`) - Whether the outer panel displays RSuite borders.
+- `props.bordered` (`boolean`, optional, default: `false`) - Whether the outer native surface displays its border treatment.
 
 **Returns**
 
-- `JSX.Element` - A fully accessible accordion and section navigation component. --------------------------------------------------------------------------- EXAMPLE USAGE ----------------------------------------------------------------------- <AccordionList   title="Sections"   variant="dark"   items={[     {       id: "editor",       isScroller: true,       icon: faCode,       title: "3-Panel Editor",       text: "Details about the editor system..."     },     {       id: "organizations",       isScroller: true,       icon: faPeopleGroup,       title: "Organizations",       text: "How orgs and licenses work..."     }   ]} /> ----------------------------------------------------------------------- NOTES ----------------------------------------------------------------------- • Designed to integrate with Sticky Section Nav for a unified navigation system • Automatically syncs open item with page scroll position • Accessible to screen readers and keyboard-only users • Uses RSuite's <Accordion> but replaces all header behavior with custom ARIA logic
+- `JSX.Element` - A fully accessible accordion and section navigation component. --------------------------------------------------------------------------- EXAMPLE USAGE ----------------------------------------------------------------------- <AccordionList   title="Sections"   variant="dark"   items={[     {       id: "editor",       isScroller: true,       icon: faCode,       title: "3-Panel Editor",       text: "Details about the editor system..."     },     {       id: "organizations",       isScroller: true,       icon: faPeopleGroup,       title: "Organizations",       text: "How orgs and licenses work..."     }   ]} /> ----------------------------------------------------------------------- NOTES ----------------------------------------------------------------------- • Designed to integrate with Sticky Section Nav for a unified navigation system • Automatically syncs open item with page scroll position • Accessible to screen readers and keyboard-only users • Uses native buttons and regions for disclosure behavior
 
 ### focusHeader()
 
@@ -93,7 +93,7 @@ Describes a single entry rendered within the AccordionList.
 
 Unified frosted-glass button component implementing the
 Midnight Gold UI system with accessibility, animation, async handling,
-and controlled prop passthrough to RSuite and FontAwesome.
+and controlled prop passthrough to native elements and FontAwesome.
 
 ### Btn
 
@@ -101,11 +101,11 @@ A unified, accessible, animated button component that conforms to the
 Midnight Gold + Frosted UI system.
 
 Core responsibilities:
-- Normalizes RSuite `` and `<IconButton>` behavior
-- Automatically switches to IconButton when an icon is present
+- Normalizes native button, anchor, and React Router link behavior
+- Keeps icon and label composition consistent across element types
 - Enforces accessibility for icon-only buttons
 - Supports async click handlers with visual feedback
-- Provides tooltip support via RSuite Whisper
+- Provides dependency-free native tooltip text
 - Can render as:
   - Native button
   - React Router link
@@ -120,11 +120,11 @@ Accessibility:
 
 - `props` (`Object`) - Component props.
 - `props.variant` (`Variant`, optional, default: `"primary"`) - Visual style variant aligned with the frosted theme.
-- `props.surfaceLevel` (`SurfaceLevel`, optional) - Optional Interactive Surface depth override. When omitted, the library owns   its base and active/inactive level behavior.
+- `props.surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface depth. Buttons default to the raised library surface so   variant foreground and background tokens remain paired for readable contrast.
 - `props.size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `props.text` (`string`, optional) - Text label rendered inside the button.
 - `props.children` (`React.ReactNode`, optional) - Nested button content used when a simple text label is not sufficient.
-- `props.type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type forwarded to the underlying RSuite button.
+- `props.type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type forwarded to the underlying element.
 - `props.icon` (`string`, optional) - FontAwesome icon name. When provided, renders an IconButton.
 - `props.onClick` (`function`, optional) - Click handler. May return a Promise to enable async loading state.
 - `props.clickable` (`boolean`, optional, default: `true`) - Indicates whether the button/icon is clickable or not.
@@ -142,7 +142,7 @@ Accessibility:
 - `props.rel` (`string`, optional) - Anchor `rel` attribute.
 - `props.className` (`string`, optional) - Additional CSS class names.
 - `props.noBG` (`boolean`, optional, default: `false`) - Disables the frosted background treatment.
-- `props.*` (`RSuiteButtonProps`, optional) - Any supported RSuite Button/IconButton props are forwarded directly.
+- `props.*` (`NativeButtonProps`, optional) - Supported native element props are forwarded directly.
 - `props.*` (`FontAwesomeButtonIconProps`, optional) - FontAwesome-related props forwarded to the internal `FrostedIcon`.
 
 **Returns**
@@ -174,6 +174,16 @@ True when the button renders only an icon with no text label
 
 Resolve an accessible aria-label for the button. Falls back to tooltip text or a humanized icon name.
 
+### resolvedSurfaceVariant
+
+Transparent controls use the shared subtle foreground token because their
+final background comes from the surrounding surface rather than variant paint.
+
+### classes
+
+Variant intent remains explicit for existing component hooks while the shared
+libraries own the rendered paint, depth, and interaction states.
+
 ### handleClick()
 
 Async-aware click handler.
@@ -187,11 +197,9 @@ Automatically manages loading state when a Promise is returned.
 
 - `void`
 
-### RSuiteButtonProps
+### NativeButtonProps
 
-Subset of props forwarded directly to RSuite `` / `<IconButton>`.
-These are documented explicitly to make passthrough behavior clear
-without re-exporting RSuite types.
+Native element and compatibility props accepted by the shared button.
 
 - Type: `Object`
 
@@ -200,7 +208,6 @@ without re-exporting RSuite types.
 - `active` (`boolean`, optional, default: `true`) - Whether the button is in an active state.
 - `as` (`string | React.ElementType`, optional, default: `"button"`) - Render element type.
 - `block` (`boolean`, optional, default: `false`) - Makes the button full-width.
-- `classPrefix` (`string`, optional, default: `"btn"`) - RSuite CSS class prefix.
 - `disabled` (`boolean`, optional, default: `false`) - Disables the button.
 - `startIcon` (`React.ReactNode`, optional) - Icon rendered before content.
 - `endIcon` (`React.ReactNode`, optional) - Icon rendered after content.
@@ -212,7 +219,7 @@ without re-exporting RSuite types.
 - `className` (`string`, optional) - Additional CSS class names.
 - `noBG` (`boolean`, optional, default: `false`) - If true, disables the frosted background.
 - `variant` (`Variant`, optional, default: `"primary"`) - Visual style variant.
-- `surfaceLevel` (`SurfaceLevel`, optional) - Optional Interactive Surface visual depth override.
+- `surfaceLevel` (`SurfaceLevel`, optional, default: `"2"`) - Interactive Surface visual depth.
 - `size` (`Size`, optional, default: `"md"`) - Size variant applied to both button and icon.
 - `text` (`React.ReactNode`, optional) - Label rendered inside the button.
 - `type` (`"button" | "submit" | "reset"`, optional, default: `"button"`) - Native button type.
@@ -260,7 +267,7 @@ modal viewer while preserving aspect ratio and accessibility.
 A responsive image thumbnail that expands into a modal viewer when clicked. The modal maintains the image's aspect ratio and includes optional title and caption support. Designed with accessibility in mind, it requires alt text and applies appropriate aria-labels.
 
 Key behaviors:
-- Renders a responsive image thumbnail using RSuite's Image component
+- Renders a responsive native image thumbnail
 - Clicking the thumbnail opens a modal viewer with a larger version of the image
 - The modal can be closed with the close button or pressing the ESC key
 - The expanded image supports zoom controls and drag-to-pan interaction
@@ -303,6 +310,111 @@ ariaLabel="Screenshot of the project in action, click to expand"
 In this example, the `ClickableImg` component renders a thumbnail of a project screenshot. When the user clicks on the image, it opens a modal viewer displaying a larger version of the screenshot along with the provided title and caption. The component ensures that all images are accessible and responsive across different devices.
 ```
 
+## components/ui/Dialog
+
+Accessible native dialog primitive used by portfolio features.
+
+### Dialog()
+
+Render an accessible modal using the platform dialog element.
+
+**Parameters**
+
+- `props` (`Object`) - Dialog configuration.
+- `props.open` (`boolean`) - Whether the dialog is visible.
+- `props.onClose` (`function`, optional) - Close request handler.
+- `props.ariaLabel` (`string`, optional) - Accessible label for titleless dialogs.
+- `props.size` (`"sm" | "md" | "lg" | "full"`, optional, default: `"md"`) - Dialog size contract.
+- `props.backdrop` (`"static" | boolean`, optional, default: `true`) - Backdrop dismissal behavior.
+- `props.keyboard` (`boolean`, optional, default: `true`) - Whether Escape requests closure.
+- `props.className` (`string`, optional, default: `""`) - Additional dialog classes.
+- `props.children` (`React.ReactNode`) - Dialog content.
+
+**Returns**
+
+- `JSX.Element` - Native dialog element.
+
+### handleCancel()
+
+Forward the native cancel event through the controlled close callback.
+
+**Parameters**
+
+- `event` (`React.SyntheticEvent<HTMLDialogElement>`) - Native dialog cancel event.
+
+**Returns**
+
+- `void`
+
+### handleBackdropClick()
+
+Close on a direct backdrop click while preserving static dialogs.
+
+**Parameters**
+
+- `event` (`React.MouseEvent<HTMLDialogElement>`) - Native pointer event.
+
+**Returns**
+
+- `void`
+
+### DialogHeader()
+
+Render a dialog header and its native close control.
+
+**Parameters**
+
+- `props` (`Object`) - Header configuration.
+- `props.closeButton` (`boolean`, optional, default: `true`) - Whether to render the close button.
+- `props.className` (`string`, optional, default: `""`) - Additional header classes.
+- `props.children` (`React.ReactNode`) - Header content.
+
+**Returns**
+
+- `JSX.Element` - Dialog header.
+
+### DialogTitle()
+
+Render the accessible title associated with the parent dialog.
+
+**Parameters**
+
+- `props` (`Object`) - Title configuration.
+- `props.className` (`string`, optional, default: `""`) - Additional title classes.
+- `props.children` (`React.ReactNode`) - Title content.
+
+**Returns**
+
+- `JSX.Element` - Dialog heading.
+
+### DialogBody()
+
+Render the scrollable dialog body.
+
+**Parameters**
+
+- `props` (`Object`) - Body configuration.
+- `props.className` (`string`, optional, default: `""`) - Additional body classes.
+- `props.children` (`React.ReactNode`) - Body content.
+
+**Returns**
+
+- `JSX.Element` - Dialog body.
+
+### DialogFooter()
+
+Render the dialog action footer.
+
+**Parameters**
+
+- `props` (`Object`) - Footer configuration.
+- `props.className` (`string`, optional, default: `""`) - Additional footer classes.
+- `props.children` (`React.ReactNode`) - Footer content.
+
+**Returns**
+
+- `JSX.Element` - Dialog footer.
+
 ## components/FrostedIcon
 
 Styled FontAwesome icon component integrated with the
@@ -316,8 +428,8 @@ Midnight Gold + Frosted UI system.
 Core responsibilities:
 - Applies frosted-glass theming and size variants
 - Manages loading and animation states
-- Provides optional click interaction
-- Exposes tooltip support via RSuite Whisper
+- Uses a native button when click interaction is requested
+- Exposes dependency-free native tooltip text
 - Forwards supported FontAwesome props directly to the SVG renderer
 
 Accessibility:
@@ -607,3 +719,55 @@ Usage notes:
 - `alt` (`string`) - Alt text for accessibility.
 - `title` (`string`, optional) - Optional image title.
 - `caption` (`string`, optional) - Optional caption displayed with the image.
+
+## components/ui/Surface
+
+Native semantic surface and disclosure primitive for portfolio content.
+
+### Surface()
+
+Render a semantic content surface with optional native disclosure behavior.
+Layout comes from layout-style-css, while visual and interaction states come
+from ui-style-kit-css and interactive-surface-css.
+
+**Parameters**
+
+- `props` (`Object`) - Surface configuration.
+- `props.as` (`React.ElementType`, optional, default: `"div"`) - Semantic element to render.
+- `props.header` (`React.ReactNode`, optional) - Optional heading or disclosure label.
+- `props.collapsible` (`boolean`, optional, default: `false`) - Enables a native button disclosure.
+- `props.defaultExpanded` (`boolean`, optional, default: `true`) - Initial uncontrolled disclosure state.
+- `props.expanded` (`boolean`, optional) - Optional controlled disclosure state.
+- `props.onSelect` (`function`, optional) - Called with the next expanded state and click event.
+- `props.className` (`string`, optional, default: `""`) - Additional surface classes.
+- `props.children` (`React.ReactNode`) - Surface body content.
+
+**Returns**
+
+- `JSX.Element` - Native semantic surface.
+
+### handleToggle()
+
+Toggle the disclosure and notify controlled consumers.
+
+**Parameters**
+
+- `event` (`React.MouseEvent<HTMLButtonElement>`) - Native activation event.
+
+**Returns**
+
+- `void`
+
+## handleWindowKeyDown()
+
+Close the active dialog when Escape is pressed anywhere within the window.
+This keeps keyboard dismissal reliable when focus is moved by native dialog
+behavior, an embedded control, or a browser accessibility feature.
+
+**Parameters**
+
+- `event` (`KeyboardEvent`) - Window keyboard event.
+
+**Returns**
+
+- `void`

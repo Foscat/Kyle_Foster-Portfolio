@@ -21,7 +21,6 @@ import InfoSection from "../InfoSection";
  * - Transparent rendering of child content
  *
  * Testing strategy:
- * - Mocks RSuite Panel to reduce surface area and DOM complexity
  * - Mocks FrostedIcon to avoid FontAwesome rendering concerns
  * - Focuses on layout and composition, not styling details
  *
@@ -29,33 +28,8 @@ import InfoSection from "../InfoSection";
  */
 
 /**
- * @description Behavior tests for InfoSection. Boundaries: - Verify semantic behavior and user-discoverable content. - Do not test RSuite panel structure or CSS classes. /
+ * @description Behavior tests for InfoSection focused on semantics and user-discoverable content. /
  */
-
-// Mock RSuite's Panel to render as a simple section with the expected header and content, allowing us to verify the presence of the title, subtitle, and content without coupling to the implementation details of the RSuite Panel component.
-vi.mock("rsuite", async () => {
-  const actual = await vi.importActual("rsuite");
-
-  const FlexboxGrid = ({ children }) => <div>{children}</div>;
-  FlexboxGrid.Item = ({ children }) => <div>{children}</div>;
-
-  return {
-    ...actual,
-    Panel: ({ children, className, role, header, collapsible, as: Tag = "section" }) => (
-      <Tag className={className} role={role}>
-        {collapsible ? (
-          <h2>
-            <button type="button">{header}</button>
-          </h2>
-        ) : (
-          header
-        )}
-        {children}
-      </Tag>
-    ),
-    FlexboxGrid,
-  };
-});
 
 // Mock FrostedIcon to render a simple span with an aria-hidden label for testing purposes, allowing us to verify that the icon is rendered when the icon prop is provided without relying on the actual rendering of FontAwesome icons. The aria-label includes the icon name to confirm that the correct icon is being rendered.
 vi.mock("components/FrostedIcon", () => ({

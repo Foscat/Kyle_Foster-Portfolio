@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import renderWithProviders from "tests/renderWithProviders";
 import ColorMenu from "../ColorMenu";
@@ -54,6 +54,24 @@ describe("ColorMenu", () => {
     expect(screen.getByRole("combobox", { name: /color palette/i })).toBeInTheDocument();
   });
 
+  it("offers all 20 ui-style-kit-css styles and palettes", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ColorMenu />);
+
+    await user.click(screen.getByRole("button", { name: /open color settings/i }));
+    await screen.findByRole("dialog", { name: /color settings/i });
+
+    const uiStyleSelector = screen.getByRole("combobox", { name: /ui style/i });
+    const paletteSelector = screen.getByRole("combobox", { name: /color palette/i });
+
+    expect(within(uiStyleSelector).getAllByRole("option")).toHaveLength(20);
+    expect(within(uiStyleSelector).getByRole("option", { name: /editorial luxe/i })).toBeVisible();
+    expect(within(uiStyleSelector).getByRole("option", { name: /neo-noir/i })).toBeVisible();
+    expect(within(paletteSelector).getAllByRole("option")).toHaveLength(20);
+    expect(within(paletteSelector).getByRole("option", { name: /chrome navy/i })).toBeVisible();
+    expect(within(paletteSelector).getByRole("option", { name: /electric noir/i })).toBeVisible();
+  });
+
   it("changes the active UI style from the color modal", async () => {
     const user = userEvent.setup();
     renderWithProviders(<ColorMenu />);
@@ -61,9 +79,9 @@ describe("ColorMenu", () => {
     await user.click(screen.getByRole("button", { name: /open color settings/i }));
     await screen.findByRole("dialog", { name: /color settings/i });
 
-    await user.selectOptions(screen.getByRole("combobox", { name: /ui style/i }), "cyberpunk");
+    await user.selectOptions(screen.getByRole("combobox", { name: /ui style/i }), "neo-noir");
 
-    expect(document.body.dataset.ui).toBe("cyberpunk");
+    expect(document.body.dataset.ui).toBe("neo-noir");
   });
 
   it("changes the active layout style from the color modal", async () => {

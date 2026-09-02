@@ -504,10 +504,12 @@ test.describe("route section navigation responsive behavior", () => {
   test("wide layout styles keep the section command inside the unified shell", async ({ page }) => {
     test.setTimeout(90_000);
     await preparePageForStableTests(page, { theme: "dark" });
+    await prepareRoute(page, WIDE_WIDTHS[0], ROUTE_LAYOUT_STYLES[0]);
 
     for (const layoutStyle of ROUTE_LAYOUT_STYLES) {
       for (const width of WIDE_WIDTHS) {
-        await prepareRoute(page, width, layoutStyle);
+        await page.setViewportSize({ width, height: 900 });
+        await setLayoutStyle(page, layoutStyle);
         const measurement = await getRouteLayoutMeasurement(page);
         const label = `${layoutStyle} at ${width}px`;
 
@@ -557,7 +559,7 @@ test.describe("route section navigation responsive behavior", () => {
     expect(settledOffset).toBeGreaterThanOrEqual(-1);
   });
 
-  test("drawer section labels keep a consistent regular font weight", async ({ page }) => {
+  test("drawer section labels use the shared control font weight consistently", async ({ page }) => {
     await preparePageForStableTests(page, { theme: "dark" });
     await prepareRoute(page, 1280, "retro-glass", "/sanderson-technology-enterprises");
 
@@ -569,7 +571,7 @@ test.describe("route section navigation responsive behavior", () => {
       labels.map((label) => window.getComputedStyle(label).fontWeight)
     );
 
-    expect(new Set(fontWeights)).toEqual(new Set(["500"]));
+    expect(new Set(fontWeights)).toEqual(new Set(["600"]));
   });
 
   test("section drawer overlays within the viewport and closes cleanly", async ({ page }) => {
@@ -577,13 +579,13 @@ test.describe("route section navigation responsive behavior", () => {
     await prepareRoute(page, 390);
 
     await page.getByRole("button", { name: /open section navigation/i }).click();
-    const drawer = page.locator(".mobile-section-nav-drawer .rs-drawer-dialog");
+    const drawer = page.locator(".mobile-section-nav-drawer");
     await expect(drawer).toBeVisible();
 
     const openState = await page.evaluate(() => {
       const root = document.documentElement;
       const body = document.body;
-      const drawerElement = document.querySelector(".mobile-section-nav-drawer .rs-drawer-dialog");
+      const drawerElement = document.querySelector(".mobile-section-nav-drawer");
       const rect = drawerElement?.getBoundingClientRect();
 
       return {
@@ -621,7 +623,7 @@ test.describe("route section navigation responsive behavior", () => {
 
       await page.getByRole("button", { name: "Open website navigation" }).click();
       const websiteDrawer = page.locator(
-        ".mobile-nav-drawer:not(.mobile-section-nav-drawer) .rs-drawer-dialog"
+        ".mobile-nav-drawer:not(.mobile-section-nav-drawer)"
       );
       await expect(websiteDrawer).toBeVisible();
       const websiteBox = await websiteDrawer.boundingBox();
@@ -630,7 +632,7 @@ test.describe("route section navigation responsive behavior", () => {
       await expect(websiteDrawer).toBeHidden();
 
       await page.getByRole("button", { name: /open section navigation/i }).click();
-      const sectionDrawer = page.locator(".mobile-section-nav-drawer .rs-drawer-dialog");
+      const sectionDrawer = page.locator(".mobile-section-nav-drawer");
       await expect(sectionDrawer).toBeVisible();
       const sectionBox = await sectionDrawer.boundingBox();
       const viewportBounds = await page.evaluate(() => ({

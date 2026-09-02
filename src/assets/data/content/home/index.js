@@ -891,7 +891,7 @@ const homeSections = [
             id: "sp-ui-style-kit-css",
             title: "UI Style Kit CSS",
             subtitle:
-              "Reusable CSS utility library for consistent UI styling and faster frontend delivery",
+              "Reusable CSS library with 20 UI styles and 20 color schemes for flexible frontend delivery",
             icon: faCss3Alt,
             url: `${PageRoute.SIDE_PROJECTS}/#ui-style-kit-css`,
             isScroller: false,
@@ -902,7 +902,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A lightweight npm CSS package that centralizes practical UI styling primitives so teams can build consistent interfaces with less repetition.",
+                    text: "A lightweight npm CSS package that pairs 20 UI styles with 20 color schemes, giving teams a broad visual range without rebuilding their interface foundation.",
                   },
                 ],
               },
@@ -914,7 +914,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Drop-in utility styles for faster implementation",
+                        text: "20 UI styles for changing the interface's visual character",
                       },
                     ],
                   },
@@ -923,7 +923,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "Improves style consistency across components and pages",
+                        text: "20 color schemes that work across the shared style system",
                       },
                     ],
                   },
@@ -934,6 +934,53 @@ const homeSections = [
                         type: "text",
                         text: "Published as an npm package for easy adoption",
                       },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "sp-enigma",
+            title: "Enigma",
+            subtitle:
+              "Private, zero-storage message encryption with layered client and server work",
+            icon: faLock,
+            url: `${PageRoute.SIDE_PROJECTS}/#enigma`,
+            isScroller: false,
+            previewImage: sideProjectSocialCards.enigma,
+            content: [
+              {
+                type: "p",
+                children: [
+                  {
+                    type: "text",
+                    text: "A private message-encryption app that keeps plaintext and passphrases in browser memory while a separate server layer works only with encrypted envelope data.",
+                  },
+                ],
+              },
+              {
+                type: "ul",
+                children: [
+                  {
+                    type: "li",
+                    children: [
+                      { type: "text", text: "Nothing is stored between message operations" },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      {
+                        type: "text",
+                        text: "Significant encryption and private transformation take place before a message becomes shareable",
+                      },
+                    ],
+                  },
+                  {
+                    type: "li",
+                    children: [
+                      { type: "text", text: "Deployed as a private-repository service on Render" },
                     ],
                   },
                 ],

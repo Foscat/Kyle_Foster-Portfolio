@@ -139,7 +139,7 @@ test("fullscreen diagram explorer contains fitted content in phone orientations"
             top: Math.round(Math.min(...diagramRects.map((rect) => rect.top))),
           }
         : null;
-      const content = modalElement.querySelector(".rs-modal-content");
+      const content = modalElement.querySelector(".native-dialog__body");
 
       return {
         contentPadding: content ? window.getComputedStyle(content).padding : "",

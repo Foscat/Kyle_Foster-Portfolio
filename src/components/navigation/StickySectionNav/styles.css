@@ -207,8 +207,8 @@
 
 /* Match the shared Btn selector specificity so navigation hierarchy does not
    accidentally turn collapsed labels into display-weight text. */
-.section-nav-link.rs-btn.btn.interactive-surface,
-.sub-section-nav-block.rs-btn.btn.interactive-surface {
+.section-nav-link.btn.interactive-surface,
+.sub-section-nav-block.btn.interactive-surface {
   font-weight: 500;
 }
 

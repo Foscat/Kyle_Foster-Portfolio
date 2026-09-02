@@ -31,6 +31,7 @@ describe("side projects content", () => {
 
     expect(sectionIds).toEqual([
       "overview",
+      "enigma",
       "interface-systems-lab",
       "layout-style-css",
       "ui-style-kit-css",
@@ -61,14 +62,17 @@ describe("side projects content", () => {
     });
     expect(sectionContent).toContain("shared semantic contract");
     expect(sectionContent).toContain("interactive workbench");
+    expect(sectionContent).toContain("Component Atlas");
+    expect(sectionContent).toContain("20 UI styles");
+    expect(sectionContent).toContain("20 color schemes");
     expect(sectionContent).toContain("layout-style-css");
     expect(sectionContent).toContain("ui-style-kit-css");
     expect(sectionContent).toContain("interactive-surface-css");
     expect(urlsByTitle.get("View Live Lab")).toBe(
-      "https://foscat.github.io/interface-systems-lab/"
+      "https://sanderson-technology-enterprises.github.io/interface-systems-lab/"
     );
     expect(urlsByTitle.get("View Source Code")).toBe(
-      "https://github.com/Foscat/interface-systems-lab"
+      "https://github.com/Sanderson-Technology-Enterprises/interface-systems-lab"
     );
   });
 
@@ -119,12 +123,25 @@ describe("side projects content", () => {
     }
   });
 
-  it("removes Caesar's Enigma from the Side Projects registry", () => {
+  it("publishes the current Enigma application and live Render destination", () => {
+    const enigmaSection = getSection("enigma");
     const sectionIds = sideProjectSections.map((section) => section.id);
-    const sectionContent = JSON.stringify(sideProjectSections);
+    const sectionContent = JSON.stringify(enigmaSection);
+    const links = getLinkUrlsByTitle(getLinksBlock(enigmaSection));
 
-    expect(sectionIds).not.toContain("enigma");
-    expect(sectionContent).not.toMatch(/Caesar's Enigma|caesars-enigma|#enigma/u);
+    expect(sectionIds).toContain("enigma");
+    expect(sectionContent).toContain("zero-storage");
+    expect(sectionContent).toContain("message encryption");
+    expect(sectionContent).not.toMatch(/Caesar's Enigma|caesars-enigma/iu);
+    expect(sectionContent).not.toMatch(/\b\d+\s*[- ]?alphabets?\b/iu);
+    expect(links.get("Open Enigma")).toBe("https://enigma-2zvo.onrender.com");
+  });
+
+  it("quantifies the current UI Style Kit CSS design range", () => {
+    const sectionContent = JSON.stringify(getSection("ui-style-kit-css"));
+
+    expect(sectionContent).toContain("20 UI styles");
+    expect(sectionContent).toContain("20 color schemes");
   });
 
   it("promotes Layout Style CSS as the UI bundle layout layer", () => {

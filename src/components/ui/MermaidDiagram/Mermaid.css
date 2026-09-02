@@ -70,7 +70,7 @@
 }
 
 .mermaid-container,
-.mermaid-container > .rs-panel-body {
+.mermaid-container > .surface__body {
   min-width: 0;
   max-width: 100%;
   overflow-x: hidden;
@@ -939,15 +939,10 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   margin: 0;
 }
 
-.mermaid-action-btn.rs-btn.btn.interactive-surface,
-.mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+.mermaid-action-btn.btn.interactive-surface {
   min-height: 2rem;
   padding: 0.3rem 0.62rem 0.3rem 0.5rem;
   gap: 0.34rem;
-  border-color: var(--app-surface-accent, var(--mermaid-edge));
-  background: var(--app-surface-bg, var(--mermaid-surface-bg));
-  color: var(--app-surface-fg, var(--mermaid-node-fg));
-  border-radius: 999px;
   font-size: var(--font-xxs);
 }
 
@@ -955,42 +950,18 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
    Fullscreen Diagram Viewer
    ------------------------------------------------------------ */
 
-.mermaid-fullscreen-modal.rs-modal-full,
-.mermaid-fullscreen-modal.rs-modal-full .rs-modal-wrapper,
-.mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog,
-.mermaid-fullscreen-modal.rs-modal-full .rs-modal-content,
-.mermaid-fullscreen-modal.rs-modal-full .rs-modal-body {
-  overflow: hidden !important;
-}
-
-.mermaid-fullscreen-modal.rs-modal-full {
-  width: 100dvw;
-  max-width: none;
-  height: 100dvh;
-  margin: 0;
-  background: var(--app-kit-bg, var(--bg-primary)) !important;
-}
-
-.mermaid-fullscreen-modal.rs-modal-full .rs-modal-dialog {
-  width: 100%;
-  max-width: none;
-  height: 100dvh;
-  margin: 0;
-  padding: 0;
-}
-
-.mermaid-fullscreen-modal.rs-modal-full .rs-modal-content {
+.mermaid-fullscreen-modal {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  width: 100%;
-  height: 100%;
-  padding: 0 !important;
-  border-radius: 0;
+  /* Fullscreen geometry intentionally overrides the shared dialog content cap. */
+  width: 100dvw !important;
+  max-width: none !important;
+  height: 100dvh !important;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  border: 0;
-  color: var(--app-surface-fg);
-  background: var(--app-kit-bg, var(--bg-primary));
-  box-shadow: none;
+  border: 0 !important;
+  border-radius: 0 !important;
 }
 
 .mermaid-fullscreen-modal__header {
@@ -1028,29 +999,13 @@ html[data-theme="dark"][data-palette="cyber-lime"] .mermaid .mermaid-svg-host.da
   width: 2.65rem;
   min-width: 2.65rem;
   height: 2.65rem;
-  color: var(--app-surface-fg);
-  border: 1px solid color-mix(in srgb, var(--app-surface-accent) 42%, transparent);
-  background: var(--app-surface-bg);
 }
 
-.mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
+.mermaid-fullscreen-modal .native-dialog__close {
   width: 2.35rem;
   height: 2.35rem;
   margin: 0;
-  border-radius: 999px;
-  border: 1px solid rgba(var(--white-rgb), 0.24);
-  background: rgba(var(--deep-black-rgb), 0.45);
-  color: var(--text-primary);
-  -webkit-backdrop-filter: var(--slight-blur);
-  backdrop-filter: var(--slight-blur);
   pointer-events: auto;
-}
-
-.mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close:hover,
-.mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close:focus-visible {
-  border-color: rgba(var(--accent-rgb), 0.62);
-  background: rgba(var(--accent-rgb), 0.22);
-  color: var(--text-accent);
 }
 
 .mermaid-fullscreen-modal__body {
@@ -1107,19 +1062,12 @@ html[data-theme="light"] .mermaid-fullscreen-modal__body {
   background: var(--app-kit-bg, var(--bg-primary)) !important;
 }
 
-html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
-  border-color: rgba(var(--primary-dark-rgb), 0.3);
-  background: rgba(var(--white-rgb), 0.86);
-  color: rgba(var(--primary-darkest-rgb), 0.95);
-}
-
 @media (max-width: 900px) {
   .mermaid-actions {
     justify-content: flex-start;
   }
 
-  .mermaid-action-btn.rs-btn.btn.interactive-surface,
-  .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+  .mermaid-action-btn.btn.interactive-surface {
     padding: 0.3rem 0.52rem 0.3rem 0.44rem;
   }
 
@@ -1128,7 +1076,7 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
     padding: 0.4rem 3.5rem 0.4rem 0.45rem;
   }
 
-  .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn-close {
+  .mermaid-fullscreen-modal .native-dialog__close {
     width: 2.1rem;
     height: 2.1rem;
   }
@@ -1149,8 +1097,7 @@ html[data-theme="light"] .mermaid-fullscreen-modal .rs-modal-header-close.rs-btn
     gap: 0.35rem;
   }
 
-  .mermaid-action-btn.rs-btn.btn.interactive-surface,
-  .mermaid-action-btn.rs-btn.btn.interactive-surface.rs-btn-icon-with-text.rs-btn.rs-btn-icon-placement-left {
+  .mermaid-action-btn.btn.interactive-surface {
     font-size: 0.7rem;
   }
 }

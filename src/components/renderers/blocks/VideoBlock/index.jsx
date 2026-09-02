@@ -4,7 +4,7 @@
  * @module components/renderers/blocks/VideoBlock
  */
 
-import { Panel } from "rsuite";
+import Surface from "components/ui/Surface";
 import "./styles.css";
 
 /**
@@ -34,7 +34,7 @@ const VideoBlock = (props = {}) => {
   if (typeof src !== "string" || !src.trim()) return null;
 
   return (
-    <Panel
+    <Surface
       id={id}
       collapsible
       defaultExpanded
@@ -56,7 +56,7 @@ const VideoBlock = (props = {}) => {
         </video>
         {caption ? <figcaption className="video-block__caption">{caption}</figcaption> : null}
       </figure>
-    </Panel>
+    </Surface>
   );
 };
 

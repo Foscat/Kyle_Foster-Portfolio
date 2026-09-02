@@ -104,6 +104,9 @@ describe("AccordionList", () => {
     header.focus();
 
     await userEvent.keyboard("{Enter}");
+    expect(screen.queryByText("Details for section one")).not.toBeInTheDocument();
+
+    await userEvent.keyboard("{Enter}");
     expect(await screen.findByText("Details for section one")).toBeInTheDocument();
   });
 
