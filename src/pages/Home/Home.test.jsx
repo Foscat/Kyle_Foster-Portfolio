@@ -88,7 +88,7 @@ describe("Home dual-audience flow", () => {
     const ecosystem = screen.getByRole("region", { name: "Open-source interface system" });
     expect(within(ecosystem).getByText("layout-style-css")).toBeVisible();
     expect(within(ecosystem).getByText("ui-style-kit-css")).toBeVisible();
-    expect(within(ecosystem).getByText(/20 UI styles and 20 color schemes/iu)).toBeVisible();
+    expect(within(ecosystem).getByText(/20 UI styles and 25 color schemes/iu)).toBeVisible();
     expect(within(ecosystem).getByText("ui-style-kit-icons")).toBeVisible();
     expect(within(ecosystem).getByText("interactive-surface-css")).toBeVisible();
     expect(
@@ -180,6 +180,6 @@ describe("Home side-project highlights", () => {
     const content = JSON.stringify(uiStyleKitItem);
 
     expect(content).toContain("20 UI styles");
-    expect(content).toContain("20 color schemes");
+    expect(content).toContain("25 color schemes");
   });
 });

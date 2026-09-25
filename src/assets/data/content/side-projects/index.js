@@ -354,7 +354,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "Its interactive workbench exercises 20 UI styles and 20 color schemes across layout, mode, and state changes. The Component Atlas documents reusable markup and implementation guidance for the shared component system.",
+                text: "Its interactive workbench exercises 20 UI styles and 25 color schemes across layout, mode, and state changes. The Component Atlas documents reusable markup and implementation guidance for the shared component system.",
               },
             ],
           },
@@ -853,7 +853,7 @@ const sideProjectSections = [
             children: [
               {
                 type: "text",
-                text: "ui-style-kit-css packages 20 UI styles and 20 color schemes into a focused npm library. Teams can change an interface's visual character and palette while keeping the same semantic markup and component structure.",
+                text: "ui-style-kit-css packages 20 UI styles and 25 color schemes into a focused npm library. Teams can change an interface's visual character and palette while keeping the same semantic markup and component structure.",
               },
             ],
           },
@@ -878,7 +878,7 @@ const sideProjectSections = [
               {
                 type: "li",
                 children: [
-                  { type: "text", text: "20 color schemes built on shared semantic roles" },
+                  { type: "text", text: "25 color schemes built on shared semantic roles" },
                 ],
               },
               {
