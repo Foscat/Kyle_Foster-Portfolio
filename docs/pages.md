@@ -181,6 +181,18 @@ Features:
 
 - `JSX.Element`
 
+## pages/Privacy
+
+Public notice for the portfolio's limited security logging.
+
+### module.exports()
+
+Explain the portfolio's visitor evidence collection, retention, and limits.
+
+**Returns**
+
+- `JSX.Element` - Public visitor privacy and security-logging notice.
+
 ## pages/SandersonTechnologyEnterprises
 
 Public case-study page for Sanderson Technology Enterprises work.

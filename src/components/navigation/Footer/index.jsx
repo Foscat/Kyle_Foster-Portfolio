@@ -7,6 +7,8 @@
 
 import { faSquareGithub, faSquareLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router";
+import { PageRoute } from "types/navigation.types";
 import { Size, Variant } from "types/ui.types";
 import { useClipboard } from "assets/hooks";
 import { Btn } from "components/ui";
@@ -55,6 +57,10 @@ const Footer = () => {
            ---------------------------------------------------- */}
         <div className="site-footer_left">
           <span className="site-footer_copyright">© {currentYear} Kyle Foster</span>
+          <p className="site-footer_notice">
+            Limited technical visit data is logged for site security.{" "}
+            <Link to={PageRoute.PRIVACY}>Visitor privacy details</Link>
+          </p>
         </div>
 
         {/* Center: Phone */}

@@ -1,7 +1,7 @@
 # Feature Components Reference
 
 - Aggregate reference: [components.md](../../../components.md)
-- Generated docs in this folder: 23
+- Generated docs in this folder: 24
 
 ## Modules
 
@@ -18,6 +18,7 @@
 - [resumePreviewTriggerComponent.md](./resumePreviewTriggerComponent.md) - `src/components/features/ResumePreview/ResumePreviewTrigger.jsx`
 - [srcComponentsFeaturesThemetoggleIndexComponent.md](./srcComponentsFeaturesThemetoggleIndexComponent.md) - `src/components/features/ThemeToggle/index.jsx`
 - [srcComponentsFeaturesUistyletoggleIndexComponent.md](./srcComponentsFeaturesUistyletoggleIndexComponent.md) - `src/components/features/UiStyleToggle/index.jsx`
+- [srcComponentsFeaturesVisitorevidenceloggerIndexComponent.md](./srcComponentsFeaturesVisitorevidenceloggerIndexComponent.md) - `src/components/features/VisitorEvidenceLogger/index.jsx`
 - [architectureConfigComponent.md](./architectureConfigComponent.md) - `src/components/features/CustomDiagram/core/architecture.config.js`
 - [architectureFactoryComponent.md](./architectureFactoryComponent.md) - `src/components/features/CustomDiagram/core/architectureFactory.js`
 - [customDiagramComponent.md](./customDiagramComponent.md) - `src/components/features/CustomDiagram/core/customDiagram.js`

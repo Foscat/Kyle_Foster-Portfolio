@@ -4,12 +4,12 @@ Granular and aggregate documentation generated from JSDoc comments.
 
 ## Sections
 
-- [Feature Components](./components/README.md) - 23 module reference file(s)
+- [Feature Components](./components/README.md) - 24 module reference file(s)
 - [Layout Components](./layout/README.md) - 3 module reference file(s)
 - [Navigation Components](./navigation/README.md) - 13 module reference file(s)
 - [Renderer Components](./renderers/README.md) - 16 module reference file(s)
 - [UI Components](./ui/README.md) - 11 module reference file(s)
-- [Pages](./pages/README.md) - 12 module reference file(s)
+- [Pages](./pages/README.md) - 13 module reference file(s)
 - [Hooks](./hooks/README.md) - 7 module reference file(s)
 - [Context](./context/README.md) - 5 module reference file(s)
 - [Data and Content](./data/README.md) - 23 module reference file(s)

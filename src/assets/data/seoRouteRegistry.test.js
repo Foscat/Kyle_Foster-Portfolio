@@ -40,6 +40,7 @@ describe("SEO route registry", () => {
         PageRoute.EDUCATION,
         PageRoute.CONTACT,
         PageRoute.DOCS,
+        PageRoute.PRIVACY,
       ])
     );
     expect(new Set(titles).size).toBe(titles.length);
@@ -50,7 +51,9 @@ describe("SEO route registry", () => {
         (route) => route.description.length >= 110 && route.description.length <= 160
       )
     ).toBe(true);
-    expect(indexableRoutes.every((route) => route.lastModified === "2026-09-02")).toBe(true);
+    expect(indexableRoutes.every((route) => /^\d{4}-\d{2}-\d{2}$/u.test(route.lastModified))).toBe(
+      true
+    );
     expect(SEO_ROUTE_REGISTRY[PageRoute.SANDERSON_TECHNOLOGY_ENTERPRISES].description).toContain(
       "Content Creator Platform"
     );
@@ -66,6 +69,8 @@ describe("SEO route registry", () => {
     expect(SEO_ROUTE_REGISTRY[PageRoute.INTERFACE_SYSTEM].description).toContain(
       "layout-style-css"
     );
+    expect(SEO_ROUTE_REGISTRY[PageRoute.PRIVACY].description).toContain("technical visit data");
+    expect(SEO_ROUTE_REGISTRY[PageRoute.PRIVACY].lastModified).toBe("2026-09-25");
   });
 
   it("resolves canonical and robots metadata before React renders", () => {

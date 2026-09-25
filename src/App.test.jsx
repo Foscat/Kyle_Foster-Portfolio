@@ -19,6 +19,10 @@ vi.mock("components/navigation/BackToTopButton", () => ({
   default: () => <button type="button" aria-label="Back to top" />,
 }));
 
+vi.mock("components/features/VisitorEvidenceLogger", () => ({
+  default: () => <span data-testid="visitor-evidence-logger" />,
+}));
+
 vi.mock("components/navigation", () => ({
   Head: () => <div data-testid="app-head" />,
   StickyNav: () => null,
@@ -35,6 +39,7 @@ vi.mock("pages/Hackathon", () => ({ default: () => <h1>Hackathon Mock</h1> }));
 vi.mock("pages/SMU", () => ({ default: () => <h1>SMU Mock</h1> }));
 vi.mock("pages/Contact", () => ({ default: () => <h1>Contact Mock</h1> }));
 vi.mock("pages/Docs", () => ({ default: () => <h1>Docs Mock</h1> }));
+vi.mock("pages/Privacy", () => ({ default: () => <h1>Privacy Mock</h1> }));
 vi.mock("pages/Health", () => ({ default: () => <h1>Health Mock</h1> }));
 vi.mock("pages/NotFound", () => ({ default: () => <h1>NotFound Mock</h1> }));
 
@@ -52,6 +57,15 @@ describe("App routes", () => {
 
     expect(await screen.findByRole("heading", { name: "Contact Mock" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "NotFound Mock" })).not.toBeInTheDocument();
+  });
+
+  it("renders the visitor notice and mounts the route-aware logger", async () => {
+    window.history.pushState({}, "", "/privacy");
+
+    renderApp();
+
+    expect(await screen.findByRole("heading", { name: "Privacy Mock" })).toBeInTheDocument();
+    expect(screen.getByTestId("visitor-evidence-logger")).toBeInTheDocument();
   });
 
   it("provides a keyboard skip link to the routed page content", async () => {

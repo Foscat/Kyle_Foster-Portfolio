@@ -183,6 +183,23 @@ export const SEO_ROUTE_REGISTRY = Object.freeze({
     ]),
     lastModified: LAST_MODIFIED,
   }),
+  [PageRoute.PRIVACY]: Object.freeze({
+    path: PageRoute.PRIVACY,
+    title: "Visitor Privacy & Security Logging | Kyle Foster",
+    description:
+      "Learn what limited technical visit data Kyle Foster's portfolio records for security, how long it is retained, and the limits of browser correlation.",
+    indexable: true,
+    ogType: "website",
+    pageType: "WebPage",
+    breadcrumbLabel: "Visitor Privacy",
+    snapshotHeading: "Visitor privacy and security logging",
+    snapshotHighlights: Object.freeze([
+      "Limited technical page-view records for site security",
+      "A rolling 180-day retention period for active records",
+      "Clear limits on what browser correlation can establish",
+    ]),
+    lastModified: "2026-09-25",
+  }),
   [PageRoute.HEALTH]: Object.freeze({
     path: PageRoute.HEALTH,
     title: "System Health | Kyle Foster Portfolio",

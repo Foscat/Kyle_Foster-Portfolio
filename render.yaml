@@ -61,5 +61,8 @@ services:
         source: /docs
         destination: /docs/index.html
       - type: rewrite
+        source: /privacy
+        destination: /privacy/index.html
+      - type: rewrite
         source: /health
         destination: /health/index.html
