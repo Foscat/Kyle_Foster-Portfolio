@@ -8,6 +8,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { useTheme } from "assets/context/ThemeContext.jsx";
+import VisitorEvidenceLogger from "components/features/VisitorEvidenceLogger";
 import { Head } from "components/navigation";
 import BackToTopButton from "components/navigation/BackToTopButton";
 import RouteScrollManager from "components/navigation/RouteScrollManager";
@@ -22,6 +23,7 @@ const Hackathon = lazy(() => import("pages/Hackathon"));
 const Smu = lazy(() => import("pages/SMU"));
 const Contact = lazy(() => import("pages/Contact"));
 const Docs = lazy(() => import("pages/Docs"));
+const Privacy = lazy(() => import("pages/Privacy"));
 const Health = lazy(() => import("pages/Health"));
 const NotFound = lazy(() => import("pages/NotFound"));
 
@@ -53,6 +55,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <RouteScrollManager />
+      <VisitorEvidenceLogger />
       <div className="app-shell ly-page">
         <a className="skip-link interactive-surface" href="#main-content">
           Skip to main content
@@ -73,6 +76,7 @@ export default function App() {
               <Route path="/smu" element={<Smu />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/docs" element={<Docs />} />
+              <Route path="/privacy" element={<Privacy />} />
               <Route path="/health" element={<Health />} />
 
               {/* Unknown URLs render the noindex fallback route. */}

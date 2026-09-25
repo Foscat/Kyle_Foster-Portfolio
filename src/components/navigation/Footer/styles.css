@@ -43,6 +43,25 @@
   gap: 0.25rem;
 }
 
+.site-footer_left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.site-footer_notice {
+  margin: 0;
+  max-width: 36rem;
+  font-size: var(--font-xs);
+  line-height: 1.45;
+}
+
+.site-footer_notice a {
+  color: inherit;
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
 .site-footer_phone {
   --site-footer-phone-bg: var(--app-surface-strong-bg, rgba(var(--white-rgb), 0.08));
   --site-footer-phone-fg: var(--app-surface-fg, var(--text-primary));
@@ -81,5 +100,9 @@
     flex-direction: row;
     justify-content: space-between;
     text-align: left;
+  }
+
+  .site-footer_left {
+    align-items: flex-start;
   }
 }

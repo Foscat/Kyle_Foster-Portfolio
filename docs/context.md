@@ -202,7 +202,7 @@ Supported application themes.
 
 Supported application palettes.
 
-- Type: `"midnight-gold" | "ocean-steel" | "forest-moss" | "sunset-ember" | "royal-plum" | "graphite-cyan" | "desert-sage" | "rose-quartz" | "cyber-lime" | "arctic-indigo" | "chrome-navy" | "recycled-emerald" | "industrial-orange" | "performance-red" | "heritage-brass" | "service-blue-red" | "newsprint-crimson" | "foundry-amber" | "soft-orchid" | "electric-noir"`
+- Type: `"midnight-gold" | "ocean-steel" | "forest-moss" | "sunset-ember" | "royal-plum" | "graphite-cyan" | "desert-sage" | "rose-quartz" | "cyber-lime" | "arctic-indigo" | "chrome-navy" | "recycled-emerald" | "industrial-orange" | "performance-red" | "heritage-brass" | "service-blue-red" | "newsprint-crimson" | "foundry-amber" | "soft-orchid" | "electric-noir" | "signal-yellow" | "botanical-green" | "cobalt-electric" | "stone-graphite" | "walnut-clay"`
 
 ### UiStyle
 

@@ -15,6 +15,7 @@ import Smu from "./SMU";
 import NotFound from "./NotFound";
 import Health from "./Health";
 import Docs from "./Docs";
+import Privacy from "./Privacy";
 
 export {
   CodeStream,
@@ -28,4 +29,5 @@ export {
   NotFound,
   Health,
   Docs,
+  Privacy,
 };

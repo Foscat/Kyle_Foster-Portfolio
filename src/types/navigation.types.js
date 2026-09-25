@@ -63,6 +63,7 @@ export const PageRoute = Object.freeze({
   EDUCATION: "/smu",
   DOCS: "/docs",
   CONTACT: "/contact",
+  PRIVACY: "/privacy",
   HEALTH: "/health",
   // Backward-compatible alias maintained for legacy imports/usages.
   CONNECT: "/contact",

@@ -1,0 +1,42 @@
+/**
+ * @file styles.css
+ * @description Responsive presentation for the portfolio visitor notice.
+ */
+
+.privacy-page {
+  width: min(100%, 92rem);
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+.privacy-content {
+  width: min(100%, 64rem);
+  min-width: 0;
+  margin: 0 auto;
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.privacy-panel {
+  line-height: 1.7;
+}
+
+.privacy-panel p,
+.privacy-contact {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+
+.privacy-panel p + p {
+  margin-top: 1rem;
+}
+
+.privacy-contact {
+  padding: 0 var(--page-gutter) var(--page-gap);
+  color: var(--app-surface-readable-fg, var(--text-primary));
+  text-align: center;
+}
+
+.privacy-contact a {
+  color: var(--link-color, currentColor);
+  font-weight: 700;
+}

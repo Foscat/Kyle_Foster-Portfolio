@@ -319,6 +319,26 @@ Compact select control for switching ui-style-kit-css visual systems.
 
 - `JSX.Element`
 
+## components/features/VisitorEvidenceLogger
+
+Route-aware loader for the independently hosted visitor evidence logger.
+
+### module.exports()
+
+Load one privacy-noticed page-view beacon for the active client-side route.
+
+The remote client owns payload minimization and failure isolation. Replacing the
+script after pathname changes records SPA navigation without collecting queries,
+fragments, referrers, page contents, or form values.
+
+**Parameters**
+
+- `props` (`VisitorEvidenceLoggerProps`) - Logger loader configuration.
+
+**Returns**
+
+- `null` - This integration has no visible interface.
+
 ## src\\components\\features\\CustomDiagram\\core\\architectureFactory
 
 src\components\features\CustomDiagram\core\architectureFactory module.
@@ -596,6 +616,12 @@ Modal component for previewing the resume with print and download options.
 
 - `JSX.Element` - The rendered modal component.
 
+## VISITOR\_LOGGER\_SCRIPT\_URL
+
+Public client-script endpoint for the private evidence logger.
+
+- Type: `string`
+
 ## A11ySwitch()
 
 A custom switch component for toggling accessibility preferences, built with an underlying checkbox input for accessibility.
@@ -631,3 +657,12 @@ A single row in the accessibility menu for toggling a specific preference.
 **Returns**
 
 - `JSX.Element` - The rendered preference row component.
+
+## VisitorEvidenceLoggerProps
+
+- Type: `Object`
+
+**Properties**
+
+- `enabled` (`boolean`, optional) - Overrides the production-only default for controlled tests.
+- `onScriptChange` (`function`, optional) - Optional lifecycle observer.

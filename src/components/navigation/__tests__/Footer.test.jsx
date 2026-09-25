@@ -46,6 +46,13 @@ describe("Footer", () => {
       "href",
       "mailto:fosterkyle6456@gmail.com"
     );
+    expect(
+      screen.getByText(/limited technical visit data is logged for site security/i)
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /visitor privacy details/i })).toHaveAttribute(
+      "href",
+      "/privacy"
+    );
   });
 
   // Test to verify that when the phone number action is activated (clicked), the copy function from the useClipboard hook is called with the correct phone number, ensuring that the intended behavior of copying the phone number to the clipboard is functioning as expected.
