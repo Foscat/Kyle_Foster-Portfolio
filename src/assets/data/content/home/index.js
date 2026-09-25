@@ -891,7 +891,7 @@ const homeSections = [
             id: "sp-ui-style-kit-css",
             title: "UI Style Kit CSS",
             subtitle:
-              "Reusable CSS library with 20 UI styles and 20 color schemes for flexible frontend delivery",
+              "Reusable CSS library with 20 UI styles and 25 color schemes for flexible frontend delivery",
             icon: faCss3Alt,
             url: `${PageRoute.SIDE_PROJECTS}/#ui-style-kit-css`,
             isScroller: false,
@@ -902,7 +902,7 @@ const homeSections = [
                 children: [
                   {
                     type: "text",
-                    text: "A lightweight npm CSS package that pairs 20 UI styles with 20 color schemes, giving teams a broad visual range without rebuilding their interface foundation.",
+                    text: "A lightweight npm CSS package that pairs 20 UI styles with 25 color schemes, giving teams a broad visual range without rebuilding their interface foundation.",
                   },
                 ],
               },
@@ -923,7 +923,7 @@ const homeSections = [
                     children: [
                       {
                         type: "text",
-                        text: "20 color schemes that work across the shared style system",
+                        text: "25 color schemes that work across the shared style system",
                       },
                     ],
                   },

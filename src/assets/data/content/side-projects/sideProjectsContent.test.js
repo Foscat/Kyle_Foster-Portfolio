@@ -64,7 +64,7 @@ describe("side projects content", () => {
     expect(sectionContent).toContain("interactive workbench");
     expect(sectionContent).toContain("Component Atlas");
     expect(sectionContent).toContain("20 UI styles");
-    expect(sectionContent).toContain("20 color schemes");
+    expect(sectionContent).toContain("25 color schemes");
     expect(sectionContent).toContain("layout-style-css");
     expect(sectionContent).toContain("ui-style-kit-css");
     expect(sectionContent).toContain("interactive-surface-css");
@@ -141,7 +141,7 @@ describe("side projects content", () => {
     const sectionContent = JSON.stringify(getSection("ui-style-kit-css"));
 
     expect(sectionContent).toContain("20 UI styles");
-    expect(sectionContent).toContain("20 color schemes");
+    expect(sectionContent).toContain("25 color schemes");
   });
 
   it("promotes Layout Style CSS as the UI bundle layout layer", () => {

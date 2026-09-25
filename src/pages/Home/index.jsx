@@ -85,7 +85,7 @@ const interfacePackages = [
   },
   {
     name: "ui-style-kit-css",
-    responsibility: "20 UI styles and 20 color schemes for theme-ready visual identity",
+    responsibility: "20 UI styles and 25 color schemes for theme-ready visual identity",
     accent: "THEME",
   },
   {

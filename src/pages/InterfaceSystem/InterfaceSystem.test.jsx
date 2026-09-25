@@ -24,10 +24,12 @@ describe("InterfaceSystem", () => {
     expect(packageCards).toHaveLength(4);
     expect(within(packageRegion).getByText("layout-style-css")).toBeVisible();
     expect(within(packageRegion).getByText("ui-style-kit-css")).toBeVisible();
-    expect(within(packageRegion).getByText("v2.3.0")).toBeVisible();
-    expect(within(packageRegion).getByText(/Twenty UI styles and twenty color schemes/iu)).toBeVisible();
+    expect(within(packageRegion).getByText("v3.2.0")).toBeVisible();
+    expect(within(packageRegion).getByText("v2.4.1")).toBeVisible();
+    expect(within(packageRegion).getByText(/Twenty UI styles and twenty-five color schemes/iu)).toBeVisible();
     expect(within(packageRegion).getByText("ui-style-kit-icons")).toBeVisible();
     expect(within(packageRegion).getByText("interactive-surface-css")).toBeVisible();
+    expect(within(packageRegion).getByText("v1.7.0")).toBeVisible();
   });
 
   it(
