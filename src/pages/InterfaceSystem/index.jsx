@@ -22,7 +22,7 @@ const sections = [
 const packages = [
   {
     name: "layout-style-css",
-    version: "3.0.1",
+    version: "3.2.0",
     layer: "Structure",
     description:
       "Responsive layout primitives, intrinsic sizing, shell topology, and orientation-aware behavior.",
@@ -30,10 +30,10 @@ const packages = [
   },
   {
     name: "ui-style-kit-css",
-    version: "2.3.0",
+    version: "2.4.1",
     layer: "Theme",
     description:
-      "Twenty UI styles and twenty color schemes for theme-ready surfaces, typography, and visual identity.",
+      "Twenty UI styles and twenty-five color schemes for theme-ready surfaces, typography, and visual identity.",
     npmUrl: "https://www.npmjs.com/package/ui-style-kit-css",
   },
   {
@@ -46,7 +46,7 @@ const packages = [
   },
   {
     name: "interactive-surface-css",
-    version: "1.6.0",
+    version: "1.7.0",
     layer: "Behavior",
     description:
       "Accessible interaction states, focus treatment, depth, and feedback for clickable surfaces.",

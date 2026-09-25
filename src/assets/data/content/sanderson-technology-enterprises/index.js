@@ -350,7 +350,7 @@ const sandersonTechnologyEnterprisesSections = [
             children: [
               {
                 type: "text",
-                text: "Interface Systems Lab is the public integration showcase for the three CSS libraries. Its interactive workbench exercises 20 UI styles and 20 color schemes through shared semantic markup, while the Component Atlas documents reusable component patterns and implementation guidance.",
+                text: "Interface Systems Lab is the public integration showcase for the three CSS libraries. Its interactive workbench exercises 20 UI styles and 25 color schemes through shared semantic markup, while the Component Atlas documents reusable component patterns and implementation guidance.",
               },
             ],
           },

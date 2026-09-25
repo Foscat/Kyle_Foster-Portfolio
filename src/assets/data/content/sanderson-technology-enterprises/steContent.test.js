@@ -106,7 +106,7 @@ describe("sanderson technology enterprises content", () => {
     expect(content).toContain("interactive-surface-css");
     expect(content).toContain("Component Atlas");
     expect(content).toContain("20 UI styles");
-    expect(content).toContain("20 color schemes");
+    expect(content).toContain("25 color schemes");
     expect(content).toContain("https://www.npmjs.com/package/ui-style-kit-icons");
     expect(content).toContain(
       "https://sanderson-technology-enterprises.github.io/interface-systems-lab/"

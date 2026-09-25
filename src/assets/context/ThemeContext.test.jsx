@@ -106,14 +106,14 @@ describe("ThemeContext", () => {
     expect(document.documentElement.dataset.lyLayout).toBe("synthwave");
   });
 
-  test("exposes every ui-style-kit-css 2.3.0 style and palette", () => {
+  test("exposes every ui-style-kit-css 2.4.1 style and palette", () => {
     renderWithProviders(<ThemeContextProbe />);
 
     expect(screen.getByTestId("ui-style-options")).toHaveTextContent(
       "minimal-saas,bento,maximalist,bauhaus,tactile,neumorphism,retrofuturism,brutalism,cyberpunk,y2k,retro-glass,editorial-luxe,organic-modern,industrial-utility,technical-blueprint,art-deco,clay,data-terminal,paper-editorial,neo-noir"
     );
     expect(screen.getByTestId("palette-options")).toHaveTextContent(
-      "midnight-gold,ocean-steel,forest-moss,sunset-ember,royal-plum,graphite-cyan,desert-sage,rose-quartz,cyber-lime,arctic-indigo,chrome-navy,recycled-emerald,industrial-orange,performance-red,heritage-brass,service-blue-red,newsprint-crimson,foundry-amber,soft-orchid,electric-noir"
+      "midnight-gold,ocean-steel,forest-moss,sunset-ember,royal-plum,graphite-cyan,desert-sage,rose-quartz,cyber-lime,arctic-indigo,chrome-navy,recycled-emerald,industrial-orange,performance-red,heritage-brass,service-blue-red,newsprint-crimson,foundry-amber,soft-orchid,electric-noir,signal-yellow,botanical-green,cobalt-electric,stone-graphite,walnut-clay"
     );
   });
 
@@ -127,7 +127,7 @@ describe("ThemeContext", () => {
     expect(screen.getByTestId("theme-value")).toHaveTextContent("dark");
   });
 
-  test("applies a 2.3.0 UI style and palette to package-owned data attributes", async () => {
+  test("applies a 2.4.1 UI style and palette to package-owned data attributes", async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ThemeContextProbe />);
@@ -177,7 +177,7 @@ describe("ThemeContext", () => {
     });
   });
 
-  test("exposes layout-style-css 3.0.1 layout styles", async () => {
+  test("exposes layout-style-css 3.2.0 layout styles", async () => {
     const user = userEvent.setup();
 
     renderWithProviders(<ThemeContextProbe />);

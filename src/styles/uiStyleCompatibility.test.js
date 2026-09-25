@@ -60,21 +60,21 @@ describe("ui-style compatibility", () => {
     expect(appJs).not.toContain("interactive-surface-css");
     expect(appJs).not.toContain("layout-style-css");
     expect(mainJs).toContain('import "./App.css";');
-    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.0.1");
-    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.3.0");
+    expect(packageManifest.dependencies).toHaveProperty("layout-style-css", "3.2.0");
+    expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-css", "2.4.1");
     expect(packageManifest.dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
-    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.6.0");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.0.1");
-    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.3.0");
+    expect(packageManifest.dependencies).toHaveProperty("interactive-surface-css", "1.7.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("layout-style-css", "3.2.0");
+    expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-css", "2.4.1");
     expect(packageLock.packages[""].dependencies).toHaveProperty("ui-style-kit-icons", "1.0.0");
     expect(packageLock.packages[""].dependencies).toHaveProperty(
       "interactive-surface-css",
-      "1.6.0"
+      "1.7.0"
     );
-    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.0.1");
-    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.3.0");
+    expect(packageLock.packages["node_modules/layout-style-css"].version).toBe("3.2.0");
+    expect(packageLock.packages["node_modules/ui-style-kit-css"].version).toBe("2.4.1");
     expect(packageLock.packages["node_modules/ui-style-kit-icons"].version).toBe("1.0.0");
-    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.6.0");
+    expect(packageLock.packages["node_modules/interactive-surface-css"].version).toBe("1.7.0");
     expect(appJs).not.toContain('import "./App.css"');
   });
 
